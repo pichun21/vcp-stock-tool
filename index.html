@@ -319,6 +319,11 @@ th{color:#716c64}
 .stock-link:focus-visible{outline:2px solid #b37b48;outline-offset:3px;border-radius:4px}
 .mobile-analysis-btn{font-size:13px}
 
+
+/* V2.10.2 confirmed navigation fix */
+#singleStockAnalysis{scroll-margin-top:16px}
+.radar-open-analysis{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -376,7 +381,7 @@ th{color:#716c64}
   <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>
 </div>
 
-<div class="section">
+<div class="section" id="singleStockAnalysis">
   <div class="section-title">
     <h2>🔎 單股查詢</h2>
     <div class="muted">輸入代號，查看完整 VCP 健檢</div>
@@ -576,16 +581,19 @@ async function run(){
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
 }
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
-document.querySelectorAll('.marketbtn').forEach(btn=>{
- btn.onclick=()=>{
-  currentMarket=btn.dataset.market;
-  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b===btn));
+function setMarket(m,{reset=true}={}){
+ currentMarket=m;
+ document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
+ $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
+ if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
-  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
   $('title').textContent='等待分析';$('period').textContent='';$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';
- };
+ }
+}
+document.querySelectorAll('.marketbtn').forEach(btn=>{
+ btn.onclick=()=>setMarket(btn.dataset.market,{reset:true});
 });
 $('go').onclick=run;$('symbol').onkeydown=e=>{if(e.key==='Enter')run()};run();
 
@@ -678,19 +686,16 @@ function renderRadar(filter='all'){
  </tr>`).join('');
 
  const openAnalysis=(market,symbol)=>{
-   currentMarket=market;
-   setMarket(currentMarket);
+   // Use the same market switch used by the manual TW/US buttons.
+   setMarket(market,{reset:false});
    $('symbol').value=symbol;
-   run();
 
-   // Return to the single-stock query/result area at the top.
+   // Scroll first so the interaction is immediately visible, then run analysis.
    const input=$('symbol');
-   const queryCard=input?.closest('.card') || input?.parentElement;
-   const target=queryCard || document.querySelector('.section-title') || input;
-   setTimeout(()=>{
-     if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
-     if(input) input.focus({preventScroll:true});
-   },120);
+   const singleSection=input?.closest('.section') || input;
+   if(singleSection) singleSection.scrollIntoView({behavior:'smooth',block:'start'});
+
+   run();
  };
 
  body.querySelectorAll('.radar-open-analysis').forEach(btn=>{
