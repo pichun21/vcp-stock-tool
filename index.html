@@ -270,6 +270,45 @@ th{color:#716c64}
   .radar-table-wrap .pulse-badge{white-space:nowrap}
 }
 
+
+/* V2.9.6 mobile analysis CTA */
+.mobile-analysis-btn{
+  display:block;
+  width:auto;
+  margin:11px 0 0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#9b6c42;
+  font:inherit;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.mobile-analysis-btn:active{opacity:.6}
+
+
+/* V2.10 shared radar labels + compact mobile cards */
+.mobile-why-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reason-toggle{
+  border:0;background:transparent;padding:3px 0;color:#9b6c42;
+  font:inherit;font-size:11px;font-weight:900;cursor:pointer;
+  -webkit-tap-highlight-color:transparent
+}
+.reason-more[hidden],.reason-more-detail[hidden]{display:none!important}
+@media(max-width:760px){
+  .mobile-stock-card{padding:13px 14px 12px;margin-top:9px}
+  .mobile-stock-name{font-size:16px}
+  .mobile-state{margin-top:8px;padding:5px 8px}
+  .mobile-metrics{gap:6px 12px;margin-top:9px}
+  .mobile-signal-row{margin-top:8px;gap:6px}
+  .mobile-signal{padding:5px 7px}
+  .mobile-why{margin-top:9px;padding-top:9px}
+  .reason-list{gap:4px;margin-top:7px}
+  .mobile-analysis-btn{margin-top:9px}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -545,7 +584,47 @@ $('go').onclick=run;$('symbol').onkeydown=e=>{if(e.key==='Enter')run()};run();
 let radarRows = [];
 let radarFilter = 'all';
 
-function marketLabel(m){ return m==='TW' ? '🇹🇼 台股' : '🇺🇸 美股'; }
+const RADAR_UI={
+  market:{
+    TW:'🇹🇼 台股',
+    US:'🇺🇸 美股'
+  },
+  stage:{
+    breakout:'🟢 今日帶量突破',
+    postbreakout:'🔵 突破後',
+    near:'🟡 接近 Pivot',
+    forming:'⚪ VCP 成形中'
+  },
+  squeeze:{
+    strong:'🔴 強力壓縮',
+    medium:'🟠 中度壓縮',
+    weak:'🩷 一般壓縮',
+    none:'⚪ 無壓縮'
+  },
+  momentum:{
+    bull_up:'↑ 多方增強',
+    bear_up:'↗ 空方減弱',
+    bull_down:'↘ 多方減弱',
+    bear_down:'↓ 空方增強'
+  },
+  pulse:{
+    hot:'🔥 高關注',
+    watch:'👀 觀察',
+    wait:'⏳ 等待',
+    extended:'⚠️ 過度延伸'
+  }
+};
+function marketLabel(m){ return RADAR_UI.market[m] || m || '—'; }
+function stageLabel(r){
+  if(r.type==='postbreakout' && Number.isFinite(Number(r.breakout_days))){
+    return `🔵 突破後第 ${Number(r.breakout_days)+1} 天`;
+  }
+  return RADAR_UI.stage[r.type] || r.state || '—';
+}
+function squeezeLabel(r){ return RADAR_UI.squeeze[r.squeeze_level] || r.squeeze_state || '—'; }
+function momentumLabel(r){ return RADAR_UI.momentum[r.momentum_dir] || r.momentum || '—'; }
+function pulseLabel(r){ return RADAR_UI.pulse[r.pulse_signal] || r.pulse_label || '⏳ 等待'; }
+function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
 
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
@@ -573,16 +652,16 @@ function renderRadar(filter='all'){
 
  body.innerHTML=rows.map(r=>`<tr data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
    <td><b>${esc(r.name||r.symbol)}</b><div class="muted">${esc(r.symbol)}</div></td>
-   <td>${r.market==='TW'?'🇹🇼 台股':'🇺🇸 美股'}</td>
+   <td>${esc(marketLabel(r.market))}</td>
    <td>${stars(r.score)}</td>
    <td>${esc(contractionText(r))}</td>
    <td>${Number(r.pivot).toFixed(2)}</td>
    <td>${Number(r.distance).toFixed(1)}%</td>
-   <td>${r.volume_dry?'量縮 ✓':'一般'}</td>
-   <td>${esc(r.squeeze_state||'—')}</td>
-   <td>${esc(r.momentum||'—')}</td>
-   <td class="status-dot">${esc(r.state)}</td>
-   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></td>
+   <td>${esc(volumeLabel(r))}</td>
+   <td>${esc(squeezeLabel(r))}</td>
+   <td>${esc(momentumLabel(r))}</td>
+   <td class="status-dot">${esc(stageLabel(r))}</td>
+   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></td>
  </tr>`).join('');
 
  body.querySelectorAll('tr[data-symbol]').forEach(tr=>tr.onclick=()=>{
@@ -597,9 +676,9 @@ function renderRadar(filter='all'){
      reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
      if((r.contractions||[]).length>=2) reasons.push(`<div class="reason-item reason-ok">收縮：${esc(contractionText(r))}</div>`);
      if(r.volume_dry) reasons.push(`<div class="reason-item reason-ok">整理期間成交量呈現量縮</div>`);
-     if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(r.squeeze_state)}，波動處於壓縮狀態</div>`);
-     else reasons.push(`<div class="reason-item reason-note">${esc(r.squeeze_state||'⚪ 無壓縮')}</div>`);
-     if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(r.momentum)}</div>`);
+     if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(squeezeLabel(r))}，波動處於壓縮狀態</div>`);
+     else reasons.push(`<div class="reason-item reason-note">${esc(squeezeLabel(r))}</div>`);
+     if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(momentumLabel(r))}</div>`);
      if(r.type==='breakout') reasons.push(`<div class="reason-item reason-ok">最新交易日首次帶量突破 Pivot</div>`);
      else if(r.type==='postbreakout'){
        reasons.push(`<div class="reason-item reason-ok">突破後第 ${Number(r.breakout_days??0)+1} 天，目前仍站在 Pivot 上方</div>`);
@@ -616,32 +695,70 @@ function renderRadar(filter='all'){
          </div>
          <div class="mobile-score">${stars(r.score)}</div>
        </div>
-       <div class="mobile-state">${esc(r.state)}</div>
-       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div>
+       <div class="mobile-state">${esc(stageLabel(r))}</div>
+       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></div>
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot<b>${Number(r.pivot).toFixed(2)}</b></div>
          <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b></div>
          <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
-         <div class="mobile-metric">量能<b>${r.volume_dry?'量縮 ✓':'一般'}</b></div>
+         <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
        <div class="mobile-signal-row">
-         <span class="mobile-signal">${esc(r.squeeze_state||'—')}</span>
-         <span class="mobile-signal">${esc(r.momentum||'—')}</span>
+         <span class="mobile-signal">${esc(squeezeLabel(r))}</span>
+         <span class="mobile-signal">${esc(momentumLabel(r))}</span>
          ${r.combo?'<span class="mobile-signal">⚡ VCP＋Squeeze</span>':''}
        </div>
        <div class="mobile-why">
-         <div class="mobile-why-title">為什麼入選？</div>
-         <div class="reason-list">${reasons.join('')}</div>
-         <div class="pulse-explain"><b>VCPulse 訊號：</b>${esc(r.pulse_label||'⏳ 等待')} · ${esc((r.pulse_reasons||[]).join('、')||'依目前結構持續觀察')}</div>
+         <div class="mobile-why-head">
+           <div class="mobile-why-title">為什麼入選？</div>
+           ${reasons.length>2?`<button type="button" class="reason-toggle" aria-expanded="false">展開理由 ＋</button>`:''}
+         </div>
+         <div class="reason-list reason-preview">${reasons.slice(0,2).join('')}</div>
+         ${reasons.length>2?`<div class="reason-list reason-more" hidden>${reasons.slice(2).join('')}</div>`:''}
+         <div class="pulse-explain reason-more-detail" ${reasons.length>2?'hidden':''}><b>VCPulse 訊號：</b>${esc(pulseLabel(r))} · ${esc((r.pulse_reasons||[]).join('、')||'依目前結構持續觀察')}</div>
        </div>
-       <div class="mobile-cta">查看完整分析 →</div>
+       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">查看完整分析 →</button>
      </div>`;
    }).join('');
 
-   mobile.querySelectorAll('.mobile-stock-card').forEach(card=>card.onclick=()=>{
-     currentMarket=card.dataset.market; setMarket(currentMarket);
-     $('symbol').value=card.dataset.symbol; run();
-     window.scrollTo({top:document.querySelector('.section-title').offsetTop-10,behavior:'smooth'});
+   const openMobileAnalysis=(market,symbol)=>{
+     currentMarket=market; setMarket(currentMarket);
+     $('symbol').value=symbol;
+     run();
+     const target=document.querySelector('.stock-result') || document.querySelector('.section-title');
+     setTimeout(()=>{
+       if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+     },120);
+   };
+
+   mobile.querySelectorAll('.reason-toggle').forEach(btn=>{
+     btn.addEventListener('click',(e)=>{
+       e.preventDefault();
+       e.stopPropagation();
+       const why=btn.closest('.mobile-why');
+       const more=why?.querySelector('.reason-more');
+       const detail=why?.querySelector('.reason-more-detail');
+       const expanded=btn.getAttribute('aria-expanded')==='true';
+       btn.setAttribute('aria-expanded',String(!expanded));
+       if(more) more.hidden=expanded;
+       if(detail) detail.hidden=expanded;
+       btn.textContent=expanded?'展開理由 ＋':'收合理由 －';
+     });
+   });
+
+   mobile.querySelectorAll('.mobile-analysis-btn').forEach(btn=>{
+     btn.addEventListener('click',(e)=>{
+       e.preventDefault();
+       e.stopPropagation();
+       openMobileAnalysis(btn.dataset.market,btn.dataset.symbol);
+     });
+   });
+
+   mobile.querySelectorAll('.mobile-stock-card').forEach(card=>{
+     card.addEventListener('click',(e)=>{
+       if(e.target.closest('.mobile-analysis-btn')) return;
+       openMobileAnalysis(card.dataset.market,card.dataset.symbol);
+     });
    });
  }
 }
