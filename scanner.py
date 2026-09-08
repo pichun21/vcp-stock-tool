@@ -119,6 +119,47 @@ def analyze(df, item, market):
         today_breakout or ((not breakout) and distance>-8),
     ])
 
+    # PowerSqueeze-style volatility compression.
+    # BB(20, 2σ) compared with Keltner Channels based on EMA20 + ATR20.
+    # This remains separate from the 5-point VCP score.
+    high=pd.to_numeric(df["High"],errors="coerce")
+    low=pd.to_numeric(df["Low"],errors="coerce")
+    bb_mid=close.rolling(20).mean()
+    bb_std=close.rolling(20).std(ddof=0)
+    bb_upper=bb_mid+2*bb_std
+    bb_lower=bb_mid-2*bb_std
+    ema20=close.ewm(span=20,adjust=False).mean()
+    prev_close=close.shift(1)
+    tr=pd.concat([(high-low).abs(),(high-prev_close).abs(),(low-prev_close).abs()],axis=1).max(axis=1)
+    atr20=tr.rolling(20).mean()
+
+    def inside_kc(mult):
+        return bool(
+            bb_upper.iloc[-1] < (ema20.iloc[-1]+atr20.iloc[-1]*mult)
+            and bb_lower.iloc[-1] > (ema20.iloc[-1]-atr20.iloc[-1]*mult)
+        )
+
+    if inside_kc(1.0):
+        squeeze_level,squeeze_state="strong","🔴 強力壓縮"
+    elif inside_kc(1.5):
+        squeeze_level,squeeze_state="medium","🟠 中度壓縮"
+    elif inside_kc(2.0):
+        squeeze_level,squeeze_state="weak","🩷 一般壓縮"
+    else:
+        squeeze_level,squeeze_state="none","⚪ 無壓縮"
+
+    mom=close-close.rolling(20).mean()
+    m_now,m_prev=float(mom.iloc[-1]),float(mom.iloc[-2])
+    if m_now>=0 and m_now>=m_prev:
+        momentum,momentum_dir="↑ 多方增強","bull_up"
+    elif m_now>=0:
+        momentum,momentum_dir="↘ 多方減弱","bull_down"
+    elif m_now<0 and m_now<=m_prev:
+        momentum,momentum_dir="↓ 空方增強","bear_down"
+    else:
+        momentum,momentum_dir="↗ 空方減弱","bear_up"
+    combo=bool(squeeze_level!="none" and score>=4)
+
     # Liquidity filter to reduce unusable/very thin names.
     avg_value=float((close.iloc[-20:]*vol.iloc[-20:]).mean())
     min_liq=20_000_000 if market=="TW" else 10_000_000
@@ -149,6 +190,11 @@ def analyze(df, item, market):
         "volume_dry":dry,
         "type":typ,
         "state":state,
+        "squeeze_level":squeeze_level,
+        "squeeze_state":squeeze_state,
+        "momentum":momentum,
+        "momentum_dir":momentum_dir,
+        "combo":combo,
         "data_date":df.index[-1].strftime("%Y-%m-%d"),
         "avg_value_20d":round(avg_value,0),
     }

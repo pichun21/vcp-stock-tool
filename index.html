@@ -75,7 +75,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
 }
 </style></head>
 <body><div class="wrap">
-<div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">單股健檢＋每日 VCP 雷達，快速整理值得觀察的型態。</div></div><button class="helpbtn" id="helpBtn">？ VCP 使用說明</button></div>
+<div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">單股健檢＋每日 VCP 雷達，快速整理值得觀察的型態。</div></div><button class="helpbtn" id="helpBtn">？ 指標使用說明</button></div>
 <div class="card helpbox" id="helpBox">
   <h3>什麼是 VCP？</h3>
   <p><b>VCP（Volatility Contraction Pattern，波動收縮型態）</b>是觀察股價在上升趨勢中，回檔與波動逐步縮小、成交量降溫，最後等待突破關鍵價位（Pivot）的技術型態。</p>
@@ -94,7 +94,14 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
   <p>🟢 <b>今日帶量突破</b>：前一交易日尚未突破 Pivot，最新交易日收盤首次站上 Pivot，且成交量明顯放大。</p>
   <p>🟡 <b>接近 Pivot</b>：尚未突破，但距 Pivot 已相當接近。</p>
   <p>⚪ <b>VCP 成形中</b>：已具備 VCP 特徵，但仍離 Pivot 有一段距離。</p>
-  <p class="muted"><b>重要：</b>VCP 分數代表符合本站程式化條件的完整程度，不代表未來上漲機率，也不構成投資建議。</p>
+  <h3>PowerSqueeze 是什麼？</h3>
+  <p>本站另外比較 <b>Bollinger Bands（20日、2個標準差）</b> 與 <b>Keltner Channel（EMA20＋ATR20）</b> 的寬度。當布林通道收進 Keltner Channel 內，代表近期波動正在壓縮。</p>
+  <p>本站分為：🔴 <b>強力壓縮</b>、🟠 <b>中度壓縮</b>、🩷 <b>一般壓縮</b>、⚪ <b>無壓縮</b>。壓縮越強代表波動越集中，但不代表之後一定上漲。</p>
+  <h3>Momentum 動能</h3>
+  <p>動能以價格相對 20 日平均價格的位置與變化輔助判斷，顯示為 <b>↑ 多方增強、↘ 多方減弱、↓ 空方增強、↗ 空方減弱</b>。</p>
+  <h3>⚡ VCP＋Squeeze</h3>
+  <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
+  <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>
 </div>
 
 <div class="section">
@@ -128,7 +135,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日帶量突破</button>
         <button class="radar-tab" data-radar="near">🟡 接近 Pivot</button>
-        <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
+        <button class="radar-tab" data-radar="forming">⚪ 成形中</button>\n        <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
       </div>
       <div class="muted">預計顯示 4 分以上</div>
     </div>
@@ -169,11 +176,28 @@ function analyze(d){
  drops=drops.slice(-4); let seq=drops.map(x=>x.drop), contracting=seq.length>=2&&seq.slice(1).every((x,i)=>x<seq[i]*1.12);
  let recent=close.slice(-35), pivot=Math.max(...recent.slice(0,-3)), last=close[n-1], distance=(last/pivot-1)*100;
  let v20=vol.slice(-20).reduce((a,b)=>a+b,0)/20, v60=vol.slice(-60,-20).reduce((a,b)=>a+b,0)/Math.max(1,vol.slice(-60,-20).length), dry=v20<v60*.85;
+ // PowerSqueeze: BB(20,2σ) vs Keltner Channel(EMA20,ATR20)
+ const c20=close.slice(-20), mean20=c20.reduce((a,b)=>a+b,0)/c20.length;
+ const sd20=Math.sqrt(c20.reduce((a,b)=>a+(b-mean20)**2,0)/c20.length);
+ const bbU=mean20+2*sd20, bbL=mean20-2*sd20;
+ let ema=close[n-20], alpha=2/21;
+ for(let i=n-19;i<n;i++) ema=alpha*close[i]+(1-alpha)*ema;
+ let trs=[]; for(let i=n-20;i<n;i++){
+   let hi=+(d[i].max??d[i].High??d[i].high), lo=+(d[i].min??d[i].Low??d[i].low);
+   trs.push(Math.max(hi-lo,Math.abs(hi-close[i-1]),Math.abs(lo-close[i-1])));
+ }
+ const atr=trs.reduce((a,b)=>a+b,0)/trs.length;
+ const inside=m=>bbU<ema+atr*m && bbL>ema-atr*m;
+ const squeezeLevel=inside(1.0)?'strong':inside(1.5)?'medium':inside(2.0)?'weak':'none';
+ const squeezeState=squeezeLevel==='strong'?'🔴 強力壓縮':squeezeLevel==='medium'?'🟠 中度壓縮':squeezeLevel==='weak'?'🩷 一般壓縮':'⚪ 無壓縮';
+ const prevMean=close.slice(-21,-1).reduce((a,b)=>a+b,0)/20;
+ const momNow=last-mean20, momPrev=close[n-2]-prevMean;
+ const momentum=momNow>=0?(momNow>=momPrev?'↑ 多方增強':'↘ 多方減弱'):(momNow<=momPrev?'↓ 空方增強':'↗ 空方減弱');
  let breakout=last>pivot, breakoutVol=vol[n-1]>v20*1.35;
  let prev=close[n-2], todayBreakout=prev<=pivot && breakout && breakoutVol;
  let pts=0; if(trend)pts++; if(seq.length>=2)pts++; if(contracting)pts++; if(dry)pts++; if(todayBreakout||(!breakout&&distance>-8))pts++;
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
- return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,dates:d.map(x=>x.date)}
+ return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart'),x=c.getContext('2d'),W=c.width,H=c.height;x.clearRect(0,0,W,H);let vals=a.close.slice(-120),min=Math.min(...vals)*.97,max=Math.max(...vals)*1.03,pad=35;
@@ -269,7 +293,7 @@ async function run(){
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+x.toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
   $('checks').innerHTML=rows.map(r=>`<div class="check"><span>${r[0]}</span><b class="${r[1]?'good':'bad'}">${r[1]?'✓':'×'}</b></div>`).join('');
-  $('summary').textContent=a.todayBreakout?'最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?'股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?'價格已靠近 Pivot，可列入觀察，不必預先猜突破。':'目前離 Pivot 還有距離，先觀察型態是否繼續收緊。'));
+  $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${a.squeezeState}｜Momentum ${a.momentum}。`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
  }catch(e){showErr('抓不到資料：'+e.message+'。若瀏覽器阻擋跨網域請求，可改用本機伺服器開啟本頁。')}
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
@@ -299,7 +323,7 @@ function renderRadar(filter='all'){
  radarFilter=filter;
  const body=document.getElementById('radarBody'), empty=document.getElementById('radarEmpty');
  if(!body||!empty)return;
- const rows=radarRows.filter(r=>filter==='all'||r.type===filter);
+ const rows=radarRows.filter(r=>filter==='all'||(filter==='combo'?r.combo:r.type===filter));
  body.innerHTML=rows.map(r=>`<tr class="radar-row" data-market="${r.market}" data-symbol="${r.symbol}" title="點一下查看單股健檢">
    <td><b>${r.name}</b> <span class="muted">(${r.symbol})</span></td>
    <td>${marketLabel(r.market)}</td>
@@ -308,6 +332,8 @@ function renderRadar(filter='all'){
    <td>${Number(r.pivot).toFixed(2)}</td>
    <td>${r.distance>=0?'+':''}${Number(r.distance).toFixed(1)}%</td>
    <td>${r.volume_dry?'量縮 ✓':'一般'}</td>
+   <td>${r.squeeze_state||'—'}</td>
+   <td>${r.momentum||'—'}</td>
    <td class="status-dot">${r.state}</td>
  </tr>`).join('');
  empty.style.display=rows.length?'none':'block';
@@ -318,7 +344,7 @@ function renderRadar(filter='all'){
      currentMarket=m;
      document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
      $('symbol').value=s;
-     $('symbol').placeholder=m==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、5274';
+     $('symbol').placeholder=m==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
      window.scrollTo({top:0,behavior:'smooth'});
      run();
    };
