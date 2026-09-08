@@ -469,6 +469,13 @@ th{color:#716c64}
  .return-radar-btn{padding:6px 9px;font-size:10.5px}
 }
 
+
+/* V2.12.5 Safari-safe return navigation */
+.return-radar-btn:not([hidden]){display:inline-flex!important;align-items:center}
+@media(max-width:760px){
+ .return-radar-btn{position:relative;z-index:3}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -846,26 +853,33 @@ function rememberRadarPosition(market,symbol){
 function returnToRadarPosition(){
  if(!radarReturnState) return;
  const saved=radarReturnState;
- if(radarFilter!==saved.filter){
-   radarFilter=saved.filter;
-   document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b.dataset.radar===radarFilter));
-   renderRadar(radarFilter);
- }
- requestAnimationFrame(()=>{
-   const selector=`[data-market="${CSS.escape(saved.market)}"][data-symbol="${CSS.escape(saved.symbol)}"]`;
-   const desktop=document.querySelector(`#radarBody ${selector}`);
-   const mobile=document.querySelector(`#radarMobile ${selector}`);
-   const target=(window.matchMedia('(max-width:760px)').matches?mobile:desktop) || mobile || desktop;
+
+ // Restore the filter that was active when the stock was opened.
+ radarFilter=saved.filter || 'all';
+ document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b.dataset.radar===radarFilter));
+ renderRadar(radarFilter);
+
+ // After the radar has been rebuilt, locate the exact stock without CSS.escape
+ // (older Safari versions can fail on CSS.escape).
+ setTimeout(()=>{
+   const candidates=[...document.querySelectorAll('#radarBody [data-symbol], #radarMobile [data-symbol]')];
+   const matches=candidates.filter(el=>
+     String(el.dataset.market)===String(saved.market) &&
+     String(el.dataset.symbol).toUpperCase()===String(saved.symbol).toUpperCase()
+   );
+   const mobileMode=window.matchMedia && window.matchMedia('(max-width:760px)').matches;
+   const target=matches.find(el=>mobileMode ? el.closest('#radarMobile') : el.closest('#radarBody')) || matches[0];
+
    if(target){
      target.scrollIntoView({behavior:'smooth',block:'center'});
      target.classList.remove('radar-return-highlight');
      void target.offsetWidth;
      target.classList.add('radar-return-highlight');
-     setTimeout(()=>target.classList.remove('radar-return-highlight'),1800);
+     setTimeout(()=>target.classList.remove('radar-return-highlight'),2000);
    }else{
-     window.scrollTo({top:saved.scrollY,behavior:'smooth'});
+     window.scrollTo({top:saved.scrollY||0,behavior:'smooth'});
    }
- });
+ },80);
 }
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
