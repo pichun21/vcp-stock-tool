@@ -264,6 +264,12 @@ th{color:#716c64}
 .pulse-rule-detail p{line-height:1.65;color:#6f6961}
 @media(max-width:760px){.pulse-help-grid{grid-template-columns:1fr}}
 
+
+/* V2.9.4 separate stage and VCPulse columns */
+@media(min-width:761px){
+  .radar-table-wrap .pulse-badge{white-space:nowrap}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -371,7 +377,7 @@ th{color:#716c64}
             <th>量能</th>
             <th>PowerSqueeze</th>
             <th>Momentum</th>
-            <th>狀態</th>
+            <th>狀態</th><th>VCPulse</th>
           </tr>
         </thead>
         <tbody id="radarBody"></tbody>
@@ -556,7 +562,7 @@ function renderRadar(filter='all'){
  );
 
  if(!rows.length){
-   body.innerHTML='<tr><td colspan="12" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
+   body.innerHTML='<tr><td colspan="13" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
    if(mobile) mobile.innerHTML='<div class="muted" style="padding:26px 8px;text-align:center">目前這個分類沒有符合條件的股票。</div>';
    return;
  }
@@ -575,7 +581,8 @@ function renderRadar(filter='all'){
    <td>${r.volume_dry?'量縮 ✓':'一般'}</td>
    <td>${esc(r.squeeze_state||'—')}</td>
    <td>${esc(r.momentum||'—')}</td>
-   <td class="status-dot">${esc(r.state)}<div style="margin-top:6px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">VCPulse｜${esc(r.pulse_label||'⏳ 等待')}</span></div></td>
+   <td class="status-dot">${esc(r.state)}</td>
+   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></td>
  </tr>`).join('');
 
  body.querySelectorAll('tr[data-symbol]').forEach(tr=>tr.onclick=()=>{
