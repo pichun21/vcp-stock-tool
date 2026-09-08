@@ -241,6 +241,14 @@ th{color:#716c64}
 .pulse-wait{background:#f2f1ee;border-color:#ddd9d2}.pulse-extended{background:#f5edf0;border-color:#decbd2}
 .pulse-explain{margin-top:8px;font-size:11px;color:#777168;line-height:1.5}
 
+
+/* V2.9.2 mobile radar visibility fix */
+.radar-mobile{display:none}
+@media(max-width:760px){
+  .radar-table-wrap{display:none!important}
+  .radar-mobile{display:block!important}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -356,8 +364,8 @@ th{color:#716c64}
       <div class="radar-empty" id="radarEmpty">
         每日自動篩選功能尚未接上。之後 GitHub Actions 掃描完成的名單會顯示在這裡。
       </div>
-<div id="radarMobile" class="radar-mobile"></div>
     </div>
+    <div id="radarMobile" class="radar-mobile"></div>
   </div>
 </div>
 </div></div>
