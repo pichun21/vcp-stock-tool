@@ -694,9 +694,30 @@ async function run(){
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
   let r=await fetch(u),j=await r.json(); if(!r.ok||!j.data||j.data.length<160)throw new Error(j.msg||'歷史資料不足');
   let d=normalizeData(j.data,currentMarket),a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
-  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
+
+  // If this stock exists in today's radar, use the SAME scanner result for the
+  // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
+  const radarMatch=(typeof radarRows!=='undefined' && Array.isArray(radarRows))
+    ? radarRows.find(x=>String(x.market)===String(currentMarket) && String(x.symbol).toUpperCase()===String(s).toUpperCase())
+    : null;
+  if(radarMatch){
+    if(Number.isFinite(Number(radarMatch.score))) a.pts=Number(radarMatch.score);
+    if(Number.isFinite(Number(radarMatch.pivot))) a.pivot=Number(radarMatch.pivot);
+    if(Number.isFinite(Number(radarMatch.distance))) a.distance=Number(radarMatch.distance);
+    if(Array.isArray(radarMatch.contractions)) a.seq=radarMatch.contractions.map(Number).filter(Number.isFinite);
+    if(typeof radarMatch.volume_dry==='boolean') a.dry=radarMatch.volume_dry;
+    a.state=stageLabel(radarMatch);
+    a.squeezeLevel=radarMatch.squeeze_level || a.squeezeLevel;
+    a.squeezeState=squeezeLabel(radarMatch);
+    a.momentum=momentumLabel(radarMatch);
+    a.todayBreakout=radarMatch.type==='breakout';
+    a.breakout=['breakout','postbreakout'].includes(radarMatch.type);
+    a.combo=!!radarMatch.combo;
+  }
+
+  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
-  $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+x.toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
+  $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+Math.abs(x).toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
   $('checks').innerHTML=rows.map(r=>`<div class="check"><span>${r[0]}</span><b class="${r[1]?'good':'bad'}">${r[1]?'✓':'×'}</b></div>`).join('');
   $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${a.squeezeState}｜Momentum ${a.momentum}。`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
