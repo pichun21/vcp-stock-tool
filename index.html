@@ -410,6 +410,29 @@ th{color:#716c64}
  #radarUpdated{font-size:10px;text-align:right}
 }
 
+
+/* V2.12 Watchlist */
+.stock-name-line{display:flex;align-items:flex-start;gap:7px}
+.favorite-btn{
+ border:0;background:transparent;padding:0;min-width:22px;width:22px;height:22px;
+ font-size:21px;line-height:1;color:#aaa49b;cursor:pointer;border-radius:50%;
+ display:inline-flex;align-items:center;justify-content:center
+}
+.favorite-btn:hover{transform:scale(1.08)}
+.favorite-btn.is-favorite{color:#b87836}
+.favorite-tab #favoriteCount{
+ display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;
+ padding:0 5px;margin-left:2px;border-radius:999px;background:#ffffffaa;font-size:10px
+}
+.radar-tab.active #favoriteCount{background:#ffffff24}
+.mobile-top-actions{display:flex;align-items:center;gap:7px}
+.mobile-favorite{font-size:23px;width:25px;height:25px}
+@media(max-width:760px){
+ .radar-tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .favorite-tab{grid-column:auto}
+ .mobile-top-actions{align-items:flex-start}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -426,7 +449,7 @@ th{color:#716c64}
       </div>
     </div>
     <div class="brand-mascot">
-      <img src="vcpulse-mascot.jpg" alt="VCPulse 放大鏡貴賓狗吉祥物">
+      <img src="vcpulse-mascot.png" alt="VCPulse 放大鏡貴賓狗吉祥物">
     </div>
   </div>
   <button class="helpbtn" id="helpBtn" style="position:absolute;right:18px;top:18px">？ 指標使用說明</button>
@@ -499,6 +522,7 @@ th{color:#716c64}
     <div class="radar-head">
       <div class="radar-tabs">
         <button class="radar-tab active" data-radar="all">全部</button>
+        <button class="radar-tab favorite-tab" data-radar="favorites">🏷️ 我的收藏 <span id="favoriteCount">0</span></button>
         <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
         <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 近 Pivot</button>
@@ -731,9 +755,26 @@ function momentumLabel(r){ return RADAR_UI.momentum[r.momentum_dir] || r.momentu
 function pulseLabel(r){ return RADAR_UI.pulse[r.pulse_signal] || r.pulse_label || '⏳ 等待'; }
 function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
 
+const FAVORITES_KEY='vcpulse_favorites_v1';
+function favoriteKey(market,symbol){ return `${market}:${symbol}`; }
+function getFavorites(){
+ try{ const x=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); return new Set(Array.isArray(x)?x:[]); }
+ catch(e){ return new Set(); }
+}
+function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
+function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
+function toggleFavorite(market,symbol){
+ const set=getFavorites(), key=favoriteKey(market,symbol);
+ if(set.has(key)) set.delete(key); else set.add(key);
+ saveFavorites(set); renderRadar(radarFilter);
+}
+function updateFavoriteCount(){
+ const el=document.getElementById('favoriteCount'); if(el) el.textContent=getFavorites().size;
+}
+
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
- const rows=radarRows.filter(r=>filter==='all'||(filter==='combo'?r.combo:r.type===filter));
+ const rows=radarRows.filter(r=>filter==='all'||(filter==='favorites'?isFavorite(r):(filter==='combo'?r.combo:r.type===filter)));
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
  const squeezeRank={strong:0,medium:1,weak:2,none:3};
@@ -758,8 +799,11 @@ function renderRadar(filter='all'){
 
  body.innerHTML=rows.map(r=>`<tr data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
    <td>
-     <button type="button" class="stock-link radar-open-analysis" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">${esc(r.name||r.symbol)}</button>
-     <div class="muted">${esc(r.symbol)}</div>
+     <div class="stock-name-line">
+       <button type="button" class="favorite-btn ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}" title="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★':'☆'}</button>
+       <div><button type="button" class="stock-link radar-open-analysis" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">${esc(r.name||r.symbol)}</button>
+       <div class="muted">${esc(r.symbol)}</div></div>
+     </div>
    </td>
    <td>${esc(marketLabel(r.market))}</td>
    <td>${stars(r.score)}</td>
@@ -785,6 +829,13 @@ function renderRadar(filter='all'){
 
    run();
  };
+
+ body.querySelectorAll('.favorite-btn').forEach(btn=>{
+   btn.addEventListener('click',(e)=>{
+     e.preventDefault(); e.stopPropagation();
+     toggleFavorite(btn.dataset.market,btn.dataset.symbol);
+   });
+ });
 
  body.querySelectorAll('.radar-open-analysis').forEach(btn=>{
    btn.addEventListener('click',(e)=>{
@@ -824,7 +875,10 @@ function renderRadar(filter='all'){
            <div class="mobile-stock-name">${esc(r.name||r.symbol)}</div>
            <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
          </div>
-         <div class="mobile-score">${stars(r.score)}</div>
+         <div class="mobile-top-actions">
+           <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★':'☆'}</button>
+           <div class="mobile-score">${stars(r.score)}</div>
+         </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></div>
@@ -852,6 +906,13 @@ function renderRadar(filter='all'){
      </div>`;
    }).join('');
 
+   mobile.querySelectorAll('.favorite-btn').forEach(btn=>{
+     btn.addEventListener('click',(e)=>{
+       e.preventDefault(); e.stopPropagation();
+       toggleFavorite(btn.dataset.market,btn.dataset.symbol);
+     });
+   });
+
    mobile.querySelectorAll('.reason-toggle').forEach(btn=>{
      btn.addEventListener('click',(e)=>{
        e.preventDefault();
@@ -877,12 +938,14 @@ function renderRadar(filter='all'){
 
    mobile.querySelectorAll('.mobile-stock-card').forEach(card=>{
      card.addEventListener('click',(e)=>{
-       if(e.target.closest('.mobile-analysis-btn')) return;
+       if(e.target.closest('.mobile-analysis-btn') || e.target.closest('.favorite-btn')) return;
        openAnalysis(card.dataset.market,card.dataset.symbol);
      });
    });
  }
 }
+
+updateFavoriteCount();
 
 async function loadRadar(){
  const updated=document.getElementById('radarUpdated'), empty=document.getElementById('radarEmpty');
