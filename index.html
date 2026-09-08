@@ -102,6 +102,91 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
  .brand-mascot img{width:250px;max-height:210px}
 }
 
+
+/* ===== VCPulse V2.5 UI ===== */
+:root{
+  --vp-bg:#f7f4ee; --vp-card:#fffdfa; --vp-ink:#211f1b; --vp-muted:#777168;
+  --vp-line:#e8e1d7; --vp-caramel:#c58d58; --vp-soft:#f3eee6;
+}
+body{background:var(--vp-bg)}
+.wrap{max-width:1440px}
+.brand-hero{
+  padding:24px 34px 20px;border-radius:28px;background:var(--vp-card);
+  border:1px solid var(--vp-line);box-shadow:0 12px 30px rgba(57,46,33,.05)
+}
+.brand-grid{grid-template-columns:1fr 420px;gap:18px}
+.brand-name{font-size:72px;letter-spacing:-5px}
+.brand-name .pulse{color:var(--vp-caramel)}
+.brand-wave{display:none!important}
+.brand-tag{font-size:12px;letter-spacing:2.7px;margin-top:10px}
+.brand-sub{font-size:22px;margin-top:14px}
+.brand-copy{font-size:15px;margin-top:10px}
+.brand-mini{margin-top:14px}
+.brand-mascot{min-height:190px}
+.brand-mascot img{width:330px;max-height:230px}
+.helpbtn{background:#fff!important}
+.section-title{margin-top:22px}
+
+/* Make the primary interaction feel closer to the UI concept */
+.card{border-color:var(--vp-line);box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.market button,.radar-tab,button{transition:.15s ease}
+.radar-tabs{gap:10px}
+.radar-tab{border-radius:14px;padding:11px 17px}
+.radar-tab.active{background:#22211d;color:#fff}
+table{font-size:14px}
+th{color:#716c64}
+
+/* Mobile is intentionally NOT a shrunken desktop hero */
+@media(max-width:760px){
+  body{background:#f8f5ef}
+  .wrap{padding:12px 14px 34px}
+  .brand-hero{padding:18px 18px 16px;border-radius:22px;margin-bottom:16px}
+  .brand-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 118px;
+    grid-template-areas:
+      "copy dog";
+    align-items:center;gap:8px
+  }
+  .brand-grid>div:first-child{grid-area:copy;min-width:0}
+  .brand-mascot{grid-area:dog;min-height:0;align-self:end}
+  .brand-mascot img{width:118px;max-height:150px}
+  .brand-name{font-size:43px;line-height:1;letter-spacing:-3px;white-space:nowrap}
+  .brand-tag{font-size:8px;letter-spacing:1.15px;white-space:nowrap;margin-top:8px}
+  .brand-sub{font-size:15px;line-height:1.35;margin-top:12px;max-width:230px}
+  .brand-copy{font-size:12px;line-height:1.55;margin-top:8px;max-width:220px}
+  .brand-copy br{display:none}
+  .brand-mini{display:none}
+  .helpbtn{
+    position:absolute!important;right:12px!important;top:12px!important;
+    padding:7px 9px!important;font-size:0!important;border-radius:999px!important;
+    width:34px;height:34px;z-index:3
+  }
+  .helpbtn::after{content:"ⓘ";font-size:18px}
+  .section-title{margin-top:16px}
+  .section-title h2{font-size:22px}
+  .section-title .muted{font-size:11px}
+  .market{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .market button{width:100%;padding:12px}
+  .searchrow{gap:8px}
+  .searchrow input{min-width:0;font-size:16px}
+  .searchrow button{white-space:nowrap;padding-left:16px;padding-right:16px}
+  .radar-tabs{
+    display:flex;overflow-x:auto;flex-wrap:nowrap;gap:8px;padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none
+  }
+  .radar-tabs::-webkit-scrollbar{display:none}
+  .radar-tab{flex:0 0 auto;padding:10px 13px;font-size:13px}
+  .radar-card{padding:14px}
+  .radar-table-wrap{border-radius:16px}
+}
+@media(max-width:390px){
+  .brand-grid{grid-template-columns:minmax(0,1fr) 98px}
+  .brand-mascot img{width:98px}
+  .brand-name{font-size:38px}
+  .brand-sub{font-size:14px}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -110,7 +195,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
       <h1 class="brand-name">VCP<span class="pulse">ulse</span><span class="brand-wave">◔</span></h1>
       <div class="brand-tag">Catch the Contraction. Watch the Breakout.</div>
       <div class="brand-sub">VCP × PowerSqueeze 智慧選股雷達</div>
-      <div class="brand-copy">好股票，總在收斂之後出發。<br>從 VCP 型態、波動壓縮到 Momentum 動能，一起找出值得觀察的訊號。</div>
+      <div class="brand-copy">好股票，總在收斂之後出發。<br>從 VCP、波動壓縮到 Momentum，一起找出值得觀察的訊號。</div>
       <div class="brand-mini">
         <span class="brand-pill">📡 每日自動掃描</span>
         <span class="brand-pill">🔎 台股中文搜尋</span>
@@ -167,7 +252,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
 <button class="marketbtn active" data-market="TW">🇹🇼 台股</button>
 <button class="marketbtn" data-market="US">🇺🇸 美股</button>
 </div>
-<div class="search"><input id="symbol" value="2330" placeholder="例如：2330"><button id="go">開始分析</button></div>
+<div class="search"><input id="symbol" value="2330" placeholder="搜尋台積電、2330…"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
 <div class="card"><div class="topline"><div><div class="ticker" id="title">等待分析</div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
