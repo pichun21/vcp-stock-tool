@@ -1,0 +1,68 @@
+name: Daily VCP Screener
+
+on:
+  workflow_dispatch:
+    inputs:
+      market:
+        description: "掃描市場"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - TW
+          - US
+  schedule:
+    # 台股：FinMind 官方日資料通常約 17:30 更新，18:10 再掃較保險
+    - cron: "10 18 * * 1-5"
+      timezone: "Asia/Taipei"
+    # 美股：台灣時間週二～週六 07:10，避開美國夏/冬令差異
+    - cron: "10 7 * * 2-6"
+      timezone: "Asia/Taipei"
+
+permissions:
+  contents: write
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Choose market
+        id: market
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "value=${{ inputs.market }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "10 18 * * 1-5" ]; then
+            echo "value=TW" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=US" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run VCP screener
+        run: python scanner.py --market "${{ steps.market.outputs.value }}"
+
+      - name: Commit screening result
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add screening.json
+          if git diff --cached --quiet; then
+            echo "No change."
+          else
+            git commit -m "chore: update VCP screening"
+            git push
+          fi
