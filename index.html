@@ -394,6 +394,22 @@ th{color:#716c64}
   }
 }
 
+
+/* V2.11.1 visible candidate count */
+.radar-head-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.radar-count-pill{
+  padding:7px 11px;border:1px solid #e5ddd2;border-radius:999px;background:#fffaf4;
+  color:#746d64;font-size:12px;font-weight:800;white-space:nowrap
+}
+.radar-count-pill b{font-size:16px;color:#2c2924;margin:0 2px}
+@media(max-width:760px){
+ .section-title{align-items:flex-start}
+ .radar-head-meta{width:100%;justify-content:space-between;gap:5px;margin-top:5px}
+ .radar-count-pill{padding:6px 9px;font-size:10.5px}
+ .radar-count-pill b{font-size:14px}
+ #radarUpdated{font-size:10px;text-align:right}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -474,7 +490,10 @@ th{color:#716c64}
 <div class="section">
   <div class="section-title">
     <h2>📡 每日 VCP 雷達</h2>
-    <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
+    <div class="radar-head-meta">
+      <div class="radar-count-pill">目前顯示 <b id="radarCount">—</b> 檔</div>
+      <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
+    </div>
   </div>
   <div class="card radar-card">
     <div class="radar-head">
@@ -506,9 +525,7 @@ th{color:#716c64}
         </thead>
         <tbody id="radarBody"></tbody>
       </table>
-      <div class="radar-empty" id="radarEmpty">
-        每日自動篩選功能尚未接上。之後 GitHub Actions 掃描完成的名單會顯示在這裡。
-      </div>
+      
     </div>
     <div id="radarMobile" class="radar-mobile"></div>
   </div>
