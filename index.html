@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="VCP健檢">
-<title>VCP 股票健檢器</title>
+<title>VCPulse｜VCP × PowerSqueeze 智慧選股雷達</title>
 <style>
 :root{--bg:#f5f4ef;--card:#fff;--ink:#20231f;--muted:#70756e;--line:#dddcd4;--good:#2f7d52;--warn:#a06a14;--bad:#a33d36}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink)}
@@ -73,9 +73,56 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
  .metric b{font-size:15px}
  canvas{height:235px}
 }
+
+/* VCPulse brand */
+.brand-hero{
+  position:relative;overflow:hidden;margin-bottom:18px;padding:28px 30px;
+  border:1px solid var(--line);border-radius:26px;background:#fff;
+  box-shadow:0 12px 32px rgba(53,46,38,.06);
+}
+.brand-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:24px}
+.brand-name{font-size:64px;line-height:.95;font-weight:900;letter-spacing:-4px;margin:0;color:#24231f}
+.brand-name .pulse{color:#c58d58}
+.brand-tag{margin-top:12px;font-size:13px;letter-spacing:2.2px;text-transform:uppercase;color:#55524c}
+.brand-sub{font-size:20px;font-weight:800;margin-top:16px}
+.brand-copy{margin-top:14px;color:#6f6b63;line-height:1.7}
+.brand-mascot{display:flex;justify-content:center;align-items:center;min-height:230px}
+.brand-mascot img{width:min(360px,100%);max-height:270px;object-fit:contain;mix-blend-mode:multiply}
+.brand-wave{display:inline-block;margin-left:6px;color:#c9a77f;letter-spacing:-4px;transform:translateY(-10px)}
+.brand-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.brand-pill{padding:7px 11px;border-radius:999px;background:#f7f4ee;border:1px solid #ebe5da;font-size:13px;color:#625d54}
+@media(max-width:760px){
+ .brand-hero{padding:22px 20px}
+ .brand-grid{grid-template-columns:1fr}
+ .brand-name{font-size:48px;letter-spacing:-3px}
+ .brand-tag{font-size:10px;letter-spacing:1.35px}
+ .brand-sub{font-size:17px}
+ .brand-copy{font-size:14px}
+ .brand-mascot{min-height:0}
+ .brand-mascot img{width:250px;max-height:210px}
+}
+
 </style></head>
 <body><div class="wrap">
-<div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">單股健檢＋每日 VCP 雷達，快速整理值得觀察的型態。</div></div><button class="helpbtn" id="helpBtn">？ 指標使用說明</button></div>
+<section class="brand-hero">
+  <div class="brand-grid">
+    <div>
+      <h1 class="brand-name">VCP<span class="pulse">ulse</span><span class="brand-wave">◔</span></h1>
+      <div class="brand-tag">Catch the Contraction. Watch the Breakout.</div>
+      <div class="brand-sub">VCP × PowerSqueeze 智慧選股雷達</div>
+      <div class="brand-copy">好股票，總在收斂之後出發。<br>從 VCP 型態、波動壓縮到 Momentum 動能，一起找出值得觀察的訊號。</div>
+      <div class="brand-mini">
+        <span class="brand-pill">📡 每日自動掃描</span>
+        <span class="brand-pill">🔎 台股中文搜尋</span>
+        <span class="brand-pill">⚡ VCP＋Squeeze</span>
+      </div>
+    </div>
+    <div class="brand-mascot">
+      <img src="vcpulse-mascot.jpg" alt="VCPulse 放大鏡貴賓狗吉祥物">
+    </div>
+  </div>
+  <button class="helpbtn" id="helpBtn" style="position:absolute;right:18px;top:18px">？ 指標使用說明</button>
+</section>
 <div class="card helpbox" id="helpBox">
   <h3>什麼是 VCP？</h3>
   <p><b>VCP（Volatility Contraction Pattern，波動收縮型態）</b>是觀察股價在上升趨勢中，回檔與波動逐步縮小、成交量降溫，最後等待突破關鍵價位（Pivot）的技術型態。</p>
@@ -133,7 +180,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
 
 <div class="section">
   <div class="section-title">
-    <h2>📡 每日 VCP 篩選</h2>
+    <h2>📡 每日 VCP 雷達</h2>
     <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
   </div>
   <div class="card radar-card">
