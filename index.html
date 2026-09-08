@@ -476,6 +476,37 @@ th{color:#716c64}
  .return-radar-btn{position:relative;z-index:3}
 }
 
+
+/* V2.12.6 — fixed return button */
+.radar-back-float{
+ position:fixed;
+ right:18px;
+ bottom:22px;
+ z-index:9999;
+ border:1px solid #d9c7b2;
+ background:#fffaf4;
+ color:#5f4934;
+ border-radius:999px;
+ padding:11px 15px;
+ font-size:13px;
+ font-weight:900;
+ line-height:1;
+ box-shadow:0 8px 24px rgba(60,45,30,.16);
+ cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+}
+.radar-back-float:hover{background:#f6ede3}
+.radar-back-float[hidden]{display:none!important}
+
+@media(max-width:760px){
+ .radar-back-float{
+   right:14px;
+   bottom:calc(16px + env(safe-area-inset-bottom));
+   padding:12px 15px;
+   font-size:13px;
+ }
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -536,10 +567,7 @@ th{color:#716c64}
 <div class="section" id="singleStockAnalysis">
   <div class="section-title">
     <h2>🔎 單股查詢</h2>
-    <div class="single-head-actions">
-      <button type="button" id="returnRadarBtn" class="return-radar-btn" hidden>← 返回雷達原位置</button>
-      <div class="muted">輸入代號，查看完整 VCP 健檢</div>
-    </div>
+    <div class="muted">輸入代號，查看完整 VCP 健檢</div>
   </div>
   <div class="marketbar">
 <button class="marketbtn active" data-market="TW">🇹🇼 台股</button>
@@ -840,6 +868,7 @@ function updateFavoriteCount(){
 }
 
 let radarReturnState=null;
+
 function rememberRadarPosition(market,symbol){
  radarReturnState={
    market:String(market),
@@ -847,40 +876,32 @@ function rememberRadarPosition(market,symbol){
    filter:radarFilter,
    scrollY:window.scrollY
  };
- const btn=document.getElementById('returnRadarBtn');
+ const btn=document.getElementById('radarBackFloat');
  if(btn) btn.hidden=false;
 }
+
 function returnToRadarPosition(){
  if(!radarReturnState) return;
- const saved=radarReturnState;
 
- // Restore the filter that was active when the stock was opened.
- radarFilter=saved.filter || 'all';
- document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b.dataset.radar===radarFilter));
- renderRadar(radarFilter);
+ // Keep the same radar filter and return to the exact page position
+ // recorded immediately before opening single-stock analysis.
+ radarFilter=radarReturnState.filter || radarFilter || 'all';
+ document.querySelectorAll('.radar-tab').forEach(
+   b=>b.classList.toggle('active', b.dataset.radar===radarFilter)
+ );
 
- // After the radar has been rebuilt, locate the exact stock without CSS.escape
- // (older Safari versions can fail on CSS.escape).
+ window.scrollTo({
+   top: Number(radarReturnState.scrollY) || 0,
+   behavior: 'smooth'
+ });
+
+ // Hide the floating button after returning.
  setTimeout(()=>{
-   const candidates=[...document.querySelectorAll('#radarBody [data-symbol], #radarMobile [data-symbol]')];
-   const matches=candidates.filter(el=>
-     String(el.dataset.market)===String(saved.market) &&
-     String(el.dataset.symbol).toUpperCase()===String(saved.symbol).toUpperCase()
-   );
-   const mobileMode=window.matchMedia && window.matchMedia('(max-width:760px)').matches;
-   const target=matches.find(el=>mobileMode ? el.closest('#radarMobile') : el.closest('#radarBody')) || matches[0];
-
-   if(target){
-     target.scrollIntoView({behavior:'smooth',block:'center'});
-     target.classList.remove('radar-return-highlight');
-     void target.offsetWidth;
-     target.classList.add('radar-return-highlight');
-     setTimeout(()=>target.classList.remove('radar-return-highlight'),2000);
-   }else{
-     window.scrollTo({top:saved.scrollY||0,behavior:'smooth'});
-   }
- },80);
+   const btn=document.getElementById('radarBackFloat');
+   if(btn) btn.hidden=true;
+ },500);
 }
+
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>filter==='all'||(filter==='favorites'?isFavorite(r):(filter==='combo'?r.combo:r.type===filter)));
@@ -1089,8 +1110,8 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
   renderRadar(radarFilter);
  });
 });
-const returnRadarBtn=document.getElementById('returnRadarBtn');
-if(returnRadarBtn) returnRadarBtn.addEventListener('click',returnToRadarPosition);
+const radarBackFloat=document.getElementById('radarBackFloat');
+if(radarBackFloat) radarBackFloat.addEventListener('click',returnToRadarPosition);
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
@@ -1126,5 +1147,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 </script>
+
+
+<button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置">
+  ← 返回剛才清單
+</button>
 
 </body></html>
