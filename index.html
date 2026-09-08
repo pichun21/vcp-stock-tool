@@ -309,6 +309,16 @@ th{color:#716c64}
   .mobile-analysis-btn{margin-top:9px}
 }
 
+
+/* V2.10.1 navigation/link clarity */
+.stock-link{
+  appearance:none;border:0;background:transparent;padding:0;margin:0;
+  font:inherit;font-weight:900;color:inherit;cursor:pointer;text-align:left
+}
+.stock-link:hover{text-decoration:underline}
+.stock-link:focus-visible{outline:2px solid #b37b48;outline-offset:3px;border-radius:4px}
+.mobile-analysis-btn{font-size:13px}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -651,7 +661,10 @@ function renderRadar(filter='all'){
  const contractionText=r=>(r.contractions||[]).map((x,i)=>`C${i+1} ${Math.round(x)}%`).join(' → ')||'—';
 
  body.innerHTML=rows.map(r=>`<tr data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
-   <td><b>${esc(r.name||r.symbol)}</b><div class="muted">${esc(r.symbol)}</div></td>
+   <td>
+     <button type="button" class="stock-link radar-open-analysis" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">${esc(r.name||r.symbol)}</button>
+     <div class="muted">${esc(r.symbol)}</div>
+   </td>
    <td>${esc(marketLabel(r.market))}</td>
    <td>${stars(r.score)}</td>
    <td>${esc(contractionText(r))}</td>
@@ -664,10 +677,35 @@ function renderRadar(filter='all'){
    <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></td>
  </tr>`).join('');
 
- body.querySelectorAll('tr[data-symbol]').forEach(tr=>tr.onclick=()=>{
-   currentMarket=tr.dataset.market; setMarket(currentMarket);
-   $('symbol').value=tr.dataset.symbol; run();
-   window.scrollTo({top:document.querySelector('.section-title').offsetTop-10,behavior:'smooth'});
+ const openAnalysis=(market,symbol)=>{
+   currentMarket=market;
+   setMarket(currentMarket);
+   $('symbol').value=symbol;
+   run();
+
+   // Return to the single-stock query/result area at the top.
+   const input=$('symbol');
+   const queryCard=input?.closest('.card') || input?.parentElement;
+   const target=queryCard || document.querySelector('.section-title') || input;
+   setTimeout(()=>{
+     if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+     if(input) input.focus({preventScroll:true});
+   },120);
+ };
+
+ body.querySelectorAll('.radar-open-analysis').forEach(btn=>{
+   btn.addEventListener('click',(e)=>{
+     e.preventDefault();
+     e.stopPropagation();
+     openAnalysis(btn.dataset.market,btn.dataset.symbol);
+   });
+ });
+
+ body.querySelectorAll('tr[data-symbol]').forEach(tr=>{
+   tr.addEventListener('click',(e)=>{
+     if(e.target.closest('.radar-open-analysis')) return;
+     openAnalysis(tr.dataset.market,tr.dataset.symbol);
+   });
  });
 
  if(mobile){
@@ -717,19 +755,9 @@ function renderRadar(filter='all'){
          ${reasons.length>2?`<div class="reason-list reason-more" hidden>${reasons.slice(2).join('')}</div>`:''}
          <div class="pulse-explain reason-more-detail" ${reasons.length>2?'hidden':''}><b>VCPulse 訊號：</b>${esc(pulseLabel(r))} · ${esc((r.pulse_reasons||[]).join('、')||'依目前結構持續觀察')}</div>
        </div>
-       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">查看完整分析 →</button>
+       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">帶入單股分析 →</button>
      </div>`;
    }).join('');
-
-   const openMobileAnalysis=(market,symbol)=>{
-     currentMarket=market; setMarket(currentMarket);
-     $('symbol').value=symbol;
-     run();
-     const target=document.querySelector('.stock-result') || document.querySelector('.section-title');
-     setTimeout(()=>{
-       if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
-     },120);
-   };
 
    mobile.querySelectorAll('.reason-toggle').forEach(btn=>{
      btn.addEventListener('click',(e)=>{
@@ -750,14 +778,14 @@ function renderRadar(filter='all'){
      btn.addEventListener('click',(e)=>{
        e.preventDefault();
        e.stopPropagation();
-       openMobileAnalysis(btn.dataset.market,btn.dataset.symbol);
+       openAnalysis(btn.dataset.market,btn.dataset.symbol);
      });
    });
 
    mobile.querySelectorAll('.mobile-stock-card').forEach(card=>{
      card.addEventListener('click',(e)=>{
        if(e.target.closest('.mobile-analysis-btn')) return;
-       openMobileAnalysis(card.dataset.market,card.dataset.symbol);
+       openAnalysis(card.dataset.market,card.dataset.symbol);
      });
    });
  }
