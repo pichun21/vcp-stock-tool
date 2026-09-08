@@ -507,6 +507,44 @@ th{color:#716c64}
  }
 }
 
+
+/* V2.12.9 — highlight the stock just viewed for 3 seconds */
+.radar-return-highlight-3s{
+ animation:vcpReturnHighlight3s 3s ease-out!important;
+ position:relative;
+ z-index:2;
+}
+@keyframes vcpReturnHighlight3s{
+ 0%{
+   background:#fff0bd;
+   box-shadow:0 0 0 4px rgba(214,157,43,.32),0 8px 24px rgba(83,61,26,.12);
+ }
+ 18%,72%{
+   background:#fff7dc;
+   box-shadow:0 0 0 3px rgba(214,157,43,.22),0 6px 18px rgba(83,61,26,.08);
+ }
+ 100%{
+   background:transparent;
+   box-shadow:none;
+ }
+}
+.mobile-stock-card.radar-return-highlight-3s{
+ animation:vcpReturnCardHighlight3s 3s ease-out!important;
+}
+@keyframes vcpReturnCardHighlight3s{
+ 0%{
+   background:#fff0bd;
+   box-shadow:0 0 0 4px rgba(214,157,43,.32),0 10px 26px rgba(83,61,26,.12);
+ }
+ 18%,72%{
+   background:#fff7dc;
+   box-shadow:0 0 0 3px rgba(214,157,43,.22),0 8px 22px rgba(83,61,26,.09);
+ }
+ 100%{
+   background:#fff;
+ }
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -869,12 +907,13 @@ function updateFavoriteCount(){
 
 let radarReturnState=null;
 
-function rememberRadarPosition(market,symbol){
+function rememberRadarPosition(market,symbol,sourceEl){
  radarReturnState={
    market:String(market),
    symbol:String(symbol),
    filter:radarFilter,
-   scrollY:window.scrollY
+   scrollY:window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+   element:sourceEl || null
  };
  const btn=document.getElementById('radarBackFloat');
  if(btn) btn.hidden=false;
@@ -882,26 +921,38 @@ function rememberRadarPosition(market,symbol){
 
 function returnToRadarPosition(){
  if(!radarReturnState) return;
+ const saved=radarReturnState;
 
- // Keep the same radar filter and return to the exact page position
- // recorded immediately before opening single-stock analysis.
- radarFilter=radarReturnState.filter || radarFilter || 'all';
- document.querySelectorAll('.radar-tab').forEach(
-   b=>b.classList.toggle('active', b.dataset.radar===radarFilter)
- );
+ // First choice: return to the exact DOM card/row the user actually tapped.
+ if(saved.element && document.documentElement.contains(saved.element)){
+   try{
+     saved.element.scrollIntoView({behavior:'smooth', block:'center'});
+   }catch(e){
+     saved.element.scrollIntoView();
+   }
 
- window.scrollTo({
-   top: Number(radarReturnState.scrollY) || 0,
-   behavior: 'smooth'
- });
+   // Highlight the stock the user just returned to for 3 seconds.
+   saved.element.classList.remove('radar-return-highlight-3s');
+   void saved.element.offsetWidth;
+   saved.element.classList.add('radar-return-highlight-3s');
+   setTimeout(()=>saved.element && saved.element.classList.remove('radar-return-highlight-3s'),3000);
+ }else{
+   // Fallback: restore the exact page Y position.
+   const y=Number(saved.scrollY)||0;
+   try{ window.scrollTo({top:y,behavior:'smooth'}); }
+   catch(e){ window.scrollTo(0,y); }
+   // iOS/WebView fallback.
+   setTimeout(()=>{
+     if(Math.abs((window.pageYOffset||0)-y)>80){
+       document.documentElement.scrollTop=y;
+       document.body.scrollTop=y;
+     }
+   },350);
+ }
 
- // Hide the floating button after returning.
- setTimeout(()=>{
-   const btn=document.getElementById('radarBackFloat');
-   if(btn) btn.hidden=true;
- },500);
+ const btn=document.getElementById('radarBackFloat');
+ if(btn) setTimeout(()=>btn.hidden=true,650);
 }
-
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>filter==='all'||(filter==='favorites'?isFavorite(r):(filter==='combo'?r.combo:r.type===filter)));
@@ -947,9 +998,9 @@ function renderRadar(filter='all'){
    <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></td>
  </tr>`).join('');
 
- const openAnalysis=(market,symbol)=>{
-   // Remember exactly where the user came from in the radar.
-   rememberRadarPosition(market,symbol);
+ const openAnalysis=(market,symbol,sourceEl)=>{
+   // Remember the exact row/card that was tapped.
+   rememberRadarPosition(market,symbol,sourceEl);
 
    // Use the same market switch used by the manual TW/US buttons.
    setMarket(market,{reset:false});
@@ -974,14 +1025,14 @@ function renderRadar(filter='all'){
    btn.addEventListener('click',(e)=>{
      e.preventDefault();
      e.stopPropagation();
-     openAnalysis(btn.dataset.market,btn.dataset.symbol);
+     openAnalysis(btn.dataset.market,btn.dataset.symbol,btn.closest('tr[data-symbol]')||btn);
    });
  });
 
  body.querySelectorAll('tr[data-symbol]').forEach(tr=>{
    tr.addEventListener('click',(e)=>{
      if(e.target.closest('.radar-open-analysis')) return;
-     openAnalysis(tr.dataset.market,tr.dataset.symbol);
+     openAnalysis(tr.dataset.market,tr.dataset.symbol,tr);
    });
  });
 
@@ -1065,14 +1116,14 @@ function renderRadar(filter='all'){
      btn.addEventListener('click',(e)=>{
        e.preventDefault();
        e.stopPropagation();
-       openAnalysis(btn.dataset.market,btn.dataset.symbol);
+       openAnalysis(btn.dataset.market,btn.dataset.symbol,btn.closest('.mobile-stock-card')||btn);
      });
    });
 
    mobile.querySelectorAll('.mobile-stock-card').forEach(card=>{
      card.addEventListener('click',(e)=>{
        if(e.target.closest('.mobile-analysis-btn') || e.target.closest('.favorite-btn')) return;
-       openAnalysis(card.dataset.market,card.dataset.symbol);
+       openAnalysis(card.dataset.market,card.dataset.symbol,card);
      });
    });
  }
