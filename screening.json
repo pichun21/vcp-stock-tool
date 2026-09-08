@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-09-08 19:21",
+  "generated_at": "2026-09-08 20:28",
   "timezone": "Asia/Taipei",
   "markets": {
     "TW": {
       "data_date": "2026-09-08",
-      "count": 99,
-      "scanned_at": "2026-09-08 19:21"
+      "count": 105,
+      "scanned_at": "2026-09-08 20:28"
     },
     "US": {
       "data_date": "2026-09-04",
       "count": 3,
-      "scanned_at": "2026-09-08 19:21"
+      "scanned_at": "2026-09-08 20:28"
     }
   },
   "results": [
@@ -31,208 +31,19 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": 0,
+      "holding_pivot": true,
+      "pulse_signal": "hot",
+      "pulse_label": "🔥 高關注",
+      "pulse_points": 8,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "今日帶量突破",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 100692712.0
-    },
-    {
-      "market": "TW",
-      "symbol": "3045",
-      "name": "台灣大",
-      "score": 5,
-      "contracts": "-8% → -3% → -3% → -0%",
-      "pivot": 118.0,
-      "last": 118.0,
-      "distance": 0.0,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": false,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 1224983990.0
-    },
-    {
-      "market": "TW",
-      "symbol": "1609",
-      "name": "大亞",
-      "score": 5,
-      "contracts": "-17% → -14% → -4% → -3%",
-      "pivot": 38.15,
-      "last": 37.6,
-      "distance": -1.44,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 120154624.0
-    },
-    {
-      "market": "TW",
-      "symbol": "2753",
-      "name": "八方雲集",
-      "score": 5,
-      "contracts": "-2% → -2% → -1% → -0%",
-      "pivot": 182.0,
-      "last": 179.0,
-      "distance": -1.65,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "combo": false,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 26555454.0
-    },
-    {
-      "market": "TW",
-      "symbol": "2206",
-      "name": "三陽工業",
-      "score": 5,
-      "contracts": "-7% → -7% → -3% → -2%",
-      "pivot": 64.8,
-      "last": 63.7,
-      "distance": -1.7,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": false,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 39877743.0
-    },
-    {
-      "market": "TW",
-      "symbol": "4904",
-      "name": "遠傳",
-      "score": 5,
-      "contracts": "-11% → -6% → -4% → -2%",
-      "pivot": 107.5,
-      "last": 104.0,
-      "distance": -3.26,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 545804175.0
-    },
-    {
-      "market": "TW",
-      "symbol": "2353",
-      "name": "宏碁",
-      "score": 5,
-      "contracts": "-18% → -10% → -9% → -5%",
-      "pivot": 32.3,
-      "last": 31.05,
-      "distance": -3.87,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 624259313.0
-    },
-    {
-      "market": "TW",
-      "symbol": "6829",
-      "name": "千附精密",
-      "score": 5,
-      "contracts": "-24% → -25% → -14% → -8%",
-      "pivot": 251.0,
-      "last": 241.0,
-      "distance": -3.98,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 287557626.0
-    },
-    {
-      "market": "TW",
-      "symbol": "3706",
-      "name": "神達",
-      "score": 5,
-      "contracts": "-9% → -3% → -3% → -1%",
-      "pivot": 95.7,
-      "last": 91.3,
-      "distance": -4.6,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 1007916192.0
-    },
-    {
-      "market": "TW",
-      "symbol": "6491",
-      "name": "晶碩",
-      "score": 5,
-      "contracts": "-11% → -5% → -5% → -3%",
-      "pivot": 399.5,
-      "last": 376.0,
-      "distance": -5.88,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 148823045.0
-    },
-    {
-      "market": "TW",
-      "symbol": "2317",
-      "name": "鴻海",
-      "score": 5,
-      "contracts": "-14% → -11% → -10% → -3%",
-      "pivot": 270.0,
-      "last": 251.5,
-      "distance": -6.85,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "data_date": "2026-09-08",
-      "avg_value_20d": 9649875023.0
     },
     {
       "market": "TW",
@@ -251,6 +62,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": 0,
+      "holding_pivot": true,
+      "pulse_signal": "hot",
+      "pulse_label": "🔥 高關注",
+      "pulse_points": 7,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 27441974625.0
     },
@@ -271,6 +93,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": 0,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 177385730.0
     },
@@ -291,6 +123,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": 0,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 509858447.0
     },
@@ -311,8 +153,436 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": 0,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 104176521.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2882",
+      "name": "國泰金",
+      "score": 4,
+      "contracts": "-4% → -4% → -4% → -4%",
+      "pivot": 112.5,
+      "last": 113.5,
+      "distance": 0.89,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 3 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "combo": false,
+      "breakout_days": 2,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 2394186014.0
+    },
+    {
+      "market": "TW",
+      "symbol": "6005",
+      "name": "群益證",
+      "score": 4,
+      "contracts": "-15% → -8% → -3% → -2%",
+      "pivot": 32.35,
+      "last": 32.65,
+      "distance": 0.93,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 3 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "combo": false,
+      "breakout_days": 2,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 171537407.0
+    },
+    {
+      "market": "TW",
+      "symbol": "5864",
+      "name": "致和證",
+      "score": 4,
+      "contracts": "-18% → -8% → -4% → -2%",
+      "pivot": 36.6,
+      "last": 37.25,
+      "distance": 1.78,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 3 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "combo": false,
+      "breakout_days": 2,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 102301751.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2838",
+      "name": "聯邦銀",
+      "score": 4,
+      "contracts": "-13% → -5% → -1% → -1%",
+      "pivot": 20.9,
+      "last": 21.3,
+      "distance": 1.91,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 2 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": 1,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 39918311.0
+    },
+    {
+      "market": "TW",
+      "symbol": "6016",
+      "name": "康和證",
+      "score": 4,
+      "contracts": "-19% → -14% → -12% → -5%",
+      "pivot": 22.04,
+      "last": 23.15,
+      "distance": 5.02,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 3 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": 2,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 96334599.0
+    },
+    {
+      "market": "TW",
+      "symbol": "6015",
+      "name": "宏遠證",
+      "score": 4,
+      "contracts": "-12% → -12% → -6% → -6%",
+      "pivot": 16.6,
+      "last": 17.85,
+      "distance": 7.53,
+      "volume_dry": true,
+      "type": "postbreakout",
+      "state": "🔵 突破後第 3 天",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": 2,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "突破後仍守 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 30979358.0
+    },
+    {
+      "market": "TW",
+      "symbol": "3045",
+      "name": "台灣大",
+      "score": 5,
+      "contracts": "-8% → -3% → -3% → -0%",
+      "pivot": 118.0,
+      "last": 118.0,
+      "distance": 0.0,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 1224983990.0
+    },
+    {
+      "market": "TW",
+      "symbol": "1609",
+      "name": "大亞",
+      "score": 5,
+      "contracts": "-17% → -14% → -4% → -3%",
+      "pivot": 38.15,
+      "last": 37.6,
+      "distance": -1.44,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "hot",
+      "pulse_label": "🔥 高關注",
+      "pulse_points": 7,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 120154624.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2753",
+      "name": "八方雲集",
+      "score": 5,
+      "contracts": "-2% → -2% → -1% → -0%",
+      "pivot": 182.0,
+      "last": 179.0,
+      "distance": -1.65,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 26555454.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2206",
+      "name": "三陽工業",
+      "score": 5,
+      "contracts": "-7% → -7% → -3% → -2%",
+      "pivot": 64.8,
+      "last": 63.7,
+      "distance": -1.7,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 39877743.0
+    },
+    {
+      "market": "TW",
+      "symbol": "4904",
+      "name": "遠傳",
+      "score": 5,
+      "contracts": "-11% → -6% → -4% → -2%",
+      "pivot": 107.5,
+      "last": 104.0,
+      "distance": -3.26,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6.5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 545804175.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2353",
+      "name": "宏碁",
+      "score": 5,
+      "contracts": "-18% → -10% → -9% → -5%",
+      "pivot": 32.3,
+      "last": 31.05,
+      "distance": -3.87,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 624259313.0
+    },
+    {
+      "market": "TW",
+      "symbol": "6829",
+      "name": "千附精密",
+      "score": 5,
+      "contracts": "-24% → -25% → -14% → -8%",
+      "pivot": 251.0,
+      "last": 241.0,
+      "distance": -3.98,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4.5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 287557626.0
+    },
+    {
+      "market": "TW",
+      "symbol": "3706",
+      "name": "神達",
+      "score": 5,
+      "contracts": "-9% → -3% → -3% → -1%",
+      "pivot": 95.7,
+      "last": 91.3,
+      "distance": -4.6,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 1007916192.0
     },
     {
       "market": "TW",
@@ -331,6 +601,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 242873056.0
     },
@@ -351,6 +631,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 58457655.0
     },
@@ -371,6 +662,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 517348116.0
     },
@@ -391,6 +692,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 33622403.0
     },
@@ -411,6 +722,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 814420636.0
     },
@@ -431,6 +752,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 22653384.0
     },
@@ -451,6 +781,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 69418582.0
     },
@@ -471,6 +812,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 1230113655.0
     },
@@ -491,6 +843,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 19930458188.0
     },
@@ -511,6 +872,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 161574336.0
     },
@@ -531,6 +902,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 108908442.0
     },
@@ -551,6 +933,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 120939681.0
     },
@@ -571,6 +963,17 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 68535695.0
     },
@@ -591,6 +994,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-07",
       "avg_value_20d": 74873268.0
     },
@@ -611,6 +1024,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 305429638.0
     },
@@ -631,6 +1054,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 63011368.0
     },
@@ -651,6 +1085,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 773879619.0
     },
@@ -671,6 +1115,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 24933258.0
     },
@@ -691,6 +1145,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 36078938.0
     },
@@ -711,6 +1176,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 12253490845.0
     },
@@ -731,6 +1206,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 291495303.0
     },
@@ -751,6 +1236,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "強力壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 38899035.0
     },
@@ -771,6 +1266,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 195946050.0
     },
@@ -791,6 +1296,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 49510891.0
     },
@@ -811,6 +1327,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 206474486.0
     },
@@ -831,6 +1356,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 1092620584.0
     },
@@ -851,6 +1385,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 53277976.0
     },
@@ -871,6 +1415,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 561753851.0
     },
@@ -891,6 +1445,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 301960899.0
     },
@@ -911,6 +1474,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 305477525.0
     },
@@ -931,6 +1504,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 127428077.0
     },
@@ -951,6 +1533,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 654123728.0
     },
@@ -971,6 +1562,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 349359258.0
     },
@@ -991,6 +1591,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 2221134869.0
     },
@@ -1011,6 +1620,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 4350993684.0
     },
@@ -1031,6 +1650,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 149022475.0
     },
@@ -1051,6 +1681,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 178016186.0
     },
@@ -1071,6 +1711,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 129139313.0
     },
@@ -1091,6 +1741,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 1824074780.0
     },
@@ -1111,6 +1771,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 100502489.0
     },
@@ -1131,6 +1800,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 21666085.0
     },
@@ -1151,6 +1830,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 93176468.0
     },
@@ -1171,6 +1860,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 21557457.0
     },
@@ -1191,6 +1890,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 16634981515.0
     },
@@ -1211,6 +1920,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 50152562.0
     },
@@ -1231,6 +1950,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 996173943.0
     },
@@ -1251,6 +1981,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 682905081.0
     },
@@ -1271,6 +2011,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 729547935.0
     },
@@ -1291,6 +2042,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 83016318.0
     },
@@ -1311,6 +2073,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 157691391.0
     },
@@ -1331,6 +2103,17 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 21096486.0
     },
@@ -1351,6 +2134,16 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 311214626.0
     },
@@ -1371,6 +2164,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 82206089.0
     },
@@ -1391,6 +2193,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 2566382202.0
     },
@@ -1411,8 +2222,76 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 6241767089.0
+    },
+    {
+      "market": "TW",
+      "symbol": "6491",
+      "name": "晶碩",
+      "score": 5,
+      "contracts": "-11% → -5% → -5% → -3%",
+      "pivot": 399.5,
+      "last": 376.0,
+      "distance": -5.88,
+      "volume_dry": true,
+      "type": "forming",
+      "state": "⚪ VCP 成形中",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "一般壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 148823045.0
+    },
+    {
+      "market": "TW",
+      "symbol": "2317",
+      "name": "鴻海",
+      "score": 5,
+      "contracts": "-14% → -11% → -10% → -3%",
+      "pivot": 270.0,
+      "last": 251.5,
+      "distance": -6.85,
+      "volume_dry": true,
+      "type": "forming",
+      "state": "⚪ VCP 成形中",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "一般壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 9649875023.0
     },
     {
       "market": "TW",
@@ -1431,6 +2310,16 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 68393278.0
     },
@@ -1451,6 +2340,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 483841630.0
     },
@@ -1471,6 +2369,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 1274655705.0
     },
@@ -1491,6 +2398,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 9982165837.0
     },
@@ -1511,6 +2427,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 131436216.0
     },
@@ -1531,6 +2456,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 213618711.0
     },
@@ -1551,6 +2485,14 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1,
+      "pulse_reasons": [
+        "VCP 4/5"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 443778670.0
     },
@@ -1571,6 +2513,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 197112999.0
     },
@@ -1591,6 +2542,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 10276529773.0
     },
@@ -1611,6 +2571,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 389651186.0
     },
@@ -1631,6 +2600,15 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 28395354.0
     },
@@ -1651,6 +2629,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 4803530310.0
     },
@@ -1671,6 +2658,15 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 37841820.0
     },
@@ -1691,6 +2687,16 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 35927394.0
     },
@@ -1711,6 +2717,16 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 175691790.0
     },
@@ -1731,6 +2747,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 368717250.0
     },
@@ -1751,6 +2776,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 144593325.0
     },
@@ -1771,6 +2806,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 70242564.0
     },
@@ -1791,6 +2835,16 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 158867950.0
     },
@@ -1811,6 +2865,16 @@
       "momentum": "↑ 多方增強",
       "momentum_dir": "bull_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮",
+        "多方增強"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 140354889.0
     },
@@ -1831,6 +2895,14 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1,
+      "pulse_reasons": [
+        "VCP 4/5"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 20823586.0
     },
@@ -1851,6 +2923,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 548059285.0
     },
@@ -1871,6 +2952,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 23600836.0
     },
@@ -1891,6 +2981,15 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 42683909.0
     },
@@ -1911,6 +3010,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 112513528.0
     },
@@ -1931,6 +3039,16 @@
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "中度壓縮",
+        "空方減弱"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 225018534.0
     },
@@ -1951,6 +3069,14 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1,
+      "pulse_reasons": [
+        "VCP 4/5"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 66221408.0
     },
@@ -1971,6 +3097,15 @@
       "momentum": "↓ 空方增強",
       "momentum_dir": "bear_down",
       "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1.5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "一般壓縮"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 865329859.0
     },
@@ -1991,28 +3126,16 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1,
+      "pulse_reasons": [
+        "VCP 4/5"
+      ],
       "data_date": "2026-09-08",
       "avg_value_20d": 312952281.0
-    },
-    {
-      "market": "US",
-      "symbol": "PLTR",
-      "name": "PLTR",
-      "score": 5,
-      "contracts": "-9% → -7% → -4% → -4%",
-      "pivot": 186.38,
-      "last": 174.33,
-      "distance": -6.47,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "data_date": "2026-09-04",
-      "avg_value_20d": 5864437667.0
     },
     {
       "market": "US",
@@ -2031,8 +3154,46 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
       "data_date": "2026-09-04",
       "avg_value_20d": 11413822232.0
+    },
+    {
+      "market": "US",
+      "symbol": "PLTR",
+      "name": "PLTR",
+      "score": 5,
+      "contracts": "-9% → -7% → -4% → -4%",
+      "pivot": 186.38,
+      "last": 174.33,
+      "distance": -6.47,
+      "volume_dry": true,
+      "type": "forming",
+      "state": "⚪ VCP 成形中",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2.5,
+      "pulse_reasons": [
+        "VCP 5/5",
+        "一般壓縮"
+      ],
+      "data_date": "2026-09-04",
+      "avg_value_20d": 5864437667.0
     },
     {
       "market": "US",
@@ -2051,6 +3212,14 @@
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
       "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 1,
+      "pulse_reasons": [
+        "VCP 4/5"
+      ],
       "data_date": "2026-09-04",
       "avg_value_20d": 12423340745.0
     }
