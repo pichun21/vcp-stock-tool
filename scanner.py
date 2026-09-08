@@ -181,7 +181,7 @@ def analyze(df, item, market):
         typ,state="breakout","🟢 今日帶量突破"
         breakout_days=0
     elif breakout and breakout_days is not None and breakout_days<=5 and distance<=12:
-        typ,state="postbreakout",filler="post"
+        typ,state="postbreakout",f"🔵 突破後"
         state=f"🔵 突破後第 {breakout_days+1} 天"
     elif not breakout and distance>-5:
         typ,state="near","🟡 接近 Pivot"
