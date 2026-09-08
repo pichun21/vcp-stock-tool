@@ -199,6 +199,48 @@ th{color:#716c64}
  .radar-intro p{font-size:12px}
 }
 
+
+/* ===== VCPulse V2.7 mobile radar cards ===== */
+.radar-mobile{display:none}
+.reason-list{display:grid;gap:5px;margin-top:10px}
+.reason-item{font-size:13px;line-height:1.45;color:#5e5a53}
+.reason-item b{color:#26231f}
+.reason-ok::before{content:"✓ ";font-weight:900;color:#4e9b62}
+.reason-note::before{content:"• ";font-weight:900;color:#b37b48}
+.mobile-stock-card{
+  border:1px solid var(--vp-line);background:#fffdfa;border-radius:18px;
+  padding:15px 15px 14px;margin-top:10px;box-shadow:0 7px 18px rgba(57,46,33,.035);
+  cursor:pointer
+}
+.mobile-stock-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.mobile-stock-name{font-weight:900;font-size:17px;line-height:1.25}
+.mobile-stock-code{font-size:12px;color:#89837a;margin-top:3px}
+.mobile-score{font-size:13px;white-space:nowrap;letter-spacing:1px}
+.mobile-state{display:inline-flex;align-items:center;margin-top:9px;padding:6px 9px;border-radius:999px;background:#f4f1eb;font-weight:800;font-size:12px}
+.mobile-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:11px}
+.mobile-metric{font-size:12px;color:#777168}
+.mobile-metric b{display:block;color:#2c2924;font-size:14px;margin-top:2px}
+.mobile-signal-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.mobile-signal{font-size:12px;padding:6px 8px;border-radius:999px;background:#f7f3ed;border:1px solid #ece4da}
+.mobile-why{margin-top:12px;padding-top:10px;border-top:1px dashed #e6ded3}
+.mobile-why-title{font-size:12px;font-weight:900;letter-spacing:.2px;color:#3a3732}
+.mobile-cta{margin-top:11px;font-size:12px;font-weight:800;text-align:right;color:#9b6c42}
+@media(max-width:760px){
+  .radar-table-wrap{display:none!important}
+  .radar-mobile{display:block}
+}
+
+
+/* V2.8 post-breakout */
+.radar-tab[data-radar="postbreakout"].active{background:#315f8d;color:#fff;border-color:#315f8d}
+
+
+/* V2.9 VCPulse signal */
+.pulse-badge{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid #e8e0d5;background:#fff}
+.pulse-hot{background:#fff0e9;border-color:#f3c7b3}.pulse-watch{background:#fff8df;border-color:#eadba1}
+.pulse-wait{background:#f2f1ee;border-color:#ddd9d2}.pulse-extended{background:#f5edf0;border-color:#decbd2}
+.pulse-explain{margin-top:8px;font-size:11px;color:#777168;line-height:1.5}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -236,6 +278,7 @@ th{color:#716c64}
   <p><b>★★★★★</b>：五項皆符合；<b>★★★★☆</b>：已有明顯 VCP 特徵。每日雷達目前以 4 分以上為主要候選。</p>
   <h3>每日雷達狀態</h3>
   <p>🟢 <b>今日帶量突破</b>：前一交易日尚未突破 Pivot，最新交易日收盤首次站上 Pivot，且成交量明顯放大。</p>
+  <p>🔵 <b>突破後</b>：近期已突破 Pivot，且目前仍站在 Pivot 上方；本站追蹤最近 5 個交易日，方便觀察突破是否守穩。</p>
   <p>🟡 <b>接近 Pivot</b>：尚未突破，但距 Pivot 已相當接近。</p>
   <p>⚪ <b>VCP 成形中</b>：已具備 VCP 特徵，但仍離 Pivot 有一段距離。</p>
   <h3>PowerSqueeze 是什麼？</h3>
@@ -247,7 +290,7 @@ th{color:#716c64}
   <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
   <h3>每日雷達如何排序？</h3>
   <p>每日雷達優先顯示當下較值得注意的狀態，而不是只看星數：</p>
-  <p><b>① 狀態</b>：🟢 今日帶量突破 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
+  <p><b>① 狀態</b>：🟢 今日帶量突破 → 🔵 突破後 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
   <b>② VCP 完整度</b>：★★★★★ → ★★★★☆<br>
   <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮<br>
   <b>④ Momentum</b>：↑ 多方增強 → ↗ 空方減弱 → ↘ 多方減弱 → ↓ 空方增強<br>
@@ -285,6 +328,7 @@ th{color:#716c64}
       <div class="radar-tabs">
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日帶量突破</button>
+        <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 接近 Pivot</button>
         <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
         <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
@@ -312,6 +356,7 @@ th{color:#716c64}
       <div class="radar-empty" id="radarEmpty">
         每日自動篩選功能尚未接上。之後 GitHub Actions 掃描完成的名單會顯示在這裡。
       </div>
+<div id="radarMobile" class="radar-mobile"></div>
     </div>
   </div>
 </div>
@@ -474,11 +519,9 @@ let radarFilter = 'all';
 function marketLabel(m){ return m==='TW' ? '🇹🇼 台股' : '🇺🇸 美股'; }
 
 function renderRadar(filter='all'){
- radarFilter=filter;
- const body=document.getElementById('radarBody'), empty=document.getElementById('radarEmpty');
- if(!body||!empty)return;
+ const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>filter==='all'||(filter==='combo'?r.combo:r.type===filter));
- const statusRank={breakout:0,near:1,forming:2};
+ const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
  const squeezeRank={strong:0,medium:1,weak:2,none:3};
  const momentumRank={bull_up:0,bear_up:1,bull_down:2,bear_down:3};
  rows.sort((a,b)=>
@@ -488,31 +531,89 @@ function renderRadar(filter='all'){
    ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) ||
    (Math.abs(a.distance??999)-Math.abs(b.distance??999))
  );
- body.innerHTML=rows.map(r=>`<tr class="radar-row" data-market="${r.market}" data-symbol="${r.symbol}" title="點一下查看單股健檢">
-   <td><b>${r.name}</b> <span class="muted">(${r.symbol})</span></td>
-   <td>${marketLabel(r.market)}</td>
-   <td>${'★'.repeat(r.score)}${'☆'.repeat(5-r.score)}</td>
-   <td>${r.contracts || '—'}</td>
+
+ if(!rows.length){
+   body.innerHTML='<tr><td colspan="12" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
+   if(mobile) mobile.innerHTML='<div class="muted" style="padding:26px 8px;text-align:center">目前這個分類沒有符合條件的股票。</div>';
+   return;
+ }
+
+ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+ const stars=n=>'★'.repeat(Math.max(0,Math.min(5,n||0)))+'☆'.repeat(Math.max(0,5-(n||0)));
+ const contractionText=r=>(r.contractions||[]).map((x,i)=>`C${i+1} ${Math.round(x)}%`).join(' → ')||'—';
+
+ body.innerHTML=rows.map(r=>`<tr data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
+   <td><b>${esc(r.name||r.symbol)}</b><div class="muted">${esc(r.symbol)}</div></td>
+   <td>${r.market==='TW'?'🇹🇼 台股':'🇺🇸 美股'}</td>
+   <td>${stars(r.score)}</td>
+   <td>${esc(contractionText(r))}</td>
    <td>${Number(r.pivot).toFixed(2)}</td>
-   <td>${r.distance>=0?'+':''}${Number(r.distance).toFixed(1)}%</td>
+   <td>${Number(r.distance).toFixed(1)}%</td>
    <td>${r.volume_dry?'量縮 ✓':'一般'}</td>
-   <td>${r.squeeze_state||'—'}</td>
-   <td>${r.momentum||'—'}</td>
-   <td class="status-dot">${r.state}</td>
+   <td>${esc(r.squeeze_state||'—')}</td>
+   <td>${esc(r.momentum||'—')}</td>
+   <td class="status-dot">${esc(r.state)}<div style="margin-top:6px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div></td>
  </tr>`).join('');
- empty.style.display=rows.length?'none':'block';
- if(!rows.length) empty.textContent=radarRows.length?'目前這個分類沒有符合條件的股票。':'目前沒有可顯示的篩選資料。';
- document.querySelectorAll('.radar-row').forEach(row=>{
-   row.onclick=()=>{
-     const m=row.dataset.market, s=row.dataset.symbol;
-     currentMarket=m;
-     document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
-     $('symbol').value=s;
-     $('symbol').placeholder=m==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
-     window.scrollTo({top:0,behavior:'smooth'});
-     run();
-   };
+
+ body.querySelectorAll('tr[data-symbol]').forEach(tr=>tr.onclick=()=>{
+   currentMarket=tr.dataset.market; setMarket(currentMarket);
+   $('symbol').value=tr.dataset.symbol; run();
+   window.scrollTo({top:document.querySelector('.section-title').offsetTop-10,behavior:'smooth'});
  });
+
+ if(mobile){
+   mobile.innerHTML=rows.map(r=>{
+     const reasons=[];
+     reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
+     if((r.contractions||[]).length>=2) reasons.push(`<div class="reason-item reason-ok">收縮：${esc(contractionText(r))}</div>`);
+     if(r.volume_dry) reasons.push(`<div class="reason-item reason-ok">整理期間成交量呈現量縮</div>`);
+     if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(r.squeeze_state)}，波動處於壓縮狀態</div>`);
+     else reasons.push(`<div class="reason-item reason-note">${esc(r.squeeze_state||'⚪ 無壓縮')}</div>`);
+     if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(r.momentum)}</div>`);
+     if(r.type==='breakout') reasons.push(`<div class="reason-item reason-ok">最新交易日首次帶量突破 Pivot</div>`);
+     else if(r.type==='postbreakout'){
+       reasons.push(`<div class="reason-item reason-ok">突破後第 ${Number(r.breakout_days??0)+1} 天，目前仍站在 Pivot 上方</div>`);
+       reasons.push(`<div class="reason-item reason-ok">距 Pivot +${Math.max(0,Number(r.distance)).toFixed(1)}%，${r.holding_pivot?'仍守住 Pivot ✓':'需留意跌回 Pivot'}</div>`);
+     }
+     else if(r.type==='near') reasons.push(`<div class="reason-item reason-ok">距 Pivot ${Number(r.distance).toFixed(1)}%，已進入接近區</div>`);
+     else reasons.push(`<div class="reason-item reason-note">型態仍在成形，距 Pivot ${Number(r.distance).toFixed(1)}%</div>`);
+
+     return `<div class="mobile-stock-card" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
+       <div class="mobile-stock-top">
+         <div>
+           <div class="mobile-stock-name">${esc(r.name||r.symbol)}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
+         </div>
+         <div class="mobile-score">${stars(r.score)}</div>
+       </div>
+       <div class="mobile-state">${esc(r.state)}</div>
+       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div>
+       <div class="mobile-metrics">
+         <div class="mobile-metric">Pivot<b>${Number(r.pivot).toFixed(2)}</b></div>
+         <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b></div>
+         <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
+         <div class="mobile-metric">量能<b>${r.volume_dry?'量縮 ✓':'一般'}</b></div>
+       </div>
+       <div class="mobile-signal-row">
+         <span class="mobile-signal">${esc(r.squeeze_state||'—')}</span>
+         <span class="mobile-signal">${esc(r.momentum||'—')}</span>
+         ${r.combo?'<span class="mobile-signal">⚡ VCP＋Squeeze</span>':''}
+       </div>
+       <div class="mobile-why">
+         <div class="mobile-why-title">為什麼入選？</div>
+         <div class="reason-list">${reasons.join('')}</div>
+         <div class="pulse-explain"><b>VCPulse 訊號：</b>${esc(r.pulse_label||'⏳ 等待')} · ${esc((r.pulse_reasons||[]).join('、')||'依目前結構持續觀察')}</div>
+       </div>
+       <div class="mobile-cta">查看完整分析 →</div>
+     </div>`;
+   }).join('');
+
+   mobile.querySelectorAll('.mobile-stock-card').forEach(card=>card.onclick=()=>{
+     currentMarket=card.dataset.market; setMarket(currentMarket);
+     $('symbol').value=card.dataset.symbol; run();
+     window.scrollTo({top:document.querySelector('.section-title').offsetTop-10,behavior:'smooth'});
+   });
+ }
 }
 
 async function loadRadar(){

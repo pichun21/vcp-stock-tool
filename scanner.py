@@ -166,8 +166,23 @@ def analyze(df, item, market):
     if avg_value < min_liq or score < 4:
         return None
 
+    # Track a recent breakout instead of dropping it immediately after day 1.
+    # Find the most recent transition from <= Pivot to > Pivot within the last 10 sessions.
+    breakout_days=None
+    if breakout:
+        recent=close.iloc[-11:]
+        vals=recent.tolist()
+        for i in range(len(vals)-1,0,-1):
+            if vals[i-1] <= pivot and vals[i] > pivot:
+                breakout_days=(len(vals)-1)-i
+                break
+
     if today_breakout:
         typ,state="breakout","🟢 今日帶量突破"
+        breakout_days=0
+    elif breakout and breakout_days is not None and breakout_days<=5 and distance<=12:
+        typ,state="postbreakout",filler="post"
+        state=f"🔵 突破後第 {breakout_days+1} 天"
     elif not breakout and distance>-5:
         typ,state="near","🟡 接近 Pivot"
     elif not breakout:
@@ -177,6 +192,40 @@ def analyze(df, item, market):
 
     if distance>12:
         return None
+
+    # VCPulse signal is separate from the 5-point VCP score.
+    signal_points=0
+    signal_reasons=[]
+    if score>=5:
+        signal_points+=2; signal_reasons.append("VCP 5/5")
+    elif score>=4:
+        signal_points+=1; signal_reasons.append("VCP 4/5")
+    if typ=="breakout":
+        signal_points+=3; signal_reasons.append("今日帶量突破")
+    elif typ=="postbreakout":
+        signal_points+=2; signal_reasons.append("突破後仍守 Pivot")
+    elif typ=="near":
+        signal_points+=2; signal_reasons.append("接近 Pivot")
+    if squeeze_level=="strong":
+        signal_points+=2; signal_reasons.append("強力壓縮")
+    elif squeeze_level=="medium":
+        signal_points+=1; signal_reasons.append("中度壓縮")
+    elif squeeze_level=="weak":
+        signal_points+=0.5; signal_reasons.append("一般壓縮")
+    if momentum_dir=="bull_up":
+        signal_points+=2; signal_reasons.append("多方增強")
+    elif momentum_dir=="bear_up":
+        signal_points+=1; signal_reasons.append("空方減弱")
+
+    if typ=="postbreakout" and distance>8:
+        pulse_signal="extended"; pulse_label="⚠️ 過度延伸"
+        signal_reasons.append("突破後距 Pivot 超過 8%")
+    elif signal_points>=7:
+        pulse_signal="hot"; pulse_label="🔥 高關注"
+    elif signal_points>=5:
+        pulse_signal="watch"; pulse_label="👀 觀察"
+    else:
+        pulse_signal="wait"; pulse_label="⏳ 等待"
 
     return {
         "market":market,
@@ -195,6 +244,12 @@ def analyze(df, item, market):
         "momentum":momentum,
         "momentum_dir":momentum_dir,
         "combo":combo,
+        "breakout_days":breakout_days,
+        "holding_pivot":bool(last>pivot),
+        "pulse_signal":pulse_signal,
+        "pulse_label":pulse_label,
+        "pulse_points":signal_points,
+        "pulse_reasons":signal_reasons,
         "data_date":df.index[-1].strftime("%Y-%m-%d"),
         "avg_value_20d":round(avg_value,0),
     }
@@ -235,7 +290,8 @@ def scan(market):
         print(f"{market}: batch {i}/{len(batches)}")
         results.extend(download_batch(b,market))
         time.sleep(1)
-    results.sort(key=lambda r:(-r["score"], 0 if r["type"]=="breakout" else 1 if r["type"]=="near" else 2, abs(r["distance"])))
+    state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
+    results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
     # Keep website light.
     return results[:150]
 
