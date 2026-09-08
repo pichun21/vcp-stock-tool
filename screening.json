@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08 20:28",
+  "generated_at": "2026-09-09 07:19",
   "timezone": "Asia/Taipei",
   "markets": {
     "TW": {
@@ -8,9 +8,9 @@
       "scanned_at": "2026-09-08 20:28"
     },
     "US": {
-      "data_date": "2026-09-04",
-      "count": 3,
-      "scanned_at": "2026-09-08 20:28"
+      "data_date": "2026-09-08",
+      "count": 4,
+      "scanned_at": "2026-09-09 07:19"
     }
   },
   "results": [
@@ -3139,20 +3139,80 @@
     },
     {
       "market": "US",
-      "symbol": "MSFT",
-      "name": "MSFT",
+      "symbol": "INTC",
+      "name": "INTC",
       "score": 4,
-      "contracts": "-12% → -2% → -5% → -5%",
-      "pivot": 513.53,
-      "last": 499.7,
-      "distance": -2.69,
+      "contracts": "-22% → -4% → -17% → -3%",
+      "pivot": 105.45,
+      "last": 104.47,
+      "distance": -0.93,
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
       "squeeze_level": "none",
       "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "combo": false,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 9511571779.0
+    },
+    {
+      "market": "US",
+      "symbol": "MU",
+      "name": "MU",
+      "score": 4,
+      "contracts": "-14% → -25% → -4% → -10%",
+      "pivot": 1011.75,
+      "last": 1000.26,
+      "distance": -1.14,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
+      "combo": true,
+      "breakout_days": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮"
+      ],
+      "data_date": "2026-09-08",
+      "avg_value_20d": 26262172006.0
+    },
+    {
+      "market": "US",
+      "symbol": "MSFT",
+      "name": "MSFT",
+      "score": 4,
+      "contracts": "-12% → -2% → -5% → -5%",
+      "pivot": 513.53,
+      "last": 493.95,
+      "distance": -3.81,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↓ 空方增強",
+      "momentum_dir": "bear_down",
       "combo": false,
       "breakout_days": null,
       "holding_pivot": false,
@@ -3163,37 +3223,8 @@
         "VCP 4/5",
         "接近 Pivot"
       ],
-      "data_date": "2026-09-04",
-      "avg_value_20d": 11413822232.0
-    },
-    {
-      "market": "US",
-      "symbol": "PLTR",
-      "name": "PLTR",
-      "score": 5,
-      "contracts": "-9% → -7% → -4% → -4%",
-      "pivot": 186.38,
-      "last": 174.33,
-      "distance": -6.47,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↓ 空方增強",
-      "momentum_dir": "bear_down",
-      "combo": true,
-      "breakout_days": null,
-      "holding_pivot": false,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2.5,
-      "pulse_reasons": [
-        "VCP 5/5",
-        "一般壓縮"
-      ],
-      "data_date": "2026-09-04",
-      "avg_value_20d": 5864437667.0
+      "data_date": "2026-09-08",
+      "avg_value_20d": 11085680418.0
     },
     {
       "market": "US",
@@ -3202,8 +3233,8 @@
       "score": 4,
       "contracts": "-4% → -11% → -4% → -2%",
       "pivot": 340.08,
-      "last": 319.97,
-      "distance": -5.91,
+      "last": 316.22,
+      "distance": -7.02,
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
@@ -3220,8 +3251,8 @@
       "pulse_reasons": [
         "VCP 4/5"
       ],
-      "data_date": "2026-09-04",
-      "avg_value_20d": 12423340745.0
+      "data_date": "2026-09-08",
+      "avg_value_20d": 12286473798.0
     }
   ]
 }
