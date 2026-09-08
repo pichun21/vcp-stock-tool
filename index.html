@@ -433,6 +433,19 @@ th{color:#716c64}
  .mobile-top-actions{align-items:flex-start}
 }
 
+
+/* V2.12.1 mascot size */
+.brand-mascot img{width:min(410px,100%);max-height:315px}
+@media(max-width:900px) and (min-width:761px){
+  .brand-mascot img{width:370px;max-height:275px}
+}
+@media(max-width:760px){
+  .brand-mascot img{width:138px;max-height:170px}
+}
+@media(max-width:390px){
+  .brand-mascot img{width:120px;max-height:155px}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -972,8 +985,9 @@ async function loadRadar(){
 
 document.querySelectorAll('.radar-tab').forEach(btn=>{
  btn.addEventListener('click',()=>{
+  radarFilter=btn.dataset.radar;
   document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b===btn));
-  renderRadar(btn.dataset.radar);
+  renderRadar(radarFilter);
  });
 });
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
