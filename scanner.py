@@ -108,13 +108,15 @@ def analyze(df, item, market):
     dry=bool(vprev>0 and v20<vprev*0.85)
     breakout=last>pivot
     breakout_vol=bool(v20>0 and vol.iloc[-1]>v20*1.35)
+    prev=float(close.iloc[-2])
+    today_breakout=bool(prev<=pivot and breakout and breakout_vol)
 
     score=sum([
         trend,
         len(seq)>=2,
         contracting,
         dry,
-        (breakout and breakout_vol) or ((not breakout) and distance>-8),
+        today_breakout or ((not breakout) and distance>-8),
     ])
 
     # Liquidity filter to reduce unusable/very thin names.
@@ -123,14 +125,16 @@ def analyze(df, item, market):
     if avg_value < min_liq or score < 4:
         return None
 
-    if breakout and breakout_vol:
-        typ,state="breakout","🟢 帶量突破"
-    elif distance>-5:
+    if today_breakout:
+        typ,state="breakout","🟢 今日帶量突破"
+    elif not breakout and distance>-5:
         typ,state="near","🟡 接近 Pivot"
-    else:
+    elif not breakout:
         typ,state="forming","⚪ VCP 成形中"
+    else:
+        return None
 
-    if distance>12:  # already too extended for a fresh VCP radar
+    if distance>12:
         return None
 
     return {

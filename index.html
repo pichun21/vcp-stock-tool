@@ -19,6 +19,13 @@ input,button{font:inherit;border-radius:12px;border:1px solid var(--line);paddin
 button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min-width:110px}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}
 .section{margin-top:20px}
 .section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 10px}
+.helpbtn{background:#fff;color:#20231f;border:1px solid var(--line);min-width:0;padding:8px 12px}
+.helpbox{display:none;margin:10px 0 18px}
+.helpbox.open{display:block}
+.helpbox h3{margin:18px 0 7px;font-size:17px}
+.helpbox p,.helpbox li{line-height:1.65}
+.helpbox table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.helpbox th,.helpbox td{padding:9px 7px;border-bottom:1px solid #ecebe6;text-align:left;vertical-align:top}
 .section-title h2{margin:0;font-size:20px}
 .section-title .muted{font-size:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px #00000008}
@@ -68,7 +75,27 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
 }
 </style></head>
 <body><div class="wrap">
-<div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">輸入台股代號，自動檢查趨勢、波動收縮、量能與 Pivot。</div></div><div class="muted">V1 · 日線</div></div>
+<div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">單股健檢＋每日 VCP 雷達，快速整理值得觀察的型態。</div></div><button class="helpbtn" id="helpBtn">？ VCP 使用說明</button></div>
+<div class="card helpbox" id="helpBox">
+  <h3>什麼是 VCP？</h3>
+  <p><b>VCP（Volatility Contraction Pattern，波動收縮型態）</b>是觀察股價在上升趨勢中，回檔與波動逐步縮小、成交量降溫，最後等待突破關鍵價位（Pivot）的技術型態。</p>
+  <p>本站將各次回檔依序標示為 <b>C1、C2、C3、C4</b>。例如 C1 -18% → C2 -10% → C3 -6%，代表波動逐漸收斂。</p>
+  <h3>VCP 評分</h3>
+  <table>
+    <tr><th>項目</th><th>本站判斷方式</th><th>分數</th></tr>
+    <tr><td>📈 趨勢</td><td>現價高於 50 日均線，且 50 日均線高於 150 日均線</td><td>+1</td></tr>
+    <tr><td>🔄 收縮次數</td><td>至少偵測到 2 次價格回檔／收縮</td><td>+1</td></tr>
+    <tr><td>📐 收縮遞減</td><td>後續回檔幅度原則上比前一次縮小</td><td>+1</td></tr>
+    <tr><td>🔉 成交量</td><td>近期平均成交量低於前一階段，呈現量縮</td><td>+1</td></tr>
+    <tr><td>🎯 Pivot</td><td>股價接近 Pivot，或最新交易日首次帶量突破 Pivot</td><td>+1</td></tr>
+  </table>
+  <p><b>★★★★★</b>：五項皆符合；<b>★★★★☆</b>：已有明顯 VCP 特徵。每日雷達目前以 4 分以上為主要候選。</p>
+  <h3>每日雷達狀態</h3>
+  <p>🟢 <b>今日帶量突破</b>：前一交易日尚未突破 Pivot，最新交易日收盤首次站上 Pivot，且成交量明顯放大。</p>
+  <p>🟡 <b>接近 Pivot</b>：尚未突破，但距 Pivot 已相當接近。</p>
+  <p>⚪ <b>VCP 成形中</b>：已具備 VCP 特徵，但仍離 Pivot 有一段距離。</p>
+  <p class="muted"><b>重要：</b>VCP 分數代表符合本站程式化條件的完整程度，不代表未來上漲機率，也不構成投資建議。</p>
+</div>
 
 <div class="section">
   <div class="section-title">
@@ -99,7 +126,7 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
     <div class="radar-head">
       <div class="radar-tabs">
         <button class="radar-tab active" data-radar="all">全部</button>
-        <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
+        <button class="radar-tab" data-radar="breakout">🟢 今日帶量突破</button>
         <button class="radar-tab" data-radar="near">🟡 接近 Pivot</button>
         <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
       </div>
@@ -143,9 +170,10 @@ function analyze(d){
  let recent=close.slice(-35), pivot=Math.max(...recent.slice(0,-3)), last=close[n-1], distance=(last/pivot-1)*100;
  let v20=vol.slice(-20).reduce((a,b)=>a+b,0)/20, v60=vol.slice(-60,-20).reduce((a,b)=>a+b,0)/Math.max(1,vol.slice(-60,-20).length), dry=v20<v60*.85;
  let breakout=last>pivot, breakoutVol=vol[n-1]>v20*1.35;
- let pts=0; if(trend)pts++; if(seq.length>=2)pts++; if(contracting)pts++; if(dry)pts++; if((breakout&&breakoutVol)||(!breakout&&distance>-8))pts++;
- let state=breakout?(breakoutVol?'🟢 帶量突破':'🟡 突破待確認'):(distance>-5?'🟡 接近 Pivot':'⚪ 整理觀察');
- return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,pts,state,dates:d.map(x=>x.date)}
+ let prev=close[n-2], todayBreakout=prev<=pivot && breakout && breakoutVol;
+ let pts=0; if(trend)pts++; if(seq.length>=2)pts++; if(contracting)pts++; if(dry)pts++; if(todayBreakout||(!breakout&&distance>-8))pts++;
+ let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
+ return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart'),x=c.getContext('2d'),W=c.width,H=c.height;x.clearRect(0,0,W,H);let vals=a.close.slice(-120),min=Math.min(...vals)*.97,max=Math.max(...vals)*1.03,pad=35;
@@ -201,23 +229,47 @@ function normalizeData(rows,market){
   Trading_Volume:+x.Trading_Volume
  })).filter(x=>Number.isFinite(x.close));
 }
-async function run(){
- let s=$('symbol').value.trim().toUpperCase();
- let valid=currentMarket==='TW'?/^\d{4,6}$/.test(s):/^[A-Z][A-Z0-9.\-^]{0,9}$/.test(s);
- if(!valid){showErr(currentMarket==='TW'?'請輸入台股代號，例如 2330。':'請輸入美股代號，例如 NVDA、TSLA、AAPL。');return}
- $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
- let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
+
+async function resolveTaiwanInput(raw){
+ const q=raw.trim();
+ if(/^\d{4,6}$/.test(q)) return {symbol:q,name:''};
  try{
+  let r=await fetch(`${API}?dataset=TaiwanStockInfo`);
+  let j=await r.json();
+  const rows=(j.data||[]).filter(x=>x.stock_id && x.stock_name);
+  let exact=rows.find(x=>String(x.stock_name).trim()===q);
+  if(exact) return {symbol:String(exact.stock_id),name:String(exact.stock_name)};
+  let hits=rows.filter(x=>String(x.stock_name).includes(q));
+  const unique=[...new Map(hits.map(x=>[String(x.stock_id),x])).values()];
+  if(unique.length===1) return {symbol:String(unique[0].stock_id),name:String(unique[0].stock_name)};
+  if(unique.length>1) throw new Error(`「${q}」符合多檔股票，請輸入更完整名稱或股票代號。`);
+ }catch(e){
+  if(e.message && e.message.includes('符合多檔')) throw e;
+ }
+ throw new Error(`找不到「${q}」，請輸入台股代號或完整中文名稱，例如 2330、台積電。`);
+}
+
+async function run(){
+ let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
+ $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
+ try{
+  if(currentMarket==='TW'){
+   const resolved=await resolveTaiwanInput(raw);
+   s=resolved.symbol; resolvedName=resolved.name||'';
+  }else if(!/^[A-Z][A-Z0-9.\-^]{0,9}$/.test(s)){
+   throw new Error('請輸入美股代號，例如 NVDA、TSLA、AAPL。');
+  }
+ let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
   let r=await fetch(u),j=await r.json(); if(!r.ok||!j.data||j.data.length<160)throw new Error(j.msg||'歷史資料不足');
-  let d=normalizeData(j.data,currentMarket),a=analyze(d),stockName=await getStockName(s,currentMarket);
+  let d=normalizeData(j.data,currentMarket),a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+x.toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
   $('checks').innerHTML=rows.map(r=>`<div class="check"><span>${r[0]}</span><b class="${r[1]?'good':'bad'}">${r[1]?'✓':'×'}</b></div>`).join('');
-  $('summary').textContent=a.breakout?(a.breakoutVol?'目前已突破估算 Pivot，且量能擴張；仍應先設定失敗突破的退出條件。':'價格已越過 Pivot，但量能尚未明顯確認。'):(a.distance>-5?'價格已靠近 Pivot，可列入觀察，不必預先猜突破。':'目前離 Pivot 還有距離，先觀察型態是否繼續收緊。');
+  $('summary').textContent=a.todayBreakout?'最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?'股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?'價格已靠近 Pivot，可列入觀察，不必預先猜突破。':'目前離 Pivot 還有距離，先觀察型態是否繼續收緊。'));
   draw(a)
  }catch(e){showErr('抓不到資料：'+e.message+'。若瀏覽器阻擋跨網域請求，可改用本機伺服器開啟本頁。')}
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
@@ -228,7 +280,7 @@ document.querySelectorAll('.marketbtn').forEach(btn=>{
   currentMarket=btn.dataset.market;
   document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b===btn));
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
-  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、5274';
+  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
   $('title').textContent='等待分析';$('period').textContent='';$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';
@@ -302,6 +354,8 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
   renderRadar(btn.dataset.radar);
  });
 });
+const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
+if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
 loadRadar();
 
 </script></body></html>
