@@ -101,6 +101,13 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
   <p>動能以價格相對 20 日平均價格的位置與變化輔助判斷，顯示為 <b>↑ 多方增強、↘ 多方減弱、↓ 空方增強、↗ 空方減弱</b>。</p>
   <h3>⚡ VCP＋Squeeze</h3>
   <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
+  <h3>每日雷達如何排序？</h3>
+  <p>每日雷達優先顯示當下較值得注意的狀態，而不是只看星數：</p>
+  <p><b>① 狀態</b>：🟢 今日帶量突破 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
+  <b>② VCP 完整度</b>：★★★★★ → ★★★★☆<br>
+  <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮<br>
+  <b>④ Momentum</b>：↑ 多方增強 → ↗ 空方減弱 → ↘ 多方減弱 → ↓ 空方增強<br>
+  <b>⑤ 距 Pivot</b>：其他條件相同時，距 Pivot 較近者優先。</p>
   <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>
 </div>
 
@@ -135,7 +142,8 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日帶量突破</button>
         <button class="radar-tab" data-radar="near">🟡 接近 Pivot</button>
-        <button class="radar-tab" data-radar="forming">⚪ 成形中</button>\n        <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
+        <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
+        <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
       </div>
       <div class="muted">預計顯示 4 分以上</div>
     </div>
@@ -150,6 +158,8 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
             <th>Pivot</th>
             <th>距 Pivot</th>
             <th>量能</th>
+            <th>PowerSqueeze</th>
+            <th>Momentum</th>
             <th>狀態</th>
           </tr>
         </thead>
@@ -324,6 +334,16 @@ function renderRadar(filter='all'){
  const body=document.getElementById('radarBody'), empty=document.getElementById('radarEmpty');
  if(!body||!empty)return;
  const rows=radarRows.filter(r=>filter==='all'||(filter==='combo'?r.combo:r.type===filter));
+ const statusRank={breakout:0,near:1,forming:2};
+ const squeezeRank={strong:0,medium:1,weak:2,none:3};
+ const momentumRank={bull_up:0,bear_up:1,bull_down:2,bear_down:3};
+ rows.sort((a,b)=>
+   ((statusRank[a.type]??9)-(statusRank[b.type]??9)) ||
+   ((b.score??0)-(a.score??0)) ||
+   ((squeezeRank[a.squeeze_level]??9)-(squeezeRank[b.squeeze_level]??9)) ||
+   ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) ||
+   (Math.abs(a.distance??999)-Math.abs(b.distance??999))
+ );
  body.innerHTML=rows.map(r=>`<tr class="radar-row" data-market="${r.market}" data-symbol="${r.symbol}" title="點一下查看單股健檢">
    <td><b>${r.name}</b> <span class="muted">(${r.symbol})</span></td>
    <td>${marketLabel(r.market)}</td>
