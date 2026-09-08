@@ -545,6 +545,18 @@ th{color:#716c64}
  }
 }
 
+
+/* V2.13 — high-attention filter */
+@media(max-width:760px){
+ .radar-tabs{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ .radar-tab{
+   width:100%;
+   justify-content:center;
+ }
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -635,6 +647,7 @@ th{color:#716c64}
       <div class="radar-tabs">
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab favorite-tab" data-radar="favorites">🏷️ 我的收藏 <span id="favoriteCount">0</span></button>
+        <button class="radar-tab" data-radar="hot">🔥 高關注</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
         <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 近 Pivot</button>
@@ -955,7 +968,12 @@ function returnToRadarPosition(){
 }
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
- const rows=radarRows.filter(r=>filter==='all'||(filter==='favorites'?isFavorite(r):(filter==='combo'?r.combo:r.type===filter)));
+ const rows=radarRows.filter(r=>
+   filter==='all' ||
+   (filter==='favorites' ? isFavorite(r) :
+   (filter==='hot' ? r.pulse_signal==='hot' :
+   (filter==='combo' ? r.combo : r.type===filter)))
+ );
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
  const squeezeRank={strong:0,medium:1,weak:2,none:3};
