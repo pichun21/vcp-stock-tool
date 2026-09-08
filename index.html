@@ -617,7 +617,7 @@ function renderRadar(filter='all'){
          <div class="mobile-score">${stars(r.score)}</div>
        </div>
        <div class="mobile-state">${esc(r.state)}</div>
-       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">VCPulse｜${esc(r.pulse_label||'⏳ 等待')}</span></div>
+       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div>
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot<b>${Number(r.pivot).toFixed(2)}</b></div>
          <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b></div>
