@@ -1110,9 +1110,6 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
   renderRadar(radarFilter);
  });
 });
-const radarBackFloat=document.getElementById('radarBackFloat');
-if(radarBackFloat) radarBackFloat.addEventListener('click',returnToRadarPosition);
-
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
 loadRadar();
@@ -1149,7 +1146,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 
-<button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置">
+<button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
   ← 返回剛才清單
 </button>
 
