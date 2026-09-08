@@ -446,6 +446,29 @@ th{color:#716c64}
   .brand-mascot img{width:120px;max-height:155px}
 }
 
+
+/* V2.12.4 return to radar position */
+.single-head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.return-radar-btn{
+ border:1px solid #dfd5c8;background:#fffaf4;color:#6f563d;border-radius:999px;
+ padding:7px 11px;font-size:11px;font-weight:900;cursor:pointer
+}
+.return-radar-btn:hover{background:#f5ede3}
+.radar-return-highlight{animation:radarReturnGlow 1.8s ease}
+@keyframes radarReturnGlow{
+ 0%,100%{box-shadow:none;background-color:transparent}
+ 20%,65%{box-shadow:0 0 0 3px rgba(184,120,54,.18);background-color:#fff7e8}
+}
+.mobile-stock-card.radar-return-highlight{animation:radarReturnCardGlow 1.8s ease}
+@keyframes radarReturnCardGlow{
+ 0%,100%{box-shadow:0 6px 18px rgba(57,46,33,.045)}
+ 20%,65%{box-shadow:0 0 0 3px rgba(184,120,54,.20),0 8px 22px rgba(57,46,33,.07);background:#fff8eb}
+}
+@media(max-width:760px){
+ .single-head-actions{width:100%;justify-content:space-between;gap:5px;margin-top:4px}
+ .return-radar-btn{padding:6px 9px;font-size:10.5px}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -506,7 +529,10 @@ th{color:#716c64}
 <div class="section" id="singleStockAnalysis">
   <div class="section-title">
     <h2>🔎 單股查詢</h2>
-    <div class="muted">輸入代號，查看完整 VCP 健檢</div>
+    <div class="single-head-actions">
+      <button type="button" id="returnRadarBtn" class="return-radar-btn" hidden>← 返回雷達原位置</button>
+      <div class="muted">輸入代號，查看完整 VCP 健檢</div>
+    </div>
   </div>
   <div class="marketbar">
 <button class="marketbtn active" data-market="TW">🇹🇼 台股</button>
@@ -806,6 +832,41 @@ function updateFavoriteCount(){
  const el=document.getElementById('favoriteCount'); if(el) el.textContent=getFavorites().size;
 }
 
+let radarReturnState=null;
+function rememberRadarPosition(market,symbol){
+ radarReturnState={
+   market:String(market),
+   symbol:String(symbol),
+   filter:radarFilter,
+   scrollY:window.scrollY
+ };
+ const btn=document.getElementById('returnRadarBtn');
+ if(btn) btn.hidden=false;
+}
+function returnToRadarPosition(){
+ if(!radarReturnState) return;
+ const saved=radarReturnState;
+ if(radarFilter!==saved.filter){
+   radarFilter=saved.filter;
+   document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b.dataset.radar===radarFilter));
+   renderRadar(radarFilter);
+ }
+ requestAnimationFrame(()=>{
+   const selector=`[data-market="${CSS.escape(saved.market)}"][data-symbol="${CSS.escape(saved.symbol)}"]`;
+   const desktop=document.querySelector(`#radarBody ${selector}`);
+   const mobile=document.querySelector(`#radarMobile ${selector}`);
+   const target=(window.matchMedia('(max-width:760px)').matches?mobile:desktop) || mobile || desktop;
+   if(target){
+     target.scrollIntoView({behavior:'smooth',block:'center'});
+     target.classList.remove('radar-return-highlight');
+     void target.offsetWidth;
+     target.classList.add('radar-return-highlight');
+     setTimeout(()=>target.classList.remove('radar-return-highlight'),1800);
+   }else{
+     window.scrollTo({top:saved.scrollY,behavior:'smooth'});
+   }
+ });
+}
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>filter==='all'||(filter==='favorites'?isFavorite(r):(filter==='combo'?r.combo:r.type===filter)));
@@ -852,6 +913,9 @@ function renderRadar(filter='all'){
  </tr>`).join('');
 
  const openAnalysis=(market,symbol)=>{
+   // Remember exactly where the user came from in the radar.
+   rememberRadarPosition(market,symbol);
+
    // Use the same market switch used by the manual TW/US buttons.
    setMarket(market,{reset:false});
    $('symbol').value=symbol;
@@ -1011,6 +1075,9 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
   renderRadar(radarFilter);
  });
 });
+const returnRadarBtn=document.getElementById('returnRadarBtn');
+if(returnRadarBtn) returnRadarBtn.addEventListener('click',returnToRadarPosition);
+
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
 loadRadar();
