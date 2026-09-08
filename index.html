@@ -249,6 +249,21 @@ th{color:#716c64}
   .radar-mobile{display:block!important}
 }
 
+
+/* V2.9.3 clearer VCPulse signal explanation */
+.pulse-help-detail{margin-top:18px;padding-top:16px;border-top:1px solid #e7dfd5}
+.pulse-help-detail h3{margin:0 0 8px;font-size:17px}
+.pulse-help-detail>p{line-height:1.7}
+.pulse-help-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.pulse-help-grid>div{padding:11px 12px;border:1px solid #e8e0d6;border-radius:13px;background:#fffdfa}
+.pulse-help-grid b{display:block;margin-bottom:4px}
+.pulse-help-grid span{display:block;font-size:13px;line-height:1.55;color:#6f6961}
+.pulse-help-note{padding:10px 12px;border-radius:12px;background:#f5f1e9;font-size:13px}
+.pulse-rule-detail{margin-top:10px;font-size:13px}
+.pulse-rule-detail summary{cursor:pointer;font-weight:800;color:#6d5239}
+.pulse-rule-detail p{line-height:1.65;color:#6f6961}
+@media(max-width:760px){.pulse-help-grid{grid-template-columns:1fr}}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -560,7 +575,7 @@ function renderRadar(filter='all'){
    <td>${r.volume_dry?'量縮 ✓':'一般'}</td>
    <td>${esc(r.squeeze_state||'—')}</td>
    <td>${esc(r.momentum||'—')}</td>
-   <td class="status-dot">${esc(r.state)}<div style="margin-top:6px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div></td>
+   <td class="status-dot">${esc(r.state)}<div style="margin-top:6px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">VCPulse｜${esc(r.pulse_label||'⏳ 等待')}</span></div></td>
  </tr>`).join('');
 
  body.querySelectorAll('tr[data-symbol]').forEach(tr=>tr.onclick=()=>{
@@ -595,7 +610,7 @@ function renderRadar(filter='all'){
          <div class="mobile-score">${stars(r.score)}</div>
        </div>
        <div class="mobile-state">${esc(r.state)}</div>
-       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(r.pulse_label||'⏳ 等待')}</span></div>
+       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">VCPulse｜${esc(r.pulse_label||'⏳ 等待')}</span></div>
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot<b>${Number(r.pivot).toFixed(2)}</b></div>
          <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b></div>
@@ -657,4 +672,35 @@ const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementByI
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
 loadRadar();
 
-</script></body></html>
+</script>
+<div id="pulseHelpExtra" style="display:none">
+<div class="pulse-help-detail">
+  <h3>VCPulse 綜合訊號怎麼看？</h3>
+  <p>VCP 星等只評估「VCP 型態品質」；VCPulse 綜合訊號則加入 <b>Pivot 位置、PowerSqueeze 與 Momentum</b>，表示目前值得關注的程度。</p>
+  <div class="pulse-help-grid">
+    <div><b>🔥 高關注</b><span>VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。</span></div>
+    <div><b>👀 觀察</b><span>VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。</span></div>
+    <div><b>⏳ 等待</b><span>雖符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，等待條件進一步改善。</span></div>
+    <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
+  </div>
+  <p class="pulse-help-note"><b>重點：</b>「等待」不代表看空；「觀察／高關注」也不代表買進。標籤只是協助比較 VCP 候選股目前所處的階段。</p>
+  <details class="pulse-rule-detail">
+    <summary>查看訊號判斷規則</summary>
+    <p>系統依 VCP 分數、今日突破／突破後／接近 Pivot 狀態、PowerSqueeze 強度與 Momentum 方向綜合判斷。條件配合越多，關注層級越高；突破後若距 Pivot 超過 8%，則優先標示為「過度延伸」。</p>
+  </details>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const extra=document.getElementById('pulseHelpExtra');
+  const candidates=[...document.querySelectorAll('div')].filter(el=>el.textContent.includes('指標使用說明'));
+  const target=candidates.sort((a,b)=>a.textContent.length-b.textContent.length)[0];
+  if(extra && target){
+    const block=extra.firstElementChild;
+    if(block) target.appendChild(block);
+    extra.remove();
+  }
+});
+</script>
+
+</body></html>
