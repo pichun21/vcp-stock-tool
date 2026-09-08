@@ -1,27 +1,85 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f4ef">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="VCP健檢">
 <title>VCP 股票健檢器</title>
 <style>
 :root{--bg:#f5f4ef;--card:#fff;--ink:#20231f;--muted:#70756e;--line:#dddcd4;--good:#2f7d52;--warn:#a06a14;--bad:#a33d36}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink)}
 .wrap{max-width:1040px;margin:42px auto;padding:0 18px}.head{display:flex;justify-content:space-between;align-items:end;gap:20px}
-h1{margin:0;font-size:34px}.sub{color:var(--muted);margin-top:6px}.search{display:flex;gap:8px;margin:28px 0 18px}
+h1{margin:0;font-size:34px}.sub{color:var(--muted);margin-top:6px}.marketbar{display:flex;gap:8px;margin:22px 0 10px}
+.marketbtn{background:#fff;color:#20231f;border:1px solid var(--line);min-width:0;padding:10px 14px}
+.marketbtn.active{background:#20231f;color:#fff}
+.search{display:flex;gap:8px;margin:10px 0 18px}
 input,button{font:inherit;border-radius:12px;border:1px solid var(--line);padding:13px 15px}input{flex:1;background:white;font-size:17px}
 button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min-width:110px}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}
+.section{margin-top:20px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 10px}
+.section-title h2{margin:0;font-size:20px}
+.section-title .muted{font-size:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px #00000008}
+.radar-card{margin-top:10px}
+.radar-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.radar-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.radar-tab{background:#f3f3ef;color:#20231f;border:1px solid var(--line);min-width:0;padding:8px 12px}
+.radar-tab.active{background:#20231f;color:#fff}
+.radar-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.radar-table th,.radar-table td{padding:11px 8px;border-bottom:1px solid #ecebe6;text-align:left;white-space:nowrap}
+.radar-table th{font-size:12px;color:var(--muted);font-weight:700}
+.radar-empty{padding:24px 4px;color:var(--muted);text-align:center}
+.status-dot{font-weight:700}
+@media(max-width:760px){
+ .radar-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+ .radar-table{min-width:720px}
+ .section-title h2{font-size:18px}
+}
 .topline{display:flex;justify-content:space-between;gap:12px;align-items:center}.ticker{font-size:25px;font-weight:800}.badge{padding:7px 10px;border-radius:999px;background:#eee;font-weight:700}
 .score{font-size:44px;font-weight:900;margin:8px 0}.stars{font-size:21px;letter-spacing:2px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
 .metric{padding:13px;background:#f7f7f3;border-radius:12px}.metric b{display:block;font-size:20px;margin-top:4px}.muted{color:var(--muted);font-size:13px}
 canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:14px}.checks{display:grid;gap:10px;margin-top:12px}
 .check{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:9px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
 .note{font-size:13px;color:var(--muted);line-height:1.55;margin-top:16px}.error{padding:12px;border-radius:10px;background:#fff0ed;color:#8d302b;display:none;margin-bottom:12px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.head{display:block}h1{font-size:29px}}
+@media(max-width:760px){
+ body{padding-bottom:env(safe-area-inset-bottom)}
+ .wrap{margin:18px auto;padding:0 12px}
+ .head{display:block}.head .muted:last-child{margin-top:6px}
+ h1{font-size:27px}.sub{font-size:14px;line-height:1.45}
+ .marketbar{margin:14px 0 6px}.marketbtn{flex:1}.search{position:sticky;top:0;z-index:10;margin:6px -4px 12px;padding:8px 4px;background:rgba(245,244,239,.96);backdrop-filter:blur(8px)}
+ .search input{min-width:0;font-size:16px;padding:12px}.search button{min-width:92px;padding:12px 10px}
+ .grid{grid-template-columns:1fr;gap:12px}
+ .card{padding:15px;border-radius:15px}
+ .grid .card:nth-child(2){grid-row:1}
+ .grid .card:nth-child(1){grid-row:2}
+ .ticker{font-size:22px}.badge{font-size:13px;padding:6px 8px}
+ .score{font-size:38px;margin:4px 0}.stars{font-size:18px}
+ .metrics{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+ .metric{padding:11px}.metric b{font-size:17px;overflow-wrap:anywhere}
+ canvas{height:270px;margin-top:10px}
+ .checks{font-size:14px}.note{font-size:12px}
+}
+@media(max-width:390px){
+ .metrics{grid-template-columns:1fr 1fr}
+ .metric b{font-size:15px}
+ canvas{height:235px}
+}
 </style></head>
 <body><div class="wrap">
 <div class="head"><div><h1>VCP 股票健檢器</h1><div class="sub">輸入台股代號，自動檢查趨勢、波動收縮、量能與 Pivot。</div></div><div class="muted">V1 · 日線</div></div>
-<div class="search"><input id="symbol" value="2330" placeholder="例如：2330、5274"><button id="go">開始分析</button></div>
+
+<div class="section">
+  <div class="section-title">
+    <h2>🔎 單股查詢</h2>
+    <div class="muted">輸入代號，查看完整 VCP 健檢</div>
+  </div>
+  <div class="marketbar">
+<button class="marketbtn active" data-market="TW">🇹🇼 台股</button>
+<button class="marketbtn" data-market="US">🇺🇸 美股</button>
+</div>
+<div class="search"><input id="symbol" value="2330" placeholder="例如：2330"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
 <div class="card"><div class="topline"><div><div class="ticker" id="title">等待分析</div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
@@ -29,6 +87,46 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary">輸入股票代號後開始。</div></div>
+
+</div>
+
+<div class="section">
+  <div class="section-title">
+    <h2>📡 每日 VCP 篩選</h2>
+    <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
+  </div>
+  <div class="card radar-card">
+    <div class="radar-head">
+      <div class="radar-tabs">
+        <button class="radar-tab active" data-radar="all">全部</button>
+        <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
+        <button class="radar-tab" data-radar="near">🟡 接近 Pivot</button>
+        <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
+      </div>
+      <div class="muted">預計顯示 4 分以上</div>
+    </div>
+    <div class="radar-table-wrap">
+      <table class="radar-table">
+        <thead>
+          <tr>
+            <th>股票</th>
+            <th>市場</th>
+            <th>VCP</th>
+            <th>收縮</th>
+            <th>Pivot</th>
+            <th>距 Pivot</th>
+            <th>量能</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody id="radarBody"></tbody>
+      </table>
+      <div class="radar-empty" id="radarEmpty">
+        每日自動篩選功能尚未接上。之後 GitHub Actions 掃描完成的名單會顯示在這裡。
+      </div>
+    </div>
+  </div>
+</div>
 </div></div>
 <script>
 const $=id=>document.getElementById(id), API='https://api.finmindtrade.com/api/v4/data';
@@ -73,25 +171,48 @@ function draw(a){
    x.fillText(label,Math.min(x1+5,W-pad-82),Math.max(pad+13,(y1+y2)/2));
  });
 }
-async function getStockName(s){
+let currentMarket='TW';
+async function getStockName(s,market){
  try{
-  let r=await fetch(`${API}?dataset=TaiwanStockInfo`);
+  let dataset=market==='US'?'USStockInfo':'TaiwanStockInfo';
+  let r=await fetch(`${API}?dataset=${dataset}`);
   let j=await r.json();
   if(j.data){
-   let row=j.data.find(x=>String(x.stock_id)===s);
+   let row=j.data.find(x=>String(x.stock_id).toUpperCase()===s.toUpperCase());
    if(row) return row.stock_name || row.stock_id;
   }
  }catch(e){}
  return '';
 }
+function normalizeData(rows,market){
+ if(market==='US'){
+  return rows.map(x=>({
+   date:x.date,
+   close:+x.Close,
+   open:+x.Open,
+   max:+x.High,
+   min:+x.Low,
+   Trading_Volume:+x.Volume
+  })).filter(x=>Number.isFinite(x.close));
+ }
+ return rows.map(x=>({
+  ...x,
+  close:+x.close,
+  Trading_Volume:+x.Trading_Volume
+ })).filter(x=>Number.isFinite(x.close));
+}
 async function run(){
- let s=$('symbol').value.trim(); if(!/^\d{4,6}$/.test(s)){showErr('請輸入台股代號，例如 2330。');return}
+ let s=$('symbol').value.trim().toUpperCase();
+ let valid=currentMarket==='TW'?/^\d{4,6}$/.test(s):/^[A-Z][A-Z0-9.\-^]{0,9}$/.test(s);
+ if(!valid){showErr(currentMarket==='TW'?'請輸入台股代號，例如 2330。':'請輸入美股代號，例如 NVDA、TSLA、AAPL。');return}
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
  let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
  try{
-  let u=`${API}?dataset=TaiwanStockPrice&data_id=${s}&start_date=${f(start)}&end_date=${f(end)}`;
+  let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
+  let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
   let r=await fetch(u),j=await r.json(); if(!r.ok||!j.data||j.data.length<160)throw new Error(j.msg||'歷史資料不足');
-  let d=j.data,a=analyze(d),stockName=await getStockName(s); $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · 台股`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
+  let d=normalizeData(j.data,currentMarket),a=analyze(d),stockName=await getStockName(s,currentMarket);
+  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+x.toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
@@ -102,5 +223,38 @@ async function run(){
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
 }
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
+document.querySelectorAll('.marketbtn').forEach(btn=>{
+ btn.onclick=()=>{
+  currentMarket=btn.dataset.market;
+  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b===btn));
+  $('symbol').value=currentMarket==='US'?'NVDA':'2330';
+  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、5274';
+  $('title').textContent='等待分析';$('period').textContent='';$('state').textContent='—';
+  $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
+  $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';
+ };
+});
 $('go').onclick=run;$('symbol').onkeydown=e=>{if(e.key==='Enter')run()};run();
+
+// V2 layout placeholder: daily radar results will be injected here once screening.json is available.
+const radarRows = [];
+function renderRadar(filter='all'){
+ const body=document.getElementById('radarBody'), empty=document.getElementById('radarEmpty');
+ if(!body||!empty)return;
+ const rows=radarRows.filter(r=>filter==='all'||r.type===filter);
+ body.innerHTML=rows.map(r=>`<tr>
+   <td><b>${r.name}</b> <span class="muted">(${r.symbol})</span></td>
+   <td>${r.market}</td><td>${r.score}/5</td><td>${r.contracts}</td>
+   <td>${r.pivot}</td><td>${r.distance}</td><td>${r.volume}</td><td class="status-dot">${r.state}</td>
+ </tr>`).join('');
+ empty.style.display=rows.length?'none':'block';
+}
+document.querySelectorAll('.radar-tab').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b===btn));
+  renderRadar(btn.dataset.radar);
+ });
+});
+renderRadar();
+
 </script></body></html>
