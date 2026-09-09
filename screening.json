@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09 22:33",
+  "generated_at": "2026-09-09 23:38",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -7,13 +7,13 @@
     "US": {
       "data_date": "2026-09-09",
       "count": 2,
-      "scanned_at": "2026-09-09 22:33",
+      "scanned_at": "2026-09-09 23:38",
       "snapshot_type": "official"
     },
     "TW": {
       "data_date": "2026-09-09",
       "count": 125,
-      "scanned_at": "2026-09-09 22:33",
+      "scanned_at": "2026-09-09 23:38",
       "snapshot_type": "official"
     }
   },
@@ -21,13 +21,13 @@
     "US": {
       "data_date": "2026-09-09",
       "count": 2,
-      "scanned_at": "2026-09-09 22:33",
+      "scanned_at": "2026-09-09 23:38",
       "snapshot_type": "official"
     },
     "TW": {
       "data_date": "2026-09-09",
       "count": 125,
-      "scanned_at": "2026-09-09 22:33",
+      "scanned_at": "2026-09-09 23:38",
       "snapshot_type": "official"
     }
   },
@@ -49,6 +49,40 @@
         "change_points": 0.9,
         "change_pct": 0.22,
         "data_time": "20260909"
+      }
+    },
+    "US": {
+      "SOX": {
+        "id": "^SOX",
+        "label": "費城半導體",
+        "close": 11899.38,
+        "change_points": 11.51,
+        "change_pct": 0.1,
+        "data_time": "2026-09-09"
+      },
+      "SP500": {
+        "id": "^GSPC",
+        "label": "S&P 500",
+        "close": 7635.32,
+        "change_points": -38.2,
+        "change_pct": -0.5,
+        "data_time": "2026-09-09"
+      },
+      "NASDAQ": {
+        "id": "^IXIC",
+        "label": "NASDAQ",
+        "close": 26235.43,
+        "change_points": -185.98,
+        "change_pct": -0.7,
+        "data_time": "2026-09-09"
+      },
+      "RUSSELL2000": {
+        "id": "^RUT",
+        "label": "Russell 2000",
+        "close": 2927.09,
+        "change_points": -33.11,
+        "change_pct": -1.12,
+        "data_time": "2026-09-09"
       }
     }
   },
@@ -4310,9 +4344,9 @@
       "score": 4,
       "contracts": "-12% → -2% → -5% → -5%",
       "pivot": 513.53,
-      "last": 491.86,
-      "distance": -4.22,
-      "change_pct": -0.42,
+      "last": 492.56,
+      "distance": -4.08,
+      "change_pct": -0.28,
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
@@ -4331,7 +4365,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 10575294345.0,
+      "avg_value_20d": 10611912656.0,
       "is_new": false,
       "new_reason": ""
     },
@@ -4343,9 +4377,9 @@
       "score": 4,
       "contracts": "-22% → -9% → -11% → -5%",
       "pivot": 552.33,
-      "last": 521.75,
-      "distance": -5.54,
-      "change_pct": 3.17,
+      "last": 520.13,
+      "distance": -5.83,
+      "change_pct": 2.85,
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
@@ -4364,7 +4398,7 @@
         "多方增強"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 8403584027.0,
+      "avg_value_20d": 8490318221.0,
       "is_new": true,
       "new_reason": "今日達到 VCP 4/5 入選門檻，且為一般壓縮"
     }
@@ -8626,9 +8660,9 @@
       "score": 4,
       "contracts": "-12% → -2% → -5% → -5%",
       "pivot": 513.53,
-      "last": 491.86,
-      "distance": -4.22,
-      "change_pct": -0.42,
+      "last": 492.56,
+      "distance": -4.08,
+      "change_pct": -0.28,
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
@@ -8647,7 +8681,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 10575294345.0,
+      "avg_value_20d": 10611912656.0,
       "is_new": false,
       "new_reason": ""
     },
@@ -8659,9 +8693,9 @@
       "score": 4,
       "contracts": "-22% → -9% → -11% → -5%",
       "pivot": 552.33,
-      "last": 521.75,
-      "distance": -5.54,
-      "change_pct": 3.17,
+      "last": 520.13,
+      "distance": -5.83,
+      "change_pct": 2.85,
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
@@ -8680,7 +8714,7 @@
         "多方增強"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 8403584027.0,
+      "avg_value_20d": 8490318221.0,
       "is_new": true,
       "new_reason": "今日達到 VCP 4/5 入選門檻，且為一般壓縮"
     }
