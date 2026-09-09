@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.27 US FOUR INDICES
+# VCPulse BUILD 2.27.1 MARKET SWITCH
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path

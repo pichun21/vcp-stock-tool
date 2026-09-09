@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.27 US FOUR INDICES -->
+<!-- VCPulse BUILD 2.27.1 MARKET SWITCH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -756,6 +756,23 @@ th{color:#716c64}
  #marketOverview.us-market .market-index-change{font-size:12px}
 }
 
+/* V2.27.1 — 雷達市場切換 */
+.radar-market-switch{
+ display:inline-flex;gap:4px;padding:4px;margin:0 0 10px;
+ border:1px solid #e6dfd5;border-radius:14px;background:#f6f3ed;
+}
+.radar-market-btn{
+ border:0;background:transparent;color:#6e6a63;border-radius:10px;
+ padding:8px 15px;font-size:12px;font-weight:900;cursor:pointer;
+}
+.radar-market-btn.active{
+ background:#fff;box-shadow:0 1px 5px rgba(60,48,35,.09);color:#2f2b26;
+}
+@media(max-width:760px){
+ .radar-market-switch{display:flex;width:100%;box-sizing:border-box}
+ .radar-market-btn{flex:1;padding:8px 10px}
+}
+
 </style></head>
 <body>
 
@@ -867,6 +884,10 @@ th{color:#716c64}
       <div class="radar-count-pill">目前顯示 <b id="radarCount">—</b> 檔</div>
       <div class="muted" id="radarUpdated" style="display:none!important" aria-hidden="true"></div>
     </div>
+  </div>
+  <div class="radar-market-switch" id="radarMarketSwitch">
+    <button type="button" class="radar-market-btn active" data-market="TW" onclick="setMarket('TW',{reset:false})">🇹🇼 台股</button>
+    <button type="button" class="radar-market-btn" data-market="US" onclick="setMarket('US',{reset:false})">🇺🇸 美股</button>
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div id="marketOverview" class="market-overview" hidden></div>
@@ -1132,6 +1153,7 @@ async function run(){
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
 function setMarket(m,{reset=true}={}){
  currentMarket=m;
+ document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
@@ -1141,6 +1163,7 @@ function setMarket(m,{reset=true}={}){
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
+ renderRadar(radarFilter);
 }
 document.querySelectorAll('.marketbtn').forEach(btn=>{
  btn.onclick=()=>setMarket(btn.dataset.market,{reset:true});
