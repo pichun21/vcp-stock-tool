@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.12 AUTH CODE COPY -->
+<!-- VCPulse BUILD 2.22.13 AUTH + BIDIRECTIONAL PIVOT -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -575,22 +575,51 @@ th{color:#716c64}
 }
 
 
-/* V2.15 — Pivot clarity + distance visual */
+/* V2.22.13 — bidirectional Pivot distance visual */
 .pivot-distance-track{
+ position:relative;
  width:100%;
  max-width:112px;
- height:5px;
- margin-top:7px;
+ height:7px;
+ margin-top:8px;
  border-radius:999px;
  background:#ebe7df;
  overflow:hidden;
 }
-.pivot-distance-track span{
- display:block;
+.pivot-distance-track::after{
+ content:"";
+ position:absolute;
+ left:50%;
+ top:-2px;
+ bottom:-2px;
+ width:2px;
+ border-radius:2px;
+ background:#8b8378;
+ opacity:.72;
+ transform:translateX(-1px);
+ z-index:2;
+}
+.pivot-distance-fill{
+ position:absolute;
+ top:0;
  height:100%;
  border-radius:999px;
- background:#b88a55;
- opacity:.65;
+ opacity:.9;
+}
+.pivot-distance-fill.negative{
+ right:50%;
+ background:#d98a3a;
+}
+.pivot-distance-fill.near{
+ background:#d9b84c;
+}
+.pivot-distance-fill.positive{
+ left:50%;
+ background:#64a96f;
+}
+.pivot-distance-track[data-zone="near"] .pivot-distance-fill{
+ left:calc(50% - 4px);
+ width:8px!important;
 }
 
 
@@ -648,6 +677,7 @@ th{color:#716c64}
 #radarUpdated{display:none!important}
 </style></head>
 <body>
+
 <div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
   <div style="width:min(430px,100%);background:#fffdfa;border:1px solid #e8e1d7;border-radius:24px;padding:30px;box-shadow:0 12px 32px rgba(53,46,38,.08);text-align:center">
     <div style="font-size:42px;font-weight:900;letter-spacing:-2px;color:#24231f">VCP<span style="color:#c58d58">ulse</span></div>
@@ -658,7 +688,6 @@ th{color:#716c64}
     <div style="margin-top:16px;color:#918a80;font-size:11px">VCPulse 授權登入版</div>
   </div>
 </div>
-
 <div id="userBar" style="display:none;position:sticky;top:0;z-index:10000;background:#fffaf4;border-bottom:1px solid #e8e1d7;padding:8px 14px;font-size:12px">
   <div style="max-width:1440px;margin:auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
     <div><b id="signedInEmail"></b> <span style="color:#777168">｜UID：</span><code id="signedInUid"></code></div>
@@ -668,7 +697,6 @@ th{color:#716c64}
     </div>
   </div>
 </div>
-
 <div class="wrap" id="vcpApp" style="display:none">
 <section class="brand-hero">
   <div class="brand-grid">
@@ -1109,6 +1137,19 @@ function returnToRadarPosition(){
  const btn=document.getElementById('radarBackFloat');
  if(btn) setTimeout(()=>btn.hidden=true,650);
 }
+
+function pivotDistanceVisual(distance){
+  const d=Number(distance);
+  if(!Number.isFinite(d)) return {zone:'near', cls:'near', width:8};
+  const abs=Math.abs(d);
+  if(abs<=1) return {zone:'near', cls:'near', width:8};
+  // Each side represents 0–8% away from Pivot, capped at half of the bar.
+  const width=Math.max(7,Math.min(50,(Math.min(abs,8)/8)*50));
+  return d<0
+    ? {zone:'negative', cls:'negative', width}
+    : {zone:'positive', cls:'positive', width};
+}
+
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>
@@ -1240,9 +1281,12 @@ function renderRadar(filter='all'){
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
          <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b>
-           <div class="pivot-distance-track" aria-hidden="true">
-             <span style="width:${Math.max(6,Math.min(100,100-Math.min(100,Math.abs(Number(r.distance))*10)))}%"></span>
-           </div>
+          ${(()=>{
+            const pv=pivotDistanceVisual(r.distance);
+            return `<div class="pivot-distance-track" data-zone="${pv.zone}" aria-hidden="true">
+              <span class="pivot-distance-fill ${pv.cls}" style="width:${pv.width}%"></span>
+            </div>`;
+          })()}
          </div>
          <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
@@ -1532,11 +1576,9 @@ function showUnauthorized(user){
       '<button id="copyAuthCodeBtn" type="button" style="padding:7px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">複製授權碼</button>' +
     '</div>' +
     '<div style="margin-top:11px">若要改用其他 Google 帳號，請先 <button id="unauthLogoutBtn" type="button" style="margin-left:6px;padding:6px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">登出／切換帳號</button></div>';
-
   setTimeout(() => {
     const logoutBtn = document.getElementById("unauthLogoutBtn");
     if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
-
     const copyBtn = document.getElementById("copyAuthCodeBtn");
     if (copyBtn) copyBtn.addEventListener("click", async () => {
       try {
@@ -1550,7 +1592,6 @@ function showUnauthorized(user){
     });
   }, 0);
 }
-
 function showSignedIn(user){
   gate.style.display = "none";
   appEl.style.display = "";
@@ -1559,7 +1600,6 @@ function showSignedIn(user){
   document.getElementById("signedInEmail").textContent = user.email || "Google 使用者";
   document.getElementById("signedInUid").textContent = user.uid;
 }
-
 loginBtn.addEventListener("click", async () => {
   errorEl.style.display = "none";
   loginBtn.disabled = true;
@@ -1575,7 +1615,6 @@ loginBtn.addEventListener("click", async () => {
     loginBtn.textContent = "使用 Google 帳號登入";
   }
 });
-
 document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
 document.getElementById("copyUidBtn").addEventListener("click", async () => {
   const uid = document.getElementById("signedInUid").textContent;
@@ -1589,7 +1628,6 @@ document.getElementById("copyUidBtn").addEventListener("click", async () => {
     prompt("請複製這個 UID：", uid);
   }
 });
-
 onAuthStateChanged(auth, async user => {
   if (!user) {
     showSignedOut();
@@ -1602,7 +1640,6 @@ onAuthStateChanged(auth, async user => {
   statusEl.textContent = "正在確認 VCPulse 使用權限…";
   loginBtn.style.display = "none";
   errorEl.style.display = "none";
-
   try {
     const snap = await getDoc(doc(db, "authorizedUsers", user.uid));
     if (snap.exists() && snap.data()?.enabled === true) {
