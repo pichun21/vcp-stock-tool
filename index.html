@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.10 POPUP LOGIN TEST -->
+<!-- VCPulse BUILD 2.22.11 FIRESTORE WHITELIST -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -655,7 +655,7 @@ th{color:#716c64}
     <div id="authStatus" style="margin:24px 0 16px;color:#625d54;line-height:1.6">正在確認登入狀態…</div>
     <button id="googleLoginBtn" type="button" style="display:none;width:100%;padding:13px 16px;border-radius:14px;background:#20231f;color:#fff;border:0;font-weight:800;cursor:pointer">使用 Google 帳號登入</button>
     <div id="authError" style="display:none;margin-top:14px;padding:10px 12px;border-radius:12px;background:#fff0ed;color:#8d302b;font-size:13px;line-height:1.5"></div>
-    <div style="margin-top:16px;color:#918a80;font-size:11px">VCPulse Popup 登入測試版</div>
+    <div style="margin-top:16px;color:#918a80;font-size:11px">VCPulse 授權登入版</div>
   </div>
 </div>
 
@@ -1476,6 +1476,11 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCkKmBhqHwFWAup0Va6IrcpWsX9defViGc",
@@ -1488,6 +1493,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
@@ -1509,10 +1515,28 @@ function showSignedOut(){
   statusEl.textContent = "請先登入 Google 帳號，才能進入 VCPulse。";
   loginBtn.style.display = "block";
 }
+function showUnauthorized(user){
+  gate.style.display = "flex";
+  appEl.style.display = "none";
+  userBar.style.display = "none";
+  statusEl.innerHTML = "此帳號尚未取得 <b>VCPulse</b> 使用權限。<br><span style=\"font-size:12px;color:#918a80\">" +
+    (user.email || "目前 Google 帳號") + "</span>";
+  loginBtn.style.display = "none";
+  errorEl.style.display = "block";
+  errorEl.style.background = "#fff7e8";
+  errorEl.style.color = "#7a5a22";
+  errorEl.innerHTML = '若要改用其他 Google 帳號，請先 <button id="unauthLogoutBtn" type="button" style="margin-left:6px;padding:6px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">登出／切換帳號</button>';
+  setTimeout(() => {
+    const btn = document.getElementById("unauthLogoutBtn");
+    if (btn) btn.addEventListener("click", () => signOut(auth));
+  }, 0);
+}
+
 function showSignedIn(user){
   gate.style.display = "none";
   appEl.style.display = "";
   userBar.style.display = "block";
+  errorEl.style.display = "none";
   document.getElementById("signedInEmail").textContent = user.email || "Google 使用者";
   document.getElementById("signedInUid").textContent = user.uid;
 }
@@ -1547,9 +1571,33 @@ document.getElementById("copyUidBtn").addEventListener("click", async () => {
   }
 });
 
-onAuthStateChanged(auth, user => {
-  if (user) showSignedIn(user);
-  else showSignedOut();
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    showSignedOut();
+    return;
+  }
+
+  gate.style.display = "flex";
+  appEl.style.display = "none";
+  userBar.style.display = "none";
+  statusEl.textContent = "正在確認 VCPulse 使用權限…";
+  loginBtn.style.display = "none";
+  errorEl.style.display = "none";
+
+  try {
+    const snap = await getDoc(doc(db, "authorizedUsers", user.uid));
+    if (snap.exists() && snap.data()?.enabled === true) {
+      showSignedIn(user);
+    } else {
+      showUnauthorized(user);
+    }
+  } catch (e) {
+    gate.style.display = "flex";
+    appEl.style.display = "none";
+    userBar.style.display = "none";
+    statusEl.textContent = "無法確認使用權限。";
+    showError("Firestore 權限檢查失敗：" + (e.message || e.code || "未知錯誤"));
+  }
 });
 </script>
 
