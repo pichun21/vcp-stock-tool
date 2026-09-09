@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.8 -->
+<!-- VCPulse BUILD 2.22.10 POPUP LOGIN TEST -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -647,7 +647,29 @@ th{color:#716c64}
 /* V2.22.8: remove duplicated radar header metadata */
 #radarUpdated{display:none!important}
 </style></head>
-<body><div class="wrap">
+<body>
+<div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
+  <div style="width:min(430px,100%);background:#fffdfa;border:1px solid #e8e1d7;border-radius:24px;padding:30px;box-shadow:0 12px 32px rgba(53,46,38,.08);text-align:center">
+    <div style="font-size:42px;font-weight:900;letter-spacing:-2px;color:#24231f">VCP<span style="color:#c58d58">ulse</span></div>
+    <div style="margin-top:8px;color:#777168;font-size:13px;letter-spacing:1px">VCP × PowerSqueeze 智慧選股雷達</div>
+    <div id="authStatus" style="margin:24px 0 16px;color:#625d54;line-height:1.6">正在確認登入狀態…</div>
+    <button id="googleLoginBtn" type="button" style="display:none;width:100%;padding:13px 16px;border-radius:14px;background:#20231f;color:#fff;border:0;font-weight:800;cursor:pointer">使用 Google 帳號登入</button>
+    <div id="authError" style="display:none;margin-top:14px;padding:10px 12px;border-radius:12px;background:#fff0ed;color:#8d302b;font-size:13px;line-height:1.5"></div>
+    <div style="margin-top:16px;color:#918a80;font-size:11px">VCPulse Popup 登入測試版</div>
+  </div>
+</div>
+
+<div id="userBar" style="display:none;position:sticky;top:0;z-index:10000;background:#fffaf4;border-bottom:1px solid #e8e1d7;padding:8px 14px;font-size:12px">
+  <div style="max-width:1440px;margin:auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+    <div><b id="signedInEmail"></b> <span style="color:#777168">｜UID：</span><code id="signedInUid"></code></div>
+    <div style="display:flex;gap:7px">
+      <button id="copyUidBtn" type="button" style="min-width:0;padding:7px 10px;border-radius:10px;background:#fff;color:#5f4934;border:1px solid #d9c7b2">複製 UID</button>
+      <button id="logoutBtn" type="button" style="min-width:0;padding:7px 10px;border-radius:10px;background:#20231f;color:#fff;border:0">登出</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="vcpApp" style="display:none">
 <section class="brand-hero">
   <div class="brand-grid">
     <div>
@@ -1443,5 +1465,92 @@ document.addEventListener('DOMContentLoaded',()=>{
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
   ← 返回剛才清單
 </button>
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCkKmBhqHwFWAup0Va6IrcpWsX9defViGc",
+  authDomain: "vcpulse-d7ced.firebaseapp.com",
+  projectId: "vcpulse-d7ced",
+  storageBucket: "vcpulse-d7ced.firebasestorage.app",
+  messagingSenderId: "512577541196",
+  appId: "1:512577541196:web:cc16aede91c2502dc090e9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+
+const gate = document.getElementById("authGate");
+const appEl = document.getElementById("vcpApp");
+const userBar = document.getElementById("userBar");
+const statusEl = document.getElementById("authStatus");
+const errorEl = document.getElementById("authError");
+const loginBtn = document.getElementById("googleLoginBtn");
+
+function showError(message){
+  errorEl.textContent = message;
+  errorEl.style.display = "block";
+}
+function showSignedOut(){
+  gate.style.display = "flex";
+  appEl.style.display = "none";
+  userBar.style.display = "none";
+  statusEl.textContent = "請先登入 Google 帳號，才能進入 VCPulse。";
+  loginBtn.style.display = "block";
+}
+function showSignedIn(user){
+  gate.style.display = "none";
+  appEl.style.display = "";
+  userBar.style.display = "block";
+  document.getElementById("signedInEmail").textContent = user.email || "Google 使用者";
+  document.getElementById("signedInUid").textContent = user.uid;
+}
+
+loginBtn.addEventListener("click", async () => {
+  errorEl.style.display = "none";
+  loginBtn.disabled = true;
+  loginBtn.textContent = "登入中…";
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (e) {
+    if (e.code !== "auth/popup-closed-by-user") {
+      showError("Google 登入失敗：" + (e.message || e.code || "未知錯誤"));
+    }
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.textContent = "使用 Google 帳號登入";
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+document.getElementById("copyUidBtn").addEventListener("click", async () => {
+  const uid = document.getElementById("signedInUid").textContent;
+  try {
+    await navigator.clipboard.writeText(uid);
+    const b = document.getElementById("copyUidBtn");
+    const old = b.textContent;
+    b.textContent = "已複製";
+    setTimeout(() => b.textContent = old, 1200);
+  } catch {
+    prompt("請複製這個 UID：", uid);
+  }
+});
+
+onAuthStateChanged(auth, user => {
+  if (user) showSignedIn(user);
+  else showSignedOut();
+});
+</script>
 
 </body></html>
