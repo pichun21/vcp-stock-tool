@@ -573,6 +573,25 @@ th{color:#716c64}
  .radar-sort{min-width:150px;padding-top:9px;padding-bottom:9px}
 }
 
+
+/* V2.15 — Pivot clarity + distance visual */
+.pivot-distance-track{
+ width:100%;
+ max-width:112px;
+ height:5px;
+ margin-top:7px;
+ border-radius:999px;
+ background:#ebe7df;
+ overflow:hidden;
+}
+.pivot-distance-track span{
+ display:block;
+ height:100%;
+ border-radius:999px;
+ background:#b88a55;
+ opacity:.65;
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -605,7 +624,7 @@ th{color:#716c64}
     <tr><td>🔄 收縮次數</td><td>至少偵測到 2 次價格回檔／收縮</td><td>+1</td></tr>
     <tr><td>📐 收縮遞減</td><td>後續回檔幅度原則上比前一次縮小</td><td>+1</td></tr>
     <tr><td>🔉 成交量</td><td>近期平均成交量低於前一階段，呈現量縮</td><td>+1</td></tr>
-    <tr><td>🎯 Pivot</td><td>股價接近 Pivot，或最新交易日首次帶量突破 Pivot</td><td>+1</td></tr>
+    <tr><td>🎯 Pivot</td><td>股價接近 Pivot（突破價），或最新交易日首次帶量突破 Pivot</td><td>+1</td></tr>
   </table>
   <p><b>★★★★★</b>：五項皆符合；<b>★★★★☆</b>：已有明顯 VCP 特徵。每日雷達目前以 4 分以上為主要候選。</p>
   <h3>每日雷達狀態</h3>
@@ -645,7 +664,7 @@ th{color:#716c64}
 <div class="card"><div class="topline"><div><div class="ticker" id="title">等待分析</div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas><div class="note">圖：近約 120 個交易日收盤價；C1 紅、C2 藍、C3 綠（若有 C4 則為紫色），分別標示各次回檔區間與跌幅；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
-<div class="metrics"><div class="metric"><span class="muted">Pivot</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
+<div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary">輸入股票代號後開始。</div></div>
 
 </div>
@@ -690,7 +709,7 @@ th{color:#716c64}
             <th>市場</th>
             <th>VCP</th>
             <th>收縮</th>
-            <th>Pivot</th>
+            <th>Pivot（突破價）</th>
             <th>距 Pivot</th>
             <th>量能</th>
             <th>PowerSqueeze</th>
@@ -1119,8 +1138,12 @@ function renderRadar(filter='all'){
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></div>
        <div class="mobile-metrics">
-         <div class="mobile-metric">Pivot<b>${Number(r.pivot).toFixed(2)}</b></div>
-         <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b></div>
+         <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
+         <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b>
+           <div class="pivot-distance-track" aria-hidden="true">
+             <span style="width:${Math.max(6,Math.min(100,100-Math.min(100,Math.abs(Number(r.distance))*10)))}%"></span>
+           </div>
+         </div>
          <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
