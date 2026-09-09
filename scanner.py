@@ -231,33 +231,66 @@ def apply_new_flags(rows, old_rows, old_data_date):
         r["new_reason"]=new_reason(r) if r["is_new"] else ""
     return rows
 
+def is_tw_official_snapshot(rows):
+    """TW NEW baseline is only advanced after the cash market has closed.
+    Manual intraday runs may refresh the radar, but must not alter NEW comparison state.
+    """
+    if not rows:
+        return False
+    now=datetime.now(TAIPEI)
+    data_date=max((r.get("data_date") or "" for r in rows),default="")
+    today=now.strftime("%Y-%m-%d")
+    # If the latest available bar is from an earlier trading day, it is already a completed session.
+    if data_date and data_date < today:
+        return True
+    # For today's bar, require a post-close buffer so the daily bar/volume has time to settle.
+    return bool(data_date == today and (now.hour > 14 or (now.hour == 14 and now.minute >= 30)))
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--market",choices=["TW","US","both"],default="both")
     args=ap.parse_args()
     old=load_existing()
     new_feature_initialized = (old.get("new_feature_version") == 2)
+    official_baselines=old.get("official_baselines",{})
     by_market={"TW":[r for r in old.get("results",[]) if r.get("market")=="TW"],
                "US":[r for r in old.get("results",[]) if r.get("market")=="US"]}
     targets=["TW","US"] if args.market=="both" else [args.market]
     market_meta=old.get("markets",{})
     for m in targets:
         previous=list(by_market[m])
-        old_date=(market_meta.get(m) or {}).get("data_date")
+        baseline=official_baselines.get(m,{})
+        baseline_rows=baseline.get("rows",previous)
+        baseline_date=baseline.get("data_date",(market_meta.get(m) or {}).get("data_date"))
         rows=scan(m)
         if rows:
+            dates=[r["data_date"] for r in rows if r.get("data_date")]
+            current_date=max(dates) if dates else None
+            official = True if m=="US" else is_tw_official_snapshot(rows)
+
             if not new_feature_initialized:
-                # One-time clean initialization after this fix: clear the false NEW batch
-                # and use today's result as the comparison baseline.
                 for r in rows:
                     r["is_new"]=False
                     r["new_reason"]=""
+            elif official:
+                rows=apply_new_flags(rows,baseline_rows,baseline_date)
             else:
-                rows=apply_new_flags(rows,previous,old_date)
+                # Intraday TW refresh: show the latest candidates, but do not create
+                # or advance official NEW flags/baselines.
+                prior_map={(str(r.get("market")),str(r.get("symbol"))):r for r in previous}
+                for r in rows:
+                    prev=prior_map.get((str(r.get("market")),str(r.get("symbol"))),{})
+                    r["is_new"]=bool(prev.get("is_new",False))
+                    r["new_reason"]=prev.get("new_reason","") if r["is_new"] else ""
+
             by_market[m]=rows
-            dates=[r["data_date"] for r in rows if r.get("data_date")]
-            market_meta[m]={"data_date":max(dates) if dates else None,"count":len(rows),
-                            "scanned_at":datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")}
+            market_meta[m]={"data_date":current_date,"count":len(rows),
+                            "scanned_at":datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M"),
+                            "snapshot_type":"official" if official else "intraday"}
+
+            # Only completed-session scans are allowed to advance the NEW baseline.
+            if official:
+                official_baselines[m]={"data_date":current_date,"rows":rows}
         else:
             market_meta.setdefault(m,{})
             market_meta[m]["last_error"]="本次掃描沒有產生結果，已保留前次名單"
@@ -265,7 +298,8 @@ def main():
     all_rows=by_market["TW"]+by_market["US"]
     payload={"generated_at":datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M"),
              "timezone":"Asia/Taipei","new_feature_version":2,
-             "markets":market_meta,"results":all_rows}
+             "markets":market_meta,"official_baselines":official_baselines,
+             "results":all_rows}
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
     print(f"wrote {OUT}, {len(all_rows)} rows")
 
