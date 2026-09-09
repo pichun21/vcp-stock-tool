@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.1 -->
+<!-- VCPulse BUILD 2.22.2 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -731,8 +731,8 @@ th{color:#716c64}
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
-      <button type="button" class="snapshot-btn active" data-snapshot="official">✅ 正式收盤</button>
-      <button type="button" class="snapshot-btn" data-snapshot="intraday">👀 盤中即時 <span id="intradayCount"></span></button>
+      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤</button>
+      <button type="button" class="snapshot-btn" data-snapshot="intraday" onclick="setRadarSnapshot('intraday')">👀 盤中即時 <span id="intradayCount"></span></button>
     </div>
     <div class="radar-head">
       <div class="radar-tabs">
@@ -1303,85 +1303,72 @@ function renderFreshness(){
  box.innerHTML=pieces.join('');
  box.hidden=!pieces.length;
 }
-function activateRadarSnapshot(kind){
-  const rows=Array.isArray(radarSnapshotData[kind]) ? radarSnapshotData[kind] : [];
-  if(kind==='intraday' && rows.length===0) return;
-
-  radarSnapshot=kind;
-  radarRows=rows.slice();
-  radarFilter='all';
-
-  document.querySelectorAll('.snapshot-btn').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.snapshot===kind);
-  });
-  document.querySelectorAll('.radar-tab').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.radar==='all');
-  });
-
-  renderFreshness();
-  renderRadar('all');
-}
-
 function setRadarSnapshot(kind){
-  activateRadarSnapshot(kind);
+ if(kind==='intraday' && !radarSnapshotData.intraday.length) return;
+ radarSnapshot=kind;
+ radarRows=radarSnapshotData[kind]||[];
+
+ // Snapshot switches are a new context: always start from "全部".
+ // This also fixes the first-click blank list caused by carrying over an old filter state.
+ radarFilter='all';
+ document.querySelectorAll('.snapshot-btn').forEach(
+   b=>b.classList.toggle('active',b.dataset.snapshot===kind)
+ );
+ document.querySelectorAll('.radar-tab').forEach(
+   b=>b.classList.toggle('active',b.dataset.radar==='all')
+ );
+
+ renderFreshness();
+ renderRadar('all');
 }
 
 async function loadRadar(){
-  const updated=document.getElementById('radarUpdated');
-  const empty=document.getElementById('radarEmpty');
+ const updated=document.getElementById('radarUpdated'), empty=document.getElementById('radarEmpty');
+ try{
+   const r=await fetch(`screening.json?t=${Date.now()}`,{cache:'no-store'});
+   if(!r.ok) throw new Error('screening.json 尚未建立');
+   const j=await r.json();
+   radarSnapshotData={
+     official:Array.isArray(j.official_results)?j.official_results:(Array.isArray(j.results)?j.results:[]),
+     intraday:Array.isArray(j.intraday_results)?j.intraday_results:[]
+   };
+   radarSnapshotMeta={
+     official:j.official_markets||j.markets||{},
+     intraday:j.intraday_markets||{}
+   };
+   radarSnapshot='official';
+   radarRows=radarSnapshotData.official;
 
-  try{
-    const r=await fetch(`./screening.json?v=${Date.now()}`,{cache:'no-store'});
-    if(!r.ok) throw new Error(`screening.json HTTP ${r.status}`);
-    const j=await r.json();
+   const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
+   const intradayCount=document.getElementById('intradayCount');
+   if(intradayBtn) intradayBtn.disabled=!radarSnapshotData.intraday.length;
+   if(intradayCount) intradayCount.textContent=radarSnapshotData.intraday.length?`(${radarSnapshotData.intraday.length})`:'';
 
-    const official=Array.isArray(j.official_results)
-      ? j.official_results
-      : (Array.isArray(j.results)?j.results:[]);
-    const intraday=Array.isArray(j.intraday_results)
-      ? j.intraday_results
-      : [];
-
-    radarSnapshotData={
-      official:official.slice(),
-      intraday:intraday.slice()
-    };
-    radarSnapshotMeta={
-      official:j.official_markets||j.markets||{},
-      intraday:j.intraday_markets||{}
-    };
-
-    const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
-    const intradayCount=document.getElementById('intradayCount');
-    if(intradayBtn) intradayBtn.disabled=intraday.length===0;
-    if(intradayCount) intradayCount.textContent=intraday.length?`(${intraday.length})`:'';
-
-    const tw=radarSnapshotMeta.official?.TW;
-    const us=radarSnapshotMeta.official?.US;
-    const bits=[];
-    if(tw?.data_date) bits.push(`台股 ${tw.data_date}`);
-    if(us?.data_date) bits.push(`美股 ${us.data_date}`);
-    if(updated){
-      updated.textContent=(bits.length?`正式資料截至：${bits.join('｜')}`:'尚無正式收盤資料')
-        +(j.generated_at?`　檔案更新 ${j.generated_at}`:'');
-    }
-
-    activateRadarSnapshot('official');
-
-    if(empty && official.length) empty.style.display='none';
-  }catch(e){
-    console.error('VCPulse radar load failed:',e);
-    radarSnapshotData={official:[],intraday:[]};
-    radarRows=[];
-    const fresh=document.getElementById('radarFreshness');
-    if(fresh) fresh.hidden=true;
-    if(updated) updated.textContent='每日篩選資料讀取失敗';
-    if(empty){
-      empty.style.display='block';
-      empty.textContent=`資料讀取失敗：${e.message}`;
-    }
-  }
+   const tw=radarSnapshotMeta.official?.TW, us=radarSnapshotMeta.official?.US;
+   const bits=[];
+   if(tw?.data_date) bits.push(`台股 ${tw.data_date}`);
+   if(us?.data_date) bits.push(`美股 ${us.data_date}`);
+   updated.textContent=(bits.length?`正式資料截至：${bits.join('｜')}`:'尚無正式收盤資料')+(j.generated_at?`　檔案更新 ${j.generated_at}`:'');
+   renderFreshness();
+   renderRadar(radarFilter);
+   if(!radarSnapshotData.official.length && radarSnapshotData.intraday.length){
+     const body=document.getElementById('radarBody');
+     const mobile=document.getElementById('radarMobile');
+     const msg='正式收盤名單正在恢復中；請手動執行一次 VCP screening Action。盤中即時資料仍可正常查看。';
+     if(body) body.innerHTML=`<tr><td colspan="11" style="padding:28px;text-align:center;color:#8a8379">${msg}</td></tr>`;
+     if(mobile) mobile.innerHTML=`<div class="note">${msg}</div>`;
+   }
+ }catch(e){
+   radarRows=[];
+   const fresh=document.getElementById('radarFreshness'); if(fresh) fresh.hidden=true;
+   if(updated) updated.textContent='每日篩選資料尚未產生';
+   if(empty){
+     empty.style.display='block';
+     empty.textContent='第一次請到 GitHub → Actions → Daily VCP Screener → Run workflow 執行一次。';
+   }
+ }
 }
+
 document.querySelectorAll('.radar-tab').forEach(btn=>{
  btn.addEventListener('click',()=>{
   radarFilter=btn.dataset.radar;
@@ -1398,9 +1385,6 @@ if(radarSortSelect){
  });
 }
 
-document.querySelectorAll('.snapshot-btn').forEach(btn=>{
- btn.addEventListener('click',()=>setRadarSnapshot(btn.dataset.snapshot));
-});
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
