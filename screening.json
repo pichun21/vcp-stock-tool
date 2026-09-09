@@ -1,38 +1,49 @@
 {
-  "generated_at": "2026-09-09 22:02",
+  "generated_at": "2026-09-09 22:13",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
   "markets": {
     "US": {
       "data_date": "2026-09-09",
-      "count": 3,
-      "scanned_at": "2026-09-09 22:02",
+      "count": 2,
+      "scanned_at": "2026-09-09 22:13",
       "snapshot_type": "official"
     },
     "TW": {
       "data_date": "2026-09-09",
       "count": 125,
-      "scanned_at": "2026-09-09 22:02",
+      "scanned_at": "2026-09-09 22:13",
       "snapshot_type": "official"
     }
   },
   "official_markets": {
     "US": {
       "data_date": "2026-09-09",
-      "count": 3,
-      "scanned_at": "2026-09-09 22:02",
+      "count": 2,
+      "scanned_at": "2026-09-09 22:13",
       "snapshot_type": "official"
     },
     "TW": {
       "data_date": "2026-09-09",
       "count": 125,
-      "scanned_at": "2026-09-09 22:02",
+      "scanned_at": "2026-09-09 22:13",
       "snapshot_type": "official"
     }
   },
   "intraday_markets": {},
-  "official_benchmarks": {},
+  "official_benchmarks": {
+    "TW": {
+      "TWSE": {
+        "id": "^TWII",
+        "label": "上市｜加權指數",
+        "close": 47183.36,
+        "change_points": 77.58,
+        "change_pct": 0.16,
+        "data_time": "2026-09-09"
+      }
+    }
+  },
   "intraday_benchmarks": {},
   "results": [
     {
@@ -4291,9 +4302,9 @@
       "score": 4,
       "contracts": "-12% → -2% → -5% → -5%",
       "pivot": 513.53,
-      "last": 491.27,
-      "distance": -4.34,
-      "change_pct": -0.54,
+      "last": 491.19,
+      "distance": -4.35,
+      "change_pct": -0.56,
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
@@ -4312,7 +4323,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 10550589552.0,
+      "avg_value_20d": 10558885421.0,
       "is_new": false,
       "new_reason": ""
     },
@@ -4324,9 +4335,9 @@
       "score": 4,
       "contracts": "-22% → -9% → -11% → -5%",
       "pivot": 552.33,
-      "last": 522.66,
-      "distance": -5.37,
-      "change_pct": 3.35,
+      "last": 521.3,
+      "distance": -5.62,
+      "change_pct": 3.08,
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
@@ -4345,42 +4356,9 @@
         "多方增強"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 8327319411.0,
+      "avg_value_20d": 8366856165.0,
       "is_new": true,
       "new_reason": "今日達到 VCP 4/5 入選門檻，且為一般壓縮"
-    },
-    {
-      "market": "US",
-      "symbol": "AAPL",
-      "name": "AAPL",
-      "exchange": "",
-      "score": 4,
-      "contracts": "-4% → -11% → -4% → -2%",
-      "pivot": 340.08,
-      "last": 317.76,
-      "distance": -6.56,
-      "change_pct": 0.49,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": false,
-      "breakout_days": null,
-      "holding_pivot": false,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 3,
-      "pulse_reasons": [
-        "VCP 4/5",
-        "多方增強"
-      ],
-      "data_date": "2026-09-09",
-      "avg_value_20d": 11799240254.0,
-      "is_new": false,
-      "new_reason": ""
     }
   ],
   "official_results": [
@@ -8640,9 +8618,9 @@
       "score": 4,
       "contracts": "-12% → -2% → -5% → -5%",
       "pivot": 513.53,
-      "last": 491.27,
-      "distance": -4.34,
-      "change_pct": -0.54,
+      "last": 491.19,
+      "distance": -4.35,
+      "change_pct": -0.56,
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
@@ -8661,7 +8639,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 10550589552.0,
+      "avg_value_20d": 10558885421.0,
       "is_new": false,
       "new_reason": ""
     },
@@ -8673,9 +8651,9 @@
       "score": 4,
       "contracts": "-22% → -9% → -11% → -5%",
       "pivot": 552.33,
-      "last": 522.66,
-      "distance": -5.37,
-      "change_pct": 3.35,
+      "last": 521.3,
+      "distance": -5.62,
+      "change_pct": 3.08,
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
@@ -8694,42 +8672,9 @@
         "多方增強"
       ],
       "data_date": "2026-09-09",
-      "avg_value_20d": 8327319411.0,
+      "avg_value_20d": 8366856165.0,
       "is_new": true,
       "new_reason": "今日達到 VCP 4/5 入選門檻，且為一般壓縮"
-    },
-    {
-      "market": "US",
-      "symbol": "AAPL",
-      "name": "AAPL",
-      "exchange": "",
-      "score": 4,
-      "contracts": "-4% → -11% → -4% → -2%",
-      "pivot": 340.08,
-      "last": 317.76,
-      "distance": -6.56,
-      "change_pct": 0.49,
-      "volume_dry": true,
-      "type": "forming",
-      "state": "⚪ VCP 成形中",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "combo": false,
-      "breakout_days": null,
-      "holding_pivot": false,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 3,
-      "pulse_reasons": [
-        "VCP 4/5",
-        "多方增強"
-      ],
-      "data_date": "2026-09-09",
-      "avg_value_20d": 11799240254.0,
-      "is_new": false,
-      "new_reason": ""
     }
   ],
   "intraday_results": []
