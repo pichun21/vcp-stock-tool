@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.3 -->
+<!-- VCPulse BUILD 2.22.4 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1281,6 +1281,11 @@ function renderRadar(filter='all'){
 
 updateFavoriteCount();
 
+function escHtml(s){
+  return String(s??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[m]));
+}
 function renderFreshness(){
  const box=document.getElementById('radarFreshness');
  if(!box) return;
@@ -1295,8 +1300,8 @@ function renderFreshness(){
    pieces.push(`<div class="freshness-item ${intraday?'intraday':''}">
      <span class="freshness-dot"></span>
      <span class="freshness-title">${market==='TW'?'台股':'美股'}｜${type}</span>
-     <span>${esc(m.data_date)}</span>
-     ${m.scanned_at?`<span class="freshness-note">掃描 ${esc(m.scanned_at)}</span>`:''}
+     <span>${escHtml(m.data_date)}</span>
+     ${m.scanned_at?`<span class="freshness-note">掃描 ${escHtml(m.scanned_at)}</span>`:''}
      <span class="freshness-note">${note}</span>
    </div>`);
  });
