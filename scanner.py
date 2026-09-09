@@ -1,6 +1,6 @@
-# VCPulse BUILD 2.27.1 MARKET SWITCH
+# VCPulse BUILD 2.28 US UNIVERSE EXPAND
 #!/usr/bin/env python3
-import argparse, json, time, os
+import argparse, json, time, os, re
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -198,24 +198,91 @@ def fetch_us_benchmarks():
     return out
 
 def fetch_us_universe():
-    headers={"User-Agent":"Mozilla/5.0"}
+    """Expanded US universe:
+    S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy holdings (IWM).
+    Symbols are deduplicated before the VCP scan.
+    """
+    headers={"User-Agent":"Mozilla/5.0 (VCPulse; GitHub Actions)"}
     tickers={}
+
+    def add(symbol,name=None,source=None):
+        s=str(symbol or "").strip().upper().replace(".","-")
+        if not s or s in ("NAN","-","--") or len(s)>12:
+            return
+        if not re.fullmatch(r"[A-Z0-9][A-Z0-9\-]*",s):
+            return
+        if s not in tickers:
+            tickers[s]={"symbol":s,"name":str(name or s).strip(),"yf":s,"sources":[]}
+        if source and source not in tickers[s]["sources"]:
+            tickers[s]["sources"].append(source)
+
+    # S&P 500
     try:
-        sp=pd.read_html(requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",headers=headers,timeout=30).text)[0]
+        html=requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+                          headers=headers,timeout=30).text
+        sp=pd.read_html(html)[0]
         for _,r in sp.iterrows():
-            s=str(r["Symbol"]).replace(".","-"); tickers[s]=str(r["Security"])
-    except Exception as e: print("S&P 500 universe warning:",e)
+            add(r.get("Symbol"),r.get("Security"),"SP500")
+    except Exception as e:
+        print("S&P 500 universe warning:",e)
+
+    # Nasdaq-100
     try:
-        nd=pd.read_html(requests.get("https://en.wikipedia.org/wiki/Nasdaq-100",headers=headers,timeout=30).text)
-        table=next(x for x in nd if "Ticker" in x.columns)
+        html=requests.get("https://en.wikipedia.org/wiki/Nasdaq-100",
+                          headers=headers,timeout=30).text
+        tables=pd.read_html(html)
+        table=next(x for x in tables if "Ticker" in x.columns)
         namecol="Company" if "Company" in table.columns else None
         for _,r in table.iterrows():
-            s=str(r["Ticker"]).replace(".","-"); tickers[s]=str(r[namecol]) if namecol else s
-    except Exception as e: print("Nasdaq-100 universe warning:",e)
+            add(r.get("Ticker"),r.get(namecol) if namecol else r.get("Ticker"),"NASDAQ100")
+    except Exception as e:
+        print("Nasdaq-100 universe warning:",e)
+
+    # SOX — current Nasdaq semiconductor basket is small, so a maintained fallback
+    # protects the scan if the public component table is temporarily unavailable.
+    sox_fallback=[
+        "AMD","ADI","AMAT","ARM","ASML","ALAB","AVGO","COHR","CRDO","ENTG",
+        "GFS","INTC","KLAC","LRCX","MTSI","MRVL","MCHP","MU","MPWR","NVDA",
+        "NXPI","ON","QCOM","RMBS","TER","TSM","TXN"
+    ]
+    for s in sox_fallback:
+        add(s,s,"SOX")
+
+    # Russell 2000 proxy: IWM holdings. This is a practical public-source proxy for
+    # the Russell 2000 basket and is refreshed on each GitHub Actions scan.
+    try:
+        url="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf/1467271812596.ajax"
+        rr=requests.get(url,params={"fileType":"csv","fileName":"IWM_holdings","dataType":"fund"},
+                        headers=headers,timeout=45)
+        rr.raise_for_status()
+        text=rr.text
+        lines=text.splitlines()
+        header_i=next((i for i,line in enumerate(lines) if line.startswith("Ticker,")),None)
+        if header_i is None:
+            raise RuntimeError("IWM CSV header not found")
+        import io
+        h=pd.read_csv(io.StringIO("\n".join(lines[header_i:])))
+        for _,r in h.iterrows():
+            asset=str(r.get("Asset Class",""))
+            if asset and "Equity" not in asset:
+                continue
+            add(r.get("Ticker"),r.get("Name"),"RUSSELL2000")
+        print("Russell 2000 proxy holdings loaded from IWM:",sum("RUSSELL2000" in x["sources"] for x in tickers.values()))
+    except Exception as e:
+        print("Russell 2000/IWM universe warning:",e)
+
     if not tickers:
         fallback=["AAPL","MSFT","NVDA","AMZN","GOOGL","META","TSLA","AVGO","AMD","NFLX","PLTR","MU","ORCL","COST","INTC"]
-        tickers={x:x for x in fallback}
-    return [{"symbol":s,"name":n,"yf":s} for s,n in tickers.items()]
+        for x in fallback: add(x,x,"FALLBACK")
+
+    out=list(tickers.values())
+    print("US universe sources:",
+          "SP500",sum("SP500" in x["sources"] for x in out),
+          "NASDAQ100",sum("NASDAQ100" in x["sources"] for x in out),
+          "SOX",sum("SOX" in x["sources"] for x in out),
+          "RUSSELL2000",sum("RUSSELL2000" in x["sources"] for x in out),
+          "DEDUPED",len(out))
+    return out
 
 def local_turns(close):
     vals=np.asarray(close,float); p=[]
@@ -339,7 +406,7 @@ def download_batch(items,market):
 def scan(market):
     universe=fetch_tw_universe() if market=="TW" else fetch_us_universe()
     print(f"{market}: universe {len(universe)}")
-    batch_size=120 if market=="TW" else 100
+    batch_size=120 if market=="TW" else 120
     batches=[universe[i:i+batch_size] for i in range(0,len(universe),batch_size)]
     results=[]
     for i,b in enumerate(batches,1):
