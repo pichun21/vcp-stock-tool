@@ -82,7 +82,7 @@ def analyze(df,item,market):
     vprev=float(vol.iloc[-60:-20].mean()) if len(vol)>=60 else float(vol.iloc[:-20].mean())
     dry=bool(vprev>0 and v20<vprev*0.85)
     breakout=last>pivot; breakout_vol=bool(v20>0 and vol.iloc[-1]>v20*1.35)
-    prev=float(close.iloc[-2]); today_breakout=bool(prev<=pivot and breakout and breakout_vol)
+    prev=float(close.iloc[-2]); change_pct=((last/prev)-1)*100 if prev else 0.0; today_breakout=bool(prev<=pivot and breakout and breakout_vol)
     score=sum([trend,len(seq)>=2,contracting,dry,today_breakout or ((not breakout) and distance>-8)])
 
     high=pd.to_numeric(df["High"],errors="coerce"); low=pd.to_numeric(df["Low"],errors="coerce")
@@ -144,7 +144,7 @@ def analyze(df,item,market):
     return {
         "market":market,"symbol":item["symbol"],"name":item["name"],"score":int(score),
         "contracts":" → ".join(f"-{x:.0f}%" for x in seq) if seq else "—",
-        "pivot":round(pivot,2),"last":round(last,2),"distance":round(distance,2),
+        "pivot":round(pivot,2),"last":round(last,2),"distance":round(distance,2),"change_pct":round(change_pct,2),
         "volume_dry":dry,"type":typ,"state":state,"squeeze_level":squeeze_level,
         "squeeze_state":squeeze_state,"momentum":momentum,"momentum_dir":momentum_dir,
         "combo":combo,"breakout_days":breakout_days,"holding_pivot":bool(last>pivot),

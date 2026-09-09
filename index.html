@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.14 DESKTOP + MOBILE BIDIRECTIONAL PIVOT -->
+<!-- VCPulse BUILD 2.23 DAILY CHANGE -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -691,6 +691,13 @@ th{color:#716c64}
  margin-top:4px;
 }
 
+
+/* V2.23 — 今日漲跌幅 */
+.change-pct{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.change-pct.up{color:#2f7d52}
+.change-pct.down{color:#b14b42}
+.change-pct.flat{color:#77756f}
+
 </style></head>
 <body>
 
@@ -837,6 +844,7 @@ th{color:#716c64}
             <th>收縮</th>
             <th>Pivot（突破價）</th>
             <th>距 Pivot</th>
+            <th>今日漲跌</th>
             <th>量能</th>
             <th>PowerSqueeze</th>
             <th>Momentum</th>
@@ -1154,6 +1162,18 @@ function returnToRadarPosition(){
  if(btn) setTimeout(()=>btn.hidden=true,650);
 }
 
+
+function changePctClass(v){
+ const n=Number(v);
+ if(!Number.isFinite(n) || Math.abs(n)<0.005) return 'flat';
+ return n>0?'up':'down';
+}
+function changePctText(v){
+ const n=Number(v);
+ if(!Number.isFinite(n)) return '—';
+ return `${n>0?'+':''}${n.toFixed(1)}%`;
+}
+
 function pivotDistanceVisual(distance){
   const d=Number(distance);
   if(!Number.isFinite(d)) return {zone:'near', cls:'near', width:8};
@@ -1195,7 +1215,7 @@ function renderRadar(filter='all'){
  });
 
  if(!rows.length){
-   body.innerHTML='<tr><td colspan="13" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
+   body.innerHTML='<tr><td colspan="12" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
    if(mobile) mobile.innerHTML='<div class="muted" style="padding:26px 8px;text-align:center">目前這個分類沒有符合條件的股票。</div>';
    return;
  }
@@ -1227,6 +1247,7 @@ function renderRadar(filter='all'){
        })()}
      </div>
    </td>
+   <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span></td>
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
@@ -1314,6 +1335,7 @@ function renderRadar(filter='all'){
             </div>`;
           })()}
          </div>
+         <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</b></div>
          <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
