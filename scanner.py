@@ -200,16 +200,30 @@ def new_reason(r):
     return f"今日達到 VCP {r.get('score',4)}/5 入選門檻"
 
 def apply_new_flags(rows, old_rows, old_data_date):
-    if not rows: return rows
+    if not rows:
+        return rows
+
     new_date=max((r.get("data_date") or "" for r in rows),default="")
-    # Re-running on the same trading day must NOT erase the original NEW flags.
-    if old_data_date and new_date==old_data_date:
+
+    # First activation / no prior comparison baseline:
+    # establish the baseline only, and do NOT label anything as NEW.
+    # This prevents a false batch of NEW badges on the day the feature is introduced.
+    if not old_data_date:
+        for r in rows:
+            r["is_new"]=False
+            r["new_reason"]=""
+        return rows
+
+    # Re-running on the same trading day must preserve the original NEW flags.
+    if new_date==old_data_date:
         old_map={(str(r.get("market")),str(r.get("symbol"))):r for r in old_rows}
         for r in rows:
             prev=old_map.get((str(r.get("market")),str(r.get("symbol"))),{})
             r["is_new"]=bool(prev.get("is_new",False))
             r["new_reason"]=prev.get("new_reason","") if r["is_new"] else ""
         return rows
+
+    # New trading day: compare with the previous completed radar list.
     old_keys={(str(r.get("market")),str(r.get("symbol"))) for r in old_rows}
     for r in rows:
         key=(str(r.get("market")),str(r.get("symbol")))
@@ -222,6 +236,7 @@ def main():
     ap.add_argument("--market",choices=["TW","US","both"],default="both")
     args=ap.parse_args()
     old=load_existing()
+    new_feature_initialized = (old.get("new_feature_version") == 2)
     by_market={"TW":[r for r in old.get("results",[]) if r.get("market")=="TW"],
                "US":[r for r in old.get("results",[]) if r.get("market")=="US"]}
     targets=["TW","US"] if args.market=="both" else [args.market]
@@ -231,7 +246,14 @@ def main():
         old_date=(market_meta.get(m) or {}).get("data_date")
         rows=scan(m)
         if rows:
-            rows=apply_new_flags(rows,previous,old_date)
+            if not new_feature_initialized:
+                # One-time clean initialization after this fix: clear the false NEW batch
+                # and use today's result as the comparison baseline.
+                for r in rows:
+                    r["is_new"]=False
+                    r["new_reason"]=""
+            else:
+                rows=apply_new_flags(rows,previous,old_date)
             by_market[m]=rows
             dates=[r["data_date"] for r in rows if r.get("data_date")]
             market_meta[m]={"data_date":max(dates) if dates else None,"count":len(rows),
@@ -242,7 +264,8 @@ def main():
             market_meta[m]["scanned_at"]=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
     all_rows=by_market["TW"]+by_market["US"]
     payload={"generated_at":datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M"),
-             "timezone":"Asia/Taipei","markets":market_meta,"results":all_rows}
+             "timezone":"Asia/Taipei","new_feature_version":2,
+             "markets":market_meta,"results":all_rows}
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
     print(f"wrote {OUT}, {len(all_rows)} rows")
 

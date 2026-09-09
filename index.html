@@ -601,6 +601,12 @@ th{color:#716c64}
 }
 .reason-item.reason-new{background:#fff8df;border-color:#efd99c;color:#75500a;font-weight:800}
 
+
+/* V2.17 — high-attention reason at a glance */
+.attention-summary{margin-top:6px;font-size:11px;line-height:1.45;font-weight:800;color:#75634c;letter-spacing:.01em}
+.desktop-attention{max-width:175px;white-space:normal}
+@media(max-width:760px){.attention-summary{font-size:11px;margin-top:5px}}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -954,6 +960,17 @@ function stageLabel(r){
 }
 function squeezeLabel(r){ return RADAR_UI.squeeze[r.squeeze_level] || r.squeeze_state || '—'; }
 function momentumLabel(r){ return RADAR_UI.momentum[r.momentum_dir] || r.momentum || '—'; }
+function attentionReason(r){
+ const bits=[`${Number(r.score||0)}★`];
+ if(r.type==='breakout') bits.push('今日突破');
+ else if(r.type==='postbreakout') bits.push('突破後守 Pivot');
+ else if(r.type==='near') bits.push('接近突破');
+ const sq={strong:'強力壓縮',medium:'中度壓縮',weak:'一般壓縮'}[r.squeeze_level];
+ if(sq) bits.push(sq);
+ if(r.momentum_dir==='bull_up') bits.push('多方增強');
+ else if(r.momentum_dir==='bear_up') bits.push('空方減弱');
+ return bits.slice(0,4).join(' · ');
+}
 function pulseLabel(r){ return RADAR_UI.pulse[r.pulse_signal] || r.pulse_label || '⏳ 等待'; }
 function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
 
@@ -1077,7 +1094,7 @@ function renderRadar(filter='all'){
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
    <td class="status-dot">${esc(stageLabel(r))}</td>
-   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></td>
+   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
  const openAnalysis=(market,symbol,sourceEl)=>{
@@ -1149,6 +1166,7 @@ function renderRadar(filter='all'){
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></div>
+       ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
          <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b>
