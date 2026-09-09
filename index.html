@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.5 -->
+<!-- VCPulse BUILD 2.22.6 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1296,7 +1296,7 @@ function renderFreshness(){
    if(!m?.data_date) return;
    const intraday=radarSnapshot==='intraday' || m.snapshot_type==='intraday';
    const type=intraday?'盤中雷達':'正式收盤版';
-   const note=intraday?'NEW 不更新':'NEW 基準可更新';
+   const note=intraday?'':'';
    pieces.push(`<div class="freshness-item ${intraday?'intraday':''}">
      <span class="freshness-dot"></span>
      <span class="freshness-title">${market==='TW'?'台股':'美股'}｜${type}</span>
