@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.21.2
+# VCPulse BUILD 2.25 MARKET OVERVIEW
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path
@@ -30,7 +30,39 @@ def fetch_tw_universe():
     out=[]
     for _,r in df.iterrows():
         suffix=".TW" if r["type"]=="twse" else ".TWO"
-        out.append({"symbol":str(r["stock_id"]),"name":str(r["stock_name"]),"yf":str(r["stock_id"])+suffix})
+        out.append({"symbol":str(r["stock_id"]),"name":str(r["stock_name"]),"yf":str(r["stock_id"])+suffix,"exchange":str(r["type"]).upper()})
+    return out
+
+
+def fetch_tw_benchmarks():
+    """Fetch current TAIEX / TPEx weighted-index snapshots from FinMind.
+    001 = 加權指數, 101 = 櫃買加權.
+    Returns a compact dict safe to persist in screening.json.
+    """
+    endpoint="https://api.finmindtrade.com/api/v4/taiwan_stock_tick_snapshot"
+    specs={"TWSE":("001","上市｜加權指數"),"TPEX":("101","上櫃｜櫃買指數")}
+    out={}
+    for key,(data_id,label) in specs.items():
+        try:
+            r=requests.get(endpoint,params={"data_id":data_id},timeout=30)
+            r.raise_for_status()
+            rows=r.json().get("data",[])
+            if not rows:
+                raise RuntimeError("empty snapshot")
+            x=rows[-1]
+            close=float(x.get("close") or 0)
+            change=float(x.get("change_price") or 0)
+            rate=float(x.get("change_rate") or 0)
+            out[key]={
+                "id":data_id,
+                "label":label,
+                "close":round(close,2),
+                "change_points":round(change,2),
+                "change_pct":round(rate,2),
+                "data_time":str(x.get("date") or "")
+            }
+        except Exception as e:
+            print(f"benchmark {key} warning:",e)
     return out
 
 def fetch_us_universe():
@@ -142,7 +174,7 @@ def analyze(df,item,market):
     else: pulse_signal,pulse_label="wait","⏳ 等待"
 
     return {
-        "market":market,"symbol":item["symbol"],"name":item["name"],"score":int(score),
+        "market":market,"symbol":item["symbol"],"name":item["name"],"exchange":item.get("exchange",""),"score":int(score),
         "contracts":" → ".join(f"-{x:.0f}%" for x in seq) if seq else "—",
         "pivot":round(pivot,2),"last":round(last,2),"distance":round(distance,2),"change_pct":round(change_pct,2),
         "volume_dry":dry,"type":typ,"state":state,"squeeze_level":squeeze_level,
@@ -336,6 +368,8 @@ def main():
     intraday_results=list(old.get("intraday_results",[]) or [])
     official_markets=dict(old.get("official_markets",{}) or {})
     intraday_markets=dict(old.get("intraday_markets",{}) or {})
+    official_benchmarks=dict(old.get("official_benchmarks",{}) or {})
+    intraday_benchmarks=dict(old.get("intraday_benchmarks",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -387,6 +421,7 @@ def main():
 
         current_date=max((r.get("data_date") or "" for r in rows),default="")
         official = (market=="US") or is_tw_official_snapshot(rows)
+        tw_benchmark = fetch_tw_benchmarks() if market=="TW" else {}
 
         if official:
             previous=_split_market(official_results,market)
@@ -406,11 +441,14 @@ def main():
                 "scanned_at":nowstamp,
                 "snapshot_type":"official"
             }
+            if market=="TW" and tw_benchmark:
+                official_benchmarks["TW"]=tw_benchmark
 
             # Once the same trading day has an official close snapshot,
             # remove the now-stale intraday copy for that market.
             intraday_results=_replace_market(intraday_results,market,[])
             intraday_markets.pop(market,None)
+            if market=="TW": intraday_benchmarks.pop("TW",None)
         else:
             # Intraday scan is stored separately and NEVER advances NEW baseline.
             for r in rows:
@@ -423,6 +461,8 @@ def main():
                 "scanned_at":nowstamp,
                 "snapshot_type":"intraday"
             }
+            if market=="TW" and tw_benchmark:
+                intraday_benchmarks["TW"]=tw_benchmark
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -433,6 +473,8 @@ def main():
         "markets":official_markets,
         "official_markets":official_markets,
         "intraday_markets":intraday_markets,
+        "official_benchmarks":official_benchmarks,
+        "intraday_benchmarks":intraday_benchmarks,
         "results":official_results,
         "official_results":official_results,
         "intraday_results":intraday_results

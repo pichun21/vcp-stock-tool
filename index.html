@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.23 DAILY CHANGE -->
+<!-- VCPulse BUILD 2.25 MARKET OVERVIEW -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -698,6 +698,35 @@ th{color:#716c64}
 .change-pct.down{color:#b14b42}
 .change-pct.flat{color:#77756f}
 
+
+/* V2.25 — 台股大盤概況 */
+.market-overview{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px;
+}
+.market-index-card{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:12px 14px;border:1px solid #e9e2d8;border-radius:14px;background:#fffdfa;
+}
+.market-index-name{font-size:12px;color:#777168;font-weight:800}
+.market-index-value{margin-top:3px;font-size:16px;font-weight:950;color:#2e2b27;font-variant-numeric:tabular-nums}
+.market-index-change{font-size:14px;font-weight:950;white-space:nowrap;font-variant-numeric:tabular-nums}
+.market-index-change.up{color:#2f7d52}
+.market-index-change.down{color:#b14b42}
+.market-index-change.flat{color:#77756f}
+.market-index-time{font-size:10px;color:#aaa198;margin-top:2px}
+@media(max-width:760px){
+ .market-overview{grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+ .market-index-card{display:block;padding:10px 11px}
+ .market-index-value{font-size:14px}
+ .market-index-change{font-size:12px;margin-top:4px}
+ .market-index-time{display:none}
+}
+@media(max-width:390px){
+ .market-index-name{font-size:11px}
+ .market-index-value{font-size:13px}
+ .market-index-change{font-size:11px}
+}
+
 </style></head>
 <body>
 
@@ -805,6 +834,7 @@ th{color:#716c64}
     </div>
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
+  <div id="marketOverview" class="market-overview" hidden></div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
       <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤 <span id="officialCount"></span></button>
@@ -1039,6 +1069,7 @@ let radarRows=[];
 let radarSnapshot='official';
 let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
+let radarBenchmarkData={official:{},intraday:{}};
 
 let radarFilter = 'all';
 let radarSort = 'smart';
@@ -1403,6 +1434,41 @@ function escHtml(s){
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
   }[m]));
 }
+
+function marketNumber(v,digits=2){
+ const n=Number(v);
+ return Number.isFinite(n)?n.toLocaleString('zh-TW',{minimumFractionDigits:digits,maximumFractionDigits:digits}):'—';
+}
+function renderMarketOverview(){
+ const box=document.getElementById('marketOverview');
+ if(!box) return;
+ const tw=(radarBenchmarkData[radarSnapshot]||{}).TW||{};
+ const cards=[
+   ['TWSE','上市｜加權指數'],
+   ['TPEX','上櫃｜櫃買指數']
+ ].map(([key,fallback])=>{
+   const x=tw[key];
+   if(!x) return '';
+   const p=Number(x.change_pct), pts=Number(x.change_points);
+   const cls=!Number.isFinite(p)||p===0?'flat':(p>0?'up':'down');
+   const sign=Number.isFinite(pts)&&pts>0?'+':'';
+   const psign=Number.isFinite(p)&&p>0?'+':'';
+   return `<div class="market-index-card">
+     <div>
+       <div class="market-index-name">${escHtml(x.label||fallback)}</div>
+       <div class="market-index-value">${marketNumber(x.close)}</div>
+       ${x.data_time?`<div class="market-index-time">${escHtml(x.data_time)}</div>`:''}
+     </div>
+     <div class="market-index-change ${cls}">
+       ${Number.isFinite(pts)?`${sign}${marketNumber(pts)} 點`:'—'}<br>
+       ${Number.isFinite(p)?`${psign}${p.toFixed(2)}%`:'—'}
+     </div>
+   </div>`;
+ }).filter(Boolean);
+ box.innerHTML=cards.join('');
+ box.hidden=!cards.length;
+}
+
 function renderFreshness(){
  const box=document.getElementById('radarFreshness');
  if(!box) return;
@@ -1448,6 +1514,7 @@ function setRadarSnapshot(kind){
  );
 
  renderFreshness();
+ renderMarketOverview();
  forceRadarAllRender();
 }
 
@@ -1464,6 +1531,10 @@ async function loadRadar(){
    radarSnapshotMeta={
      official:j.official_markets||j.markets||{},
      intraday:j.intraday_markets||{}
+   };
+   radarBenchmarkData={
+     official:j.official_benchmarks||{},
+     intraday:j.intraday_benchmarks||{}
    };
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;
@@ -1482,6 +1553,7 @@ async function loadRadar(){
    if(us?.data_date) bits.push(`美股 ${us.data_date}`);
    updated.textContent=(bits.length?`正式資料截至：${bits.join('｜')}`:'尚無正式收盤資料')+(j.generated_at?`　檔案更新 ${j.generated_at}`:'');
    renderFreshness();
+   renderMarketOverview();
    renderRadar(radarFilter);
    if(!radarSnapshotData.official.length && radarSnapshotData.intraday.length){
      const body=document.getElementById('radarBody');
@@ -1493,6 +1565,7 @@ async function loadRadar(){
  }catch(e){
    radarRows=[];
    const fresh=document.getElementById('radarFreshness'); if(fresh) fresh.hidden=true;
+   const marketBox=document.getElementById('marketOverview'); if(marketBox) marketBox.hidden=true;
    if(updated) updated.textContent='每日篩選資料尚未產生';
    if(empty){
      empty.style.display='block';
