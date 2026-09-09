@@ -1,3 +1,4 @@
+# VCPulse BUILD 2.21.2
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path
@@ -360,6 +361,20 @@ def main():
             elif not _split_market(official_results,"TW"):
                 official_results=_replace_market(official_results,"TW",old_tw)
                 official_markets["TW"]=dict(tw_meta,snapshot_type="official")
+
+    # V2.21.1 repair: if a previous V2.21 run already saved an empty official TW
+    # snapshot, retry recovery on every run until it succeeds.
+    if not _split_market(official_results,"TW"):
+        intraday_tw=_split_market(intraday_results,"TW")
+        current_tw_date=max((r.get("data_date") or "" for r in intraday_tw),default="")
+        if not current_tw_date:
+            old_tw=_split_market(old_results,"TW")
+            current_tw_date=max((r.get("data_date") or "" for r in old_tw),default="")
+        if current_tw_date:
+            recovered,recovered_meta=recover_previous_official_tw(current_tw_date)
+            if recovered:
+                official_results=_replace_market(official_results,"TW",recovered)
+                official_markets["TW"]=recovered_meta
 
     targets=["TW","US"] if args.market=="both" else [args.market]
 

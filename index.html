@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- VCPulse BUILD 2.21.2 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1306,9 +1307,19 @@ function setRadarSnapshot(kind){
  if(kind==='intraday' && !radarSnapshotData.intraday.length) return;
  radarSnapshot=kind;
  radarRows=radarSnapshotData[kind]||[];
- document.querySelectorAll('.snapshot-btn').forEach(b=>b.classList.toggle('active',b.dataset.snapshot===kind));
+
+ // Snapshot switches are a new context: always start from "全部".
+ // This also fixes the first-click blank list caused by carrying over an old filter state.
+ radarFilter='all';
+ document.querySelectorAll('.snapshot-btn').forEach(
+   b=>b.classList.toggle('active',b.dataset.snapshot===kind)
+ );
+ document.querySelectorAll('.radar-tab').forEach(
+   b=>b.classList.toggle('active',b.dataset.radar==='all')
+ );
+
  renderFreshness();
- renderRadar(radarFilter);
+ renderRadar('all');
 }
 
 async function loadRadar(){
@@ -1340,6 +1351,13 @@ async function loadRadar(){
    updated.textContent=(bits.length?`正式資料截至：${bits.join('｜')}`:'尚無正式收盤資料')+(j.generated_at?`　檔案更新 ${j.generated_at}`:'');
    renderFreshness();
    renderRadar(radarFilter);
+   if(!radarSnapshotData.official.length && radarSnapshotData.intraday.length){
+     const body=document.getElementById('radarBody');
+     const mobile=document.getElementById('radarMobile');
+     const msg='正式收盤名單正在恢復中；請手動執行一次 VCP screening Action。盤中即時資料仍可正常查看。';
+     if(body) body.innerHTML=`<tr><td colspan="11" style="padding:28px;text-align:center;color:#8a8379">${msg}</td></tr>`;
+     if(mobile) mobile.innerHTML=`<div class="note">${msg}</div>`;
+   }
  }catch(e){
    radarRows=[];
    const fresh=document.getElementById('radarFreshness'); if(fresh) fresh.hidden=true;
