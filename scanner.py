@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.28.1 MARKET FILTER FIX
+# VCPulse BUILD 2.30 US EQUITY-ONLY FILTER
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -197,6 +197,91 @@ def fetch_us_benchmarks():
             print(f"benchmark {key} warning:",repr(e))
     return out
 
+def filter_us_equity_universe(items):
+    """Keep listed operating-company equities in the US radar.
+    Explicitly removes indices, ETFs, mutual funds and other non-equity instruments.
+    Yahoo quoteType is used when available; if Yahoo metadata is temporarily unavailable,
+    a conservative name/symbol fallback is used so a metadata outage does not erase stocks.
+    """
+    if not items:
+        return items
+
+    blocked_types={
+        "ETF","MUTUALFUND","INDEX","CURRENCY","CRYPTOCURRENCY",
+        "FUTURE","OPTION"
+    }
+    quote_types={}
+    headers={
+        "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+        "Accept-Language":"en-US,en;q=0.9"
+    }
+
+    symbols=[str(x.get("yf") or x.get("symbol") or "").strip() for x in items]
+    symbols=[s for s in symbols if s]
+
+    # Yahoo quote endpoint supports multiple symbols per request, so this adds only
+    # a small number of metadata calls even for the full Russell 2000 universe.
+    for i in range(0,len(symbols),150):
+        chunk=symbols[i:i+150]
+        try:
+            r=requests.get(
+                "https://query1.finance.yahoo.com/v7/finance/quote",
+                params={"symbols":",".join(chunk)},
+                headers=headers,timeout=25
+            )
+            r.raise_for_status()
+            rows=((r.json() or {}).get("quoteResponse") or {}).get("result") or []
+            for q in rows:
+                sym=str(q.get("symbol") or "").upper()
+                qt=str(q.get("quoteType") or "").upper()
+                if sym:
+                    quote_types[sym]=qt
+        except Exception as e:
+            print("US quoteType metadata warning:",repr(e))
+            # Fail open: the conservative fallback below will still remove obvious funds/indices.
+            break
+
+    kept=[]; removed=[]
+    obvious_name_pattern=re.compile(
+        r"\b(ETF|ETN|EXCHANGE[- ]TRADED FUND|MUTUAL FUND|INDEX FUND|"
+        r"WARRANTS?|RIGHTS?|UNITS?)\b",
+        re.I
+    )
+
+    for item in items:
+        sym=str(item.get("yf") or item.get("symbol") or "").upper()
+        name=str(item.get("name") or "")
+        qt=quote_types.get(sym,"")
+
+        reason=None
+        if sym.startswith("^"):
+            reason="index symbol"
+        elif qt in blocked_types:
+            reason=f"Yahoo quoteType={qt}"
+        elif obvious_name_pattern.search(name):
+            reason="fund/index derivative name"
+
+        if reason:
+            removed.append((item.get("symbol"),name,reason))
+        else:
+            kept.append(item)
+
+    print(
+        f"US equity-only filter: input={len(items)} kept={len(kept)} "
+        f"removed_non_equity={len(removed)} metadata={len(quote_types)}"
+    )
+    if removed:
+        preview=", ".join(f"{s}({why})" for s,_,why in removed[:20])
+        print("US non-equity removed:",preview)
+
+    # Safety: filtering must never accidentally wipe out a large part of the equity universe.
+    if len(items)>=1700 and len(kept)<1600:
+        raise RuntimeError(
+            f"US equity-only filter removed too many symbols: input={len(items)}, kept={len(kept)}"
+        )
+    return kept
+
+
 def fetch_us_universe():
     """US universe: S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy.
     Uses separate, simpler constituent sources and refuses to silently continue
@@ -310,6 +395,11 @@ def fetch_us_universe():
             f"SP500={sp_count}, NASDAQ100={nd_count}, SOX={sox_count}, "
             f"RUSSELL2000={r2k_count}, DEDUPED={len(out)}"
         )
+
+    # Radar is for individual listed companies only.
+    # NDAQ (Nasdaq, Inc.) remains because it is an EQUITY; ^IXIC/ETF/funds do not.
+    out=filter_us_equity_universe(out)
+    print(f"US universe after equity-only filter: {len(out)}")
     return out
 
 def local_turns(close):
