@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.11 FIRESTORE WHITELIST -->
+<!-- VCPulse BUILD 2.22.12 AUTH CODE COPY -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1525,10 +1525,29 @@ function showUnauthorized(user){
   errorEl.style.display = "block";
   errorEl.style.background = "#fff7e8";
   errorEl.style.color = "#7a5a22";
-  errorEl.innerHTML = '若要改用其他 Google 帳號，請先 <button id="unauthLogoutBtn" type="button" style="margin-left:6px;padding:6px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">登出／切換帳號</button>';
+  errorEl.innerHTML =
+    '<div style="margin-bottom:9px">請將下方授權碼提供給管理員</div>' +
+    '<div style="display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">' +
+      '<code id="unauthUid" style="max-width:100%;overflow-wrap:anywhere;padding:7px 9px;border-radius:9px;background:#fff;border:1px solid #ead8b9;color:#5f4934">' + user.uid + '</code>' +
+      '<button id="copyAuthCodeBtn" type="button" style="padding:7px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">複製授權碼</button>' +
+    '</div>' +
+    '<div style="margin-top:11px">若要改用其他 Google 帳號，請先 <button id="unauthLogoutBtn" type="button" style="margin-left:6px;padding:6px 10px;border-radius:9px;border:1px solid #d9c7b2;background:#fff;color:#5f4934;cursor:pointer">登出／切換帳號</button></div>';
+
   setTimeout(() => {
-    const btn = document.getElementById("unauthLogoutBtn");
-    if (btn) btn.addEventListener("click", () => signOut(auth));
+    const logoutBtn = document.getElementById("unauthLogoutBtn");
+    if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
+
+    const copyBtn = document.getElementById("copyAuthCodeBtn");
+    if (copyBtn) copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(user.uid);
+        const oldText = copyBtn.textContent;
+        copyBtn.textContent = "已複製 ✓";
+        setTimeout(() => copyBtn.textContent = oldText, 1500);
+      } catch {
+        prompt("請複製這個授權碼：", user.uid);
+      }
+    });
   }, 0);
 }
 
