@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.25.3 TPEX OFFICIAL API
+# VCPulse BUILD 2.27 US FOUR INDICES
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path
@@ -161,6 +161,40 @@ def fetch_tw_benchmarks():
             except Exception:
                 pass
 
+    return out
+
+
+def fetch_us_benchmarks():
+    """Fetch four US benchmark indices for the market dashboard."""
+    specs={
+        "SOX":("^SOX","費城半導體"),
+        "SP500":("^GSPC","S&P 500"),
+        "NASDAQ":("^IXIC","NASDAQ"),
+        "RUSSELL2000":("^RUT","Russell 2000"),
+    }
+    out={}
+    for key,(ticker,label) in specs.items():
+        try:
+            df=yf.download(ticker,period="10d",interval="1d",
+                           auto_adjust=False,progress=False,threads=False)
+            if df is None or len(df)<2:
+                raise RuntimeError("not enough rows")
+            if isinstance(df.columns,pd.MultiIndex):
+                close=df["Close"].iloc[:,0].dropna()
+            else:
+                close=df["Close"].dropna()
+            if len(close)<2:
+                raise RuntimeError("not enough closes")
+            last=float(close.iloc[-1]); prev=float(close.iloc[-2])
+            pts=last-prev; pct=(pts/prev*100) if prev else 0.0
+            d=pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d")
+            out[key]={
+                "id":ticker,"label":label,
+                "close":round(last,2),"change_points":round(pts,2),
+                "change_pct":round(pct,2),"data_time":d
+            }
+        except Exception as e:
+            print(f"benchmark {key} warning:",repr(e))
     return out
 
 def fetch_us_universe():
@@ -519,7 +553,7 @@ def main():
 
         current_date=max((r.get("data_date") or "" for r in rows),default="")
         official = (market=="US") or is_tw_official_snapshot(rows)
-        tw_benchmark = fetch_tw_benchmarks() if market=="TW" else {}
+        market_benchmark = fetch_tw_benchmarks() if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
 
         if official:
             previous=_split_market(official_results,market)
@@ -539,14 +573,14 @@ def main():
                 "scanned_at":nowstamp,
                 "snapshot_type":"official"
             }
-            if market=="TW" and tw_benchmark:
-                official_benchmarks["TW"]=tw_benchmark
+            if market_benchmark:
+                official_benchmarks[market]=market_benchmark
 
             # Once the same trading day has an official close snapshot,
             # remove the now-stale intraday copy for that market.
             intraday_results=_replace_market(intraday_results,market,[])
             intraday_markets.pop(market,None)
-            if market=="TW": intraday_benchmarks.pop("TW",None)
+            intraday_benchmarks.pop(market,None)
         else:
             # Intraday scan is stored separately and NEVER advances NEW baseline.
             for r in rows:
@@ -559,8 +593,8 @@ def main():
                 "scanned_at":nowstamp,
                 "snapshot_type":"intraday"
             }
-            if market=="TW" and tw_benchmark:
-                intraday_benchmarks["TW"]=tw_benchmark
+            if market_benchmark:
+                intraday_benchmarks[market]=market_benchmark
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={

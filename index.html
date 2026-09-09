@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.26 SINGLE STOCK QUICK READ -->
+<!-- VCPulse BUILD 2.27 US FOUR INDICES -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,6 +746,16 @@ th{color:#716c64}
  .single-signal-chip{font-size:10px;padding:5px 7px}
 }
 
+/* V2.27 — 美股四大指數 */
+#marketOverview.us-market{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:760px){
+ #marketOverview.us-market{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #marketOverview.us-market .market-index-card{padding:12px}
+ #marketOverview.us-market .market-index-name{font-size:11px}
+ #marketOverview.us-market .market-index-value{font-size:18px}
+ #marketOverview.us-market .market-index-change{font-size:12px}
+}
+
 </style></head>
 <body>
 
@@ -1027,11 +1037,13 @@ async function resolveTaiwanInput(raw){
 
 
 function singleBenchmarkFor(row){
- if(!row || String(row.market||'TW').toUpperCase()!=='TW') return null;
+ if(!row) return null;
+ const m=String(row.market||currentMarket||'TW').toUpperCase();
+ const all=(radarBenchmarkData[radarSnapshot]||{});
+ if(m==='US') return (all.US||{}).SP500||null;
  const ex=String(row.exchange||'').toUpperCase();
  const key=(ex.includes('TPEX')||ex.includes('OTC'))?'TPEX':'TWSE';
- const tw=(radarBenchmarkData[radarSnapshot]||{}).TW||{};
- return tw[key]||null;
+ return (all.TW||{})[key]||null;
 }
 function updateSingleQuickRead(radarMatch,d,a){
  const stockChange=Number.isFinite(Number(radarMatch?.change_pct))
@@ -1042,7 +1054,7 @@ function updateSingleQuickRead(radarMatch,d,a){
    changeEl.textContent=Number.isFinite(stockChange)?`${stockChange>0?'+':''}${stockChange.toFixed(1)}%`:'—';
    changeEl.className=Number.isFinite(stockChange)?(stockChange>0?'up':stockChange<0?'down':''):'';
  }
- const bm=singleBenchmarkFor(radarMatch);
+ const bm=singleBenchmarkFor(radarMatch || {market:currentMarket});
  const bmPct=Number(bm?.change_pct);
  $('singleMarketChange').textContent=Number.isFinite(bmPct)?`${bmPct>0?'+':''}${bmPct.toFixed(2)}%`:'—';
  $('singleMarketChange').className=Number.isFinite(bmPct)?(bmPct>0?'up':bmPct<0?'down':''):'';
@@ -1120,6 +1132,7 @@ async function run(){
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
 function setMarket(m,{reset=true}={}){
  currentMarket=m;
+ renderMarketOverview();
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
@@ -1520,12 +1533,20 @@ function marketNumber(v,digits=2){
 function renderMarketOverview(){
  const box=document.getElementById('marketOverview');
  if(!box) return;
- const tw=(radarBenchmarkData[radarSnapshot]||{}).TW||{};
- const cards=[
+ const all=(radarBenchmarkData[radarSnapshot]||{});
+ const isUS=currentMarket==='US';
+ const data=isUS?(all.US||{}):(all.TW||{});
+ const specs=isUS?[
+   ['SOX','費城半導體'],
+   ['SP500','S&P 500'],
+   ['NASDAQ','NASDAQ'],
+   ['RUSSELL2000','Russell 2000']
+ ]:[
    ['TWSE','上市｜加權指數'],
    ['TPEX','上櫃｜櫃買指數']
- ].map(([key,fallback])=>{
-   const x=tw[key];
+ ];
+ const cards=specs.map(([key,fallback])=>{
+   const x=data[key];
    if(!x) return '';
    const p=Number(x.change_pct), pts=Number(x.change_points);
    const cls=!Number.isFinite(p)||p===0?'flat':(p>0?'up':'down');
@@ -1544,6 +1565,7 @@ function renderMarketOverview(){
    </div>`;
  }).filter(Boolean);
  box.innerHTML=cards.join('');
+ box.classList.toggle('us-market',isUS);
  box.hidden=!cards.length;
 }
 
