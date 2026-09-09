@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.28.1 MARKET FILTER FIX -->
+<!-- VCPulse BUILD 2.28.2 MARKET SWITCH RESET FILTER -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -886,8 +886,8 @@ th{color:#716c64}
     </div>
   </div>
   <div class="radar-market-switch" id="radarMarketSwitch">
-    <button type="button" class="radar-market-btn active" data-market="TW" onclick="setMarket('TW',{reset:false})">🇹🇼 台股</button>
-    <button type="button" class="radar-market-btn" data-market="US" onclick="setMarket('US',{reset:false})">🇺🇸 美股</button>
+    <button type="button" class="radar-market-btn active" data-market="TW" onclick="setMarket('TW',{reset:true})">🇹🇼 台股</button>
+    <button type="button" class="radar-market-btn" data-market="US" onclick="setMarket('US',{reset:true})">🇺🇸 美股</button>
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div id="marketOverview" class="market-overview" hidden></div>
