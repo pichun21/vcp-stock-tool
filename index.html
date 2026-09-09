@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.28 US UNIVERSE EXPAND -->
+<!-- VCPulse BUILD 2.28.1 MARKET FILTER FIX -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1155,6 +1155,15 @@ function setMarket(m,{reset=true}={}){
  currentMarket=m;
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
+ const marketCount=(arr,m)=>arr.filter(x=>String(x.market||'').toUpperCase()===String(m||'TW').toUpperCase()).length;
+ const officialCount=document.getElementById('officialCount');
+ const intradayCount=document.getElementById('intradayCount');
+ const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
+ const oc=marketCount(radarSnapshotData.official,m);
+ const ic=marketCount(radarSnapshotData.intraday,m);
+ if(officialCount) officialCount.textContent=oc?`(${oc})`:'';
+ if(intradayCount) intradayCount.textContent=ic?`(${ic})`:'';
+ if(intradayBtn) intradayBtn.disabled=!ic;
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
@@ -1326,13 +1335,14 @@ function pivotDistanceVisual(distance){
 
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
- const rows=radarRows.filter(r=>
-   filter==='all' ||
+ const rows=radarRows.filter(r=>{
+   if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
+   return filter==='all' ||
    (filter==='favorites' ? isFavorite(r) :
    (filter==='hot' ? r.pulse_signal==='hot' :
    (filter==='new' ? r.is_new===true :
-   (filter==='combo' ? r.combo : r.type===filter))))
- );
+   (filter==='combo' ? r.combo : r.type===filter))));
+ });
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
  const squeezeRank={strong:0,medium:1,weak:2,none:3};
@@ -1663,12 +1673,15 @@ async function loadRadar(){
    radarRows=radarSnapshotData.official;
 
    const officialCount=document.getElementById('officialCount');
-   if(officialCount) officialCount.textContent=radarSnapshotData.official.length?`(${radarSnapshotData.official.length})`:'';
+   const marketCount=(arr,m)=>arr.filter(x=>String(x.market||'').toUpperCase()===String(m||'TW').toUpperCase()).length;
+   const oc=marketCount(radarSnapshotData.official,currentMarket);
+   if(officialCount) officialCount.textContent=oc?`(${oc})`:'';
 
    const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
    const intradayCount=document.getElementById('intradayCount');
-   if(intradayBtn) intradayBtn.disabled=!radarSnapshotData.intraday.length;
-   if(intradayCount) intradayCount.textContent=radarSnapshotData.intraday.length?`(${radarSnapshotData.intraday.length})`:'';
+   const ic=marketCount(radarSnapshotData.intraday,currentMarket);
+   if(intradayBtn) intradayBtn.disabled=!ic;
+   if(intradayCount) intradayCount.textContent=ic?`(${ic})`:'';
 
    const tw=radarSnapshotMeta.official?.TW, us=radarSnapshotMeta.official?.US;
    const bits=[];
