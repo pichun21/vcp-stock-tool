@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.4 -->
+<!-- VCPulse BUILD 2.22.5 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -731,7 +731,7 @@ th{color:#716c64}
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
-      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤</button>
+      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤 <span id="officialCount"></span></button>
       <button type="button" class="snapshot-btn" data-snapshot="intraday" onclick="setRadarSnapshot('intraday')">👀 盤中即時 <span id="intradayCount"></span></button>
     </div>
     <div class="radar-head">
@@ -1350,6 +1350,9 @@ async function loadRadar(){
    };
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;
+
+   const officialCount=document.getElementById('officialCount');
+   if(officialCount) officialCount.textContent=radarSnapshotData.official.length?`(${radarSnapshotData.official.length})`:'';
 
    const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
    const intradayCount=document.getElementById('intradayCount');
