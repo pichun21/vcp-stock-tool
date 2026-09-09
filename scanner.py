@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.28 US UNIVERSE EXPAND
+# VCPulse BUILD 2.28.1 MARKET FILTER FIX
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -198,16 +198,20 @@ def fetch_us_benchmarks():
     return out
 
 def fetch_us_universe():
-    """Expanded US universe:
+    """Expanded US universe with resilient public-source parsing.
     S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy holdings (IWM).
-    Symbols are deduplicated before the VCP scan.
+    Every source logs its loaded count; all symbols are deduplicated.
     """
-    headers={"User-Agent":"Mozilla/5.0 (VCPulse; GitHub Actions)"}
+    import io
+    headers={
+        "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+        "Accept-Language":"en-US,en;q=0.9"
+    }
     tickers={}
 
     def add(symbol,name=None,source=None):
         s=str(symbol or "").strip().upper().replace(".","-")
-        if not s or s in ("NAN","-","--") or len(s)>12:
+        if not s or s in ("NAN","-","--","CASH","USD") or len(s)>12:
             return
         if not re.fullmatch(r"[A-Z0-9][A-Z0-9\-]*",s):
             return
@@ -216,72 +220,90 @@ def fetch_us_universe():
         if source and source not in tickers[s]["sources"]:
             tickers[s]["sources"].append(source)
 
+    def read_html_text(url):
+        r=requests.get(url,headers=headers,timeout=35)
+        r.raise_for_status()
+        # pandas 2.x treats literal HTML strings ambiguously; StringIO is explicit.
+        return pd.read_html(io.StringIO(r.text))
+
     # S&P 500
+    sp_count=0
     try:
-        html=requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
-                          headers=headers,timeout=30).text
-        sp=pd.read_html(html)[0]
-        for _,r in sp.iterrows():
+        tables=read_html_text("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
+        table=next(x for x in tables if "Symbol" in x.columns and "Security" in x.columns)
+        for _,r in table.iterrows():
             add(r.get("Symbol"),r.get("Security"),"SP500")
+        sp_count=sum("SP500" in x["sources"] for x in tickers.values())
+        print(f"US source SP500 loaded: {sp_count}")
     except Exception as e:
-        print("S&P 500 universe warning:",e)
+        print("US source SP500 FAILED:",repr(e))
 
     # Nasdaq-100
+    nd_count=0
     try:
-        html=requests.get("https://en.wikipedia.org/wiki/Nasdaq-100",
-                          headers=headers,timeout=30).text
-        tables=pd.read_html(html)
+        tables=read_html_text("https://en.wikipedia.org/wiki/Nasdaq-100")
         table=next(x for x in tables if "Ticker" in x.columns)
         namecol="Company" if "Company" in table.columns else None
         for _,r in table.iterrows():
             add(r.get("Ticker"),r.get(namecol) if namecol else r.get("Ticker"),"NASDAQ100")
+        nd_count=sum("NASDAQ100" in x["sources"] for x in tickers.values())
+        print(f"US source NASDAQ100 loaded: {nd_count}")
     except Exception as e:
-        print("Nasdaq-100 universe warning:",e)
+        print("US source NASDAQ100 FAILED:",repr(e))
 
-    # SOX — current Nasdaq semiconductor basket is small, so a maintained fallback
-    # protects the scan if the public component table is temporarily unavailable.
-    sox_fallback=[
+    # SOX: explicit component basket fallback. It remains independent of Wikipedia.
+    sox_symbols=[
         "AMD","ADI","AMAT","ARM","ASML","ALAB","AVGO","COHR","CRDO","ENTG",
         "GFS","INTC","KLAC","LRCX","MTSI","MRVL","MCHP","MU","MPWR","NVDA",
         "NXPI","ON","QCOM","RMBS","TER","TSM","TXN"
     ]
-    for s in sox_fallback:
+    for s in sox_symbols:
         add(s,s,"SOX")
+    sox_count=sum("SOX" in x["sources"] for x in tickers.values())
+    print(f"US source SOX loaded: {sox_count}")
 
-    # Russell 2000 proxy: IWM holdings. This is a practical public-source proxy for
-    # the Russell 2000 basket and is refreshed on each GitHub Actions scan.
+    # Russell 2000 proxy: IWM holdings CSV from iShares.
+    r2k_count=0
     try:
         url="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf/1467271812596.ajax"
         rr=requests.get(url,params={"fileType":"csv","fileName":"IWM_holdings","dataType":"fund"},
                         headers=headers,timeout=45)
         rr.raise_for_status()
-        text=rr.text
+        # iShares may return UTF-8 BOM and preamble lines.
+        text=rr.content.decode("utf-8-sig",errors="replace")
         lines=text.splitlines()
-        header_i=next((i for i,line in enumerate(lines) if line.startswith("Ticker,")),None)
+        header_i=next((i for i,line in enumerate(lines)
+                       if line.strip().startswith("Ticker,") or line.strip().startswith('"Ticker",')),None)
         if header_i is None:
             raise RuntimeError("IWM CSV header not found")
-        import io
         h=pd.read_csv(io.StringIO("\n".join(lines[header_i:])))
         for _,r in h.iterrows():
             asset=str(r.get("Asset Class",""))
             if asset and "Equity" not in asset:
                 continue
             add(r.get("Ticker"),r.get("Name"),"RUSSELL2000")
-        print("Russell 2000 proxy holdings loaded from IWM:",sum("RUSSELL2000" in x["sources"] for x in tickers.values()))
+        r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
+        print(f"US source RUSSELL2000/IWM loaded: {r2k_count}")
     except Exception as e:
-        print("Russell 2000/IWM universe warning:",e)
+        print("US source RUSSELL2000/IWM FAILED:",repr(e))
 
-    if not tickers:
-        fallback=["AAPL","MSFT","NVDA","AMZN","GOOGL","META","TSLA","AVGO","AMD","NFLX","PLTR","MU","ORCL","COST","INTC"]
-        for x in fallback: add(x,x,"FALLBACK")
+    # Safety fallback only if the core large-cap sources both failed.
+    if sp_count==0 and nd_count==0:
+        fallback=["AAPL","MSFT","NVDA","AMZN","GOOGL","META","TSLA","AVGO","AMD","NFLX",
+                  "PLTR","MU","ORCL","COST","INTC"]
+        for x in fallback:
+            add(x,x,"FALLBACK")
+        print("US source FALLBACK loaded:",len(fallback))
 
     out=list(tickers.values())
-    print("US universe sources:",
-          "SP500",sum("SP500" in x["sources"] for x in out),
-          "NASDAQ100",sum("NASDAQ100" in x["sources"] for x in out),
-          "SOX",sum("SOX" in x["sources"] for x in out),
-          "RUSSELL2000",sum("RUSSELL2000" in x["sources"] for x in out),
-          "DEDUPED",len(out))
+    print(
+        "US universe summary:",
+        f"SP500={sp_count}",
+        f"NASDAQ100={nd_count}",
+        f"SOX={sox_count}",
+        f"RUSSELL2000={r2k_count}",
+        f"DEDUPED={len(out)}"
+    )
     return out
 
 def local_turns(close):
