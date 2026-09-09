@@ -238,15 +238,27 @@ def fetch_us_universe():
     except Exception as e:
         print("US source SP500 FAILED:",repr(e))
 
-    # Nasdaq-100
+    # Nasdaq-100 — Wikipedia changes column names occasionally, so detect
+    # ticker/company columns semantically instead of requiring exactly "Ticker".
     nd_count=0
     try:
         tables=read_html_text("https://en.wikipedia.org/wiki/Nasdaq-100")
-        table=next(x for x in tables if "Ticker" in x.columns)
-        namecol="Company" if "Company" in table.columns else None
+        table=None; ticker_col=None; name_col=None
+        for t in tables:
+            cols=[str(c).strip() for c in t.columns]
+            tc=next((c for c in t.columns if any(k in str(c).lower()
+                    for k in ("ticker","symbol"))),None)
+            nc=next((c for c in t.columns if any(k in str(c).lower()
+                    for k in ("company","security","name"))),None)
+            if tc is not None and 80 <= len(t) <= 130:
+                table=t; ticker_col=tc; name_col=nc; break
+        if table is None:
+            raise RuntimeError("Nasdaq-100 component table not found")
         for _,r in table.iterrows():
-            add(r.get("Ticker"),r.get(namecol) if namecol else r.get("Ticker"),"NASDAQ100")
+            add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"NASDAQ100")
         nd_count=sum("NASDAQ100" in x["sources"] for x in tickers.values())
+        if nd_count < 80:
+            raise RuntimeError(f"Nasdaq-100 parsed only {nd_count} symbols")
         print(f"US source NASDAQ100 loaded: {nd_count}")
     except Exception as e:
         print("US source NASDAQ100 FAILED:",repr(e))
@@ -262,27 +274,46 @@ def fetch_us_universe():
     sox_count=sum("SOX" in x["sources"] for x in tickers.values())
     print(f"US source SOX loaded: {sox_count}")
 
-    # Russell 2000 proxy: IWM holdings CSV from iShares.
+    # Russell 2000 proxy: IWM holdings from iShares.
+    # Use the current download endpoint/filename and tolerate CSV preamble changes.
     r2k_count=0
     try:
-        url="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf/1467271812596.ajax"
-        rr=requests.get(url,params={"fileType":"csv","fileName":"IWM_holdings","dataType":"fund"},
-                        headers=headers,timeout=45)
+        url=("https://www.ishares.com/us/products/239710/"
+             "ishares-russell-2000-etf/1467271812596.ajax"
+             "?fileType=csv&fileName=IWM")
+        ih_headers=dict(headers)
+        ih_headers["Accept"]="text/csv,*/*;q=0.8"
+        rr=requests.get(url,headers=ih_headers,timeout=45)
         rr.raise_for_status()
-        # iShares may return UTF-8 BOM and preamble lines.
         text=rr.content.decode("utf-8-sig",errors="replace")
         lines=text.splitlines()
-        header_i=next((i for i,line in enumerate(lines)
-                       if line.strip().startswith("Ticker,") or line.strip().startswith('"Ticker",')),None)
+
+        header_i=None
+        for i,line in enumerate(lines[:40]):
+            clean=line.strip().lstrip("\ufeff").strip('"')
+            low=clean.lower()
+            if ("ticker" in low or "symbol" in low) and "," in line:
+                header_i=i; break
         if header_i is None:
-            raise RuntimeError("IWM CSV header not found")
+            raise RuntimeError("IWM CSV ticker header not found")
+
         h=pd.read_csv(io.StringIO("\n".join(lines[header_i:])))
+        ticker_col=next((c for c in h.columns if "ticker" in str(c).lower() or "symbol" in str(c).lower()),None)
+        name_col=next((c for c in h.columns if "name" in str(c).lower()),None)
+        asset_col=next((c for c in h.columns if "asset class" in str(c).lower()),None)
+        if ticker_col is None:
+            raise RuntimeError(f"IWM ticker column missing: {list(h.columns)}")
+
         for _,r in h.iterrows():
-            asset=str(r.get("Asset Class",""))
-            if asset and "Equity" not in asset:
-                continue
-            add(r.get("Ticker"),r.get("Name"),"RUSSELL2000")
+            if asset_col is not None:
+                asset=str(r.get(asset_col,""))
+                if asset and "equity" not in asset.lower():
+                    continue
+            add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"RUSSELL2000")
+
         r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
+        if r2k_count < 1500:
+            raise RuntimeError(f"IWM parsed only {r2k_count} equity symbols")
         print(f"US source RUSSELL2000/IWM loaded: {r2k_count}")
     except Exception as e:
         print("US source RUSSELL2000/IWM FAILED:",repr(e))
