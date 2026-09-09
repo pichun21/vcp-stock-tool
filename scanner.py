@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.25.1 MARKET OVERVIEW FIX
+# VCPulse BUILD 2.25.2 TPEX FALLBACK
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path
@@ -35,53 +35,47 @@ def fetch_tw_universe():
 
 
 def fetch_tw_benchmarks():
-    """Fetch TAIEX / TPEx weighted index from Yahoo Finance via yfinance.
-    ^TWII = 台灣加權指數, ^TWOII = 櫃買指數.
-    Uses the latest two daily closes so points/% are consistent with scanner data.
+    """Fetch TWSE/TPEx benchmark daily changes from Yahoo Finance.
+    TWSE: ^TWII.
+    TPEx: try ^TWOII first, then ^TWO (Yahoo symbols can vary by endpoint).
     """
     specs={
-        "TWSE":("^TWII","上市｜加權指數"),
-        "TPEX":("^TWOII","上櫃｜櫃買指數"),
+        "TWSE":(["^TWII"],"上市｜加權指數"),
+        "TPEX":(["^TWOII","^TWO"],"上櫃｜櫃買指數"),
     }
     out={}
-    for key,(ticker,label) in specs.items():
-        try:
-            df=yf.download(
-                ticker,
-                period="10d",
-                interval="1d",
-                auto_adjust=False,
-                progress=False,
-                threads=False
-            )
-            if df is None or len(df)<2:
-                raise RuntimeError("not enough index rows")
-            # yfinance may return a MultiIndex even for one ticker.
-            if isinstance(df.columns, pd.MultiIndex):
-                close=df["Close"].iloc[:,0].dropna()
-            else:
-                close=df["Close"].dropna()
-            if len(close)<2:
-                raise RuntimeError("not enough close rows")
-            last=float(close.iloc[-1])
-            prev=float(close.iloc[-2])
-            pts=last-prev
-            pct=(pts/prev*100) if prev else 0.0
-            idx=close.index[-1]
+    for key,(tickers,label) in specs.items():
+        last_error=None
+        for ticker in tickers:
             try:
-                data_date=pd.Timestamp(idx).strftime("%Y-%m-%d")
-            except Exception:
-                data_date=str(idx)
-            out[key]={
-                "id":ticker,
-                "label":label,
-                "close":round(last,2),
-                "change_points":round(pts,2),
-                "change_pct":round(pct,2),
-                "data_time":data_date
-            }
-        except Exception as e:
-            print(f"benchmark {key} warning:",repr(e))
+                df=yf.download(
+                    ticker,period="10d",interval="1d",
+                    auto_adjust=False,progress=False,threads=False
+                )
+                if df is None or len(df)<2:
+                    raise RuntimeError("not enough index rows")
+                if isinstance(df.columns,pd.MultiIndex):
+                    close=df["Close"].iloc[:,0].dropna()
+                else:
+                    close=df["Close"].dropna()
+                if len(close)<2:
+                    raise RuntimeError("not enough close rows")
+                last=float(close.iloc[-1]); prev=float(close.iloc[-2])
+                pts=last-prev
+                pct=(pts/prev*100) if prev else 0.0
+                idx=close.index[-1]
+                try: data_date=pd.Timestamp(idx).strftime("%Y-%m-%d")
+                except Exception: data_date=str(idx)
+                out[key]={
+                    "id":ticker,"label":label,"close":round(last,2),
+                    "change_points":round(pts,2),"change_pct":round(pct,2),
+                    "data_time":data_date
+                }
+                break
+            except Exception as e:
+                last_error=e
+        if key not in out:
+            print(f"benchmark {key} warning:",repr(last_error))
     return out
 
 def fetch_us_universe():
