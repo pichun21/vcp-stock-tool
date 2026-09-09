@@ -607,6 +607,23 @@ th{color:#716c64}
 .desktop-attention{max-width:175px;white-space:normal}
 @media(max-width:760px){.attention-summary{font-size:11px;margin-top:5px}}
 
+
+/* V2.20 — data freshness / snapshot status */
+.radar-freshness{
+ display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;
+ margin:0 0 12px;padding:10px 12px;border:1px solid #e9e2d8;border-radius:14px;
+ background:#fbfaf7;font-size:12px;color:#625d55;
+}
+.freshness-item{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;background:#fff;border:1px solid #eee7dd}
+.freshness-dot{width:8px;height:8px;border-radius:50%;background:#75b987;box-shadow:0 0 0 3px rgba(117,185,135,.12)}
+.freshness-item.intraday .freshness-dot{background:#e5b84d;box-shadow:0 0 0 3px rgba(229,184,77,.14)}
+.freshness-title{font-weight:900;color:#37342f}
+.freshness-note{color:#8a8379}
+@media(max-width:760px){
+ .radar-freshness{display:grid;grid-template-columns:1fr;padding:9px;margin-bottom:10px}
+ .freshness-item{width:100%;box-sizing:border-box;border-radius:12px}
+}
+
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -692,6 +709,7 @@ th{color:#716c64}
       <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
     </div>
   </div>
+  <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div class="card radar-card">
     <div class="radar-head">
       <div class="radar-tabs">
@@ -1236,6 +1254,28 @@ function renderRadar(filter='all'){
 
 updateFavoriteCount();
 
+function renderFreshness(j){
+ const box=document.getElementById('radarFreshness');
+ if(!box) return;
+ const items=[];
+ const add=(label,m)=>{
+   if(!m?.data_date) return;
+   const intraday=m.snapshot_type==='intraday';
+   const type=intraday?'盤中雷達':'正式收盤版';
+   const note=intraday?'NEW 不更新':'NEW 基準可更新';
+   items.push(`<div class="freshness-item ${intraday?'intraday':''}">
+     <span class="freshness-dot"></span>
+     <span class="freshness-title">${esc(label)}｜${esc(type)}</span>
+     <span>${esc(m.data_date)}</span>
+     ${m.scanned_at?`<span class="freshness-note">掃描 ${esc(m.scanned_at)}</span>`:''}
+     <span class="freshness-note">${note}</span>
+   </div>`);
+ };
+ add('台股',j.markets?.TW);
+ add('美股',j.markets?.US);
+ box.innerHTML=items.join('');
+ box.hidden=!items.length;
+}
 async function loadRadar(){
  const updated=document.getElementById('radarUpdated'), empty=document.getElementById('radarEmpty');
  try{
@@ -1243,6 +1283,7 @@ async function loadRadar(){
    if(!r.ok) throw new Error('screening.json 尚未建立');
    const j=await r.json();
    radarRows=Array.isArray(j.results)?j.results:[];
+   renderFreshness(j);
    const tw=j.markets?.TW, us=j.markets?.US;
    const bits=[];
    if(tw?.data_date) bits.push(`台股 ${tw.data_date}`);
@@ -1251,6 +1292,7 @@ async function loadRadar(){
    renderRadar(radarFilter);
  }catch(e){
    radarRows=[];
+   const fresh=document.getElementById('radarFreshness'); if(fresh) fresh.hidden=true;
    if(updated) updated.textContent='每日篩選資料尚未產生';
    if(empty){
      empty.style.display='block';
