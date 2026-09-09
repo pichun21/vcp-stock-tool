@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.28.2 MARKET SWITCH RESET FILTER -->
+<!-- VCPulse BUILD 2.29 SINGLE STOCK FAVORITE -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -421,6 +421,16 @@ th{color:#716c64}
 }
 .favorite-btn:hover{transform:scale(1.08)}
 .favorite-btn.is-favorite{color:#b87836}
+
+.single-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.single-title-favorite{
+  border:0;background:transparent;padding:0;cursor:pointer;
+  font-size:28px;line-height:1;color:#b9b4aa;transition:transform .15s ease,color .15s ease;
+}
+.single-title-favorite:hover{transform:scale(1.08)}
+.single-title-favorite.is-favorite{color:#b87836}
+@media(max-width:720px){.single-title-favorite{font-size:24px}}
+
 .favorite-tab #favoriteCount{
  display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;
  padding:0 5px;margin-left:2px;border-radius:999px;background:#ffffffaa;font-size:10px
@@ -863,7 +873,7 @@ th{color:#716c64}
 <div class="search"><input id="symbol" value="2330" placeholder="搜尋台積電、2330…"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
-<div class="card"><div class="topline"><div><div class="ticker" id="title">等待分析</div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
+<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas><div class="note">圖：近約 120 個交易日收盤價；C1 紅、C2 藍、C3 綠（若有 C4 則為紫色），分別標示各次回檔區間與跌幅；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
 <div class="single-quick-read">
@@ -1140,7 +1150,7 @@ async function run(){
 
   updateSingleQuickRead(radarMatch,d,a);
 
-  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
+  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+Math.abs(x).toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
@@ -1168,7 +1178,7 @@ function setMarket(m,{reset=true}={}){
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
-  $('title').textContent='等待分析';$('period').textContent='';$('state').textContent='—';
+  $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
@@ -1251,13 +1261,37 @@ function getFavorites(){
 }
 function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
 function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
+let currentSingleFavorite={market:null,symbol:null};
+function renderSingleFavorite(market,symbol){
+ const btn=document.getElementById('singleFavorite');
+ if(!btn) return;
+ if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; return; }
+ currentSingleFavorite={market:String(market),symbol:String(symbol).toUpperCase()};
+ const fav=getFavorites().has(favoriteKey(currentSingleFavorite.market,currentSingleFavorite.symbol));
+ btn.hidden=false;
+ btn.textContent=fav?'★':'☆';
+ btn.classList.toggle('is-favorite',fav);
+ btn.setAttribute('aria-label',fav?'取消收藏':'收藏股票');
+ btn.title=fav?'取消收藏':'收藏股票';
+}
 function toggleFavorite(market,symbol){
  const set=getFavorites(), key=favoriteKey(market,symbol);
  if(set.has(key)) set.delete(key); else set.add(key);
- saveFavorites(set); renderRadar(radarFilter);
+ saveFavorites(set);
+ renderRadar(radarFilter);
+ if(currentSingleFavorite.market===String(market) && currentSingleFavorite.symbol===String(symbol).toUpperCase()){
+   renderSingleFavorite(market,symbol);
+ }
 }
 function updateFavoriteCount(){
  const el=document.getElementById('favoriteCount'); if(el) el.textContent=getFavorites().size;
+}
+const singleFavoriteBtn=document.getElementById('singleFavorite');
+if(singleFavoriteBtn){
+ singleFavoriteBtn.addEventListener('click',()=>{
+   const x=currentSingleFavorite;
+   if(x.market && x.symbol) toggleFavorite(x.market,x.symbol);
+ });
 }
 
 let radarReturnState=null;
