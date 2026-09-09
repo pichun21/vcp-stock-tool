@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.2 -->
+<!-- VCPulse BUILD 2.22.3 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1303,23 +1303,30 @@ function renderFreshness(){
  box.innerHTML=pieces.join('');
  box.hidden=!pieces.length;
 }
-function setRadarSnapshot(kind){
- if(kind==='intraday' && !radarSnapshotData.intraday.length) return;
- radarSnapshot=kind;
- radarRows=radarSnapshotData[kind]||[];
-
- // Snapshot switches are a new context: always start from "全部".
- // This also fixes the first-click blank list caused by carrying over an old filter state.
+function forceRadarAllRender(){
  radarFilter='all';
- document.querySelectorAll('.snapshot-btn').forEach(
-   b=>b.classList.toggle('active',b.dataset.snapshot===kind)
- );
  document.querySelectorAll('.radar-tab').forEach(
    b=>b.classList.toggle('active',b.dataset.radar==='all')
  );
+ // Render now, then once more after the browser has finished the click/layout cycle.
+ renderRadar('all');
+ requestAnimationFrame(()=>renderRadar('all'));
+ setTimeout(()=>renderRadar('all'),60);
+}
+
+function setRadarSnapshot(kind){
+ const rows=Array.isArray(radarSnapshotData[kind]) ? radarSnapshotData[kind] : [];
+ if(kind==='intraday' && rows.length===0) return;
+
+ radarSnapshot=kind;
+ radarRows=rows.slice();
+
+ document.querySelectorAll('.snapshot-btn').forEach(
+   b=>b.classList.toggle('active',b.dataset.snapshot===kind)
+ );
 
  renderFreshness();
- renderRadar('all');
+ forceRadarAllRender();
 }
 
 async function loadRadar(){
