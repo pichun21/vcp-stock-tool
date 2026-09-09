@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.7 -->
+<!-- VCPulse BUILD 2.22.8 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -643,6 +643,9 @@ th{color:#716c64}
  .snapshot-btn{width:100%;padding:8px 7px}
 }
 
+
+/* V2.22.8: remove duplicated radar header metadata */
+#radarUpdated{display:none!important}
 </style></head>
 <body><div class="wrap">
 <section class="brand-hero">
@@ -725,7 +728,7 @@ th{color:#716c64}
     <h2>📡 每日 VCP 雷達</h2>
     <div class="radar-head-meta">
       <div class="radar-count-pill">目前顯示 <b id="radarCount">—</b> 檔</div>
-      <div class="muted" id="radarUpdated">尚未建立每日掃描資料</div>
+      <div class="muted" id="radarUpdated" style="display:none!important" aria-hidden="true"></div>
     </div>
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
