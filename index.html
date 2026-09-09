@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.25.3 TPEX OFFICIAL API -->
+<!-- VCPulse BUILD 2.26 SINGLE STOCK QUICK READ -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -727,6 +727,25 @@ th{color:#716c64}
  .market-index-change{font-size:11px}
 }
 
+
+/* V2.26 — 單股快速判讀 */
+.single-quick-read{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:13px 0 10px}
+.single-quick-item{background:#f7f6f2;border-radius:14px;padding:11px 12px;min-width:0}
+.single-quick-item span{display:block;font-size:11px;color:#77756f;font-weight:800;margin-bottom:5px}
+.single-quick-item b{display:block;font-size:15px;font-weight:950;line-height:1.25;font-variant-numeric:tabular-nums}
+.single-quick-item small{display:block;font-size:9px;color:#96918a;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.single-quick-item b.up,.single-relative-strong{color:#2f7d52}
+.single-quick-item b.down,.single-relative-weak{color:#b14b42}
+.single-signal-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 11px}
+.single-signal-chip{display:inline-flex;align-items:center;padding:6px 9px;border:1px solid #e6dfd5;border-radius:999px;background:#fffdfa;font-size:11px;font-weight:850}
+@media(max-width:760px){
+ .single-quick-read{gap:6px;margin:11px 0 9px}
+ .single-quick-item{padding:9px 8px;border-radius:12px}
+ .single-quick-item span{font-size:10px}
+ .single-quick-item b{font-size:13px}
+ .single-signal-chip{font-size:10px;padding:5px 7px}
+}
+
 </style></head>
 <body>
 
@@ -820,6 +839,12 @@ th{color:#716c64}
 <div class="card"><div class="topline"><div><div class="ticker" id="title">等待分析</div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas><div class="note">圖：近約 120 個交易日收盤價；C1 紅、C2 藍、C3 綠（若有 C4 則為紫色），分別標示各次回檔區間與跌幅；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
+<div class="single-quick-read">
+  <div class="single-quick-item"><span>今日漲跌</span><b id="singleChange">—</b></div>
+  <div class="single-quick-item"><span>對應大盤</span><b id="singleMarketChange">—</b><small id="singleMarketName"></small></div>
+  <div class="single-quick-item"><span>相對強弱</span><b id="singleRelative">—</b></div>
+</div>
+<div class="single-signal-row" id="singleSignals"></div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary">輸入股票代號後開始。</div></div>
 
@@ -1000,6 +1025,50 @@ async function resolveTaiwanInput(raw){
  throw new Error(`找不到「${q}」，請輸入台股代號或完整中文名稱，例如 2330、台積電。`);
 }
 
+
+function singleBenchmarkFor(row){
+ if(!row || String(row.market||'TW').toUpperCase()!=='TW') return null;
+ const ex=String(row.exchange||'').toUpperCase();
+ const key=(ex.includes('TPEX')||ex.includes('OTC'))?'TPEX':'TWSE';
+ const tw=(radarBenchmarkData[radarSnapshot]||{}).TW||{};
+ return tw[key]||null;
+}
+function updateSingleQuickRead(radarMatch,d,a){
+ const stockChange=Number.isFinite(Number(radarMatch?.change_pct))
+   ? Number(radarMatch.change_pct)
+   : ((d?.length>=2 && Number(d[d.length-2]?.close)) ? ((Number(d[d.length-1].close)/Number(d[d.length-2].close)-1)*100) : NaN);
+ const changeEl=$('singleChange');
+ if(changeEl){
+   changeEl.textContent=Number.isFinite(stockChange)?`${stockChange>0?'+':''}${stockChange.toFixed(1)}%`:'—';
+   changeEl.className=Number.isFinite(stockChange)?(stockChange>0?'up':stockChange<0?'down':''):'';
+ }
+ const bm=singleBenchmarkFor(radarMatch);
+ const bmPct=Number(bm?.change_pct);
+ $('singleMarketChange').textContent=Number.isFinite(bmPct)?`${bmPct>0?'+':''}${bmPct.toFixed(2)}%`:'—';
+ $('singleMarketChange').className=Number.isFinite(bmPct)?(bmPct>0?'up':bmPct<0?'down':''):'';
+ $('singleMarketName').textContent=bm?.label||'';
+ const rel=(Number.isFinite(stockChange)&&Number.isFinite(bmPct))?stockChange-bmPct:NaN;
+ const relEl=$('singleRelative');
+ if(Number.isFinite(rel)){
+   relEl.textContent=`${rel>0.05?'💪 強於大盤':rel<-0.05?'弱於大盤':'≈ 跟大盤'} ${rel>0?'+':''}${rel.toFixed(2)}%`;
+   relEl.className=rel>0.05?'single-relative-strong':rel<-0.05?'single-relative-weak':'';
+ }else{
+   relEl.textContent='—'; relEl.className='';
+ }
+ const chips=[];
+ if(radarMatch?.pulse_signal==='hot') chips.push('🔥 高關注');
+ else if(radarMatch?.pulse_signal==='watch') chips.push('👀 觀察');
+ else if(radarMatch?.pulse_signal==='wait') chips.push('⏳ 等待');
+ if(a?.squeezeState) chips.push(a.squeezeState);
+ if(a?.momentum) chips.push(`Momentum ${a.momentum}`);
+ $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
+}
+function resetSingleQuickRead(){
+ ['singleChange','singleMarketChange','singleRelative'].forEach(id=>{const el=$(id);if(el){el.textContent='—';el.className='';}});
+ if($('singleMarketName')) $('singleMarketName').textContent='';
+ if($('singleSignals')) $('singleSignals').innerHTML='';
+}
+
 async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
@@ -1036,6 +1105,8 @@ async function run(){
     a.combo=!!radarMatch.combo;
   }
 
+  updateSingleQuickRead(radarMatch,d,a);
+
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+Math.abs(x).toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
@@ -1055,7 +1126,7 @@ function setMarket(m,{reset=true}={}){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
   $('title').textContent='等待分析';$('period').textContent='';$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
-  $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';
+  $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
 }
 document.querySelectorAll('.marketbtn').forEach(btn=>{
@@ -1435,6 +1506,13 @@ function escHtml(s){
   }[m]));
 }
 
+
+function formatMarketDate(v){
+ const s=String(v??'').trim();
+ if(/^\d{8}$/.test(s)) return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
+ return s;
+}
+
 function marketNumber(v,digits=2){
  const n=Number(v);
  return Number.isFinite(n)?n.toLocaleString('zh-TW',{minimumFractionDigits:digits,maximumFractionDigits:digits}):'—';
@@ -1457,7 +1535,7 @@ function renderMarketOverview(){
      <div>
        <div class="market-index-name">${escHtml(x.label||fallback)}</div>
        <div class="market-index-value">${marketNumber(x.close)}</div>
-       ${x.data_time?`<div class="market-index-time">${escHtml(x.data_time)}</div>`:''}
+       ${x.data_time?`<div class="market-index-time">${escHtml(formatMarketDate(x.data_time))}</div>`:''}
      </div>
      <div class="market-index-change ${cls}">
        ${Number.isFinite(pts)?`${sign}${marketNumber(pts)} 點`:'—'}<br>
