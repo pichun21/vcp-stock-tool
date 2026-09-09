@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.25 MARKET OVERVIEW
+# VCPulse BUILD 2.25.1 MARKET OVERVIEW FIX
 #!/usr/bin/env python3
 import argparse, json, time, os
 from pathlib import Path
@@ -35,34 +35,53 @@ def fetch_tw_universe():
 
 
 def fetch_tw_benchmarks():
-    """Fetch current TAIEX / TPEx weighted-index snapshots from FinMind.
-    001 = 加權指數, 101 = 櫃買加權.
-    Returns a compact dict safe to persist in screening.json.
+    """Fetch TAIEX / TPEx weighted index from Yahoo Finance via yfinance.
+    ^TWII = 台灣加權指數, ^TWOII = 櫃買指數.
+    Uses the latest two daily closes so points/% are consistent with scanner data.
     """
-    endpoint="https://api.finmindtrade.com/api/v4/taiwan_stock_tick_snapshot"
-    specs={"TWSE":("001","上市｜加權指數"),"TPEX":("101","上櫃｜櫃買指數")}
+    specs={
+        "TWSE":("^TWII","上市｜加權指數"),
+        "TPEX":("^TWOII","上櫃｜櫃買指數"),
+    }
     out={}
-    for key,(data_id,label) in specs.items():
+    for key,(ticker,label) in specs.items():
         try:
-            r=requests.get(endpoint,params={"data_id":data_id},timeout=30)
-            r.raise_for_status()
-            rows=r.json().get("data",[])
-            if not rows:
-                raise RuntimeError("empty snapshot")
-            x=rows[-1]
-            close=float(x.get("close") or 0)
-            change=float(x.get("change_price") or 0)
-            rate=float(x.get("change_rate") or 0)
+            df=yf.download(
+                ticker,
+                period="10d",
+                interval="1d",
+                auto_adjust=False,
+                progress=False,
+                threads=False
+            )
+            if df is None or len(df)<2:
+                raise RuntimeError("not enough index rows")
+            # yfinance may return a MultiIndex even for one ticker.
+            if isinstance(df.columns, pd.MultiIndex):
+                close=df["Close"].iloc[:,0].dropna()
+            else:
+                close=df["Close"].dropna()
+            if len(close)<2:
+                raise RuntimeError("not enough close rows")
+            last=float(close.iloc[-1])
+            prev=float(close.iloc[-2])
+            pts=last-prev
+            pct=(pts/prev*100) if prev else 0.0
+            idx=close.index[-1]
+            try:
+                data_date=pd.Timestamp(idx).strftime("%Y-%m-%d")
+            except Exception:
+                data_date=str(idx)
             out[key]={
-                "id":data_id,
+                "id":ticker,
                 "label":label,
-                "close":round(close,2),
-                "change_points":round(change,2),
-                "change_pct":round(rate,2),
-                "data_time":str(x.get("date") or "")
+                "close":round(last,2),
+                "change_points":round(pts,2),
+                "change_pct":round(pct,2),
+                "data_time":data_date
             }
         except Exception as e:
-            print(f"benchmark {key} warning:",e)
+            print(f"benchmark {key} warning:",repr(e))
     return out
 
 def fetch_us_universe():
