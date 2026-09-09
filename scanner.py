@@ -198,9 +198,9 @@ def fetch_us_benchmarks():
     return out
 
 def fetch_us_universe():
-    """Expanded US universe with resilient public-source parsing.
-    S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy holdings (IWM).
-    Every source logs its loaded count; all symbols are deduplicated.
+    """US universe: S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy.
+    Uses separate, simpler constituent sources and refuses to silently continue
+    with a severely incomplete US universe.
     """
     import io
     headers={
@@ -220,17 +220,17 @@ def fetch_us_universe():
         if source and source not in tickers[s]["sources"]:
             tickers[s]["sources"].append(source)
 
-    def read_html_text(url):
-        r=requests.get(url,headers=headers,timeout=35)
+    def get_text(url, timeout=45):
+        r=requests.get(url,headers=headers,timeout=timeout)
         r.raise_for_status()
-        # pandas 2.x treats literal HTML strings ambiguously; StringIO is explicit.
-        return pd.read_html(io.StringIO(r.text))
+        return r.text
 
     # S&P 500
     sp_count=0
     try:
-        tables=read_html_text("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
-        table=next(x for x in tables if "Symbol" in x.columns and "Security" in x.columns)
+        html=get_text("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
+        tables=pd.read_html(io.StringIO(html))
+        table=next(t for t in tables if "Symbol" in t.columns and "Security" in t.columns)
         for _,r in table.iterrows():
             add(r.get("Symbol"),r.get("Security"),"SP500")
         sp_count=sum("SP500" in x["sources"] for x in tickers.values())
@@ -238,24 +238,25 @@ def fetch_us_universe():
     except Exception as e:
         print("US source SP500 FAILED:",repr(e))
 
-    # Nasdaq-100 — Wikipedia changes column names occasionally, so detect
-    # ticker/company columns semantically instead of requiring exactly "Ticker".
+    # Nasdaq-100: purpose-built constituent CSV (Yahoo-compatible symbols).
     nd_count=0
     try:
-        tables=read_html_text("https://en.wikipedia.org/wiki/Nasdaq-100")
-        table=None; ticker_col=None; name_col=None
-        for t in tables:
-            cols=[str(c).strip() for c in t.columns]
-            tc=next((c for c in t.columns if any(k in str(c).lower()
-                    for k in ("ticker","symbol"))),None)
-            nc=next((c for c in t.columns if any(k in str(c).lower()
-                    for k in ("company","security","name"))),None)
-            if tc is not None and 80 <= len(t) <= 130:
-                table=t; ticker_col=tc; name_col=nc; break
-        if table is None:
-            raise RuntimeError("Nasdaq-100 component table not found")
-        for _,r in table.iterrows():
-            add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"NASDAQ100")
+        url="https://yfiua.github.io/index-constituents/constituents-nasdaq100.csv"
+        text=get_text(url)
+        df=pd.read_csv(io.StringIO(text))
+        # This dataset may be one-symbol-per-row or a current snapshot format.
+        symbol_col=next((c for c in df.columns if str(c).lower() in ("ticker","tickers","symbol","symbols")),None)
+        if symbol_col is not None:
+            vals=[]
+            for v in df[symbol_col].dropna():
+                vals.extend(re.split(r"[\s,;]+",str(v).strip()))
+            for s in vals: add(s,s,"NASDAQ100")
+        else:
+            # fallback: collect cells that look like tickers
+            for v in df.astype(str).values.ravel():
+                for s in re.split(r"[\s,;]+",str(v).strip()):
+                    if re.fullmatch(r"[A-Z]{1,6}(?:-[A-Z])?",s):
+                        add(s,s,"NASDAQ100")
         nd_count=sum("NASDAQ100" in x["sources"] for x in tickers.values())
         if nd_count < 80:
             raise RuntimeError(f"Nasdaq-100 parsed only {nd_count} symbols")
@@ -263,78 +264,52 @@ def fetch_us_universe():
     except Exception as e:
         print("US source NASDAQ100 FAILED:",repr(e))
 
-    # SOX: explicit component basket fallback. It remains independent of Wikipedia.
+    # SOX independent basket
     sox_symbols=[
         "AMD","ADI","AMAT","ARM","ASML","ALAB","AVGO","COHR","CRDO","ENTG",
         "GFS","INTC","KLAC","LRCX","MTSI","MRVL","MCHP","MU","MPWR","NVDA",
         "NXPI","ON","QCOM","RMBS","TER","TSM","TXN"
     ]
-    for s in sox_symbols:
-        add(s,s,"SOX")
+    for s in sox_symbols: add(s,s,"SOX")
     sox_count=sum("SOX" in x["sources"] for x in tickers.values())
     print(f"US source SOX loaded: {sox_count}")
 
-    # Russell 2000 proxy: IWM holdings from iShares.
-    # Use the current download endpoint/filename and tolerate CSV preamble changes.
+    # Russell 2000 proxy: complete public constituent table derived from IWM holdings.
     r2k_count=0
     try:
-        url=("https://www.ishares.com/us/products/239710/"
-             "ishares-russell-2000-etf/1467271812596.ajax"
-             "?fileType=csv&fileName=IWM")
-        ih_headers=dict(headers)
-        ih_headers["Accept"]="text/csv,*/*;q=0.8"
-        rr=requests.get(url,headers=ih_headers,timeout=45)
-        rr.raise_for_status()
-        text=rr.content.decode("utf-8-sig",errors="replace")
-        lines=text.splitlines()
-
-        header_i=None
-        for i,line in enumerate(lines[:40]):
-            clean=line.strip().lstrip("\ufeff").strip('"')
-            low=clean.lower()
-            if ("ticker" in low or "symbol" in low) and "," in line:
-                header_i=i; break
-        if header_i is None:
-            raise RuntimeError("IWM CSV ticker header not found")
-
-        h=pd.read_csv(io.StringIO("\n".join(lines[header_i:])))
-        ticker_col=next((c for c in h.columns if "ticker" in str(c).lower() or "symbol" in str(c).lower()),None)
-        name_col=next((c for c in h.columns if "name" in str(c).lower()),None)
-        asset_col=next((c for c in h.columns if "asset class" in str(c).lower()),None)
-        if ticker_col is None:
-            raise RuntimeError(f"IWM ticker column missing: {list(h.columns)}")
-
-        for _,r in h.iterrows():
-            if asset_col is not None:
-                asset=str(r.get(asset_col,""))
-                if asset and "equity" not in asset.lower():
-                    continue
+        html=get_text("https://equibles.com/indexes/russell-2000",timeout=60)
+        tables=pd.read_html(io.StringIO(html))
+        candidates=[]
+        for t in tables:
+            cols=[str(c).strip().lower() for c in t.columns]
+            tc=next((c for c in t.columns if str(c).strip().lower()=="ticker"),None)
+            if tc is not None:
+                candidates.append((len(t),t,tc))
+        if not candidates:
+            raise RuntimeError("Russell 2000 constituent table not found")
+        _,table,ticker_col=max(candidates,key=lambda x:x[0])
+        name_col=next((c for c in table.columns if "company" in str(c).lower() or "name" in str(c).lower()),None)
+        for _,r in table.iterrows():
             add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"RUSSELL2000")
-
         r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
         if r2k_count < 1500:
-            raise RuntimeError(f"IWM parsed only {r2k_count} equity symbols")
-        print(f"US source RUSSELL2000/IWM loaded: {r2k_count}")
+            raise RuntimeError(f"Russell 2000 parsed only {r2k_count} symbols")
+        print(f"US source RUSSELL2000 loaded: {r2k_count}")
     except Exception as e:
-        print("US source RUSSELL2000/IWM FAILED:",repr(e))
-
-    # Safety fallback only if the core large-cap sources both failed.
-    if sp_count==0 and nd_count==0:
-        fallback=["AAPL","MSFT","NVDA","AMZN","GOOGL","META","TSLA","AVGO","AMD","NFLX",
-                  "PLTR","MU","ORCL","COST","INTC"]
-        for x in fallback:
-            add(x,x,"FALLBACK")
-        print("US source FALLBACK loaded:",len(fallback))
+        print("US source RUSSELL2000 FAILED:",repr(e))
 
     out=list(tickers.values())
-    print(
-        "US universe summary:",
-        f"SP500={sp_count}",
-        f"NASDAQ100={nd_count}",
-        f"SOX={sox_count}",
-        f"RUSSELL2000={r2k_count}",
-        f"DEDUPED={len(out)}"
-    )
+    print("US universe summary:",
+          f"SP500={sp_count}",f"NASDAQ100={nd_count}",f"SOX={sox_count}",
+          f"RUSSELL2000={r2k_count}",f"DEDUPED={len(out)}")
+
+    # Critical guard: a green Action must not hide a partial ~500-stock universe.
+    if r2k_count < 1500 or nd_count < 80 or len(out) < 1700:
+        raise RuntimeError(
+            "US universe incomplete — stopping scan instead of publishing partial data. "
+            f"SP500={sp_count}, NASDAQ100={nd_count}, SOX={sox_count}, "
+            f"RUSSELL2000={r2k_count}, DEDUPED={len(out)}"
+        )
     return out
 
 def local_turns(close):
