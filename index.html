@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.22.13 AUTH + BIDIRECTIONAL PIVOT -->
+<!-- VCPulse BUILD 2.22.14 DESKTOP + MOBILE BIDIRECTIONAL PIVOT -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -675,6 +675,22 @@ th{color:#716c64}
 
 /* V2.22.8: remove duplicated radar header metadata */
 #radarUpdated{display:none!important}
+
+/* V2.22.14 — desktop Pivot track */
+.desktop-pivot-distance{
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ gap:2px;
+ min-width:96px;
+}
+.desktop-pivot-distance b{font-weight:800}
+.desktop-pivot-track{
+ width:92px;
+ max-width:92px;
+ margin-top:4px;
+}
+
 </style></head>
 <body>
 
@@ -1200,7 +1216,17 @@ function renderRadar(filter='all'){
    <td>${stars(r.score)}</td>
    <td>${esc(contractionText(r))}</td>
    <td>${Number(r.pivot).toFixed(2)}</td>
-   <td>${Number(r.distance).toFixed(1)}%</td>
+   <td>
+     <div class="desktop-pivot-distance">
+       <b>${Number(r.distance).toFixed(1)}%</b>
+       ${(()=>{
+         const pv=pivotDistanceVisual(r.distance);
+         return `<div class="pivot-distance-track desktop-pivot-track" data-zone="${pv.zone}" aria-hidden="true">
+           <span class="pivot-distance-fill ${pv.cls}" style="width:${pv.width}%"></span>
+         </div>`;
+       })()}
+     </div>
+   </td>
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
