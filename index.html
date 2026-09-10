@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- VCPulse BUILD 2.40.3 REMOVE SYNC LABEL -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1353,7 +1354,7 @@ async function run(){
 
   updateSingleQuickRead(radarMatch,d,a);
 
-  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
+  $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   const liveNote=$('singleLiveNote');
   if(liveNote){
     if(liveQuote && Number.isFinite(Number(liveQuote.price))){
