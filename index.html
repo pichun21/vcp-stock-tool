@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.35 SINGLE STOCK INTRADAY -->
+<!-- VCPulse BUILD 2.36 LIVE MARKET INDEX -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1499,8 +1499,9 @@ async function refreshUserLiveQuotes(){
    if(status) status.textContent=`即時行情更新中… ${Math.min(i+chunk.length,targets.length)}/${targets.length}`;
  }
  userLiveUpdatedAt=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+ const indexResult=await refreshLiveMarketOverview();
  renderRadar(radarFilter);
- if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}｜${userLiveUpdatedAt}（只更新行情，不重跑 VCP 篩選）`;
+ if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}；大盤 ${indexResult.ok}/${indexResult.total}｜${userLiveUpdatedAt}（只更新行情，不重跑 VCP 篩選）`;
  if(btn){ btn.disabled=false; btn.textContent='🔄 更新即時行情'; }
 }
 
@@ -1737,6 +1738,70 @@ function marketNumber(v,digits=2){
  const n=Number(v);
  return Number.isFinite(n)?n.toLocaleString('zh-TW',{minimumFractionDigits:digits,maximumFractionDigits:digits}):'—';
 }
+
+const LIVE_INDEX_SYMBOLS={
+  TW:{
+    TWSE:{symbol:'^TWII',label:'上市｜加權指數'},
+    TPEX:{symbol:'^TWOII',label:'上櫃｜櫃買指數'}
+  },
+  US:{
+    SOX:{symbol:'^SOX',label:'費城半導體'},
+    SP500:{symbol:'^GSPC',label:'S&P 500'},
+    NASDAQ:{symbol:'^IXIC',label:'NASDAQ'},
+    RUSSELL2000:{symbol:'^RUT',label:'Russell 2000'}
+  }
+};
+
+async function fetchYahooIndexQuote(symbol,label){
+  try{
+    const u=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1m&range=1d&includePrePost=true`;
+    const r=await fetch(u,{cache:'no-store'});
+    if(!r.ok) return null;
+    const j=await r.json();
+    const result=j?.chart?.result?.[0];
+    const meta=result?.meta||{};
+    const closes=result?.indicators?.quote?.[0]?.close||[];
+    const valid=closes.map(Number).filter(Number.isFinite);
+    const close=Number.isFinite(Number(meta.regularMarketPrice))?Number(meta.regularMarketPrice):(valid.length?valid[valid.length-1]:NaN);
+    const prev=Number(meta.chartPreviousClose ?? meta.previousClose);
+    if(!Number.isFinite(close)) return null;
+    const changePct=Number.isFinite(prev)&&prev!==0?((close/prev)-1)*100:NaN;
+    return {
+      label,
+      close,
+      change_points:Number.isFinite(prev)?close-prev:NaN,
+      change_pct:changePct,
+      data_time:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}),
+      live:true
+    };
+  }catch(e){ return null; }
+}
+
+async function refreshLiveMarketOverview(){
+  const market=String(currentMarket||'TW').toUpperCase();
+  const specs=LIVE_INDEX_SYMBOLS[market]||{};
+  const entries=Object.entries(specs);
+  if(!entries.length) return {ok:0,total:0};
+
+  const results=await Promise.allSettled(
+    entries.map(async ([key,x])=>[key,await fetchYahooIndexQuote(x.symbol,x.label)])
+  );
+
+  let ok=0;
+  const bucket=(radarBenchmarkData[radarSnapshot] ||= {});
+  bucket[market] ||= {};
+  results.forEach(res=>{
+    if(res.status!=='fulfilled') return;
+    const [key,val]=res.value;
+    if(val){
+      bucket[market][key]=val;
+      ok++;
+    }
+  });
+  renderMarketOverview();
+  return {ok,total:entries.length};
+}
+
 function renderMarketOverview(){
  const box=document.getElementById('marketOverview');
  if(!box) return;
@@ -1763,7 +1828,7 @@ function renderMarketOverview(){
      <div>
        <div class="market-index-name">${escHtml(x.label||fallback)}</div>
        <div class="market-index-value">${marketNumber(x.close)}</div>
-       ${x.data_time?`<div class="market-index-time">${escHtml(formatMarketDate(x.data_time))}</div>`:''}
+       ${x.data_time?`<div class="market-index-time">${x.live?'即時 ':''}${escHtml(formatMarketDate(x.data_time))}</div>`:''}
      </div>
      <div class="market-index-change ${cls}">
        ${Number.isFinite(pts)?`${sign}${marketNumber(pts)} 點`:'—'}<br>
