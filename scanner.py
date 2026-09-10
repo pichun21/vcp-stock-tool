@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.38 SERVER-SIDE BENCHMARK REFRESH
+# VCPulse BUILD 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -593,8 +593,8 @@ def download_batch(items,market):
     try:
         raw=yf.download(tickers=tickers,period="1y",interval="1d",group_by="ticker",auto_adjust=False,progress=False,threads=True,timeout=30)
     except Exception as e:
-        print("batch download failed",e); return []
-    results=[]
+        print("batch download failed",e); return [], []
+    results=[]; dates=[]
     for item in items:
         try:
             if len(tickers)==1: d=raw
@@ -602,23 +602,37 @@ def download_batch(items,market):
                 if item["yf"] not in raw.columns.get_level_values(0): continue
                 d=raw[item["yf"]]
             if d is None or d.empty: continue
+            # Count the latest usable daily bar for ALL downloaded symbols, not only VCP candidates.
+            usable=d.dropna(subset=["Close"]) if "Close" in d.columns else d.dropna(how="all")
+            if usable is None or usable.empty: continue
+            dates.append(usable.index[-1].strftime("%Y-%m-%d"))
             r=analyze(d,item,market)
             if r: results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
-    return results
+    return results, dates
 
 def scan(market):
     universe=fetch_tw_universe() if market=="TW" else fetch_us_universe()
     print(f"{market}: universe {len(universe)}")
     batch_size=120 if market=="TW" else 120
     batches=[universe[i:i+batch_size] for i in range(0,len(universe),batch_size)]
-    results=[]
+    results=[]; latest_dates=[]
     for i,b in enumerate(batches,1):
         print(f"{market}: batch {i}/{len(batches)}")
-        results.extend(download_batch(b,market)); time.sleep(1)
+        batch_results,batch_dates=download_batch(b,market)
+        results.extend(batch_results); latest_dates.extend(batch_dates); time.sleep(1)
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
-    return results[:150]
+    today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
+    valid=len(latest_dates); today_count=sum(1 for d in latest_dates if d==today)
+    stats={
+        "universe":len(universe), "valid":valid, "today":today_count,
+        "valid_pct":round(valid/max(len(universe),1)*100,1),
+        "today_pct":round(today_count/max(valid,1)*100,1),
+        "latest_date":max(latest_dates,default="")
+    }
+    print(f"{market} DATA CHECK: latest={stats['latest_date']} today={stats['today']}/{stats['valid']} ({stats['today_pct']}%) valid={stats['valid']}/{stats['universe']} ({stats['valid_pct']}%)")
+    return results[:150], stats
 
 def load_existing():
     if OUT.exists():
@@ -822,7 +836,7 @@ def main():
     targets=["TW","US"] if args.market=="both" else [args.market]
 
     for market in targets:
-        rows=scan(market)
+        rows,scan_stats=scan(market)
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -841,6 +855,23 @@ def main():
         market_benchmark = fetch_tw_benchmarks() if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
 
         if official:
+            # V2.39 safety guard for TW official snapshots.
+            # Do not overwrite a good official snapshot when today's daily bars are not sufficiently ready.
+            if market=="TW":
+                today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
+                ready=(
+                    scan_stats.get("latest_date")==today and
+                    scan_stats.get("today_pct",0)>=95.0 and
+                    scan_stats.get("valid_pct",0)>=85.0
+                )
+                print(
+                    f"TW OFFICIAL GUARD: today bars={scan_stats.get('today',0)}/{scan_stats.get('valid',0)} "
+                    f"({scan_stats.get('today_pct',0)}%), valid coverage={scan_stats.get('valid_pct',0)}% -> "
+                    f"{'PASS' if ready else 'BLOCK'}"
+                )
+                if not ready:
+                    print("TW official NOT overwritten: daily data completeness is below safety threshold; preserving previous official and intraday snapshots.")
+                    continue
             previous=_split_market(official_results,market)
             previous_date=(official_markets.get(market) or {}).get("data_date")
             if previous:
@@ -861,11 +892,8 @@ def main():
             if market_benchmark:
                 official_benchmarks[market]=market_benchmark
 
-            # Once the same trading day has an official close snapshot,
-            # remove the now-stale intraday copy for that market.
-            intraday_results=_replace_market(intraday_results,market,[])
-            intraday_markets.pop(market,None)
-            intraday_benchmarks.pop(market,None)
+            # V2.39: preserve the intraday snapshot even after an official run.
+            # The two snapshots are independent; updating official must never erase intraday.
         else:
             # Intraday scan is stored separately and NEVER advances NEW baseline.
             for r in rows:
