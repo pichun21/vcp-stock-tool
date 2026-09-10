@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.40.1 UI POLISH -->
+<!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1390,7 +1390,8 @@ function setMarket(m,{reset=true}={}){
  const ic=marketCount(radarSnapshotData.intraday,m);
  if(officialCount) officialCount.textContent=oc?`(${oc})`:'';
  if(intradayCount) intradayCount.textContent=ic?`(${ic})`:'';
- if(intradayBtn) intradayBtn.disabled=!ic;
+ if(intradayBtn) intradayBtn.disabled=!ic || isIntradayLockedAfterOfficial(m);
+ updateSnapshotAvailability();
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
@@ -2108,9 +2109,30 @@ function forceRadarAllRender(){
  setTimeout(()=>renderRadar('all'),60);
 }
 
+function isIntradayLockedAfterOfficial(market=currentMarket){
+ // TW: intraday remains available until the scheduled official refresh has actually completed.
+ // We use the official snapshot's real scanned_at time, not the browser clock, so a delayed Action is handled correctly.
+ if(String(market||'').toUpperCase()!=='TW') return false;
+ const meta=radarSnapshotMeta?.official?.TW||{};
+ const dataDate=String(meta.data_date||'');
+ const scannedAt=String(meta.scanned_at||'');
+ if(!dataDate || !scannedAt) return false;
+ const m=scannedAt.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{1,2}):(\d{2})/);
+ if(!m || m[1]!==dataDate) return false;
+ const mins=(+m[2])*60+(+m[3]);
+ return mins>=18*60+10;
+}
+function updateSnapshotAvailability(){
+ const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
+ if(!intradayBtn) return;
+ const m=String(currentMarket||'TW').toUpperCase();
+ const ic=(radarSnapshotData.intraday||[]).filter(x=>String(x.market||'').toUpperCase()===m).length;
+ intradayBtn.disabled=!ic || isIntradayLockedAfterOfficial(m);
+ intradayBtn.title=isIntradayLockedAfterOfficial(m)?'今日正式收盤版已完成更新，盤中即時已停用':'';
+}
 function setRadarSnapshot(kind){
  const rows=Array.isArray(radarSnapshotData[kind]) ? radarSnapshotData[kind] : [];
- if(kind==='intraday' && rows.length===0) return;
+ if(kind==='intraday' && (rows.length===0 || isIntradayLockedAfterOfficial(currentMarket))) return;
 
  radarSnapshot=kind;
  radarRows=rows.slice();
@@ -2155,8 +2177,9 @@ async function loadRadar(){
    const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
    const intradayCount=document.getElementById('intradayCount');
    const ic=marketCount(radarSnapshotData.intraday,currentMarket);
-   if(intradayBtn) intradayBtn.disabled=!ic;
+   if(intradayBtn) intradayBtn.disabled=!ic || isIntradayLockedAfterOfficial(currentMarket);
    if(intradayCount) intradayCount.textContent=ic?`(${ic})`:'';
+   updateSnapshotAvailability();
 
    const tw=radarSnapshotMeta.official?.TW, us=radarSnapshotMeta.official?.US;
    const bits=[];
@@ -2466,4 +2489,9 @@ onAuthStateChanged(auth, async user => {
     max-width:21px !important;font-size:19px !important;
   }
 }
+</style>
+
+<style>
+/* V2.40.2 — completed TW official snapshot locks the stale intraday switch */
+.snapshot-btn:disabled{opacity:.38!important;background:#f1eee9!important;color:#aaa39a!important;border-color:#ddd7cf!important;box-shadow:none!important;cursor:not-allowed!important}
 </style>
