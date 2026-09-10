@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.36.4 FAVORITE STAR INLINE -->
+<!-- VCPulse BUILD 2.36.5 FAVORITE STAR TIGHT -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2207,3 +2207,42 @@ onAuthStateChanged(auth, async user => {
 </script>
 
 </body></html>
+
+<style>
+/* V2.36.5 — 收藏星星緊貼股票名稱 */
+.single-title-row{
+  display:inline-flex !important;
+  width:auto !important;
+  max-width:max-content !important;
+  flex:0 0 auto !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:6px !important;
+}
+.single-title-row .ticker{
+  flex:0 0 auto !important;
+  width:auto !important;
+  white-space:nowrap !important;
+}
+.single-title-row .single-title-favorite{
+  position:static !important;
+  flex:0 0 22px !important;
+  width:22px !important;
+  min-width:22px !important;
+  max-width:22px !important;
+  height:24px !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-size:20px !important;
+  line-height:24px !important;
+  transform:none !important;
+}
+.single-title-row .single-title-favorite:hover{transform:scale(1.06) !important}
+@media(max-width:720px){
+  .single-title-row{gap:6px !important}
+  .single-title-row .single-title-favorite{
+    flex-basis:21px !important;width:21px !important;min-width:21px !important;
+    max-width:21px !important;font-size:19px !important;
+  }
+}
+</style>
