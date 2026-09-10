@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.3 MOBILE FAVORITE LABEL -->
+<!-- VCPulse BUILD 2.41.4 FAVORITE ICON CONSISTENCY -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -907,6 +907,11 @@ th{color:#716c64}
   }
 }
 
+
+/* V2.41.4 — 收藏語意統一：★ 我的收藏 / ☆ 收藏 / ★ 已收藏 */
+.favorite-tab{color:#7b5a35}
+.favorite-tab.active{color:inherit}
+
 </style></head>
 <body>
 
@@ -1044,7 +1049,7 @@ th{color:#716c64}
     <div class="radar-head">
       <div class="radar-tabs">
         <button class="radar-tab active" data-radar="all">全部</button>
-        <button class="radar-tab favorite-tab" data-radar="favorites">🏷️ 我的收藏 <span id="favoriteCount">0</span></button>
+        <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
         <button class="radar-tab" data-radar="hot">🔥 高關注</button>
       <button class="radar-tab" data-radar="new">🆕 今日新進</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
