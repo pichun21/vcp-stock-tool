@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.29 SINGLE STOCK FAVORITE -->
+<!-- VCPulse BUILD 2.32 SMART SORT + US NAME CLEANUP -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1378,10 +1378,12 @@ function renderRadar(filter='all'){
    (filter==='combo' ? r.combo : r.type===filter))));
  });
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
+ const pulseRank={hot:0,watch:1,wait:2,extended:3};
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
  const squeezeRank={strong:0,medium:1,weak:2,none:3};
  const momentumRank={bull_up:0,bear_up:1,bull_down:2,bear_down:3};
  const smartSort=(a,b)=>
+   ((pulseRank[a.pulse_signal]??9)-(pulseRank[b.pulse_signal]??9)) ||
    ((statusRank[a.type]??9)-(statusRank[b.type]??9)) ||
    ((b.score??0)-(a.score??0)) ||
    ((squeezeRank[a.squeeze_level]??9)-(squeezeRank[b.squeeze_level]??9)) ||

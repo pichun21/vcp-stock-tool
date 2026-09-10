@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.30 US EQUITY-ONLY FILTER
+# VCPulse BUILD 2.32 SMART SORT + US NAME CLEANUP
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -282,6 +282,23 @@ def filter_us_equity_universe(items):
     return kept
 
 
+def clean_us_company_name(name, symbol=""):
+    """Remove quote-site price/change/date text accidentally appended to company names."""
+    s=str(name or "").strip()
+    if not s:
+        return str(symbol or "").strip()
+
+    # Examples from constituent source:
+    # "Integer Holdings Corp $126.37 +0.13% Latest trade · 9 Sep"
+    # "AtriCure, Inc. $53.10 -1.18% Latest trade · 9 Sep"
+    s=re.sub(r"\s+\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%\s+Latest\s+trade\b.*$","",s,flags=re.I)
+    s=re.sub(r"\s+Latest\s+trade\b.*$","",s,flags=re.I)
+    # Conservative trailing quote cleanup if wording changes but price/change remains.
+    s=re.sub(r"\s+\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%\s*$","",s)
+    s=re.sub(r"\s{2,}"," ",s).strip(" ·|-")
+    return s or str(symbol or "").strip()
+
+
 def fetch_us_universe():
     """US universe: S&P 500 + Nasdaq-100 + SOX + Russell 2000 proxy.
     Uses separate, simpler constituent sources and refuses to silently continue
@@ -301,7 +318,8 @@ def fetch_us_universe():
         if not re.fullmatch(r"[A-Z0-9][A-Z0-9\-]*",s):
             return
         if s not in tickers:
-            tickers[s]={"symbol":s,"name":str(name or s).strip(),"yf":s,"sources":[]}
+            clean_name=clean_us_company_name(name or s,s)
+            tickers[s]={"symbol":s,"name":clean_name,"yf":s,"sources":[]}
         if source and source not in tickers[s]["sources"]:
             tickers[s]["sources"].append(source)
 
@@ -380,6 +398,12 @@ def fetch_us_universe():
         if r2k_count < 1500:
             raise RuntimeError(f"Russell 2000 parsed only {r2k_count} symbols")
         print(f"US source RUSSELL2000 loaded: {r2k_count}")
+        dirty_names=sum(
+            1 for x in tickers.values()
+            if "RUSSELL2000" in x.get("sources",[]) and
+               ("Latest trade" in str(x.get("name","")) or re.search(r"\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%",str(x.get("name",""))))
+        )
+        print(f"US Russell company-name cleanup: remaining_dirty={dirty_names}")
     except Exception as e:
         print("US source RUSSELL2000 FAILED:",repr(e))
 
