@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41 CAPITAL HOTSPOTS -->
+<!-- VCPulse BUILD 2.41.1 CAPITAL HOTSPOTS FIX -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1504,7 +1504,6 @@ let radarSnapshot='official';
 let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
-   radarCapitalHotspots={official:data.official_capital_hotspots||{},intraday:data.intraday_capital_hotspots||{}};
 let radarCapitalHotspots={official:{},intraday:{}};
 let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
@@ -2237,6 +2236,7 @@ function setRadarSnapshot(kind){
 
  renderFreshness();
  renderMarketOverview();
+ renderCapitalHotspots();
  forceRadarAllRender();
 }
 
@@ -2257,6 +2257,10 @@ async function loadRadar(){
    radarBenchmarkData={
      official:j.official_benchmarks||{},
      intraday:j.intraday_benchmarks||{}
+   };
+   radarCapitalHotspots={
+     official:j.official_capital_hotspots||{},
+     intraday:j.intraday_capital_hotspots||{}
    };
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;
