@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.6 RETURN HIGHLIGHT RESTORE -->
+<!-- VCPulse BUILD 2.41.7 MOBILE RADAR FRESHNESS UI -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -925,6 +925,96 @@ th{color:#716c64}
   }
 }
 
+
+/* V2.41.7 — 每日雷達 / 台美股資料日期與掃描時間重新排版 */
+.radar-freshness{
+  display:grid;
+  gap:10px;
+}
+.freshness-item{
+  display:grid !important;
+  grid-template-columns:minmax(220px,1.25fr) minmax(180px,.9fr) minmax(130px,.65fr);
+  align-items:center;
+  gap:0 !important;
+  padding:13px 16px !important;
+  border:1px solid #e4ddd3;
+  border-radius:15px;
+  background:#fff;
+}
+.freshness-status,
+.freshness-date,
+.freshness-scan{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.freshness-date,
+.freshness-scan{
+  padding-left:18px;
+  border-left:1px solid #e9e1d6;
+}
+.freshness-title{
+  font-size:14px;
+  font-weight:900;
+  line-height:1.25;
+  color:var(--text);
+}
+.freshness-sub{
+  margin-top:3px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+}
+.freshness-date b,
+.freshness-scan b{
+  display:block;
+  font-size:14px;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.freshness-date small,
+.freshness-scan small{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  color:var(--muted);
+}
+.freshness-icon{
+  flex:0 0 auto;
+  font-size:16px;
+  color:#776f65;
+}
+
+@media(max-width:760px){
+  .radar-section .section-title h2{
+    width:auto !important;
+    max-width:none !important;
+    white-space:nowrap !important;
+  }
+  .freshness-item{
+    grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) minmax(76px,.62fr);
+    padding:12px 13px !important;
+  }
+  .freshness-status{gap:7px}
+  .freshness-date,
+  .freshness-scan{
+    gap:6px;
+    padding-left:10px;
+  }
+  .freshness-title{font-size:12.5px}
+  .freshness-sub{font-size:9.5px;line-height:1.25}
+  .freshness-date b,
+  .freshness-scan b{
+    font-size:11.5px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  .freshness-date small,
+  .freshness-scan small{font-size:9px}
+  .freshness-icon{display:none}
+}
+
 </style></head>
 <body>
 
@@ -1031,7 +1121,7 @@ th{color:#716c64}
 
 <div class="section radar-section">
   <div class="section-title">
-    <h2>📡 每日 VCP 雷達</h2>
+    <h2>📡 每日雷達</h2>
     <div class="radar-head-meta">
       <div class="radar-count-pill">目前顯示 <b id="radarCount">—</b> 檔</div>
       <div class="muted" id="radarUpdated" style="display:none!important" aria-hidden="true"></div>
@@ -2235,23 +2325,60 @@ function renderFreshness(){
  if(!box) return;
  const meta=radarSnapshotMeta[radarSnapshot]||{};
  const pieces=[];
+
+ const dateWithWeekday=(s)=>{
+   const str=String(s||'').trim();
+   const m=str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+   if(!m) return str;
+   const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
+   const w=['日','一','二','三','四','五','六'][d.getDay()];
+   return `${str} (${w})`;
+ };
+ const scanTime=(s)=>{
+   const str=String(s||'').trim();
+   const m=str.match(/^\d{4}-\d{2}-\d{2}\s+(\d{1,2}):(\d{2})/);
+   return m ? `${m[1].padStart(2,'0')}:${m[2]}` : str;
+ };
+
  ['TW','US'].forEach(market=>{
    const m=meta[market];
    if(!m?.data_date) return;
    const intraday=radarSnapshot==='intraday' || m.snapshot_type==='intraday';
-   const type=intraday?'盤中雷達':(market==='TW'?'正式收盤版・18:10 起更新':'正式收盤版');
-   const note=intraday?'':'';
+
+   let title='', sub='';
+   if(intraday){
+     title=market==='TW'?'台股・盤中即時':'美股・盤中即時';
+     sub='盤中資料';
+   }else if(market==='TW'){
+     title='台股・收盤更新';
+     sub='每日 18:10 起更新';
+   }else{
+     title='美股・前一交易日收盤';
+     sub='07:10 起更新（台灣時間）';
+   }
+
    pieces.push(`<div class="freshness-item ${intraday?'intraday':''}">
-     <span class="freshness-dot"></span>
-     <span class="freshness-title">${market==='TW'?'台股':'美股'}｜${type}</span>
-     <span>${escHtml(m.data_date)}</span>
-     ${m.scanned_at?`<span class="freshness-note">掃描 ${escHtml(m.scanned_at)}</span>`:''}
-     <span class="freshness-note">${note}</span>
+     <div class="freshness-status">
+       <span class="freshness-dot"></span>
+       <div>
+         <div class="freshness-title">${escHtml(title)}</div>
+         <div class="freshness-sub">${escHtml(sub)}</div>
+       </div>
+     </div>
+     <div class="freshness-date">
+       <span class="freshness-icon">▣</span>
+       <div><b>${escHtml(dateWithWeekday(m.data_date))}</b><small>資料日期</small></div>
+     </div>
+     <div class="freshness-scan">
+       <span class="freshness-icon">◷</span>
+       <div><b>${m.scanned_at?escHtml(scanTime(m.scanned_at)):'—'}</b><small>掃描時間</small></div>
+     </div>
    </div>`);
  });
  box.innerHTML=pieces.join('');
  box.hidden=!pieces.length;
 }
+
 function forceRadarAllRender(){
  radarFilter='all';
  document.querySelectorAll('.radar-tab').forEach(
