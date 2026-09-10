@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -30,7 +30,7 @@ def fetch_tw_universe():
     out=[]
     for _,r in df.iterrows():
         suffix=".TW" if r["type"]=="twse" else ".TWO"
-        out.append({"symbol":str(r["stock_id"]),"name":str(r["stock_name"]),"yf":str(r["stock_id"])+suffix,"exchange":str(r["type"]).upper()})
+        out.append({"symbol":str(r["stock_id"]),"name":str(r["stock_name"]),"yf":str(r["stock_id"])+suffix,"exchange":str(r["type"]).upper(),"industry":str(r.get("industry_category") or "其他")})
     return out
 
 
@@ -593,8 +593,8 @@ def download_batch(items,market):
     try:
         raw=yf.download(tickers=tickers,period="1y",interval="1d",group_by="ticker",auto_adjust=False,progress=False,threads=True,timeout=30)
     except Exception as e:
-        print("batch download failed",e); return [], []
-    results=[]; dates=[]
+        print("batch download failed",e); return [], [], []
+    results=[]; dates=[]; flows=[]
     for item in items:
         try:
             if len(tickers)==1: d=raw
@@ -602,25 +602,126 @@ def download_batch(items,market):
                 if item["yf"] not in raw.columns.get_level_values(0): continue
                 d=raw[item["yf"]]
             if d is None or d.empty: continue
-            # Count the latest usable daily bar for ALL downloaded symbols, not only VCP candidates.
             usable=d.dropna(subset=["Close"]) if "Close" in d.columns else d.dropna(how="all")
             if usable is None or usable.empty: continue
-            dates.append(usable.index[-1].strftime("%Y-%m-%d"))
+            data_date=usable.index[-1].strftime("%Y-%m-%d")
+            dates.append(data_date)
+
+            # V2.41: keep a lightweight all-market capital-flow observation.
+            # Yahoo daily Volume * Close is used as an estimated traded-value proxy.
+            # This is for relative industry heat, not an official net-capital-flow figure.
+            if market=="TW" and "Close" in usable.columns and "Volume" in usable.columns:
+                c=pd.to_numeric(usable["Close"],errors="coerce")
+                v=pd.to_numeric(usable["Volume"],errors="coerce").fillna(0)
+                value=(c*v).replace([np.inf,-np.inf],np.nan)
+                if len(c)>=2 and pd.notna(c.iloc[-1]) and pd.notna(c.iloc[-2]):
+                    latest_value=float(value.iloc[-1]) if pd.notna(value.iloc[-1]) else 0.0
+                    hist=value.iloc[-21:-1].dropna()
+                    avg20=float(hist.mean()) if len(hist) else 0.0
+                    chg=(float(c.iloc[-1])/float(c.iloc[-2])-1)*100 if float(c.iloc[-2]) else 0.0
+                    flows.append({
+                        "symbol":item["symbol"],"industry":item.get("industry") or "其他",
+                        "data_date":data_date,"value":latest_value,"avg20_value":avg20,
+                        "change_pct":chg,"up":bool(chg>0)
+                    })
+
             r=analyze(d,item,market)
-            if r: results.append(r)
+            if r:
+                r["industry"]=item.get("industry") or ""
+                results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
-    return results, dates
+    return results, dates, flows
+
+def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
+    """Build VCPulse industry heat from broad-market observations.
+    This is an activity/attention model, not official buy/sell net flow.
+    """
+    if not flow_rows:
+        return []
+    df=pd.DataFrame(flow_rows)
+    df=df[(df["industry"].fillna("")!="") & (df["industry"]!="其他")]
+    if df.empty: return []
+    latest=max(df["data_date"].astype(str))
+    df=df[df["data_date"].astype(str)==latest].copy()
+    if df.empty: return []
+
+    g=df.groupby("industry",dropna=False).agg(
+        stock_count=("symbol","count"),
+        trading_value=("value","sum"),
+        avg20_value=("avg20_value","sum"),
+        up_count=("up","sum"),
+        avg_change_pct=("change_pct","mean")
+    ).reset_index()
+    # Avoid tiny classifications dominating the ranking.
+    g=g[g["stock_count"]>=3].copy()
+    if g.empty: return []
+
+    total_value=float(g["trading_value"].sum()) or 1.0
+    g["market_share_pct"]=g["trading_value"]/total_value*100
+    g["value_ratio"]=np.where(g["avg20_value"]>0,g["trading_value"]/g["avg20_value"],1.0)
+    g["breadth_pct"]=g["up_count"]/g["stock_count"]*100
+
+    cand=pd.DataFrame(candidate_rows or [])
+    if not cand.empty and "industry" in cand.columns:
+        cg=cand.groupby("industry").agg(
+            vcp_count=("symbol","count"),
+            breakout_count=("type",lambda s:int((s=="breakout").sum()))
+        )
+        g=g.merge(cg,left_on="industry",right_index=True,how="left")
+    else:
+        g["vcp_count"]=0; g["breakout_count"]=0
+    g[["vcp_count","breakout_count"]]=g[["vcp_count","breakout_count"]].fillna(0)
+
+    def pct_rank(series):
+        if len(series)<=1: return pd.Series([50.0]*len(series),index=series.index)
+        return series.rank(pct=True,method="average")*100
+
+    # 0–100 composite: traded-value acceleration, market share, breadth,
+    # price momentum, VCP concentration and breakout concentration.
+    g["heat_score"]=(
+        pct_rank(g["value_ratio"])*0.35 +
+        pct_rank(g["market_share_pct"])*0.25 +
+        pct_rank(g["breadth_pct"])*0.15 +
+        pct_rank(g["avg_change_pct"])*0.10 +
+        pct_rank(g["vcp_count"]/g["stock_count"])*0.10 +
+        pct_rank(g["breakout_count"]/g["stock_count"])*0.05
+    ).round().clip(0,100).astype(int)
+
+    def level(x):
+        if x>=80: return ("hot","🔥 強力升溫")
+        if x>=65: return ("warming","🟠 資金升溫")
+        if x>=50: return ("active","🟡 持續活躍")
+        return ("cooling","🔵 資金降溫")
+
+    rows=[]
+    for _,r in g.sort_values(["heat_score","trading_value"],ascending=[False,False]).head(topn).iterrows():
+        key,label=level(int(r["heat_score"]))
+        rows.append({
+            "industry":str(r["industry"]),
+            "heat_score":int(r["heat_score"]),
+            "heat_level":key,
+            "heat_label":label,
+            "market_share_pct":round(float(r["market_share_pct"]),1),
+            "value_ratio":round(float(r["value_ratio"]),2),
+            "breadth_pct":round(float(r["breadth_pct"]),1),
+            "avg_change_pct":round(float(r["avg_change_pct"]),2),
+            "vcp_count":int(r["vcp_count"]),
+            "breakout_count":int(r["breakout_count"]),
+            "stock_count":int(r["stock_count"]),
+            "data_date":latest
+        })
+    return rows
 
 def scan(market):
     universe=fetch_tw_universe() if market=="TW" else fetch_us_universe()
     print(f"{market}: universe {len(universe)}")
     batch_size=120 if market=="TW" else 120
     batches=[universe[i:i+batch_size] for i in range(0,len(universe),batch_size)]
-    results=[]; latest_dates=[]
+    results=[]; latest_dates=[]; flow_rows=[]
     for i,b in enumerate(batches,1):
         print(f"{market}: batch {i}/{len(batches)}")
-        batch_results,batch_dates=download_batch(b,market)
-        results.extend(batch_results); latest_dates.extend(batch_dates); time.sleep(1)
+        batch_results,batch_dates,batch_flows=download_batch(b,market)
+        results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); time.sleep(1)
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
     today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
@@ -631,8 +732,11 @@ def scan(market):
         "today_pct":round(today_count/max(valid,1)*100,1),
         "latest_date":max(latest_dates,default="")
     }
+    hotspots=build_capital_hotspots(flow_rows,results) if market=="TW" else []
     print(f"{market} DATA CHECK: latest={stats['latest_date']} today={stats['today']}/{stats['valid']} ({stats['today_pct']}%) valid={stats['valid']}/{stats['universe']} ({stats['valid_pct']}%)")
-    return results[:150], stats
+    if hotspots:
+        print("TW CAPITAL HOTSPOTS:", " | ".join(f"{x['industry']} {x['heat_score']}" for x in hotspots))
+    return results[:150], stats, hotspots
 
 def load_existing():
     if OUT.exists():
@@ -793,6 +897,8 @@ def main():
     intraday_markets=dict(old.get("intraday_markets",{}) or {})
     official_benchmarks=dict(old.get("official_benchmarks",{}) or {})
     intraday_benchmarks=dict(old.get("intraday_benchmarks",{}) or {})
+    official_capital_hotspots=dict(old.get("official_capital_hotspots",{}) or {})
+    intraday_capital_hotspots=dict(old.get("intraday_capital_hotspots",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -836,7 +942,7 @@ def main():
     targets=["TW","US"] if args.market=="both" else [args.market]
 
     for market in targets:
-        rows,scan_stats=scan(market)
+        rows,scan_stats,capital_hotspots=scan(market)
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -891,6 +997,8 @@ def main():
             }
             if market_benchmark:
                 official_benchmarks[market]=market_benchmark
+            if market=="TW" and capital_hotspots:
+                official_capital_hotspots["TW"]=capital_hotspots
 
             # V2.39: preserve the intraday snapshot even after an official run.
             # The two snapshots are independent; updating official must never erase intraday.
@@ -908,6 +1016,8 @@ def main():
             }
             if market_benchmark:
                 intraday_benchmarks[market]=market_benchmark
+            if market=="TW" and capital_hotspots:
+                intraday_capital_hotspots["TW"]=capital_hotspots
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -920,6 +1030,8 @@ def main():
         "intraday_markets":intraday_markets,
         "official_benchmarks":official_benchmarks,
         "intraday_benchmarks":intraday_benchmarks,
+        "official_capital_hotspots":official_capital_hotspots,
+        "intraday_capital_hotspots":intraday_capital_hotspots,
         "results":official_results,
         "official_results":official_results,
         "intraday_results":intraday_results

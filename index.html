@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.40.4 MOBILE RADAR HEADER ALIGN -->
+<!-- VCPulse BUILD 2.41 CAPITAL HOTSPOTS -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -850,6 +850,28 @@ th{color:#716c64}
   }
 }
 
+
+/* V2.41 — 資金熱區 */
+.capital-hotspots{margin:12px 0 16px}
+.capital-hotspots-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:9px}
+.capital-hotspots-head h3{margin:0;font-size:16px}
+.capital-hotspots-note{font-size:11px;color:var(--muted)}
+.capital-hotspots-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.capital-hotspot{border:1px solid var(--line);border-radius:14px;padding:11px;background:var(--card)}
+.capital-hotspot-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.capital-hotspot-name{font-weight:800;font-size:14px;line-height:1.25}
+.capital-hotspot-score{font-weight:900;font-size:17px;white-space:nowrap}
+.capital-hotspot-level{font-size:11px;margin:5px 0 7px}
+.capital-hotspot-metrics{display:grid;gap:3px;font-size:11px;color:var(--muted)}
+.capital-hotspot-metrics b{color:var(--text)}
+.capital-hotspots-empty{font-size:12px;color:var(--muted);padding:10px 0}
+@media(max-width:760px){
+ .capital-hotspots-head{align-items:flex-start}
+ .capital-hotspots-grid{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scroll-snap-type:x proximity}
+ .capital-hotspot{min-width:172px;scroll-snap-align:start}
+ .capital-hotspots-note{max-width:150px;text-align:right}
+}
+
 </style></head>
 <body>
 
@@ -968,6 +990,13 @@ th{color:#716c64}
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div id="marketOverview" class="market-overview" hidden></div>
+  <div id="capitalHotspots" class="capital-hotspots" hidden>
+    <div class="capital-hotspots-head">
+      <h3>🔥 資金熱區</h3>
+      <div class="capital-hotspots-note">成交活躍度 × 市場占比 × 上漲廣度 × VCP 集中</div>
+    </div>
+    <div id="capitalHotspotsGrid" class="capital-hotspots-grid"></div>
+  </div>
   <div class="user-live-refresh">
     <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 更新即時行情</button>
     <span id="userLiveRefreshStatus" class="user-live-status">更新目前雷達股票的價格、今日漲跌與距 Pivot；大盤指數隨每次完整雷達掃描同步更新。</span>
@@ -1409,10 +1438,40 @@ async function run(){
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
 }
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
+
+function renderCapitalHotspots(){
+ const box=document.getElementById('capitalHotspots');
+ const grid=document.getElementById('capitalHotspotsGrid');
+ if(!box || !grid) return;
+ if(currentMarket!=='TW'){ box.hidden=true; grid.innerHTML=''; return; }
+ const rows=(radarCapitalHotspots?.[radarSnapshot]?.TW)||[];
+ if(!Array.isArray(rows) || !rows.length){
+   box.hidden=false;
+   grid.innerHTML='<div class="capital-hotspots-empty">尚無資金熱區資料；下一次台股完整掃描後建立。</div>';
+   return;
+ }
+ box.hidden=false;
+ grid.innerHTML=rows.map((r,i)=>`
+   <div class="capital-hotspot">
+     <div class="capital-hotspot-top">
+       <div class="capital-hotspot-name">${i+1}. ${escHtml(r.industry||'—')}</div>
+       <div class="capital-hotspot-score">${Number(r.heat_score||0)}</div>
+     </div>
+     <div class="capital-hotspot-level">${escHtml(r.heat_label||'')}</div>
+     <div class="capital-hotspot-metrics">
+       <span>市場資金占比 <b>${Number(r.market_share_pct||0).toFixed(1)}%</b></span>
+       <span>成交熱度 <b>${Number(r.value_ratio||0).toFixed(2)}×</b></span>
+       <span>上漲家數 <b>${Number(r.breadth_pct||0).toFixed(0)}%</b></span>
+       <span>VCP <b>${Number(r.vcp_count||0)}</b>｜突破 <b>${Number(r.breakout_count||0)}</b></span>
+     </div>
+   </div>`).join('');
+}
+
 function setMarket(m,{reset=true}={}){
  currentMarket=m;
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
+ renderCapitalHotspots();
  const marketCount=(arr,m)=>arr.filter(x=>String(x.market||'').toUpperCase()===String(m||'TW').toUpperCase()).length;
  const officialCount=document.getElementById('officialCount');
  const intradayCount=document.getElementById('intradayCount');
@@ -1445,6 +1504,8 @@ let radarSnapshot='official';
 let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
+   radarCapitalHotspots={official:data.official_capital_hotspots||{},intraday:data.intraday_capital_hotspots||{}};
+let radarCapitalHotspots={official:{},intraday:{}};
 let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
 
@@ -2219,6 +2280,7 @@ async function loadRadar(){
    updated.textContent=(bits.length?`正式資料截至：${bits.join('｜')}`:'尚無正式收盤資料')+(j.generated_at?`　檔案更新 ${j.generated_at}`:'');
    renderFreshness();
    renderMarketOverview();
+   renderCapitalHotspots();
    renderRadar(radarFilter);
    if(!radarSnapshotData.official.length && radarSnapshotData.intraday.length){
      const body=document.getElementById('radarBody');
