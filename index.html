@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.37 SAME-ORIGIN RADAR FALLBACK -->
+<!-- VCPulse BUILD 2.37.1 TPEX MARKET REFRESH FIX -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1893,7 +1893,6 @@ function marketNumber(v,digits=2){
 const LIVE_INDEX_SYMBOLS={
   TW:{
     TWSE:{symbol:'^TWII',label:'上市｜加權指數'},
-    TPEX:{symbol:'^TWOII',label:'上櫃｜櫃買指數'}
   },
   US:{
     SOX:{symbol:'^SOX',label:'費城半導體'},
@@ -1928,31 +1927,116 @@ async function fetchYahooIndexQuote(symbol,label){
   }catch(e){ return null; }
 }
 
+
+function parseNumLoose(v){
+  const n=Number(String(v??'').replace(/,/g,'').replace(/%/g,'').trim());
+  return Number.isFinite(n)?n:NaN;
+}
+function pickField(obj,names){
+  for(const n of names){
+    if(obj && Object.prototype.hasOwnProperty.call(obj,n) && obj[n]!=='' && obj[n]!=null) return obj[n];
+  }
+  return null;
+}
+async function fetchTpexIndexLatest(){
+  try{
+    const urls=[
+      'https://www.tpex.org.tw/openapi/v1/tpex_daily_trading_index',
+      'https://www.tpex.org.tw/openapi/v1/tpex_index'
+    ];
+    for(const u of urls){
+      try{
+        const ctl=new AbortController();
+        const timer=setTimeout(()=>ctl.abort(),7000);
+        let r;
+        try{
+          r=await fetch(u,{cache:'no-store',signal:ctl.signal});
+        }finally{ clearTimeout(timer); }
+        if(!r?.ok) continue;
+        const j=await r.json().catch(()=>null);
+        if(!Array.isArray(j) || !j.length) continue;
+
+        // Latest row: official TPEx OpenAPI commonly returns newest-first, but sort by date when possible.
+        const rows=j.slice();
+        const dateOf=x=>String(pickField(x,['Date','date','日期','資料日期','TradeDate'])||'');
+        rows.sort((a,b)=>dateOf(a).localeCompare(dateOf(b)));
+        const x=rows[rows.length-1]||{};
+
+        const close=parseNumLoose(pickField(x,[
+          'Close','close','Index','index','IndexValue','indexValue',
+          '收市指數','收盤指數','指數','TPExIndex'
+        ]));
+        const changePoints=parseNumLoose(pickField(x,[
+          'Change','change','ChangePoint','change_points','漲跌','漲跌點數'
+        ]));
+        let changePct=parseNumLoose(pickField(x,[
+          'ChangePercent','changePercent','ChangeRate','change_pct','漲跌幅度(%)','漲跌幅(%)','漲跌幅'
+        ]));
+
+        // If the API does not expose percentage directly, derive it from point change.
+        if(!Number.isFinite(changePct) && Number.isFinite(close) && Number.isFinite(changePoints)){
+          const prev=close-changePoints;
+          if(prev!==0) changePct=(changePoints/prev)*100;
+        }
+        if(!Number.isFinite(close)) continue;
+
+        return {
+          label:'上櫃｜櫃買指數',
+          close,
+          change_points:Number.isFinite(changePoints)?changePoints:NaN,
+          change_pct:Number.isFinite(changePct)?changePct:NaN,
+          data_time:dateOf(x)||new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}),
+          live:true,
+          source:'TPEx OpenAPI'
+        };
+      }catch(e){
+        console.warn('TPEx index endpoint failed',u,e);
+      }
+    }
+  }catch(e){
+    console.warn('TPEx index refresh failed',e);
+  }
+  return null;
+}
+
 async function refreshLiveMarketOverview(){
   const market=String(currentMarket||'TW').toUpperCase();
+  const bucket=(radarBenchmarkData[radarSnapshot] ||= {});
+  bucket[market] ||= {};
+
+  if(market==='TW'){
+    // TWSE: Yahoo chart remains a useful best-effort source.
+    // TPEx: Yahoo's ^TWOII is not reliable here, so use TPEx official OpenAPI instead.
+    const [twseRes,tpexRes]=await Promise.allSettled([
+      fetchYahooIndexQuote('^TWII','上市｜加權指數'),
+      fetchTpexIndexLatest()
+    ]);
+    let ok=0;
+    if(twseRes.status==='fulfilled' && twseRes.value){
+      bucket.TW.TWSE=twseRes.value; ok++;
+    }
+    if(tpexRes.status==='fulfilled' && tpexRes.value){
+      bucket.TW.TPEX=tpexRes.value; ok++;
+    }
+    renderMarketOverview();
+    return {ok,total:2};
+  }
+
   const specs=LIVE_INDEX_SYMBOLS[market]||{};
   const entries=Object.entries(specs);
   if(!entries.length) return {ok:0,total:0};
-
   const results=await Promise.allSettled(
     entries.map(async ([key,x])=>[key,await fetchYahooIndexQuote(x.symbol,x.label)])
   );
-
   let ok=0;
-  const bucket=(radarBenchmarkData[radarSnapshot] ||= {});
-  bucket[market] ||= {};
   results.forEach(res=>{
     if(res.status!=='fulfilled') return;
     const [key,val]=res.value;
-    if(val){
-      bucket[market][key]=val;
-      ok++;
-    }
+    if(val){ bucket[market][key]=val; ok++; }
   });
   renderMarketOverview();
   return {ok,total:entries.length};
 }
-
 function renderMarketOverview(){
  const box=document.getElementById('marketOverview');
  if(!box) return;
