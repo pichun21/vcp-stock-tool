@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.37.1 TPEX MARKET REFRESH FIX -->
+<!-- VCPulse BUILD 2.38 SERVER-SIDE BENCHMARK REFRESH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -939,7 +939,7 @@ th{color:#716c64}
   <div id="marketOverview" class="market-overview" hidden></div>
   <div class="user-live-refresh">
     <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 更新即時行情</button>
-    <span id="userLiveRefreshStatus" class="user-live-status">更新目前雷達股票的價格、今日漲跌與距 Pivot；不會重跑整體 VCP 篩選。</span>
+    <span id="userLiveRefreshStatus" class="user-live-status">更新目前雷達股票的價格、今日漲跌與距 Pivot；大盤指數隨每次完整雷達掃描同步更新。</span>
   </div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
@@ -1649,9 +1649,8 @@ async function refreshUserLiveQuotes(){
    if(status) status.textContent=`即時行情更新中… ${Math.min(i+chunk.length,targets.length)}/${targets.length}`;
  }
  userLiveUpdatedAt=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
- const indexResult=await refreshLiveMarketOverview();
  renderRadar(radarFilter);
- if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}；大盤 ${indexResult.ok}/${indexResult.total}｜${userLiveUpdatedAt}（只更新行情，不重跑 VCP 篩選）`;
+ if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}｜${userLiveUpdatedAt}（個股行情即時更新；大盤隨每次雷達完整重掃更新）`;
  if(btn){ btn.disabled=false; btn.textContent='🔄 更新即時行情'; }
 }
 
@@ -2063,7 +2062,7 @@ function renderMarketOverview(){
      <div>
        <div class="market-index-name">${escHtml(x.label||fallback)}</div>
        <div class="market-index-value">${marketNumber(x.close)}</div>
-       ${x.data_time?`<div class="market-index-time">${x.live?'即時 ':''}${escHtml(formatMarketDate(x.data_time))}</div>`:''}
+       ${x.data_time?`<div class="market-index-time">${escHtml(formatMarketDate(x.data_time))}${x.source?` · ${escHtml(x.source.includes('intraday')?'盤中更新':'資料更新')}`:''}</div>`:''}
      </div>
      <div class="market-index-change ${cls}">
        ${Number.isFinite(pts)?`${sign}${marketNumber(pts)} 點`:'—'}<br>

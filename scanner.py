@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.33.1 SNAPSHOT MODES
+# VCPulse BUILD 2.38 SERVER-SIDE BENCHMARK REFRESH
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -34,133 +34,195 @@ def fetch_tw_universe():
     return out
 
 
-def fetch_tw_benchmarks():
-    """Fetch Taiwan benchmark snapshots.
-    TWSE uses Yahoo ^TWII (already stable in this project).
-    TPEx uses the official TPEx OpenAPI first, with Yahoo only as fallback.
+def _yf_index_snapshot(ticker, label):
+    """Best-effort server-side index quote for GitHub Actions.
+    Prefer intraday bars during market hours; fall back to daily bars.
     """
-    out={}
-
-    # ---- TWSE: Yahoo ^TWII ----
+    # 1) Intraday: best source for same-day values during the session.
     try:
-        df=yf.download("^TWII",period="10d",interval="1d",
-                       auto_adjust=False,progress=False,threads=False)
-        if df is not None and len(df)>=2:
-            if isinstance(df.columns,pd.MultiIndex):
-                close=df["Close"].iloc[:,0].dropna()
+        df = yf.download(
+            ticker, period="2d", interval="5m",
+            auto_adjust=False, progress=False, threads=False,
+            prepost=False
+        )
+        if df is not None and len(df):
+            if isinstance(df.columns, pd.MultiIndex):
+                close = df["Close"].iloc[:, 0].dropna()
             else:
-                close=df["Close"].dropna()
-            last=float(close.iloc[-1]); prev=float(close.iloc[-2])
-            pts=last-prev; pct=(pts/prev*100) if prev else 0.0
-            d=pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d")
-            out["TWSE"]={
-                "id":"^TWII","label":"上市｜加權指數",
-                "close":round(last,2),"change_points":round(pts,2),
-                "change_pct":round(pct,2),"data_time":d
-            }
-    except Exception as e:
-        print("benchmark TWSE warning:",repr(e))
+                close = df["Close"].dropna()
+            if len(close):
+                last = float(close.iloc[-1])
 
-    # ---- TPEx: official OpenAPI ----
+                # Find the prior completed trading day's last bar as previous close.
+                idx = pd.to_datetime(close.index)
+                dates = pd.Series(idx.date, index=close.index)
+                last_day = dates.iloc[-1]
+                prior = close[dates != last_day]
+                if len(prior):
+                    prev = float(prior.iloc[-1])
+                else:
+                    prev = float("nan")
+
+                pts = last - prev if np.isfinite(prev) else float("nan")
+                pct = (pts / prev * 100) if np.isfinite(prev) and prev else float("nan")
+                ts = pd.Timestamp(close.index[-1])
+                try:
+                    if ts.tzinfo is not None:
+                        ts = ts.tz_convert(TAIPEI)
+                except Exception:
+                    pass
+
+                return {
+                    "id": ticker,
+                    "label": label,
+                    "close": round(last, 2),
+                    "change_points": round(pts, 2) if np.isfinite(pts) else None,
+                    "change_pct": round(pct, 2) if np.isfinite(pct) else None,
+                    "data_time": ts.strftime("%Y-%m-%d %H:%M"),
+                    "source": "Yahoo/yfinance intraday"
+                }
+    except Exception as e:
+        print(f"benchmark {ticker} intraday warning:", repr(e))
+
+    # 2) Daily fallback.
     try:
-        url="https://www.tpex.org.tw/openapi/v1/tpex_index"
-        r=requests.get(
-            url,timeout=30,
+        df = yf.download(
+            ticker, period="10d", interval="1d",
+            auto_adjust=False, progress=False, threads=False
+        )
+        if df is not None and len(df) >= 2:
+            if isinstance(df.columns, pd.MultiIndex):
+                close = df["Close"].iloc[:, 0].dropna()
+            else:
+                close = df["Close"].dropna()
+            if len(close) >= 2:
+                last = float(close.iloc[-1])
+                prev = float(close.iloc[-2])
+                pts = last - prev
+                pct = (pts / prev * 100) if prev else 0.0
+                d = pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d")
+                return {
+                    "id": ticker,
+                    "label": label,
+                    "close": round(last, 2),
+                    "change_points": round(pts, 2),
+                    "change_pct": round(pct, 2),
+                    "data_time": d,
+                    "source": "Yahoo/yfinance daily"
+                }
+    except Exception as e:
+        print(f"benchmark {ticker} daily warning:", repr(e))
+    return None
+
+
+def _fetch_tpex_official_close():
+    """Official TPEx historical close fallback.
+    The public OpenAPI is end-of-day/historical, so it is NOT used as the first
+    source for an intraday snapshot.
+    """
+    try:
+        url = "https://www.tpex.org.tw/openapi/v1/tpex_index"
+        r = requests.get(
+            url, timeout=30,
             headers={
-                "User-Agent":"Mozilla/5.0 (VCPulse; GitHub Actions)",
-                "Accept":"application/json"
+                "User-Agent": "Mozilla/5.0 (VCPulse; GitHub Actions)",
+                "Accept": "application/json"
             }
         )
         r.raise_for_status()
-        data=r.json()
-        if isinstance(data,dict):
-            data=data.get("data") or data.get("results") or data.get("result") or []
-        if not isinstance(data,list) or len(data)<1:
-            raise RuntimeError("TPEx OpenAPI returned no rows")
+        data = r.json()
+        if isinstance(data, dict):
+            data = data.get("data") or data.get("results") or data.get("result") or []
+        if not isinstance(data, list) or not data:
+            return None
 
         def pick(row, names):
-            # exact first
             for n in names:
-                if n in row and row[n] not in (None,""):
+                if n in row and row[n] not in (None, ""):
                     return row[n]
-            # normalized fallback
-            normalized={str(k).lower().replace(" ","").replace("_",""):v for k,v in row.items()}
+            normalized = {
+                str(k).lower().replace(" ", "").replace("_", ""): v
+                for k, v in row.items()
+            }
             for n in names:
-                nk=str(n).lower().replace(" ","").replace("_","")
-                if nk in normalized and normalized[nk] not in (None,""):
+                nk = str(n).lower().replace(" ", "").replace("_", "")
+                if nk in normalized and normalized[nk] not in (None, ""):
                     return normalized[nk]
             return None
 
-        parsed=[]
+        parsed = []
         for row in data:
-            if not isinstance(row,dict):
+            if not isinstance(row, dict):
                 continue
-            ds=pick(row,["Date","date","資料日期","日期"])
-            cv=pick(row,["Close","close","收市","收盤","收市指數","Index","index"])
-            if cv in (None,""):
+            ds = pick(row, ["Date", "date", "資料日期", "日期"])
+            cv = pick(row, ["Close", "close", "收市", "收盤", "收市指數", "Index", "index"])
+            if cv in (None, ""):
                 continue
             try:
-                c=float(str(cv).replace(",",""))
+                c = float(str(cv).replace(",", ""))
             except Exception:
                 continue
-            parsed.append((str(ds or ""),c,row))
-
+            parsed.append((str(ds or ""), c, row))
         if not parsed:
-            raise RuntimeError("TPEx OpenAPI rows had no parsable close")
+            return None
 
-        # The endpoint is historical. Prefer the last returned row; if dates are sortable,
-        # sort by date text first so response order does not matter.
-        parsed.sort(key=lambda x:x[0])
-        ds,last,lastrow=parsed[-1]
+        parsed.sort(key=lambda x: x[0])
+        ds, last, lastrow = parsed[-1]
 
-        change_raw=pick(lastrow,["Change","change","漲跌","指數漲跌","ChangePoints"])
-        pts=None
-        if change_raw not in (None,""):
+        change_raw = pick(lastrow, ["Change", "change", "漲跌", "指數漲跌", "ChangePoints"])
+        pts = None
+        if change_raw not in (None, ""):
             try:
-                pts=float(str(change_raw).replace(",","").replace("+",""))
+                pts = float(str(change_raw).replace(",", "").replace("+", ""))
             except Exception:
-                pts=None
-        if pts is None and len(parsed)>=2:
-            pts=last-parsed[-2][1]
+                pts = None
+        if pts is None and len(parsed) >= 2:
+            pts = last - parsed[-2][1]
         if pts is None:
-            pts=0.0
+            pts = 0.0
 
-        prev=last-pts
-        pct=(pts/prev*100) if prev else 0.0
-
-        out["TPEX"]={
-            "id":"tpex_index","label":"上櫃｜櫃買指數",
-            "close":round(last,2),"change_points":round(pts,2),
-            "change_pct":round(pct,2),"data_time":ds
+        prev = last - pts
+        pct = (pts / prev * 100) if prev else 0.0
+        return {
+            "id": "tpex_index",
+            "label": "上櫃｜櫃買指數",
+            "close": round(last, 2),
+            "change_points": round(pts, 2),
+            "change_pct": round(pct, 2),
+            "data_time": ds,
+            "source": "TPEx official close"
         }
     except Exception as e:
-        print("benchmark TPEX official warning:",repr(e))
+        print("benchmark TPEX official warning:", repr(e))
+        return None
 
-        # Yahoo fallback, retained only as a safety net.
-        for ticker in ("^TWOII","^TWO"):
-            try:
-                df=yf.download(ticker,period="10d",interval="1d",
-                               auto_adjust=False,progress=False,threads=False)
-                if df is None or len(df)<2:
-                    continue
-                if isinstance(df.columns,pd.MultiIndex):
-                    close=df["Close"].iloc[:,0].dropna()
-                else:
-                    close=df["Close"].dropna()
-                if len(close)<2:
-                    continue
-                last=float(close.iloc[-1]); prev=float(close.iloc[-2])
-                pts=last-prev; pct=(pts/prev*100) if prev else 0.0
-                d=pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d")
-                out["TPEX"]={
-                    "id":ticker,"label":"上櫃｜櫃買指數",
-                    "close":round(last,2),"change_points":round(pts,2),
-                    "change_pct":round(pct,2),"data_time":d
-                }
-                break
-            except Exception:
-                pass
 
+def fetch_tw_benchmarks():
+    """Fetch Taiwan benchmarks on the GitHub Actions server.
+
+    TWSE and TPEx first try Yahoo/yfinance intraday bars, avoiding browser CORS.
+    TPEx official OpenAPI is retained only as an end-of-day fallback.
+    """
+    out = {}
+
+    twse = _yf_index_snapshot("^TWII", "上市｜加權指數")
+    if twse:
+        out["TWSE"] = twse
+
+    # Important: during the trading session, prefer a same-day Yahoo/yfinance
+    # quote instead of accepting TPEx historical OpenAPI's previous-day close.
+    tpex = _yf_index_snapshot("^TWOII", "上櫃｜櫃買指數")
+    if not tpex:
+        tpex = _yf_index_snapshot("^TWO", "上櫃｜櫃買指數")
+    if not tpex:
+        tpex = _fetch_tpex_official_close()
+    if tpex:
+        out["TPEX"] = tpex
+
+    print("TW benchmarks:", {
+        k: {"close": v.get("close"), "data_time": v.get("data_time"), "source": v.get("source")}
+        for k, v in out.items()
+    })
     return out
 
 
