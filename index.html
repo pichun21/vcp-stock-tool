@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.36.5 FAVORITE STAR TIGHT -->
+<!-- VCPulse BUILD 2.37 SAME-ORIGIN RADAR FALLBACK -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1190,6 +1190,104 @@ function findLatestRadarMatch(market,symbol){
      || null;
 }
 
+
+function findAnyRadarMatch(market,symbol){
+  const m=String(market||'').toUpperCase();
+  const sym=String(symbol||'').toUpperCase();
+  const pools=[
+    ...(radarSnapshotData?.intraday||[]),
+    ...(radarSnapshotData?.official||[])
+  ];
+  return pools.find(x=>
+    String(x.market||'').toUpperCase()===m &&
+    String(x.symbol||'').toUpperCase()===sym
+  ) || null;
+}
+
+function drawRadarFallbackMessage(){
+  const c=$('chart');
+  if(!c) return;
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.save();
+  ctx.textAlign='center';
+  ctx.fillStyle='#8a8379';
+  ctx.font='600 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';
+  ctx.fillText('此裝置目前無法取得完整歷史日線圖',c.width/2,c.height/2-10);
+  ctx.font='13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';
+  ctx.fillText('已改用 VCPulse 每日雷達的預先計算結果',c.width/2,c.height/2+18);
+  ctx.restore();
+}
+
+function renderSingleFromRadarFallback(symbol,row){
+  if(!row) return false;
+
+  const pts=Number(row.score);
+  const pivot=Number(row.pivot);
+  const distance=Number(row.distance);
+  const change=Number(row.change_pct);
+  const name=row.name || '';
+  const date=row.data_date || '';
+
+  $('err').style.display='none';
+  $('title').textContent=name ? `${name}（${symbol}）` : `${symbol} · ${currentMarket==='US'?'美股':'台股'}`;
+  renderSingleFavorite(currentMarket,symbol);
+  $('period').textContent=`${date || '最近一次雷達資料'}　·　已使用每日雷達備援`;
+  $('state').textContent=stageLabel(row);
+
+  if($('singleLiveNote')){
+    $('singleLiveNote').hidden=false;
+    $('singleLiveNote').textContent='🟡 此裝置目前無法直連歷史資料來源，已改用 VCPulse 雷達快取結果';
+  }
+
+  $('score').textContent=Number.isFinite(pts)?`${pts}/5`:'—';
+  $('stars').textContent=Number.isFinite(pts)?'★'.repeat(Math.max(0,Math.min(5,pts)))+'☆'.repeat(Math.max(0,5-Math.min(5,pts))):'☆☆☆☆☆';
+  $('pivot').textContent=Number.isFinite(pivot)?pivot.toFixed(2):'—';
+  $('dist').textContent=Number.isFinite(distance)?pct(distance):'—';
+  $('contracts').textContent=row.contracts || '—';
+  $('volume').textContent=row.volume_dry?'量縮 ✓':'未明顯量縮';
+
+  // Do not fabricate individual checklist results when the full historical series
+  // is unavailable on this device.
+  $('checks').innerHTML='<div class="check"><span>完整歷史條件明細</span><b style="color:#9a6a1c">使用雷達快取</b></div>';
+
+  const summaryBits=[];
+  if(row.pulse_label) summaryBits.push(row.pulse_label);
+  if(row.squeeze_state) summaryBits.push(row.squeeze_state);
+  if(row.momentum) summaryBits.push(row.momentum);
+  $('summary').textContent=(summaryBits.length?summaryBits.join('｜')+'。':'')+
+    '本次使用每日雷達已預先計算的結果；完整 K 線圖需待此裝置可連線歷史資料來源時顯示。';
+
+  // Quick read: reuse scanner values and current benchmark snapshot.
+  if($('singleChange')){
+    $('singleChange').textContent=Number.isFinite(change)?pct(change):'—';
+    $('singleChange').className=Number.isFinite(change)?(change>0?'up':change<0?'down':''):'';
+  }
+  const bm=singleBenchmarkFor(row);
+  const bmp=Number(bm?.change_pct);
+  if($('singleMarketChange')){
+    $('singleMarketChange').textContent=Number.isFinite(bmp)?pct(bmp):'—';
+    $('singleMarketChange').className=Number.isFinite(bmp)?(bmp>0?'up':bmp<0?'down':''):'';
+  }
+  if($('singleMarketName')) $('singleMarketName').textContent=bm?.label||'';
+  if($('singleRelative')){
+    const rel=(Number.isFinite(change)&&Number.isFinite(bmp))?change-bmp:NaN;
+    $('singleRelative').textContent=Number.isFinite(rel)?`${rel>=0?'強於':'弱於'}大盤 ${pct(Math.abs(rel))}`:'—';
+    $('singleRelative').className=Number.isFinite(rel)?(rel>=0?'single-relative-strong':'single-relative-weak'):'';
+  }
+
+  if($('singleSignals')){
+    const chips=[];
+    if(row.pulse_label) chips.push(row.pulse_label);
+    if(row.squeeze_state) chips.push(row.squeeze_state);
+    if(row.momentum) chips.push(row.momentum);
+    $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
+  }
+
+  drawRadarFallbackMessage();
+  return true;
+}
+
 async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
@@ -1271,7 +1369,12 @@ async function run(){
   $('checks').innerHTML=rows.map(r=>`<div class="check"><span>${r[0]}</span><b class="${r[1]?'good':'bad'}">${r[1]?'✓':'×'}</b></div>`).join('');
   $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${a.squeezeState}｜Momentum ${a.momentum}。`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
- }catch(e){showErr('抓不到資料：'+e.message+'。若瀏覽器阻擋跨網域請求，可改用本機伺服器開啟本頁。')}
+ }catch(e){
+   const fallback=findAnyRadarMatch(currentMarket,s);
+   if(!renderSingleFromRadarFallback(s,fallback)){
+     showErr('目前這台裝置無法取得完整歷史資料，且此股票不在目前每日雷達快取中。請稍後再試，或切換 Wi‑Fi／行動網路後重試。');
+   }
+ }
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
 }
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
