@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.36.2 SINGLE STOCK FETCH FAILSAFE -->
+<!-- VCPulse BUILD 2.36.3 FAVORITE STAR ALIGN -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -422,14 +422,19 @@ th{color:#716c64}
 .favorite-btn:hover{transform:scale(1.08)}
 .favorite-btn.is-favorite{color:#b87836}
 
-.single-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.single-title-row{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;min-width:0}
+.single-title-row .ticker{min-width:0}
 .single-title-favorite{
-  border:0;background:transparent;padding:0;cursor:pointer;
-  font-size:28px;line-height:1;color:#b9b4aa;transition:transform .15s ease,color .15s ease;
+  border:0;background:transparent;padding:0 1px;cursor:pointer;flex:0 0 auto;
+  width:26px;height:30px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:23px;line-height:1;color:#b9b4aa;transition:transform .15s ease,color .15s ease;
 }
 .single-title-favorite:hover{transform:scale(1.08)}
 .single-title-favorite.is-favorite{color:#b87836}
-@media(max-width:720px){.single-title-favorite{font-size:24px}}
+@media(max-width:720px){
+ .single-title-row{gap:6px}
+ .single-title-favorite{font-size:21px;width:24px;height:27px}
+}
 
 .favorite-tab #favoriteCount{
  display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;
