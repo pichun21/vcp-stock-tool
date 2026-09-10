@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.7 MOBILE RADAR FRESHNESS UI -->
+<!-- VCPulse BUILD 2.41.9 US HOURLY INTRADAY UI -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1146,7 +1146,7 @@ th{color:#716c64}
   </div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
-      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')"><span class="snapshot-main">✅ 正式收盤 <span id="officialCount"></span></span><span class="snapshot-update-note">18:10 起更新</span></button>
+      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')"><span class="snapshot-main" id="officialSnapshotLabel">✅ 正式收盤 <span id="officialCount"></span></span><span class="snapshot-update-note" id="officialSnapshotNote">18:10 起更新</span></button>
       <button type="button" class="snapshot-btn" data-snapshot="intraday" onclick="setRadarSnapshot('intraday')">👀 盤中即時 <span id="intradayCount"></span></button>
     </div>
     <div class="radar-head">
@@ -1612,8 +1612,24 @@ function renderCapitalHotspots(){
    </div>`).join('');
 }
 
+
+function updateMarketSpecificSnapshotUI(){
+ const isUS=String(currentMarket||'TW').toUpperCase()==='US';
+ const label=document.getElementById('officialSnapshotLabel');
+ const note=document.getElementById('officialSnapshotNote');
+ const count=document.getElementById('officialCount');
+ const countText=count?.textContent||'';
+ if(label){
+   label.innerHTML=isUS
+     ? `✅ 前一交易日收盤 <span id="officialCount">${countText}</span>`
+     : `✅ 正式收盤 <span id="officialCount">${countText}</span>`;
+ }
+ if(note) note.textContent=isUS?'07:10 起更新':'18:10 起更新';
+}
+
 function setMarket(m,{reset=true}={}){
  currentMarket=m;
+ updateMarketSpecificSnapshotUI();
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
  renderCapitalHotspots();
@@ -1625,6 +1641,7 @@ function setMarket(m,{reset=true}={}){
  const ic=marketCount(radarSnapshotData.intraday,m);
  if(officialCount) officialCount.textContent=oc?`(${oc})`:'';
  if(intradayCount) intradayCount.textContent=ic?`(${ic})`:'';
+ updateMarketSpecificSnapshotUI();
  if(intradayBtn) intradayBtn.disabled=!ic || isIntradayLockedAfterOfficial(m);
  updateSnapshotAvailability();
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
@@ -2348,7 +2365,7 @@ function renderFreshness(){
    let title='', sub='';
    if(intraday){
      title=market==='TW'?'台股・盤中即時':'美股・盤中即時';
-     sub='盤中資料';
+     sub=market==='US'?'盤中每 1 小時自動更新':'盤中資料';
    }else if(market==='TW'){
      title='台股・收盤更新';
      sub='每日 18:10 起更新';
