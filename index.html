@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.34 USER LIVE QUOTE REFRESH -->
+<!-- VCPulse BUILD 2.35 SINGLE STOCK INTRADAY -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -892,7 +892,7 @@ th{color:#716c64}
 <div class="search"><input id="symbol" value="2330" placeholder="搜尋台積電、2330…"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
-<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div></div><div class="badge" id="state">—</div></div>
+<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas><div class="note">圖：近約 120 個交易日收盤價；C1 紅、C2 藍、C3 綠（若有 C4 則為紫色），分別標示各次回檔區間與跌幅；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
 <div class="single-quick-read">
@@ -1135,6 +1135,30 @@ function resetSingleQuickRead(){
  if($('singleSignals')) $('singleSignals').innerHTML='';
 }
 
+
+async function getSingleLatestQuote(market,symbol){
+ try{
+   const dataset=market==='US'?'USStockPrice':'TaiwanStockPrice';
+   const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
+   const f=d=>d.toISOString().slice(0,10);
+   const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${f(start)}&end_date=${f(end)}`;
+   const r=await fetch(u,{cache:'no-store'}), j=await r.json();
+   if(!r.ok || !Array.isArray(j.data) || !j.data.length) return null;
+   const rows=normalizeData(j.data,market);
+   if(!rows.length) return null;
+   const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
+   return {price:Number(last.close),prev_close:prev?Number(prev.close):NaN,data_date:last.date||''};
+ }catch(e){ return null; }
+}
+function findLatestRadarMatch(market,symbol){
+ const m=String(market).toUpperCase(), sym=String(symbol).toUpperCase();
+ const intraday=(typeof radarSnapshotData!=='undefined' ? radarSnapshotData.intraday : [])||[];
+ const official=(typeof radarSnapshotData!=='undefined' ? radarSnapshotData.official : [])||[];
+ return intraday.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym)
+     || official.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym)
+     || null;
+}
+
 async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
@@ -1153,9 +1177,8 @@ async function run(){
 
   // If this stock exists in today's radar, use the SAME scanner result for the
   // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
-  const radarMatch=(typeof radarRows!=='undefined' && Array.isArray(radarRows))
-    ? radarRows.find(x=>String(x.market)===String(currentMarket) && String(x.symbol).toUpperCase()===String(s).toUpperCase())
-    : null;
+  const radarMatch=findLatestRadarMatch(currentMarket,s);
+  const liveQuote=await getSingleLatestQuote(currentMarket,s);
   if(radarMatch){
     if(Number.isFinite(Number(radarMatch.score))) a.pts=Number(radarMatch.score);
     if(Number.isFinite(Number(radarMatch.pivot))) a.pivot=Number(radarMatch.pivot);
@@ -1171,9 +1194,40 @@ async function run(){
     a.combo=!!radarMatch.combo;
   }
 
+  // V2.35: 單股搜尋不再只停留在昨日收盤。
+  // VCP 結構仍以日線為主；最新可取得價格用來更新今日漲跌、距 Pivot 與盤中位置。
+  if(liveQuote && Number.isFinite(Number(liveQuote.price))){
+    const lp=Number(liveQuote.price), pc=Number(liveQuote.prev_close);
+    a.last=lp;
+    if(Number.isFinite(Number(a.pivot)) && Number(a.pivot)!==0){
+      a.distance=(lp/Number(a.pivot)-1)*100;
+      const above=lp>Number(a.pivot);
+      if(above && !a.todayBreakout) a.state='🟡 盤中站上 Pivot';
+      else if(!above && a.distance>-5) a.state='🟡 接近 Pivot';
+    }
+    // Make quick-read "今日漲跌" use latest quote.
+    if(d.length){
+      const lastDate=String(d[d.length-1]?.date||'');
+      if(liveQuote.data_date && lastDate===String(liveQuote.data_date)){
+        d[d.length-1].close=lp;
+      }else{
+        d.push({...d[d.length-1],date:liveQuote.data_date||lastDate,close:lp});
+      }
+    }
+  }
+
   updateSingleQuickRead(radarMatch,d,a);
 
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date+(radarMatch?'　·　已同步每日雷達':'');$('state').textContent=a.state;
+  const liveNote=$('singleLiveNote');
+  if(liveNote){
+    if(liveQuote && Number.isFinite(Number(liveQuote.price))){
+      liveNote.hidden=false;
+      liveNote.textContent=`🟡 最新可取得行情 ${Number(liveQuote.price).toFixed(2)}${liveQuote.data_date?`｜${liveQuote.data_date}`:''}｜盤中狀態僅供即時參考`;
+    }else{
+      liveNote.hidden=true; liveNote.textContent='';
+    }
+  }
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+Math.abs(x).toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   let rows=[['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]];
@@ -1201,7 +1255,7 @@ function setMarket(m,{reset=true}={}){
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
-  $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';$('state').textContent='—';
+  $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
