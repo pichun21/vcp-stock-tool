@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.32 SMART SORT + US NAME CLEANUP
+# VCPulse BUILD 2.33.1 SNAPSHOT MODES
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -698,6 +698,12 @@ def recover_previous_official_tw(current_data_date):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--market",choices=["TW","US","both"],default="both")
+    ap.add_argument(
+        "--snapshot",
+        choices=["auto","intraday","official"],
+        default="auto",
+        help="Where to store this run. Manual Actions should pass intraday/official explicitly."
+    )
     args=ap.parse_args()
 
     old=load_existing()
@@ -761,7 +767,15 @@ def main():
             continue
 
         current_date=max((r.get("data_date") or "" for r in rows),default="")
-        official = (market=="US") or is_tw_official_snapshot(rows)
+        if args.snapshot=="official":
+            official=True
+        elif args.snapshot=="intraday":
+            official=False
+        else:
+            # Backward compatibility only. GitHub Actions V2.33 always passes an explicit mode.
+            official = (market=="US") or is_tw_official_snapshot(rows)
+
+        print(f"{market}: requested snapshot={args.snapshot} -> storing as {'official' if official else 'intraday'}")
         market_benchmark = fetch_tw_benchmarks() if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
 
         if official:
