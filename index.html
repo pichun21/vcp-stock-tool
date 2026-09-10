@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.36.1 FAVORITE COUNT FIX -->
+<!-- VCPulse BUILD 2.36.2 SINGLE STOCK FETCH FAILSAFE -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1142,13 +1142,27 @@ async function getSingleLatestQuote(market,symbol){
    const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
    const f=d=>d.toISOString().slice(0,10);
    const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${f(start)}&end_date=${f(end)}`;
-   const r=await fetch(u,{cache:'no-store'}), j=await r.json();
-   if(!r.ok || !Array.isArray(j.data) || !j.data.length) return null;
+   const ctl=new AbortController();
+   const timer=setTimeout(()=>ctl.abort(),7000);
+   let r;
+   try{
+     r=await fetch(u,{cache:'no-store',signal:ctl.signal});
+   }finally{
+     clearTimeout(timer);
+   }
+   if(!r || !r.ok) return null;
+   const j=await r.json().catch(()=>null);
+   if(!j || !Array.isArray(j.data) || !j.data.length) return null;
    const rows=normalizeData(j.data,market);
    if(!rows.length) return null;
    const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
-   return {price:Number(last.close),prev_close:prev?Number(prev.close):NaN,data_date:last.date||''};
- }catch(e){ return null; }
+   const price=Number(last.close);
+   if(!Number.isFinite(price)) return null;
+   return {price,prev_close:prev?Number(prev.close):NaN,data_date:last.date||''};
+ }catch(e){
+   console.warn('Latest quote fetch failed; fallback to daily history',e);
+   return null;
+ }
 }
 function findLatestRadarMatch(market,symbol){
  const m=String(market).toUpperCase(), sym=String(symbol).toUpperCase();
@@ -1178,7 +1192,13 @@ async function run(){
   // If this stock exists in today's radar, use the SAME scanner result for the
   // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
   const radarMatch=findLatestRadarMatch(currentMarket,s);
-  const liveQuote=await getSingleLatestQuote(currentMarket,s);
+  let liveQuote=null;
+  try{
+    liveQuote=await getSingleLatestQuote(currentMarket,s);
+  }catch(e){
+    console.warn('V2.36.2 live quote unavailable; continue with historical analysis',e);
+    liveQuote=null;
+  }
   if(radarMatch){
     if(Number.isFinite(Number(radarMatch.score))) a.pts=Number(radarMatch.score);
     if(Number.isFinite(Number(radarMatch.pivot))) a.pivot=Number(radarMatch.pivot);
