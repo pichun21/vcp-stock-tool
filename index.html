@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.5 MOBILE FAVORITE COMPACT -->
+<!-- VCPulse BUILD 2.41.6 RETURN HIGHLIGHT RESTORE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1688,25 +1688,34 @@ function returnToRadarPosition(){
  if(!radarReturnState) return;
  const saved=radarReturnState;
 
- // First choice: return to the exact DOM card/row the user actually tapped.
- if(saved.element && document.documentElement.contains(saved.element)){
-   try{
-     saved.element.scrollIntoView({behavior:'smooth', block:'center'});
-   }catch(e){
-     saved.element.scrollIntoView();
-   }
+ // The radar may have re-rendered after analysis, so re-find the same stock
+ // instead of relying only on the old DOM element reference.
+ let target=(saved.element && document.documentElement.contains(saved.element)) ? saved.element : null;
+ if(!target){
+   const market=String(saved.market||'');
+   const symbol=String(saved.symbol||'');
+   const nodes=[...document.querySelectorAll('[data-market][data-symbol]')];
+   const matches=nodes.filter(el=>String(el.dataset.market)===market && String(el.dataset.symbol)===symbol &&
+     (el.matches('.mobile-stock-card') || el.matches('tr[data-symbol]')));
+   target=matches.find(el=>el.offsetParent!==null) || matches[0] || null;
+ }
 
-   // Highlight the stock the user just returned to for 3 seconds.
-   saved.element.classList.remove('radar-return-highlight-3s');
-   void saved.element.offsetWidth;
-   saved.element.classList.add('radar-return-highlight-3s');
-   setTimeout(()=>saved.element && saved.element.classList.remove('radar-return-highlight-3s'),3000);
+ if(target){
+   try{ target.scrollIntoView({behavior:'smooth',block:'center'}); }
+   catch(e){ target.scrollIntoView(); }
+
+   target.classList.remove('radar-return-highlight-3s');
+   void target.offsetWidth;
+   target.classList.add('radar-return-highlight-3s');
+   setTimeout(()=>{
+     if(target && document.documentElement.contains(target)){
+       target.classList.remove('radar-return-highlight-3s');
+     }
+   },3000);
  }else{
-   // Fallback: restore the exact page Y position.
    const y=Number(saved.scrollY)||0;
    try{ window.scrollTo({top:y,behavior:'smooth'}); }
    catch(e){ window.scrollTo(0,y); }
-   // iOS/WebView fallback.
    setTimeout(()=>{
      if(Math.abs((window.pageYOffset||0)-y)>80){
        document.documentElement.scrollTop=y;
@@ -1718,7 +1727,6 @@ function returnToRadarPosition(){
  const btn=document.getElementById('radarBackFloat');
  if(btn) setTimeout(()=>btn.hidden=true,650);
 }
-
 
 function changePctClass(v){
  const n=Number(v);
