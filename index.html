@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.32 SMART SORT + US NAME CLEANUP -->
+<!-- VCPulse BUILD 2.34 USER LIVE QUOTE REFRESH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -783,6 +783,25 @@ th{color:#716c64}
  .radar-market-btn{flex:1;padding:8px 10px}
 }
 
+
+/* V2.34 — 使用者端即時行情更新 */
+.user-live-refresh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.user-live-btn{
+ min-width:0;border:1px solid #dccfbe;background:#fffaf4;color:#6b5137;
+ border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;cursor:pointer
+}
+.user-live-btn:disabled{opacity:.55;cursor:wait}
+.user-live-status{font-size:11px;color:#8a8379}
+.live-quote-badge{
+ display:inline-flex;align-items:center;margin-left:6px;padding:2px 6px;border-radius:999px;
+ background:#fff4d8;border:1px solid #ecd394;color:#7a5a19;font-size:9px;font-weight:900
+}
+@media(max-width:760px){
+ .user-live-refresh{display:grid;grid-template-columns:auto 1fr;gap:7px;margin-bottom:10px}
+ .user-live-btn{padding:8px 11px}
+ .user-live-status{font-size:10px}
+}
+
 </style></head>
 <body>
 
@@ -901,6 +920,10 @@ th{color:#716c64}
   </div>
   <div id="radarFreshness" class="radar-freshness" hidden></div>
   <div id="marketOverview" class="market-overview" hidden></div>
+  <div class="user-live-refresh">
+    <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 更新即時行情</button>
+    <span id="userLiveRefreshStatus" class="user-live-status">更新目前雷達股票的價格、今日漲跌與距 Pivot；不會重跑整體 VCP 篩選。</span>
+  </div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
       <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤 <span id="officialCount"></span></button>
@@ -1196,6 +1219,8 @@ let radarSnapshot='official';
 let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
+let userLiveQuotes=new Map();
+let userLiveUpdatedAt='';
 
 let radarFilter = 'all';
 let radarSort = 'smart';
@@ -1367,6 +1392,64 @@ function pivotDistanceVisual(distance){
     : {zone:'positive', cls:'positive', width};
 }
 
+
+function liveQuoteKey(market,symbol){ return `${String(market||'').toUpperCase()}:${String(symbol||'').toUpperCase()}`; }
+function effectiveRadarRow(r){
+ const q=userLiveQuotes.get(liveQuoteKey(r.market,r.symbol));
+ if(!q) return r;
+ const price=Number(q.price), prev=Number(q.prev_close), pivot=Number(r.pivot);
+ const change=(Number.isFinite(price)&&Number.isFinite(prev)&&prev!==0)?((price/prev)-1)*100:Number(r.change_pct);
+ const distance=(Number.isFinite(price)&&Number.isFinite(pivot)&&pivot!==0)?((price/pivot)-1)*100:Number(r.distance);
+ return {...r, live_price:price, change_pct:change, distance:distance, _live:true};
+}
+async function fetchUserLiveQuote(r){
+ const market=String(r.market||'').toUpperCase(), symbol=String(r.symbol||'').toUpperCase();
+ const dataset=market==='US'?'USStockPrice':'TaiwanStockPrice';
+ const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
+ const f=d=>d.toISOString().slice(0,10);
+ const url=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${f(start)}&end_date=${f(end)}`;
+ const res=await fetch(url,{cache:'no-store'});
+ const j=await res.json();
+ if(!res.ok || !Array.isArray(j.data) || !j.data.length) throw new Error(symbol);
+ const d=normalizeData(j.data,market);
+ if(!d.length) throw new Error(symbol);
+ const last=d[d.length-1], prev=d.length>=2?d[d.length-2]:null;
+ return {
+   price:Number(last.close),
+   prev_close:prev?Number(prev.close):NaN,
+   data_date:last.date||'',
+   fetched_at:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'})
+ };
+}
+async function refreshUserLiveQuotes(){
+ const btn=document.getElementById('userLiveRefreshBtn');
+ const status=document.getElementById('userLiveRefreshStatus');
+ const targets=radarRows.filter(r=>String(r.market||'').toUpperCase()===String(currentMarket||'TW').toUpperCase());
+ if(!targets.length){
+   if(status) status.textContent='目前這個市場沒有雷達股票可更新。';
+   return;
+ }
+ if(btn){ btn.disabled=true; btn.textContent='更新中…'; }
+ if(status) status.textContent=`正在更新 ${targets.length} 檔即時行情…`;
+ let ok=0, fail=0;
+ const chunkSize=6;
+ for(let i=0;i<targets.length;i+=chunkSize){
+   const chunk=targets.slice(i,i+chunkSize);
+   const results=await Promise.allSettled(chunk.map(fetchUserLiveQuote));
+   results.forEach((x,idx)=>{
+     const r=chunk[idx];
+     if(x.status==='fulfilled' && Number.isFinite(Number(x.value.price))){
+       userLiveQuotes.set(liveQuoteKey(r.market,r.symbol),x.value); ok++;
+     }else fail++;
+   });
+   if(status) status.textContent=`即時行情更新中… ${Math.min(i+chunk.length,targets.length)}/${targets.length}`;
+ }
+ userLiveUpdatedAt=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+ renderRadar(radarFilter);
+ if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}｜${userLiveUpdatedAt}（只更新行情，不重跑 VCP 篩選）`;
+ if(btn){ btn.disabled=false; btn.textContent='🔄 更新即時行情'; }
+}
+
 function renderRadar(filter='all'){
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>{
@@ -1377,6 +1460,7 @@ function renderRadar(filter='all'){
    (filter==='new' ? r.is_new===true :
    (filter==='combo' ? r.combo : r.type===filter))));
  });
+ for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const pulseRank={hot:0,watch:1,wait:2,extended:3};
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
@@ -1431,7 +1515,7 @@ function renderRadar(filter='all'){
        })()}
      </div>
    </td>
-   <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span></td>
+   <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span>${r._live?'<span class="live-quote-badge">即時</span>':''}</td>
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
@@ -1519,7 +1603,7 @@ function renderRadar(filter='all'){
             </div>`;
           })()}
          </div>
-         <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</b></div>
+         <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}${r._live?' <span class="live-quote-badge">即時</span>':''}</b></div>
          <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
@@ -1677,6 +1761,8 @@ function setRadarSnapshot(kind){
 
  radarSnapshot=kind;
  radarRows=rows.slice();
+ userLiveQuotes.clear();
+ userLiveUpdatedAt='';
 
  document.querySelectorAll('.snapshot-btn').forEach(
    b=>b.classList.toggle('active',b.dataset.snapshot===kind)
@@ -1762,6 +1848,9 @@ if(radarSortSelect){
  });
 }
 
+
+const userLiveRefreshBtn=document.getElementById('userLiveRefreshBtn');
+if(userLiveRefreshBtn) userLiveRefreshBtn.addEventListener('click',refreshUserLiveQuotes);
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
