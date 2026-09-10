@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42 THEME BETA + 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -12,6 +12,7 @@ import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "screening.json"
+THEME_DB = ROOT / "data" / "vcpulse_themes_v2_6_score_calibration.json"
 FINMIND = "https://api.finmindtrade.com/api/v4/data"
 TAIPEI = ZoneInfo("Asia/Taipei")
 
@@ -712,6 +713,79 @@ def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
         })
     return rows
 
+def build_theme_leaderboards(candidate_rows, topn=5):
+    """V2.42 Theme Beta: calculate canonical Theme Heat / Setup Heat from TW radar rows.
+    Uses the frozen score-calibration rules in the bundled theme DB. The scanner currently
+    retains candidate-level data only, so persistence is neutral and dry-up uses volume_dry.
+    """
+    if not candidate_rows or not THEME_DB.exists(): return {"themeTop5":[],"setupTop5":[]}
+    try: db=json.loads(THEME_DB.read_text(encoding="utf-8"))
+    except Exception as e:
+        print("theme db warning",e); return {"themeTop5":[],"setupTop5":[]}
+    rankable=((db.get("themeTaxonomy") or {}).get("rankable_index") or {})
+    stocks=db.get("stocks") or {}
+    if not rankable: return {"themeTop5":[],"setupTop5":[]}
+    by_code={str(r.get("symbol")):r for r in candidate_rows}
+    grade_w={"A":1.0,"B":.75,"C":.45,"D":.20}
+    def clamp(x,a=0,b=100): return max(a,min(b,x))
+    def scale(x,a,b): return clamp((x-a)/(b-a)*100) if b!=a else 0
+    def membership(code,theme):
+        sd=stocks.get(str(code),{}); metas=[]
+        aliases=((db.get("themeTaxonomy") or {}).get("canonical_groups") or {}).get(theme,{}).get("aliases",[])
+        aliases=set(aliases+[theme])
+        for raw,meta in (sd.get("themes") or {}).items():
+            canon=((db.get("themeTaxonomy") or {}).get("alias_to_canonical") or {}).get(raw,raw)
+            if canon==theme or raw in aliases: metas.append(meta)
+        if not metas: return 0.0,[]
+        best=max(metas,key=lambda m:(m.get("confidence",0),m.get("purity",0)))
+        if best.get("confidence",0)<60:return 0.0,[]
+        w=grade_w.get(best.get("grade"),0)*(.40+.60*best.get("purity",0)/100)*(.50+.50*best.get("confidence",0)/100)
+        return w,best.get("segments") or []
+    out=[]
+    for theme,info in rankable.items():
+        rows=[]; segw={}
+        for code in info.get("codes",[]):
+            r=by_code.get(str(code));
+            if not r: continue
+            w,segs=membership(code,theme)
+            if w<=0: continue
+            rows.append((r,w))
+            for seg in segs: segw[seg]=segw.get(seg,0)+w
+        sw=sum(w for _,w in rows)
+        # Frozen guardrails: >=4 effective observed constituents and weight >=2.
+        if len(rows)<4 or sw<2: continue
+        def frac(fn): return sum(w for r,w in rows if fn(r))/sw*100
+        def wmean(fn): return sum(fn(r)*w for r,w in rows)/sw
+        breadth=frac(lambda r:(r.get("change_pct") or 0)>0)
+        strong=frac(lambda r:(r.get("change_pct") or 0)>=2)
+        # Candidate avg_value is a liquidity proxy only; without all-member history keep money neutral.
+        money=50.0
+        vol=wmean(lambda r: 75 if r.get("type")=="breakout" else (35 if r.get("volume_dry") else 50))
+        px=wmean(lambda r: scale(r.get("change_pct") or 0,-3,5))
+        bo=frac(lambda r:r.get("type")=="breakout")
+        near=frac(lambda r:r.get("type") in ("near","forming") and -8 <= (r.get("distance") or -99) <= 0)
+        vcp=wmean(lambda r: clamp((r.get("score") or 0)/5*100))
+        dry=frac(lambda r:r.get("volume_dry") and r.get("type") in ("near","forming"))
+        newc=frac(lambda r:bool(r.get("is_new")))
+        persistence=50.0
+        heat=clamp(.30*money+.20*breadth+.15*vol+.15*px+.15*bo+.05*persistence)
+        early=.55*money+.45*breadth
+        # Frozen V2.6 calibrated Setup formula.
+        setup=clamp(.34*near+.30*vcp+.20*dry+.08*newc+.08*early-.06*bo+15)
+        # Lifecycle thresholds from scoreCalibration; unavailable history keeps maintrend conservative.
+        if heat>=85 and bo>=55 and near<10: life="extended"; label="⚠️ 過熱/擴散"
+        elif heat>=75 and setup>=65 and breadth>=45 and near>=15: life="maintrend_setups"; label="🔥👀 主線仍有機會"
+        elif heat>=85 and breadth>=55 and persistence>=60: life="maintrend"; label="🔥 主線"
+        elif heat>=65 and bo>=15 and breadth>=45: life="launching"; label="🚀 發動"
+        elif setup>=70 and 45<=heat<65 and near>=25 and bo<35: life="emerging"; label="🌱 萌芽"
+        elif setup>=70 and heat<45 and near>=25: life="latent"; label="👀 潛伏蓄勢"
+        elif heat<45 and setup<60: life="dormant"; label="休眠"
+        else: life="watch"; label="觀察"
+        segs=[x for x,_ in sorted(segw.items(),key=lambda kv:-kv[1])[:2]]
+        top=sorted(rows,key=lambda rw:(-(rw[0].get("score") or 0),abs(rw[0].get("distance") or 99)))[:5]
+        out.append({"theme":theme,"constituents":len(rows),"effectiveWeight":round(sw,2),"heat":round(heat),"setup":round(setup),"lifecycle":life,"lifecycleLabel":label,"breadthPct":round(breadth),"strongBreadthPct":round(strong),"breakoutCount":sum(1 for r,_ in rows if r.get("type")=="breakout"),"nearPivotCount":sum(1 for r,_ in rows if r.get("type") in ("near","forming") and -8 <= (r.get("distance") or -99) <= 0),"newCandidateCount":sum(1 for r,_ in rows if r.get("is_new")),"dominantSegments":segs,"topStocks":[r.get("symbol") for r,_ in top]})
+    return {"themeTop5":sorted(out,key=lambda x:(-x["heat"],-x["setup"]))[:topn],"setupTop5":sorted(out,key=lambda x:(-x["setup"],-x["heat"]))[:topn]}
+
 def scan(market):
     universe=fetch_tw_universe() if market=="TW" else fetch_us_universe()
     print(f"{market}: universe {len(universe)}")
@@ -899,6 +973,8 @@ def main():
     intraday_benchmarks=dict(old.get("intraday_benchmarks",{}) or {})
     official_capital_hotspots=dict(old.get("official_capital_hotspots",{}) or {})
     intraday_capital_hotspots=dict(old.get("intraday_capital_hotspots",{}) or {})
+    official_theme_leaderboards=dict(old.get("official_theme_leaderboards",{}) or {})
+    intraday_theme_leaderboards=dict(old.get("intraday_theme_leaderboards",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -943,6 +1019,7 @@ def main():
 
     for market in targets:
         rows,scan_stats,capital_hotspots=scan(market)
+        theme_leaderboards=build_theme_leaderboards(rows) if market=="TW" else {"themeTop5":[],"setupTop5":[]}
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -999,6 +1076,8 @@ def main():
                 official_benchmarks[market]=market_benchmark
             if market=="TW" and capital_hotspots:
                 official_capital_hotspots["TW"]=capital_hotspots
+            if market=="TW" and (theme_leaderboards.get("themeTop5") or theme_leaderboards.get("setupTop5")):
+                official_theme_leaderboards["TW"]=theme_leaderboards
 
             # V2.39: preserve the intraday snapshot even after an official run.
             # The two snapshots are independent; updating official must never erase intraday.
@@ -1018,6 +1097,8 @@ def main():
                 intraday_benchmarks[market]=market_benchmark
             if market=="TW" and capital_hotspots:
                 intraday_capital_hotspots["TW"]=capital_hotspots
+            if market=="TW" and (theme_leaderboards.get("themeTop5") or theme_leaderboards.get("setupTop5")):
+                intraday_theme_leaderboards["TW"]=theme_leaderboards
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -1032,6 +1113,8 @@ def main():
         "intraday_benchmarks":intraday_benchmarks,
         "official_capital_hotspots":official_capital_hotspots,
         "intraday_capital_hotspots":intraday_capital_hotspots,
+        "official_theme_leaderboards":official_theme_leaderboards,
+        "intraday_theme_leaderboards":intraday_theme_leaderboards,
         "results":official_results,
         "official_results":official_results,
         "intraday_results":intraday_results
