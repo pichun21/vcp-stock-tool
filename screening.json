@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10 14:54",
+  "generated_at": "2026-09-10 17:03",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-09-10",
       "count": 119,
-      "scanned_at": "2026-09-10 14:54",
+      "scanned_at": "2026-09-10 17:03",
       "snapshot_type": "intraday"
     }
   },
@@ -116,6 +116,81 @@
         "source": "TPEx official close"
       }
     }
+  },
+  "official_capital_hotspots": {},
+  "intraday_capital_hotspots": {
+    "TW": [
+      {
+        "industry": "生技醫療業",
+        "heat_score": 76,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 0.7,
+        "value_ratio": 1.56,
+        "breadth_pct": 27.3,
+        "avg_change_pct": -0.14,
+        "vcp_count": 2,
+        "breakout_count": 0,
+        "stock_count": 139,
+        "data_date": "2026-09-10"
+      },
+      {
+        "industry": "電子工業",
+        "heat_score": 74,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 47.1,
+        "value_ratio": 0.85,
+        "breadth_pct": 27.6,
+        "avg_change_pct": -0.63,
+        "vcp_count": 33,
+        "breakout_count": 1,
+        "stock_count": 243,
+        "data_date": "2026-09-10"
+      },
+      {
+        "industry": "電子零組件業",
+        "heat_score": 74,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 17.7,
+        "value_ratio": 0.89,
+        "breadth_pct": 29.4,
+        "avg_change_pct": -0.74,
+        "vcp_count": 11,
+        "breakout_count": 2,
+        "stock_count": 180,
+        "data_date": "2026-09-10"
+      },
+      {
+        "industry": "金融保險",
+        "heat_score": 72,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 2.2,
+        "value_ratio": 0.77,
+        "breadth_pct": 32.3,
+        "avg_change_pct": -0.15,
+        "vcp_count": 13,
+        "breakout_count": 0,
+        "stock_count": 31,
+        "data_date": "2026-09-10"
+      },
+      {
+        "industry": "油電燃氣業",
+        "heat_score": 72,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 0.5,
+        "value_ratio": 2.29,
+        "breadth_pct": 25.0,
+        "avg_change_pct": -0.28,
+        "vcp_count": 0,
+        "breakout_count": 0,
+        "stock_count": 12,
+        "data_date": "2026-09-10"
+      }
+    ]
   },
   "results": [
     {
@@ -18311,6 +18386,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 347031129.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18345,6 +18421,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1385002178.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18380,6 +18457,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 548998805.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18414,6 +18492,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 3832731595.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18449,6 +18528,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 5699437317.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18482,6 +18562,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 97807106.0,
+      "industry": "金融業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18515,6 +18596,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1177030765.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18548,6 +18630,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 32951485.0,
+      "industry": "金融業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18581,6 +18664,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 39459131.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -18615,6 +18699,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 108799449.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18649,6 +18734,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 115728570.0,
+      "industry": "電器電纜",
       "is_new": false,
       "new_reason": ""
     },
@@ -18683,6 +18769,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 36275798.0,
+      "industry": "汽車工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18716,6 +18803,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 25191779.0,
+      "industry": "觀光餐旅",
       "is_new": false,
       "new_reason": ""
     },
@@ -18751,6 +18839,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 519070489.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18784,6 +18873,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 162207343.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -18818,6 +18908,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 576602087.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18851,6 +18942,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2440204827.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -18885,6 +18977,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 46925189.0,
+      "industry": "鋼鐵工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18918,6 +19011,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 92673132.0,
+      "industry": "金融業",
       "is_new": false,
       "new_reason": ""
     },
@@ -18952,6 +19046,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 33514023.0,
+      "industry": "建材營造",
       "is_new": false,
       "new_reason": ""
     },
@@ -18985,6 +19080,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 508783497.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19019,6 +19115,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 41456657334.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19054,6 +19151,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 101124247.0,
+      "industry": "資訊服務業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19087,6 +19185,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 188994984.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19120,6 +19219,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1552910519.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19154,6 +19254,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 5098203922.0,
+      "industry": "電機機械",
       "is_new": false,
       "new_reason": ""
     },
@@ -19188,6 +19289,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 32372111153.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19221,6 +19323,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 51875981.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19256,6 +19359,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1921480420.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19290,6 +19394,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 56665830.0,
+      "industry": "建材營造",
       "is_new": false,
       "new_reason": ""
     },
@@ -19323,6 +19428,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1227080341.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19357,6 +19463,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2907199677.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19392,6 +19499,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 420796502.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19427,6 +19535,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 776213614.0,
+      "industry": "電機機械",
       "is_new": false,
       "new_reason": ""
     },
@@ -19461,6 +19570,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 67448558.0,
+      "industry": "食品工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19496,6 +19606,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 183610858.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19530,6 +19641,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2020921225.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19565,6 +19677,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 3418682479.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19599,6 +19712,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 268411414.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19632,6 +19746,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 6203063123.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19667,6 +19782,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 353107903.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19701,6 +19817,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 541993992.0,
+      "industry": "紡織纖維",
       "is_new": false,
       "new_reason": ""
     },
@@ -19735,6 +19852,7 @@
       ],
       "data_date": "2026-09-09",
       "avg_value_20d": 62813035.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -19770,6 +19888,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 34800869.0,
+      "industry": "生技醫療業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19805,6 +19924,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1813217935.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19840,6 +19960,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 5067135180.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19874,6 +19995,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 23907191.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -19908,6 +20030,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 79693129.0,
+      "industry": "化學生技醫療",
       "is_new": false,
       "new_reason": ""
     },
@@ -19942,6 +20065,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 170641366.0,
+      "industry": "存託憑證",
       "is_new": false,
       "new_reason": ""
     },
@@ -19976,6 +20100,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 20681650.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20010,6 +20135,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 5386138794.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20044,6 +20170,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 23844906.0,
+      "industry": "鋼鐵工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20079,6 +20206,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 20932110.0,
+      "industry": "建材營造",
       "is_new": false,
       "new_reason": ""
     },
@@ -20113,6 +20241,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 397287738.0,
+      "industry": "電機機械",
       "is_new": false,
       "new_reason": ""
     },
@@ -20146,6 +20275,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2245820751.0,
+      "industry": "塑膠工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20181,6 +20311,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 23135813.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20215,6 +20346,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 5364809918.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20249,6 +20381,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 47273385.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20283,6 +20416,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 25466985331.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20317,6 +20451,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 92290258.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20351,6 +20486,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 3841677899.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20385,6 +20521,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 37458929.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20419,6 +20556,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 281857008.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20452,6 +20590,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 305309023.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20486,6 +20625,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 173988967.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20519,6 +20659,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 49016574.0,
+      "industry": "生技醫療業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20552,6 +20693,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2655217512.0,
+      "industry": "塑膠工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20586,6 +20728,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 60445765.0,
+      "industry": "化學生技醫療",
       "is_new": false,
       "new_reason": ""
     },
@@ -20619,6 +20762,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 777407460.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20653,6 +20797,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 84390350.0,
+      "industry": "其他",
       "is_new": false,
       "new_reason": ""
     },
@@ -20686,6 +20831,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 660999650.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20719,6 +20865,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1116835830.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20753,6 +20900,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 365246823.0,
+      "industry": "數位雲端類",
       "is_new": false,
       "new_reason": ""
     },
@@ -20787,6 +20935,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 135111762.0,
+      "industry": "電器電纜",
       "is_new": false,
       "new_reason": ""
     },
@@ -20822,6 +20971,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 954749859.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20856,6 +21006,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 131620095.0,
+      "industry": "橡膠工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20890,6 +21041,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 207818364.0,
+      "industry": "通信網路業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20923,6 +21075,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 20657441.0,
+      "industry": "數位雲端類",
       "is_new": false,
       "new_reason": ""
     },
@@ -20956,6 +21109,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 8371353811.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -20989,6 +21143,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 3018686453.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21022,6 +21177,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 459296152.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21055,6 +21211,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 38727689832.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21088,6 +21245,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 280494359.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21121,6 +21279,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 340534560.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21154,6 +21313,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 118226737.0,
+      "industry": "汽車工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21187,6 +21347,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 807730320.0,
+      "industry": "電器電纜",
       "is_new": false,
       "new_reason": ""
     },
@@ -21220,6 +21381,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 36421660.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21253,6 +21415,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 49885074.0,
+      "industry": "航運業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21285,6 +21448,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 401745567.0,
+      "industry": "紡織纖維",
       "is_new": false,
       "new_reason": ""
     },
@@ -21319,6 +21483,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 976023049.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21352,6 +21517,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 45896080.0,
+      "industry": "通信網路業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21384,6 +21550,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1506362972.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -21417,6 +21584,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 70312844.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21449,6 +21617,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 331880048.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21482,6 +21651,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1633009300.0,
+      "industry": "電機機械",
       "is_new": false,
       "new_reason": ""
     },
@@ -21516,6 +21686,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 12318752225.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21549,6 +21720,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 156497569.0,
+      "industry": "化學生技醫療",
       "is_new": false,
       "new_reason": ""
     },
@@ -21582,6 +21754,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 287130370.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21615,6 +21788,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 326965466.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21649,6 +21823,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 327664353.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21682,6 +21857,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 86784426.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21714,6 +21890,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 105345957.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21746,6 +21923,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 35587657.0,
+      "industry": "金融保險",
       "is_new": false,
       "new_reason": ""
     },
@@ -21779,6 +21957,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 10303949314.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21812,6 +21991,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 266170660.0,
+      "industry": "光電業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21845,6 +22025,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 59376079.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21878,6 +22059,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 308742586.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21911,6 +22093,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 143355159.0,
+      "industry": "半導體業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21945,6 +22128,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 2061624272.0,
+      "industry": "電腦及週邊設備業",
       "is_new": false,
       "new_reason": ""
     },
@@ -21978,6 +22162,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 123044576.0,
+      "industry": "通信網路業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22010,6 +22195,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 4495451888.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22043,6 +22229,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 50680247.0,
+      "industry": "其他電子類",
       "is_new": false,
       "new_reason": ""
     },
@@ -22077,6 +22264,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 222399542.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22110,6 +22298,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 121082182.0,
+      "industry": "電子工業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22143,6 +22332,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 760500417.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22176,6 +22366,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 1748939855.0,
+      "industry": "電子零組件業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22209,6 +22400,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 139498398.0,
+      "industry": "化學生技醫療",
       "is_new": false,
       "new_reason": ""
     },
@@ -22241,6 +22433,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 63808852.0,
+      "industry": "其他電子業",
       "is_new": false,
       "new_reason": ""
     },
@@ -22274,6 +22467,7 @@
       ],
       "data_date": "2026-09-10",
       "avg_value_20d": 245370471.0,
+      "industry": "化學生技醫療",
       "is_new": false,
       "new_reason": ""
     }
