@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.40 UI POLISH -->
+<!-- VCPulse BUILD 2.40.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2062,7 +2062,7 @@ function renderMarketOverview(){
      <div>
        <div class="market-index-name">${escHtml(x.label||fallback)}</div>
        <div class="market-index-value">${marketNumber(x.close)}</div>
-       ${x.data_time?`<div class="market-index-time">${escHtml(formatMarketDate(x.data_time))}${x.source?` · ${escHtml(x.source.includes('intraday')?'盤中更新':'資料更新')}`:''}</div>`:''}
+       ${x.data_time?`<div class="market-index-time">${escHtml(formatMarketDate(x.data_time))}${x.source?` · 資料更新`:''}</div>`:''}
      </div>
      <div class="market-index-change ${cls}">
        ${Number.isFinite(pts)?`${sign}${marketNumber(pts)} 點`:'—'}<br>
