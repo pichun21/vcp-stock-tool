@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.36 LIVE MARKET INDEX -->
+<!-- VCPulse BUILD 2.36.1 FAVORITE COUNT FIX -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1363,7 +1363,17 @@ function toggleFavorite(market,symbol){
  }
 }
 function updateFavoriteCount(){
- const el=document.getElementById('favoriteCount'); if(el) el.textContent=getFavorites().size;
+ const el=document.getElementById('favoriteCount');
+ if(!el) return;
+ const favs=getFavorites();
+ const market=String(currentMarket||'TW').toUpperCase();
+ const visible=(Array.isArray(radarRows)?radarRows:[]).filter(r=>
+   String(r.market||'').toUpperCase()===market &&
+   favs.has(favoriteKey(r.market,r.symbol))
+ );
+ // Count only favorites that actually exist in the currently selected
+ // market + snapshot list, so the badge always matches the rows shown.
+ el.textContent=visible.length;
 }
 const singleFavoriteBtn=document.getElementById('singleFavorite');
 if(singleFavoriteBtn){
@@ -1506,6 +1516,7 @@ async function refreshUserLiveQuotes(){
 }
 
 function renderRadar(filter='all'){
+ updateFavoriteCount();
  const body=$('radarBody'), mobile=$('radarMobile');
  const rows=radarRows.filter(r=>{
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
