@@ -15,8 +15,19 @@ on:
           - official_US
           - both
   schedule:
+    # 台股盤中完整重掃：09:30、10:00、10:30、11:00、11:30、12:00、12:30、13:00
+    - cron: "30 9 * * 1-5"
+      timezone: "Asia/Taipei"
+    - cron: "0,30 10-12 * * 1-5"
+      timezone: "Asia/Taipei"
+    - cron: "0 13 * * 1-5"
+      timezone: "Asia/Taipei"
+
+    # 台股正式收盤
     - cron: "10 18 * * 1-5"
       timezone: "Asia/Taipei"
+
+    # 美股正式收盤
     - cron: "10 7 * * 2-6"
       timezone: "Asia/Taipei"
 
@@ -54,9 +65,12 @@ jobs:
           elif [ "${{ github.event.schedule }}" = "10 18 * * 1-5" ]; then
             echo "market=TW" >> "$GITHUB_OUTPUT"
             echo "snapshot=official" >> "$GITHUB_OUTPUT"
-          else
+          elif [ "${{ github.event.schedule }}" = "10 7 * * 2-6" ]; then
             echo "market=US" >> "$GITHUB_OUTPUT"
             echo "snapshot=official" >> "$GITHUB_OUTPUT"
+          else
+            echo "market=TW" >> "$GITHUB_OUTPUT"
+            echo "snapshot=intraday" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run VCP screener
