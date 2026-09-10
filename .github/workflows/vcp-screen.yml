@@ -27,6 +27,11 @@ on:
     - cron: "10 18 * * 1-5"
       timezone: "Asia/Taipei"
 
+    # 美股盤中完整重掃：美東時間 09:30～15:30，每 1 小時一次
+    # 使用 America/New_York，夏令/冬令時間會自動跟著美股當地時間切換
+    - cron: "30 9-15 * * 1-5"
+      timezone: "America/New_York"
+
     # 美股正式收盤
     - cron: "10 7 * * 2-6"
       timezone: "Asia/Taipei"
@@ -68,6 +73,9 @@ jobs:
           elif [ "${{ github.event.schedule }}" = "10 7 * * 2-6" ]; then
             echo "market=US" >> "$GITHUB_OUTPUT"
             echo "snapshot=official" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "30 9-15 * * 1-5" ]; then
+            echo "market=US" >> "$GITHUB_OUTPUT"
+            echo "snapshot=intraday" >> "$GITHUB_OUTPUT"
           else
             echo "market=TW" >> "$GITHUB_OUTPUT"
             echo "snapshot=intraday" >> "$GITHUB_OUTPUT"
