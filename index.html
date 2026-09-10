@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.2 CAPITAL HOTSPOTS UI -->
+<!-- VCPulse BUILD 2.41.3 MOBILE FAVORITE LABEL -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -883,6 +883,29 @@ th{color:#716c64}
 .capital-hotspot:nth-child(4) .capital-hotspot-rank{background:#a9dda0}
 .capital-hotspot:nth-child(5) .capital-hotspot-rank{background:#c8a4ef}
 .capital-hotspot-namewrap{display:flex;align-items:center;gap:7px;min-width:0}
+
+
+/* V2.41.3 — 手機版收藏加文字，避免和 VCP 評分星星混淆 */
+@media(max-width:720px){
+  .mobile-favorite{
+    width:auto !important;
+    min-width:72px !important;
+    height:32px !important;
+    padding:0 10px !important;
+    border:1px solid #ddd5c9 !important;
+    border-radius:999px !important;
+    background:#fff !important;
+    font-size:13px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    gap:3px;
+    white-space:nowrap;
+  }
+  .mobile-favorite.is-favorite{
+    border-color:#d7b48d !important;
+    background:#fff8f0 !important;
+  }
+}
 
 </style></head>
 <body>
@@ -1897,7 +1920,7 @@ function renderRadar(filter='all'){
            <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
          </div>
          <div class="mobile-top-actions">
-           <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★':'☆'}</button>
+           <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★ 已收藏':'☆ 收藏'}</button>
            <div class="mobile-score">${stars(r.score)}</div>
          </div>
        </div>
