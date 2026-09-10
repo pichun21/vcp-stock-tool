@@ -3,20 +3,20 @@ name: Daily VCP Screener
 on:
   workflow_dispatch:
     inputs:
-      market:
-        description: "掃描市場"
+      run_type:
+        description: "更新模式"
         required: true
-        default: "both"
+        default: "intraday_TW"
         type: choice
         options:
+          - intraday_TW
+          - intraday_US
+          - official_TW
+          - official_US
           - both
-          - TW
-          - US
   schedule:
-    # 台股：FinMind 官方日資料通常約 17:30 更新，18:10 再掃較保險
     - cron: "10 18 * * 1-5"
       timezone: "Asia/Taipei"
-    # 美股：台灣時間週二～週六 07:10，避開美國夏/冬令差異
     - cron: "10 7 * * 2-6"
       timezone: "Asia/Taipei"
 
@@ -39,20 +39,31 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
 
-      - name: Choose market
-        id: market
+      - name: Choose market and snapshot
+        id: target
         shell: bash
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "value=${{ inputs.market }}" >> "$GITHUB_OUTPUT"
+            case "${{ inputs.run_type }}" in
+              intraday_TW) echo "market=TW" >> "$GITHUB_OUTPUT"; echo "snapshot=intraday" >> "$GITHUB_OUTPUT" ;;
+              intraday_US) echo "market=US" >> "$GITHUB_OUTPUT"; echo "snapshot=intraday" >> "$GITHUB_OUTPUT" ;;
+              official_TW) echo "market=TW" >> "$GITHUB_OUTPUT"; echo "snapshot=official" >> "$GITHUB_OUTPUT" ;;
+              official_US) echo "market=US" >> "$GITHUB_OUTPUT"; echo "snapshot=official" >> "$GITHUB_OUTPUT" ;;
+              both) echo "market=both" >> "$GITHUB_OUTPUT"; echo "snapshot=auto" >> "$GITHUB_OUTPUT" ;;
+            esac
           elif [ "${{ github.event.schedule }}" = "10 18 * * 1-5" ]; then
-            echo "value=TW" >> "$GITHUB_OUTPUT"
+            echo "market=TW" >> "$GITHUB_OUTPUT"
+            echo "snapshot=official" >> "$GITHUB_OUTPUT"
           else
-            echo "value=US" >> "$GITHUB_OUTPUT"
+            echo "market=US" >> "$GITHUB_OUTPUT"
+            echo "snapshot=official" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run VCP screener
-        run: python scanner.py --market "${{ steps.market.outputs.value }}"
+        run: |
+          echo "Market: ${{ steps.target.outputs.market }}"
+          echo "Snapshot: ${{ steps.target.outputs.snapshot }}"
+          python scanner.py --market "${{ steps.target.outputs.market }}" --snapshot "${{ steps.target.outputs.snapshot }}"
 
       - name: Commit screening result
         shell: bash
@@ -63,6 +74,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No change."
           else
-            git commit -m "chore: update VCP screening"
+            git commit -m "chore: update VCP screening (${{ steps.target.outputs.snapshot }} / ${{ steps.target.outputs.market }})"
             git push
           fi
