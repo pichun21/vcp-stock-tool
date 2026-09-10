@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.1 CAPITAL HOTSPOTS FIX -->
+<!-- VCPulse BUILD 2.41.2 CAPITAL HOTSPOTS UI -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -872,6 +872,18 @@ th{color:#716c64}
  .capital-hotspots-note{max-width:150px;text-align:right}
 }
 
+
+/* V2.41.2 — 資金熱區 Top 5 與排名圈圈 */
+.capital-hotspots-title{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.capital-top5-badge{display:inline-flex;align-items:center;padding:4px 10px;border:1px solid #ead2a4;border-radius:999px;background:#fff8e8;font-size:12px;font-weight:800;white-space:nowrap}
+.capital-hotspot-rank{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-weight:900;font-size:14px;flex:0 0 28px}
+.capital-hotspot:nth-child(1) .capital-hotspot-rank{background:#ffd66b}
+.capital-hotspot:nth-child(2) .capital-hotspot-rank{background:#cfe0ea}
+.capital-hotspot:nth-child(3) .capital-hotspot-rank{background:#e6b47d}
+.capital-hotspot:nth-child(4) .capital-hotspot-rank{background:#a9dda0}
+.capital-hotspot:nth-child(5) .capital-hotspot-rank{background:#c8a4ef}
+.capital-hotspot-namewrap{display:flex;align-items:center;gap:7px;min-width:0}
+
 </style></head>
 <body>
 
@@ -992,7 +1004,7 @@ th{color:#716c64}
   <div id="marketOverview" class="market-overview" hidden></div>
   <div id="capitalHotspots" class="capital-hotspots" hidden>
     <div class="capital-hotspots-head">
-      <h3>🔥 資金熱區</h3>
+      <div class="capital-hotspots-title"><h3>🔥 資金熱區</h3><span class="capital-top5-badge">👑 Top 5 產業</span></div>
       <div class="capital-hotspots-note">成交活躍度 × 市場占比 × 上漲廣度 × VCP 集中</div>
     </div>
     <div id="capitalHotspotsGrid" class="capital-hotspots-grid"></div>
@@ -1454,10 +1466,12 @@ function renderCapitalHotspots(){
  grid.innerHTML=rows.map((r,i)=>`
    <div class="capital-hotspot">
      <div class="capital-hotspot-top">
-       <div class="capital-hotspot-name">${i+1}. ${escHtml(r.industry||'—')}</div>
+       <div class="capital-hotspot-namewrap">
+         <span class="capital-hotspot-rank">${i+1}</span>
+         <div class="capital-hotspot-name">${escHtml(r.industry||'—')}</div>
+       </div>
        <div class="capital-hotspot-score">${Number(r.heat_score||0)}</div>
      </div>
-     <div class="capital-hotspot-level">${escHtml(r.heat_label||'')}</div>
      <div class="capital-hotspot-metrics">
        <span>市場資金占比 <b>${Number(r.market_share_pct||0).toFixed(1)}%</b></span>
        <span>成交熱度 <b>${Number(r.value_ratio||0).toFixed(2)}×</b></span>
