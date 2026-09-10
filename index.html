@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.38 SERVER-SIDE BENCHMARK REFRESH -->
+<!-- VCPulse BUILD 2.40 UI POLISH -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -943,7 +943,7 @@ th{color:#716c64}
   </div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
-      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')">✅ 正式收盤 <span id="officialCount"></span></button>
+      <button type="button" class="snapshot-btn active" data-snapshot="official" onclick="setRadarSnapshot('official')"><span class="snapshot-main">✅ 正式收盤 <span id="officialCount"></span></span><span class="snapshot-update-note">18:10 起更新</span></button>
       <button type="button" class="snapshot-btn" data-snapshot="intraday" onclick="setRadarSnapshot('intraday')">👀 盤中即時 <span id="intradayCount"></span></button>
     </div>
     <div class="radar-head">
@@ -2084,7 +2084,7 @@ function renderFreshness(){
    const m=meta[market];
    if(!m?.data_date) return;
    const intraday=radarSnapshot==='intraday' || m.snapshot_type==='intraday';
-   const type=intraday?'盤中雷達':'正式收盤版';
+   const type=intraday?'盤中雷達':(market==='TW'?'正式收盤版・18:10 起更新':'正式收盤版');
    const note=intraday?'':'';
    pieces.push(`<div class="freshness-item ${intraday?'intraday':''}">
      <span class="freshness-dot"></span>
@@ -2391,6 +2391,41 @@ onAuthStateChanged(auth, async user => {
   }
 });
 </script>
+
+
+<style>
+/* V2.40 — 正式收盤更新提示 + 手機單股狀態防重疊 */
+.snapshot-main{display:block;line-height:1.2}
+.snapshot-update-note{
+  display:block;margin-top:3px;font-size:9px;line-height:1.15;
+  font-weight:800;opacity:.72;letter-spacing:.02em;
+}
+.snapshot-btn.active .snapshot-update-note{opacity:.82}
+@media(max-width:760px){
+  /* 單股標題區改為正常換行，狀態 badge 獨立一行，不再以負 margin 疊在內容上 */
+  #singleStockAnalysis .topline{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:0!important;
+  }
+  #singleStockAnalysis .topline>div:first-child{
+    width:100%!important;
+    flex:0 0 auto!important;
+    min-width:0!important;
+  }
+  #singleStockAnalysis .topline>.badge{
+    position:static!important;
+    align-self:flex-start!important;
+    margin:9px 0 2px!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    line-height:1.25!important;
+  }
+  .snapshot-btn{min-height:54px}
+  .snapshot-update-note{font-size:9px;margin-top:4px}
+}
+</style>
 
 </body></html>
 
