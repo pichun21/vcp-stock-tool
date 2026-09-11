@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.35 MA20 LEGEND POLISH -->
+<!-- VCPulse BUILD 2.41.38B SAFE PULSE FILTER RESTORE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1196,7 +1196,10 @@ th{color:#716c64}
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
         <button class="radar-tab" data-radar="hot">🔥 高關注</button>
-      <button class="radar-tab" data-radar="new">🆕 今日新進</button>
+        <button class="radar-tab" data-radar="watch">👀 觀察</button>
+        <button class="radar-tab" data-radar="wait">⏳ 等待</button>
+        <button class="radar-tab" data-radar="extended">⚠️ 過度延伸</button>
+        <button class="radar-tab" data-radar="new">🆕 今日新進</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
         <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 近 Pivot</button>
@@ -2304,7 +2307,7 @@ function renderRadar(filter='all'){
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
    return filter==='all' ||
    (filter==='favorites' ? isFavorite(r) :
-   (filter==='hot' ? r.pulse_signal==='hot' :
+   (['hot','watch','wait','extended'].includes(filter) ? r.pulse_signal===filter :
    (filter==='new' ? r.is_new===true :
    (filter==='combo' ? r.combo : r.type===filter))));
  });
@@ -2957,7 +2960,7 @@ function goMobileRadarPage(delta){
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
    return radarFilter==='all' ||
    (radarFilter==='favorites' ? isFavorite(r) :
-   (radarFilter==='hot' ? r.pulse_signal==='hot' :
+   (['hot','watch','wait','extended'].includes(radarFilter) ? r.pulse_signal===radarFilter :
    (radarFilter==='new' ? r.is_new===true :
    (radarFilter==='combo' ? r.combo : r.type===radarFilter))));
  });
