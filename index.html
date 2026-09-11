@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.41 RESTORE-DATE ENGINE V2 -->
+<!-- VCPulse BUILD 2.41.42 OFFICIAL-EVENT RESTORE ENGINE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1945,7 +1945,7 @@ async function run(){
           : `${Number((1/sr).toFixed(4)).toString()}:1`;
       }
       restoreNote.hidden=false;
-      restoreNote.textContent=`🔄 已套用還原日 ${latest.restore_date||''}${ratioText?`｜股數比例 ${ratioText}`:''}｜歷史價格已統一尺度`;
+      restoreNote.textContent=`🔄 已套用還原日 ${latest.restore_date||''}${ratioText?`｜股數比例 ${ratioText}`:''}｜官方公司行動確認・歷史價格已統一尺度`;
     }else{
       restoreNote.hidden=true;
       restoreNote.textContent='';

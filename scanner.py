@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.41 RESTORE-DATE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.42 OFFICIAL-EVENT RESTORE ENGINE + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -590,177 +590,290 @@ def analyze(df,item,market):
 
 
 
-COMMON_SPLIT_RATIOS = (2, 3, 4, 5, 10, 20, 50, 100)
 
-def _nearest_common_ratio(x, tolerance=0.12):
+# ---------------------------------------------------------------------------
+# V2.41.42 — OFFICIAL-EVENT FIRST restore-date engine
+# Price jumps NEVER create a restore event by themselves.
+# An event must first exist in an official TWSE/TPEx source (or the small
+# built-in cache of already verified official announcements). Raw prices are
+# then used only to validate the official ratio/date.
+# ---------------------------------------------------------------------------
+
+OFFICIAL_RESTORE_EVENTS={}
+
+# Fallback cache of official announcements already verified from TWSE/TPEx.
+# This is not stock-specific adjustment logic: all entries use the same
+# event-first validator below. The live official-table fetcher can add/replace
+# events without code changes.
+OFFICIAL_EVENT_SEED=[
+    # TPEx official announcement: 5904 POYA, face value NT$10 -> NT$1,
+    # each 1 old share -> 10 new shares; new shares trade 2026-08-10.
+    {"symbol":"5904","name":"寶雅","market":"TPEX","restore_date":"2026-08-10","share_ratio":10.0,
+     "event_type":"face_value_change","source":"TPEx official announcement",
+     "source_url":"https://www.tpex.org.tw/storage/eb_data/11507/11500046541.html"},
+    # TPEx official announcement: 3086, NT$10 -> NT$1, 1 -> 10, resumes 2026-04-20.
+    {"symbol":"3086","name":"華義","market":"TPEX","restore_date":"2026-04-20","share_ratio":10.0,
+     "event_type":"face_value_change","source":"TPEx official announcement",
+     "source_url":"https://www.tpex.org.tw/storage/eb_data/11503/11500014221.html"},
+    # TPEx official announcement: 8932, NT$5 -> NT$2.5, share count doubles, resumes 2026-03-09.
+    {"symbol":"8932","name":"智通*","market":"TPEX","restore_date":"2026-03-09","share_ratio":2.0,
+     "event_type":"face_value_change","source":"TPEx official announcement",
+     "source_url":"https://www.tpex.org.tw/storage/eb_data/11503/11500008331.html"},
+    # TWSE face-value-change table: 6949, NT$10 -> NT$0.5, 1 -> 20, resumes 2026-09-07.
+    {"symbol":"6949","name":"沛爾生醫-創","market":"TWSE","restore_date":"2026-09-07","share_ratio":20.0,
+     "event_type":"face_value_change","source":"TWSE face-value-change table",
+     "source_url":"https://www.twse.com.tw/exchangeReport/TWTB7U?response=html"},
+]
+
+def _roc_date_to_iso(v):
+    s=str(v or "").strip()
+    if not s:
+        return ""
+    m=re.search(r"(\d{2,3})[/-](\d{1,2})[/-](\d{1,2})",s)
+    if not m:
+        # already ISO?
+        try: return pd.Timestamp(s).strftime("%Y-%m-%d")
+        except Exception: return ""
+    y=int(m.group(1))
+    if y<1911: y+=1911
+    try: return f"{y:04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    except Exception: return ""
+
+def _num(v):
     try:
-        x=float(x)
+        s=str(v).replace(",","").strip()
+        m=re.search(r"-?\d+(?:\.\d+)?",s)
+        return float(m.group()) if m else None
     except Exception:
         return None
-    if not np.isfinite(x) or x < 1.5:
-        return None
-    best=min(COMMON_SPLIT_RATIOS,key=lambda r:abs(x/r-1))
-    return float(best) if abs(x/best-1) <= tolerance else None
 
-def _window_median(series, start, end):
-    s=pd.to_numeric(series.iloc[start:end],errors="coerce").dropna()
-    if len(s)==0:
-        return float("nan")
-    return float(s.median())
+def _event_map_add(dst, ev):
+    sym=str(ev.get("symbol") or "").strip()
+    rd=str(ev.get("restore_date") or "").strip()
+    sr=_num(ev.get("share_ratio"))
+    if not re.fullmatch(r"\d{4}",sym) or not rd or sr is None or sr<=0:
+        return
+    item=dict(ev)
+    item["symbol"]=sym
+    item["restore_date"]=rd
+    item["share_ratio"]=float(sr)
+    dst.setdefault(sym,[])
+    key=(rd,round(float(sr),8),str(item.get("event_type") or ""))
+    if not any((x.get("restore_date"),round(float(x.get("share_ratio") or 0),8),str(x.get("event_type") or ""))==key for x in dst[sym]):
+        dst[sym].append(item)
 
-def _window_stability(series, start, end):
-    s=pd.to_numeric(series.iloc[start:end],errors="coerce").dropna()
-    if len(s)<2:
-        return 0.0
-    med=float(s.median())
-    if not np.isfinite(med) or med<=0:
-        return 999.0
-    return float((s-med).abs().median()/med)
+def _parse_twse_face_value_json(payload):
+    out=[]
+    fields=payload.get("fields") or []
+    data=payload.get("data") or []
+    if not fields or not data:
+        return out
+    for row in data:
+        rec={str(fields[i]):row[i] for i in range(min(len(fields),len(row)))}
+        def pick(*keys):
+            for k in keys:
+                for rk,rv in rec.items():
+                    if k in rk: return rv
+            return ""
+        sym=str(pick("股票代號","證券代號")).strip()
+        rd=_roc_date_to_iso(pick("恢復買賣日期","恢復交易日期"))
+        ratio=_num(pick("變更股票面額換股率","換股率"))
+        if re.fullmatch(r"\d{4}",sym) and rd and ratio and ratio>0:
+            out.append({
+                "symbol":sym,"name":str(pick("名稱","股票名稱")).strip(),
+                "market":"TWSE","restore_date":rd,"share_ratio":ratio,
+                "event_type":"face_value_change",
+                "source":"TWSE face-value-change table",
+                "source_url":"https://www.twse.com.tw/exchangeReport/TWTB7U?response=json"
+            })
+    return out
 
-def _confirm_yahoo_split(ticker, restore_date, share_ratio):
-    """Best-effort Yahoo corporate-action confirmation for strong candidates only."""
+def _parse_tpex_change_payload(payload):
+    """Flexible parser because TPEx has changed JSON wrappers over time."""
+    out=[]
+    tables=[]
+    if isinstance(payload,list):
+        tables=[payload]
+    elif isinstance(payload,dict):
+        for k in ("aaData","data","tables"):
+            v=payload.get(k)
+            if isinstance(v,list):
+                if k=="tables":
+                    for t in v:
+                        if isinstance(t,dict) and isinstance(t.get("data"),list):
+                            fields=t.get("fields") or []
+                            for row in t["data"]:
+                                if isinstance(row,list) and fields:
+                                    tables.append([{str(fields[i]):row[i] for i in range(min(len(fields),len(row)))}])
+                                elif isinstance(row,dict): tables.append([row])
+                else:
+                    tables.append(v)
+    rows=[]
+    for t in tables:
+        rows.extend(t)
+    for rec in rows:
+        if isinstance(rec,list):
+            # Common table order: stop date, symbol, name, resume date, ratio...
+            if len(rec)>=5:
+                rec={"停止買賣日期":rec[0],"股票代號":rec[1],"名稱":rec[2],
+                     "恢復買賣日期":rec[3],"變更股票面額換股率":rec[4]}
+            else:
+                continue
+        if not isinstance(rec,dict): continue
+        def pick(*keys):
+            for k in keys:
+                for rk,rv in rec.items():
+                    if k in str(rk): return rv
+            return ""
+        sym=str(pick("股票代號","證券代號","SecuritiesCompanyCode")).strip()
+        rd=_roc_date_to_iso(pick("恢復買賣日期","恢復交易日期","ResumeDate"))
+        ratio=_num(pick("變更股票面額換股率","換股率","Ratio"))
+        if re.fullmatch(r"\d{4}",sym) and rd and ratio and ratio>0:
+            out.append({
+                "symbol":sym,"name":str(pick("名稱","股票名稱","CompanyName")).strip(),
+                "market":"TPEX","restore_date":rd,"share_ratio":ratio,
+                "event_type":"face_value_change",
+                "source":"TPEx face-value-change table",
+                "source_url":"https://www.tpex.org.tw/zh-tw/announce/market/change.html"
+            })
+    return out
+
+def fetch_official_restore_events():
+    """Build the official corporate-action cache once per scanner run.
+    Failure of an external official table is fail-safe: it does NOT fall back
+    to guessing from price. Already verified official events remain available.
+    """
+    merged={}
+    for ev in OFFICIAL_EVENT_SEED:
+        _event_map_add(merged,ev)
+
+    # TWSE official face-value-change table.
     try:
-        splits=yf.Ticker(ticker).splits
-        if splits is None or len(splits)==0:
-            return None
-        rd=pd.Timestamp(restore_date)
-        expected=float(share_ratio)
-        best=None
-        for idx,val in splits.items():
-            try:
-                dt=pd.Timestamp(idx)
-                if dt.tzinfo is not None:
-                    dt=dt.tz_localize(None)
-                days=abs((dt.normalize()-rd.normalize()).days)
-                ratio=float(val)
-            except Exception:
-                continue
-            if days>21 or not np.isfinite(ratio) or ratio<=0:
-                continue
-            err=abs(ratio/expected-1) if expected else 999
-            if err<=0.18 and (best is None or days<best["days"]):
-                best={"event_date":dt.strftime("%Y-%m-%d"),"ratio":ratio,"days":days}
-        return best
-    except Exception:
-        return None
+        u="https://www.twse.com.tw/exchangeReport/TWTB7U"
+        r=requests.get(u,params={"response":"json"},timeout=20,
+                       headers={"User-Agent":"Mozilla/5.0 VCPulse/2.41.42"})
+        r.raise_for_status()
+        for ev in _parse_twse_face_value_json(r.json()):
+            _event_map_add(merged,ev)
+        print("TWSE OFFICIAL CORPORATE ACTIONS: loaded")
+    except Exception as e:
+        print("TWSE OFFICIAL CORPORATE ACTIONS: unavailable -> verified cache only",type(e).__name__)
 
-def detect_restore_events(df, item=None):
-    """Detect split / face-value price-scale changes from persistent raw prices."""
-    if df is None or df.empty or "Close" not in df.columns:
-        return []
-
-    usable=df.dropna(subset=["Close"]).copy()
-    if len(usable)<8:
-        return []
-
-    close=pd.to_numeric(usable["Close"],errors="coerce")
-    volume=(pd.to_numeric(usable["Volume"],errors="coerce")
-            if "Volume" in usable.columns else pd.Series(index=usable.index,dtype=float))
-    events=[]
-
-    for i in range(3, len(usable)-2):
-        prev=float(close.iloc[i-1]) if pd.notna(close.iloc[i-1]) else float("nan")
-        cur=float(close.iloc[i]) if pd.notna(close.iloc[i]) else float("nan")
-        if not (np.isfinite(prev) and np.isfinite(cur) and prev>0 and cur>0):
-            continue
-
-        adjacent=cur/prev
-        if 0.60 <= adjacent <= 1.67:
-            continue
-
-        if adjacent < 1:
-            magnitude=_nearest_common_ratio(1.0/adjacent, tolerance=0.15)
-            if magnitude is None:
-                continue
-            expected=1.0/magnitude
-            pre_multiplier=1.0/magnitude
-            share_ratio=magnitude
-            direction="split"
-        else:
-            magnitude=_nearest_common_ratio(adjacent, tolerance=0.15)
-            if magnitude is None:
-                continue
-            expected=magnitude
-            pre_multiplier=magnitude
-            share_ratio=1.0/magnitude
-            direction="reverse_split"
-
-        pre_med=_window_median(close, i-3, i)
-        post_med=_window_median(close, i, min(len(close), i+3))
-        if not (np.isfinite(pre_med) and np.isfinite(post_med) and pre_med>0 and post_med>0):
-            continue
-
-        observed=post_med/pre_med
-        ratio_error=abs(observed/expected-1)
-        adjacent_error=abs(adjacent/expected-1)
-        if ratio_error>0.12 or adjacent_error>0.18:
-            continue
-
-        pre_stability=_window_stability(close, i-3, i)
-        post_stability=_window_stability(close, i, min(len(close), i+3))
-        if pre_stability>0.22 or post_stability>0.22:
-            continue
-
-        volume_support=None
+    # TPEx official face-value-change table. Try current and legacy JSON routes.
+    tpex_urls=[
+        "https://www.tpex.org.tw/www/zh-tw/announce/market/change",
+        "https://www.tpex.org.tw/web/stock/aftertrading/change/change_result.php",
+    ]
+    loaded=False
+    for u in tpex_urls:
         try:
-            pre_v=_window_median(volume, i-3, i)
-            post_v=_window_median(volume, i, min(len(volume), i+3))
-            if np.isfinite(pre_v) and np.isfinite(post_v) and pre_v>0 and post_v>0:
-                volume_support=round(post_v/pre_v,3)
+            r=requests.get(u,params={"response":"json","l":"zh-tw"},timeout=20,
+                           headers={"User-Agent":"Mozilla/5.0 VCPulse/2.41.42"})
+            r.raise_for_status()
+            payload=r.json()
+            found=_parse_tpex_change_payload(payload)
+            if found:
+                for ev in found: _event_map_add(merged,ev)
+                loaded=True
+                break
         except Exception:
-            pass
+            continue
+    print("TPEX OFFICIAL CORPORATE ACTIONS:", "loaded" if loaded else "verified cache only")
 
-        idx=usable.index[i]
-        restore_date=idx.strftime("%Y-%m-%d") if hasattr(idx,"strftime") else str(idx)[:10]
+    for sym in list(merged):
+        merged[sym]=sorted(merged[sym],key=lambda x:x["restore_date"])
+    print(f"OFFICIAL RESTORE EVENT CACHE: {len(merged)} symbols / {sum(len(v) for v in merged.values())} events")
+    return merged
 
-        yahoo=None
-        if item and item.get("yf"):
-            yahoo=_confirm_yahoo_split(item["yf"], restore_date, share_ratio)
+def _nearest_bar_positions(df, restore_date):
+    usable=df.dropna(subset=["Close"]).copy()
+    if usable.empty: return None
+    dates=pd.to_datetime(usable.index).tz_localize(None) if getattr(pd.to_datetime(usable.index),"tz",None) is not None else pd.to_datetime(usable.index)
+    rd=pd.Timestamp(restore_date)
+    pre=np.where(dates < rd)[0]
+    post=np.where(dates >= rd)[0]
+    if len(pre)==0 or len(post)==0: return None
+    return usable,int(pre[-1]),int(post[0])
 
-        status="confirmed_by_price_scale_persistence"
-        source="Yahoo raw price persistence"
-        event_date=""
-        if yahoo:
-            status="confirmed_by_yahoo_split_and_price"
-            source="Yahoo split event + raw price persistence"
-            event_date=yahoo["event_date"]
+def validate_official_restore_event(df, official_event):
+    """Price is validation only. It can PASS/BLOCK an official event, never create one."""
+    pos=_nearest_bar_positions(df,official_event.get("restore_date"))
+    if not pos:
+        return None
+    usable,pi,qi=pos
+    close=pd.to_numeric(usable["Close"],errors="coerce")
+    pre=float(close.iloc[pi]); post=float(close.iloc[qi])
+    sr=float(official_event.get("share_ratio") or 0)
+    if not (np.isfinite(pre) and np.isfinite(post) and pre>0 and post>0 and sr>0):
+        return None
 
-        ev={
-            "restore_date":restore_date,
-            "event_date":event_date,
-            "pre_price_multiplier":round(float(pre_multiplier),8),
-            "share_ratio":round(float(share_ratio),8),
-            "direction":direction,
-            "observed_price_ratio":round(float(observed),6),
-            "ratio_error_pct":round(float(ratio_error*100),2),
-            "adjacent_error_pct":round(float(adjacent_error*100),2),
-            "pre_stability_pct":round(float(pre_stability*100),2),
-            "post_stability_pct":round(float(post_stability*100),2),
-            "volume_ratio_post_pre":volume_support,
-            "source":source,
-            "status":status
+    # share_ratio > 1 => more shares, lower post-event price; <1 => reverse split.
+    expected=1.0/sr
+    observed=post/pre
+    error=abs(observed/expected-1)
+
+    # Use nearby medians too, when available, to reject a one-bar data glitch.
+    pre_slice=close.iloc[max(0,pi-2):pi+1].dropna()
+    post_slice=close.iloc[qi:min(len(close),qi+3)].dropna()
+    med_observed=float(post_slice.median()/pre_slice.median()) if len(pre_slice) and len(post_slice) else observed
+    med_error=abs(med_observed/expected-1)
+
+    # Official event is required, but price still has to be reasonably compatible.
+    # 25% tolerance allows market movement around a long suspension without
+    # accepting unrelated scale changes.
+    if error>0.25 and med_error>0.25:
+        return {
+            **official_event,
+            "status":"blocked_price_validation",
+            "observed_price_ratio":round(observed,6),
+            "expected_price_ratio":round(expected,6),
+            "ratio_error_pct":round(min(error,med_error)*100,2)
         }
 
-        if events and abs((pd.Timestamp(restore_date)-pd.Timestamp(events[-1]["restore_date"])).days)<=5:
+    ev={
+        **official_event,
+        "pre_price_multiplier":round(expected,10),
+        "direction":"split" if sr>=1 else "reverse_split",
+        "status":"confirmed_official_event_and_price",
+        "observed_price_ratio":round(observed,6),
+        "expected_price_ratio":round(expected,6),
+        "ratio_error_pct":round(min(error,med_error)*100,2)
+    }
+    return ev
+
+def detect_restore_events(df,item=None):
+    """V2.41.42: only official events can become restore events."""
+    if df is None or df.empty or not item:
+        return []
+    sym=str(item.get("symbol") or "").upper()
+    official=OFFICIAL_RESTORE_EVENTS.get(sym,[])
+    if not official:
+        return []
+    confirmed=[]
+    for oe in official:
+        ev=validate_official_restore_event(df,oe)
+        if not ev:
             continue
-        events.append(ev)
+        if ev.get("status")=="blocked_price_validation":
+            print(
+                f"TW RESTORE BLOCKED: {sym} {item.get('name','')} | {oe.get('restore_date')} | "
+                f"official shares 1→{float(oe.get('share_ratio') or 0):g} | "
+                f"price mismatch {ev.get('ratio_error_pct')}%"
+            )
+            continue
+        confirmed.append(ev)
+    return confirmed
 
-    return events
-
-def apply_restore_events_df(df, events):
-    """Put all OHLC/Volume on the latest post-event scale."""
+def apply_restore_events_df(df,events):
     if df is None or df.empty or not events:
         return df.copy() if df is not None else df
-
     out=df.copy()
     idx_dates=pd.Series([pd.Timestamp(x).strftime("%Y-%m-%d") for x in out.index],index=out.index)
-
     for ev in sorted(events,key=lambda x:str(x.get("restore_date",""))):
         rd=str(ev.get("restore_date") or "")
         mult=float(ev.get("pre_price_multiplier") or 1)
         if not rd or not np.isfinite(mult) or mult<=0 or abs(mult-1)<1e-12:
             continue
-
         mask=idx_dates < rd
         for col in ("Open","High","Low","Close","Adj Close"):
             if col in out.columns:
@@ -769,9 +882,7 @@ def apply_restore_events_df(df, events):
         if "Volume" in out.columns:
             vals=pd.to_numeric(out["Volume"],errors="coerce")
             out.loc[mask,"Volume"]=vals.loc[mask]/mult
-
     return out
-
 
 def download_batch(items,market):
     tickers=[x["yf"] for x in items]
@@ -800,10 +911,10 @@ def download_batch(items,market):
                     sr=float(_ev.get("share_ratio") or 0)
                     ratio_text=(f"1→{sr:g}" if sr>=1 else f"{1/sr:g}→1")
                     print(
-                        f"{market} RESTORE CONFIRMED: {item['symbol']} {item.get('name','')} | "
+                        f"{market} RESTORE CONFIRMED (OFFICIAL): {item['symbol']} {item.get('name','')} | "
                         f"{_ev.get('restore_date')} | shares {ratio_text} | "
                         f"price x{float(_ev.get('pre_price_multiplier') or 1):g} | "
-                        f"{_ev.get('status')}"
+                        f"{_ev.get('source')} | {_ev.get('status')}"
                     )
 
             # V2.41.16: all-stock latest quote cache.
@@ -1113,6 +1224,9 @@ def main():
         help="Where to store this run. Manual Actions should pass intraday/official explicitly."
     )
     args=ap.parse_args()
+
+    global OFFICIAL_RESTORE_EVENTS
+    OFFICIAL_RESTORE_EVENTS=fetch_official_restore_events()
 
     old=load_existing()
     old_results=old.get("results",[]) or []
