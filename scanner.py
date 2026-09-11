@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.45 MARKET-EFFECTIVE PRICE SCALE + 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.46 FRONTEND RESTORE FALLBACK + 2.41.45 MARKET-EFFECTIVE PRICE SCALE + 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -592,7 +592,7 @@ def analyze(df,item,market):
 
 
 # ---------------------------------------------------------------------------
-# V2.41.45 — MARKET-EFFECTIVE price-scale restore engine
+# V2.41.46 — MARKET-EFFECTIVE price-scale restore engine + frontend-safe official event metadata
 # Restore dates follow the market-effective trading date defined by TWSE/TPEx.
 # For face-value change / split / capital-reduction exchange events that stop
 # trading, the VCP price-scale boundary is the official resume-trading date.
@@ -625,10 +625,10 @@ OFFICIAL_EVENT_SEED=[
      "event_type":"face_value_change","source":"TWSE face-value-change table",
      "source_url":"https://www.twse.com.tw/exchangeReport/TWTB7U?response=html"},
     # TWSE official ex-right trading date: 6669 Wiwynn, 2026 stock dividend.
-    # 1,982.79460 bonus shares per 1,000 old shares => total share ratio 2.98279460.
+    # 1,984.22578 bonus shares per 1,000 old shares => total share ratio 2.98422578.
     # The market price scale changes on the ex-right trading date, 2026-09-02.
     {"symbol":"6669","name":"緯穎","market":"TWSE","restore_date":"2026-09-02","price_effective_date":"2026-09-02",
-     "share_ratio":2.98279460,"event_type":"stock_dividend_ex_right","source":"TWSE/MOPS official ex-right event",
+     "share_ratio":2.98422578,"event_type":"stock_dividend_ex_right","source":"TWSE/MOPS official ex-right event",
      "source_url":"https://www.twse.com.tw/zh/announcement/ex-right/twt49u.html"},
 ]
 

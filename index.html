@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- VCPulse BUILD 2.41.46 OFFICIAL EVENT FALLBACK + MARKET SCALE RESTORE -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1571,13 +1572,40 @@ function normalizeData(rows,market){
 }
 
 
+// V2.41.46 — verified official-event fallback cache.
+// This is metadata, not stock-specific calculation logic. It keeps single-stock
+// analysis correct even if screening.json has not finished loading yet or an old
+// GitHub Pages cache is still being served. All events still use the same generic
+// market-effective restore engine below.
+const VERIFIED_RESTORE_EVENT_FALLBACK={
+ TW:{
+  '5904':[{symbol:'5904',name:'寶雅',market:'TPEX',price_effective_date:'2026-08-10',restore_date:'2026-08-10',share_ratio:10,event_type:'face_value_change',source:'TPEx official announcement'}],
+  '3086':[{symbol:'3086',name:'華義',market:'TPEX',price_effective_date:'2026-04-20',restore_date:'2026-04-20',share_ratio:10,event_type:'face_value_change',source:'TPEx official announcement'}],
+  '8932':[{symbol:'8932',name:'智通*',market:'TPEX',price_effective_date:'2026-03-09',restore_date:'2026-03-09',share_ratio:2,event_type:'face_value_change',source:'TPEx official announcement'}],
+  '6949':[{symbol:'6949',name:'沛爾生醫-創',market:'TWSE',price_effective_date:'2026-09-07',restore_date:'2026-09-07',share_ratio:20,event_type:'face_value_change',source:'TWSE face-value-change table'}],
+  '6669':[{symbol:'6669',name:'緯穎',market:'TWSE',price_effective_date:'2026-09-02',restore_date:'2026-09-02',share_ratio:2.98422578,event_type:'stock_dividend_ex_right',source:'TWSE/MOPS official ex-right event'}]
+ }
+};
 function getRestoreEvents(market,symbol){
  const m=String(market||'TW').toUpperCase(), sym=String(symbol||'').toUpperCase();
- for(const map of [radarRestoreEvents?.intraday?.[m],radarRestoreEvents?.official?.[m]]){
-   const ev=map?.[sym];
-   if(Array.isArray(ev)&&ev.length) return ev.slice().sort((a,b)=>restoreEffectiveDate(a).localeCompare(restoreEffectiveDate(b)));
+ const pools=[
+   radarRestoreEvents?.intraday?.[m]?.[sym],
+   radarRestoreEvents?.official?.[m]?.[sym],
+   VERIFIED_RESTORE_EVENT_FALLBACK?.[m]?.[sym]
+ ];
+ const merged=[];
+ const seen=new Set();
+ for(const arr of pools){
+   if(!Array.isArray(arr)) continue;
+   for(const ev of arr){
+     const rd=restoreEffectiveDate(ev), sr=Number(ev?.share_ratio);
+     if(!rd||!Number.isFinite(sr)||sr<=0) continue;
+     const key=`${rd}|${sr.toFixed(8)}|${String(ev?.event_type||'')}`;
+     if(seen.has(key)) continue;
+     seen.add(key); merged.push({...ev});
+   }
  }
- return [];
+ return merged.sort((a,b)=>restoreEffectiveDate(a).localeCompare(restoreEffectiveDate(b)));
 }
 function restoreEffectiveDate(ev){
  return String(ev?.price_effective_date||ev?.resume_trading_date||ev?.restore_date||'').slice(0,10);
