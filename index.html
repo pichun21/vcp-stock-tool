@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.21 HIGH DPI CHART POLISH -->
+<!-- VCPulse BUILD 2.41.22 TW INTRADAY 30MIN LABEL -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -2630,7 +2630,7 @@ function renderFreshness(){
    let title='', sub='';
    if(intraday){
      title=market==='TW'?'台股・盤中即時':'美股・盤中即時';
-     sub=market==='US'?'盤中每 1 小時自動更新':'盤中資料';
+     sub=market==='US'?'盤中每 1 小時自動更新':'盤中每 30 分鐘自動更新';
    }else if(market==='TW'){
      title='台股・收盤更新';
      sub='每日 18:10 起更新';
