@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.24 MOBILE RETURN PAGE PRESERVE -->
+<!-- VCPulse BUILD 2.41.25 BACK TO TOP INIT FIX -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -2890,15 +2890,22 @@ function goMobileRadarPage(delta){
 if(mobilePrevPage) mobilePrevPage.addEventListener('click',()=>goMobileRadarPage(-1));
 if(mobileNextPage) mobileNextPage.addEventListener('click',()=>goMobileRadarPage(1));
 
-const backToTopBtn=document.getElementById('backToTopBtn');
+let backToTopBtn=null;
 function updateBackToTopVisibility(){
  if(!backToTopBtn) return;
  backToTopBtn.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop||0)>700);
 }
-window.addEventListener('scroll',updateBackToTopVisibility,{passive:true});
-updateBackToTopVisibility();
-if(backToTopBtn){
+function initBackToTop(){
+ backToTopBtn=document.getElementById('backToTopBtn');
+ if(!backToTopBtn) return;
+ window.addEventListener('scroll',updateBackToTopVisibility,{passive:true});
  backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ updateBackToTopVisibility();
+}
+if(document.readyState==='loading'){
+ document.addEventListener('DOMContentLoaded',initBackToTop,{once:true});
+}else{
+ initBackToTop();
 }
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
