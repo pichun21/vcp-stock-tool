@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11 18:57",
+  "generated_at": "2026-09-11 20:36",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 121,
-      "scanned_at": "2026-09-11 18:57",
+      "scanned_at": "2026-09-11 20:36",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 121,
-      "scanned_at": "2026-09-11 18:57",
+      "scanned_at": "2026-09-11 20:36",
       "snapshot_type": "official"
     }
   },
@@ -28076,6 +28076,34 @@
       }
     }
   },
+  "restore_date_engine_version": 1,
+  "official_restore_events": {
+    "TW": {
+      "2607": [
+        {
+          "restore_date": "2025-09-25",
+          "pre_price_multiplier": 0.85714286,
+          "share_ratio": 1.16666667,
+          "factor_before": 0.8095727103,
+          "factor_after": 0.9445014954,
+          "source": "Yahoo adjusted-price factor",
+          "status": "confirmed_by_adjustment_factor"
+        }
+      ],
+      "1459": [
+        {
+          "restore_date": "2026-07-23",
+          "pre_price_multiplier": 0.84177215,
+          "share_ratio": 1.18796992,
+          "factor_before": 0.8417721538,
+          "factor_after": 1.0,
+          "source": "Yahoo adjusted-price factor",
+          "status": "confirmed_by_adjustment_factor"
+        }
+      ]
+    }
+  },
+  "intraday_restore_events": {},
   "results": [
     {
       "market": "US",
