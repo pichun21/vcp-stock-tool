@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.32 HIDE CONTRACTION COLUMN -->
+<!-- VCPulse BUILD 2.41.33 REMOVE MOBILE CONTRACTION METRIC -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -2418,7 +2418,6 @@ function renderRadar(filter='all'){
           })()}
          </div>
          <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}${r._live?' <span class="live-quote-badge">即時</span>':''}</b></div>
-         <div class="mobile-metric">收縮<b>${esc(contractionText(r))}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
        <div class="mobile-signal-row">
