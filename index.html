@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.46 OFFICIAL EVENT FALLBACK + MARKET SCALE RESTORE -->
+<!-- VCPulse BUILD 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.41.46 OFFICIAL EVENT FALLBACK -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -875,6 +875,18 @@ th{color:#716c64}
 .capital-hotspot-level{font-size:11px;margin:5px 0 7px}
 .capital-hotspot-metrics{display:grid;gap:3px;font-size:11px;color:var(--muted)}
 .capital-hotspot-metrics b{color:var(--text)}
+.capital-hotspot-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.capital-hotspot-action{min-width:0;padding:6px 9px;border-radius:999px;border:1px solid var(--line);background:#faf9f5;color:var(--text);font-size:11px;font-weight:800;cursor:pointer}
+.capital-hotspot-action:hover,.capital-hotspot-action.active{background:#20231f;color:#fff;border-color:#20231f}
+.capital-hotspot-action:disabled{cursor:default;opacity:.45;background:#f3f2ee;color:var(--muted);border-color:var(--line)}
+.capital-hotspot-hint{font-size:10px;color:var(--muted);margin-top:5px}
+.capital-hotspot-detail{margin-top:9px;padding-top:9px;border-top:1px dashed #deddd5}
+.capital-hotspot-detail-title{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;font-weight:800;margin-bottom:6px}
+.capital-hotspot-list{display:flex;flex-wrap:wrap;gap:5px}
+.capital-stock-btn{min-width:0;padding:6px 8px;border-radius:9px;background:#fff;color:#20231f;border:1px solid #deddd5;font-size:11px;font-weight:700;text-align:left}
+.capital-stock-btn:hover{background:#f3f3ef;border-color:#b9b8b0}
+.capital-stock-btn.breakout{border-color:#9fc9a8;background:#f2faf3}
+.capital-hotspot-none{font-size:11px;color:var(--muted);padding:2px 0}
 .capital-hotspots-empty{font-size:12px;color:var(--muted);padding:10px 0}
 @media(max-width:760px){
  .capital-hotspots-head{align-items:flex-start}
@@ -2095,6 +2107,32 @@ async function run(){
 }
 function showErr(t){$('err').textContent=t;$('err').style.display='block'}
 
+let capitalHotspotExpanded='';
+let capitalHotspotMode='vcp';
+function capitalStocksForIndustry(industry){
+ const rows=(radarSnapshotData?.[radarSnapshot]||[]).filter(r=>
+   String(r.market||'').toUpperCase()==='TW' && String(r.industry||'')===String(industry||'')
+ );
+ const seen=new Set();
+ return rows.filter(r=>{const k=String(r.symbol||'');if(!k||seen.has(k))return false;seen.add(k);return true;});
+}
+function toggleCapitalHotspot(industry,mode){
+ const key=String(industry||'');
+ if(capitalHotspotExpanded===key && capitalHotspotMode===mode){
+   capitalHotspotExpanded='';
+ }else{
+   capitalHotspotExpanded=key;
+   capitalHotspotMode=mode;
+ }
+ renderCapitalHotspots();
+}
+function openCapitalStock(symbol){
+ const input=document.getElementById('symbol');
+ if(!input) return;
+ input.value=String(symbol||'');
+ window.scrollTo({top:0,behavior:'smooth'});
+ run();
+}
 function renderCapitalHotspots(){
  const box=document.getElementById('capitalHotspots');
  const grid=document.getElementById('capitalHotspotsGrid');
@@ -2107,12 +2145,22 @@ function renderCapitalHotspots(){
    return;
  }
  box.hidden=false;
- grid.innerHTML=rows.map((r,i)=>`
+ grid.innerHTML=rows.map((r,i)=>{
+   const industry=String(r.industry||'—');
+   const stocks=capitalStocksForIndustry(industry);
+   const breakoutStocks=stocks.filter(x=>String(x.type||'')==='breakout');
+   const expanded=capitalHotspotExpanded===industry;
+   const shown=capitalHotspotMode==='breakout'?breakoutStocks:stocks;
+   const title=capitalHotspotMode==='breakout'?`突破 ${breakoutStocks.length} 檔`:`VCP ${stocks.length} 檔`;
+   const stockHtml=shown.length
+     ? shown.map(x=>`<button type="button" class="capital-stock-btn ${String(x.type||'')==='breakout'?'breakout':''}" onclick="event.stopPropagation();openCapitalStock('${escHtml(String(x.symbol||''))}')">${escHtml(x.name||x.symbol||'—')} <span class="muted">${escHtml(x.symbol||'')}</span></button>`).join('')
+     : '<div class="capital-hotspot-none">目前沒有符合的個股。</div>';
+   return `
    <div class="capital-hotspot">
      <div class="capital-hotspot-top">
        <div class="capital-hotspot-namewrap">
          <span class="capital-hotspot-rank">${i+1}</span>
-         <div class="capital-hotspot-name">${escHtml(r.industry||'—')}</div>
+         <div class="capital-hotspot-name">${escHtml(industry)}</div>
        </div>
        <div class="capital-hotspot-score">${Number(r.heat_score||0)}</div>
      </div>
@@ -2120,9 +2168,15 @@ function renderCapitalHotspots(){
        <span>市場資金占比 <b>${Number(r.market_share_pct||0).toFixed(1)}%</b></span>
        <span>成交熱度 <b>${Number(r.value_ratio||0).toFixed(2)}×</b></span>
        <span>上漲家數 <b>${Number(r.breadth_pct||0).toFixed(0)}%</b></span>
-       <span>VCP <b>${Number(r.vcp_count||0)}</b>｜突破 <b>${Number(r.breakout_count||0)}</b></span>
      </div>
-   </div>`).join('');
+     <div class="capital-hotspot-actions">
+       <button type="button" class="capital-hotspot-action ${expanded&&capitalHotspotMode==='vcp'?'active':''}" ${stocks.length?'':'disabled'} onclick="toggleCapitalHotspot('${escHtml(industry)}','vcp')">VCP ${Number(r.vcp_count||stocks.length||0)} ▾</button>
+       <button type="button" class="capital-hotspot-action ${expanded&&capitalHotspotMode==='breakout'?'active':''}" ${breakoutStocks.length?'':'disabled'} onclick="toggleCapitalHotspot('${escHtml(industry)}','breakout')">突破 ${Number(r.breakout_count||breakoutStocks.length||0)} ▾</button>
+     </div>
+     <div class="capital-hotspot-hint">點數字查看個股，再點股票進入完整分析</div>
+     ${expanded?`<div class="capital-hotspot-detail"><div class="capital-hotspot-detail-title"><span>${title}</span><span class="muted">點股票分析 ↗</span></div><div class="capital-hotspot-list">${stockHtml}</div></div>`:''}
+   </div>`;
+ }).join('');
 }
 
 

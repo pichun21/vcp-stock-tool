@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.46 FRONTEND RESTORE FALLBACK + 2.41.45 MARKET-EFFECTIVE PRICE SCALE + 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.41.46 RESTORE FALLBACK + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -1094,8 +1094,19 @@ def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     rows=[]
     for _,r in g.sort_values(["heat_score","trading_value"],ascending=[False,False]).head(topn).iterrows():
         key,label=level(int(r["heat_score"]))
+        industry=str(r["industry"])
+        # Keep the actual candidate names with the aggregate counts so the UI can
+        # turn Capital Hotspots into a stock-discovery entry point, not just a statistic.
+        members=[]
+        if not cand.empty and "industry" in cand.columns:
+            cols=[c for c in ["symbol","name","score","type","state","distance","pulse_label"] if c in cand.columns]
+            sub=cand[cand["industry"].fillna("").astype(str)==industry][cols].copy()
+            if not sub.empty:
+                sub=sub.drop_duplicates("symbol",keep="first")
+                members=sub.to_dict("records")
+        breakout_members=[x for x in members if str(x.get("type", ""))=="breakout"]
         rows.append({
-            "industry":str(r["industry"]),
+            "industry":industry,
             "heat_score":int(r["heat_score"]),
             "heat_level":key,
             "heat_label":label,
@@ -1105,6 +1116,8 @@ def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
             "avg_change_pct":round(float(r["avg_change_pct"]),2),
             "vcp_count":int(r["vcp_count"]),
             "breakout_count":int(r["breakout_count"]),
+            "vcp_stocks":members,
+            "breakout_stocks":breakout_members,
             "stock_count":int(r["stock_count"]),
             "data_date":latest
         })
