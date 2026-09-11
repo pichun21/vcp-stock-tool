@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.12 INTRADAY LOCK HOTFIX -->
+<!-- VCPulse BUILD 2.41.15 SINGLE STOCK LIVE QUOTE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1319,10 +1319,17 @@ function singleBenchmarkFor(row){
  const key=(ex.includes('TPEX')||ex.includes('OTC'))?'TPEX':'TWSE';
  return (all.TW||{})[key]||null;
 }
-function updateSingleQuickRead(radarMatch,d,a){
- const stockChange=Number.isFinite(Number(radarMatch?.change_pct))
-   ? Number(radarMatch.change_pct)
-   : ((d?.length>=2 && Number(d[d.length-2]?.close)) ? ((Number(d[d.length-1].close)/Number(d[d.length-2].close)-1)*100) : NaN);
+function updateSingleQuickRead(radarMatch,d,a,liveQuote=null){
+ const livePrice=Number(liveQuote?.price);
+ const livePrev=Number(liveQuote?.prev_close);
+ const liveChange=(Number.isFinite(livePrice) && Number.isFinite(livePrev) && livePrev!==0)
+   ? ((livePrice/livePrev)-1)*100
+   : NaN;
+ const stockChange=Number.isFinite(liveChange)
+   ? liveChange
+   : (Number.isFinite(Number(radarMatch?.change_pct))
+      ? Number(radarMatch.change_pct)
+      : ((d?.length>=2 && Number(d[d.length-2]?.close)) ? ((Number(d[d.length-1].close)/Number(d[d.length-2].close)-1)*100) : NaN));
  const changeEl=$('singleChange');
  if(changeEl){
    changeEl.textContent=Number.isFinite(stockChange)?`${stockChange>0?'+':''}${stockChange.toFixed(1)}%`:'—';
@@ -1357,33 +1364,109 @@ function resetSingleQuickRead(){
 
 
 async function getSingleLatestQuote(market,symbol){
- try{
-   const dataset=market==='US'?'USStockPrice':'TaiwanStockPrice';
-   const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
-   const f=d=>d.toISOString().slice(0,10);
-   const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${f(start)}&end_date=${f(end)}`;
+ const m=String(market||'').toUpperCase();
+ const sym=String(symbol||'').toUpperCase();
+
+ async function fetchJson(url,timeout=5500){
    const ctl=new AbortController();
-   const timer=setTimeout(()=>ctl.abort(),7000);
-   let r;
+   const timer=setTimeout(()=>ctl.abort(),timeout);
    try{
-     r=await fetch(u,{cache:'no-store',signal:ctl.signal});
+     const r=await fetch(url,{cache:'no-store',signal:ctl.signal});
+     if(!r.ok) return null;
+     return await r.json().catch(()=>null);
+   }catch(e){
+     return null;
    }finally{
      clearTimeout(timer);
    }
-   if(!r || !r.ok) return null;
-   const j=await r.json().catch(()=>null);
+ }
+
+ // V2.41.15：台股單股查詢先抓交易所盤中行情。
+ // 同時嘗試上市/上櫃代碼，找到有即時成交價的那一筆。
+ if(m==='TW'){
+   try{
+     const exch=`tse_${encodeURIComponent(sym)}.tw|otc_${encodeURIComponent(sym)}.tw`;
+     const misUrl=`https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${exch}&json=1&delay=0&_=${Date.now()}`;
+     const j=await fetchJson(misUrl,5000);
+     const arr=Array.isArray(j?.msgArray)?j.msgArray:[];
+     const row=arr.find(x=>{
+       const z=Number(x?.z);
+       const y=Number(x?.y);
+       return Number.isFinite(z) && z>0 && Number.isFinite(y) && y>0;
+     });
+     if(row){
+       const price=Number(row.z);
+       const prev=Number(row.y);
+       const rawDate=String(row.d||'');
+       const data_date=/^\d{8}$/.test(rawDate)
+         ? `${rawDate.slice(0,4)}-${rawDate.slice(4,6)}-${rawDate.slice(6,8)}`
+         : '';
+       let quote_time=String(row.t||'').replace(/\.000$/,'');
+       if(!quote_time && row.tlong){
+         const dt=new Date(Number(row.tlong));
+         if(!Number.isNaN(dt.getTime())){
+           quote_time=dt.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',hour12:false});
+         }
+       }
+       return {price,prev_close:prev,data_date,quote_time,source:'TWSE MIS'};
+     }
+   }catch(e){
+     console.warn('TWSE MIS latest quote unavailable',e);
+   }
+
+   // 第二層：Yahoo 1m chart。上櫃先嘗試 .TWO，再嘗試 .TW。
+   const yahooSymbols=[`${sym}.TWO`,`${sym}.TW`];
+   for(const ys of yahooSymbols){
+     try{
+       const yurl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1m&range=1d&includePrePost=false&_=${Date.now()}`;
+       const yj=await fetchJson(yurl,5000);
+       const result=yj?.chart?.result?.[0];
+       const meta=result?.meta||{};
+       const price=Number(meta.regularMarketPrice);
+       const prev=Number(meta.chartPreviousClose ?? meta.previousClose);
+       if(Number.isFinite(price) && price>0 && Number.isFinite(prev) && prev>0){
+         const ts=Number(meta.regularMarketTime);
+         const dt=Number.isFinite(ts)?new Date(ts*1000):null;
+         const data_date=dt&&!Number.isNaN(dt.getTime())
+           ? `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`
+           : '';
+         const quote_time=dt&&!Number.isNaN(dt.getTime())
+           ? dt.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',hour12:false})
+           : '';
+         return {price,prev_close:prev,data_date,quote_time,source:'Yahoo'};
+       }
+     }catch(e){
+       console.warn('Yahoo latest quote unavailable',ys,e);
+     }
+   }
+ }
+
+ // 美股或上面兩層失敗：保留原本 FinMind 日資料備援。
+ try{
+   const dataset=m==='US'?'USStockPrice':'TaiwanStockPrice';
+   const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
+   const f=d=>d.toISOString().slice(0,10);
+   const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(sym)}&start_date=${f(start)}&end_date=${f(end)}`;
+   const j=await fetchJson(u,7000);
    if(!j || !Array.isArray(j.data) || !j.data.length) return null;
-   const rows=normalizeData(j.data,market);
+   const rows=normalizeData(j.data,m);
    if(!rows.length) return null;
    const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
    const price=Number(last.close);
    if(!Number.isFinite(price)) return null;
-   return {price,prev_close:prev?Number(prev.close):NaN,data_date:last.date||''};
+   return {
+     price,
+     prev_close:prev?Number(prev.close):NaN,
+     data_date:last.date||'',
+     quote_time:'',
+     source:'FinMind daily'
+   };
  }catch(e){
    console.warn('Latest quote fetch failed; fallback to daily history',e);
    return null;
  }
 }
+
 function findLatestRadarMatch(market,symbol){
  const m=String(market).toUpperCase(), sym=String(symbol).toUpperCase();
  const intraday=(typeof radarSnapshotData!=='undefined' ? radarSnapshotData.intraday : [])||[];
@@ -1554,14 +1637,16 @@ async function run(){
     }
   }
 
-  updateSingleQuickRead(radarMatch,d,a);
+  updateSingleQuickRead(radarMatch,d,a,liveQuote);
 
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   const liveNote=$('singleLiveNote');
   if(liveNote){
     if(liveQuote && Number.isFinite(Number(liveQuote.price))){
       liveNote.hidden=false;
-      liveNote.textContent=`🟡 最新可取得行情 ${Number(liveQuote.price).toFixed(2)}${liveQuote.data_date?`｜${liveQuote.data_date}`:''}｜盤中狀態僅供即時參考`;
+      const qt=liveQuote.quote_time?` ${liveQuote.quote_time}`:'';
+      const src=liveQuote.source?`｜${liveQuote.source}`:'';
+      liveNote.textContent=`🟢 最新行情 ${Number(liveQuote.price).toFixed(2)}${liveQuote.data_date?`｜${liveQuote.data_date}${qt}`:''}${src}｜盤中狀態僅供即時參考`;
     }else{
       liveNote.hidden=true; liveNote.textContent='';
     }
