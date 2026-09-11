@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.39 MOBILE PULSE HELP RESTORE -->
+<!-- VCPulse BUILD 2.41.40 RESTORE-DATE ENGINE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1375,6 +1375,24 @@ function draw(a){
    x.stroke();
  }
 
+ // 還原日標記：使用 scanner 已確認的價格尺度切換日。
+ const chartDates=a.dates.slice(-120).map(v=>String(v||'').slice(0,10));
+ const restoreInView=(a.restoreEvents||[]).filter(ev=>chartDates.includes(String(ev.restore_date||'').slice(0,10)));
+ restoreInView.forEach((ev,idx)=>{
+   const rd=String(ev.restore_date||'').slice(0,10), i=chartDates.indexOf(rd);
+   if(i<0) return;
+   const xx=X(i);
+   x.save();
+   x.strokeStyle='#9a8f7a'; x.globalAlpha=.72; x.lineWidth=1.2; x.setLineDash([4,5]);
+   x.beginPath(); x.moveTo(xx,pad.t); x.lineTo(xx,H-pad.b); x.stroke();
+   x.setLineDash([]); x.globalAlpha=1;
+   x.font=cssW<=760?'700 9px system-ui,-apple-system,sans-serif':'700 10px system-ui,-apple-system,sans-serif';
+   x.fillStyle='#756b5a'; x.textAlign='center'; x.textBaseline='bottom';
+   const md=rd.slice(5).replace('-','/');
+   x.fillText(`${md} 還原`,Math.max(pad.l+28,Math.min(W-pad.r-28,xx)),H-pad.b-3-(idx%2)*12);
+   x.restore();
+ });
+
  // MA20（月線）— 使用完整歷史計算，再對齊圖中的最後 120 個交易日。
  const fullMA20=sma(a.close,20);
  const ma20=fullMA20.slice(-120);
@@ -1550,6 +1568,31 @@ function normalizeData(rows,market){
   close:+x.close,
   Trading_Volume:+x.Trading_Volume
  })).filter(x=>Number.isFinite(x.close));
+}
+
+
+function getRestoreEvents(market,symbol){
+ const m=String(market||'TW').toUpperCase(), sym=String(symbol||'').toUpperCase();
+ for(const map of [radarRestoreEvents?.intraday?.[m],radarRestoreEvents?.official?.[m]]){
+   const ev=map?.[sym];
+   if(Array.isArray(ev)&&ev.length) return ev.slice().sort((a,b)=>String(a.restore_date).localeCompare(String(b.restore_date)));
+ }
+ return [];
+}
+function applyRestoreEvents(rows,events){
+ if(!Array.isArray(rows)||!rows.length||!Array.isArray(events)||!events.length) return rows;
+ return rows.map(row=>{
+   const out={...row}, date=String(out.date||'').slice(0,10);
+   let mult=1;
+   for(const ev of events){
+     const rd=String(ev.restore_date||'').slice(0,10), m=Number(ev.pre_price_multiplier);
+     if(rd&&date&&date<rd&&Number.isFinite(m)&&m>0) mult*=m;
+   }
+   if(Math.abs(mult-1)<1e-12) return out;
+   for(const k of ['close','open','max','min','High','Low','Open','Close']) if(Number.isFinite(Number(out[k]))) out[k]=Number(out[k])*mult;
+   if(Number.isFinite(Number(out.Trading_Volume))) out.Trading_Volume=Number(out.Trading_Volume)/mult;
+   return out;
+ });
 }
 
 async function resolveTaiwanInput(raw){
@@ -1885,7 +1928,11 @@ async function run(){
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
   let r=await fetch(u),j=await r.json(); if(!r.ok||!j.data||j.data.length<160)throw new Error(j.msg||'歷史資料不足');
-  let d=normalizeData(j.data,currentMarket),a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
+  let d=normalizeData(j.data,currentMarket);
+  const restoreEvents=getRestoreEvents(currentMarket,s);
+  if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
+  let a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
+  a.restoreEvents=restoreEvents;
 
   // If this stock exists in today's radar, use the SAME scanner result for the
   // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
@@ -2054,6 +2101,7 @@ let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
 let radarCapitalHotspots={official:{},intraday:{}};
 let radarAllQuotes={official:{},intraday:{}};
+let radarRestoreEvents={official:{},intraday:{}};
 let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
 
@@ -2910,6 +2958,10 @@ async function loadRadar(){
    radarAllQuotes={
      official:j.official_quotes||{},
      intraday:j.intraday_quotes||{}
+   };
+   radarRestoreEvents={
+     official:j.official_restore_events||{},
+     intraday:j.intraday_restore_events||{}
    };
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;

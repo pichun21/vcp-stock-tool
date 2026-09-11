@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.34 SPLIT-SAFE VCP + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.40 RESTORE-DATE ENGINE + 2.41.34 SPLIT-SAFE VCP + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -628,13 +628,56 @@ def make_split_safe_vcp_df(df):
     return out, split_adjusted
 
 
+def detect_restore_events(df):
+    """Detect split/face-value restore dates from Yahoo adjusted-price factor.
+
+    A restore event is recorded only when Adj Close / Close changes by >=15%
+    between adjacent valid trading bars.  The first bar on the new factor is
+    the restore date. `pre_price_multiplier` converts prices BEFORE that date
+    onto the new post-event price scale. Multiple events are supported.
+    """
+    if df is None or df.empty or "Close" not in df.columns or "Adj Close" not in df.columns:
+        return []
+    close=pd.to_numeric(df["Close"],errors="coerce")
+    adj=pd.to_numeric(df["Adj Close"],errors="coerce")
+    factor=(adj/close).replace([np.inf,-np.inf],np.nan)
+    factor=factor.where(factor>0).ffill().bfill()
+    events=[]
+    for i in range(1,len(factor)):
+        prev=factor.iloc[i-1]; cur=factor.iloc[i]
+        if not (pd.notna(prev) and pd.notna(cur) and prev>0 and cur>0):
+            continue
+        step=abs(cur/prev-1)
+        if step < 0.15:
+            continue
+        mult=float(prev/cur)
+        if not np.isfinite(mult) or mult<=0:
+            continue
+        # Avoid recording ordinary dividend-like factor drift; >=15% is already
+        # conservative, and extreme ratios outside practical corporate actions
+        # are ignored as malformed data.
+        if mult < 0.01 or mult > 100:
+            continue
+        idx=df.index[i]
+        restore_date=idx.strftime("%Y-%m-%d") if hasattr(idx,"strftime") else str(idx)[:10]
+        events.append({
+            "restore_date":restore_date,
+            "pre_price_multiplier":round(mult,8),
+            "share_ratio":round(1.0/mult,8),
+            "factor_before":round(float(prev),10),
+            "factor_after":round(float(cur),10),
+            "source":"Yahoo adjusted-price factor",
+            "status":"confirmed_by_adjustment_factor"
+        })
+    return events
+
 def download_batch(items,market):
     tickers=[x["yf"] for x in items]
     try:
         raw=yf.download(tickers=tickers,period="1y",interval="1d",group_by="ticker",auto_adjust=False,progress=False,threads=True,timeout=30)
     except Exception as e:
-        print("batch download failed",e); return [], [], [], {}
-    results=[]; dates=[]; flows=[]; quotes={}
+        print("batch download failed",e); return [], [], [], {}, {}
+    results=[]; dates=[]; flows=[]; quotes={}; restore_events={}
     for item in items:
         try:
             if len(tickers)==1: d=raw
@@ -646,6 +689,11 @@ def download_batch(items,market):
             if usable is None or usable.empty: continue
             data_date=usable.index[-1].strftime("%Y-%m-%d")
             dates.append(data_date)
+
+            # V2.41.40: record restore dates for every valid symbol, not only radar candidates.
+            ev=detect_restore_events(d)
+            if ev:
+                restore_events[str(item["symbol"]).upper()]=ev
 
             # V2.41.16: all-stock latest quote cache.
             # yfinance daily bars already used by the scanner normally contain the
@@ -692,7 +740,7 @@ def download_batch(items,market):
                 r["split_adjusted"]=bool(split_adjusted)
                 results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
-    return results, dates, flows, quotes
+    return results, dates, flows, quotes, restore_events
 
 def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     """Build VCPulse industry heat from broad-market observations.
@@ -779,11 +827,11 @@ def scan(market):
     print(f"{market}: universe {len(universe)}")
     batch_size=120 if market=="TW" else 120
     batches=[universe[i:i+batch_size] for i in range(0,len(universe),batch_size)]
-    results=[]; latest_dates=[]; flow_rows=[]; quote_cache={}
+    results=[]; latest_dates=[]; flow_rows=[]; quote_cache={}; restore_event_cache={}
     for i,b in enumerate(batches,1):
         print(f"{market}: batch {i}/{len(batches)}")
-        batch_results,batch_dates,batch_flows,batch_quotes=download_batch(b,market)
-        results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); time.sleep(1)
+        batch_results,batch_dates,batch_flows,batch_quotes,batch_restore_events=download_batch(b,market)
+        results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); restore_event_cache.update(batch_restore_events); time.sleep(1)
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
     today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
@@ -802,7 +850,9 @@ def scan(market):
     if split_count:
         print(f"{market} SPLIT-SAFE VCP: adjusted {split_count} radar candidates")
     print(f"{market} ALL-STOCK QUOTE CACHE: {len(quote_cache)} symbols")
-    return results[:150], stats, hotspots, quote_cache
+    if restore_event_cache:
+        print(f"{market} RESTORE-DATE CACHE: {len(restore_event_cache)} symbols / {sum(len(v) for v in restore_event_cache.values())} events")
+    return results[:150], stats, hotspots, quote_cache, restore_event_cache
 
 def load_existing():
     if OUT.exists():
@@ -967,6 +1017,8 @@ def main():
     intraday_capital_hotspots=dict(old.get("intraday_capital_hotspots",{}) or {})
     official_quotes=dict(old.get("official_quotes",{}) or {})
     intraday_quotes=dict(old.get("intraday_quotes",{}) or {})
+    official_restore_events=dict(old.get("official_restore_events",{}) or {})
+    intraday_restore_events=dict(old.get("intraday_restore_events",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -1010,7 +1062,7 @@ def main():
     targets=["TW","US"] if args.market=="both" else [args.market]
 
     for market in targets:
-        rows,scan_stats,capital_hotspots,market_quote_cache=scan(market)
+        rows,scan_stats,capital_hotspots,market_quote_cache,market_restore_events=scan(market)
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -1073,6 +1125,8 @@ def main():
                 official_capital_hotspots["TW"]=capital_hotspots
             if market_quote_cache:
                 official_quotes[market]=market_quote_cache
+            if market_restore_events:
+                official_restore_events[market]=market_restore_events
 
             # V2.39: preserve the intraday snapshot even after an official run.
             # The two snapshots are independent; updating official must never erase intraday.
@@ -1098,6 +1152,8 @@ def main():
                 intraday_capital_hotspots["TW"]=capital_hotspots
             if market_quote_cache:
                 intraday_quotes[market]=market_quote_cache
+            if market_restore_events:
+                intraday_restore_events[market]=market_restore_events
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -1115,6 +1171,9 @@ def main():
         "all_stock_quote_cache_version":1,
         "official_quotes":official_quotes,
         "intraday_quotes":intraday_quotes,
+        "restore_date_engine_version":1,
+        "official_restore_events":official_restore_events,
+        "intraday_restore_events":intraday_restore_events,
         "results":official_results,
         "official_results":official_results,
         "intraday_results":intraday_results
