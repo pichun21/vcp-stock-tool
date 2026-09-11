@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.25 BACK TO TOP INIT FIX -->
+<!-- VCPulse BUILD 2.41.26 COLLAPSIBLE SIGNAL GUIDE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -2914,6 +2914,12 @@ loadRadar();
 
 </script>
 <div id="pulseHelpExtra" style="display:none">
+<details class="signal-guide-collapsible">
+  <summary>
+    <span class="signal-guide-title">ⓘ VCPulse 訊號怎麼看？</span>
+    <span class="signal-guide-action"><span class="when-closed">查看說明</span><span class="when-open">收合說明</span><span class="signal-guide-chevron">›</span></span>
+  </summary>
+  <div class="signal-guide-content">
 <div class="pulse-help-detail">
   <h3>VCPulse 綜合訊號怎麼看？</h3>
   <p>VCP 星等只評估「VCP 型態品質」；VCPulse 綜合訊號則加入 <b>Pivot 位置、PowerSqueeze 與 Momentum</b>，表示目前值得關注的程度。</p>
@@ -2929,6 +2935,8 @@ loadRadar();
     <p>系統依 VCP 分數、今日突破／突破後／接近 Pivot 狀態、PowerSqueeze 強度與 Momentum 方向綜合判斷。條件配合越多，關注層級越高；突破後若距 Pivot 超過 8%，則優先標示為「過度延伸」。</p>
   </details>
 </div>
+  </div>
+</details>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
@@ -3349,5 +3357,48 @@ onAuthStateChanged(auth, async user => {
     height:44px;
     min-width:44px;
   }
+}
+
+/* V2.41.26 — 訊號說明預設收合 */
+.signal-guide-collapsible{
+  width:100%;
+  margin-top:14px;
+  border-top:1px solid #e7dfd4;
+}
+.signal-guide-collapsible > summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:15px 2px;
+  color:#403a33;
+  user-select:none;
+}
+.signal-guide-collapsible > summary::-webkit-details-marker{display:none}
+.signal-guide-title{font-size:14px;font-weight:900}
+.signal-guide-action{
+  display:flex;align-items:center;gap:5px;
+  color:#8b7359;font-size:12px;font-weight:800;white-space:nowrap
+}
+.signal-guide-chevron{
+  display:inline-block;font-size:19px;line-height:1;
+  transform:rotate(90deg);transition:transform .22s ease
+}
+.signal-guide-collapsible[open] .signal-guide-chevron{transform:rotate(-90deg)}
+.signal-guide-collapsible .when-open{display:none}
+.signal-guide-collapsible[open] .when-open{display:inline}
+.signal-guide-collapsible[open] .when-closed{display:none}
+.signal-guide-content{padding:0 0 8px;animation:signalGuideIn .22s ease both}
+@keyframes signalGuideIn{
+ from{opacity:0;transform:translateY(-4px)}
+ to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:760px){
+ .signal-guide-collapsible{margin-top:10px}
+ .signal-guide-collapsible > summary{padding:13px 2px}
+ .signal-guide-title{font-size:13px}
+ .signal-guide-action{font-size:11px}
 }
 </style>
