@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.40 RESTORE-DATE ENGINE + 2.41.34 SPLIT-SAFE VCP + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.41 RESTORE-DATE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -589,87 +589,189 @@ def analyze(df,item,market):
     }
 
 
-def make_split_safe_vcp_df(df):
-    """Return a split-safe copy for VCP calculations.
 
-    Quotes and capital-hotspot traded value stay on raw market prices.
-    VCP OHLC uses Yahoo's adjusted-price factor so historical split gaps do
-    not look like crashes. Volume is inversely adjusted by the same factor
-    so pre/post-split volume remains comparable.
+COMMON_SPLIT_RATIOS = (2, 3, 4, 5, 10, 20, 50, 100)
 
-    `split_adjusted` is only flagged when the adjustment factor itself has a
-    large step (>=15%), which is a practical corporate-action/split signal.
-    """
-    if df is None or df.empty or "Close" not in df.columns or "Adj Close" not in df.columns:
-        return df.copy() if df is not None else df, False
+def _nearest_common_ratio(x, tolerance=0.12):
+    try:
+        x=float(x)
+    except Exception:
+        return None
+    if not np.isfinite(x) or x < 1.5:
+        return None
+    best=min(COMMON_SPLIT_RATIOS,key=lambda r:abs(x/r-1))
+    return float(best) if abs(x/best-1) <= tolerance else None
+
+def _window_median(series, start, end):
+    s=pd.to_numeric(series.iloc[start:end],errors="coerce").dropna()
+    if len(s)==0:
+        return float("nan")
+    return float(s.median())
+
+def _window_stability(series, start, end):
+    s=pd.to_numeric(series.iloc[start:end],errors="coerce").dropna()
+    if len(s)<2:
+        return 0.0
+    med=float(s.median())
+    if not np.isfinite(med) or med<=0:
+        return 999.0
+    return float((s-med).abs().median()/med)
+
+def _confirm_yahoo_split(ticker, restore_date, share_ratio):
+    """Best-effort Yahoo corporate-action confirmation for strong candidates only."""
+    try:
+        splits=yf.Ticker(ticker).splits
+        if splits is None or len(splits)==0:
+            return None
+        rd=pd.Timestamp(restore_date)
+        expected=float(share_ratio)
+        best=None
+        for idx,val in splits.items():
+            try:
+                dt=pd.Timestamp(idx)
+                if dt.tzinfo is not None:
+                    dt=dt.tz_localize(None)
+                days=abs((dt.normalize()-rd.normalize()).days)
+                ratio=float(val)
+            except Exception:
+                continue
+            if days>21 or not np.isfinite(ratio) or ratio<=0:
+                continue
+            err=abs(ratio/expected-1) if expected else 999
+            if err<=0.18 and (best is None or days<best["days"]):
+                best={"event_date":dt.strftime("%Y-%m-%d"),"ratio":ratio,"days":days}
+        return best
+    except Exception:
+        return None
+
+def detect_restore_events(df, item=None):
+    """Detect split / face-value price-scale changes from persistent raw prices."""
+    if df is None or df.empty or "Close" not in df.columns:
+        return []
+
+    usable=df.dropna(subset=["Close"]).copy()
+    if len(usable)<8:
+        return []
+
+    close=pd.to_numeric(usable["Close"],errors="coerce")
+    volume=(pd.to_numeric(usable["Volume"],errors="coerce")
+            if "Volume" in usable.columns else pd.Series(index=usable.index,dtype=float))
+    events=[]
+
+    for i in range(3, len(usable)-2):
+        prev=float(close.iloc[i-1]) if pd.notna(close.iloc[i-1]) else float("nan")
+        cur=float(close.iloc[i]) if pd.notna(close.iloc[i]) else float("nan")
+        if not (np.isfinite(prev) and np.isfinite(cur) and prev>0 and cur>0):
+            continue
+
+        adjacent=cur/prev
+        if 0.60 <= adjacent <= 1.67:
+            continue
+
+        if adjacent < 1:
+            magnitude=_nearest_common_ratio(1.0/adjacent, tolerance=0.15)
+            if magnitude is None:
+                continue
+            expected=1.0/magnitude
+            pre_multiplier=1.0/magnitude
+            share_ratio=magnitude
+            direction="split"
+        else:
+            magnitude=_nearest_common_ratio(adjacent, tolerance=0.15)
+            if magnitude is None:
+                continue
+            expected=magnitude
+            pre_multiplier=magnitude
+            share_ratio=1.0/magnitude
+            direction="reverse_split"
+
+        pre_med=_window_median(close, i-3, i)
+        post_med=_window_median(close, i, min(len(close), i+3))
+        if not (np.isfinite(pre_med) and np.isfinite(post_med) and pre_med>0 and post_med>0):
+            continue
+
+        observed=post_med/pre_med
+        ratio_error=abs(observed/expected-1)
+        adjacent_error=abs(adjacent/expected-1)
+        if ratio_error>0.12 or adjacent_error>0.18:
+            continue
+
+        pre_stability=_window_stability(close, i-3, i)
+        post_stability=_window_stability(close, i, min(len(close), i+3))
+        if pre_stability>0.22 or post_stability>0.22:
+            continue
+
+        volume_support=None
+        try:
+            pre_v=_window_median(volume, i-3, i)
+            post_v=_window_median(volume, i, min(len(volume), i+3))
+            if np.isfinite(pre_v) and np.isfinite(post_v) and pre_v>0 and post_v>0:
+                volume_support=round(post_v/pre_v,3)
+        except Exception:
+            pass
+
+        idx=usable.index[i]
+        restore_date=idx.strftime("%Y-%m-%d") if hasattr(idx,"strftime") else str(idx)[:10]
+
+        yahoo=None
+        if item and item.get("yf"):
+            yahoo=_confirm_yahoo_split(item["yf"], restore_date, share_ratio)
+
+        status="confirmed_by_price_scale_persistence"
+        source="Yahoo raw price persistence"
+        event_date=""
+        if yahoo:
+            status="confirmed_by_yahoo_split_and_price"
+            source="Yahoo split event + raw price persistence"
+            event_date=yahoo["event_date"]
+
+        ev={
+            "restore_date":restore_date,
+            "event_date":event_date,
+            "pre_price_multiplier":round(float(pre_multiplier),8),
+            "share_ratio":round(float(share_ratio),8),
+            "direction":direction,
+            "observed_price_ratio":round(float(observed),6),
+            "ratio_error_pct":round(float(ratio_error*100),2),
+            "adjacent_error_pct":round(float(adjacent_error*100),2),
+            "pre_stability_pct":round(float(pre_stability*100),2),
+            "post_stability_pct":round(float(post_stability*100),2),
+            "volume_ratio_post_pre":volume_support,
+            "source":source,
+            "status":status
+        }
+
+        if events and abs((pd.Timestamp(restore_date)-pd.Timestamp(events[-1]["restore_date"])).days)<=5:
+            continue
+        events.append(ev)
+
+    return events
+
+def apply_restore_events_df(df, events):
+    """Put all OHLC/Volume on the latest post-event scale."""
+    if df is None or df.empty or not events:
+        return df.copy() if df is not None else df
 
     out=df.copy()
-    close=pd.to_numeric(out["Close"],errors="coerce")
-    adj=pd.to_numeric(out["Adj Close"],errors="coerce")
-    factor=(adj/close).replace([np.inf,-np.inf],np.nan)
-    factor=factor.where(factor>0).ffill().bfill()
+    idx_dates=pd.Series([pd.Timestamp(x).strftime("%Y-%m-%d") for x in out.index],index=out.index)
 
-    if factor.isna().all():
-        return out, False
-
-    # A split/corporate-action step changes the historical adjustment factor
-    # sharply. Ordinary small dividend adjustments should not trigger this flag.
-    factor_step=(factor/factor.shift(1)-1).abs()
-    split_adjusted=bool((factor_step>=0.15).fillna(False).any())
-
-    for col in ("Open","High","Low","Close"):
-        if col in out.columns:
-            out[col]=pd.to_numeric(out[col],errors="coerce")*factor
-
-    if "Volume" in out.columns:
-        vol=pd.to_numeric(out["Volume"],errors="coerce")
-        out["Volume"]=vol/factor
-
-    return out, split_adjusted
-
-
-def detect_restore_events(df):
-    """Detect split/face-value restore dates from Yahoo adjusted-price factor.
-
-    A restore event is recorded only when Adj Close / Close changes by >=15%
-    between adjacent valid trading bars.  The first bar on the new factor is
-    the restore date. `pre_price_multiplier` converts prices BEFORE that date
-    onto the new post-event price scale. Multiple events are supported.
-    """
-    if df is None or df.empty or "Close" not in df.columns or "Adj Close" not in df.columns:
-        return []
-    close=pd.to_numeric(df["Close"],errors="coerce")
-    adj=pd.to_numeric(df["Adj Close"],errors="coerce")
-    factor=(adj/close).replace([np.inf,-np.inf],np.nan)
-    factor=factor.where(factor>0).ffill().bfill()
-    events=[]
-    for i in range(1,len(factor)):
-        prev=factor.iloc[i-1]; cur=factor.iloc[i]
-        if not (pd.notna(prev) and pd.notna(cur) and prev>0 and cur>0):
+    for ev in sorted(events,key=lambda x:str(x.get("restore_date",""))):
+        rd=str(ev.get("restore_date") or "")
+        mult=float(ev.get("pre_price_multiplier") or 1)
+        if not rd or not np.isfinite(mult) or mult<=0 or abs(mult-1)<1e-12:
             continue
-        step=abs(cur/prev-1)
-        if step < 0.15:
-            continue
-        mult=float(prev/cur)
-        if not np.isfinite(mult) or mult<=0:
-            continue
-        # Avoid recording ordinary dividend-like factor drift; >=15% is already
-        # conservative, and extreme ratios outside practical corporate actions
-        # are ignored as malformed data.
-        if mult < 0.01 or mult > 100:
-            continue
-        idx=df.index[i]
-        restore_date=idx.strftime("%Y-%m-%d") if hasattr(idx,"strftime") else str(idx)[:10]
-        events.append({
-            "restore_date":restore_date,
-            "pre_price_multiplier":round(mult,8),
-            "share_ratio":round(1.0/mult,8),
-            "factor_before":round(float(prev),10),
-            "factor_after":round(float(cur),10),
-            "source":"Yahoo adjusted-price factor",
-            "status":"confirmed_by_adjustment_factor"
-        })
-    return events
+
+        mask=idx_dates < rd
+        for col in ("Open","High","Low","Close","Adj Close"):
+            if col in out.columns:
+                vals=pd.to_numeric(out[col],errors="coerce")
+                out.loc[mask,col]=vals.loc[mask]*mult
+        if "Volume" in out.columns:
+            vals=pd.to_numeric(out["Volume"],errors="coerce")
+            out.loc[mask,"Volume"]=vals.loc[mask]/mult
+
+    return out
+
 
 def download_batch(items,market):
     tickers=[x["yf"] for x in items]
@@ -691,9 +793,18 @@ def download_batch(items,market):
             dates.append(data_date)
 
             # V2.41.40: record restore dates for every valid symbol, not only radar candidates.
-            ev=detect_restore_events(d)
+            ev=detect_restore_events(d,item)
             if ev:
                 restore_events[str(item["symbol"]).upper()]=ev
+                for _ev in ev:
+                    sr=float(_ev.get("share_ratio") or 0)
+                    ratio_text=(f"1→{sr:g}" if sr>=1 else f"{1/sr:g}→1")
+                    print(
+                        f"{market} RESTORE CONFIRMED: {item['symbol']} {item.get('name','')} | "
+                        f"{_ev.get('restore_date')} | shares {ratio_text} | "
+                        f"price x{float(_ev.get('pre_price_multiplier') or 1):g} | "
+                        f"{_ev.get('status')}"
+                    )
 
             # V2.41.16: all-stock latest quote cache.
             # yfinance daily bars already used by the scanner normally contain the
@@ -730,14 +841,15 @@ def download_batch(items,market):
                         "change_pct":chg,"up":bool(chg>0)
                     })
 
-            # V2.41.34: only the VCP calculation uses split-safe history.
-            # Raw `d` above is intentionally retained for current quote cache
-            # and capital-hotspot traded-value calculations.
-            vcp_d, split_adjusted = make_split_safe_vcp_df(d)
+            # V2.41.41: VCP uses the confirmed restore-date events.
+            # Raw `d` remains unchanged for quote cache and capital-hotspot value.
+            vcp_d=apply_restore_events_df(d,ev)
             r=analyze(vcp_d,item,market)
             if r:
                 r["industry"]=item.get("industry") or ""
-                r["split_adjusted"]=bool(split_adjusted)
+                r["split_adjusted"]=bool(ev)
+                if ev:
+                    r["restore_events"]=ev
                 results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
     return results, dates, flows, quotes, restore_events

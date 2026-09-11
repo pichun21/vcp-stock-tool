@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.40 RESTORE-DATE ENGINE -->
+<!-- VCPulse BUILD 2.41.41 RESTORE-DATE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1164,7 +1164,7 @@ th{color:#716c64}
 <div class="search"><input id="symbol" value="2330" placeholder="搜尋台積電、2330…"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
-<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div></div><div class="badge" id="state">—</div></div>
+<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div><div id="singleRestoreNote" class="muted" style="margin-top:5px;color:#6f6658" hidden></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
 <div class="note">圖：近約 120 個交易日收盤價；上方圖例標示收盤價、MA20（月線）與 Pivot（突破價）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方。VCP 是型態辨識，不代表突破一定成功。</div></div>
@@ -1933,6 +1933,24 @@ async function run(){
   if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
   let a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
   a.restoreEvents=restoreEvents;
+  const restoreNote=$('singleRestoreNote');
+  if(restoreNote){
+    if(restoreEvents.length){
+      const latest=restoreEvents[restoreEvents.length-1];
+      const sr=Number(latest.share_ratio);
+      let ratioText='';
+      if(Number.isFinite(sr) && sr>0){
+        ratioText = sr>=1
+          ? `1:${Number(sr.toFixed(4)).toString()}`
+          : `${Number((1/sr).toFixed(4)).toString()}:1`;
+      }
+      restoreNote.hidden=false;
+      restoreNote.textContent=`🔄 已套用還原日 ${latest.restore_date||''}${ratioText?`｜股數比例 ${ratioText}`:''}｜歷史價格已統一尺度`;
+    }else{
+      restoreNote.hidden=true;
+      restoreNote.textContent='';
+    }
+  }
 
   // If this stock exists in today's radar, use the SAME scanner result for the
   // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
@@ -2081,7 +2099,7 @@ function setMarket(m,{reset=true}={}){
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
-  $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}$('state').textContent='—';
+  $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}if($('singleRestoreNote')){$('singleRestoreNote').hidden=true;$('singleRestoreNote').textContent='';}$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
