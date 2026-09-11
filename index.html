@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.37 RESTORE PULSE FILTERS -->
+<!-- VCPulse BUILD 2.41.34 SPLIT-SAFE VCP + MA20 MONTH LINE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1148,7 +1148,7 @@ th{color:#716c64}
 <div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
-<div class="note">圖：近約 120 個交易日收盤價；上方圖例標示收盤價、MA20（月線）與 Pivot（突破價）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方。VCP 是型態辨識，不代表突破一定成功。</div></div>
+<div class="note">圖：近約 120 個交易日收盤價；藍灰細線為 MA20（月線）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
 <div class="single-quick-read">
   <div class="single-quick-item"><span>今日漲跌</span><b id="singleChange">—</b></div>
@@ -1196,10 +1196,7 @@ th{color:#716c64}
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
         <button class="radar-tab" data-radar="hot">🔥 高關注</button>
-        <button class="radar-tab" data-radar="watch">👀 觀察</button>
-        <button class="radar-tab" data-radar="wait">⏳ 等待</button>
-        <button class="radar-tab" data-radar="extended">⚠️ 過度延伸</button>
-        <button class="radar-tab" data-radar="new">🆕 今日新進</button>
+      <button class="radar-tab" data-radar="new">🆕 今日新進</button>
         <button class="radar-tab" data-radar="breakout">🟢 今日突破</button>
         <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 近 Pivot</button>
@@ -1306,44 +1303,9 @@ function draw(a){
  let rawMin=Math.min(...vals), rawMax=Math.max(...vals);
  let range=Math.max(rawMax-rawMin,1);
  let min=rawMin-range*.08, max=rawMax+range*.10;
- let pad=mobileChart?{l:42,r:28,t:58,b:42}:{l:42,r:28,t:54,b:30};
+ let pad={l:42,r:28,t:28,b:30};
  let X=i=>pad.l+i*(W-pad.l-pad.r)/(Math.max(vals.length-1,1));
  let Y=v=>H-pad.b-(v-min)*(H-pad.t-pad.b)/(max-min);
-
- // 圖例：收盤價 / MA20（月線） / Pivot（突破價）
- x.save();
- const legendY=20;
- const legendFont=cssW<=760?'700 10px system-ui,-apple-system,sans-serif':'700 11px system-ui,-apple-system,sans-serif';
- x.font=legendFont;
- x.textBaseline='middle';
- let legendX=pad.l;
-
- // 收盤價
- x.strokeStyle='#171a17';
- x.lineWidth=mobileChart?2.35:2.8;
- x.setLineDash([]);
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.fillStyle='#3a3935';
- x.fillText('收盤價',legendX+28,legendY);
- legendX += cssW<=760 ? 74 : 92;
-
- // MA20（月線）
- x.strokeStyle='#71879a';
- x.lineWidth=2.15;
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.fillStyle='#5f7181';
- x.fillText('MA20（月線）',legendX+28,legendY);
- legendX += cssW<=760 ? 112 : 136;
-
- // Pivot（突破價）
- x.strokeStyle='#b47a16';
- x.lineWidth=2;
- x.setLineDash([7,5]);
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.setLineDash([]);
- x.fillStyle='#805914';
- x.fillText('Pivot（突破價）',legendX+28,legendY);
- x.restore();
 
  // subtle grid
  x.strokeStyle='#e7e5df';
@@ -1361,9 +1323,9 @@ function draw(a){
  const ma20=fullMA20.slice(-120);
 
  x.save();
- x.strokeStyle='#71879a';
+ x.strokeStyle='#7b8794';
  x.globalAlpha=.92;
- x.lineWidth=mobileChart?1.75:2.15;
+ x.lineWidth=1.6;
  x.lineJoin='round';
  x.lineCap='round';
  x.beginPath();
@@ -1376,6 +1338,20 @@ function draw(a){
  if(maStarted) x.stroke();
  x.restore();
 
+ // MA20 線尾標籤
+ let lastMA20Index=-1;
+ for(let i=ma20.length-1;i>=0;i--){
+   if(ma20[i]!=null && Number.isFinite(ma20[i])){lastMA20Index=i;break;}
+ }
+ if(lastMA20Index>=0){
+   const label='MA20';
+   const lx=Math.max(pad.l+4,Math.min(W-pad.r-40,X(lastMA20Index)-18));
+   const ly=Math.max(pad.t+10,Math.min(H-pad.b-8,Y(ma20[lastMA20Index])-8));
+   x.font='700 10px system-ui,-apple-system,sans-serif';
+   x.fillStyle='#66727f';
+   x.textBaseline='bottom';
+   x.fillText(label,lx,ly);
+ }
 
  // stronger main price line
  x.strokeStyle='#171a17';
@@ -2307,7 +2283,7 @@ function renderRadar(filter='all'){
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
    return filter==='all' ||
    (filter==='favorites' ? isFavorite(r) :
-   (['hot','watch','wait','extended'].includes(filter) ? r.pulse_signal===filter :
+   (filter==='hot' ? r.pulse_signal==='hot' :
    (filter==='new' ? r.is_new===true :
    (filter==='combo' ? r.combo : r.type===filter))));
  });
