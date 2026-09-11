@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.44 MARKET-EFFECTIVE RESTORE DATE + 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -592,11 +592,12 @@ def analyze(df,item,market):
 
 
 # ---------------------------------------------------------------------------
-# V2.41.42 — OFFICIAL-EVENT FIRST restore-date engine
-# Price jumps NEVER create a restore event by themselves.
-# An event must first exist in an official TWSE/TPEx source (or the small
-# built-in cache of already verified official announcements). Raw prices are
-# then used only to validate the official ratio/date.
+# V2.41.44 — MARKET-EFFECTIVE restore-date engine
+# Restore dates follow the market-effective trading date defined by TWSE/TPEx.
+# For face-value change / split / capital-reduction exchange events that stop
+# trading, the VCP price-scale boundary is the official resume-trading date.
+# Corporate event/base dates are metadata only and never replace the actual
+# market-effective date. Price jumps NEVER create an event by themselves.
 # ---------------------------------------------------------------------------
 
 OFFICIAL_RESTORE_EVENTS={}
@@ -647,15 +648,29 @@ def _num(v):
     except Exception:
         return None
 
+def _market_effective_date(ev):
+    """Return the official market date on which the new price/share scale trades.
+
+    V2.41.44 rule:
+    - exchange / par-value / split / capital-reduction events with a trading halt:
+      use the official resume-trading date;
+    - event/base dates are retained as metadata, not used as the VCP restore cut;
+    - restore_date remains as a backwards-compatible alias for UI/JSON consumers.
+    """
+    return str(ev.get("price_effective_date") or ev.get("resume_trading_date") or ev.get("restore_date") or "").strip()
+
 def _event_map_add(dst, ev):
     sym=str(ev.get("symbol") or "").strip()
-    rd=str(ev.get("restore_date") or "").strip()
+    rd=_market_effective_date(ev)
     sr=_num(ev.get("share_ratio"))
     if not re.fullmatch(r"\d{4}",sym) or not rd or sr is None or sr<=0:
         return
     item=dict(ev)
     item["symbol"]=sym
-    item["restore_date"]=rd
+    item["price_effective_date"]=rd
+    item["resume_trading_date"]=str(item.get("resume_trading_date") or rd)
+    item["restore_date"]=rd  # backwards-compatible alias; market-defined effective date
+    item["date_basis"]=str(item.get("date_basis") or "official_resume_trading_date")
     item["share_ratio"]=float(sr)
     dst.setdefault(sym,[])
     key=(rd,round(float(sr),8),str(item.get("event_type") or ""))
@@ -681,7 +696,7 @@ def _parse_twse_face_value_json(payload):
         if re.fullmatch(r"\d{4}",sym) and rd and ratio and ratio>0:
             out.append({
                 "symbol":sym,"name":str(pick("名稱","股票名稱")).strip(),
-                "market":"TWSE","restore_date":rd,"share_ratio":ratio,
+                "market":"TWSE","price_effective_date":rd,"resume_trading_date":rd,"restore_date":rd,"share_ratio":ratio,
                 "event_type":"face_value_change",
                 "source":"TWSE face-value-change table",
                 "source_url":"https://www.twse.com.tw/exchangeReport/TWTB7U?response=json"
@@ -731,7 +746,7 @@ def _parse_tpex_change_payload(payload):
         if re.fullmatch(r"\d{4}",sym) and rd and ratio and ratio>0:
             out.append({
                 "symbol":sym,"name":str(pick("名稱","股票名稱","CompanyName")).strip(),
-                "market":"TPEX","restore_date":rd,"share_ratio":ratio,
+                "market":"TPEX","price_effective_date":rd,"resume_trading_date":rd,"restore_date":rd,"share_ratio":ratio,
                 "event_type":"face_value_change",
                 "source":"TPEx face-value-change table",
                 "source_url":"https://www.tpex.org.tw/zh-tw/announce/market/change.html"
@@ -740,6 +755,8 @@ def _parse_tpex_change_payload(payload):
 
 def fetch_official_restore_events():
     """Build the official corporate-action cache once per scanner run.
+    V2.41.44: the restore cut is the exchange-defined market-effective date
+    (resume-trading date for halted exchange/par-value events), not an inferred jump date.
     Failure of an external official table is fail-safe: it does NOT fall back
     to guessing from price. Already verified official events remain available.
     """
@@ -808,7 +825,7 @@ def validate_official_restore_event(df, official_event):
     Price data never creates an event; it only decides whether the official
     event should be applied, skipped as already adjusted, or blocked.
     """
-    pos=_nearest_bar_positions(df,official_event.get("restore_date"))
+    pos=_nearest_bar_positions(df,_market_effective_date(official_event))
     if not pos:
         return None
 
@@ -907,8 +924,8 @@ def apply_restore_events_df(df,events):
         return df.copy() if df is not None else df
     out=df.copy()
     idx_dates=pd.Series([pd.Timestamp(x).strftime("%Y-%m-%d") for x in out.index],index=out.index)
-    for ev in sorted(events,key=lambda x:str(x.get("restore_date",""))):
-        rd=str(ev.get("restore_date") or "")
+    for ev in sorted(events,key=lambda x:_market_effective_date(x)):
+        rd=_market_effective_date(ev)
         if ev.get("needs_restore") is False:
             continue
         mult=float(ev.get("pre_price_multiplier") or 1)
