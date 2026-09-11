@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11 22:50",
+  "generated_at": "2026-09-11 23:01",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 105,
-      "scanned_at": "2026-09-11 22:50",
+      "scanned_at": "2026-09-11 23:01",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 105,
-      "scanned_at": "2026-09-11 22:50",
+      "scanned_at": "2026-09-11 23:01",
       "snapshot_type": "official"
     }
   },
@@ -45329,70 +45329,84 @@
   "restore_date_engine_version": 1,
   "official_restore_events": {
     "TW": {
-      "7772": [
+      "3086": [
         {
+          "symbol": "3086",
+          "name": "華義",
+          "market": "TPEX",
           "restore_date": "2026-04-20",
-          "event_date": "",
-          "pre_price_multiplier": 2.0,
-          "share_ratio": 0.5,
-          "direction": "reverse_split",
-          "observed_price_ratio": 1.980066,
-          "ratio_error_pct": 1.0,
-          "adjacent_error_pct": 7.74,
-          "pre_stability_pct": 3.99,
-          "post_stability_pct": 6.88,
-          "volume_ratio_post_pre": 1.973,
-          "source": "Yahoo raw price persistence",
-          "status": "confirmed_by_price_scale_persistence"
+          "share_ratio": 10.0,
+          "event_type": "face_value_change",
+          "source": "TPEx official announcement",
+          "source_url": "https://www.tpex.org.tw/storage/eb_data/11503/11500014221.html",
+          "pre_price_multiplier": 1.0,
+          "direction": "split",
+          "status": "confirmed_official_event_already_adjusted",
+          "price_state": "already_adjusted",
+          "needs_restore": false,
+          "observed_price_ratio": 1.1,
+          "expected_price_ratio": 1.0,
+          "ratio_error_pct": 10.0
         }
       ],
-      "7780": [
+      "5904": [
         {
-          "restore_date": "2026-01-02",
-          "event_date": "",
-          "pre_price_multiplier": 10.0,
-          "share_ratio": 0.1,
-          "direction": "reverse_split",
-          "observed_price_ratio": 10.521739,
-          "ratio_error_pct": 5.22,
-          "adjacent_error_pct": 5.57,
-          "pre_stability_pct": 0.29,
-          "post_stability_pct": 1.38,
-          "volume_ratio_post_pre": 0.138,
-          "source": "Yahoo raw price persistence",
-          "status": "confirmed_by_price_scale_persistence"
-        },
-        {
-          "restore_date": "2026-01-08",
-          "event_date": "2026-01-09",
-          "pre_price_multiplier": 0.1,
+          "symbol": "5904",
+          "name": "寶雅",
+          "market": "TPEX",
+          "restore_date": "2026-08-10",
           "share_ratio": 10.0,
+          "event_type": "face_value_change",
+          "source": "TPEx official announcement",
+          "source_url": "https://www.tpex.org.tw/storage/eb_data/11507/11500046541.html",
+          "pre_price_multiplier": 1.0,
           "direction": "split",
-          "observed_price_ratio": 0.101928,
-          "ratio_error_pct": 1.93,
-          "adjacent_error_pct": 1.93,
-          "pre_stability_pct": 0.0,
-          "post_stability_pct": 0.0,
-          "volume_ratio_post_pre": null,
-          "source": "Yahoo split event + raw price persistence",
-          "status": "confirmed_by_yahoo_split_and_price"
+          "status": "confirmed_official_event_already_adjusted",
+          "price_state": "already_adjusted",
+          "needs_restore": false,
+          "observed_price_ratio": 1.1,
+          "expected_price_ratio": 1.0,
+          "ratio_error_pct": 10.0
+        }
+      ],
+      "8932": [
+        {
+          "symbol": "8932",
+          "name": "智通*",
+          "market": "TPEX",
+          "restore_date": "2026-03-09",
+          "share_ratio": 2.0,
+          "event_type": "face_value_change",
+          "source": "TPEx official announcement",
+          "source_url": "https://www.tpex.org.tw/storage/eb_data/11503/11500008331.html",
+          "pre_price_multiplier": 1.0,
+          "direction": "split",
+          "status": "confirmed_official_event_already_adjusted",
+          "price_state": "already_adjusted",
+          "needs_restore": false,
+          "observed_price_ratio": 0.900251,
+          "expected_price_ratio": 1.0,
+          "ratio_error_pct": 9.27
         }
       ],
       "6949": [
         {
-          "restore_date": "2026-09-01",
-          "event_date": "2026-08-27",
-          "pre_price_multiplier": 0.05,
+          "symbol": "6949",
+          "name": "沛爾生醫-創",
+          "market": "TWSE",
+          "restore_date": "2026-09-07",
           "share_ratio": 20.0,
+          "event_type": "face_value_change",
+          "source": "TWSE face-value-change table",
+          "source_url": "https://www.twse.com.tw/exchangeReport/TWTB7U?response=html",
+          "pre_price_multiplier": 1.0,
           "direction": "split",
-          "observed_price_ratio": 0.05,
-          "ratio_error_pct": 0.0,
-          "adjacent_error_pct": 0.0,
-          "pre_stability_pct": 0.0,
-          "post_stability_pct": 0.0,
-          "volume_ratio_post_pre": null,
-          "source": "Yahoo split event + raw price persistence",
-          "status": "confirmed_by_yahoo_split_and_price"
+          "status": "confirmed_official_event_already_adjusted",
+          "price_state": "already_adjusted",
+          "needs_restore": false,
+          "observed_price_ratio": 0.900671,
+          "expected_price_ratio": 1.0,
+          "ratio_error_pct": 9.93
         }
       ]
     }
