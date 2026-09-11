@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.13 BENCHMARK PRESERVE + 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.16 ALL-STOCK INTRADAY QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -593,8 +593,8 @@ def download_batch(items,market):
     try:
         raw=yf.download(tickers=tickers,period="1y",interval="1d",group_by="ticker",auto_adjust=False,progress=False,threads=True,timeout=30)
     except Exception as e:
-        print("batch download failed",e); return [], [], []
-    results=[]; dates=[]; flows=[]
+        print("batch download failed",e); return [], [], [], {}
+    results=[]; dates=[]; flows=[]; quotes={}
     for item in items:
         try:
             if len(tickers)==1: d=raw
@@ -606,6 +606,23 @@ def download_batch(items,market):
             if usable is None or usable.empty: continue
             data_date=usable.index[-1].strftime("%Y-%m-%d")
             dates.append(data_date)
+
+            # V2.41.16: all-stock latest quote cache.
+            # yfinance daily bars already used by the scanner normally contain the
+            # current session's partial daily Close during market hours. Keep the
+            # latest/previous close for EVERY valid universe symbol, not only VCP candidates.
+            if "Close" in usable.columns:
+                c=pd.to_numeric(usable["Close"],errors="coerce")
+                if len(c)>=2 and pd.notna(c.iloc[-1]) and pd.notna(c.iloc[-2]):
+                    px=float(c.iloc[-1]); prev=float(c.iloc[-2])
+                    if np.isfinite(px) and px>0 and np.isfinite(prev) and prev>0:
+                        quotes[str(item["symbol"]).upper()]={
+                            "price":round(px,4),
+                            "prev_close":round(prev,4),
+                            "data_date":data_date,
+                            "name":item.get("name") or "",
+                            "source":"VCPulse scanner"
+                        }
 
             # V2.41: keep a lightweight all-market capital-flow observation.
             # Yahoo daily Volume * Close is used as an estimated traded-value proxy.
@@ -630,7 +647,7 @@ def download_batch(items,market):
                 r["industry"]=item.get("industry") or ""
                 results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
-    return results, dates, flows
+    return results, dates, flows, quotes
 
 def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     """Build VCPulse industry heat from broad-market observations.
@@ -717,11 +734,11 @@ def scan(market):
     print(f"{market}: universe {len(universe)}")
     batch_size=120 if market=="TW" else 120
     batches=[universe[i:i+batch_size] for i in range(0,len(universe),batch_size)]
-    results=[]; latest_dates=[]; flow_rows=[]
+    results=[]; latest_dates=[]; flow_rows=[]; quote_cache={}
     for i,b in enumerate(batches,1):
         print(f"{market}: batch {i}/{len(batches)}")
-        batch_results,batch_dates,batch_flows=download_batch(b,market)
-        results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); time.sleep(1)
+        batch_results,batch_dates,batch_flows,batch_quotes=download_batch(b,market)
+        results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); time.sleep(1)
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
     today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
@@ -736,7 +753,8 @@ def scan(market):
     print(f"{market} DATA CHECK: latest={stats['latest_date']} today={stats['today']}/{stats['valid']} ({stats['today_pct']}%) valid={stats['valid']}/{stats['universe']} ({stats['valid_pct']}%)")
     if hotspots:
         print("TW CAPITAL HOTSPOTS:", " | ".join(f"{x['industry']} {x['heat_score']}" for x in hotspots))
-    return results[:150], stats, hotspots
+    print(f"{market} ALL-STOCK QUOTE CACHE: {len(quote_cache)} symbols")
+    return results[:150], stats, hotspots, quote_cache
 
 def load_existing():
     if OUT.exists():
@@ -899,6 +917,8 @@ def main():
     intraday_benchmarks=dict(old.get("intraday_benchmarks",{}) or {})
     official_capital_hotspots=dict(old.get("official_capital_hotspots",{}) or {})
     intraday_capital_hotspots=dict(old.get("intraday_capital_hotspots",{}) or {})
+    official_quotes=dict(old.get("official_quotes",{}) or {})
+    intraday_quotes=dict(old.get("intraday_quotes",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -942,7 +962,7 @@ def main():
     targets=["TW","US"] if args.market=="both" else [args.market]
 
     for market in targets:
-        rows,scan_stats,capital_hotspots=scan(market)
+        rows,scan_stats,capital_hotspots,market_quote_cache=scan(market)
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -1003,6 +1023,8 @@ def main():
                 official_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 official_capital_hotspots["TW"]=capital_hotspots
+            if market_quote_cache:
+                official_quotes[market]=market_quote_cache
 
             # V2.39: preserve the intraday snapshot even after an official run.
             # The two snapshots are independent; updating official must never erase intraday.
@@ -1026,6 +1048,8 @@ def main():
                 intraday_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 intraday_capital_hotspots["TW"]=capital_hotspots
+            if market_quote_cache:
+                intraday_quotes[market]=market_quote_cache
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -1040,6 +1064,9 @@ def main():
         "intraday_benchmarks":intraday_benchmarks,
         "official_capital_hotspots":official_capital_hotspots,
         "intraday_capital_hotspots":intraday_capital_hotspots,
+        "all_stock_quote_cache_version":1,
+        "official_quotes":official_quotes,
+        "intraday_quotes":intraday_quotes,
         "results":official_results,
         "official_results":official_results,
         "intraday_results":intraday_results

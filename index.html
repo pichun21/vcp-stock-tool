@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.15 SINGLE STOCK LIVE QUOTE -->
+<!-- VCPulse BUILD 2.41.16 ALL-STOCK INTRADAY QUOTE CACHE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1363,6 +1363,34 @@ function resetSingleQuickRead(){
 }
 
 
+function getScannerCachedQuote(market,symbol){
+ const m=String(market||'').toUpperCase();
+ const s=String(symbol||'').toUpperCase();
+
+ // Single-stock lookup always wants the freshest available snapshot:
+ // intraday first, official second.
+ const choices=[
+   {kind:'intraday',map:radarAllQuotes?.intraday?.[m],meta:radarSnapshotMeta?.intraday?.[m]},
+   {kind:'official',map:radarAllQuotes?.official?.[m],meta:radarSnapshotMeta?.official?.[m]}
+ ];
+ for(const x of choices){
+   const q=x.map?.[s];
+   const price=Number(q?.price), prev=Number(q?.prev_close);
+   if(Number.isFinite(price) && price>0 && Number.isFinite(prev) && prev>0){
+     const scanned=String(x.meta?.scanned_at||'');
+     const quote_time=(scanned.match(/\s(\d{1,2}:\d{2})$/)||[])[1]||'';
+     return {
+       price,
+       prev_close:prev,
+       data_date:String(q?.data_date||x.meta?.data_date||''),
+       quote_time,
+       source:x.kind==='intraday'?'VCPulse 盤中快取':'VCPulse 收盤快取'
+     };
+   }
+ }
+ return null;
+}
+
 async function getSingleLatestQuote(market,symbol){
  const m=String(market||'').toUpperCase();
  const sym=String(symbol||'').toUpperCase();
@@ -1441,7 +1469,13 @@ async function getSingleLatestQuote(market,symbol){
    }
  }
 
- // 美股或上面兩層失敗：保留原本 FinMind 日資料備援。
+ // 瀏覽器直連交易所/Yahoo 若被 CORS 或裝置網路擋住，
+ // 改讀 GitHub Actions 掃描時留下的「全市場盤中快取」。
+ // 這包含所有可下載股票，不只每日雷達候選股。
+ const scannerQuote=getScannerCachedQuote(m,sym);
+ if(scannerQuote) return scannerQuote;
+
+ // 最後才退回 FinMind 日資料備援。
  try{
    const dataset=m==='US'?'USStockPrice':'TaiwanStockPrice';
    const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
@@ -1646,7 +1680,8 @@ async function run(){
       liveNote.hidden=false;
       const qt=liveQuote.quote_time?` ${liveQuote.quote_time}`:'';
       const src=liveQuote.source?`｜${liveQuote.source}`:'';
-      liveNote.textContent=`🟢 最新行情 ${Number(liveQuote.price).toFixed(2)}${liveQuote.data_date?`｜${liveQuote.data_date}${qt}`:''}${src}｜盤中狀態僅供即時參考`;
+      const cached=String(liveQuote.source||'').includes('VCPulse');
+      liveNote.textContent=`${cached?'🟡':'🟢'} ${cached?'最新盤中快取':'最新行情'} ${Number(liveQuote.price).toFixed(2)}${liveQuote.data_date?`｜${liveQuote.data_date}${qt}`:''}${src}｜盤中狀態僅供即時參考`;
     }else{
       liveNote.hidden=true; liveNote.textContent='';
     }
@@ -1752,6 +1787,7 @@ let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
 let radarCapitalHotspots={official:{},intraday:{}};
+let radarAllQuotes={official:{},intraday:{}};
 let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
 
@@ -2565,6 +2601,10 @@ async function loadRadar(){
    radarCapitalHotspots={
      official:j.official_capital_hotspots||{},
      intraday:j.intraday_capital_hotspots||{}
+   };
+   radarAllQuotes={
+     official:j.official_quotes||{},
+     intraday:j.intraday_quotes||{}
    };
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;
