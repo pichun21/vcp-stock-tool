@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.31 SMALL MODAL CLOSE BUTTON -->
+<!-- VCPulse BUILD 2.41.32 HIDE CONTRACTION COLUMN -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1222,7 +1222,7 @@ th{color:#716c64}
             <th>股票</th>
             <th>市場</th>
             <th>VCP</th>
-            <th>收縮</th>
+            
             <th>Pivot（突破價）</th>
             <th>距 Pivot</th>
             <th>今日漲跌</th>
@@ -2275,7 +2275,7 @@ function renderRadar(filter='all'){
  });
 
  if(!rows.length){
-   body.innerHTML='<tr><td colspan="12" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
+   body.innerHTML='<tr><td colspan="11" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
    if(mobile) mobile.innerHTML='<div class="muted" style="padding:26px 8px;text-align:center">目前這個分類沒有符合條件的股票。</div>';
    const pager=document.getElementById('mobileRadarPager');
    if(pager) pager.hidden=true;
@@ -2296,7 +2296,7 @@ function renderRadar(filter='all'){
    </td>
    <td>${esc(marketLabel(r.market))}</td>
    <td>${stars(r.score)}</td>
-   <td>${esc(contractionText(r))}</td>
+   
    <td>${Number(r.pivot).toFixed(2)}</td>
    <td>
      <div class="desktop-pivot-distance">
@@ -2405,7 +2405,7 @@ function renderRadar(filter='all'){
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
-       <div style="margin-top:8px"><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button></div>
+       
        ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
