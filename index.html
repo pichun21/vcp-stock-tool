@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.38B SAFE PULSE FILTER RESTORE -->
+<!-- VCPulse BUILD 2.41.39 MOBILE PULSE HELP RESTORE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1055,7 +1055,26 @@ th{color:#716c64}
   justify-content:center;
   box-shadow:0 2px 8px rgba(60,48,35,.05);
   cursor:pointer;
-}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666057;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#987144}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6efe5;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}</style></head>
+}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666057;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#987144}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6efe5;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}</style>
+<style>
+/* V2.41.39 — 手機卡片恢復可點擊 VCPulse 訊號說明 */
+.mobile-pulse-row{
+  margin-top:7px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+@media(max-width:760px){
+  .mobile-pulse-row .pulse-badge{
+    min-width:0!important;
+    padding:5px 8px!important;
+    font-size:11px!important;
+    line-height:1.15!important;
+  }
+}
+</style>
+
+</head>
 <body>
 
 <div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
@@ -2464,6 +2483,11 @@ function renderRadar(filter='all'){
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
+       <div class="mobile-pulse-row">
+         <button type="button"
+           class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger"
+           data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>
+       </div>
        
        ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}
        <div class="mobile-metrics">
