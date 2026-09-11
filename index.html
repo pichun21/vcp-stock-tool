@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.26 COLLAPSIBLE SIGNAL GUIDE -->
+<!-- VCPulse BUILD 2.41.27 MOBILE CHART FINE STROKES -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1328,6 +1328,13 @@ function draw(a){
 
  let offset=Math.max(0,a.close.length-120);
  const colors=['#e23b4f','#2468d8','#15945a','#8745cf'];
+ // V2.41.27：桌機維持原本質感；手機才縮細 C1~C4 視覺重量。
+ const mobileChart=cssW<=760;
+ const contractionGlowWidth=mobileChart?7:10;
+ const contractionLineWidth=mobileChart?2.8:3.8;
+ const contractionDotRadius=mobileChart?4.5:6;
+ const contractionLabelSize=mobileChart?14:16;
+ const contractionLabelOffset=mobileChart?15:18;
 
  (a.drops||[]).forEach((d,k)=>{
    if(k>3)return;
@@ -1341,7 +1348,7 @@ function draw(a){
    x.save();
    x.strokeStyle=cc;
    x.globalAlpha=.20;
-   x.lineWidth=10;
+   x.lineWidth=contractionGlowWidth;
    x.lineCap='round';
    x.lineJoin='round';
    x.beginPath();
@@ -1352,7 +1359,7 @@ function draw(a){
 
    // saturated center line
    x.strokeStyle=cc;
-   x.lineWidth=3.8;
+   x.lineWidth=contractionLineWidth;
    x.lineCap='round';
    x.beginPath();
    x.moveTo(x1,y1);
@@ -1361,16 +1368,16 @@ function draw(a){
 
    // fuller endpoints
    x.fillStyle=cc;
-   x.beginPath();x.arc(x1,y1,6,0,Math.PI*2);x.fill();
-   x.beginPath();x.arc(x2,y2,6,0,Math.PI*2);x.fill();
+   x.beginPath();x.arc(x1,y1,contractionDotRadius,0,Math.PI*2);x.fill();
+   x.beginPath();x.arc(x2,y2,contractionDotRadius,0,Math.PI*2);x.fill();
 
    // bold C label with white halo for readability
    const mx=(x1+x2)/2, my=(y1+y2)/2;
    const label=`C${k+1}`;
-   x.font='800 16px system-ui,-apple-system,sans-serif';
+   x.font=`800 ${contractionLabelSize}px system-ui,-apple-system,sans-serif`;
    x.textBaseline='middle';
    const lw=x.measureText(label).width;
-   let ly=my+(k%2===0?-18:18);
+   let ly=my+(k%2===0?-contractionLabelOffset:contractionLabelOffset);
    ly=Math.max(pad.t+13,Math.min(H-pad.b-13,ly));
    let lx=Math.max(pad.l+4,Math.min(W-pad.r-lw-4,mx-lw/2));
 
