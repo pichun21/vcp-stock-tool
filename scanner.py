@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.42 OFFICIAL-EVENT RESTORE ENGINE + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -795,51 +795,81 @@ def _nearest_bar_positions(df, restore_date):
     if len(pre)==0 or len(post)==0: return None
     return usable,int(pre[-1]),int(post[0])
 
+
 def validate_official_restore_event(df, official_event):
-    """Price is validation only. It can PASS/BLOCK an official event, never create one."""
+    """Validate an OFFICIAL event without double-adjusting already-adjusted data.
+
+    Two valid price states are accepted:
+    A) raw/unadjusted scale: post/pre ≈ 1/share_ratio
+       -> needs_restore=True, pre-event OHLC/Volume must be rescaled.
+    B) already-adjusted scale: post/pre ≈ 1
+       -> needs_restore=False, do NOT rescale again.
+
+    Price data never creates an event; it only decides whether the official
+    event should be applied, skipped as already adjusted, or blocked.
+    """
     pos=_nearest_bar_positions(df,official_event.get("restore_date"))
     if not pos:
         return None
+
     usable,pi,qi=pos
     close=pd.to_numeric(usable["Close"],errors="coerce")
     pre=float(close.iloc[pi]); post=float(close.iloc[qi])
     sr=float(official_event.get("share_ratio") or 0)
+
     if not (np.isfinite(pre) and np.isfinite(post) and pre>0 and post>0 and sr>0):
         return None
 
-    # share_ratio > 1 => more shares, lower post-event price; <1 => reverse split.
-    expected=1.0/sr
+    expected_raw=1.0/sr
     observed=post/pre
-    error=abs(observed/expected-1)
 
-    # Use nearby medians too, when available, to reject a one-bar data glitch.
+    # Nearby medians reduce sensitivity to a single odd bar.
     pre_slice=close.iloc[max(0,pi-2):pi+1].dropna()
     post_slice=close.iloc[qi:min(len(close),qi+3)].dropna()
     med_observed=float(post_slice.median()/pre_slice.median()) if len(pre_slice) and len(post_slice) else observed
-    med_error=abs(med_observed/expected-1)
 
-    # Official event is required, but price still has to be reasonably compatible.
-    # 25% tolerance allows market movement around a long suspension without
-    # accepting unrelated scale changes.
-    if error>0.25 and med_error>0.25:
+    raw_err=min(abs(observed/expected_raw-1), abs(med_observed/expected_raw-1))
+    adjusted_err=min(abs(observed-1), abs(med_observed-1))
+
+    # State A: source is still raw/unadjusted around the official restore date.
+    if raw_err <= 0.25:
         return {
             **official_event,
-            "status":"blocked_price_validation",
+            "pre_price_multiplier":round(expected_raw,10),
+            "direction":"split" if sr>=1 else "reverse_split",
+            "status":"confirmed_official_event_raw_prices",
+            "price_state":"raw_unadjusted",
+            "needs_restore":True,
             "observed_price_ratio":round(observed,6),
-            "expected_price_ratio":round(expected,6),
-            "ratio_error_pct":round(min(error,med_error)*100,2)
+            "expected_price_ratio":round(expected_raw,6),
+            "ratio_error_pct":round(raw_err*100,2)
         }
 
-    ev={
+    # State B: provider has already back-adjusted the history to one price scale.
+    # This is valid and must NOT be adjusted a second time.
+    if adjusted_err <= 0.18:
+        return {
+            **official_event,
+            "pre_price_multiplier":1.0,
+            "direction":"split" if sr>=1 else "reverse_split",
+            "status":"confirmed_official_event_already_adjusted",
+            "price_state":"already_adjusted",
+            "needs_restore":False,
+            "observed_price_ratio":round(observed,6),
+            "expected_price_ratio":1.0,
+            "ratio_error_pct":round(adjusted_err*100,2)
+        }
+
+    return {
         **official_event,
-        "pre_price_multiplier":round(expected,10),
-        "direction":"split" if sr>=1 else "reverse_split",
-        "status":"confirmed_official_event_and_price",
+        "status":"blocked_price_validation",
+        "price_state":"mismatch",
+        "needs_restore":False,
         "observed_price_ratio":round(observed,6),
-        "expected_price_ratio":round(expected,6),
-        "ratio_error_pct":round(min(error,med_error)*100,2)
+        "expected_raw_ratio":round(expected_raw,6),
+        "raw_ratio_error_pct":round(raw_err*100,2),
+        "adjusted_ratio_error_pct":round(adjusted_err*100,2)
     }
-    return ev
 
 def detect_restore_events(df,item=None):
     """V2.41.42: only official events can become restore events."""
@@ -858,9 +888,17 @@ def detect_restore_events(df,item=None):
             print(
                 f"TW RESTORE BLOCKED: {sym} {item.get('name','')} | {oe.get('restore_date')} | "
                 f"official shares 1→{float(oe.get('share_ratio') or 0):g} | "
-                f"price mismatch {ev.get('ratio_error_pct')}%"
+                f"raw_err {ev.get('raw_ratio_error_pct')}% | "
+                f"adjusted_err {ev.get('adjusted_ratio_error_pct')}%"
             )
             continue
+
+        if ev.get("price_state")=="already_adjusted":
+            print(
+                f"TW RESTORE CONFIRMED (OFFICIAL/ALREADY-ADJUSTED): {sym} {item.get('name','')} | "
+                f"{oe.get('restore_date')} | shares 1→{float(oe.get('share_ratio') or 0):g} | "
+                f"no extra rescale"
+            )
         confirmed.append(ev)
     return confirmed
 
@@ -871,6 +909,8 @@ def apply_restore_events_df(df,events):
     idx_dates=pd.Series([pd.Timestamp(x).strftime("%Y-%m-%d") for x in out.index],index=out.index)
     for ev in sorted(events,key=lambda x:str(x.get("restore_date",""))):
         rd=str(ev.get("restore_date") or "")
+        if ev.get("needs_restore") is False:
+            continue
         mult=float(ev.get("pre_price_multiplier") or 1)
         if not rd or not np.isfinite(mult) or mult<=0 or abs(mult-1)<1e-12:
             continue
@@ -910,11 +950,13 @@ def download_batch(items,market):
                 for _ev in ev:
                     sr=float(_ev.get("share_ratio") or 0)
                     ratio_text=(f"1→{sr:g}" if sr>=1 else f"{1/sr:g}→1")
+                    _state=_ev.get("price_state") or "unknown"
+                    _action=("no extra rescale" if _ev.get("needs_restore") is False
+                             else f"price x{float(_ev.get('pre_price_multiplier') or 1):g}")
                     print(
                         f"{market} RESTORE CONFIRMED (OFFICIAL): {item['symbol']} {item.get('name','')} | "
-                        f"{_ev.get('restore_date')} | shares {ratio_text} | "
-                        f"price x{float(_ev.get('pre_price_multiplier') or 1):g} | "
-                        f"{_ev.get('source')} | {_ev.get('status')}"
+                        f"{_ev.get('restore_date')} | shares {ratio_text} | {_action} | "
+                        f"state={_state} | {_ev.get('source')} | {_ev.get('status')}"
                     )
 
             # V2.41.16: all-stock latest quote cache.
