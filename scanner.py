@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.16 ALL-STOCK INTRADAY QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.34 SPLIT-SAFE VCP + 2.41.16 QUOTE CACHE + 2.41.13 BENCHMARK PRESERVE + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -588,6 +588,46 @@ def analyze(df,item,market):
         "avg_value_20d":round(avg_value,0),
     }
 
+
+def make_split_safe_vcp_df(df):
+    """Return a split-safe copy for VCP calculations.
+
+    Quotes and capital-hotspot traded value stay on raw market prices.
+    VCP OHLC uses Yahoo's adjusted-price factor so historical split gaps do
+    not look like crashes. Volume is inversely adjusted by the same factor
+    so pre/post-split volume remains comparable.
+
+    `split_adjusted` is only flagged when the adjustment factor itself has a
+    large step (>=15%), which is a practical corporate-action/split signal.
+    """
+    if df is None or df.empty or "Close" not in df.columns or "Adj Close" not in df.columns:
+        return df.copy() if df is not None else df, False
+
+    out=df.copy()
+    close=pd.to_numeric(out["Close"],errors="coerce")
+    adj=pd.to_numeric(out["Adj Close"],errors="coerce")
+    factor=(adj/close).replace([np.inf,-np.inf],np.nan)
+    factor=factor.where(factor>0).ffill().bfill()
+
+    if factor.isna().all():
+        return out, False
+
+    # A split/corporate-action step changes the historical adjustment factor
+    # sharply. Ordinary small dividend adjustments should not trigger this flag.
+    factor_step=(factor/factor.shift(1)-1).abs()
+    split_adjusted=bool((factor_step>=0.15).fillna(False).any())
+
+    for col in ("Open","High","Low","Close"):
+        if col in out.columns:
+            out[col]=pd.to_numeric(out[col],errors="coerce")*factor
+
+    if "Volume" in out.columns:
+        vol=pd.to_numeric(out["Volume"],errors="coerce")
+        out["Volume"]=vol/factor
+
+    return out, split_adjusted
+
+
 def download_batch(items,market):
     tickers=[x["yf"] for x in items]
     try:
@@ -642,9 +682,14 @@ def download_batch(items,market):
                         "change_pct":chg,"up":bool(chg>0)
                     })
 
-            r=analyze(d,item,market)
+            # V2.41.34: only the VCP calculation uses split-safe history.
+            # Raw `d` above is intentionally retained for current quote cache
+            # and capital-hotspot traded-value calculations.
+            vcp_d, split_adjusted = make_split_safe_vcp_df(d)
+            r=analyze(vcp_d,item,market)
             if r:
                 r["industry"]=item.get("industry") or ""
+                r["split_adjusted"]=bool(split_adjusted)
                 results.append(r)
         except Exception as e: print("analyze warning",item["symbol"],e)
     return results, dates, flows, quotes
@@ -753,6 +798,9 @@ def scan(market):
     print(f"{market} DATA CHECK: latest={stats['latest_date']} today={stats['today']}/{stats['valid']} ({stats['today_pct']}%) valid={stats['valid']}/{stats['universe']} ({stats['valid_pct']}%)")
     if hotspots:
         print("TW CAPITAL HOTSPOTS:", " | ".join(f"{x['industry']} {x['heat_score']}" for x in hotspots))
+    split_count=sum(1 for r in results if r.get("split_adjusted"))
+    if split_count:
+        print(f"{market} SPLIT-SAFE VCP: adjusted {split_count} radar candidates")
     print(f"{market} ALL-STOCK QUOTE CACHE: {len(quote_cache)} symbols")
     return results[:150], stats, hotspots, quote_cache
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.33 REMOVE MOBILE CONTRACTION METRIC -->
+<!-- VCPulse BUILD 2.41.34 SPLIT-SAFE VCP + MA20 MONTH LINE -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1148,7 +1148,7 @@ th{color:#716c64}
 <div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
-<div class="note">圖：近約 120 個交易日收盤價；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
+<div class="note">圖：近約 120 個交易日收盤價；藍灰細線為 MA20（月線）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方；虛線為估算 Pivot。VCP 是型態辨識，不代表突破一定成功。</div></div>
 <div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
 <div class="single-quick-read">
   <div class="single-quick-item"><span>今日漲跌</span><b id="singleChange">—</b></div>
@@ -1316,6 +1316,41 @@ function draw(a){
    x.moveTo(pad.l,y);
    x.lineTo(W-pad.r,y);
    x.stroke();
+ }
+
+ // MA20（月線）— 使用完整歷史計算，再對齊圖中的最後 120 個交易日。
+ const fullMA20=sma(a.close,20);
+ const ma20=fullMA20.slice(-120);
+
+ x.save();
+ x.strokeStyle='#7b8794';
+ x.globalAlpha=.92;
+ x.lineWidth=1.6;
+ x.lineJoin='round';
+ x.lineCap='round';
+ x.beginPath();
+ let maStarted=false;
+ ma20.forEach((v,i)=>{
+   if(v==null || !Number.isFinite(v)) return;
+   if(!maStarted){x.moveTo(X(i),Y(v));maStarted=true;}
+   else x.lineTo(X(i),Y(v));
+ });
+ if(maStarted) x.stroke();
+ x.restore();
+
+ // MA20 線尾標籤
+ let lastMA20Index=-1;
+ for(let i=ma20.length-1;i>=0;i--){
+   if(ma20[i]!=null && Number.isFinite(ma20[i])){lastMA20Index=i;break;}
+ }
+ if(lastMA20Index>=0){
+   const label='MA20';
+   const lx=Math.max(pad.l+4,Math.min(W-pad.r-40,X(lastMA20Index)-18));
+   const ly=Math.max(pad.t+10,Math.min(H-pad.b-8,Y(ma20[lastMA20Index])-8));
+   x.font='700 10px system-ui,-apple-system,sans-serif';
+   x.fillStyle='#66727f';
+   x.textBaseline='bottom';
+   x.fillText(label,lx,ly);
  }
 
  // stronger main price line
