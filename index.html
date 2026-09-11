@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.22 TW INTRADAY 30MIN LABEL -->
+<!-- VCPulse BUILD 2.41.23 MOBILE PAGINATION + GLASS TOP BUTTON -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1207,6 +1207,11 @@ th{color:#716c64}
       
     </div>
     <div id="radarMobile" class="radar-mobile"></div>
+    <div id="mobileRadarPager" class="mobile-radar-pager" hidden>
+      <button type="button" id="mobilePrevPage" class="mobile-page-btn">‹ 上一頁</button>
+      <div id="mobilePageInfo" class="mobile-page-info">第 1 / 1 頁</div>
+      <button type="button" id="mobileNextPage" class="mobile-page-btn">下一頁 ›</button>
+    </div>
   </div>
 </div>
 </div></div>
@@ -1893,6 +1898,7 @@ function updateMarketSpecificSnapshotUI(){
 
 function setMarket(m,{reset=true}={}){
  currentMarket=m;
+ mobileRadarPage=1;
  updateMarketSpecificSnapshotUI();
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
@@ -1937,6 +1943,8 @@ let userLiveUpdatedAt='';
 
 let radarFilter = 'all';
 let radarSort = 'smart';
+let mobileRadarPage = 1;
+const MOBILE_RADAR_PAGE_SIZE = 5;
 
 const RADAR_UI={
   market:{
@@ -2217,6 +2225,8 @@ function renderRadar(filter='all'){
  if(!rows.length){
    body.innerHTML='<tr><td colspan="12" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
    if(mobile) mobile.innerHTML='<div class="muted" style="padding:26px 8px;text-align:center">目前這個分類沒有符合條件的股票。</div>';
+   const pager=document.getElementById('mobileRadarPager');
+   if(pager) pager.hidden=true;
    return;
  }
 
@@ -2294,7 +2304,31 @@ function renderRadar(filter='all'){
  });
 
  if(mobile){
-   mobile.innerHTML=rows.map(r=>{
+   const totalMobileRows=rows.length;
+   const totalMobilePages=Math.max(1,Math.ceil(totalMobileRows/MOBILE_RADAR_PAGE_SIZE));
+   if(mobileRadarPage>totalMobilePages) mobileRadarPage=totalMobilePages;
+   if(mobileRadarPage<1) mobileRadarPage=1;
+   const mobileStart=(mobileRadarPage-1)*MOBILE_RADAR_PAGE_SIZE;
+   const mobileEnd=Math.min(mobileStart+MOBILE_RADAR_PAGE_SIZE,totalMobileRows);
+   const mobileRows=rows.slice(mobileStart,mobileEnd);
+
+   const pager=document.getElementById('mobileRadarPager');
+   const pageInfo=document.getElementById('mobilePageInfo');
+   const prevBtn=document.getElementById('mobilePrevPage');
+   const nextBtn=document.getElementById('mobileNextPage');
+
+   if(pager){
+     pager.hidden=totalMobileRows<=MOBILE_RADAR_PAGE_SIZE;
+     if(pageInfo){
+       pageInfo.innerHTML=totalMobileRows
+         ? `共 ${totalMobileRows} 檔<br>第 ${mobileStart+1}–${mobileEnd} 檔`
+         : '目前無資料';
+     }
+     if(prevBtn) prevBtn.disabled=mobileRadarPage<=1;
+     if(nextBtn) nextBtn.disabled=mobileRadarPage>=totalMobilePages;
+   }
+
+   mobile.innerHTML=mobileRows.map(r=>{
      const reasons=[];
      if(r.is_new) reasons.push(`<div class="reason-item reason-new">🆕 ${esc(r.new_reason||'今日新進 VCP 雷達')}</div>`);
      reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
@@ -2706,6 +2740,7 @@ function updateSnapshotAvailability(){
  intradayBtn.title=isIntradayLockedAfterOfficial(m)?'今日正式收盤版已完成更新，盤中即時已停用':'';
 }
 function setRadarSnapshot(kind){
+ mobileRadarPage=1;
  const rows=Array.isArray(radarSnapshotData[kind]) ? radarSnapshotData[kind] : [];
  if(kind==='intraday' && (rows.length===0 || isIntradayLockedAfterOfficial(currentMarket))) return;
 
@@ -2796,6 +2831,7 @@ async function loadRadar(){
 document.querySelectorAll('.radar-tab').forEach(btn=>{
  btn.addEventListener('click',()=>{
   radarFilter=btn.dataset.radar;
+  mobileRadarPage=1;
   document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b===btn));
   renderRadar(radarFilter);
  });
@@ -2805,6 +2841,7 @@ if(radarSortSelect){
  radarSortSelect.value=radarSort;
  radarSortSelect.addEventListener('change',()=>{
    radarSort=radarSortSelect.value;
+   mobileRadarPage=1;
    renderRadar(radarFilter);
  });
 }
@@ -2812,6 +2849,42 @@ if(radarSortSelect){
 
 const userLiveRefreshBtn=document.getElementById('userLiveRefreshBtn');
 if(userLiveRefreshBtn) userLiveRefreshBtn.addEventListener('click',refreshUserLiveQuotes);
+
+const mobilePrevPage=document.getElementById('mobilePrevPage');
+const mobileNextPage=document.getElementById('mobileNextPage');
+
+function goMobileRadarPage(delta){
+ const marketRows=radarRows.filter(r=>{
+   if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
+   return radarFilter==='all' ||
+   (radarFilter==='favorites' ? isFavorite(r) :
+   (radarFilter==='hot' ? r.pulse_signal==='hot' :
+   (radarFilter==='new' ? r.is_new===true :
+   (radarFilter==='combo' ? r.combo : r.type===radarFilter))));
+ });
+ const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
+ mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));
+ renderRadar(radarFilter);
+
+ const mobile=document.getElementById('radarMobile');
+ if(mobile){
+   const y=mobile.getBoundingClientRect().top+window.pageYOffset-86;
+   window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+ }
+}
+if(mobilePrevPage) mobilePrevPage.addEventListener('click',()=>goMobileRadarPage(-1));
+if(mobileNextPage) mobileNextPage.addEventListener('click',()=>goMobileRadarPage(1));
+
+const backToTopBtn=document.getElementById('backToTopBtn');
+function updateBackToTopVisibility(){
+ if(!backToTopBtn) return;
+ backToTopBtn.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop||0)>700);
+}
+window.addEventListener('scroll',updateBackToTopVisibility,{passive:true});
+updateBackToTopVisibility();
+if(backToTopBtn){
+ backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+}
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
@@ -3043,6 +3116,10 @@ onAuthStateChanged(auth, async user => {
 }
 </style>
 
+
+<button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
+  <span aria-hidden="true">↑</span>
+</button>
 </body></html>
 
 <style>
@@ -3139,5 +3216,116 @@ onAuthStateChanged(auth, async user => {
   .contraction-item{padding:9px 10px;border-radius:12px}
   .contraction-head{font-size:13px}
   .contraction-date{font-size:10px}
+}
+
+/* V2.41.23 — 手機雷達 5 檔分頁 + 漸層玻璃回頂端 */
+.mobile-radar-pager{
+  display:none;
+}
+.back-to-top-btn{
+  position:fixed;
+  right:18px;
+  bottom:22px;
+  z-index:9998;
+  width:46px;
+  height:46px;
+  min-width:46px;
+  padding:0;
+  border-radius:50%;
+  border:1px solid rgba(197,141,88,.28);
+  color:#6d5339;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.86),rgba(249,240,229,.62));
+  box-shadow:
+    0 8px 24px rgba(78,58,38,.10),
+    inset 0 1px 0 rgba(255,255,255,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px) scale(.96);
+  pointer-events:none;
+  transition:
+    opacity .30s ease,
+    visibility .30s ease,
+    transform .30s ease,
+    background .20s ease,
+    box-shadow .20s ease;
+}
+.back-to-top-btn span{
+  font-size:22px;
+  font-weight:800;
+  line-height:1;
+  transform:translateY(-1px);
+  text-shadow:0 1px 0 rgba(255,255,255,.6);
+}
+.back-to-top-btn.show{
+  opacity:.88;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.back-to-top-btn:hover,
+.back-to-top-btn:focus-visible{
+  opacity:1;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.96),rgba(244,225,204,.78));
+  box-shadow:
+    0 10px 28px rgba(78,58,38,.15),
+    0 0 0 4px rgba(197,141,88,.08),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+.back-to-top-btn:active{
+  transform:translateY(1px) scale(.97);
+}
+
+@media(max-width:760px){
+  .mobile-radar-pager{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:9px;
+    margin:14px 2px 2px;
+    padding:10px;
+    border:1px solid #e6ded3;
+    border-radius:16px;
+    background:
+      linear-gradient(180deg,rgba(255,253,249,.95),rgba(248,244,237,.88));
+    box-shadow:0 6px 18px rgba(57,46,33,.035);
+  }
+  .mobile-radar-pager[hidden]{display:none!important}
+  .mobile-page-btn{
+    min-width:0;
+    padding:9px 10px;
+    border:1px solid #ddd2c5;
+    border-radius:12px;
+    background:rgba(255,255,255,.8);
+    color:#6e563e;
+    font-size:12px;
+    font-weight:900;
+  }
+  .mobile-page-btn:disabled{
+    opacity:.34;
+    cursor:not-allowed;
+  }
+  .mobile-page-info{
+    min-width:96px;
+    text-align:center;
+    font-size:11px;
+    line-height:1.45;
+    font-weight:850;
+    color:#6f6961;
+    white-space:nowrap;
+  }
+  .back-to-top-btn{
+    right:14px;
+    bottom:calc(16px + env(safe-area-inset-bottom));
+    width:44px;
+    height:44px;
+    min-width:44px;
+  }
 }
 </style>
