@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11 23:01",
+  "generated_at": "2026-09-11 23:47",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 105,
-      "scanned_at": "2026-09-11 23:01",
+      "scanned_at": "2026-09-11 23:47",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-09-11",
       "count": 105,
-      "scanned_at": "2026-09-11 23:01",
+      "scanned_at": "2026-09-11 23:47",
       "snapshot_type": "official"
     }
   },
@@ -45339,6 +45339,9 @@
           "event_type": "face_value_change",
           "source": "TPEx official announcement",
           "source_url": "https://www.tpex.org.tw/storage/eb_data/11503/11500014221.html",
+          "price_effective_date": "2026-04-20",
+          "resume_trading_date": "2026-04-20",
+          "date_basis": "official_resume_trading_date",
           "pre_price_multiplier": 1.0,
           "direction": "split",
           "status": "confirmed_official_event_already_adjusted",
@@ -45359,6 +45362,9 @@
           "event_type": "face_value_change",
           "source": "TPEx official announcement",
           "source_url": "https://www.tpex.org.tw/storage/eb_data/11507/11500046541.html",
+          "price_effective_date": "2026-08-10",
+          "resume_trading_date": "2026-08-10",
+          "date_basis": "official_resume_trading_date",
           "pre_price_multiplier": 1.0,
           "direction": "split",
           "status": "confirmed_official_event_already_adjusted",
@@ -45379,6 +45385,9 @@
           "event_type": "face_value_change",
           "source": "TPEx official announcement",
           "source_url": "https://www.tpex.org.tw/storage/eb_data/11503/11500008331.html",
+          "price_effective_date": "2026-03-09",
+          "resume_trading_date": "2026-03-09",
+          "date_basis": "official_resume_trading_date",
           "pre_price_multiplier": 1.0,
           "direction": "split",
           "status": "confirmed_official_event_already_adjusted",
@@ -45399,6 +45408,9 @@
           "event_type": "face_value_change",
           "source": "TWSE face-value-change table",
           "source_url": "https://www.twse.com.tw/exchangeReport/TWTB7U?response=html",
+          "price_effective_date": "2026-09-07",
+          "resume_trading_date": "2026-09-07",
+          "date_basis": "official_resume_trading_date",
           "pre_price_multiplier": 1.0,
           "direction": "split",
           "status": "confirmed_official_event_already_adjusted",
