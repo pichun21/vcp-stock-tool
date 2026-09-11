@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.30 EXPLICIT STOCK NAVIGATION ONLY -->
+<!-- VCPulse BUILD 2.41.31 SMALL MODAL CLOSE BUTTON -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1035,7 +1035,27 @@ th{color:#716c64}
   padding:6px 9px!important;
   line-height:1.2!important;
   border-width:1px!important;
-}.pulse-help-popover[hidden]{display:none!important}.pulse-help-popover{position:fixed;inset:0;z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px}.pulse-help-backdrop{position:absolute;inset:0;background:rgba(35,31,26,.2);backdrop-filter:blur(3px)}.pulse-help-card{position:relative;z-index:1;width:min(430px,calc(100vw - 34px));padding:22px;border:1px solid #ded2c3;border-radius:22px;background:linear-gradient(160deg,#fff,rgba(250,246,239,.98));box-shadow:0 22px 60px rgba(58,47,35,.18)}.pulse-help-close{position:absolute;right:13px;top:11px;width:32px;height:32px;padding:0;border:0;border-radius:50%;font-size:21px}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666057;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#987144}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6efe5;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}</style></head>
+}.pulse-help-popover[hidden]{display:none!important}.pulse-help-popover{position:fixed;inset:0;z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px}.pulse-help-backdrop{position:absolute;inset:0;background:rgba(35,31,26,.2);backdrop-filter:blur(3px)}.pulse-help-card{position:relative;z-index:1;width:min(430px,calc(100vw - 34px));padding:22px;border:1px solid #ded2c3;border-radius:22px;background:linear-gradient(160deg,#fff,rgba(250,246,239,.98));box-shadow:0 22px 60px rgba(58,47,35,.18)}.pulse-help-close{
+  position:absolute;
+  right:13px;
+  top:11px;
+  width:29px;
+  height:29px;
+  min-width:29px;
+  padding:0;
+  border:1px solid rgba(205,194,181,.72);
+  border-radius:50%;
+  background:rgba(245,241,235,.88);
+  color:#5f5a54;
+  font-size:17px;
+  font-weight:700;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(60,48,35,.05);
+  cursor:pointer;
+}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666057;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#987144}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6efe5;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}</style></head>
 <body>
 
 <div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
@@ -3441,5 +3461,16 @@ document.addEventListener("click",e=>{
 .radar-open-analysis,
 .mobile-analysis-btn{
   cursor:pointer!important;
+}
+
+@media(max-width:760px){
+  .pulse-help-close{
+    width:28px;
+    height:28px;
+    min-width:28px;
+    font-size:16px;
+    right:12px;
+    top:10px;
+  }
 }
 </style>
