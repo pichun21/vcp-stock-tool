@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.20 CHART REDESIGN -->
+<!-- VCPulse BUILD 2.41.21 HIGH DPI CHART POLISH -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -49,7 +49,7 @@ button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min
 .topline{display:flex;justify-content:space-between;gap:12px;align-items:center}.ticker{font-size:25px;font-weight:800}.badge{padding:7px 10px;border-radius:999px;background:#eee;font-weight:700}
 .score{font-size:44px;font-weight:900;margin:8px 0}.stars{font-size:21px;letter-spacing:2px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
 .metric{padding:13px;background:#f7f7f3;border-radius:12px}.metric b{display:block;font-size:20px;margin-top:4px}.muted{color:var(--muted);font-size:13px}
-canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:14px}.checks{display:grid;gap:10px;margin-top:12px}
+canvas{width:100%;height:auto;border-radius:12px;background:#fcfcfa;margin-top:14px;display:block}.checks{display:grid;gap:10px;margin-top:12px}
 .check{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:9px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
 .note{font-size:13px;color:var(--muted);line-height:1.55;margin-top:16px}.error{padding:12px;border-radius:10px;background:#fff0ed;color:#8d302b;display:none;margin-bottom:12px}
 @media(max-width:760px){
@@ -67,13 +67,13 @@ canvas{width:100%;height:360px;border-radius:12px;background:#fcfcfa;margin-top:
  .score{font-size:38px;margin:4px 0}.stars{font-size:18px}
  .metrics{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
  .metric{padding:11px}.metric b{font-size:17px;overflow-wrap:anywhere}
- canvas{height:270px;margin-top:10px}
+ canvas{height:auto;margin-top:10px}
  .checks{font-size:14px}.note{font-size:12px}
 }
 @media(max-width:390px){
  .metrics{grid-template-columns:1fr 1fr}
  .metric b{font-size:15px}
- canvas{height:235px}
+ canvas{height:auto}
 }
 
 /* VCPulse brand */
@@ -1248,7 +1248,20 @@ function analyze(d){
  return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),dates:d.map(x=>x.date)}
 }
 function draw(a){
- let c=$('chart'),x=c.getContext('2d'),W=c.width,H=c.height;
+ let c=$('chart');
+ const cssW=Math.max(320,Math.round(c.getBoundingClientRect().width||720));
+ const cssH=Math.round(cssW*0.50);
+ const dpr=Math.min(window.devicePixelRatio||1,2.5);
+
+ // High-DPI backing store keeps lines/text crisp on phones and Retina screens.
+ c.style.width='100%';
+ c.style.height='auto';
+ c.width=Math.round(cssW*dpr);
+ c.height=Math.round(cssH*dpr);
+
+ let x=c.getContext('2d');
+ x.setTransform(dpr,0,0,dpr,0,0);
+ let W=cssW,H=cssH;
  x.clearRect(0,0,W,H);
 
  let vals=a.close.slice(-120);
@@ -1259,76 +1272,110 @@ function draw(a){
  let X=i=>pad.l+i*(W-pad.l-pad.r)/(Math.max(vals.length-1,1));
  let Y=v=>H-pad.b-(v-min)*(H-pad.t-pad.b)/(max-min);
 
- // soft horizontal grid
- x.strokeStyle='#e6e4de';x.lineWidth=1;
+ // subtle grid
+ x.strokeStyle='#e7e5df';
+ x.lineWidth=1;
  for(let k=0;k<5;k++){
    let y=pad.t+k*(H-pad.t-pad.b)/4;
-   x.beginPath();x.moveTo(pad.l,y);x.lineTo(W-pad.r,y);x.stroke();
+   x.beginPath();
+   x.moveTo(pad.l,y);
+   x.lineTo(W-pad.r,y);
+   x.stroke();
  }
 
- // main price line
- x.strokeStyle='#252824';x.lineWidth=2.1;x.lineJoin='round';x.lineCap='round';
+ // stronger main price line
+ x.strokeStyle='#171a17';
+ x.lineWidth=2.8;
+ x.lineJoin='round';
+ x.lineCap='round';
  x.beginPath();
  vals.forEach((v,i)=>i?x.lineTo(X(i),Y(v)):x.moveTo(X(i),Y(v)));
  x.stroke();
 
- // Pivot dashed line + pill
+ // Pivot line
  const py=Y(a.pivot);
  x.save();
- x.setLineDash([8,6]);x.strokeStyle='#9a6a1c';x.lineWidth=1.7;
- x.beginPath();x.moveTo(pad.l,py);x.lineTo(W-pad.r,py);x.stroke();
+ x.setLineDash([8,6]);
+ x.strokeStyle='#9b6816';
+ x.lineWidth=1.9;
+ x.beginPath();
+ x.moveTo(pad.l,py);
+ x.lineTo(W-pad.r,py);
+ x.stroke();
  x.restore();
 
+ // Pivot pill
  const pivotText='Pivot '+a.pivot.toFixed(2);
- x.font='bold 12px system-ui';
+ x.font='700 12px system-ui,-apple-system,sans-serif';
  const tw=x.measureText(pivotText).width;
- const pillX=pad.l+5, pillY=Math.max(pad.t+2,py-26), pillW=tw+18, pillH=22;
- x.fillStyle='rgba(250,241,220,.95)';
+ const pillX=pad.l+5, pillY=Math.max(pad.t+2,py-27), pillW=tw+18, pillH=22;
+ x.fillStyle='rgba(249,239,214,.97)';
  if(x.roundRect){
-   x.beginPath();x.roundRect(pillX,pillY,pillW,pillH,9);x.fill();
+   x.beginPath();
+   x.roundRect(pillX,pillY,pillW,pillH,10);
+   x.fill();
  }else{
    x.fillRect(pillX,pillY,pillW,pillH);
  }
- x.fillStyle='#94651a';x.textBaseline='middle';
+ x.fillStyle='#8e5f12';
+ x.textBaseline='middle';
  x.fillText(pivotText,pillX+9,pillY+pillH/2);
 
- // contraction segments: keep chart clean — only C1/C2/C3/C4 labels
  let offset=Math.max(0,a.close.length-120);
- const colors=['#d1495b','#2d70b3','#2f8f5b','#8a5fb5'];
+ const colors=['#e23b4f','#2468d8','#15945a','#8745cf'];
+
  (a.drops||[]).forEach((d,k)=>{
    if(k>3)return;
    let hi=d.h.i-offset, lo=d.l.i-offset;
    if(hi<0||lo<0||hi>=vals.length||lo>=vals.length)return;
+
    let x1=X(hi),y1=Y(d.h.p),x2=X(lo),y2=Y(d.l.p);
    const cc=colors[k];
 
-   // soft underlay
+   // soft ribbon underlay
    x.save();
-   x.strokeStyle=cc;x.globalAlpha=.18;x.lineWidth=8;
+   x.strokeStyle=cc;
+   x.globalAlpha=.20;
+   x.lineWidth=10;
    x.lineCap='round';
-   x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.stroke();
+   x.lineJoin='round';
+   x.beginPath();
+   x.moveTo(x1,y1);
+   x.lineTo(x2,y2);
+   x.stroke();
    x.restore();
 
-   // crisp center line
-   x.strokeStyle=cc;x.lineWidth=2.8;x.lineCap='round';
-   x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.stroke();
+   // saturated center line
+   x.strokeStyle=cc;
+   x.lineWidth=3.8;
+   x.lineCap='round';
+   x.beginPath();
+   x.moveTo(x1,y1);
+   x.lineTo(x2,y2);
+   x.stroke();
 
-   // endpoints
+   // fuller endpoints
    x.fillStyle=cc;
-   x.beginPath();x.arc(x1,y1,4.5,0,Math.PI*2);x.fill();
-   x.beginPath();x.arc(x2,y2,4.5,0,Math.PI*2);x.fill();
+   x.beginPath();x.arc(x1,y1,6,0,Math.PI*2);x.fill();
+   x.beginPath();x.arc(x2,y2,6,0,Math.PI*2);x.fill();
 
-   // compact C label near the midpoint, staggered slightly
+   // bold C label with white halo for readability
    const mx=(x1+x2)/2, my=(y1+y2)/2;
    const label=`C${k+1}`;
-   x.font='800 13px system-ui';
+   x.font='800 16px system-ui,-apple-system,sans-serif';
    x.textBaseline='middle';
    const lw=x.measureText(label).width;
-   let ly=my + (k%2===0 ? -15 : 15);
-   ly=Math.max(pad.t+12,Math.min(H-pad.b-12,ly));
+   let ly=my+(k%2===0?-18:18);
+   ly=Math.max(pad.t+13,Math.min(H-pad.b-13,ly));
    let lx=Math.max(pad.l+4,Math.min(W-pad.r-lw-4,mx-lw/2));
+
+   x.save();
+   x.lineWidth=3.5;
+   x.strokeStyle='rgba(255,255,255,.92)';
+   x.strokeText(label,lx,ly);
    x.fillStyle=cc;
    x.fillText(label,lx,ly);
+   x.restore();
  });
  x.textBaseline='alphabetic';
 }
@@ -3053,8 +3100,8 @@ onAuthStateChanged(auth, async user => {
 }
 .contraction-legend:empty{display:none}
 .contraction-item{
-  border:1px solid #ece9e2;
-  background:#faf9f6;
+  border:1px solid #e7e1d8;
+  background:linear-gradient(180deg,#fffdf9 0%,#f8f5ef 100%);
   border-radius:14px;
   padding:10px 12px;
   min-width:0;
@@ -3078,14 +3125,14 @@ onAuthStateChanged(auth, async user => {
   overflow:hidden;
   text-overflow:ellipsis;
 }
-.contraction-item.c1 .contraction-dot{background:#d1495b}
-.contraction-item.c2 .contraction-dot{background:#2d70b3}
-.contraction-item.c3 .contraction-dot{background:#2f8f5b}
-.contraction-item.c4 .contraction-dot{background:#8a5fb5}
-.contraction-item.c1 .contraction-head{color:#c43e51}
-.contraction-item.c2 .contraction-head{color:#2d70b3}
-.contraction-item.c3 .contraction-head{color:#2f8f5b}
-.contraction-item.c4 .contraction-head{color:#7c4da8}
+.contraction-item.c1 .contraction-dot{background:#e23b4f}
+.contraction-item.c2 .contraction-dot{background:#2468d8}
+.contraction-item.c3 .contraction-dot{background:#15945a}
+.contraction-item.c4 .contraction-dot{background:#8745cf}
+.contraction-item.c1 .contraction-head{color:#d92f45}
+.contraction-item.c2 .contraction-head{color:#2468d8}
+.contraction-item.c3 .contraction-head{color:#15945a}
+.contraction-item.c4 .contraction-head{color:#7b36c5}
 
 @media(max-width:700px){
   .contraction-legend{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
