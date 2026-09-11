@@ -1377,9 +1377,9 @@ function draw(a){
 
  // 還原日標記：使用 scanner 已確認的價格尺度切換日。
  const chartDates=a.dates.slice(-120).map(v=>String(v||'').slice(0,10));
- const restoreInView=(a.restoreEvents||[]).filter(ev=>chartDates.includes(String(ev.restore_date||'').slice(0,10)));
+ const restoreInView=(a.restoreEvents||[]).filter(ev=>chartDates.includes(restoreEffectiveDate(ev)));
  restoreInView.forEach((ev,idx)=>{
-   const rd=String(ev.restore_date||'').slice(0,10), i=chartDates.indexOf(rd);
+   const rd=restoreEffectiveDate(ev), i=chartDates.indexOf(rd);
    if(i<0) return;
    const xx=X(i);
    x.save();
@@ -1575,24 +1575,59 @@ function getRestoreEvents(market,symbol){
  const m=String(market||'TW').toUpperCase(), sym=String(symbol||'').toUpperCase();
  for(const map of [radarRestoreEvents?.intraday?.[m],radarRestoreEvents?.official?.[m]]){
    const ev=map?.[sym];
-   if(Array.isArray(ev)&&ev.length) return ev.slice().sort((a,b)=>String(a.restore_date).localeCompare(String(b.restore_date)));
+   if(Array.isArray(ev)&&ev.length) return ev.slice().sort((a,b)=>restoreEffectiveDate(a).localeCompare(restoreEffectiveDate(b)));
  }
  return [];
 }
+function restoreEffectiveDate(ev){
+ return String(ev?.price_effective_date||ev?.resume_trading_date||ev?.restore_date||'').slice(0,10);
+}
+function medianNums(xs){
+ const a=xs.map(Number).filter(Number.isFinite).sort((x,y)=>x-y);
+ if(!a.length) return NaN;
+ const m=Math.floor(a.length/2);
+ return a.length%2?a[m]:(a[m-1]+a[m])/2;
+}
+function eventMultiplierForRows(rows,ev){
+ const rd=restoreEffectiveDate(ev), sr=Number(ev?.share_ratio);
+ if(!rd||!Number.isFinite(sr)||sr<=0) return 1;
+ const expected=1/sr;
+ const usable=rows.map((r,i)=>({i,date:String(r.date||'').slice(0,10),close:Number(r.close ?? r.Close)}))
+   .filter(x=>x.date&&Number.isFinite(x.close)&&x.close>0);
+ const pre=usable.filter(x=>x.date<rd), post=usable.filter(x=>x.date>=rd);
+ if(!pre.length||!post.length) return 1;
+ const p=pre.length-1, q=0;
+ const preMed=medianNums(pre.slice(Math.max(0,p-2),p+1).map(x=>x.close));
+ const postMed=medianNums(post.slice(q,q+3).map(x=>x.close));
+ if(!Number.isFinite(preMed)||!Number.isFinite(postMed)||preMed<=0) return 1;
+ const observed=postMed/preMed;
+ const rawErr=Math.abs(observed/expected-1);
+ const adjustedErr=Math.abs(observed-1);
+ // Each data provider is judged independently. Scanner/Yahoo may already be
+ // adjusted while FinMind on the webpage may still be raw (or vice versa).
+ if(rawErr<=0.30 && rawErr<adjustedErr) return expected;
+ if(adjustedErr<=0.22) return 1;
+ // Official events never get invented from price jumps; a mismatch is left
+ // untouched rather than forcing a possibly-wrong rescale.
+ return 1;
+}
 function applyRestoreEvents(rows,events){
  if(!Array.isArray(rows)||!rows.length||!Array.isArray(events)||!events.length) return rows;
- return rows.map(row=>{
-   const out={...row}, date=String(out.date||'').slice(0,10);
-   let mult=1;
-   for(const ev of events){
-     const rd=String(ev.restore_date||'').slice(0,10), m=Number(ev.pre_price_multiplier);
-     if(rd&&date&&date<rd&&Number.isFinite(m)&&m>0) mult*=m;
-   }
-   if(Math.abs(mult-1)<1e-12) return out;
-   for(const k of ['close','open','max','min','High','Low','Open','Close']) if(Number.isFinite(Number(out[k]))) out[k]=Number(out[k])*mult;
-   if(Number.isFinite(Number(out.Trading_Volume))) out.Trading_Volume=Number(out.Trading_Volume)/mult;
-   return out;
- });
+ let out=rows.map(r=>({...r}));
+ const sorted=events.slice().sort((a,b)=>restoreEffectiveDate(a).localeCompare(restoreEffectiveDate(b)));
+ for(const ev of sorted){
+   const rd=restoreEffectiveDate(ev), mult=eventMultiplierForRows(out,ev);
+   if(!rd||!Number.isFinite(mult)||mult<=0||Math.abs(mult-1)<1e-12) continue;
+   out=out.map(row=>{
+     const x={...row}, date=String(x.date||'').slice(0,10);
+     if(!date||date>=rd) return x;
+     for(const k of ['close','open','max','min','High','Low','Open','Close'])
+       if(Number.isFinite(Number(x[k]))) x[k]=Number(x[k])*mult;
+     if(Number.isFinite(Number(x.Trading_Volume))) x.Trading_Volume=Number(x.Trading_Volume)/mult;
+     return x;
+   });
+ }
+ return out;
 }
 
 async function resolveTaiwanInput(raw){
@@ -1945,10 +1980,8 @@ async function run(){
           : `${Number((1/sr).toFixed(4)).toString()}:1`;
       }
       restoreNote.hidden=false;
-      const alreadyAdjusted=latest.price_state==='already_adjusted' || latest.needs_restore===false;
-      restoreNote.textContent=alreadyAdjusted
-        ? `🔄 還原日 ${latest.restore_date||''}${ratioText?`｜股數比例 ${ratioText}`:''}｜官方公司行動確認・資料源已是還原價格`
-        : `🔄 已套用還原日 ${latest.restore_date||''}${ratioText?`｜股數比例 ${ratioText}`:''}｜官方公司行動確認・歷史價格已統一尺度`;
+      const rd=restoreEffectiveDate(latest);
+      restoreNote.textContent=`🔄 還原日 ${rd}${ratioText?`｜股數比例 ${ratioText}`:''}｜依官方市場生效日，拆股／除權前歷史價格已統一為事件後價格尺度`;
     }else{
       restoreNote.hidden=true;
       restoreNote.textContent='';
