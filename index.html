@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.27 MOBILE CHART FINE STROKES -->
+<!-- VCPulse BUILD 2.41.28 INTERACTIVE PULSE HELP -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -1025,7 +1025,7 @@ th{color:#716c64}
   .freshness-icon{display:none}
 }
 
-</style></head>
+</style><style>button.pulse-help-trigger{font:inherit;cursor:pointer;appearance:none}.pulse-help-popover[hidden]{display:none!important}.pulse-help-popover{position:fixed;inset:0;z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px}.pulse-help-backdrop{position:absolute;inset:0;background:rgba(35,31,26,.2);backdrop-filter:blur(3px)}.pulse-help-card{position:relative;z-index:1;width:min(430px,calc(100vw - 34px));padding:22px;border:1px solid #ded2c3;border-radius:22px;background:linear-gradient(160deg,#fff,rgba(250,246,239,.98));box-shadow:0 22px 60px rgba(58,47,35,.18)}.pulse-help-close{position:absolute;right:13px;top:11px;width:32px;height:32px;padding:0;border:0;border-radius:50%;font-size:21px}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666057;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#987144}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6efe5;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}</style></head>
 <body>
 
 <div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
@@ -2284,7 +2284,7 @@ function renderRadar(filter='all'){
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
    <td class="status-dot">${esc(stageLabel(r))}</td>
-   <td><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
+   <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
  const openAnalysis=(market,symbol,sourceEl)=>{
@@ -2379,7 +2379,7 @@ function renderRadar(filter='all'){
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
-       <div style="margin-top:8px"><span class="pulse-badge pulse-${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</span></div>
+       <div style="margin-top:8px"><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button></div>
        ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}
        <div class="mobile-metrics">
          <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
@@ -3154,10 +3154,11 @@ onAuthStateChanged(auth, async user => {
 </style>
 
 
+<div id="pulseHelpPopover" class="pulse-help-popover" hidden><div class="pulse-help-backdrop" data-pulse-help-close></div><div class="pulse-help-card"><button type="button" class="pulse-help-close" data-pulse-help-close>×</button><div id="pulseHelpTitle" class="pulse-help-pop-title"></div><div id="pulseHelpDesc" class="pulse-help-pop-desc"></div><div class="pulse-help-watch-title">你可以注意什麼？</div><div id="pulseHelpWatch" class="pulse-help-pop-watch"></div><button type="button" class="pulse-help-ok" data-pulse-help-close>知道了</button></div></div>
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-</body></html>
+<script>(()=>{const C={hot:["🔥 高關注","VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。","留意是否接近或突破 Pivot、突破時量能是否配合，以及突破後是否能守住關鍵位置。"],watch:["👀 觀察","VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。","觀察距離 Pivot 是否持續縮短、壓縮是否增強，以及 Momentum 是否往較有利的方向改善。"],wait:["⏳ 等待","已符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，先等待條件進一步改善。","持續看是否更接近 Pivot、PowerSqueeze 是否出現或增強，以及 Momentum 是否改善。"],extended:["⚠️ 過度延伸","突破後距離 Pivot 已超過 8%，代表目前位置不像剛突破時那麼接近關鍵價位。","先留意是否出現整理或回測，以及價格與 Pivot 的距離是否回到較容易觀察的位置。"]};const close=()=>{const p=document.getElementById("pulseHelpPopover");if(p){p.hidden=true;document.body.style.overflow=""}};document.addEventListener("click",e=>{const t=e.target.closest(".pulse-help-trigger");if(t){e.preventDefault();e.stopPropagation();const i=C[t.dataset.pulse]||C.wait,p=document.getElementById("pulseHelpPopover");document.getElementById("pulseHelpTitle").textContent=i[0];document.getElementById("pulseHelpDesc").textContent=i[1];document.getElementById("pulseHelpWatch").textContent=i[2];p.hidden=false;document.body.style.overflow="hidden";return}if(e.target.closest("[data-pulse-help-close]"))close()});document.addEventListener("keydown",e=>{if(e.key==="Escape")close()})})();</script></body></html>
 
 <style>
 /* V2.36.5 — 收藏星星緊貼股票名稱 */
