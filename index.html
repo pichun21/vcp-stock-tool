@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.29 PULSE CLICK FIX -->
+<!-- VCPulse BUILD 2.41.30 EXPLICIT STOCK NAVIGATION ONLY -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -38,7 +38,7 @@ button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min
 .radar-tab.active{background:#20231f;color:#fff}
 .radar-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
 .radar-table th,.radar-table td{padding:11px 8px;border-bottom:1px solid #ecebe6;text-align:left;white-space:nowrap}
-.radar-table th{font-size:12px;color:var(--muted);font-weight:700}.radar-row{cursor:pointer}.radar-row:hover{background:#fafaf7}
+.radar-table th{font-size:12px;color:var(--muted);font-weight:700}.radar-row{cursor:default}.radar-row:hover{background:#fafaf7}
 .radar-empty{padding:24px 4px;color:var(--muted);text-align:center}
 .status-dot{font-weight:700}
 @media(max-width:760px){
@@ -222,7 +222,7 @@ th{color:#716c64}
 .mobile-stock-card{
   border:1px solid var(--vp-line);background:#fffdfa;border-radius:18px;
   padding:15px 15px 14px;margin-top:10px;box-shadow:0 7px 18px rgba(57,46,33,.035);
-  cursor:pointer
+  cursor:default
 }
 .mobile-stock-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .mobile-stock-name{font-weight:900;font-size:17px;line-height:1.25}
@@ -2328,12 +2328,8 @@ function renderRadar(filter='all'){
    });
  });
 
- body.querySelectorAll('tr[data-symbol]').forEach(tr=>{
-   tr.addEventListener('click',(e)=>{
-     if(e.target.closest('.radar-open-analysis')) return;
-     openAnalysis(tr.dataset.market,tr.dataset.symbol,tr);
-   });
- });
+ // V2.41.30：桌機不再讓整列都可點。
+ // 只有有底線的股票名稱（.radar-open-analysis）才會帶入單股分析。
 
  if(mobile){
    const totalMobileRows=rows.length;
@@ -2453,12 +2449,8 @@ function renderRadar(filter='all'){
      });
    });
 
-   mobile.querySelectorAll('.mobile-stock-card').forEach(card=>{
-     card.addEventListener('click',(e)=>{
-       if(e.target.closest('.mobile-analysis-btn') || e.target.closest('.favorite-btn')) return;
-       openAnalysis(card.dataset.market,card.dataset.symbol,card);
-     });
-   });
+   // V2.41.30：手機卡片本身不再整張可點，
+   // 僅「帶入單股分析 →」按鈕負責進入單股分析，避免誤觸。
  }
 }
 
@@ -3438,5 +3430,16 @@ document.addEventListener("click",e=>{
  .signal-guide-collapsible > summary{padding:13px 2px}
  .signal-guide-title{font-size:13px}
  .signal-guide-action{font-size:11px}
+}
+
+/* V2.41.30 — 僅明確連結/按鈕可導向單股分析 */
+.radar-row,
+.radar-table tbody tr[data-symbol],
+.mobile-stock-card{
+  cursor:default!important;
+}
+.radar-open-analysis,
+.mobile-analysis-btn{
+  cursor:pointer!important;
 }
 </style>
