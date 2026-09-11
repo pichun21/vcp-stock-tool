@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.16 ALL-STOCK INTRADAY QUOTE CACHE -->
+<!-- VCPulse BUILD 2.41.18 SINGLE SIGNAL CLEANUP -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -161,10 +161,20 @@ th{color:#716c64}
   .brand-mini{display:none}
   .helpbtn{
     position:absolute!important;right:12px!important;top:12px!important;
-    padding:7px 9px!important;font-size:0!important;border-radius:999px!important;
-    width:34px;height:34px;z-index:3
+    padding:0!important;font-size:0!important;border-radius:999px!important;
+    width:34px;height:34px;z-index:3;
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    line-height:1!important;
   }
-  .helpbtn::after{content:"ⓘ";font-size:18px}
+  .helpbtn::after{
+    content:"ⓘ";
+    font-size:18px;
+    line-height:1;
+    display:block;
+    width:18px;
+    height:18px;
+    text-align:center;
+  }
   .section-title{margin-top:16px}
   .section-title h2{font-size:22px}
   .section-title .muted{font-size:11px}
@@ -1115,7 +1125,7 @@ th{color:#716c64}
 </div>
 <div class="single-signal-row" id="singleSignals"></div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
-<div class="checks" id="checks"></div><div class="note" id="summary">輸入股票代號後開始。</div></div>
+<div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
 </div>
 
@@ -2943,4 +2953,7 @@ onAuthStateChanged(auth, async user => {
 <style>
 /* V2.40.2 — completed TW official snapshot locks the stale intraday switch */
 .snapshot-btn:disabled{opacity:.38!important;background:#f1eee9!important;color:#aaa39a!important;border-color:#ddd7cf!important;box-shadow:none!important;cursor:not-allowed!important}
+
+/* V2.41.18：單股訊號只保留上方狀態膠囊，避免下方重複顯示同一組資訊 */
+#summary{display:none!important}
 </style>
