@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.41.13 BENCHMARK PRESERVE + 2.41 CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -996,7 +996,11 @@ def main():
                 "snapshot_type":"official"
             }
             if market_benchmark:
-                official_benchmarks[market]=market_benchmark
+                # Preserve any previously available benchmark card when a single
+                # source temporarily fails during this run (e.g. TPEx).
+                prev=dict(official_benchmarks.get(market,{}) or {})
+                prev.update(market_benchmark)
+                official_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 official_capital_hotspots["TW"]=capital_hotspots
 
@@ -1015,7 +1019,11 @@ def main():
                 "snapshot_type":"intraday"
             }
             if market_benchmark:
-                intraday_benchmarks[market]=market_benchmark
+                # Preserve any previously available benchmark card when a single
+                # source temporarily fails during this run (e.g. TPEx).
+                prev=dict(intraday_benchmarks.get(market,{}) or {})
+                prev.update(market_benchmark)
+                intraday_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 intraday_capital_hotspots["TW"]=capital_hotspots
 
