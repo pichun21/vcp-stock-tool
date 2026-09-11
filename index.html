@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.11 INTRADAY LOCK DATE FIX -->
+<!-- VCPulse BUILD 2.41.12 INTRADAY LOCK HOTFIX -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
 <head>
@@ -2407,26 +2407,30 @@ function forceRadarAllRender(){
  setTimeout(()=>renderRadar('all'),60);
 }
 
-function isIntradayLockedAfterOfficial(m){
- const market=String(m||currentMarket||'TW').toUpperCase();
- if(market!=='TW') return false;
+function isIntradayLockedAfterOfficial(market=currentMarket){
+ // Only TW is locked after today's official close has actually completed.
+ if(String(market||'').toUpperCase()!=='TW') return false;
 
- const meta=(radarMarkets?.official||radarOfficialMarkets||{})?.TW || {};
+ const meta=radarSnapshotMeta?.official?.TW||{};
  const dataDate=String(meta.data_date||'');
  const scannedAt=String(meta.scanned_at||'');
+ if(!dataDate || !scannedAt) return false;
 
- // 只有「今天」的台股正式收盤版，且確實在 18:10 後完成，
- // 才鎖住今天的盤中即時；昨天的 official 不得延續鎖到隔天早上。
+ // Browser-local date is Asia/Taipei for the intended deployment/user context.
  const now=new Date();
  const y=now.getFullYear();
  const mo=String(now.getMonth()+1).padStart(2,'0');
  const d=String(now.getDate()).padStart(2,'0');
  const today=`${y}-${mo}-${d}`;
 
+ // Yesterday's official snapshot must never lock today's intraday tab.
  if(dataDate!==today) return false;
 
- const timePart=(scannedAt.split(' ').pop()||'').slice(0,5);
- return timePart>='18:10';
+ const mm=scannedAt.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{1,2}):(\d{2})/);
+ if(!mm || mm[1]!==dataDate) return false;
+
+ const mins=(+mm[2])*60+(+mm[3]);
+ return mins>=18*60+10;
 }
 function updateSnapshotAvailability(){
  const intradayBtn=document.querySelector('.snapshot-btn[data-snapshot="intraday"]');
