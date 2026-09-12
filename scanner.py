@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.41.46 RESTORE FALLBACK + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42.0 POST-BREAKOUT 10D TRACKING + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re
 from pathlib import Path
@@ -542,8 +542,11 @@ def analyze(df,item,market):
 
     avg_value=float((close.iloc[-20:]*vol.iloc[-20:]).mean())
     min_liq=20_000_000 if market=="TW" else 10_000_000
-    if avg_value<min_liq or score<4: return None
+    if avg_value<min_liq: return None
 
+    # V2.42.0 — identify a recent breakout before applying the VCP score gate.
+    # A stock may naturally lose pre-breakout VCP points after it has already
+    # broken out; keep a valid breakout visible for 10 trading days instead.
     breakout_days=None
     if breakout:
         vals=close.iloc[-11:].tolist()
@@ -552,12 +555,18 @@ def analyze(df,item,market):
                 breakout_days=(len(vals)-1)-i; break
     if today_breakout:
         typ,state="breakout","🟢 今日帶量突破"; breakout_days=0
-    elif breakout and breakout_days is not None and breakout_days<=5 and distance<=12:
-        typ,state="postbreakout",f"🔵 突破後第 {breakout_days+1} 天"
+    elif breakout and breakout_days is not None and breakout_days<=10:
+        typ,state="postbreakout",f"🔵 突破後 D+{breakout_days}"
     elif not breakout and distance>-5: typ,state="near","🟡 接近 Pivot"
     elif not breakout: typ,state="forming","⚪ VCP 成形中"
     else: return None
-    if distance>12: return None
+
+    # Pre-breakout radar candidates still require VCP >= 4. Post-breakout
+    # tracking is deliberately exempt so a successful move does not disappear
+    # merely because the setup has already completed.
+    if typ not in ("breakout","postbreakout") and score<4: return None
+    if typ=="breakout" and score<4: return None
+    if typ!="postbreakout" and distance>12: return None
 
     signal_points=0; signal_reasons=[]
     if score>=5: signal_points+=2; signal_reasons.append("VCP 5/5")
@@ -576,13 +585,28 @@ def analyze(df,item,market):
     elif signal_points>=5: pulse_signal,pulse_label="watch","👀 觀察"
     else: pulse_signal,pulse_label="wait","⏳ 等待"
 
+    # V2.42.0 — post-breakout performance fields. D+0 is the breakout day.
+    breakout_date=None; breakout_return_pct=None; breakout_high_pct=None
+    if breakout_days is not None:
+        bi=len(close)-1-int(breakout_days)
+        if 0<=bi<len(close):
+            breakout_date=df.index[bi].strftime("%Y-%m-%d")
+            # Keep Pivot as the reference price shown by the radar.
+            breakout_return_pct=((last/pivot)-1)*100 if pivot else None
+            since=high.iloc[bi:]
+            hi=float(since.max()) if len(since) else last
+            breakout_high_pct=((hi/pivot)-1)*100 if pivot else None
+
     return {
         "market":market,"symbol":item["symbol"],"name":item["name"],"exchange":item.get("exchange",""),"score":int(score),
         "contracts":" → ".join(f"-{x:.0f}%" for x in seq) if seq else "—",
         "pivot":round(pivot,2),"last":round(last,2),"distance":round(distance,2),"change_pct":round(change_pct,2),
         "volume_dry":dry,"type":typ,"state":state,"squeeze_level":squeeze_level,
         "squeeze_state":squeeze_state,"momentum":momentum,"momentum_dir":momentum_dir,
-        "combo":combo,"breakout_days":breakout_days,"holding_pivot":bool(last>pivot),
+        "combo":combo,"breakout_days":breakout_days,"breakout_date":breakout_date,
+        "breakout_return_pct":round(breakout_return_pct,2) if breakout_return_pct is not None else None,
+        "breakout_high_pct":round(breakout_high_pct,2) if breakout_high_pct is not None else None,
+        "holding_pivot":bool(last>pivot),
         "pulse_signal":pulse_signal,"pulse_label":pulse_label,"pulse_points":signal_points,
         "pulse_reasons":signal_reasons,"data_date":df.index[-1].strftime("%Y-%m-%d"),
         "avg_value_20d":round(avg_value,0),

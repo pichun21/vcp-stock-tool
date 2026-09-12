@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.51 MOBILE VCP TITLE-AWARE SCROLL + 2.41.50 MOBILE VCP CHART FIRST + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
+<!-- VCPulse BUILD 2.42.0 POST-BREAKOUT 10D TRACKING + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -284,6 +284,9 @@ th{color:#716c64}
 }
 
 
+
+/* V2.42.0 — post-breakout 10 trading-day performance */
+.postbreakout-mini{font-size:11px;line-height:1.35;margin-top:4px;white-space:nowrap}
 /* V2.41.48 mobile analysis CTA — primary, obvious action */
 .mobile-analysis-btn{
   display:flex;
@@ -1157,7 +1160,7 @@ th{color:#716c64}
   <p><b>★★★★★</b>：五項皆符合；<b>★★★★☆</b>：已有明顯 VCP 特徵。每日雷達目前以 4 分以上為主要候選。</p>
   <h3>每日雷達狀態</h3>
   <p>🟢 <b>今日帶量突破</b>：前一交易日尚未突破 Pivot，最新交易日收盤首次站上 Pivot，且成交量明顯放大。</p>
-  <p>🔵 <b>突破後</b>：近期已突破 Pivot，且目前仍站在 Pivot 上方；本站追蹤最近 5 個交易日，方便觀察突破是否守穩。</p>
+  <p>🔵 <b>突破後</b>：近期已突破 Pivot，且目前仍站在 Pivot 上方；本站追蹤最近 10 個交易日，並顯示相對 Pivot 報酬與突破後最高漲幅，方便觀察突破是否守穩。</p>
   <p>🟡 <b>接近 Pivot</b>：尚未突破，但距 Pivot 已相當接近。</p>
   <p>⚪ <b>VCP 成形中</b>：已具備 VCP 特徵，但仍離 Pivot 有一段距離。</p>
   <h3>PowerSqueeze 是什麼？</h3>
@@ -2291,7 +2294,7 @@ const RADAR_UI={
 function marketLabel(m){ return RADAR_UI.market[m] || m || '—'; }
 function stageLabel(r){
   if(r.type==='postbreakout' && Number.isFinite(Number(r.breakout_days))){
-    return `🔵 突破後第 ${Number(r.breakout_days)+1} 天`;
+    return `🔵 突破後 D+${Number(r.breakout_days)}`;
   }
   return RADAR_UI.stage[r.type] || r.state || '—';
 }
@@ -2310,6 +2313,7 @@ function attentionReason(r){
 }
 function pulseLabel(r){ return RADAR_UI.pulse[r.pulse_signal] || r.pulse_label || '⏳ 等待'; }
 function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
+function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
 const FAVORITES_KEY='vcpulse_favorites_v1';
 function favoriteKey(market,symbol){ return `${market}:${symbol}`; }
@@ -2587,7 +2591,7 @@ function renderRadar(filter='all'){
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
-   <td class="status-dot">${esc(stageLabel(r))}</td>
+   <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高 ${esc(signedPct(r.breakout_high_pct))}</div>`:''}</td>
    <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
@@ -2684,8 +2688,9 @@ function renderRadar(filter='all'){
      if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(momentumLabel(r))}</div>`);
      if(r.type==='breakout') reasons.push(`<div class="reason-item reason-ok">最新交易日首次帶量突破 Pivot</div>`);
      else if(r.type==='postbreakout'){
-       reasons.push(`<div class="reason-item reason-ok">突破後第 ${Number(r.breakout_days??0)+1} 天，目前仍站在 Pivot 上方</div>`);
-       reasons.push(`<div class="reason-item reason-ok">距 Pivot +${Math.max(0,Number(r.distance)).toFixed(1)}%，${r.holding_pivot?'仍守住 Pivot ✓':'需留意跌回 Pivot'}</div>`);
+       reasons.push(`<div class="reason-item reason-ok">突破追蹤 D+${Number(r.breakout_days??0)}${r.breakout_date?` · ${esc(r.breakout_date)} 突破`:``}</div>`);
+       reasons.push(`<div class="reason-item reason-ok">目前相對 Pivot ${signedPct(r.breakout_return_pct ?? r.distance)} · 突破後最高 ${signedPct(r.breakout_high_pct)}</div>`);
+       reasons.push(`<div class="reason-item reason-ok">${r.holding_pivot?'仍守住 Pivot ✓':'需留意跌回 Pivot'}</div>`);
      }
      else if(r.type==='near') reasons.push(`<div class="reason-item reason-ok">距 Pivot ${Number(r.distance).toFixed(1)}%，已進入接近區</div>`);
      else reasons.push(`<div class="reason-item reason-note">型態仍在成形，距 Pivot ${Number(r.distance).toFixed(1)}%</div>`);
