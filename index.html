@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.48 MOBILE ANALYSIS CTA + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
+<!-- VCPulse BUILD 2.41.49 COMPACT MOBILE ANALYSIS CTA + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2674,11 +2674,13 @@ function renderRadar(filter='all'){
            <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
          </div>
          <div class="mobile-top-actions">
-           <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★ 已收藏':'☆ 收藏'}</button>
-           <div class="mobile-score">${stars(r.score)}</div>
+           <div class="mobile-action-head">
+             <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★ 已收藏':'☆ 收藏'}</button>
+             <div class="mobile-score">${stars(r.score)}</div>
+           </div>
+           <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">📊 完整分析 →</button>
          </div>
        </div>
-       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">📊 查看完整分析 →</button>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        <div class="mobile-pulse-row">
          <button type="button"
@@ -3761,6 +3763,30 @@ document.addEventListener("click",e=>{
     font-size:16px;
     right:12px;
     top:10px;
+  }
+}
+
+
+/* V2.41.49 — compact mobile analysis CTA under score */
+.mobile-action-head{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+@media(max-width:760px){
+  .mobile-top-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end!important;
+    gap:6px;
+    flex:0 0 auto;
+  }
+  .mobile-analysis-btn{
+    width:auto!important;
+    min-width:0;
+    margin:0!important;
+    padding:7px 11px!important;
+    border-radius:999px!important;
+    font-size:11px!important;
+    line-height:1.15;
+    white-space:nowrap;
+    box-shadow:none;
   }
 }
 </style>
