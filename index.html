@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.50 MOBILE VCP CHART FIRST + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
+<!-- VCPulse BUILD 2.41.51 MOBILE VCP TITLE-AWARE SCROLL + 2.41.50 MOBILE VCP CHART FIRST + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2614,8 +2614,17 @@ function renderRadar(filter='all'){
      const chartCard=chart?.closest('.card') || chart;
      if(chartCard){
        requestAnimationFrame(()=>{
-         try{ chartCard.scrollIntoView({behavior:'smooth',block:'start'}); }
-         catch(e){ chartCard.scrollIntoView(); }
+         // V2.41.51: keep the stock name/title visible below the sticky login bar.
+         // scrollIntoView(block:start) placed the top of the card underneath #userBar,
+         // so users landed on the chart without seeing which stock they were viewing.
+         const stickyBar=document.getElementById('userBar');
+         const stickyH=(stickyBar && getComputedStyle(stickyBar).display!=='none')
+           ? stickyBar.getBoundingClientRect().height : 0;
+         const gap=12;
+         const y=(window.pageYOffset||document.documentElement.scrollTop||0)
+           + chartCard.getBoundingClientRect().top - stickyH - gap;
+         try{ window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
+         catch(e){ window.scrollTo(0,Math.max(0,y)); }
        });
      }
    }
@@ -3802,5 +3811,12 @@ document.addEventListener("click",e=>{
     white-space:nowrap;
     box-shadow:none;
   }
+}
+</style>
+
+<style>
+/* V2.41.51 — mobile chart jump keeps stock identity visible below sticky login bar */
+@media(max-width:760px){
+  #singleStockAnalysis .grid>.card:first-child{scroll-margin-top:calc(76px + env(safe-area-inset-top));}
 }
 </style>
