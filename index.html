@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.41.46 OFFICIAL EVENT FALLBACK -->
+<!-- VCPulse BUILD 2.41.48 MOBILE ANALYSIS CTA + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -284,22 +284,34 @@ th{color:#716c64}
 }
 
 
-/* V2.9.6 mobile analysis CTA */
+/* V2.41.48 mobile analysis CTA — primary, obvious action */
 .mobile-analysis-btn{
-  display:block;
-  width:auto;
-  margin:11px 0 0 auto;
-  padding:0;
-  border:0;
-  background:transparent;
-  color:#9b6c42;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  margin:10px 0 0;
+  padding:10px 14px;
+  border:1px solid #d7b48f;
+  border-radius:13px;
+  background:#9b6c42;
+  color:#fff;
   font:inherit;
-  font-size:12px;
-  font-weight:800;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.1px;
   cursor:pointer;
+  box-shadow:0 4px 10px rgba(115,78,46,.12);
   -webkit-tap-highlight-color:transparent;
 }
-.mobile-analysis-btn:active{opacity:.6}
+.mobile-analysis-btn:hover{filter:brightness(.98)}
+.mobile-analysis-btn:active{transform:translateY(1px);opacity:.88}
+.mobile-stock-name-btn{
+  appearance:none;border:0;background:transparent;padding:0;margin:0;
+  font:inherit;font-weight:inherit;color:inherit;text-align:left;cursor:pointer;
+  -webkit-tap-highlight-color:transparent
+}
+.mobile-stock-name-btn:focus-visible{outline:2px solid #b37b48;outline-offset:3px;border-radius:5px}
 
 
 /* V2.10 shared radar labels + compact mobile cards */
@@ -403,7 +415,7 @@ th{color:#716c64}
   .mobile-why-title{font-size:11px}
   .reason-item{font-size:11.5px}
   .mobile-analysis-btn{
-    margin-top:9px;padding:7px 0!important;font-size:12px!important
+    margin-top:9px;padding:10px 14px!important;font-size:12.5px!important
   }
 }
 
@@ -2658,7 +2670,7 @@ function renderRadar(filter='all'){
      return `<div class="mobile-stock-card" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} 完整分析">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
            <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
          </div>
          <div class="mobile-top-actions">
@@ -2666,6 +2678,7 @@ function renderRadar(filter='all'){
            <div class="mobile-score">${stars(r.score)}</div>
          </div>
        </div>
+       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">📊 查看完整分析 →</button>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        <div class="mobile-pulse-row">
          <button type="button"
@@ -2701,7 +2714,6 @@ function renderRadar(filter='all'){
          ${reasons.length>2?`<div class="reason-list reason-more" hidden>${reasons.slice(2).join('')}</div>`:''}
          <div class="pulse-explain reason-more-detail" ${reasons.length>2?'hidden':''}><b>VCPulse 訊號：</b>${esc(pulseLabel(r))} · ${esc((r.pulse_reasons||[]).join('、')||'依目前結構持續觀察')}</div>
        </div>
-       <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">帶入單股分析 →</button>
      </div>`;
    }).join('');
 
@@ -2727,6 +2739,14 @@ function renderRadar(filter='all'){
      });
    });
 
+   mobile.querySelectorAll('.mobile-stock-name-btn').forEach(btn=>{
+     btn.addEventListener('click',(e)=>{
+       e.preventDefault();
+       e.stopPropagation();
+       openAnalysis(btn.dataset.market,btn.dataset.symbol,btn.closest('.mobile-stock-card')||btn);
+     });
+   });
+
    mobile.querySelectorAll('.mobile-analysis-btn').forEach(btn=>{
      btn.addEventListener('click',(e)=>{
        e.preventDefault();
@@ -2736,7 +2756,7 @@ function renderRadar(filter='all'){
    });
 
    // V2.41.30：手機卡片本身不再整張可點，
-   // 僅「帶入單股分析 →」按鈕負責進入單股分析，避免誤觸。
+   // 「查看完整分析」主按鈕與股票名稱都可進入單股分析；卡片本身仍不可點，避免誤觸。
  }
 }
 
