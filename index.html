@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.2 FAVORITES OUTSIDE RADAR + POST-BREAKOUT HIGH FIX + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.3 FAVORITE NAME HYDRATION + 2.42.2 FAVORITES OUTSIDE RADAR + POST-BREAKOUT HIGH FIX + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2371,6 +2371,49 @@ function rememberFavoriteMeta(row){
  meta[key]={...favoriteFallbackRow(key,row),...row,market:String(row.market).toUpperCase(),symbol:String(row.symbol).toUpperCase(),_favorite_only:!!row._favorite_only};
  saveFavoriteMeta(meta);
 }
+
+// V2.42.3 — 收藏名稱自動補齊。
+// 舊版收藏可能只留下代號；進入「我的收藏」時，一次抓股票基本資料補回名稱，
+// 不需要再先點進單股分析才能看到完整名稱。
+let favoriteNameHydrating=false;
+let favoriteNameHydratedMarkets=new Set();
+async function hydrateFavoriteNames(market){
+ const m=String(market||currentMarket||'TW').toUpperCase();
+ if(favoriteNameHydrating || favoriteNameHydratedMarkets.has(m)) return false;
+ const favs=[...getFavorites()].filter(k=>String(k).toUpperCase().startsWith(`${m}:`));
+ if(!favs.length){ favoriteNameHydratedMarkets.add(m); return false; }
+ const meta=getFavoriteMeta();
+ const missing=favs.filter(key=>{
+   const sym=String(key).split(':').slice(1).join(':').toUpperCase();
+   const name=String(meta[key]?.name||'').trim();
+   return !name || name.toUpperCase()===sym;
+ });
+ if(!missing.length){ favoriteNameHydratedMarkets.add(m); return false; }
+ favoriteNameHydrating=true;
+ try{
+   const dataset=m==='US'?'USStockInfo':'TaiwanStockInfo';
+   const r=await fetch(`${API}?dataset=${dataset}`);
+   const j=await r.json();
+   const rows=Array.isArray(j?.data)?j.data:[];
+   const nameMap=new Map(rows.filter(x=>x?.stock_id).map(x=>[String(x.stock_id).toUpperCase(),String(x.stock_name||x.stock_id)]));
+   let changed=false;
+   for(const key of missing){
+     const sym=String(key).split(':').slice(1).join(':').toUpperCase();
+     const name=nameMap.get(sym);
+     if(name && name!==sym){
+       meta[key]={...favoriteFallbackRow(key,meta[key]||{}),...(meta[key]||{}),market:m,symbol:sym,name};
+       changed=true;
+     }
+   }
+   if(changed) saveFavoriteMeta(meta);
+   favoriteNameHydratedMarkets.add(m);
+   return changed;
+ }catch(e){
+   return false;
+ }finally{
+   favoriteNameHydrating=false;
+ }
+}
 function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
 function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
 let currentSingleFavorite={market:null,symbol:null};
@@ -2574,6 +2617,12 @@ async function refreshUserLiveQuotes(){
 function renderRadar(filter='all'){
  updateFavoriteCount();
  const body=$('radarBody'), mobile=$('radarMobile');
+ // 若收藏是從舊版或單股分析留下、當下只有代號，背景補齊名稱後重畫一次。
+ if(filter==='favorites'){
+   hydrateFavoriteNames(currentMarket).then(changed=>{
+     if(changed && radarFilter==='favorites') renderRadar('favorites');
+   });
+ }
  let sourceRows=Array.isArray(radarRows)?radarRows.slice():[];
  // V2.42.2 — 收藏是使用者自己的清單，不應受 VCP 雷達入選名單限制。
  // 單股分析收藏的非 VCP 標的，也要能在「我的收藏」重新找到。
