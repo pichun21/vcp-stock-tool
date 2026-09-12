@@ -287,6 +287,10 @@ th{color:#716c64}
 
 /* V2.42.0 — post-breakout 10 trading-day performance */
 .postbreakout-mini{font-size:11px;line-height:1.35;margin-top:4px;white-space:nowrap}
+/* V2.42.1 — mobile breakout performance summary */
+.mobile-postbreakout-performance{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 2px;font-size:13px;font-weight:800;color:#315f8d}
+.mobile-postbreakout-performance span{background:#f3f7fb;border:1px solid #d9e5f0;border-radius:999px;padding:5px 9px}
+.mobile-postbreakout-performance .high{color:#6f5738;background:#fbf7ef;border-color:#eadcc7}
 /* V2.41.48 mobile analysis CTA — primary, obvious action */
 .mobile-analysis-btn{
   display:flex;
@@ -2710,6 +2714,10 @@ function renderRadar(filter='all'){
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
+       ${r.type==='postbreakout'?`<div class="mobile-postbreakout-performance" aria-label="突破後績效">
+         <span>突破後 ${esc(signedPct(r.breakout_return_pct ?? r.distance))}</span>
+         <span class="high">最高 ${esc(signedPct(r.breakout_high_pct))}</span>
+       </div>`:''}
        <div class="mobile-pulse-row">
          <button type="button"
            class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger"
