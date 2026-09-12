@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.41.49 COMPACT MOBILE ANALYSIS CTA + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
+<!-- VCPulse BUILD 2.41.50 MOBILE VCP CHART FIRST + 2.41.47 CLICKABLE CAPITAL HOTSPOTS -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -62,8 +62,8 @@ canvas{width:100%;height:auto;border-radius:12px;background:#fcfcfa;margin-top:1
  .search input{min-width:0;font-size:16px;padding:12px}.search button{min-width:92px;padding:12px 10px}
  .grid{grid-template-columns:1fr;gap:12px}
  .card{padding:15px;border-radius:15px}
- .grid .card:nth-child(2){grid-row:1}
- .grid .card:nth-child(1){grid-row:2}
+ .grid .card:nth-child(1){grid-row:1}
+ .grid .card:nth-child(2){grid-row:2}
  .ticker{font-size:22px}.badge{font-size:13px;padding:6px 8px}
  .score{font-size:38px;margin:4px 0}.stars{font-size:18px}
  .metrics{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
@@ -2591,7 +2591,7 @@ function renderRadar(filter='all'){
    <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
- const openAnalysis=(market,symbol,sourceEl)=>{
+ const openAnalysis=async (market,symbol,sourceEl)=>{
    // Remember the exact row/card that was tapped.
    rememberRadarPosition(market,symbol,sourceEl);
 
@@ -2599,12 +2599,26 @@ function renderRadar(filter='all'){
    setMarket(market,{reset:false});
    $('symbol').value=symbol;
 
-   // Scroll first so the interaction is immediately visible, then run analysis.
+   // Desktop keeps the original section-first behavior. On mobile, run the
+   // analysis first and then land directly on the existing VCP chart card.
    const input=$('symbol');
    const singleSection=input?.closest('.section') || input;
-   if(singleSection) singleSection.scrollIntoView({behavior:'smooth',block:'start'});
+   if(window.matchMedia('(min-width:761px)').matches && singleSection){
+     singleSection.scrollIntoView({behavior:'smooth',block:'start'});
+   }
 
-   run();
+   await run();
+
+   if(window.matchMedia('(max-width:760px)').matches){
+     const chart=$('chart');
+     const chartCard=chart?.closest('.card') || chart;
+     if(chartCard){
+       requestAnimationFrame(()=>{
+         try{ chartCard.scrollIntoView({behavior:'smooth',block:'start'}); }
+         catch(e){ chartCard.scrollIntoView(); }
+       });
+     }
+   }
  };
 
  body.querySelectorAll('.favorite-btn').forEach(btn=>{
@@ -2670,7 +2684,7 @@ function renderRadar(filter='all'){
      return `<div class="mobile-stock-card" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} 完整分析">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
            <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
          </div>
          <div class="mobile-top-actions">
@@ -2678,7 +2692,7 @@ function renderRadar(filter='all'){
              <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★ 已收藏':'☆ 收藏'}</button>
              <div class="mobile-score">${stars(r.score)}</div>
            </div>
-           <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">📊 完整分析 →</button>
+           <button type="button" class="mobile-cta mobile-analysis-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">📈 看 VCP 圖 →</button>
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
@@ -2758,7 +2772,7 @@ function renderRadar(filter='all'){
    });
 
    // V2.41.30：手機卡片本身不再整張可點，
-   // 「查看完整分析」主按鈕與股票名稱都可進入單股分析；卡片本身仍不可點，避免誤觸。
+   // 「看 VCP 圖」按鈕與股票名稱都可進入單股分析；卡片本身仍不可點，避免誤觸。
  }
 }
 
@@ -3767,7 +3781,7 @@ document.addEventListener("click",e=>{
 }
 
 
-/* V2.41.49 — compact mobile analysis CTA under score */
+/* V2.41.50 — compact mobile VCP-chart CTA + chart-first single-stock view */
 .mobile-action-head{display:flex;align-items:center;gap:7px;justify-content:flex-end}
 @media(max-width:760px){
   .mobile-top-actions{
