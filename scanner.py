@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.42.2 POST-BREAKOUT HIGH FIX + FAVORITES FRONTEND SUPPORT + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.2 FAVORITES FRONTEND SUPPORT + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re, math
 from pathlib import Path
@@ -585,20 +585,30 @@ def analyze(df,item,market):
     elif signal_points>=5: pulse_signal,pulse_label="watch","👀 觀察"
     else: pulse_signal,pulse_label="wait","⏳ 等待"
 
-    # V2.42.0 — post-breakout performance fields. D+0 is the breakout day.
+    # V2.42.5 — hard guarantee breakout metrics for every tracked breakout.
+    # If a row can display D+N, it must also carry numeric performance fields.
     breakout_date=None; breakout_return_pct=None; breakout_high_pct=None
-    if breakout_days is not None:
-        bi=len(close)-1-int(breakout_days)
-        if 0<=bi<len(close):
+    if typ in ("breakout","postbreakout") and breakout_days is not None and pivot and math.isfinite(float(pivot)):
+        bi=max(0, len(close)-1-int(breakout_days))
+        if bi < len(close):
             breakout_date=df.index[bi].strftime("%Y-%m-%d")
-            # Keep Pivot as the reference price shown by the radar.
-            breakout_return_pct=((last/pivot)-1)*100 if pivot else None
-            # Highest traded price from breakout day through the latest bar.
-            # Use close as a safe fallback if a provider returns missing High values.
-            since=pd.to_numeric(high.iloc[bi:],errors="coerce").dropna()
-            hi=float(since.max()) if len(since) else float(pd.to_numeric(close.iloc[bi:],errors="coerce").max())
-            if not math.isfinite(hi): hi=last
-            breakout_high_pct=((hi/pivot)-1)*100 if pivot else None
+            breakout_return_pct=((float(last)/float(pivot))-1.0)*100.0
+
+            # Highest traded price from breakout day through latest bar.
+            # Prefer High; if the provider has missing/invalid High values, fall back
+            # to Close. Always include the latest price so the value cannot be null.
+            high_window=pd.to_numeric(df["High"].iloc[bi:],errors="coerce") if "High" in df.columns else pd.Series(dtype=float)
+            close_window=pd.to_numeric(close.iloc[bi:],errors="coerce")
+            candidates=[]
+            if len(high_window.dropna()): candidates.append(float(high_window.max()))
+            if len(close_window.dropna()): candidates.append(float(close_window.max()))
+            candidates.append(float(last))
+            finite_candidates=[x for x in candidates if math.isfinite(x)]
+            hi=max(finite_candidates) if finite_candidates else float(last)
+            breakout_high_pct=((hi/float(pivot))-1.0)*100.0
+
+            # A session high cannot logically be below the latest close-based return.
+            breakout_high_pct=max(breakout_high_pct, breakout_return_pct)
 
     return {
         "market":market,"symbol":item["symbol"],"name":item["name"],"exchange":item.get("exchange",""),"score":int(score),

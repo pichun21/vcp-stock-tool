@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.3 FAVORITE NAME HYDRATION + 2.42.2 FAVORITES OUTSIDE RADAR + POST-BREAKOUT HIGH FIX + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2708,7 +2708,7 @@ function renderRadar(filter='all'){
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
-   <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高漲幅 ${esc(signedPct(r.breakout_high_pct))}</div>`:''}</td>
+   <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高漲幅 ${esc(signedPct(r.breakout_high_pct ?? r.breakout_return_pct ?? r.distance))}</div>`:''}</td>
    <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
@@ -2834,7 +2834,7 @@ function renderRadar(filter='all'){
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        ${r.type==='postbreakout'?`<div class="mobile-postbreakout-performance" aria-label="突破後績效">
          <span>突破後 ${esc(signedPct(r.breakout_return_pct ?? r.distance))}</span>
-         <span class="high">最高漲幅 ${esc(signedPct(r.breakout_high_pct))}</span>
+         <span class="high">最高漲幅 ${esc(signedPct(r.breakout_high_pct ?? r.breakout_return_pct ?? r.distance))}</span>
        </div>`:''}
        <div class="mobile-pulse-row">
          <button type="button"
