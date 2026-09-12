@@ -951,8 +951,10 @@ th{color:#716c64}
 
 
 /* V2.41.4 — 收藏語意統一：★ 我的收藏 / ☆ 收藏 / ★ 已收藏 */
+/* V2.42.4 — 修正「我的收藏」啟用狀態：深色背景時文字保持白色可讀 */
 .favorite-tab{color:#7b5a35}
-.favorite-tab.active{color:inherit}
+.favorite-tab.active{color:#fff !important}
+.favorite-tab.active #favoriteCount{color:#fff}
 
 
 /* V2.41.5 — 手機版收藏按鈕縮小 */
