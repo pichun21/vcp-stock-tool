@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.0 POST-BREAKOUT 10D TRACKING + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.2 FAVORITES OUTSIDE RADAR + POST-BREAKOUT HIGH FIX + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1951,6 +1951,8 @@ function renderSingleFromRadarFallback(symbol,row){
 
   $('err').style.display='none';
   $('title').textContent=name ? `${name}（${symbol}）` : `${symbol} · ${currentMarket==='US'?'美股':'台股'}`;
+  currentSingleFavoriteData={...row,market:String(currentMarket).toUpperCase(),symbol:String(symbol).toUpperCase(),name:name||symbol,_favorite_only:false};
+  if(getFavorites().has(favoriteKey(currentMarket,symbol))) rememberFavoriteMeta(currentSingleFavoriteData);
   renderSingleFavorite(currentMarket,symbol);
   $('period').textContent=`${date || '最近一次雷達資料'}　·　已使用每日雷達備援`;
   $('state').textContent=stageLabel(row);
@@ -2096,6 +2098,20 @@ async function run(){
 
   updateSingleQuickRead(radarMatch,d,a,liveQuote);
 
+  const singlePrev=d.length>1?Number(d[d.length-2]?.close):NaN;
+  const singleLast=Number(a.last ?? d[d.length-1]?.close);
+  const singleChange=(Number.isFinite(singleLast)&&Number.isFinite(singlePrev)&&singlePrev!==0)?((singleLast/singlePrev)-1)*100:Number(radarMatch?.change_pct);
+  currentSingleFavoriteData={
+    market:String(currentMarket).toUpperCase(),symbol:String(s).toUpperCase(),name:stockName||s,
+    score:Number.isFinite(Number(a.pts))?Number(a.pts):null,pivot:Number.isFinite(Number(a.pivot))?Number(a.pivot):null,
+    distance:Number.isFinite(Number(a.distance))?Number(a.distance):null,change_pct:Number.isFinite(singleChange)?singleChange:null,
+    volume_dry:!!a.dry,type:radarMatch?.type||(a.todayBreakout?'breakout':(a.breakout?'postbreakout':(Number(a.distance)>-5?'near':'forming'))),
+    state:a.state,squeeze_level:radarMatch?.squeeze_level||a.squeezeLevel||'',squeeze_state:a.squeezeState||'',
+    momentum:radarMatch?.momentum||a.momentum||'',momentum_dir:radarMatch?.momentum_dir||'',combo:!!a.combo,
+    pulse_signal:radarMatch?.pulse_signal||'wait',pulse_label:radarMatch?.pulse_label||'⭐ 單股收藏',
+    contractions:Array.isArray(a.seq)?a.seq:[],data_date:d[d.length-1]?.date||'',_favorite_only:!radarMatch
+  };
+  if(getFavorites().has(favoriteKey(currentMarket,s))) rememberFavoriteMeta(currentSingleFavoriteData);
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   const liveNote=$('singleLiveNote');
   if(liveNote){
@@ -2320,19 +2336,50 @@ function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
 function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
 const FAVORITES_KEY='vcpulse_favorites_v1';
-function favoriteKey(market,symbol){ return `${market}:${symbol}`; }
+const FAVORITE_META_KEY='vcpulse_favorite_meta_v2';
+function favoriteKey(market,symbol){ return `${String(market||'').toUpperCase()}:${String(symbol||'').toUpperCase()}`; }
 function getFavorites(){
- try{ const x=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); return new Set(Array.isArray(x)?x:[]); }
+ try{ const x=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); return new Set(Array.isArray(x)?x.map(String):[]); }
  catch(e){ return new Set(); }
+}
+function getFavoriteMeta(){
+ try{ const x=JSON.parse(localStorage.getItem(FAVORITE_META_KEY)||'{}'); return (x&&typeof x==='object'&&!Array.isArray(x))?x:{}; }
+ catch(e){ return {}; }
+}
+function saveFavoriteMeta(meta){ localStorage.setItem(FAVORITE_META_KEY,JSON.stringify(meta||{})); }
+function favoriteFallbackRow(key,meta={}){
+ const [market='TW',...rest]=String(key||'').split(':');
+ const symbol=rest.join(':').toUpperCase();
+ return {
+   market:market.toUpperCase(),symbol,name:meta.name||symbol,
+   score:(meta.score!==null&&meta.score!==''&&Number.isFinite(Number(meta.score)))?Number(meta.score):null,
+   pivot:(meta.pivot!==null&&meta.pivot!==''&&Number.isFinite(Number(meta.pivot)))?Number(meta.pivot):null,
+   distance:(meta.distance!==null&&meta.distance!==''&&Number.isFinite(Number(meta.distance)))?Number(meta.distance):null,
+   change_pct:(meta.change_pct!==null&&meta.change_pct!==''&&Number.isFinite(Number(meta.change_pct)))?Number(meta.change_pct):null,
+   volume_dry:typeof meta.volume_dry==='boolean'?meta.volume_dry:null,
+   type:meta.type||'favorite',state:meta.state||'⭐ 單股收藏',
+   squeeze_level:meta.squeeze_level||'',squeeze_state:meta.squeeze_state||'',
+   momentum:meta.momentum||'',momentum_dir:meta.momentum_dir||'',
+   combo:!!meta.combo,pulse_signal:meta.pulse_signal||'wait',pulse_label:meta.pulse_label||'⭐ 單股收藏',
+   contractions:Array.isArray(meta.contractions)?meta.contractions:[],
+   data_date:meta.data_date||'',_favorite_only:true
+ };
+}
+function rememberFavoriteMeta(row){
+ if(!row || !row.market || !row.symbol) return;
+ const key=favoriteKey(row.market,row.symbol), meta=getFavoriteMeta();
+ meta[key]={...favoriteFallbackRow(key,row),...row,market:String(row.market).toUpperCase(),symbol:String(row.symbol).toUpperCase(),_favorite_only:!!row._favorite_only};
+ saveFavoriteMeta(meta);
 }
 function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
 function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
 let currentSingleFavorite={market:null,symbol:null};
+let currentSingleFavoriteData=null;
 function renderSingleFavorite(market,symbol){
  const btn=document.getElementById('singleFavorite');
  if(!btn) return;
- if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; return; }
- currentSingleFavorite={market:String(market),symbol:String(symbol).toUpperCase()};
+ if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; currentSingleFavoriteData=null; return; }
+ currentSingleFavorite={market:String(market).toUpperCase(),symbol:String(symbol).toUpperCase()};
  const fav=getFavorites().has(favoriteKey(currentSingleFavorite.market,currentSingleFavorite.symbol));
  btn.hidden=false;
  btn.textContent=fav?'★':'☆';
@@ -2340,33 +2387,34 @@ function renderSingleFavorite(market,symbol){
  btn.setAttribute('aria-label',fav?'取消收藏':'收藏股票');
  btn.title=fav?'取消收藏':'收藏股票';
 }
-function toggleFavorite(market,symbol){
- const set=getFavorites(), key=favoriteKey(market,symbol);
- if(set.has(key)) set.delete(key); else set.add(key);
+function toggleFavorite(market,symbol,row=null){
+ market=String(market||'').toUpperCase(); symbol=String(symbol||'').toUpperCase();
+ const set=getFavorites(), key=favoriteKey(market,symbol), meta=getFavoriteMeta();
+ if(set.has(key)){
+   set.delete(key); delete meta[key]; saveFavoriteMeta(meta);
+ }else{
+   set.add(key);
+   const source=row || findAnyRadarMatch(market,symbol) || favoriteFallbackRow(key);
+   rememberFavoriteMeta({...source,market,symbol,_favorite_only:!findAnyRadarMatch(market,symbol)});
+ }
  saveFavorites(set);
  renderRadar(radarFilter);
- if(currentSingleFavorite.market===String(market) && currentSingleFavorite.symbol===String(symbol).toUpperCase()){
+ if(currentSingleFavorite.market===market && currentSingleFavorite.symbol===symbol){
    renderSingleFavorite(market,symbol);
  }
 }
 function updateFavoriteCount(){
  const el=document.getElementById('favoriteCount');
  if(!el) return;
- const favs=getFavorites();
  const market=String(currentMarket||'TW').toUpperCase();
- const visible=(Array.isArray(radarRows)?radarRows:[]).filter(r=>
-   String(r.market||'').toUpperCase()===market &&
-   favs.has(favoriteKey(r.market,r.symbol))
- );
- // Count only favorites that actually exist in the currently selected
- // market + snapshot list, so the badge always matches the rows shown.
- el.textContent=visible.length;
+ const count=[...getFavorites()].filter(k=>String(k).toUpperCase().startsWith(`${market}:`)).length;
+ el.textContent=count;
 }
 const singleFavoriteBtn=document.getElementById('singleFavorite');
 if(singleFavoriteBtn){
  singleFavoriteBtn.addEventListener('click',()=>{
    const x=currentSingleFavorite;
-   if(x.market && x.symbol) toggleFavorite(x.market,x.symbol);
+   if(x.market && x.symbol) toggleFavorite(x.market,x.symbol,currentSingleFavoriteData);
  });
 }
 
@@ -2526,7 +2574,19 @@ async function refreshUserLiveQuotes(){
 function renderRadar(filter='all'){
  updateFavoriteCount();
  const body=$('radarBody'), mobile=$('radarMobile');
- const rows=radarRows.filter(r=>{
+ let sourceRows=Array.isArray(radarRows)?radarRows.slice():[];
+ // V2.42.2 — 收藏是使用者自己的清單，不應受 VCP 雷達入選名單限制。
+ // 單股分析收藏的非 VCP 標的，也要能在「我的收藏」重新找到。
+ if(filter==='favorites'){
+   const favs=getFavorites(), meta=getFavoriteMeta();
+   const seen=new Set(sourceRows.map(r=>favoriteKey(r.market,r.symbol)));
+   for(const key of favs){
+     if(seen.has(key)) continue;
+     sourceRows.push(favoriteFallbackRow(key,meta[key]||{}));
+     seen.add(key);
+   }
+ }
+ const rows=sourceRows.filter(r=>{
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
    return filter==='all' ||
    (filter==='favorites' ? isFavorite(r) :
@@ -2565,7 +2625,9 @@ function renderRadar(filter='all'){
  }
 
  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
- const stars=n=>'★'.repeat(Math.max(0,Math.min(5,n||0)))+'☆'.repeat(Math.max(0,5-(n||0)));
+ const stars=n=>Number.isFinite(Number(n))?('★'.repeat(Math.max(0,Math.min(5,Number(n))))+'☆'.repeat(Math.max(0,5-Math.min(5,Number(n))))):'—';
+ const fmtNum=(v,d=2)=>Number.isFinite(Number(v))?Number(v).toFixed(d):'—';
+ const fmtPctRaw=v=>Number.isFinite(Number(v))?`${Number(v).toFixed(1)}%`:'—';
  const contractionText=r=>(r.contractions||[]).map((x,i)=>`C${i+1} ${Math.round(x)}%`).join(' → ')||'—';
 
  body.innerHTML=rows.map(r=>`<tr data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
@@ -2579,10 +2641,10 @@ function renderRadar(filter='all'){
    <td>${esc(marketLabel(r.market))}</td>
    <td>${stars(r.score)}</td>
    
-   <td>${Number(r.pivot).toFixed(2)}</td>
+   <td>${fmtNum(r.pivot,2)}</td>
    <td>
      <div class="desktop-pivot-distance">
-       <b>${Number(r.distance).toFixed(1)}%</b>
+       <b>${fmtPctRaw(r.distance)}</b>
        ${(()=>{
          const pv=pivotDistanceVisual(r.distance);
          return `<div class="pivot-distance-track desktop-pivot-track" data-zone="${pv.zone}" aria-hidden="true">
@@ -2595,7 +2657,7 @@ function renderRadar(filter='all'){
    <td>${esc(volumeLabel(r))}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
-   <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高 ${esc(signedPct(r.breakout_high_pct))}</div>`:''}</td>
+   <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高漲幅 ${esc(signedPct(r.breakout_high_pct))}</div>`:''}</td>
    <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
  </tr>`).join('');
 
@@ -2683,8 +2745,13 @@ function renderRadar(filter='all'){
 
    mobile.innerHTML=mobileRows.map(r=>{
      const reasons=[];
-     if(r.is_new) reasons.push(`<div class="reason-item reason-new">🆕 ${esc(r.new_reason||'今日新進 VCP 雷達')}</div>`);
-     reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
+     if(r._favorite_only){
+       reasons.push(`<div class="reason-item reason-note">⭐ 由單股分析加入收藏；目前不在 VCP 雷達入選名單</div>`);
+       reasons.push(`<div class="reason-item reason-note">點「看 VCP 圖」可重新取得最新單股分析</div>`);
+     }else{
+       if(r.is_new) reasons.push(`<div class="reason-item reason-new">🆕 ${esc(r.new_reason||'今日新進 VCP 雷達')}</div>`);
+       reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
+     }
      if((r.contractions||[]).length>=2) reasons.push(`<div class="reason-item reason-ok">收縮：${esc(contractionText(r))}</div>`);
      if(r.volume_dry) reasons.push(`<div class="reason-item reason-ok">整理期間成交量呈現量縮</div>`);
      if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(squeezeLabel(r))}，波動處於壓縮狀態</div>`);
@@ -2696,8 +2763,8 @@ function renderRadar(filter='all'){
        reasons.push(`<div class="reason-item reason-ok">目前相對 Pivot ${signedPct(r.breakout_return_pct ?? r.distance)} · 突破後最高 ${signedPct(r.breakout_high_pct)}</div>`);
        reasons.push(`<div class="reason-item reason-ok">${r.holding_pivot?'仍守住 Pivot ✓':'需留意跌回 Pivot'}</div>`);
      }
-     else if(r.type==='near') reasons.push(`<div class="reason-item reason-ok">距 Pivot ${Number(r.distance).toFixed(1)}%，已進入接近區</div>`);
-     else reasons.push(`<div class="reason-item reason-note">型態仍在成形，距 Pivot ${Number(r.distance).toFixed(1)}%</div>`);
+     else if(!r._favorite_only && r.type==='near') reasons.push(`<div class="reason-item reason-ok">距 Pivot ${fmtPctRaw(r.distance)}，已進入接近區</div>`);
+     else if(!r._favorite_only) reasons.push(`<div class="reason-item reason-note">型態仍在成形，距 Pivot ${fmtPctRaw(r.distance)}</div>`);
 
      return `<div class="mobile-stock-card" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
@@ -2716,7 +2783,7 @@ function renderRadar(filter='all'){
        <div class="mobile-state">${esc(stageLabel(r))}</div>
        ${r.type==='postbreakout'?`<div class="mobile-postbreakout-performance" aria-label="突破後績效">
          <span>突破後 ${esc(signedPct(r.breakout_return_pct ?? r.distance))}</span>
-         <span class="high">最高 ${esc(signedPct(r.breakout_high_pct))}</span>
+         <span class="high">最高漲幅 ${esc(signedPct(r.breakout_high_pct))}</span>
        </div>`:''}
        <div class="mobile-pulse-row">
          <button type="button"
@@ -2726,8 +2793,8 @@ function renderRadar(filter='all'){
        
        ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}
        <div class="mobile-metrics">
-         <div class="mobile-metric">Pivot（突破價）<b>${Number(r.pivot).toFixed(2)}</b></div>
-         <div class="mobile-metric">距 Pivot<b>${Number(r.distance).toFixed(1)}%</b>
+         <div class="mobile-metric">Pivot（突破價）<b>${fmtNum(r.pivot,2)}</b></div>
+         <div class="mobile-metric">距 Pivot<b>${fmtPctRaw(r.distance)}</b>
           ${(()=>{
             const pv=pivotDistanceVisual(r.distance);
             return `<div class="pivot-distance-track" data-zone="${pv.zone}" aria-hidden="true">

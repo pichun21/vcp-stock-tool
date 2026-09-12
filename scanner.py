@@ -1,6 +1,6 @@
-# VCPulse BUILD 2.42.0 POST-BREAKOUT 10D TRACKING + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42.2 POST-BREAKOUT HIGH FIX + FAVORITES FRONTEND SUPPORT + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
-import argparse, json, time, os, re
+import argparse, json, time, os, re, math
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -593,8 +593,11 @@ def analyze(df,item,market):
             breakout_date=df.index[bi].strftime("%Y-%m-%d")
             # Keep Pivot as the reference price shown by the radar.
             breakout_return_pct=((last/pivot)-1)*100 if pivot else None
-            since=high.iloc[bi:]
-            hi=float(since.max()) if len(since) else last
+            # Highest traded price from breakout day through the latest bar.
+            # Use close as a safe fallback if a provider returns missing High values.
+            since=pd.to_numeric(high.iloc[bi:],errors="coerce").dropna()
+            hi=float(since.max()) if len(since) else float(pd.to_numeric(close.iloc[bi:],errors="coerce").max())
+            if not math.isfinite(hi): hi=last
             breakout_high_pct=((hi/pivot)-1)*100 if pivot else None
 
     return {
