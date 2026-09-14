@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.8 TODAY CHANGE BIDIRECTIONAL SORT + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1221,6 +1221,30 @@ th{color:#716c64}
   .theme-board-title{align-items:flex-start}
   .theme-board-actions{display:flex;align-items:center;gap:5px}
 }
+
+/* V2.42.8.1 — 今日漲幅排序方向獨立控制，避免 Safari 原生 select 重複點選誤切換 */
+.change-sort-dir{
+  display:none;
+  min-width:0;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid #ddd6ca;
+  border-radius:10px;
+  background:#fffdf9;
+  color:#5f584f;
+  font-size:17px;
+  font-weight:900;
+  line-height:1;
+  align-items:center;
+  justify-content:center;
+}
+.change-sort-dir.show{display:inline-flex}
+.change-sort-dir:active{transform:translateY(1px)}
+@media(max-width:760px){
+  .change-sort-dir{width:36px;height:36px}
+}
+
 </style><style>button.pulse-help-trigger{
   font:inherit!important;
   cursor:pointer;
@@ -1483,8 +1507,9 @@ th{color:#716c64}
           <option value="pivot">距 Pivot 最近</option>
           <option value="squeeze">Squeeze 最強</option>
           <option value="momentum">Momentum 最強</option>
-          <option value="change">今日漲幅 ↓</option>
+          <option value="change">今日漲幅</option>
         </select>
+        <button type="button" id="changeSortDirBtn" class="change-sort-dir" aria-label="切換今日漲幅排序方向" title="切換今日漲幅排序方向">↓</button>
         <div class="muted">預計顯示 4 分以上</div>
       </div>
     </div>
@@ -3645,44 +3670,45 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
  });
 });
 const radarSortSelect=document.getElementById('radarSort');
-if(radarSortSelect){
- radarSortSelect.value=radarSort;
+const changeSortDirBtn=document.getElementById('changeSortDirBtn');
 
- const updateChangeSortLabel=()=>{
-   const opt=radarSortSelect.querySelector('option[value="change"]');
-   if(opt) opt.textContent=radarChangeSortDir==='asc'?'今日漲幅 ↑':'今日漲幅 ↓';
- };
-
- let sortPointerStartValue='';
- let sortChangedDuringOpen=false;
-
- radarSortSelect.addEventListener('pointerdown',()=>{
-   sortPointerStartValue=radarSortSelect.value;
-   sortChangedDuringOpen=false;
- });
-
- radarSortSelect.addEventListener('change',()=>{
-   sortChangedDuringOpen=true;
-   radarSort=radarSortSelect.value;
-   if(radarSort==='change' && sortPointerStartValue!=='change') radarChangeSortDir='desc';
-   updateChangeSortLabel();
-   mobileRadarPage=1;
-   renderRadar(radarFilter);
- });
-
- radarSortSelect.addEventListener('click',()=>{
-   if(sortPointerStartValue==='change' && radarSortSelect.value==='change' && !sortChangedDuringOpen){
-     radarChangeSortDir=radarChangeSortDir==='desc'?'asc':'desc';
-     updateChangeSortLabel();
-     mobileRadarPage=1;
-     renderRadar(radarFilter);
-   }
-   sortPointerStartValue='';
-   sortChangedDuringOpen=false;
- });
-
- updateChangeSortLabel();
+function syncChangeSortDirectionUI(){
+  if(!changeSortDirBtn) return;
+  const active=radarSort==='change';
+  changeSortDirBtn.classList.toggle('show',active);
+  changeSortDirBtn.textContent=radarChangeSortDir==='asc'?'↑':'↓';
+  changeSortDirBtn.title=radarChangeSortDir==='asc'
+    ? '目前：跌最多 → 漲最多；點一下切換'
+    : '目前：漲最多 → 跌最多；點一下切換';
+  changeSortDirBtn.setAttribute('aria-label',changeSortDirBtn.title);
 }
+
+if(radarSortSelect){
+  radarSortSelect.value=radarSort;
+  radarSortSelect.addEventListener('change',()=>{
+    const next=radarSortSelect.value;
+    const enteringChange=next==='change' && radarSort!=='change';
+    radarSort=next;
+    if(enteringChange) radarChangeSortDir='desc';
+    mobileRadarPage=1;
+    syncChangeSortDirectionUI();
+    renderRadar(radarFilter);
+  });
+}
+
+if(changeSortDirBtn){
+  changeSortDirBtn.addEventListener('click',(e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    if(radarSort!=='change') return;
+    radarChangeSortDir=radarChangeSortDir==='desc'?'asc':'desc';
+    mobileRadarPage=1;
+    syncChangeSortDirectionUI();
+    renderRadar(radarFilter);
+  });
+}
+
+syncChangeSortDirectionUI();
 
 
 const userLiveRefreshBtn=document.getElementById('userLiveRefreshBtn');
