@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 import requests
+import certifi
 import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent
@@ -186,14 +187,38 @@ def _fetch_tpex_official_close():
     """
 
     def _json_list(url):
-        r = requests.get(
-            url, timeout=30,
-            headers={
-                "User-Agent": "Mozilla/5.0 (VCPulse; GitHub Actions)",
-                "Accept": "application/json"
-            }
-        )
-        r.raise_for_status()
+        headers = {
+            "User-Agent": "Mozilla/5.0 (VCPulse; GitHub Actions)",
+            "Accept": "application/json"
+        }
+
+        # First use certifi's CA bundle explicitly. Some GitHub Actions
+        # environments have an incomplete system certificate chain for TPEx.
+        try:
+            r = requests.get(
+                url,
+                timeout=30,
+                headers=headers,
+                verify=certifi.where(),
+            )
+            r.raise_for_status()
+        except requests.exceptions.SSLError as e:
+            # TPEx's public HTTPS chain can intermittently fail certificate
+            # validation in hosted runners even though the same endpoint is
+            # reachable in browsers. Retry only this official TPEx endpoint
+            # without certificate verification so benchmark refresh does not
+            # silently retain a stale prior-trading-day value.
+            print("TPEX SSL verify failed with certifi; retrying official TPEx endpoint:", repr(e))
+            import urllib3
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            r = requests.get(
+                url,
+                timeout=30,
+                headers=headers,
+                verify=False,
+            )
+            r.raise_for_status()
+
         payload = r.json()
         if isinstance(payload, list):
             return payload
