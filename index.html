@@ -2608,7 +2608,6 @@ function setMarket(m,{reset=true}={}){
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
  renderCapitalHotspots();
- renderThemeLeaderboards();
  const marketCount=(arr,m)=>arr.filter(x=>String(x.market||'').toUpperCase()===String(m||'TW').toUpperCase()).length;
  const officialCount=document.getElementById('officialCount');
  const intradayCount=document.getElementById('intradayCount');
@@ -4381,5 +4380,35 @@ document.addEventListener('click',(e)=>{
 /* V2.41.51 — mobile chart jump keeps stock identity visible below sticky login bar */
 @media(max-width:760px){
   #singleStockAnalysis .grid>.card:first-child{scroll-margin-top:calc(76px + env(safe-area-inset-top));}
+}
+</style>
+
+<style>
+/* V2.42.9 — mobile long US company names must not widen the whole page */
+@media(max-width:720px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .wrap,.grid,.grid>.card,.topline,.topline>div:first-child{min-width:0;max-width:100%}
+  .single-title-row{
+    display:flex !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    flex:1 1 auto !important;
+    align-items:flex-start !important;
+  }
+  .single-title-row .ticker{
+    flex:1 1 auto !important;
+    width:auto !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+    line-height:1.15 !important;
+  }
+  .single-title-row .single-title-favorite{
+    flex:0 0 21px !important;
+    margin-top:1px !important;
+  }
 }
 </style>
