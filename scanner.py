@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.42.7 PRODUCTION THEME RADAR + THEME NAME MAP GUARD-SAFE + PROD THEME + ALPHA138 DEDUP MAX + BREAKOUT METRICS HARD FIX + FAVORITES FRONTEND SUPPORT + CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42.8 PRODUCTION THEME RADAR + THEME NAME MAP GUARD-SAFE + PROD THEME + ALPHA138 DEDUP MAX + BREAKOUT METRICS HARD FIX + FAVORITES FRONTEND SUPPORT + CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re, math
 from pathlib import Path
@@ -202,8 +202,18 @@ def _fetch_tpex_official_close():
         if not parsed:
             return None
 
+        # TPEx OpenAPI Date is YYYYMMDD (e.g. 20260914). Normalize it to
+        # YYYY-MM-DD so it matches VCPulse market dates and same-day guards.
         parsed.sort(key=lambda x: x[0])
         ds, last, lastrow = parsed[-1]
+        ds_raw = str(ds or "").strip()
+        if re.fullmatch(r"\d{8}", ds_raw):
+            ds = f"{ds_raw[:4]}-{ds_raw[4:6]}-{ds_raw[6:8]}"
+        else:
+            try:
+                ds = pd.to_datetime(ds_raw, errors="raise").strftime("%Y-%m-%d")
+            except Exception:
+                ds = ds_raw
 
         change_raw = pick(lastrow, ["Change", "change", "漲跌", "指數漲跌", "ChangePoints"])
         pts = None
@@ -1628,7 +1638,13 @@ def main():
         accepted={}
         for key,val in (fresh or {}).items():
             ds=str((val or {}).get("data_time") or "")[:10]
-            if target_date and ds==str(target_date)[:10]:
+            # Defensive normalization for legacy/raw YYYYMMDD values.
+            if re.fullmatch(r"\d{8}", ds):
+                ds=f"{ds[:4]}-{ds[4:6]}-{ds[6:8]}"
+            target_ds=str(target_date or "")[:10]
+            if re.fullmatch(r"\d{8}", target_ds):
+                target_ds=f"{target_ds[:4]}-{target_ds[4:6]}-{target_ds[6:8]}"
+            if target_ds and ds==target_ds:
                 accepted[key]=val
             else:
                 print(f"TW BENCHMARK REFRESH: skip {key}; data_time={ds or 'NONE'} target={target_date or 'NONE'}")
