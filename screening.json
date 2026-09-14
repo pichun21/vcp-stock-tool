@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14 18:28",
+  "generated_at": "2026-09-14 19:07",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -12,8 +12,8 @@
     },
     "TW": {
       "data_date": "2026-09-14",
-      "count": 141,
-      "scanned_at": "2026-09-14 18:28",
+      "count": 142,
+      "scanned_at": "2026-09-14 19:07",
       "snapshot_type": "official"
     }
   },
@@ -26,8 +26,8 @@
     },
     "TW": {
       "data_date": "2026-09-14",
-      "count": 141,
-      "scanned_at": "2026-09-14 18:28",
+      "count": 142,
+      "scanned_at": "2026-09-14 19:07",
       "snapshot_type": "official"
     }
   },
@@ -50,11 +50,11 @@
       "TWSE": {
         "id": "^TWII",
         "label": "上市｜加權指數",
-        "close": 45880.95,
-        "change_points": -371.03,
-        "change_pct": -0.8,
-        "data_time": "2026-09-14 13:25",
-        "source": "Yahoo/yfinance intraday"
+        "close": 45862.52,
+        "change_points": -322.33,
+        "change_pct": -0.7,
+        "data_time": "2026-09-14",
+        "source": "Yahoo/yfinance daily official"
       },
       "TPEX": {
         "id": "tpex_index",
@@ -168,7 +168,7 @@
         "value_ratio": 0.99,
         "breadth_pct": 77.4,
         "avg_change_pct": 1.24,
-        "vcp_count": 23,
+        "vcp_count": 24,
         "breakout_count": 1,
         "vcp_stocks": [
           {
@@ -377,6 +377,15 @@
             "state": "🟡 接近 Pivot",
             "distance": -1.13,
             "pulse_label": "👀 觀察"
+          },
+          {
+            "symbol": "2867",
+            "name": "三商壽",
+            "score": 4,
+            "type": "near",
+            "state": "🟡 接近 Pivot",
+            "distance": -2.02,
+            "pulse_label": "⏳ 等待"
           }
         ],
         "breakout_stocks": [
@@ -1679,7 +1688,7 @@
           "strongBreadthPct": 14,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 46,
+          "priceStrengthScore": 45,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 9,
@@ -1720,62 +1729,7 @@
               "name": "台光電"
             }
           ],
-          "marketReturnPct": -0.8
-        },
-        {
-          "theme": "AI電力基建",
-          "constituents": 8,
-          "effectiveWeight": 4.31,
-          "heat": 23,
-          "setup": 17,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 26,
-          "strongBreadthPct": 0,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 39,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "Power Rack",
-            "資料中心電源"
-          ],
-          "topStocks": [
-            "2301",
-            "6412",
-            "2308",
-            "1514",
-            "6282"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "2301",
-              "name": "光寶科"
-            },
-            {
-              "symbol": "6412",
-              "name": "群電"
-            },
-            {
-              "symbol": "2308",
-              "name": "台達電"
-            },
-            {
-              "symbol": "1514",
-              "name": "亞力"
-            },
-            {
-              "symbol": "6282",
-              "name": "康舒"
-            }
-          ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "CPO/矽光子",
@@ -1789,7 +1743,7 @@
           "strongBreadthPct": 15,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 37,
+          "priceStrengthScore": 36,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 15,
           "vcpQualityScore": 12,
@@ -1830,13 +1784,68 @@
               "name": "訊芯-KY"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
+        },
+        {
+          "theme": "AI電力基建",
+          "constituents": 8,
+          "effectiveWeight": 4.31,
+          "heat": 22,
+          "setup": 17,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 26,
+          "strongBreadthPct": 0,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 38,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "Power Rack",
+            "資料中心電源"
+          ],
+          "topStocks": [
+            "2301",
+            "6412",
+            "2308",
+            "1514",
+            "6282"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "2301",
+              "name": "光寶科"
+            },
+            {
+              "symbol": "6412",
+              "name": "群電"
+            },
+            {
+              "symbol": "2308",
+              "name": "台達電"
+            },
+            {
+              "symbol": "1514",
+              "name": "亞力"
+            },
+            {
+              "symbol": "6282",
+              "name": "康舒"
+            }
+          ],
+          "marketReturnPct": -0.7
         },
         {
           "theme": "低軌衛星",
           "constituents": 11,
           "effectiveWeight": 4.73,
-          "heat": 21,
+          "heat": 20,
           "setup": 21,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1844,7 +1853,7 @@
           "strongBreadthPct": 0,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 40,
+          "priceStrengthScore": 39,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 7,
           "vcpQualityScore": 6,
@@ -1885,7 +1894,7 @@
               "name": "啟碁"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "AI伺服器",
@@ -1899,7 +1908,7 @@
           "strongBreadthPct": 0,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 28,
+          "priceStrengthScore": 27,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 41,
           "vcpQualityScore": 33,
@@ -1940,7 +1949,7 @@
               "name": "緯穎"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         }
       ],
       "setupTop5": [
@@ -1956,7 +1965,7 @@
           "strongBreadthPct": 0,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 28,
+          "priceStrengthScore": 27,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 41,
           "vcpQualityScore": 33,
@@ -1997,7 +2006,7 @@
               "name": "緯穎"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "液冷",
@@ -2047,7 +2056,7 @@
               "name": "高力"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "CPO/矽光子",
@@ -2061,7 +2070,7 @@
           "strongBreadthPct": 15,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 37,
+          "priceStrengthScore": 36,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 15,
           "vcpQualityScore": 12,
@@ -2102,7 +2111,7 @@
               "name": "訊芯-KY"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "高速光通訊",
@@ -2116,7 +2125,7 @@
           "strongBreadthPct": 12,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 23,
+          "priceStrengthScore": 22,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 11,
           "vcpQualityScore": 9,
@@ -2157,13 +2166,13 @@
               "name": "波若威"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         },
         {
           "theme": "低軌衛星",
           "constituents": 11,
           "effectiveWeight": 4.73,
-          "heat": 21,
+          "heat": 20,
           "setup": 21,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -2171,7 +2180,7 @@
           "strongBreadthPct": 0,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 40,
+          "priceStrengthScore": 39,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 7,
           "vcpQualityScore": 6,
@@ -2212,7 +2221,7 @@
               "name": "啟碁"
             }
           ],
-          "marketReturnPct": -0.8
+          "marketReturnPct": -0.7
         }
       ]
     }
@@ -6725,6 +6734,13 @@
         "prev_close": 26.7,
         "data_date": "2026-07-28",
         "name": "健亞",
+        "source": "VCPulse scanner"
+      },
+      "2867": {
+        "price": 9.7,
+        "prev_close": 9.7,
+        "data_date": "2026-09-11",
+        "name": "三商壽",
         "source": "VCPulse scanner"
       },
       "5371": {
@@ -78676,6 +78692,45 @@
     },
     {
       "market": "TW",
+      "symbol": "2867",
+      "name": "三商壽",
+      "exchange": "TWSE",
+      "score": 4,
+      "contracts": "-0% → -0% → -0% → -0%",
+      "pivot": 9.9,
+      "last": 9.7,
+      "distance": -2.02,
+      "change_pct": 0.0,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↗ 空方減弱",
+      "momentum_dir": "bear_up",
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "空方減弱"
+      ],
+      "data_date": "2026-09-11",
+      "avg_value_20d": 51081453.0,
+      "industry": "金融保險",
+      "split_adjusted": false,
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
       "symbol": "9933",
       "name": "中鼎",
       "exchange": "TWSE",
@@ -89939,6 +89994,45 @@
       "data_date": "2026-09-14",
       "avg_value_20d": 80262406.0,
       "industry": "化學生技醫療",
+      "split_adjusted": false,
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "2867",
+      "name": "三商壽",
+      "exchange": "TWSE",
+      "score": 4,
+      "contracts": "-0% → -0% → -0% → -0%",
+      "pivot": 9.9,
+      "last": 9.7,
+      "distance": -2.02,
+      "change_pct": 0.0,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↗ 空方減弱",
+      "momentum_dir": "bear_up",
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "空方減弱"
+      ],
+      "data_date": "2026-09-11",
+      "avg_value_20d": 51081453.0,
+      "industry": "金融保險",
       "split_adjusted": false,
       "is_new": false,
       "new_reason": ""
