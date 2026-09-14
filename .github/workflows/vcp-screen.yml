@@ -13,6 +13,7 @@ on:
           - intraday_US
           - official_TW
           - official_US
+          - benchmark_TW
           - both
   schedule:
     # 台股盤中完整重掃：09:10、09:30、10:00、10:30、11:00、11:30、12:00、12:30、13:00
@@ -25,6 +26,11 @@ on:
 
     # 台股正式收盤
     - cron: "10 18 * * 1-5"
+      timezone: "Asia/Taipei"
+
+    # 台股收盤大盤補更新：TPEx 官方櫃買指數有時晚於 18:10 才發布
+    # 只更新 benchmark，不重掃約 2,000 檔股票
+    - cron: "15 19 * * 1-5"
       timezone: "Asia/Taipei"
 
     # 美股盤中完整重掃：美東時間 09:30～15:30，每 1 小時一次
@@ -65,11 +71,15 @@ jobs:
               intraday_US) echo "market=US" >> "$GITHUB_OUTPUT"; echo "snapshot=intraday" >> "$GITHUB_OUTPUT" ;;
               official_TW) echo "market=TW" >> "$GITHUB_OUTPUT"; echo "snapshot=official" >> "$GITHUB_OUTPUT" ;;
               official_US) echo "market=US" >> "$GITHUB_OUTPUT"; echo "snapshot=official" >> "$GITHUB_OUTPUT" ;;
+              benchmark_TW) echo "market=TW" >> "$GITHUB_OUTPUT"; echo "snapshot=benchmark" >> "$GITHUB_OUTPUT" ;;
               both) echo "market=both" >> "$GITHUB_OUTPUT"; echo "snapshot=auto" >> "$GITHUB_OUTPUT" ;;
             esac
           elif [ "${{ github.event.schedule }}" = "10 18 * * 1-5" ]; then
             echo "market=TW" >> "$GITHUB_OUTPUT"
             echo "snapshot=official" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "15 19 * * 1-5" ]; then
+            echo "market=TW" >> "$GITHUB_OUTPUT"
+            echo "snapshot=benchmark" >> "$GITHUB_OUTPUT"
           elif [ "${{ github.event.schedule }}" = "10 7 * * 2-6" ]; then
             echo "market=US" >> "$GITHUB_OUTPUT"
             echo "snapshot=official" >> "$GITHUB_OUTPUT"
@@ -85,7 +95,11 @@ jobs:
         run: |
           echo "Market: ${{ steps.target.outputs.market }}"
           echo "Snapshot: ${{ steps.target.outputs.snapshot }}"
-          python scanner.py --market "${{ steps.target.outputs.market }}" --snapshot "${{ steps.target.outputs.snapshot }}"
+          if [ "${{ steps.target.outputs.snapshot }}" = "benchmark" ]; then
+            python scanner.py --market TW --benchmark-only
+          else
+            python scanner.py --market "${{ steps.target.outputs.market }}" --snapshot "${{ steps.target.outputs.snapshot }}"
+          fi
 
       - name: Commit screening result
         shell: bash
