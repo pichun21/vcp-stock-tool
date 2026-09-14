@@ -178,12 +178,14 @@ def _normalize_tw_market_date(value):
 
 
 def _fetch_tpex_official_close():
-    """Official TPEx historical close fallback.
-    The public OpenAPI is end-of-day/historical, so it is NOT used as the first
-    source for an intraday snapshot.
+    """Fetch the latest official TPEx OTC market close.
+
+    Prefer TPEx's current market summary endpoint because the historical
+    tpex_index feed can lag behind the public market page. Fall back to the
+    historical endpoint only when the current-market endpoint is unavailable.
     """
-    try:
-        url = "https://www.tpex.org.tw/openapi/v1/tpex_index"
+
+    def _json_list(url):
         r = requests.get(
             url, timeout=30,
             headers={
@@ -192,57 +194,110 @@ def _fetch_tpex_official_close():
             }
         )
         r.raise_for_status()
-        data = r.json()
-        if isinstance(data, dict):
-            data = data.get("data") or data.get("results") or data.get("result") or []
-        if not isinstance(data, list) or not data:
+        payload = r.json()
+        if isinstance(payload, list):
+            return payload
+        if isinstance(payload, dict):
+            for key in ("data", "results", "result"):
+                v = payload.get(key)
+                if isinstance(v, list):
+                    return v
+        return []
+
+    def _pick(row, names):
+        if not isinstance(row, dict):
+            return None
+        for n in names:
+            if n in row and row[n] not in (None, ""):
+                return row[n]
+        normalized = {
+            str(k).lower().replace(" ", "").replace("_", ""): v
+            for k, v in row.items()
+        }
+        for n in names:
+            nk = str(n).lower().replace(" ", "").replace("_", "")
+            if nk in normalized and normalized[nk] not in (None, ""):
+                return normalized[nk]
+        return None
+
+    def _num(v):
+        if v in (None, ""):
+            return None
+        s = str(v).strip().replace(",", "").replace("+", "")
+        # TPEx may use symbols around the numeric value.
+        s = re.sub(r"[^0-9.\-]", "", s)
+        if not s or s in ("-", ".", "-."):
+            return None
+        try:
+            return float(s)
+        except Exception:
             return None
 
-        def pick(row, names):
-            for n in names:
-                if n in row and row[n] not in (None, ""):
-                    return row[n]
-            normalized = {
-                str(k).lower().replace(" ", "").replace("_", ""): v
-                for k, v in row.items()
+    # 1) Current market summary: this is the dataset behind the current
+    #    "上櫃大盤走勢" information and is preferred for same-day close.
+    try:
+        url = "https://www.tpex.org.tw/openapi/v1/tpex_mainborad_highlight"
+        rows = _json_list(url)
+        candidates = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            ds_raw = _pick(row, ["資料日期", "Date", "date", "日期"])
+            close_raw = _pick(row, ["收市指數", "收盤指數", "收市", "Close", "close"])
+            pts_raw = _pick(row, ["指數漲跌", "漲跌點數", "漲跌", "Change", "change"])
+            close = _num(close_raw)
+            pts = _num(pts_raw)
+            if close is None:
+                continue
+            ds = _normalize_tw_market_date(ds_raw)
+            candidates.append((ds, str(ds_raw or ""), close, pts, row))
+
+        if candidates:
+            candidates.sort(key=lambda x: x[0])
+            ds, ds_raw, last, pts, row = candidates[-1]
+            if pts is None:
+                pts = 0.0
+            prev = last - pts
+            pct = (pts / prev * 100) if prev else 0.0
+            print(
+                "TPEX current market parsed:",
+                f"raw_date={ds_raw} normalized_date={ds} close={last} change={pts}"
+            )
+            return {
+                "id": "tpex_index",
+                "label": "上櫃｜櫃買指數",
+                "close": round(last, 2),
+                "change_points": round(pts, 2),
+                "change_pct": round(pct, 2),
+                "data_time": ds,
+                "source": "TPEx current market summary"
             }
-            for n in names:
-                nk = str(n).lower().replace(" ", "").replace("_", "")
-                if nk in normalized and normalized[nk] not in (None, ""):
-                    return normalized[nk]
-            return None
+    except Exception as e:
+        print("benchmark TPEX current-market warning:", repr(e))
 
+    # 2) Historical fallback.
+    try:
+        url = "https://www.tpex.org.tw/openapi/v1/tpex_index"
+        data = _json_list(url)
         parsed = []
         for row in data:
             if not isinstance(row, dict):
                 continue
-            ds = pick(row, ["Date", "date", "資料日期", "日期"])
-            cv = pick(row, ["Close", "close", "收市", "收盤", "收市指數", "Index", "index"])
-            if cv in (None, ""):
+            ds_raw = _pick(row, ["Date", "date", "資料日期", "日期"])
+            cv = _pick(row, ["Close", "close", "收市", "收盤", "收市指數", "收盤指數", "Index", "index"])
+            close = _num(cv)
+            if close is None:
                 continue
-            try:
-                c = float(str(cv).replace(",", ""))
-            except Exception:
-                continue
-            parsed.append((str(ds or ""), c, row))
+            parsed.append((str(ds_raw or ""), close, row))
         if not parsed:
             return None
 
-        # TPEx historical-index dates may be Gregorian YYYYMMDD or ROC yyyMMdd
-        # (for example 1150914 == 2026-09-14). Sort by normalized Gregorian
-        # date, then return the newest row. This prevents a valid same-day TPEx
-        # close from being rejected by the benchmark same-day guard.
         parsed.sort(key=lambda x: _normalize_tw_market_date(x[0]))
         ds_raw, last, lastrow = parsed[-1]
         ds = _normalize_tw_market_date(ds_raw)
 
-        change_raw = pick(lastrow, ["Change", "change", "漲跌", "指數漲跌", "ChangePoints"])
-        pts = None
-        if change_raw not in (None, ""):
-            try:
-                pts = float(str(change_raw).replace(",", "").replace("+", ""))
-            except Exception:
-                pts = None
+        change_raw = _pick(lastrow, ["Change", "change", "漲跌", "指數漲跌", "漲跌點數", "ChangePoints"])
+        pts = _num(change_raw)
         if pts is None and len(parsed) >= 2:
             pts = last - parsed[-2][1]
         if pts is None:
@@ -250,7 +305,10 @@ def _fetch_tpex_official_close():
 
         prev = last - pts
         pct = (pts / prev * 100) if prev else 0.0
-        print(f"TPEX official close parsed: raw_date={ds_raw} normalized_date={ds} close={last}")
+        print(
+            "TPEX historical fallback parsed:",
+            f"raw_date={ds_raw} normalized_date={ds} close={last} change={pts}"
+        )
         return {
             "id": "tpex_index",
             "label": "上櫃｜櫃買指數",
@@ -258,10 +316,10 @@ def _fetch_tpex_official_close():
             "change_points": round(pts, 2),
             "change_pct": round(pct, 2),
             "data_time": ds,
-            "source": "TPEx official close"
+            "source": "TPEx historical official close"
         }
     except Exception as e:
-        print("benchmark TPEX official warning:", repr(e))
+        print("benchmark TPEX historical warning:", repr(e))
         return None
 
 
