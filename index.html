@@ -2271,7 +2271,11 @@ async function run(){
   let d=normalizeData(j.data,currentMarket);
   const restoreEvents=getRestoreEvents(currentMarket,s);
   if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
-  let a=analyze(d),stockName=resolvedName || await getStockName(s,currentMarket);
+  const radarMatch=findLatestRadarMatch(currentMarket,s);
+  // Keep the company name identical to Daily Radar whenever the symbol exists there.
+  // Yahoo/FinMind metadata can add legal suffixes such as "Common Stock", while
+  // the scanner stores the cleaned display name used throughout VCPulse.
+  let a=analyze(d),stockName=resolvedName || String(radarMatch?.name||'').trim() || await getStockName(s,currentMarket);
   a.restoreEvents=restoreEvents;
   const restoreNote=$('singleRestoreNote');
   if(restoreNote){
@@ -2295,7 +2299,6 @@ async function run(){
 
   // If this stock exists in today's radar, use the SAME scanner result for the
   // headline VCP metrics. This keeps single-stock analysis and Daily Radar consistent.
-  const radarMatch=findLatestRadarMatch(currentMarket,s);
   let liveQuote=null;
   try{
     liveQuote=await getSingleLatestQuote(currentMarket,s);

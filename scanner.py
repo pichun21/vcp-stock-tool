@@ -515,10 +515,12 @@ def clean_us_company_name(name, symbol=""):
     # Examples from constituent source:
     # "Integer Holdings Corp $126.37 +0.13% Latest trade · 9 Sep"
     # "AtriCure, Inc. $53.10 -1.18% Latest trade · 9 Sep"
-    s=re.sub(r"\s+\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%\s+Latest\s+trade\b.*$","",s,flags=re.I)
-    s=re.sub(r"\s+Latest\s+trade\b.*$","",s,flags=re.I)
+    # "Pediatrix Medical Group, Inc. $26.77 +0.15% Close · 11 Sep"
+    quote_tail=r"\s+\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%"
+    s=re.sub(quote_tail+r"\s+(?:Latest\s+trade|Close)\b.*$","",s,flags=re.I)
+    s=re.sub(r"\s+(?:Latest\s+trade|Close)\b\s*[·|\-]?\s*\d{1,2}\s+[A-Za-z]{3,9}\s*$","",s,flags=re.I)
     # Conservative trailing quote cleanup if wording changes but price/change remains.
-    s=re.sub(r"\s+\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%\s*$","",s)
+    s=re.sub(quote_tail+r"\s*$","",s,flags=re.I)
     s=re.sub(r"\s{2,}"," ",s).strip(" ·|-")
     return s or str(symbol or "").strip()
 
