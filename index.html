@@ -2474,9 +2474,51 @@ function themeStockDisplayName(code){
  return name && name.toUpperCase()!==c ? name : '';
 }
 
+let themeReturnState=null;
+
+function rememberThemePosition(symbol,sourceEl){
+ themeReturnState={
+   symbol:String(symbol||'').toUpperCase(),
+   scrollY:window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+   element:sourceEl || null
+ };
+ const btn=document.getElementById('radarBackFloat');
+ if(btn){
+   btn.hidden=false;
+   btn.textContent='← 返回題材雷達';
+   btn.setAttribute('onclick','returnToThemePosition()');
+ }
+}
+
+function returnToThemePosition(){
+ if(!themeReturnState) return;
+ const saved=themeReturnState;
+ let target=saved.element;
+ if(!target || !document.documentElement.contains(target)){
+   target=[...document.querySelectorAll('[data-theme-stock]')].find(el=>String(el.dataset.themeStock||'').toUpperCase()===saved.symbol) || null;
+ }
+ if(target){
+   const row=target.closest('.theme-row') || target;
+   if(row.classList.contains('theme-row')) row.classList.add('theme-stocks-open');
+   try{ row.scrollIntoView({behavior:'smooth',block:'center'}); }
+   catch(e){ row.scrollIntoView(); }
+   row.classList.remove('radar-return-highlight-3s');
+   void row.offsetWidth;
+   row.classList.add('radar-return-highlight-3s');
+   setTimeout(()=>{ if(row && document.documentElement.contains(row)) row.classList.remove('radar-return-highlight-3s'); },3000);
+ }else{
+   const y=Number(saved.scrollY)||0;
+   try{ window.scrollTo({top:y,behavior:'smooth'}); }
+   catch(e){ window.scrollTo(0,y); }
+ }
+ const btn=document.getElementById('radarBackFloat');
+ if(btn) btn.hidden=true;
+}
+
 async function openThemeStock(symbol,sourceEl){
  const code=String(symbol||'').toUpperCase();
  if(!code) return;
+ rememberThemePosition(code,sourceEl);
  setMarket('TW',{reset:false});
  $('symbol').value=code;
  const singleSection=$('symbol')?.closest('.section') || $('symbol');
@@ -2805,7 +2847,7 @@ function rememberRadarPosition(market,symbol,sourceEl){
    element:sourceEl || null
  };
  const btn=document.getElementById('radarBackFloat');
- if(btn) btn.hidden=false;
+ if(btn){ btn.hidden=false; btn.textContent='← 返回剛才清單'; btn.setAttribute('onclick','returnToRadarPosition()'); }
 }
 
 function returnToRadarPosition(){
