@@ -1606,6 +1606,7 @@ def recover_previous_official_tw(current_data_date):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--market",choices=["TW","US","both"],default="both")
+    ap.add_argument("--benchmark-only", action="store_true", help="Refresh TW official benchmark cards only; do not rescan stocks.")
     ap.add_argument(
         "--snapshot",
         choices=["auto","intraday","official"],
@@ -1613,6 +1614,38 @@ def main():
         help="Where to store this run. Manual Actions should pass intraday/official explicitly."
     )
     args=ap.parse_args()
+
+    # V2.42.7: lightweight post-close benchmark refresh.
+    # TPEx may publish the official OTC index later than the 18:10 stock scan,
+    # so the 19:15 workflow can refresh only the benchmark cards without
+    # rescanning the full TW universe or changing radar/theme results.
+    if args.benchmark_only:
+        old=load_existing()
+        official_benchmarks=dict(old.get("official_benchmarks",{}) or {})
+        target_date=((old.get("official_markets",{}) or {}).get("TW") or {}).get("data_date")
+        fresh=fetch_tw_benchmarks(official=True)
+
+        accepted={}
+        for key,val in (fresh or {}).items():
+            ds=str((val or {}).get("data_time") or "")[:10]
+            if target_date and ds==str(target_date)[:10]:
+                accepted[key]=val
+            else:
+                print(f"TW BENCHMARK REFRESH: skip {key}; data_time={ds or 'NONE'} target={target_date or 'NONE'}")
+
+        if not accepted:
+            print("TW BENCHMARK REFRESH: no same-day official benchmark available yet; screening.json unchanged.")
+            return
+
+        prev=dict(official_benchmarks.get("TW",{}) or {})
+        prev.update(accepted)
+        official_benchmarks["TW"]=prev
+        old["official_benchmarks"]=official_benchmarks
+        old["generated_at"]=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
+        old["benchmark_refreshed_at"]=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
+        OUT.write_text(json.dumps(old,ensure_ascii=False,indent=2),encoding="utf-8")
+        print("TW BENCHMARK REFRESH updated:", {k:{"close":v.get("close"),"data_time":v.get("data_time"),"source":v.get("source")} for k,v in accepted.items()})
+        return
 
     global OFFICIAL_RESTORE_EVENTS
     OFFICIAL_RESTORE_EVENTS=fetch_official_restore_events()
