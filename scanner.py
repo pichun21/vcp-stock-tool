@@ -151,6 +151,32 @@ def _yf_index_daily_snapshot(ticker, label):
     return None
 
 
+def _normalize_tw_market_date(value):
+    """Normalize Gregorian/ROC compact market dates to YYYY-MM-DD.
+
+    Handles examples used by Taiwan market sources:
+      20260914 -> 2026-09-14
+      1150914  -> 2026-09-14  (ROC year 115)
+      2026/09/14, 2026-09-14 -> 2026-09-14
+    Returns the original trimmed text if it cannot be normalized.
+    """
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    digits = re.sub(r"\D", "", raw)
+    try:
+        if re.fullmatch(r"\d{8}", digits):
+            y, m, d = int(digits[:4]), int(digits[4:6]), int(digits[6:8])
+            return f"{y:04d}-{m:02d}-{d:02d}"
+        if re.fullmatch(r"\d{7}", digits):
+            # TPEx historical index commonly uses ROC yyyMMdd, e.g. 1150914.
+            roc_y, m, d = int(digits[:3]), int(digits[3:5]), int(digits[5:7])
+            return f"{roc_y + 1911:04d}-{m:02d}-{d:02d}"
+        return pd.to_datetime(raw, errors="raise").strftime("%Y-%m-%d")
+    except Exception:
+        return raw
+
+
 def _fetch_tpex_official_close():
     """Official TPEx historical close fallback.
     The public OpenAPI is end-of-day/historical, so it is NOT used as the first
@@ -202,18 +228,13 @@ def _fetch_tpex_official_close():
         if not parsed:
             return None
 
-        # TPEx OpenAPI Date is YYYYMMDD (e.g. 20260914). Normalize it to
-        # YYYY-MM-DD so it matches VCPulse market dates and same-day guards.
-        parsed.sort(key=lambda x: x[0])
-        ds, last, lastrow = parsed[-1]
-        ds_raw = str(ds or "").strip()
-        if re.fullmatch(r"\d{8}", ds_raw):
-            ds = f"{ds_raw[:4]}-{ds_raw[4:6]}-{ds_raw[6:8]}"
-        else:
-            try:
-                ds = pd.to_datetime(ds_raw, errors="raise").strftime("%Y-%m-%d")
-            except Exception:
-                ds = ds_raw
+        # TPEx historical-index dates may be Gregorian YYYYMMDD or ROC yyyMMdd
+        # (for example 1150914 == 2026-09-14). Sort by normalized Gregorian
+        # date, then return the newest row. This prevents a valid same-day TPEx
+        # close from being rejected by the benchmark same-day guard.
+        parsed.sort(key=lambda x: _normalize_tw_market_date(x[0]))
+        ds_raw, last, lastrow = parsed[-1]
+        ds = _normalize_tw_market_date(ds_raw)
 
         change_raw = pick(lastrow, ["Change", "change", "漲跌", "指數漲跌", "ChangePoints"])
         pts = None
@@ -229,6 +250,7 @@ def _fetch_tpex_official_close():
 
         prev = last - pts
         pct = (pts / prev * 100) if prev else 0.0
+        print(f"TPEX official close parsed: raw_date={ds_raw} normalized_date={ds} close={last}")
         return {
             "id": "tpex_index",
             "label": "上櫃｜櫃買指數",
@@ -1637,13 +1659,8 @@ def main():
 
         accepted={}
         for key,val in (fresh or {}).items():
-            ds=str((val or {}).get("data_time") or "")[:10]
-            # Defensive normalization for legacy/raw YYYYMMDD values.
-            if re.fullmatch(r"\d{8}", ds):
-                ds=f"{ds[:4]}-{ds[4:6]}-{ds[6:8]}"
-            target_ds=str(target_date or "")[:10]
-            if re.fullmatch(r"\d{8}", target_ds):
-                target_ds=f"{target_ds[:4]}-{target_ds[4:6]}-{target_ds[6:8]}"
+            ds=_normalize_tw_market_date((val or {}).get("data_time"))
+            target_ds=_normalize_tw_market_date(target_date)
             if target_ds and ds==target_ds:
                 accepted[key]=val
             else:
