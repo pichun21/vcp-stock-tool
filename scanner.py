@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.2 FAVORITES FRONTEND SUPPORT + 2.41.47 CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.42.7 PRODUCTION THEME RADAR + THEME NAME MAP GUARD-SAFE + PROD THEME + ALPHA138 DEDUP MAX + BREAKOUT METRICS HARD FIX + FAVORITES FRONTEND SUPPORT + CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re, math
 from pathlib import Path
@@ -12,6 +12,7 @@ import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "screening.json"
+THEME_DB = ROOT / "data" / "vcpulse_themes_v2_6_score_calibration.json"
 FINMIND = "https://api.finmindtrade.com/api/v4/data"
 TAIPEI = ZoneInfo("Asia/Taipei")
 
@@ -1160,6 +1161,206 @@ def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
         })
     return rows
 
+
+def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0, topn=5):
+    """Production-safe Theme engine merge.
+
+    Heat is calculated from *all observed Taiwan-market constituents* in the theme,
+    while VCP-specific breakout / near-Pivot / quality / dry-up / NEW signals come
+    from the radar candidates. This keeps the frozen V2.6 scoring logic but fixes
+    the V2.42 candidate-only denominator that made most themes ineligible.
+    """
+    if not market_rows or not THEME_DB.exists():
+        return {"themeTop5":[],"setupTop5":[]}
+    try:
+        db=json.loads(THEME_DB.read_text(encoding="utf-8"))
+    except Exception as e:
+        print("theme db warning",e)
+        return {"themeTop5":[],"setupTop5":[]}
+
+    taxonomy=db.get("themeTaxonomy") or {}
+    rankable=taxonomy.get("rankable_index") or {}
+    stocks=db.get("stocks") or {}
+    if not rankable:
+        return {"themeTop5":[],"setupTop5":[]}
+
+    by_market={str(r.get("symbol")):r for r in (market_rows or []) if r.get("symbol")}
+    by_candidate={str(r.get("symbol")):r for r in (candidate_rows or []) if r.get("symbol")}
+    grade_w={"A":1.0,"B":.75,"C":.45,"D":.20}
+
+    def clamp(x,a=0,b=100):
+        try: return max(a,min(b,float(x)))
+        except Exception: return a
+
+    def scale(x,a,b):
+        return clamp((float(x)-a)/(b-a)*100) if b!=a else 0
+
+    def membership(code,theme):
+        sd=stocks.get(str(code),{})
+        metas=[]
+        aliases=(taxonomy.get("canonical_groups") or {}).get(theme,{}).get("aliases",[])
+        aliases=set(list(aliases)+[theme])
+        for raw,meta in (sd.get("themes") or {}).items():
+            canon=(taxonomy.get("alias_to_canonical") or {}).get(raw,raw)
+            if canon==theme or raw in aliases:
+                metas.append(meta)
+        if not metas:
+            return 0.0,[]
+        def meta_weight(m):
+            if m.get("confidence",0)<60:
+                return 0.0
+            return (
+                grade_w.get(m.get("grade"),0) *
+                (.40+.60*m.get("purity",0)/100) *
+                (.50+.50*m.get("confidence",0)/100)
+            )
+        # Alpha138 production rule: within the audited overlapping canonical
+        # families, one stock contributes only its strongest membership weight.
+        dedup_max_families={"重電/強韌電網","AI PCB","AI電力基建","國防航太","低軌衛星"}
+        if theme in dedup_max_families:
+            best=max(metas,key=meta_weight)
+        else:
+            best=max(metas,key=lambda m:(m.get("confidence",0),m.get("purity",0)))
+        w=meta_weight(best)
+        if w<=0:
+            return 0.0,[]
+        return w,best.get("segments") or []
+
+    out=[]
+    for theme,info in rankable.items():
+        members=[]; segw={}
+        for code in info.get("codes",[]):
+            code=str(code)
+            m=by_market.get(code)
+            if not m:
+                continue
+            w,segs=membership(code,theme)
+            if w<=0:
+                continue
+            members.append({"code":code,"m":m,"c":by_candidate.get(code),"raw_w":w})
+            for seg in segs:
+                segw[seg]=segw.get(seg,0)+w
+
+        raw_sw=sum(x["raw_w"] for x in members)
+        # Frozen V2.6 eligibility: at least four observed members and effectiveWeight >= 2.
+        if len(members)<4 or raw_sw<2:
+            continue
+
+        # Frozen stress-test guardrail: no single stock contributes more than 25%
+        # of a theme metric. Eligibility/effectiveWeight still uses the uncapped DB weight.
+        cap=raw_sw*0.25
+        for x in members:
+            x["w"]=min(x["raw_w"],cap)
+        sw=sum(x["w"] for x in members) or 1.0
+
+        def frac(fn):
+            return sum(x["w"] for x in members if fn(x))/sw*100
+        def wmean(fn):
+            return sum(fn(x)*x["w"] for x in members)/sw
+
+        breadth=frac(lambda x:(x["m"].get("change_pct") or 0)>0)
+        strong=frac(lambda x:(x["m"].get("change_pct") or 0)>=2)
+        money=wmean(lambda x:scale(x["m"].get("value_ratio",1.0),.5,3.0))
+        vol=wmean(lambda x:scale(x["m"].get("volume_ratio",1.0),.6,2.5))
+        px=wmean(lambda x:scale((x["m"].get("change_pct") or 0)-market_return_pct,-3,5))
+
+        bo=frac(lambda x:bool(x["c"]) and x["c"].get("type")=="breakout")
+        near=frac(lambda x:bool(x["c"]) and x["c"].get("type") in ("near","forming") and -8 <= (x["c"].get("distance") if x["c"].get("distance") is not None else -99) <= 0)
+        vcp=wmean(lambda x:clamp(((x["c"].get("score") if x["c"] else 0) or 0)/5*100))
+        newc=frac(lambda x:bool(x["c"]) and bool(x["c"].get("is_new")))
+
+        dry_rows=[]
+        for x in members:
+            c=x["c"]
+            if not c or c.get("type") not in ("near","forming"):
+                continue
+            d=c.get("distance")
+            ratio=c.get("contraction_volume_ratio")
+            if d is None or not (-8 <= d <= 0) or ratio is None:
+                continue
+            dry_rows.append((x,scale(.95-float(ratio),0,.55)))
+        if dry_rows:
+            dry_sw=sum(x["w"] for x,_ in dry_rows) or 1.0
+            dry=sum(score*x["w"] for x,score in dry_rows)/dry_sw
+        else:
+            dry=0.0
+
+        # Persistence remains neutral until historical live Theme Heat is stored.
+        persistence=50.0
+        heat=clamp(.30*money+.20*breadth+.15*vol+.15*px+.15*bo+.05*persistence)
+        early=.55*money+.45*breadth
+        # Frozen V2.6 calibrated Setup formula.
+        setup=clamp(.34*near+.30*vcp+.20*dry+.08*newc+.08*early-.06*bo+15)
+
+        if heat>=85 and bo>=55 and near<10:
+            life,label="extended","⚠️ 過熱/擴散"
+        elif heat>=75 and setup>=65 and breadth>=45 and near>=15:
+            life,label="maintrend_setups","🔥👀 主線仍有機會"
+        elif heat>=85 and breadth>=55 and persistence>=60:
+            life,label="maintrend","🔥 主線"
+        elif heat>=65 and bo>=15 and breadth>=45:
+            life,label="launching","🚀 發動"
+        elif setup>=70 and 45<=heat<65 and near>=25 and bo<35:
+            life,label="emerging","🌱 萌芽"
+        elif setup>=70 and heat<45 and near>=25:
+            life,label="latent","👀 潛伏蓄勢"
+        elif heat<45 and setup<60:
+            life,label="dormant","休眠"
+        else:
+            life,label="watch","觀察"
+
+        segs=[x for x,_ in sorted(segw.items(),key=lambda kv:-kv[1])[:2]]
+        candidates=[x for x in members if x["c"]]
+        candidates.sort(key=lambda x:(-(x["c"].get("score") or 0),abs(x["c"].get("distance") if x["c"].get("distance") is not None else 99)))
+        top_codes=[x["code"] for x in candidates[:5]]
+        if len(top_codes)<5:
+            fallback=sorted(members,key=lambda x:(-(x["m"].get("change_pct") or 0),-(x["m"].get("value_ratio") or 0)))
+            for x in fallback:
+                if x["code"] not in top_codes:
+                    top_codes.append(x["code"])
+                if len(top_codes)>=5:
+                    break
+
+        out.append({
+            "theme":theme,
+            "constituents":len(members),
+            "effectiveWeight":round(raw_sw,2),
+            "heat":round(heat),"setup":round(setup),
+            "lifecycle":life,"lifecycleLabel":label,
+            "breadthPct":round(breadth),"strongBreadthPct":round(strong),
+            "volumeExpansionPct":round(vol),
+            "moneyFlowScore":round(money),"priceStrengthScore":round(px),
+            "breakoutWeightedPct":round(bo),"nearPivotWeightedPct":round(near),
+            "vcpQualityScore":round(vcp),"volumeDryupScore":round(dry),
+            "breakoutCount":sum(1 for x in members if x["c"] and x["c"].get("type")=="breakout"),
+            "nearPivotCount":sum(1 for x in members if x["c"] and x["c"].get("type") in ("near","forming") and -8 <= (x["c"].get("distance") if x["c"].get("distance") is not None else -99) <= 0),
+            "newCandidateCount":sum(1 for x in members if x["c"] and x["c"].get("is_new")),
+            "dominantSegments":segs,"topStocks":top_codes,
+            "topStockDetails":[
+                {
+                    "symbol":str(code),
+                    "name":str(
+                        (stocks.get(str(code),{}) or {}).get("name")
+                        or (by_market.get(str(code),{}) or {}).get("name")
+                        or (by_candidate.get(str(code),{}) or {}).get("name")
+                        or ""
+                    )
+                }
+                for code in top_codes
+            ],
+            "marketReturnPct":round(float(market_return_pct),2)
+        })
+
+    theme_top=sorted(out,key=lambda x:(-x["heat"],-x["setup"],-x["effectiveWeight"]))[:topn]
+    setup_top=sorted(out,key=lambda x:(-x["setup"],-x["heat"],-x["effectiveWeight"]))[:topn]
+    print(f"TW THEME ENGINE: observed={len(by_market)} candidates={len(by_candidate)} eligible={len(out)}")
+    if theme_top:
+        print("TW THEME TOP5:"," | ".join(f"{x['theme']} H{x['heat']} S{x['setup']}" for x in theme_top))
+    if setup_top:
+        print("TW SETUP TOP5:"," | ".join(f"{x['theme']} S{x['setup']} H{x['heat']}" for x in setup_top))
+    return {"themeTop5":theme_top,"setupTop5":setup_top}
+
+
 def scan(market):
     universe=fetch_tw_universe() if market=="TW" else fetch_us_universe()
     print(f"{market}: universe {len(universe)}")
@@ -1190,7 +1391,34 @@ def scan(market):
     print(f"{market} ALL-STOCK QUOTE CACHE: {len(quote_cache)} symbols")
     if restore_event_cache:
         print(f"{market} RESTORE-DATE CACHE: {len(restore_event_cache)} symbols / {sum(len(v) for v in restore_event_cache.values())} events")
-    return results[:150], stats, hotspots, quote_cache, restore_event_cache
+    return results[:150], stats, hotspots, quote_cache, restore_event_cache, flow_rows
+
+def build_theme_stock_name_map(official_quotes=None, intraday_quotes=None, official_results=None, intraday_results=None):
+    """Persistent TW symbol->name map for Theme UI, independent of leaderboard rebuild."""
+    names={}
+    try:
+        if THEME_DB.exists():
+            db=json.loads(THEME_DB.read_text(encoding="utf-8"))
+            for code,meta in (db.get("stocks") or {}).items():
+                name=str((meta or {}).get("name") or "").strip()
+                if name:
+                    names[str(code).upper()]=name
+    except Exception as e:
+        print("theme name map db warning",e)
+
+    for root in (official_quotes or {}, intraday_quotes or {}):
+        for market_map in (root or {}).values():
+            for code,q in (market_map or {}).items():
+                name=str((q or {}).get("name") or "").strip()
+                if name:
+                    names[str(code).upper()]=name
+
+    for row in list(official_results or []) + list(intraday_results or []):
+        code=str((row or {}).get("symbol") or "").upper()
+        name=str((row or {}).get("name") or "").strip()
+        if code and name:
+            names[code]=name
+    return names
 
 def load_existing():
     if OUT.exists():
@@ -1356,10 +1584,13 @@ def main():
     intraday_benchmarks=dict(old.get("intraday_benchmarks",{}) or {})
     official_capital_hotspots=dict(old.get("official_capital_hotspots",{}) or {})
     intraday_capital_hotspots=dict(old.get("intraday_capital_hotspots",{}) or {})
+    official_theme_leaderboards=dict(old.get("official_theme_leaderboards",{}) or {})
+    intraday_theme_leaderboards=dict(old.get("intraday_theme_leaderboards",{}) or {})
     official_quotes=dict(old.get("official_quotes",{}) or {})
     intraday_quotes=dict(old.get("intraday_quotes",{}) or {})
     official_restore_events=dict(old.get("official_restore_events",{}) or {})
     intraday_restore_events=dict(old.get("intraday_restore_events",{}) or {})
+    theme_stock_names=dict(old.get("theme_stock_names",{}) or {})
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -1403,7 +1634,17 @@ def main():
     targets=["TW","US"] if args.market=="both" else [args.market]
 
     for market in targets:
-        rows,scan_stats,capital_hotspots,market_quote_cache,market_restore_events=scan(market)
+        rows,scan_stats,capital_hotspots,market_quote_cache,market_restore_events,theme_market_rows=scan(market)
+
+        # V2.42.6.4: hydrate Theme names from this run's full-market quote cache
+        # BEFORE snapshot guards. Even if official_TW is blocked/preserved, the
+        # representative-stock Chinese names can still be refreshed safely.
+        if market=="TW" and market_quote_cache:
+            for code,q in (market_quote_cache or {}).items():
+                name=str((q or {}).get("name") or "").strip()
+                if name:
+                    theme_stock_names[str(code).upper()]=name
+
         nowstamp=datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M")
         if not rows:
             print(f"{market}: no new rows; preserving existing snapshots")
@@ -1420,6 +1661,12 @@ def main():
 
         print(f"{market}: requested snapshot={args.snapshot} -> storing as {'official' if official else 'intraday'}")
         market_benchmark = fetch_tw_benchmarks() if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
+        theme_market_return=0.0
+        if market=="TW":
+            try:
+                theme_market_return=float(((market_benchmark or {}).get("TWSE") or {}).get("change_pct") or 0.0)
+            except Exception:
+                theme_market_return=0.0
 
         if official:
             # V2.39 safety guard for TW official snapshots.
@@ -1449,6 +1696,10 @@ def main():
                     r["is_new"]=False
                     r["new_reason"]=""
 
+            theme_leaderboards=(
+                build_theme_leaderboards(theme_market_rows,rows,theme_market_return)
+                if market=="TW" else {"themeTop5":[],"setupTop5":[]}
+            )
             official_results=_replace_market(official_results,market,rows)
             official_markets[market]={
                 "data_date":current_date,
@@ -1464,6 +1715,8 @@ def main():
                 official_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 official_capital_hotspots["TW"]=capital_hotspots
+            if market=="TW" and (theme_leaderboards.get("themeTop5") or theme_leaderboards.get("setupTop5")):
+                official_theme_leaderboards["TW"]=theme_leaderboards
             if market_quote_cache:
                 official_quotes[market]=market_quote_cache
             if market_restore_events:
@@ -1476,6 +1729,10 @@ def main():
             for r in rows:
                 r["is_new"]=False
                 r["new_reason"]=""
+            theme_leaderboards=(
+                build_theme_leaderboards(theme_market_rows,rows,theme_market_return)
+                if market=="TW" else {"themeTop5":[],"setupTop5":[]}
+            )
             intraday_results=_replace_market(intraday_results,market,rows)
             intraday_markets[market]={
                 "data_date":current_date,
@@ -1491,10 +1748,17 @@ def main():
                 intraday_benchmarks[market]=prev
             if market=="TW" and capital_hotspots:
                 intraday_capital_hotspots["TW"]=capital_hotspots
+            if market=="TW" and (theme_leaderboards.get("themeTop5") or theme_leaderboards.get("setupTop5")):
+                intraday_theme_leaderboards["TW"]=theme_leaderboards
             if market_quote_cache:
                 intraday_quotes[market]=market_quote_cache
             if market_restore_events:
                 intraday_restore_events[market]=market_restore_events
+
+    theme_stock_names.update(build_theme_stock_name_map(
+        official_quotes, intraday_quotes, official_results, intraday_results
+    ))
+    print(f"TW THEME NAME MAP: {len(theme_stock_names)} symbols")
 
     # Backward-compatible "results" stays the official snapshot only.
     payload={
@@ -1509,6 +1773,10 @@ def main():
         "intraday_benchmarks":intraday_benchmarks,
         "official_capital_hotspots":official_capital_hotspots,
         "intraday_capital_hotspots":intraday_capital_hotspots,
+        "official_theme_leaderboards":official_theme_leaderboards,
+        "intraday_theme_leaderboards":intraday_theme_leaderboards,
+        "theme_engine_version":"2.42.6-alpha138-max",
+        "theme_stock_names":theme_stock_names,
         "all_stock_quote_cache_version":1,
         "official_quotes":official_quotes,
         "intraday_quotes":intraday_quotes,

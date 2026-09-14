@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -907,6 +907,24 @@ th{color:#716c64}
 .capital-stock-btn.breakout{border-color:#9fc9a8;background:#f2faf3}
 .capital-hotspot-none{font-size:11px;color:var(--muted);padding:2px 0}
 .capital-hotspots-empty{font-size:12px;color:var(--muted);padding:10px 0}
+.theme-leaderboards{margin:12px 0 16px}.theme-leaderboards-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:9px}.theme-leaderboards-head h3{margin:0;font-size:16px}.theme-leaderboards-note{font-size:11px;color:var(--muted);text-align:right}.theme-leaderboards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.theme-board{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:11px}.theme-board-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;font-size:13px;font-weight:900}
+.theme-board-hot{background:#fffaf2;border-color:#ead6b8}
+.theme-board-setup{background:#f7f5fb;border-color:#d9d1e8}
+.theme-board-main{font-size:14px;font-weight:900}
+.theme-board-desc{font-size:10px;font-weight:700;color:var(--muted);margin-top:2px}
+.theme-board-tag{font-size:10px;font-weight:900;border-radius:999px;padding:4px 7px;background:#fff;border:1px solid #ddd4c8}
+.theme-board-hot .theme-board-tag{background:#fff3df;border-color:#e5c28e}
+.theme-board-setup .theme-board-tag{background:#eee8f7;border-color:#cdbfe2}
+.theme-board-hot .theme-row{background:#fffdfa}
+.theme-board-setup .theme-row{background:#fbf9fe}
+.theme-board-list{display:grid;gap:6px}.theme-row{display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:center;gap:7px;padding:7px 8px;border:1px solid #e7e4dd;border-radius:10px;background:#fff}.theme-rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:900;background:#eee9df}.theme-row:nth-child(1) .theme-rank{background:#ffd66b}.theme-row:nth-child(2) .theme-rank{background:#cfe0ea}.theme-row:nth-child(3) .theme-rank{background:#e6b47d}.theme-name{min-width:0;font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.theme-sub{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.theme-score{text-align:right;font-size:11px;font-weight:900;line-height:1.25}.theme-score small{display:block;color:var(--muted);font-weight:700}.theme-empty{font-size:12px;color:var(--muted);padding:8px 2px}
+.theme-stock-caption{font-size:9px;color:var(--muted);font-weight:700;margin-top:4px;margin-bottom:2px}
+.theme-stock-links{display:flex;flex-wrap:wrap;gap:4px;margin-top:0}
+.theme-stock-link{appearance:none;border:1px solid #ddd4c8;background:#faf8f4;color:var(--ink);border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800;cursor:pointer;line-height:1.25}
+.theme-stock-link:hover{text-decoration:underline;background:#f2ede5}
+.theme-stock-link:focus-visible{outline:2px solid #b37b48;outline-offset:2px}
+@media(max-width:760px){.theme-leaderboards-head{align-items:flex-start}.theme-leaderboards-grid{display:block}.theme-board+.theme-board{margin-top:8px}.theme-leaderboards-note{max-width:170px}}
+
 @media(max-width:760px){
  .capital-hotspots-head{align-items:flex-start}
  .capital-hotspots-grid{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scroll-snap-type:x proximity}
@@ -1059,6 +1077,137 @@ th{color:#716c64}
   .freshness-icon{display:none}
 }
 
+
+/* V2.42.6.8 — Radar Layout Polish */
+.section-kicker{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}
+.capital-hotspots{margin:10px 0 18px}
+.capital-hotspots-head{align-items:center;margin-bottom:7px}
+.capital-hotspots-title{align-items:center}
+.capital-hotspots-note{cursor:help;border-bottom:1px dotted #aaa;white-space:nowrap}
+.capital-hotspot{padding:9px 10px;border-radius:13px}
+.capital-hotspot-name{font-size:13px}
+.capital-hotspot-score{font-size:16px}
+.capital-hotspot-level{margin:3px 0 4px}
+.capital-hotspot-metrics{gap:1px;line-height:1.25}
+.capital-hotspot-actions{margin-top:5px}
+.capital-hotspot-action{padding:5px 8px}
+.theme-leaderboards{margin:16px 0}
+.theme-leaderboards-head{margin-bottom:8px}
+.theme-leaderboards-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.theme-board-hot{box-shadow:0 3px 12px rgba(139,91,25,.05)}
+.theme-board-setup{box-shadow:none}
+.theme-board-hot .theme-board-main{font-size:15px}
+.theme-board-setup .theme-board-main{font-size:14px}
+.theme-board-hot .theme-rank{transform:scale(1.03)}
+.theme-board-setup .theme-rank{opacity:.86}
+@media(max-width:760px){
+  .capital-hotspots-note{font-size:10px}
+  .theme-leaderboards-grid{display:block}
+  .theme-board-hot .theme-board-main,.theme-board-setup .theme-board-main{font-size:14px}
+}
+
+.theme-help-btn{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;padding:4px 2px;border-bottom:1px dotted #aaa}
+.theme-helpbox{margin:-2px 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:10px;line-height:1.55;color:#4b5563}
+.theme-helpbox span{color:var(--muted)}
+.theme-score{min-width:112px}
+.theme-score small{font-size:9px}
+
+.theme-help-intro{margin-bottom:8px}.theme-help-table-wrap{overflow-x:auto;margin:7px 0 8px}.theme-help-table{width:100%;border-collapse:collapse;min-width:500px;background:#fff}.theme-help-table th,.theme-help-table td{padding:7px 9px;border:1px solid var(--line);text-align:left;vertical-align:top;font-size:10px;line-height:1.4}.theme-help-table thead th{font-weight:900;background:#faf8f4;color:#3f3a34}.theme-help-table tbody th{width:86px;font-weight:850;background:#fcfbf8;color:#625d55;white-space:nowrap}.theme-help-note{padding-top:2px;color:#6f675e;line-height:1.55}@media(max-width:760px){.theme-helpbox{font-size:10px;padding:9px}.theme-help-table th,.theme-help-table td{padding:6px 7px;font-size:9.5px}}
+
+.capital-hotspots-note{font-family:inherit;cursor:pointer;border:0;border-bottom:1px dotted #aaa;background:transparent;padding:4px 2px;color:var(--muted);font-size:11px}
+.capital-hotspots-note:hover{color:#4b5563}
+.capital-helpbox{margin:-2px 0 9px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:10px;line-height:1.55;color:#4b5563}
+.capital-helpbox span{color:#6f675e}
+
+/* V2.42.6.19 — mobile compact theme radar */
+.theme-help-mobile-cards{display:none}
+.theme-score-mobile{display:none}
+
+@media(max-width:760px){
+  /* Help: no horizontal table scrolling on phones */
+  .theme-help-table-wrap{display:none}
+  .theme-help-mobile-cards{display:grid;grid-template-columns:1fr;gap:7px;margin:8px 0}
+  .theme-help-mobile-card{border:1px solid var(--line);border-radius:10px;padding:8px 9px;background:#fff;line-height:1.45;font-size:10px}
+  .theme-help-mobile-card.hot{background:#fffaf2;border-color:#ead6b8}
+  .theme-help-mobile-card.setup{background:#f7f5fb;border-color:#d9d1e8}
+  .theme-help-mobile-title{font-size:11px;font-weight:900;margin-bottom:4px}
+  .theme-help-mobile-card>div:not(.theme-help-mobile-title){margin-top:2px}
+
+  /* Board/card compaction */
+  .theme-board{padding:9px}
+  .theme-board-title{margin-bottom:6px}
+  .theme-board-list{gap:5px}
+  .theme-row{
+    grid-template-columns:24px minmax(0,1fr);
+    align-items:start;
+    gap:6px;
+    padding:7px;
+  }
+  .theme-rank{width:23px;height:23px;font-size:11px;margin-top:1px}
+  .theme-main{min-width:0}
+  .theme-score-desktop{display:none}
+  .theme-score-mobile{
+    display:block;
+    min-width:auto;
+    text-align:right;
+    font-size:10px;
+    line-height:1.2;
+    white-space:nowrap;
+  }
+  .theme-score-mobile small{font-size:8.5px}
+  .theme-mobile-head{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:6px;
+    align-items:start;
+  }
+  .theme-name{font-size:12px}
+  .theme-sub{font-size:9.5px;margin-top:1px}
+  .theme-stock-caption{font-size:8.5px;margin-top:3px;margin-bottom:2px}
+  .theme-stock-links{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:4px 5px;
+  }
+  .theme-stock-link{
+    width:100%;
+    min-width:0;
+    padding:3px 5px;
+    font-size:9.5px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+
+/* V2.42.6.20 — desktop help adopts the cleaner card language */
+.theme-help-table-wrap{display:none}
+.theme-help-mobile-cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:10px 0;
+}
+.theme-help-mobile-card{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  background:#fff;
+  line-height:1.55;
+  font-size:11px;
+}
+.theme-help-mobile-card.hot{background:#fffaf2;border-color:#ead6b8}
+.theme-help-mobile-card.setup{background:#f7f5fb;border-color:#d9d1e8}
+.theme-help-mobile-title{font-size:13px;font-weight:900;margin-bottom:6px}
+.theme-help-mobile-card>div:not(.theme-help-mobile-title){margin-top:3px}
+.theme-help-note{margin-top:8px;padding:9px 11px;border-radius:9px;background:#faf9f6}
+
+@media(max-width:760px){
+  .theme-help-mobile-cards{grid-template-columns:1fr;gap:7px;margin:8px 0}
+  .theme-help-mobile-card{padding:8px 9px;font-size:10px}
+  .theme-help-mobile-title{font-size:11px;margin-bottom:4px}
+  .theme-help-note{padding:7px 8px;margin-top:6px}
+}
 </style><style>button.pulse-help-trigger{
   font:inherit!important;
   cursor:pointer;
@@ -1230,10 +1379,64 @@ th{color:#716c64}
   <div id="marketOverview" class="market-overview" hidden></div>
   <div id="capitalHotspots" class="capital-hotspots" hidden>
     <div class="capital-hotspots-head">
-      <div class="capital-hotspots-title"><h3>🔥 資金熱區</h3><span class="capital-top5-badge">👑 Top 5 產業</span></div>
-      <div class="capital-hotspots-note">成交活躍度 × 市場占比 × 上漲廣度 × VCP 集中</div>
+      <div class="capital-hotspots-title"><div><h3>🔥 資金熱區</h3><div class="section-kicker">看資金目前集中在哪些產業</div></div><span class="capital-top5-badge">👑 Top 5 產業</span></div>
+      <button type="button" class="capital-hotspots-note" id="capitalHelpBtn" aria-expanded="false">ⓘ 熱區怎麼算？</button>
+    </div>
+    <div class="capital-helpbox" id="capitalHelpBox" hidden>
+      <b>🔥 資金熱區</b>會綜合觀察產業的成交活躍度、市場占比、上漲廣度與 VCP 訊號集中程度。<br>
+      <span><b>分數越高</b>，代表當下資金與強勢訊號在該產業的集中程度越明顯；適合用來比較目前市場資金聚焦方向，不代表未來一定上漲。</span>
     </div>
     <div id="capitalHotspotsGrid" class="capital-hotspots-grid"></div>
+  </div>
+  <div id="themeLeaderboards" class="theme-leaderboards" hidden>
+    <div class="theme-leaderboards-head"><div><h3>🧭 題材雷達</h3><div class="section-kicker">從熱門到蓄勢，找市場正在發酵的方向</div></div><button type="button" class="theme-help-btn" id="themeHelpBtn">ⓘ 怎麼看？</button></div>
+    <div class="theme-helpbox" id="themeHelpBox" hidden>
+<div class="theme-help-intro"><b>🔥 市場熱度</b>：觀察題材目前的市場活躍與 VCP 訊號集中程度。<br><b>👀 蓄勢程度</b>：觀察尚未全面發動、但型態與訊號正在累積的程度。</div>
+<div class="theme-help-table-wrap"><table class="theme-help-table">
+<thead><tr><th></th><th>🔥 熱門題材</th><th>👀 蓄勢題材</th></tr></thead>
+<tbody>
+<tr><th>代表什麼</th><td>現在市場正在發動</td><td>尚未全面發動、正在醞釀</td></tr>
+<tr><th>市場熱度</th><td>通常較高</td><td>通常較低</td></tr>
+<tr><th>蓄勢程度</th><td>不一定高</td><td>通常較高</td></tr>
+<tr><th>適合用來</th><td>找目前市場主流</td><td>找下一批觀察方向</td></tr>
+<tr><th>要注意</th><td>可能已漲一段，留意追高</td><td>可能持續蓄勢、未必發動</td></tr>
+</tbody></table></div>
+<div class="theme-help-mobile-cards">
+  <div class="theme-help-mobile-card hot">
+    <div class="theme-help-mobile-title">🔥 熱門題材</div>
+    <div><b>代表什麼：</b>現在市場正在發動</div>
+    <div><b>市場熱度：</b>通常較高</div>
+    <div><b>蓄勢程度：</b>不一定高</div>
+    <div><b>適合用來：</b>找目前市場主流</div>
+    <div><b>要注意：</b>可能已漲一段，留意追高</div>
+  </div>
+  <div class="theme-help-mobile-card setup">
+    <div class="theme-help-mobile-title">👀 蓄勢題材</div>
+    <div><b>代表什麼：</b>尚未全面發動、正在醞釀</div>
+    <div><b>市場熱度：</b>通常較低</div>
+    <div><b>蓄勢程度：</b>通常較高</div>
+    <div><b>適合用來：</b>找下一批觀察方向</div>
+    <div><b>要注意：</b>可能持續蓄勢、未必發動</div>
+  </div>
+</div>
+<div class="theme-help-note"><b>分數越高</b>，代表該項特徵越明顯；適合比較當下不同題材的相對強弱，不代表未來一定上漲或漲得更多。</div>
+</div>
+<div class="theme-leaderboards-grid">
+      <div class="theme-board theme-board-hot">
+        <div class="theme-board-title">
+          <div><div class="theme-board-main">🔥 熱門題材 Top 5</div><div class="theme-board-desc">現在市場資金正在聚焦</div></div>
+          <span class="theme-board-tag">熱度</span>
+        </div>
+        <div id="themeTop5List" class="theme-board-list"></div>
+      </div>
+      <div class="theme-board theme-board-setup">
+        <div class="theme-board-title">
+          <div><div class="theme-board-main">👀 蓄勢題材 Top 5</div><div class="theme-board-desc">尚未最熱，但型態正在醞釀</div></div>
+          <span class="theme-board-tag">蓄勢</span>
+        </div>
+        <div id="setupTop5List" class="theme-board-list"></div>
+      </div>
+    </div>
   </div>
   <div class="user-live-refresh">
     <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 更新即時行情</button>
@@ -2217,6 +2420,70 @@ function renderCapitalHotspots(){
 }
 
 
+function cleanStockDisplayName(name){
+ return String(name||'').trim().replace(/[-－—–]\s*創\s*$/u,'').trim();
+}
+
+function themeStockDisplayName(code){
+ const c=String(code||'').toUpperCase();
+ const q=(radarAllQuotes?.[radarSnapshot]?.TW||{})[c] || {};
+ let name=String(q.name||'').trim();
+ if(!name || name.toUpperCase()===c){
+   const row=(radarRows||[]).find(r=>String(r.market||'').toUpperCase()==='TW' && String(r.symbol||'').toUpperCase()===c);
+   name=String(row?.name||'').trim();
+ }
+ return name && name.toUpperCase()!==c ? name : '';
+}
+
+async function openThemeStock(symbol,sourceEl){
+ const code=String(symbol||'').toUpperCase();
+ if(!code) return;
+ setMarket('TW',{reset:false});
+ $('symbol').value=code;
+ const singleSection=$('symbol')?.closest('.section') || $('symbol');
+ if(singleSection){
+   try{ singleSection.scrollIntoView({behavior:'smooth',block:'start'}); }
+   catch(e){ singleSection.scrollIntoView(); }
+ }
+ await run();
+}
+
+function themeLifecycleDisplay(label){
+ const x=String(label||'').trim();
+ if(x==='休眠') return '尚未活躍';
+ return x || '觀察';
+}
+
+function renderThemeLeaderboards(){
+ const box=document.getElementById('themeLeaderboards'), heatBox=document.getElementById('themeTop5List'), setupBox=document.getElementById('setupTop5List');
+ if(!box||!heatBox||!setupBox)return;
+ if(currentMarket!=='TW'){box.hidden=true;heatBox.innerHTML='';setupBox.innerHTML='';return;}
+ const pack=(radarThemeLeaderboards?.[radarSnapshot]?.TW)||{}, heat=Array.isArray(pack.themeTop5)?pack.themeTop5:[], setup=Array.isArray(pack.setupTop5)?pack.setupTop5:[];
+ box.hidden=false;
+ const draw=(rows,mode)=>!rows.length?'<div class="theme-empty">尚無題材排行資料；下一次台股完整掃描後建立。</div>':rows.slice(0,5).map((r,i)=>{
+  const main=mode==='heat'?Number(r.heat||0):Number(r.setup||0), peer=mode==='heat'?Number(r.setup||0):Number(r.heat||0);
+  const stockDetails=Array.isArray(r.topStockDetails)&&r.topStockDetails.length
+    ? r.topStockDetails.slice(0,5)
+    : (Array.isArray(r.topStocks)?r.topStocks.slice(0,5).map(code=>({symbol:code,name:''})):[]);
+  const stockLinks=stockDetails.map(item=>{
+    const c=String(item?.symbol||'').toUpperCase();
+    const dbName=String(item?.name||'').trim();
+    const n=dbName || String(radarThemeStockNames?.[c]||'').trim() || themeStockDisplayName(c);
+    const label=n?`${c} ${cleanStockDisplayName(n)}`:c;
+    return `<button type="button" class="theme-stock-link" data-theme-stock="${escHtml(c)}" title="查看 ${escHtml(label)} 完整分析">${escHtml(label)}</button>`;
+  }).join('');
+  return `<div class="theme-row"><span class="theme-rank">${i+1}</span><div class="theme-main"><div class="theme-mobile-head"><div><div class="theme-name">${escHtml(String(r.theme||'—'))}</div><div class="theme-sub">共 ${Number(r.constituents||0)} 檔</div></div><div class="theme-score theme-score-mobile">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>${stockLinks?`<div class="theme-stock-caption">代表股 Top ${stockDetails.length}</div><div class="theme-stock-links">${stockLinks}</div>`:''}</div><div class="theme-score theme-score-desktop">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>`;
+ }).join('');
+ heatBox.innerHTML=draw(heat,'heat'); setupBox.innerHTML=draw(setup,'setup');
+}
+
+document.addEventListener('click',e=>{
+ const btn=e.target.closest?.('[data-theme-stock]');
+ if(!btn) return;
+ e.preventDefault();
+ openThemeStock(btn.dataset.themeStock,btn);
+});
+
 function updateMarketSpecificSnapshotUI(){
  const isUS=String(currentMarket||'TW').toUpperCase()==='US';
  const label=document.getElementById('officialSnapshotLabel');
@@ -2273,6 +2540,8 @@ let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
 let radarCapitalHotspots={official:{},intraday:{}};
+let radarThemeLeaderboards={official:{},intraday:{}};
+let radarThemeStockNames={};
 let radarAllQuotes={official:{},intraday:{}};
 let radarRestoreEvents={official:{},intraday:{}};
 let userLiveQuotes=new Map();
@@ -3267,6 +3536,11 @@ async function loadRadar(){
      official:j.official_capital_hotspots||{},
      intraday:j.intraday_capital_hotspots||{}
    };
+   radarThemeLeaderboards={
+     official:j.official_theme_leaderboards||{},
+     intraday:j.intraday_theme_leaderboards||{}
+   };
+   radarThemeStockNames=j.theme_stock_names||{};
    radarAllQuotes={
      official:j.official_quotes||{},
      intraday:j.intraday_quotes||{}
@@ -3298,6 +3572,7 @@ async function loadRadar(){
    renderFreshness();
    renderMarketOverview();
    renderCapitalHotspots();
+   renderThemeLeaderboards();
    renderRadar(radarFilter);
    if(!radarSnapshotData.official.length && radarSnapshotData.intraday.length){
      const body=document.getElementById('radarBody');
@@ -3646,7 +3921,22 @@ document.addEventListener("click",e=>{
     e.stopPropagation();
     close();
   }
-});document.addEventListener("keydown",e=>{if(e.key==="Escape")close()})})();</script></body></html>
+});document.addEventListener("keydown",e=>{if(e.key==="Escape")close()})})();
+document.getElementById('themeHelpBtn')?.addEventListener('click',()=>{
+ const box=document.getElementById('themeHelpBox');
+ if(box) box.hidden=!box.hidden;
+});
+
+document.addEventListener('click',(e)=>{
+ const btn=e.target.closest?.('#capitalHelpBtn');
+ if(!btn) return;
+ const box=document.getElementById('capitalHelpBox');
+ if(!box) return;
+ const willOpen=box.hidden;
+ box.hidden=!willOpen;
+ btn.setAttribute('aria-expanded',String(willOpen));
+});
+</script></body></html>
 
 <style>
 /* V2.36.5 — 收藏星星緊貼股票名稱 */
