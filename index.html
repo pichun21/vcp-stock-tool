@@ -2608,6 +2608,7 @@ function setMarket(m,{reset=true}={}){
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  renderMarketOverview();
  renderCapitalHotspots();
+ renderThemeLeaderboards();
  const marketCount=(arr,m)=>arr.filter(x=>String(x.market||'').toUpperCase()===String(m||'TW').toUpperCase()).length;
  const officialCount=document.getElementById('officialCount');
  const intradayCount=document.getElementById('intradayCount');
