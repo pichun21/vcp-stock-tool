@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.8 TODAY CHANGE BIDIRECTIONAL SORT + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1483,6 +1483,7 @@ th{color:#716c64}
           <option value="pivot">距 Pivot 最近</option>
           <option value="squeeze">Squeeze 最強</option>
           <option value="momentum">Momentum 最強</option>
+          <option value="change">今日漲幅 ↓</option>
         </select>
         <div class="muted">預計顯示 4 分以上</div>
       </div>
@@ -2583,6 +2584,7 @@ let userLiveUpdatedAt='';
 
 let radarFilter = 'all';
 let radarSort = 'smart';
+let radarChangeSortDir = 'desc'; // desc: 漲最多→跌最多；asc: 跌最多→漲最多
 let mobileRadarPage = 1;
 const MOBILE_RADAR_PAGE_SIZE = 5;
 
@@ -2967,6 +2969,13 @@ function renderRadar(filter='all'){
    if(radarSort==='pivot') return (Math.abs(a.distance??999)-Math.abs(b.distance??999)) || smartSort(a,b);
    if(radarSort==='squeeze') return ((squeezeRank[a.squeeze_level]??9)-(squeezeRank[b.squeeze_level]??9)) || smartSort(a,b);
    if(radarSort==='momentum') return ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) || smartSort(a,b);
+   if(radarSort==='change'){
+     const av=Number(a.change_pct), bv=Number(b.change_pct);
+     const af=Number.isFinite(av), bf=Number.isFinite(bv);
+     if(af!==bf) return af?-1:1;
+     if(af && bf && av!==bv) return radarChangeSortDir==='asc' ? av-bv : bv-av;
+     return smartSort(a,b);
+   }
    return smartSort(a,b);
  });
 
@@ -3638,11 +3647,41 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
 const radarSortSelect=document.getElementById('radarSort');
 if(radarSortSelect){
  radarSortSelect.value=radarSort;
+
+ const updateChangeSortLabel=()=>{
+   const opt=radarSortSelect.querySelector('option[value="change"]');
+   if(opt) opt.textContent=radarChangeSortDir==='asc'?'今日漲幅 ↑':'今日漲幅 ↓';
+ };
+
+ let sortPointerStartValue='';
+ let sortChangedDuringOpen=false;
+
+ radarSortSelect.addEventListener('pointerdown',()=>{
+   sortPointerStartValue=radarSortSelect.value;
+   sortChangedDuringOpen=false;
+ });
+
  radarSortSelect.addEventListener('change',()=>{
+   sortChangedDuringOpen=true;
    radarSort=radarSortSelect.value;
+   if(radarSort==='change' && sortPointerStartValue!=='change') radarChangeSortDir='desc';
+   updateChangeSortLabel();
    mobileRadarPage=1;
    renderRadar(radarFilter);
  });
+
+ radarSortSelect.addEventListener('click',()=>{
+   if(sortPointerStartValue==='change' && radarSortSelect.value==='change' && !sortChangedDuringOpen){
+     radarChangeSortDir=radarChangeSortDir==='desc'?'asc':'desc';
+     updateChangeSortLabel();
+     mobileRadarPage=1;
+     renderRadar(radarFilter);
+   }
+   sortPointerStartValue='';
+   sortChangedDuringOpen=false;
+ });
+
+ updateChangeSortLabel();
 }
 
 
