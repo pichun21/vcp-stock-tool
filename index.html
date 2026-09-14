@@ -1208,6 +1208,19 @@ th{color:#716c64}
   .theme-help-mobile-title{font-size:11px;margin-bottom:4px}
   .theme-help-note{padding:7px 8px;margin-top:6px}
 }
+
+/* V2.42.6.20 — mobile collapsible theme representatives */
+.theme-stock-toggle,.theme-expand-all{display:none}
+@media(max-width:760px){
+  .theme-stock-toggle{display:inline-flex;align-items:center;gap:3px;border:0;background:transparent;color:#9a6a3d;font-size:9px;font-weight:850;padding:2px 0;margin-top:3px;cursor:pointer}
+  .theme-stock-toggle::after{content:"＋";font-weight:900}
+  .theme-row.theme-stocks-open .theme-stock-toggle::after{content:"－"}
+  .theme-stock-panel{display:none}
+  .theme-row.theme-stocks-open .theme-stock-panel{display:block}
+  .theme-expand-all{display:inline-flex;border:1px solid #ddd4c8;background:rgba(255,255,255,.7);color:#756b60;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:850;cursor:pointer;white-space:nowrap}
+  .theme-board-title{align-items:flex-start}
+  .theme-board-actions{display:flex;align-items:center;gap:5px}
+}
 </style><style>button.pulse-help-trigger{
   font:inherit!important;
   cursor:pointer;
@@ -1425,14 +1438,14 @@ th{color:#716c64}
       <div class="theme-board theme-board-hot">
         <div class="theme-board-title">
           <div><div class="theme-board-main">🔥 熱門題材 Top 5</div><div class="theme-board-desc">現在市場資金正在聚焦</div></div>
-          <span class="theme-board-tag">熱度</span>
+          <div class="theme-board-actions"><button type="button" class="theme-expand-all" data-theme-expand-all="themeTop5List">展開全部 ＋</button><span class="theme-board-tag">熱度</span></div>
         </div>
         <div id="themeTop5List" class="theme-board-list"></div>
       </div>
       <div class="theme-board theme-board-setup">
         <div class="theme-board-title">
           <div><div class="theme-board-main">👀 蓄勢題材 Top 5</div><div class="theme-board-desc">尚未最熱，但型態正在醞釀</div></div>
-          <span class="theme-board-tag">蓄勢</span>
+          <div class="theme-board-actions"><button type="button" class="theme-expand-all" data-theme-expand-all="setupTop5List">展開全部 ＋</button><span class="theme-board-tag">蓄勢</span></div>
         </div>
         <div id="setupTop5List" class="theme-board-list"></div>
       </div>
@@ -2472,10 +2485,31 @@ function renderThemeLeaderboards(){
     const label=n?`${c} ${cleanStockDisplayName(n)}`:c;
     return `<button type="button" class="theme-stock-link" data-theme-stock="${escHtml(c)}" title="查看 ${escHtml(label)} 完整分析">${escHtml(label)}</button>`;
   }).join('');
-  return `<div class="theme-row"><span class="theme-rank">${i+1}</span><div class="theme-main"><div class="theme-mobile-head"><div><div class="theme-name">${escHtml(String(r.theme||'—'))}</div><div class="theme-sub">共 ${Number(r.constituents||0)} 檔</div></div><div class="theme-score theme-score-mobile">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>${stockLinks?`<div class="theme-stock-caption">代表股 Top ${stockDetails.length}</div><div class="theme-stock-links">${stockLinks}</div>`:''}</div><div class="theme-score theme-score-desktop">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>`;
+  return `<div class="theme-row"><span class="theme-rank">${i+1}</span><div class="theme-main"><div class="theme-mobile-head"><div><div class="theme-name">${escHtml(String(r.theme||'—'))}</div><div class="theme-sub">共 ${Number(r.constituents||0)} 檔</div></div><div class="theme-score theme-score-mobile">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>${stockLinks?`<button type="button" class="theme-stock-toggle">查看代表股 Top ${stockDetails.length}</button><div class="theme-stock-panel"><div class="theme-stock-caption">代表股 Top ${stockDetails.length}</div><div class="theme-stock-links">${stockLinks}</div></div>`:''}</div><div class="theme-score theme-score-desktop">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>`;
  }).join('');
  heatBox.innerHTML=draw(heat,'heat'); setupBox.innerHTML=draw(setup,'setup');
 }
+
+document.addEventListener('click',e=>{
+ const toggle=e.target.closest?.('.theme-stock-toggle');
+ if(toggle){
+  e.preventDefault();
+  const row=toggle.closest('.theme-row');
+  if(row) row.classList.toggle('theme-stocks-open');
+  return;
+ }
+ const all=e.target.closest?.('[data-theme-expand-all]');
+ if(all){
+  e.preventDefault();
+  const list=document.getElementById(all.dataset.themeExpandAll);
+  if(!list)return;
+  const rows=[...list.querySelectorAll('.theme-row')].filter(r=>r.querySelector('.theme-stock-panel'));
+  const shouldOpen=rows.some(r=>!r.classList.contains('theme-stocks-open'));
+  rows.forEach(r=>r.classList.toggle('theme-stocks-open',shouldOpen));
+  all.textContent=shouldOpen?'全部收合 －':'展開全部 ＋';
+  return;
+ }
+});
 
 document.addEventListener('click',e=>{
  const btn=e.target.closest?.('[data-theme-stock]');
