@@ -45,12 +45,23 @@ on:
 permissions:
   contents: write
 
+# Avoid multiple VCP screen jobs writing screening.json to main at the same time.
+# cancel-in-progress=false means later runs wait instead of killing the current scan.
+concurrency:
+  group: vcp-screen-main
+  cancel-in-progress: false
+
 jobs:
   screen:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Important for Re-run: always start from the latest main instead of
+          # reusing the original run's older commit SHA.
+          ref: main
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -111,5 +122,27 @@ jobs:
             echo "No change."
           else
             git commit -m "chore: update VCP screening (${{ steps.target.outputs.snapshot }} / ${{ steps.target.outputs.market }})"
-            git push
+
+            # main may move while the ~3 minute scan is running (for example,
+            # a manual index.html update). Rebase onto the newest main before
+            # pushing, and retry a few times if another commit lands meanwhile.
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                echo "Rebase conflict; aborting to protect main."
+                git rebase --abort || true
+                exit 1
+              fi
+
+              if git push origin HEAD:main; then
+                echo "Push succeeded on attempt $attempt."
+                exit 0
+              fi
+
+              echo "Push raced with another update; retrying ($attempt/3)..."
+              sleep $((attempt * 3))
+            done
+
+            echo "Push failed after 3 attempts."
+            exit 1
           fi
