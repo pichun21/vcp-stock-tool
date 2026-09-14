@@ -116,6 +116,41 @@ def _yf_index_snapshot(ticker, label):
     return None
 
 
+def _yf_index_daily_snapshot(ticker, label):
+    """Completed daily index close for official snapshots.
+    Unlike _yf_index_snapshot(), this deliberately skips intraday bars so an
+    official run cannot keep a stale 13:xx quote as the closing benchmark.
+    """
+    try:
+        df = yf.download(
+            ticker, period="10d", interval="1d",
+            auto_adjust=False, progress=False, threads=False
+        )
+        if df is not None and len(df) >= 2:
+            if isinstance(df.columns, pd.MultiIndex):
+                close = df["Close"].iloc[:, 0].dropna()
+            else:
+                close = df["Close"].dropna()
+            if len(close) >= 2:
+                last = float(close.iloc[-1])
+                prev = float(close.iloc[-2])
+                pts = last - prev
+                pct = (pts / prev * 100) if prev else 0.0
+                d = pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d")
+                return {
+                    "id": ticker,
+                    "label": label,
+                    "close": round(last, 2),
+                    "change_points": round(pts, 2),
+                    "change_pct": round(pct, 2),
+                    "data_time": d,
+                    "source": "Yahoo/yfinance daily official"
+                }
+    except Exception as e:
+        print(f"benchmark {ticker} official daily warning:", repr(e))
+    return None
+
+
 def _fetch_tpex_official_close():
     """Official TPEx historical close fallback.
     The public OpenAPI is end-of-day/historical, so it is NOT used as the first
@@ -198,25 +233,36 @@ def _fetch_tpex_official_close():
         return None
 
 
-def fetch_tw_benchmarks():
+def fetch_tw_benchmarks(official=False):
     """Fetch Taiwan benchmarks on the GitHub Actions server.
 
-    TWSE and TPEx first try Yahoo/yfinance intraday bars, avoiding browser CORS.
-    TPEx official OpenAPI is retained only as an end-of-day fallback.
+    Intraday snapshots prefer Yahoo 5-minute bars. Official snapshots force
+    completed daily/official sources so the closing dashboard does not inherit
+    a stale intraday quote.
     """
     out = {}
 
-    twse = _yf_index_snapshot("^TWII", "上市｜加權指數")
+    if official:
+        twse = _yf_index_daily_snapshot("^TWII", "上市｜加權指數")
+        # For TPEx official close, prefer the exchange OpenAPI. Yahoo daily is
+        # retained as fallback in case the official endpoint is temporarily unavailable.
+        tpex = _fetch_tpex_official_close()
+        if not tpex:
+            tpex = _yf_index_daily_snapshot("^TWOII", "上櫃｜櫃買指數")
+        if not tpex:
+            tpex = _yf_index_daily_snapshot("^TWO", "上櫃｜櫃買指數")
+    else:
+        twse = _yf_index_snapshot("^TWII", "上市｜加權指數")
+        # During the session, prefer a same-day Yahoo/yfinance quote instead of
+        # accepting TPEx historical OpenAPI's previous-day close.
+        tpex = _yf_index_snapshot("^TWOII", "上櫃｜櫃買指數")
+        if not tpex:
+            tpex = _yf_index_snapshot("^TWO", "上櫃｜櫃買指數")
+        if not tpex:
+            tpex = _fetch_tpex_official_close()
+
     if twse:
         out["TWSE"] = twse
-
-    # Important: during the trading session, prefer a same-day Yahoo/yfinance
-    # quote instead of accepting TPEx historical OpenAPI's previous-day close.
-    tpex = _yf_index_snapshot("^TWOII", "上櫃｜櫃買指數")
-    if not tpex:
-        tpex = _yf_index_snapshot("^TWO", "上櫃｜櫃買指數")
-    if not tpex:
-        tpex = _fetch_tpex_official_close()
     if tpex:
         out["TPEX"] = tpex
 
@@ -1660,7 +1706,7 @@ def main():
             official = (market=="US") or is_tw_official_snapshot(rows)
 
         print(f"{market}: requested snapshot={args.snapshot} -> storing as {'official' if official else 'intraday'}")
-        market_benchmark = fetch_tw_benchmarks() if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
+        market_benchmark = fetch_tw_benchmarks(official=official) if market=="TW" else (fetch_us_benchmarks() if market=="US" else {})
         theme_market_return=0.0
         if market=="TW":
             try:
