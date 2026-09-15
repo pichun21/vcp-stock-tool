@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.43.0 BETA MARKET PULSE v0.6 + 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1275,6 +1275,11 @@ th{color:#716c64}
   .help-section table{font-size:12px}
   .help-section .muted{font-size:11px}
 }
+
+/* ===== VCPulse 2.43.0 BETA · Market Pulse v0.6 ===== */
+.market-pulse-card{margin:0 0 18px;padding:20px 22px;background:#fffdfa;border:1px solid var(--vp-line,#e8e1d7);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.mp-head,.mp-scoreline{display:flex;justify-content:space-between;align-items:center;gap:12px}.mp-title{font-size:20px;font-weight:900}.mp-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3eee6;color:#8a6848;vertical-align:middle}.mp-score{font-size:38px;font-weight:900;letter-spacing:-1px}.mp-state{font-size:17px;font-weight:800}.mp-signals{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:14px}.mp-signal{padding:10px;background:#f7f4ee;border-radius:12px;min-width:0}.mp-signal span{display:block;font-size:11px;color:#777168;white-space:nowrap}.mp-signal b{display:block;margin-top:4px;font-size:15px}.mp-up{color:var(--good)}.mp-down{color:var(--bad)}.mp-flat{color:var(--muted)}.mp-reason{margin-top:12px;font-size:13px;color:#625d54;line-height:1.55}.mp-meta{margin-top:7px;font-size:11px;color:#918a80}.mp-wait{color:#777168;font-size:13px}.mp-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.mp-help-btn{min-width:0;padding:5px 9px;border:1px solid #ddd2c5;border-radius:999px;background:#fffdfa;color:#625d54;font-size:11px;font-weight:800;cursor:pointer}.mp-help{display:none;margin-top:14px;padding:15px 16px;background:#f8f5ef;border:1px solid #e9e1d6;border-radius:14px;color:#625d54;font-size:13px;line-height:1.7}.mp-help.open{display:block}.mp-help h4{margin:0 0 6px;font-size:14px;color:#2c2924}.mp-help p{margin:5px 0}.mp-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:9px 0}.mp-help-item{padding:9px 10px;background:#fffdfa;border-radius:10px}.mp-help-item b{display:block;color:#2c2924}.mp-help-scale{margin:8px 0;padding:10px 12px;border-radius:11px;background:#fffdfa}.mp-help-flow{font-weight:800;color:#514b43}
+@media(max-width:760px){.market-pulse-card{padding:15px;margin-bottom:14px}.mp-title{font-size:18px}.mp-score{font-size:32px}.mp-signals{grid-template-columns:repeat(3,1fr)}.mp-signal{padding:9px}.mp-signal b{font-size:14px}.mp-help-grid{grid-template-columns:1fr}.mp-head{align-items:flex-start}}
 </style><style>button.pulse-help-trigger{
   font:inherit!important;
   cursor:pointer;
@@ -1428,6 +1433,33 @@ th{color:#716c64}
   <b>⑤ 距 Pivot</b>：其他條件相同時，距 Pivot 較近者優先。</p>
   <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>  </section>
 </div>
+
+
+<section class="market-pulse-card" id="marketPulseCard" aria-live="polite">
+  <div class="mp-head">
+    <div class="mp-title-row"><div class="mp-title">🌐 Market Pulse <span class="mp-beta">BETA</span></div><button type="button" class="mp-help-btn" id="mpHelpBtn" aria-expanded="false">？ Market Pulse 說明</button></div>
+    <div class="mp-wait" id="mpUpdated">讀取中…</div>
+  </div>
+  <div id="mpBody" class="mp-wait" style="margin-top:12px">正在讀取市場環境…</div>
+  <div class="mp-help" id="mpHelpBox">
+    <h4>Market Pulse 是什麼？</h4>
+    <p>用每日 07:00 前已完成的跨市場資料，衡量「今日台股開盤前的市場環境」。它看的是整體環境，不是預測單一股票漲跌。</p>
+    <div class="mp-help-scale"><b>分數怎麼看：</b> 🔴 0–30 偏空　／　🟡 31–69 中性　／　🟢 70–100 偏多。越靠近兩端，代表市場環境訊號越明確。</div>
+    <h4>六項訊號</h4>
+    <div class="mp-help-grid">
+      <div class="mp-help-item"><b>台指夜盤</b>台股開盤前最直接的本地市場訊號。</div>
+      <div class="mp-help-item"><b>費半</b>觀察全球半導體與台灣科技股風險偏好。</div>
+      <div class="mp-help-item"><b>Nasdaq</b>觀察美國科技股整體風險情緒。</div>
+      <div class="mp-help-item"><b>美債 10Y</b>觀察利率壓力與資金評價環境。</div>
+      <div class="mp-help-item"><b>Brent</b>觀察能源、通膨與供需衝擊。</div>
+      <div class="mp-help-item"><b>USD/TWD</b>觀察美元與新台幣相對強弱及資金環境。</div>
+    </div>
+    <p><b>訊號一致度：</b>高／中／低表示各項訊號方向是否集中。即使分數偏多，一致度只有「中」，仍代表部分市場訊號互相衝突。</p>
+    <p class="mp-help-flow">Market Pulse 看環境 → 題材雷達看資金方向 → VCP 看型態 → 單股查詢看個股結構</p>
+    <p>歷史驗證使用 2021–2026 資料；70 分以上樣本整體明顯偏多、30 分以下樣本整體明顯偏空。此功能仍為 Beta 實驗性指標。</p>
+    <p style="font-size:11px;color:#918a80">Market Pulse 不代表未來報酬，也不構成投資建議。</p>
+  </div>
+</section>
 
 <div class="section" id="singleStockAnalysis">
   <div class="section-title">
@@ -3763,6 +3795,26 @@ function setRadarSnapshot(kind){
  forceRadarAllRender();
 }
 
+
+async function loadMarketPulse(){
+ const body=document.getElementById('mpBody'), updated=document.getElementById('mpUpdated'); if(!body)return;
+ const fmt=(v)=>{const n=Number(v);return Number.isFinite(n)?`${n>0?'+':''}${n.toFixed(2)}%`:'—'};
+ const cls=(v)=>Number(v)>0?'mp-up':(Number(v)<0?'mp-down':'mp-flat');
+ try{
+  const r=await fetch(`market_pulse.json?t=${Date.now()}`,{cache:'no-store'}); if(!r.ok)throw new Error('market_pulse.json 尚未建立'); const x=await r.json();
+  if(x.status!=='ok'){body.innerHTML='<div class="mp-wait">Market Pulse 尚未產生，請先執行 Market Pulse Daily (Beta)。</div>';updated.textContent='等待首次更新';return;}
+  const s=x.signals||{}; const items=[['台指夜盤',s.tx_night],['費半',s.sox],['Nasdaq',s.nasdaq],['美債10Y',s.us10y],['Brent',s.brent],['USD/TWD',s.usdtwd]];
+  body.innerHTML=`<div class="mp-scoreline"><div><div class="mp-score">${Number(x.score).toFixed(0)}<span style="font-size:16px;color:#918a80"> / 100</span></div><div class="mp-state">${x.emoji||''} ${escHtml(x.state||'—')}</div></div><div style="text-align:right"><div class="muted">訊號一致度</div><b>${escHtml(x.consistency||'—')}</b></div></div><div class="mp-signals">${items.map(([n,o])=>`<div class="mp-signal"><span>${n}</span><b class="${cls(o&&o.value)}">${fmt(o&&o.value)}</b></div>`).join('')}</div><div class="mp-reason">${escHtml(x.reason||'')}</div><div class="mp-meta">實驗性市場環境指標 · 30 以下偏空／70 以上偏多 · 不代表未來報酬或投資建議</div>`;
+  const basis=String(x.target_date||x.as_of_date||'').trim(); const dt=x.generated_at?new Date(x.generated_at):null; const md=basis&&/^\d{4}-\d{2}-\d{2}$/.test(basis)?basis.slice(5).replace('-','/'):(dt&&!isNaN(dt)?dt.toLocaleDateString('zh-TW',{month:'2-digit',day:'2-digit'}):''); updated.textContent=md?`資料基準 ${md} 07:00`:'資料基準 07:00';
+ }catch(e){body.innerHTML=`<div class="mp-wait">Market Pulse 暫時無法讀取：${escHtml(e.message||String(e))}</div>`;updated.textContent='讀取失敗';}
+}
+
+(function(){
+ const btn=document.getElementById('mpHelpBtn'), box=document.getElementById('mpHelpBox');
+ if(!btn||!box)return;
+ btn.addEventListener('click',()=>{const open=box.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.textContent=open?'收起說明':'？ Market Pulse 說明';});
+})();
+
 async function loadRadar(){
  const updated=document.getElementById('radarUpdated'), empty=document.getElementById('radarEmpty');
  try{
@@ -3940,6 +3992,7 @@ if(document.readyState==='loading'){
 
 const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
 if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
+loadMarketPulse();
 loadRadar();
 
 </script>
