@@ -1450,10 +1450,11 @@ th{color:#716c64}
       <div class="mp-help-item"><b>台指夜盤</b>台股開盤前最直接的本地市場訊號。</div>
       <div class="mp-help-item"><b>費半</b>觀察全球半導體與台灣科技股風險偏好。</div>
       <div class="mp-help-item"><b>Nasdaq</b>觀察美國科技股整體風險情緒。</div>
-      <div class="mp-help-item"><b>美債 10Y</b>觀察利率壓力與資金評價環境。</div>
+      <div class="mp-help-item"><b>美債 10Y</b>觀察利率壓力與資金評價環境；採殖利率日變動（bp），不是百分比漲跌。</div>
       <div class="mp-help-item"><b>Brent</b>觀察能源、通膨與供需衝擊。</div>
       <div class="mp-help-item"><b>USD/TWD</b>觀察美元與新台幣相對強弱及資金環境。</div>
     </div>
+    <p><b>資料時間：</b>市場快照採當日 07:00 前最新已完成資料；海外市場因時區不同，實際交易日期可能不同。</p>
     <p><b>訊號一致度：</b>高／中／低表示各項訊號方向是否集中。即使分數偏多，一致度只有「中」，仍代表部分市場訊號互相衝突。</p>
     <p class="mp-help-flow">Market Pulse 看環境 → 題材雷達看資金方向 → VCP 看型態 → 單股查詢看個股結構</p>
     <p>歷史驗證使用 2021–2026 資料；70 分以上樣本整體明顯偏多、30 分以下樣本整體明顯偏空。此功能仍為 Beta 實驗性指標。</p>
@@ -3798,14 +3799,14 @@ function setRadarSnapshot(kind){
 
 async function loadMarketPulse(){
  const body=document.getElementById('mpBody'), updated=document.getElementById('mpUpdated'); if(!body)return;
- const fmt=(v)=>{const n=Number(v);return Number.isFinite(n)?`${n>0?'+':''}${n.toFixed(2)}%`:'—'};
+ const fmt=(v,unit='%')=>{const n=Number(v);return Number.isFinite(n)?`${n>0?'+':''}${n.toFixed(2)}${unit}`:'—'};
  const cls=(v)=>Number(v)>0?'mp-up':(Number(v)<0?'mp-down':'mp-flat');
  try{
   const r=await fetch(`market_pulse.json?t=${Date.now()}`,{cache:'no-store'}); if(!r.ok)throw new Error('market_pulse.json 尚未建立'); const x=await r.json();
   if(x.status!=='ok'){body.innerHTML='<div class="mp-wait">Market Pulse 尚未產生，請先執行 Market Pulse Daily (Beta)。</div>';updated.textContent='等待首次更新';return;}
-  const s=x.signals||{}; const items=[['台指夜盤',s.tx_night],['費半',s.sox],['Nasdaq',s.nasdaq],['美債10Y',s.us10y],['Brent',s.brent],['USD/TWD',s.usdtwd]];
-  body.innerHTML=`<div class="mp-scoreline"><div><div class="mp-score">${Number(x.score).toFixed(0)}<span style="font-size:16px;color:#918a80"> / 100</span></div><div class="mp-state">${x.emoji||''} ${escHtml(x.state||'—')}</div></div><div style="text-align:right"><div class="muted">訊號一致度</div><b>${escHtml(x.consistency||'—')}</b></div></div><div class="mp-signals">${items.map(([n,o])=>`<div class="mp-signal"><span>${n}</span><b class="${cls(o&&o.value)}">${fmt(o&&o.value)}</b></div>`).join('')}</div><div class="mp-reason">${escHtml(x.reason||'')}</div><div class="mp-meta">實驗性市場環境指標 · 30 以下偏空／70 以上偏多 · 不代表未來報酬或投資建議</div>`;
-  const basis=String(x.target_date||x.as_of_date||'').trim(); const dt=x.generated_at?new Date(x.generated_at):null; const md=basis&&/^\d{4}-\d{2}-\d{2}$/.test(basis)?basis.slice(5).replace('-','/'):(dt&&!isNaN(dt)?dt.toLocaleDateString('zh-TW',{month:'2-digit',day:'2-digit'}):''); updated.textContent=md?`資料基準 ${md} 07:00`:'資料基準 07:00';
+  const s=x.signals||{}; const items=[['台指夜盤',s.tx_night,'%'],['費半',s.sox,'%'],['Nasdaq',s.nasdaq,'%'],['美債10Y',s.us10y,' bp'],['Brent',s.brent,'%'],['USD/TWD',s.usdtwd,'%']];
+  body.innerHTML=`<div class="mp-scoreline"><div><div class="mp-score">${Number(x.score).toFixed(0)}<span style="font-size:16px;color:#918a80"> / 100</span></div><div class="mp-state">${x.emoji||''} ${escHtml(x.state||'—')}</div></div><div style="text-align:right"><div class="muted">訊號一致度</div><b>${escHtml(x.consistency||'—')}</b></div></div><div class="mp-signals">${items.map(([n,o,u])=>`<div class="mp-signal"><span>${n}</span><b class="${cls(o&&o.value)}">${fmt(o&&o.value,u)}</b></div>`).join('')}</div><div class="mp-reason">${escHtml(x.reason||'')}</div><div class="mp-meta">實驗性市場環境指標 · 30 以下偏空／70 以上偏多 · 不代表未來報酬或投資建議</div>`;
+  const basis=String(x.target_date||x.as_of_date||'').trim(); const dt=x.generated_at?new Date(x.generated_at):null; const md=basis&&/^\d{4}-\d{2}-\d{2}$/.test(basis)?basis.slice(5).replace('-','/'):(dt&&!isNaN(dt)?dt.toLocaleDateString('zh-TW',{month:'2-digit',day:'2-digit'}):''); updated.textContent=md?`市場快照｜${md} 07:00`:'市場快照｜07:00';
  }catch(e){body.innerHTML=`<div class="mp-wait">Market Pulse 暫時無法讀取：${escHtml(e.message||String(e))}</div>`;updated.textContent='讀取失敗';}
 }
 
