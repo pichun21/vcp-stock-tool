@@ -1,0 +1,50 @@
+{
+  "version": "market-pulse-v0.6-beta",
+  "trained_through": "2024-12-26",
+  "score_scale": 0.7211986267758799,
+  "features": [
+    "tx_night",
+    "nasdaq",
+    "sox",
+    "us10y",
+    "brent",
+    "usdtwd",
+    "tx_tech_divergence",
+    "oil_yield_shock"
+  ],
+  "mean": {
+    "tx_night": 0.056860103626943,
+    "nasdaq": 0.06698514714795933,
+    "sox": 0.10545046578499372,
+    "us10y": 0.3172022752811254,
+    "brent": 0.03282596884541796,
+    "usdtwd": 0.01227634401098859,
+    "tx_tech_divergence": -0.029357702839533508,
+    "oil_yield_shock": 2.7859479196086685
+  },
+  "std": {
+    "tx_night": 0.7457220211047888,
+    "nasdaq": 1.3813366546538894,
+    "sox": 2.179455589679441,
+    "us10y": 6.540874652786186,
+    "brent": 2.2140533362507786,
+    "usdtwd": 0.3579037939790119,
+    "tx_tech_divergence": 1.2651914374341018,
+    "oil_yield_shock": 8.419667509168718
+  },
+  "coef": {
+    "intercept": 0.051843218522798426,
+    "tx_night": 0.5816402858363019,
+    "nasdaq": 0.03182405944021649,
+    "sox": 0.2223184912279808,
+    "us10y": -0.01586866812292625,
+    "brent": 0.062317895210912175,
+    "usdtwd": -0.010847361411983392,
+    "tx_tech_divergence": 0.1339682323121581,
+    "oil_yield_shock": -0.025770802545190014
+  },
+  "bands": {
+    "bearish_max": 30,
+    "bullish_min": 70
+  }
+}
