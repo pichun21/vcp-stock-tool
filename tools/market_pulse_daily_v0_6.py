@@ -71,8 +71,9 @@ def fetch_tx_night(target_date):
     vol,pct,month,last=best
     return {'value':pct,'date':page_date,'contract':month,'last':last,'volume':vol,'source':'TAIFEX official after-hours'}
 
-def yf_change(symbol, cutoff_date):
-    """Return the last completed daily bar strictly before Taiwan target date."""
+def yf_change(symbol, cutoff_date, basis_points=False):
+    """Match history builder v0.2: latest completed session strictly before Taiwan target date.
+    For ^TNX, use session-to-session yield change in basis points, not percent return."""
     cutoff=pd.Timestamp(cutoff_date)
     start=(cutoff-pd.Timedelta(days=14)).strftime('%Y-%m-%d')
     end=cutoff.strftime('%Y-%m-%d')  # yfinance end is exclusive
@@ -84,8 +85,13 @@ def yf_change(symbol, cutoff_date):
     if len(close)<2: raise RuntimeError(f'{symbol} 收盤資料不足')
     last_date=str(pd.Timestamp(close.index[-1]).date())
     if last_date >= cutoff_date: raise RuntimeError(f'{symbol} 日期鎖定失敗：{last_date} >= {cutoff_date}')
-    pct=(float(close.iloc[-1])/float(close.iloc[-2])-1)*100
-    return {'value':pct,'date':last_date,'close':float(close.iloc[-1]),'source':'Yahoo Finance (07:00 cutoff)'}
+    if basis_points:
+        value=(float(close.iloc[-1])-float(close.iloc[-2]))*100
+        unit='bp'
+    else:
+        value=(float(close.iloc[-1])/float(close.iloc[-2])-1)*100
+        unit='percent'
+    return {'value':value,'date':last_date,'close':float(close.iloc[-1]),'unit':unit,'source':'Yahoo Finance (history-aligned cutoff)'}
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--output',default=str(OUT)); args=ap.parse_args()
@@ -96,11 +102,11 @@ def main():
     try: raw['tx_night']=fetch_tx_night(target_date)
     except Exception as e: errors.append(f'TX night: {e}')
     for key,sym in {'nasdaq':'^IXIC','sox':'^SOX','us10y':'^TNX','brent':'BZ=F','usdtwd':'TWD=X'}.items():
-        try: raw[key]=yf_change(sym,target_date)
+        try: raw[key]=yf_change(sym,target_date,basis_points=(key=='us10y'))
         except Exception as e: errors.append(f'{key}: {e}')
     required=['tx_night','nasdaq','sox','us10y','brent','usdtwd']
     if any(k not in raw for k in required):
-        out={'version':'market-pulse-v0.6.2-beta','status':'unavailable','generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei','errors':errors,'signals':raw}
+        out={'version':'market-pulse-v0.6.3-beta','status':'unavailable','generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei','errors':errors,'signals':raw}
         Path(args.output).write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8'); print(json.dumps(out,ensure_ascii=False,indent=2)); return 2
     v={k:raw[k]['value'] for k in required}
     v['tx_tech_divergence']=v['tx_night']-(v['nasdaq']+v['sox'])/2
@@ -120,7 +126,7 @@ def main():
     labels={'tx_night':'台指夜盤','nasdaq':'Nasdaq','sox':'費半','us10y':'美債殖利率','brent':'Brent','usdtwd':'USD/TWD','tx_tech_divergence':'台股相對科技股','oil_yield_shock':'油價×殖利率風險'}
     strongest=sorted(contributions.items(),key=lambda kv:abs(kv[1]),reverse=True)[:3]
     reason='、'.join(f"{labels[k]}{'偏多' if c>0 else '偏空'}" for k,c in strongest)
-    out={'version':'market-pulse-v0.6.2-beta','status':'ok','experimental':True,'generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei',
+    out={'version':'market-pulse-v0.6.3-beta','status':'ok','experimental':True,'generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei',
          'score':round(score,1),'state':state,'emoji':emoji,'predicted_tw_close_ret':round(pred,3),
          'consistency':consistency,'reason':reason,'signals':raw,'derived':{k:round(v[k],4) for k in ['tx_tech_divergence','oil_yield_shock']},
          'contributions':{k:round(x,4) for k,x in contributions.items()},'model_trained_through':model['trained_through'],'errors':errors}
