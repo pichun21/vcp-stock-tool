@@ -1478,7 +1478,7 @@ th{color:#716c64}
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
 <div class="note">圖：近約 120 個交易日收盤價；上方圖例標示收盤價、MA20（月線）與 Pivot（突破價）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方。VCP 是型態辨識，不代表突破一定成功。</div></div>
-<div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div>
+<div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div><div id="scoreContext" class="muted" style="margin-top:8px;line-height:1.55" hidden></div>
 <div class="single-quick-read">
   <div class="single-quick-item"><span>今日漲跌</span><b id="singleChange">—</b></div>
   <div class="single-quick-item"><span>對應大盤</span><b id="singleMarketChange">—</b><small id="singleMarketName"></small></div>
@@ -1645,10 +1645,7 @@ function analyze(d){
  let piv=[]; for(let i=3;i<n-3;i++){let w=close.slice(i-3,i+4); if(close[i]===Math.max(...w))piv.push({i,t:'H',p:close[i]}); if(close[i]===Math.min(...w))piv.push({i,t:'L',p:close[i]})}
  piv=piv.filter((x,i)=>!i||x.t!==piv[i-1].t);
  let drops=[]; for(let i=0;i<piv.length-1;i++) if(piv[i].t==='H'&&piv[i+1].t==='L') drops.push({h:piv[i],l:piv[i+1],drop:(piv[i].p-piv[i+1].p)/piv[i].p*100});
- // V2.43.2 — keep browser-side single-stock contraction logic identical to scanner.py.
- // Near-100% peak-to-trough legs are broken/unusable price-series artifacts, not VCP contractions.
- drops=drops.filter(x=>Number.isFinite(Number(x.drop)) && Number(x.drop)>0 && Number(x.drop)<95).slice(-4);
- let seq=drops.map(x=>x.drop), contracting=seq.length>=2&&seq.slice(1).every((x,i)=>x<seq[i]*1.12);
+ drops=drops.slice(-4); let seq=drops.map(x=>x.drop), contracting=seq.length>=2&&seq.slice(1).every((x,i)=>x<seq[i]*1.12);
  let recent=close.slice(-35), pivot=Math.max(...recent.slice(0,-3)), last=close[n-1], distance=(last/pivot-1)*100;
  let v20=vol.slice(-20).reduce((a,b)=>a+b,0)/20, v60=vol.slice(-60,-20).reduce((a,b)=>a+b,0)/Math.max(1,vol.slice(-60,-20).length), dry=v20<v60*.85;
  const avgVolume20=rawVolume.slice(-20).reduce((a,b)=>a+b,0)/Math.max(1,rawVolume.slice(-20).length);
@@ -2246,16 +2243,9 @@ function findLatestRadarMatch(market,symbol){
  const m=String(market).toUpperCase(), sym=String(symbol).toUpperCase();
  const intraday=(typeof radarSnapshotData!=='undefined' ? radarSnapshotData.intraday : [])||[];
  const official=(typeof radarSnapshotData!=='undefined' ? radarSnapshotData.official : [])||[];
- const live=intraday.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym) || null;
- const base=official.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym) || null;
- // V2.43.2 — intraday rows intentionally carry lighter fields. Enrich them with
- // official structural VCP fields so live price/status never replaces the scanner's
- // score components or contractions with a second browser-side calculation.
- if(live && base) return {...base,...live,
-   score_components:live.score_components||base.score_components,
-   contractions:Array.isArray(live.contractions)?live.contractions:base.contractions
- };
- return live || base || null;
+ return intraday.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym)
+     || official.find(x=>String(x.market||'').toUpperCase()===m && String(x.symbol||'').toUpperCase()===sym)
+     || null;
 }
 
 
@@ -2312,6 +2302,7 @@ function renderSingleFromRadarFallback(symbol,row){
   }
 
   $('score').textContent=Number.isFinite(pts)?`${pts}/5`:'—';
+  if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}
   $('stars').textContent=Number.isFinite(pts)?'★'.repeat(Math.max(0,Math.min(5,pts)))+'☆'.repeat(Math.max(0,5-Math.min(5,pts))):'☆☆☆☆☆';
   $('pivot').textContent=Number.isFinite(pivot)?pivot.toFixed(2):'—';
   $('dist').textContent=Number.isFinite(distance)?pct(distance):'—';
@@ -2533,6 +2524,26 @@ async function run(){
     }
   }
   $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
+  // V2.43.3 — make it explicit why a low-score stock can still remain on Daily Radar.
+  // Score = current VCP shape quality; post-breakout D+N = radar tracking state.
+  const scoreContext=$('scoreContext');
+  if(scoreContext){
+    if(radarMatch?.type==='postbreakout'){
+      const days=Number(radarMatch.breakout_days);
+      const dtext=Number.isFinite(days)?` D+${days}`:'';
+      const ret=Number(radarMatch.breakout_return_pct ?? radarMatch.distance);
+      const high=Number(radarMatch.breakout_high_pct);
+      const extended=String(radarMatch.pulse_signal||'')==='extended';
+      const bits=[`🔵 突破後${dtext}｜雷達追蹤中`];
+      if(Number.isFinite(ret)) bits.push(`目前距 Pivot ${pct(ret)}`);
+      if(Number.isFinite(high)) bits.push(`突破後最高 ${pct(high)}`);
+      if(extended) bits.push('⚠️ 過度延伸');
+      scoreContext.hidden=false;
+      scoreContext.innerHTML=`<b>型態品質 ${a.pts}/5</b><br>${bits.map(escHtml).join('｜')}`;
+    }else{
+      scoreContext.hidden=true; scoreContext.textContent='';
+    }
+  }
   $('contracts').textContent=a.seq.length?a.seq.map(x=>'-'+Math.abs(x).toFixed(0)+'%').join(' → '):'未辨識';$('volume').textContent=a.dry?'量縮 ✓':'未明顯量縮';
   // V2.43.1 — when Daily Radar supplied the score, render the five checks from
   // the exact same scanner components. This prevents e.g. 1/5 beside three ✓.
@@ -2799,7 +2810,7 @@ function setMarket(m,{reset=true}={}){
  if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
   $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}if($('singleRestoreNote')){$('singleRestoreNote').hidden=true;$('singleRestoreNote').textContent='';}$('state').textContent='—';
-  $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';$('pivot').textContent='—';$('dist').textContent='—';
+  $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
  renderRadar(radarFilter);
