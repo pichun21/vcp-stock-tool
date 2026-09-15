@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse, json, math, sys
+from io import StringIO
 from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -27,7 +28,7 @@ def pick(d,*names):
 def fetch_tx_night(target_date):
     """Use TAIFEX official TX after-hours page and require the attributed trading date."""
     url='https://www.taifex.com.tw/cht/3/futDailyMarketExcel?marketCode=1'
-    r=requests.get(url,timeout=35,headers={'User-Agent':'VCPulse-Market-Pulse/0.6.1'})
+    r=requests.get(url,timeout=35,headers={'User-Agent':'VCPulse-Market-Pulse/0.6.2'})
     r.raise_for_status()
     import re
     m=re.search(r'日期[：:]\s*(\d{4})[/-](\d{1,2})[/-](\d{1,2})', r.text)
@@ -35,7 +36,13 @@ def fetch_tx_night(target_date):
     page_date=f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
     if page_date != target_date:
         raise RuntimeError(f'TAIFEX 最新歸屬日 {page_date}，尚非目標日 {target_date}')
-    tables=pd.read_html(r.text)
+    # pandas 2.x may interpret a raw HTML string as a filesystem path.
+    # Wrap the response body explicitly so HTML is always parsed as content.
+    ctype=(r.headers.get('content-type') or '').lower()
+    body=r.text
+    if '<html' not in body.lower() and '<table' not in body.lower():
+        raise RuntimeError(f'TAIFEX 回傳非 HTML 表格資料（content-type={ctype or "unknown"}）')
+    tables=pd.read_html(StringIO(body))
     best=None
     for df in tables:
         if df.empty: continue
@@ -93,7 +100,7 @@ def main():
         except Exception as e: errors.append(f'{key}: {e}')
     required=['tx_night','nasdaq','sox','us10y','brent','usdtwd']
     if any(k not in raw for k in required):
-        out={'version':'market-pulse-v0.6.1-beta','status':'unavailable','generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei','errors':errors,'signals':raw}
+        out={'version':'market-pulse-v0.6.2-beta','status':'unavailable','generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei','errors':errors,'signals':raw}
         Path(args.output).write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8'); print(json.dumps(out,ensure_ascii=False,indent=2)); return 2
     v={k:raw[k]['value'] for k in required}
     v['tx_tech_divergence']=v['tx_night']-(v['nasdaq']+v['sox'])/2
@@ -113,7 +120,7 @@ def main():
     labels={'tx_night':'台指夜盤','nasdaq':'Nasdaq','sox':'費半','us10y':'美債殖利率','brent':'Brent','usdtwd':'USD/TWD','tx_tech_divergence':'台股相對科技股','oil_yield_shock':'油價×殖利率風險'}
     strongest=sorted(contributions.items(),key=lambda kv:abs(kv[1]),reverse=True)[:3]
     reason='、'.join(f"{labels[k]}{'偏多' if c>0 else '偏空'}" for k,c in strongest)
-    out={'version':'market-pulse-v0.6.1-beta','status':'ok','experimental':True,'generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei',
+    out={'version':'market-pulse-v0.6.2-beta','status':'ok','experimental':True,'generated_at':now.isoformat(),'target_date':target_date,'data_cutoff':'07:00 Asia/Taipei',
          'score':round(score,1),'state':state,'emoji':emoji,'predicted_tw_close_ret':round(pred,3),
          'consistency':consistency,'reason':reason,'signals':raw,'derived':{k:round(v[k],4) for k in ['tx_tech_divergence','oil_yield_shock']},
          'contributions':{k:round(x,4) for k,x in contributions.items()},'model_trained_through':model['trained_through'],'errors':errors}
