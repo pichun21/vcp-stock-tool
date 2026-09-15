@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.9.1 HELP SECTION CARDS + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -796,6 +796,10 @@ th{color:#716c64}
 .single-quick-item b.down,.single-relative-weak{color:#b14b42}
 .single-signal-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 11px}
 .single-signal-chip{display:inline-flex;align-items:center;padding:6px 9px;border:1px solid #e6dfd5;border-radius:999px;background:#fffdfa;font-size:11px;font-weight:850}
+.single-liquidity-detail{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:-2px 0 12px;padding:9px 11px;border:1px solid #e7e0d6;border-radius:12px;background:#fbfaf7;font-size:11px;color:#6f6a62}
+.single-liquidity-detail b{color:#302d29;font-weight:900}
+.liquidity-desktop{margin-top:4px;font-size:10px;color:#777168;white-space:nowrap}
+@media(max-width:760px){.single-liquidity-detail{font-size:10px;padding:8px 9px}.liquidity-desktop{display:none}}
 @media(max-width:760px){
  .single-quick-read{gap:6px;margin:11px 0 9px}
  .single-quick-item{padding:9px 8px;border-radius:12px}
@@ -1245,6 +1249,32 @@ th{color:#716c64}
   .change-sort-dir{width:36px;height:36px}
 }
 
+
+/* V2.42.9.1 — 指標說明章節分區，提升段落辨識 */
+.helpbox{padding:22px}
+.help-section{
+  margin:0 0 14px;padding:16px 18px 15px;
+  border:1px solid #ebe5dc;border-radius:15px;background:#fbfaf7;
+  box-shadow:0 2px 8px rgba(57,46,33,.025);
+}
+.help-section:last-child{margin-bottom:0}
+.help-section h3{
+  position:relative;margin:0 0 11px;padding-left:12px;font-size:17px;font-weight:950;color:#2e2a25;
+}
+.help-section h3::before{
+  content:"";position:absolute;left:0;top:2px;bottom:2px;width:4px;border-radius:999px;background:#c58d58;
+}
+.help-section p:first-of-type{margin-top:0}
+.help-section p:last-child{margin-bottom:0}
+.help-section table{background:#fff;border:1px solid #eee8df;border-radius:10px;overflow:hidden}
+@media(max-width:760px){
+  .helpbox{padding:12px}
+  .help-section{margin-bottom:10px;padding:13px 12px;border-radius:13px}
+  .help-section h3{font-size:16px;margin-bottom:9px}
+  .help-section p{font-size:13px;line-height:1.65}
+  .help-section table{font-size:12px}
+  .help-section .muted{font-size:11px}
+}
 </style><style>button.pulse-help-trigger{
   font:inherit!important;
   cursor:pointer;
@@ -1337,9 +1367,12 @@ th{color:#716c64}
   <button class="helpbtn" id="helpBtn" style="position:absolute;right:18px;top:18px">？ 指標使用說明</button>
 </section>
 <div class="card helpbox" id="helpBox">
+  <section class="help-section">
   <h3>什麼是 VCP？</h3>
   <p><b>VCP（Volatility Contraction Pattern，波動收縮型態）</b>是觀察股價在上升趨勢中，回檔與波動逐步縮小、成交量降溫，最後等待突破關鍵價位（Pivot）的技術型態。</p>
   <p>本站將各次回檔依序標示為 <b>C1、C2、C3、C4</b>。例如 C1 -18% → C2 -10% → C3 -6%，代表波動逐漸收斂。</p>
+  </section>
+  <section class="help-section">
   <h3>VCP 評分</h3>
   <table>
     <tr><th>項目</th><th>本站判斷方式</th><th>分數</th></tr>
@@ -1350,18 +1383,42 @@ th{color:#716c64}
     <tr><td>🎯 Pivot</td><td>股價接近 Pivot（突破價），或最新交易日首次帶量突破 Pivot</td><td>+1</td></tr>
   </table>
   <p><b>★★★★★</b>：五項皆符合；<b>★★★★☆</b>：已有明顯 VCP 特徵。每日雷達目前以 4 分以上為主要候選。</p>
+  </section>
+  <section class="help-section">
+  <h3>流動性品質（台股）</h3>
+  <p>流動性品質用來判斷一檔股票「實際上好不好交易」，與 VCP 星等分開計算，不會影響 VCP 5/5 評分。</p>
+  <table>
+    <tr><th>流動性品質</th><th>20 日平均成交量</th><th>解讀</th></tr>
+    <tr><td>🟢 高</td><td>≥ 2,000 張</td><td>交易活躍</td></tr>
+    <tr><td>🟢 良好</td><td>1,000–1,999 張</td><td>流動性良好</td></tr>
+    <tr><td>🟡 普通</td><td>500–999 張</td><td>一般可交易</td></tr>
+    <tr><td>🟠 偏低</td><td>300–499 張</td><td>注意進出</td></tr>
+    <tr><td>⚠️ 低</td><td>100–299 張</td><td>注意滑價與成交</td></tr>
+    <tr><td>🔴 極低</td><td>&lt; 100 張</td><td>交易風險較高</td></tr>
+  </table>
+  <p class="muted"><b>補充：</b>流動性品質只作為交易品質參考；VCPulse 仍另外以 20 日平均成交金額作為基本流動性篩選，台股目前門檻為 2,000 萬元。</p>
+  </section>
+  <section class="help-section">
   <h3>每日雷達狀態</h3>
   <p>🟢 <b>今日帶量突破</b>：前一交易日尚未突破 Pivot，最新交易日收盤首次站上 Pivot，且成交量明顯放大。</p>
   <p>🔵 <b>突破後</b>：近期已突破 Pivot，且目前仍站在 Pivot 上方；本站追蹤最近 10 個交易日，並顯示相對 Pivot 報酬與突破後最高漲幅，方便觀察突破是否守穩。</p>
   <p>🟡 <b>接近 Pivot</b>：尚未突破，但距 Pivot 已相當接近。</p>
   <p>⚪ <b>VCP 成形中</b>：已具備 VCP 特徵，但仍離 Pivot 有一段距離。</p>
+  </section>
+  <section class="help-section">
   <h3>PowerSqueeze 是什麼？</h3>
   <p>本站另外比較 <b>Bollinger Bands（20日、2個標準差）</b> 與 <b>Keltner Channel（EMA20＋ATR20）</b> 的寬度。當布林通道收進 Keltner Channel 內，代表近期波動正在壓縮。</p>
   <p>本站分為：🔴 <b>強力壓縮</b>、🟠 <b>中度壓縮</b>、🩷 <b>一般壓縮</b>、⚪ <b>無壓縮</b>。壓縮越強代表波動越集中，但不代表之後一定上漲。</p>
+  </section>
+  <section class="help-section">
   <h3>Momentum 動能</h3>
   <p>動能以價格相對 20 日平均價格的位置與變化輔助判斷，顯示為 <b>↑ 多方增強、↘ 多方減弱、↓ 空方增強、↗ 空方減弱</b>。</p>
+  </section>
+  <section class="help-section">
   <h3>⚡ VCP＋Squeeze</h3>
   <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
+  </section>
+  <section class="help-section">
   <h3>每日雷達如何排序？</h3>
   <p>每日雷達優先顯示當下較值得注意的狀態，而不是只看星數：</p>
   <p><b>① 狀態</b>：🟢 今日帶量突破 → 🔵 突破後 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
@@ -1369,7 +1426,7 @@ th{color:#716c64}
   <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮<br>
   <b>④ Momentum</b>：↑ 多方增強 → ↗ 空方減弱 → ↘ 多方減弱 → ↓ 空方增強<br>
   <b>⑤ 距 Pivot</b>：其他條件相同時，距 Pivot 較近者優先。</p>
-  <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>
+  <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>  </section>
 </div>
 
 <div class="section" id="singleStockAnalysis">
@@ -1395,6 +1452,7 @@ th{color:#716c64}
   <div class="single-quick-item"><span>相對強弱</span><b id="singleRelative">—</b></div>
 </div>
 <div class="single-signal-row" id="singleSignals"></div>
+<div class="single-liquidity-detail" id="singleLiquidity" hidden></div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
@@ -1548,7 +1606,7 @@ const $=id=>document.getElementById(id), API='https://api.finmindtrade.com/api/v
 function pct(x){return (x>=0?'+':'')+x.toFixed(1)+'%'}
 function sma(a,n){return a.map((_,i)=>i<n-1?null:a.slice(i-n+1,i+1).reduce((x,y)=>x+y,0)/n)}
 function analyze(d){
- const close=d.map(x=>+x.close), vol=d.map(x=>+x.Trading_Volume||+x.Trading_money||0), n=close.length, ma50=sma(close,50), ma150=sma(close,150);
+ const close=d.map(x=>+x.close), vol=d.map(x=>+x.Trading_Volume||+x.Trading_money||0), rawVolume=d.map(x=>+x.Trading_Volume||+x.Volume||0), money=d.map(x=>+x.Trading_money||(+x.close)*(+x.Trading_Volume||+x.Volume||0)), n=close.length, ma50=sma(close,50), ma150=sma(close,150);
  let trend=ma50[n-1]&&ma150[n-1]&&close[n-1]>ma50[n-1]&&ma50[n-1]>ma150[n-1];
  // Detect local peaks/troughs, then derive recent peak-to-trough contractions.
  let piv=[]; for(let i=3;i<n-3;i++){let w=close.slice(i-3,i+4); if(close[i]===Math.max(...w))piv.push({i,t:'H',p:close[i]}); if(close[i]===Math.min(...w))piv.push({i,t:'L',p:close[i]})}
@@ -1557,6 +1615,8 @@ function analyze(d){
  drops=drops.slice(-4); let seq=drops.map(x=>x.drop), contracting=seq.length>=2&&seq.slice(1).every((x,i)=>x<seq[i]*1.12);
  let recent=close.slice(-35), pivot=Math.max(...recent.slice(0,-3)), last=close[n-1], distance=(last/pivot-1)*100;
  let v20=vol.slice(-20).reduce((a,b)=>a+b,0)/20, v60=vol.slice(-60,-20).reduce((a,b)=>a+b,0)/Math.max(1,vol.slice(-60,-20).length), dry=v20<v60*.85;
+ const avgVolume20=rawVolume.slice(-20).reduce((a,b)=>a+b,0)/Math.max(1,rawVolume.slice(-20).length);
+ const avgValue20=money.slice(-20).reduce((a,b)=>a+b,0)/Math.max(1,money.slice(-20).length);
  // PowerSqueeze: BB(20,2σ) vs Keltner Channel(EMA20,ATR20)
  const c20=close.slice(-20), mean20=c20.reduce((a,b)=>a+b,0)/c20.length;
  const sd20=Math.sqrt(c20.reduce((a,b)=>a+(b-mean20)**2,0)/c20.length);
@@ -1578,7 +1638,7 @@ function analyze(d){
  let prev=close[n-2], todayBreakout=prev<=pivot && breakout && breakoutVol;
  let pts=0; if(trend)pts++; if(seq.length>=2)pts++; if(contracting)pts++; if(dry)pts++; if(todayBreakout||(!breakout&&distance>-8))pts++;
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
- return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),dates:d.map(x=>x.date)}
+ return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart');
@@ -1998,11 +2058,13 @@ function updateSingleQuickRead(radarMatch,d,a,liveQuote=null){
  if(a?.squeezeState) chips.push(a.squeezeState);
  if(a?.momentum) chips.push(`Momentum ${a.momentum}`);
  $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
+ updateSingleLiquidity(radarMatch,a);
 }
 function resetSingleQuickRead(){
  ['singleChange','singleMarketChange','singleRelative'].forEach(id=>{const el=$(id);if(el){el.textContent='—';el.className='';}});
  if($('singleMarketName')) $('singleMarketName').textContent='';
  if($('singleSignals')) $('singleSignals').innerHTML='';
+ if($('singleLiquidity')){$('singleLiquidity').hidden=true;$('singleLiquidity').innerHTML='';}
 }
 
 
@@ -2249,6 +2311,7 @@ function renderSingleFromRadarFallback(symbol,row){
     if(row.momentum) chips.push(row.momentum);
     $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
   }
+  updateSingleLiquidity(row,null);
 
   drawRadarFallbackMessage();
   return true;
@@ -2267,8 +2330,38 @@ async function run(){
  let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
-  let r=await fetch(u),j=await r.json(); if(!r.ok||!j.data||j.data.length<160)throw new Error(j.msg||'歷史資料不足');
-  let d=normalizeData(j.data,currentMarket);
+  let sourceRows=null;
+  try{
+    const r=await fetch(u,{cache:'no-store'});
+    const j=await r.json();
+    if(r.ok&&Array.isArray(j.data)&&j.data.length>=160) sourceRows=j.data;
+  }catch(e){ console.warn('FinMind history unavailable; trying Yahoo daily fallback',e); }
+
+  // Desktop browsers can occasionally be blocked/rate-limited by FinMind while
+  // another device still works. Fall back to Yahoo daily candles before showing
+  // the history error so desktop/mobile behave consistently.
+  if(!sourceRows){
+    const yahooSymbols=currentMarket==='US'?[s]:[`${s}.TW`,`${s}.TWO`];
+    for(const ys of yahooSymbols){
+      try{
+        const yu=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1d&range=2y&events=div%2Csplits&includeAdjustedClose=true&_=${Date.now()}`;
+        const yr=await fetch(yu,{cache:'no-store'});
+        if(!yr.ok) continue;
+        const yj=await yr.json();
+        const result=yj?.chart?.result?.[0];
+        const ts=result?.timestamp||[];
+        const q=result?.indicators?.quote?.[0]||{};
+        const rows=ts.map((t,i)=>({
+          date:new Date(Number(t)*1000).toISOString().slice(0,10),
+          open:q.open?.[i], max:q.high?.[i], min:q.low?.[i], close:q.close?.[i],
+          Trading_Volume:q.volume?.[i], Volume:q.volume?.[i]
+        })).filter(x=>Number.isFinite(Number(x.close)));
+        if(rows.length>=160){ sourceRows=rows; break; }
+      }catch(e){ console.warn('Yahoo daily history fallback failed',ys,e); }
+    }
+  }
+  if(!sourceRows||sourceRows.length<160) throw new Error('歷史資料不足');
+  let d=normalizeData(sourceRows,currentMarket);
   const restoreEvents=getRestoreEvents(currentMarket,s);
   if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
   const radarMatch=findLatestRadarMatch(currentMarket,s);
@@ -2711,6 +2804,22 @@ function attentionReason(r){
 }
 function pulseLabel(r){ return RADAR_UI.pulse[r.pulse_signal] || r.pulse_label || '⏳ 等待'; }
 function volumeLabel(r){ return r.volume_dry ? '量縮 ✓' : '一般'; }
+function liquidityInfo(r){
+ if(String(r?.market||currentMarket||'TW').toUpperCase()!=='TW') return null;
+ let lots=Number(r?.avg_volume_20d_lots);
+ if(!Number.isFinite(lots)){const raw=Number(r?.avg_volume_20d ?? r?.avgVolume20);if(Number.isFinite(raw)) lots=raw/1000;}
+ if(!Number.isFinite(lots)) return null;
+ let emoji='🔴',label='極低';
+ if(lots>=2000){emoji='🟢';label='高';}else if(lots>=1000){emoji='🟢';label='良好';}else if(lots>=500){emoji='🟡';label='普通';}else if(lots>=300){emoji='🟠';label='偏低';}else if(lots>=100){emoji='⚠️';label='低';}
+ return {emoji,label,lots};
+}
+function fmtLots(v){const n=Number(v);if(!Number.isFinite(n))return '—';return n>=100?Math.round(n).toLocaleString('zh-TW'):n.toFixed(n<10?1:0);}
+function fmtMoneyTW(v){const n=Number(v);if(!Number.isFinite(n))return '—';if(n>=1e8)return `${(n/1e8).toFixed(n>=1e9?1:2)} 億`;if(n>=1e4)return `${Math.round(n/1e4).toLocaleString('zh-TW')} 萬`;return Math.round(n).toLocaleString('zh-TW');}
+function liquidityCompact(r){const q=liquidityInfo(r);return q?`${q.emoji} ${q.label}`:'';}
+function liquidityDesktop(r){const q=liquidityInfo(r);return q?`${q.emoji} ${q.label} · ${fmtLots(q.lots)} 張`:'';}
+function updateSingleLiquidity(radarMatch,a){
+ const box=$('singleLiquidity');if(!box)return;const src={market:currentMarket,avg_volume_20d_lots:radarMatch?.avg_volume_20d_lots,avg_volume_20d:radarMatch?.avg_volume_20d,avgVolume20:a?.avgVolume20};const q=liquidityInfo(src);if(!q){box.hidden=true;box.innerHTML='';return;}const value=Number(radarMatch?.avg_value_20d ?? a?.avgValue20);box.hidden=false;box.innerHTML=`<b>流動性 ${q.emoji} ${q.label}</b><span>20日均量 ${fmtLots(q.lots)} 張</span>${Number.isFinite(value)?`<span>20日均額 ${fmtMoneyTW(value)}</span>`:''}`;
+}
 function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
 const FAVORITES_KEY='vcpulse_favorites_v1';
@@ -3088,7 +3197,7 @@ function renderRadar(filter='all'){
      </div>
    </td>
    <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span>${r._live?'<span class="live-quote-badge">即時</span>':''}</td>
-   <td>${esc(volumeLabel(r))}</td>
+   <td>${esc(volumeLabel(r))}${liquidityDesktop(r)?`<div class="liquidity-desktop">${esc(liquidityDesktop(r))}</div>`:''}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
    <td class="status-dot">${esc(stageLabel(r))}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高漲幅 ${esc(signedPct(r.breakout_high_pct ?? r.breakout_return_pct ?? r.distance))}</div>`:''}</td>
@@ -3242,6 +3351,7 @@ function renderRadar(filter='all'){
        <div class="mobile-signal-row">
          <span class="mobile-signal">${esc(squeezeLabel(r))}</span>
          <span class="mobile-signal">${esc(momentumLabel(r))}</span>
+         ${liquidityCompact(r)?`<span class="mobile-signal">${esc(liquidityCompact(r))}</span>`:''}
          ${r.combo?'<span class="mobile-signal">⚡ VCP＋Squeeze</span>':''}
        </div>
        <div class="mobile-why">
