@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.42.9.1 HELP SECTION CARDS + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2148,7 +2148,7 @@ async function getSingleLatestQuote(market,symbol){
    }
 
    // 第二層：Yahoo 1m chart。上櫃先嘗試 .TWO，再嘗試 .TW。
-   const yahooSymbols=[`${sym}.TWO`,`${sym}.TW`];
+   const yahooSymbols=[`${sym}.TW`,`${sym}.TWO`];
    for(const ys of yahooSymbols){
      try{
        const yurl=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1m&range=1d&includePrePost=false&_=${Date.now()}`;
@@ -2317,6 +2317,44 @@ function renderSingleFromRadarFallback(symbol,row){
   return true;
 }
 
+function rocDateToIso(v){
+ const s=String(v||'').trim();
+ const m=s.match(/^(\d{2,3})[\/.-](\d{1,2})[\/.-](\d{1,2})$/);
+ if(!m) return s;
+ return `${Number(m[1])+1911}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
+}
+function twseNum(v){
+ const n=Number(String(v??'').replace(/,/g,'').replace(/--/g,'').trim());
+ return Number.isFinite(n)?n:NaN;
+}
+async function fetchTwseOfficialHistory(symbol,months=14){
+ const now=new Date();
+ const jobs=[];
+ for(let i=0;i<months;i++){
+   const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+   const date=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}01`;
+   const url=`https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date=${date}&stockNo=${encodeURIComponent(symbol)}&_=${Date.now()+i}`;
+   jobs.push(fetch(url,{cache:'no-store'}).then(async r=>{
+     if(!r.ok) return [];
+     const j=await r.json().catch(()=>null);
+     if(!j || !Array.isArray(j.data)) return [];
+     return j.data.map(x=>({
+       date:rocDateToIso(x?.[0]),
+       Trading_Volume:twseNum(x?.[1]),
+       Trading_money:twseNum(x?.[2]),
+       open:twseNum(x?.[3]),
+       max:twseNum(x?.[4]),
+       min:twseNum(x?.[5]),
+       close:twseNum(x?.[6])
+     })).filter(x=>x.date && Number.isFinite(x.close));
+   }).catch(()=>[]));
+ }
+ const chunks=await Promise.all(jobs);
+ const map=new Map();
+ chunks.flat().forEach(x=>map.set(x.date,x));
+ return [...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
+}
+
 async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
@@ -2330,38 +2368,24 @@ async function run(){
  let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
-  let sourceRows=null;
+  let d=[];
   try{
     const r=await fetch(u,{cache:'no-store'});
     const j=await r.json();
-    if(r.ok&&Array.isArray(j.data)&&j.data.length>=160) sourceRows=j.data;
-  }catch(e){ console.warn('FinMind history unavailable; trying Yahoo daily fallback',e); }
-
-  // Desktop browsers can occasionally be blocked/rate-limited by FinMind while
-  // another device still works. Fall back to Yahoo daily candles before showing
-  // the history error so desktop/mobile behave consistently.
-  if(!sourceRows){
-    const yahooSymbols=currentMarket==='US'?[s]:[`${s}.TW`,`${s}.TWO`];
-    for(const ys of yahooSymbols){
-      try{
-        const yu=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1d&range=2y&events=div%2Csplits&includeAdjustedClose=true&_=${Date.now()}`;
-        const yr=await fetch(yu,{cache:'no-store'});
-        if(!yr.ok) continue;
-        const yj=await yr.json();
-        const result=yj?.chart?.result?.[0];
-        const ts=result?.timestamp||[];
-        const q=result?.indicators?.quote?.[0]||{};
-        const rows=ts.map((t,i)=>({
-          date:new Date(Number(t)*1000).toISOString().slice(0,10),
-          open:q.open?.[i], max:q.high?.[i], min:q.low?.[i], close:q.close?.[i],
-          Trading_Volume:q.volume?.[i], Volume:q.volume?.[i]
-        })).filter(x=>Number.isFinite(Number(x.close)));
-        if(rows.length>=160){ sourceRows=rows; break; }
-      }catch(e){ console.warn('Yahoo daily history fallback failed',ys,e); }
+    if(r.ok && Array.isArray(j?.data) && j.data.length>=160) d=normalizeData(j.data,currentMarket);
+  }catch(e){
+    console.warn('FinMind history unavailable',e);
+  }
+  // Desktop Chrome can block browser-to-Yahoo requests by CORS. For TW-listed
+  // stocks, use TWSE's official monthly STOCK_DAY endpoint as a browser-safe fallback.
+  if(d.length<160 && currentMarket==='TW'){
+    const officialRows=await fetchTwseOfficialHistory(s,14);
+    if(officialRows.length>=160){
+      d=officialRows;
+      console.info('Using TWSE official history fallback',s,d.length);
     }
   }
-  if(!sourceRows||sourceRows.length<160) throw new Error('歷史資料不足');
-  let d=normalizeData(sourceRows,currentMarket);
+  if(d.length<160) throw new Error('歷史資料不足');
   const restoreEvents=getRestoreEvents(currentMarket,s);
   if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
   const radarMatch=findLatestRadarMatch(currentMarket,s);
