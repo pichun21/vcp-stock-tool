@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.43.5 MARKET PULSE RELEASE + 2.43.1 SCORE CHECK SYNC + CONTRACTION GUARD + 2.43.0 BETA MARKET PULSE v0.6 + 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.44.9 STRUCTURE QUALITY UI + 2.43.5 MARKET PULSE RELEASE + 2.43.1 SCORE CHECK SYNC + CONTRACTION GUARD + 2.43.0 BETA MARKET PULSE v0.6 + 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1478,7 +1478,7 @@ th{color:#716c64}
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
 <div class="note">圖：近約 120 個交易日收盤價；上方圖例標示收盤價、MA20（月線）與 Pivot（突破價）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方。VCP 是型態辨識，不代表突破一定成功。</div></div>
-<div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div><div id="scoreContext" class="muted" style="margin-top:8px;line-height:1.55" hidden></div>
+<div class="card"><div class="muted">VCP 綜合評分</div><div class="score" id="score">—</div><div class="stars" id="stars">☆☆☆☆☆</div><div id="singleStructureQuality" class="structure-quality-badge" hidden>💎 結構品質佳</div><div id="scoreContext" class="muted" style="margin-top:8px;line-height:1.55" hidden></div>
 <div class="single-quick-read">
   <div class="single-quick-item"><span>今日漲跌</span><b id="singleChange">—</b></div>
   <div class="single-quick-item"><span>對應大盤</span><b id="singleMarketChange">—</b><small id="singleMarketName"></small></div>
@@ -2314,6 +2314,7 @@ function renderSingleFromRadarFallback(symbol,row){
   $('score').textContent=Number.isFinite(pts)?`${pts}/5`:'—';
   if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}
   $('stars').textContent=Number.isFinite(pts)?'★'.repeat(Math.max(0,Math.min(5,pts)))+'☆'.repeat(Math.max(0,5-Math.min(5,pts))):'☆☆☆☆☆';
+  if($('singleStructureQuality')) $('singleStructureQuality').hidden=!row.structure_quality_good;
   $('pivot').textContent=Number.isFinite(pivot)?pivot.toFixed(2):'—';
   $('dist').textContent=Number.isFinite(distance)?pct(distance):'—';
   $('contracts').textContent=row.contracts || '—';
@@ -2533,7 +2534,7 @@ async function run(){
       liveNote.hidden=true; liveNote.textContent='';
     }
   }
-  $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
+  $('score').textContent=a.pts+'/5';$('stars').textContent='★'.repeat(a.pts)+'☆'.repeat(5-a.pts);if($('singleStructureQuality')) $('singleStructureQuality').hidden=!radarMatch?.structure_quality_good;$('pivot').textContent=a.pivot.toFixed(2);$('dist').textContent=pct(a.distance);
   // V2.43.4 — score is VCP shape quality; post-breakout is radar tracking state.
   const scoreContext=$('scoreContext');
   if(scoreContext){
@@ -2817,7 +2818,7 @@ function setMarket(m,{reset=true}={}){
  if(reset){
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
   $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}if($('singleRestoreNote')){$('singleRestoreNote').hidden=true;$('singleRestoreNote').textContent='';}$('state').textContent='—';
-  $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}$('pivot').textContent='—';$('dist').textContent='—';
+  $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';if($('singleStructureQuality')) $('singleStructureQuality').hidden=true;if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}$('pivot').textContent='—';$('dist').textContent='—';
   $('contracts').textContent='—';$('volume').textContent='—';$('checks').innerHTML='';$('summary').textContent='輸入股票代號後開始。';resetSingleQuickRead();
  }
  renderRadar(radarFilter);
@@ -3278,7 +3279,7 @@ function renderRadar(filter='all'){
      </div>
    </td>
    <td>${esc(marketLabel(r.market))}</td>
-   <td>${stars(r.score)}</td>
+   <td><div>${stars(r.score)}</div>${r.structure_quality_good?'<div class="structure-quality-badge structure-quality-compact">💎 結構品質佳</div>':''}</td>
    
    <td>${fmtNum(r.pivot,2)}</td>
    <td>
@@ -3420,6 +3421,7 @@ function renderRadar(filter='all'){
          </div>
        </div>
        <div class="mobile-state">${esc(stageLabel(r))}</div>
+       ${r.structure_quality_good?'<div class="structure-quality-badge mobile-structure-quality">💎 結構品質佳</div>':''}
        ${r.type==='postbreakout'?`<div class="mobile-postbreakout-performance" aria-label="突破後績效">
          <span>突破後 ${esc(signedPct(r.breakout_return_pct ?? r.distance))}</span>
          <span class="high">最高漲幅 ${esc(signedPct(r.breakout_high_pct ?? r.breakout_return_pct ?? r.distance))}</span>
@@ -4616,6 +4618,20 @@ document.addEventListener('click',(e)=>{
 </style>
 
 <style>
+/* V2.44.9 — structure quality label UI */
+.structure-quality-badge{
+  display:inline-flex;align-items:center;width:max-content;max-width:100%;
+  margin-top:7px;padding:5px 9px;border-radius:999px;
+  border:1px solid #e2d4a7;background:#fff9df;color:#6f5720;
+  font-size:12px;font-weight:900;line-height:1.15;white-space:nowrap;
+}
+.structure-quality-badge[hidden]{display:none!important}
+.structure-quality-compact{margin-top:5px;padding:4px 7px;font-size:11px}
+.mobile-structure-quality{margin-top:7px}
+@media(max-width:760px){
+  .structure-quality-badge{font-size:11px;padding:5px 8px}
+}
+
 /* V2.42.9 — mobile long US company names must not widen the whole page */
 @media(max-width:720px){
   html,body{max-width:100%;overflow-x:hidden}
