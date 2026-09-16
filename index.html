@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.45.5 STRUCTURE QUALITY WORDING -->
+<!-- VCPulse BUILD 2.45.6 MOBILE QUALITY PAGER FIX -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -4026,7 +4026,8 @@ function goMobileRadarPage(delta){
    (radarFilter==='favorites' ? isFavorite(r) :
    (['hot','watch','wait','extended'].includes(radarFilter) ? r.pulse_signal===radarFilter :
    (radarFilter==='new' ? r.is_new===true :
-   (radarFilter==='combo' ? r.combo : r.type===radarFilter))));
+   (radarFilter==='quality' ? r.structure_quality_good===true :
+   (radarFilter==='combo' ? r.combo : r.type===radarFilter)))));
  });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));
