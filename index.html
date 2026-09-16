@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.45.0 STRUCTURE QUALITY HELP + 2.43.5 MARKET PULSE RELEASE + 2.43.1 SCORE CHECK SYNC + CONTRACTION GUARD + 2.43.0 BETA MARKET PULSE v0.6 + 2.42.9.2 DESKTOP HISTORY OFFICIAL FALLBACK + 2.42.9 LIQUIDITY QUALITY + 2.42.8.1 TODAY CHANGE SORT DIRECTION CONTROL + 2.42.7 PRODUCTION THEME RADAR RELEASE + 2.42.6.20 DESKTOP HELP CARDS + 2.42.6.19 MOBILE COMPACT THEME UI + 2.42.6.18 CAPITAL HELP CLICK FIX + 2.42.6.17 THEME HELP TABLE + 2.42.6.16 THEME HELP WORDING + 2.42.6.14 SCORE INTERPRETATION HINT + 2.42.6.13 THEME SCORE CLARITY + 2.42.6.12 LIFECYCLE WORDING + 2.42.6.11 THEME RENDER FIX + 2.42.6.10 THEME COUNT CLARITY + 2.42.6.9 LAYOUT BALANCE FIX + 2.42.6.8 RADAR LAYOUT POLISH + 2.42.6.7 THEME RADAR VISUAL SEPARATION + 2.42.6.6 DISPLAY NAME SUFFIX CLEANUP + 2.42.6.4 BETA MODE PARITY + THEME NAME MAP GUARD-SAFE + CLICKABLE TOP STOCKS + 2.42.6 THEME TOP5 UI + 2.42.5 BREAKOUT METRICS HARD FIX + 2.42.4 FAVORITE TAB CONTRAST + 2.42.3 FAVORITE NAME HYDRATION + 2.41.51 MOBILE VCP TITLE-AWARE SCROLL -->
+<!-- VCPulse BUILD 2.45.3 STRUCTURE QUALITY CLICK HELP -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1614,7 +1614,7 @@ th{color:#716c64}
           <h3>VCPulse 綜合訊號怎麼看？</h3>
           <p>VCP 星等只評估「VCP 型態品質」；VCPulse 綜合訊號則加入 <b>Pivot 位置、PowerSqueeze 與 Momentum</b>，表示目前值得關注的程度。</p>
           <div class="pulse-help-grid">
-            <div><b>💎 結構品質佳</b><span>代表這檔股票的 VCP 結構在趨勢、價格收斂、量縮、波動收斂與 Pivot 等條件上整體表現較完整。這是型態品質標記，不代表未來一定上漲。</span></div>
+            <div><b>💎 結構品質佳</b><span>代表這檔股票的 VCP 結構在趨勢、價格收斂、量縮、波動收斂與 Pivot 等條件上整體表現較完整。<br><b>不等同 5/5 星：</b>此標籤採用整體收斂、量縮與波動品質等條件判定，因此部分 4/5 型態仍可能被標示為結構品質佳。這是型態品質標記，不代表未來一定上漲。</span></div>
             <div><b>🔥 高關注</b><span>VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。</span></div>
             <div><b>👀 觀察</b><span>VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。</span></div>
             <div><b>⏳ 等待</b><span>雖符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，等待條件進一步改善。</span></div>
@@ -4264,13 +4264,13 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script>(()=>{const C={hot:["🔥 高關注","VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。","留意是否接近或突破 Pivot、突破時量能是否配合，以及突破後是否能守住關鍵位置。"],watch:["👀 觀察","VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。","觀察距離 Pivot 是否持續縮短、壓縮是否增強，以及 Momentum 是否往較有利的方向改善。"],wait:["⏳ 等待","已符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，先等待條件進一步改善。","持續看是否更接近 Pivot、PowerSqueeze 是否出現或增強，以及 Momentum 是否改善。"],extended:["⚠️ 過度延伸","突破後距離 Pivot 已超過 8%，代表目前位置不像剛突破時那麼接近關鍵價位。","先留意是否出現整理或回測，以及價格與 Pivot 的距離是否回到較容易觀察的位置。"]};const close=()=>{const p=document.getElementById("pulseHelpPopover");if(p){p.hidden=true;document.body.style.overflow=""}};document.addEventListener("click",e=>{
-  const t=e.target.closest(".pulse-help-trigger");
+<script>(()=>{const C={hot:["🔥 高關注","VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。","留意是否接近或突破 Pivot、突破時量能是否配合，以及突破後是否能守住關鍵位置。"],watch:["👀 觀察","VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。","觀察距離 Pivot 是否持續縮短、壓縮是否增強，以及 Momentum 是否往較有利的方向改善。"],wait:["⏳ 等待","已符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，先等待條件進一步改善。","持續看是否更接近 Pivot、PowerSqueeze 是否出現或增強，以及 Momentum 是否改善。"],extended:["⚠️ 過度延伸","突破後距離 Pivot 已超過 8%，代表目前位置不像剛突破時那麼接近關鍵價位。","先留意是否出現整理或回測，以及價格與 Pivot 的距離是否回到較容易觀察的位置。"],quality:["💎 結構品質佳","代表這檔股票的 VCP 結構在趨勢、價格收斂、量縮、波動收斂與 Pivot 等條件上整體表現較完整。它不等同 5/5 星；品質標籤看的是整體結構，而星等是五項條件的符合數。","可搭配星等、距 Pivot、PowerSqueeze 與 Momentum 一起看。部分 4/5 型態因整體收斂仍佳，也可能獲得此標籤。"]};const close=()=>{const p=document.getElementById("pulseHelpPopover");if(p){p.hidden=true;document.body.style.overflow=""}};document.addEventListener("click",e=>{
+  const t=e.target.closest(".pulse-help-trigger,.structure-quality-badge");
   if(!t)return;
   e.preventDefault();
   e.stopPropagation();
   e.stopImmediatePropagation();
-  const i=C[t.dataset.pulse]||C.wait;
+  const i=t.classList.contains("structure-quality-badge")?C.quality:(C[t.dataset.pulse]||C.wait);
   const p=document.getElementById("pulseHelpPopover");
   document.getElementById("pulseHelpTitle").textContent=i[0];
   document.getElementById("pulseHelpDesc").textContent=i[1];
@@ -4611,7 +4611,7 @@ document.addEventListener('click',(e)=>{
   display:inline-flex;align-items:center;width:max-content;max-width:100%;
   margin-top:7px;padding:5px 9px;border-radius:999px;
   border:1px solid #e2d4a7;background:#fff9df;color:#6f5720;
-  font-size:12px;font-weight:900;line-height:1.15;white-space:nowrap;
+  font-size:12px;font-weight:900;line-height:1.15;white-space:nowrap;cursor:pointer;
 }
 .structure-quality-badge[hidden]{display:none!important}
 .structure-quality-compact{margin-top:5px;padding:4px 7px;font-size:11px}
