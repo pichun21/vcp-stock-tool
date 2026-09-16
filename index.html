@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.45.3 STRUCTURE QUALITY CLICK HELP -->
+<!-- VCPulse BUILD 2.45.4 STRUCTURE QUALITY FILTER -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1588,6 +1588,7 @@ th{color:#716c64}
         <button class="radar-tab" data-radar="postbreakout">🔵 突破後</button>
         <button class="radar-tab" data-radar="near">🟡 近 Pivot</button>
         <button class="radar-tab" data-radar="forming">⚪ 成形中</button>
+        <button class="radar-tab" data-radar="quality">💎 結構品質佳</button>
         <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
       </div>
       <div class="radar-sort-wrap">
@@ -3249,7 +3250,8 @@ function renderRadar(filter='all'){
    (filter==='favorites' ? isFavorite(r) :
    (['hot','watch','wait','extended'].includes(filter) ? r.pulse_signal===filter :
    (filter==='new' ? r.is_new===true :
-   (filter==='combo' ? r.combo : r.type===filter))));
+   (filter==='quality' ? r.structure_quality_good===true :
+   (filter==='combo' ? r.combo : r.type===filter)))));
  });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
