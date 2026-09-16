@@ -1604,6 +1604,30 @@ th{color:#716c64}
         <div class="muted">預計顯示 4 分以上</div>
       </div>
     </div>
+    <details class="signal-guide-collapsible radar-signal-guide">
+      <summary>
+        <span class="signal-guide-title">ⓘ VCPulse 訊號怎麼看？</span>
+        <span class="signal-guide-action"><span class="when-closed">查看說明</span><span class="when-open">收合說明</span><span class="signal-guide-chevron">›</span></span>
+      </summary>
+      <div class="signal-guide-content">
+        <div class="pulse-help-detail">
+          <h3>VCPulse 綜合訊號怎麼看？</h3>
+          <p>VCP 星等只評估「VCP 型態品質」；VCPulse 綜合訊號則加入 <b>Pivot 位置、PowerSqueeze 與 Momentum</b>，表示目前值得關注的程度。</p>
+          <div class="pulse-help-grid">
+            <div><b>💎 結構品質佳</b><span>代表這檔股票的 VCP 結構在趨勢、價格收斂、量縮、波動收斂與 Pivot 等條件上整體表現較完整。這是型態品質標記，不代表未來一定上漲。</span></div>
+            <div><b>🔥 高關注</b><span>VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。</span></div>
+            <div><b>👀 觀察</b><span>VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。</span></div>
+            <div><b>⏳ 等待</b><span>雖符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，等待條件進一步改善。</span></div>
+            <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
+          </div>
+          <p class="pulse-help-note"><b>重點：</b>「等待」不代表看空；「觀察／高關注」也不代表買進。標籤只是協助比較 VCP 候選股目前所處的階段。</p>
+          <details class="pulse-rule-detail">
+            <summary>查看訊號判斷規則</summary>
+            <p>系統依 VCP 分數、今日突破／突破後／接近 Pivot 狀態、PowerSqueeze 強度與 Momentum 方向綜合判斷。條件配合越多，關注層級越高；突破後若距 Pivot 超過 8%，則優先標示為「過度延伸」。</p>
+          </details>
+        </div>
+      </div>
+    </details>
     <div class="radar-table-wrap">
       <table class="radar-table">
         <thead>
@@ -4038,44 +4062,6 @@ if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
 loadMarketPulse();
 loadRadar();
 
-</script>
-<div id="pulseHelpExtra" style="display:none">
-<details class="signal-guide-collapsible">
-  <summary>
-    <span class="signal-guide-title">ⓘ VCPulse 訊號怎麼看？</span>
-    <span class="signal-guide-action"><span class="when-closed">查看說明</span><span class="when-open">收合說明</span><span class="signal-guide-chevron">›</span></span>
-  </summary>
-  <div class="signal-guide-content">
-<div class="pulse-help-detail">
-  <h3>VCPulse 綜合訊號怎麼看？</h3>
-  <p>VCP 星等只評估「VCP 型態品質」；VCPulse 綜合訊號則加入 <b>Pivot 位置、PowerSqueeze 與 Momentum</b>，表示目前值得關注的程度。</p>
-  <div class="pulse-help-grid">
-    <div><b>💎 結構品質佳</b><span>代表這檔股票的 VCP 結構在趨勢、價格收斂、量縮、波動收斂與 Pivot 等條件上整體表現較完整。這是型態品質標記，不代表未來一定上漲。</span></div>
-    <div><b>🔥 高關注</b><span>VCP 結構佳，而且位置、壓縮或動能有多項條件同時配合，屬於雷達中優先留意的型態。</span></div>
-    <div><b>👀 觀察</b><span>VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。</span></div>
-    <div><b>⏳ 等待</b><span>雖符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，等待條件進一步改善。</span></div>
-    <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
-  </div>
-  <p class="pulse-help-note"><b>重點：</b>「等待」不代表看空；「觀察／高關注」也不代表買進。標籤只是協助比較 VCP 候選股目前所處的階段。</p>
-  <details class="pulse-rule-detail">
-    <summary>查看訊號判斷規則</summary>
-    <p>系統依 VCP 分數、今日突破／突破後／接近 Pivot 狀態、PowerSqueeze 強度與 Momentum 方向綜合判斷。條件配合越多，關注層級越高；突破後若距 Pivot 超過 8%，則優先標示為「過度延伸」。</p>
-  </details>
-</div>
-  </div>
-</details>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const extra=document.getElementById('pulseHelpExtra');
-  const candidates=[...document.querySelectorAll('div')].filter(el=>el.textContent.includes('指標使用說明'));
-  const target=candidates.sort((a,b)=>a.textContent.length-b.textContent.length)[0];
-  if(extra && target){
-    const block=extra.firstElementChild;
-    if(block) target.appendChild(block);
-    extra.remove();
-  }
-});
 </script>
 
 
