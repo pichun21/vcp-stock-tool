@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# VCPulse News Impact TW v1
+# VCPulse News Impact TW v1.1 — full 200 / intraday 60
 # Public-data information layer: Google News RSS + existing screening.json price/VCP context.
 # It does NOT change VCP score, ranking, or radar eligibility.
 
@@ -244,7 +244,7 @@ def build_stock(row, articles):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["full","intraday"], default="full")
-    ap.add_argument("--full-limit", type=int, default=150)
+    ap.add_argument("--full-limit", type=int, default=200)
     ap.add_argument("--intraday-limit", type=int, default=60)
     args = ap.parse_args()
 
