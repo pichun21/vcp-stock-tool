@@ -1,0 +1,96 @@
+name: News Impact TW v1
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "更新模式"
+        required: true
+        default: "full"
+        type: choice
+        options:
+          - full
+          - intraday
+  schedule:
+    # 台北時間 07:00：盤前完整整理
+    - cron: "0 7 * * 1-5"
+      timezone: "Asia/Taipei"
+    # 台北時間 09:15 / 11:15 / 13:15：盤中重點更新
+    - cron: "15 9,11,13 * * 1-5"
+      timezone: "Asia/Taipei"
+    # 台北時間 18:30：收盤後完整整理
+    - cron: "30 18 * * 1-5"
+      timezone: "Asia/Taipei"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-impact-tw-v1
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Resolve update mode
+        id: mode
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MODE="${{ inputs.mode }}"
+          else
+            HOUR="$(TZ=Asia/Taipei date +%H)"
+            if [ "$HOUR" = "09" ] || [ "$HOUR" = "11" ] || [ "$HOUR" = "13" ]; then
+              MODE="intraday"
+            else
+              MODE="full"
+            fi
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "News Impact mode: $MODE"
+
+      - name: Build News Impact
+        run: python tools/news_impact_tw_v1.py --mode "${{ steps.mode.outputs.mode }}"
+
+      - name: QA
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('data/news_impact.json',encoding='utf-8'))
+          assert x.get('status')=='ok', x
+          assert x.get('market')=='TW', x
+          assert isinstance(x.get('stocks'),dict), x
+          print('News Impact QA PASS:', x.get('mode'), x.get('updated_stocks'), 'stocks')
+          PY
+
+      - name: Commit News Impact
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news_impact.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore: update TW News Impact"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
+            git push origin HEAD:main && exit 0
+            sleep $((attempt * 3))
+          done
+          exit 1
