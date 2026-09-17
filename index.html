@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.45.6 MOBILE QUALITY PAGER FIX -->
+<!-- VCPulse BUILD 2.46.0 NEWS IMPACT TW V1 -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -1329,6 +1329,38 @@ th{color:#716c64}
 }
 </style>
 
+
+<style>
+/* V2.46.0 — News Impact TW v1 */
+.news-impact-card{margin-top:16px}
+.news-impact-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.news-impact-title{font-size:17px;font-weight:950;letter-spacing:-.2px}
+.news-impact-beta{flex:0 0 auto;padding:4px 7px;border-radius:999px;background:#f4eee5;border:1px solid #e6d8c8;color:#8a6746;font-size:10px;font-weight:900}
+.news-impact-content{display:grid;gap:9px;margin-top:13px}
+.news-impact-item{border:1px solid #e8e1d7;border-radius:14px;background:#fffdfa;overflow:hidden}
+.news-impact-item>summary{list-style:none;cursor:pointer;padding:12px 13px;display:grid;gap:5px}
+.news-impact-item>summary::-webkit-details-marker{display:none}
+.news-impact-summary-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.news-impact-event{font-size:11px;font-weight:900;padding:4px 7px;border-radius:999px;background:#f6f1e9;color:#76583c}
+.news-impact-horizon{font-size:10px;color:#888078;font-weight:800}
+.news-impact-news-title{font-size:13px;font-weight:900;line-height:1.45;color:#2c2924}
+.news-impact-source{font-size:10px;color:#8b857c}
+.news-impact-detail{padding:0 13px 13px;display:grid;gap:8px}
+.news-impact-row{padding:9px 10px;border-radius:11px;background:#f8f5ef;font-size:12px;line-height:1.55;color:#625d55}
+.news-impact-row b{color:#2e2a25}
+.news-impact-link{display:inline-flex;align-items:center;gap:4px;color:#8d6037;font-size:11px;font-weight:900;text-decoration:none}
+.news-impact-link:hover{text-decoration:underline}
+.news-impact-empty{padding:15px 4px;color:#888178;font-size:12px;line-height:1.6}
+.news-impact-foot{margin-top:10px;padding-top:9px;border-top:1px dashed #e8e0d6;color:#938b81;font-size:10px;line-height:1.5}
+@media(max-width:760px){
+  .news-impact-card{margin-top:12px}
+  .news-impact-title{font-size:15px}
+  .news-impact-item>summary{padding:11px 12px}
+  .news-impact-news-title{font-size:12px}
+  .news-impact-detail{padding:0 12px 12px}
+}
+</style>
+
 </head>
 <body>
 
@@ -1489,6 +1521,21 @@ th{color:#716c64}
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
+
+</div>
+
+<div class="card news-impact-card" id="newsImpactCard">
+  <div class="news-impact-head">
+    <div>
+      <div class="news-impact-title">📰 News Impact｜近期新聞影響</div>
+      <div class="muted" id="newsImpactMeta">V1 先支援台股｜整理事件、可能影響與價格反應</div>
+    </div>
+    <span class="news-impact-beta">BETA</span>
+  </div>
+  <div id="newsImpactContent" class="news-impact-content">
+    <div class="news-impact-empty">輸入台股代號後，查看近期重要新聞與目前價格反應。</div>
+  </div>
+  <div class="news-impact-foot">新聞是資訊層，不納入 VCP 星等或雷達排名；市場反應以 VCPulse 最新資料為準。</div>
 </div>
 
 <div class="section radar-section">
@@ -2384,6 +2431,7 @@ function renderSingleFromRadarFallback(symbol,row){
   updateSingleLiquidity(row,null);
 
   drawRadarFallbackMessage();
+  renderNewsImpact(currentMarket,symbol);
   return true;
 }
 
@@ -2425,6 +2473,85 @@ async function fetchTwseOfficialHistory(symbol,months=14){
  return [...map.values()].sort((a,b)=>a.date.localeCompare(b.date));
 }
 
+
+let newsImpactCache=null;
+let newsImpactPromise=null;
+
+function newsImpactSafeUrl(v){
+  try{
+    const u=new URL(String(v||''),location.href);
+    return /^https?:$/.test(u.protocol)?u.href:'';
+  }catch(e){ return ''; }
+}
+function newsImpactDate(v){
+  const s=String(v||'');
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m?`${Number(m[2])}/${Number(m[3])}`:'';
+}
+async function getNewsImpactData(){
+  if(newsImpactCache) return newsImpactCache;
+  if(newsImpactPromise) return newsImpactPromise;
+  newsImpactPromise=fetch(`data/news_impact.json?t=${Date.now()}`,{cache:'no-store'})
+    .then(r=>{if(!r.ok) throw new Error('News Impact 尚未建立');return r.json();})
+    .then(x=>(newsImpactCache=x))
+    .catch(e=>({status:'error',error:String(e?.message||e),stocks:{}}))
+    .finally(()=>{newsImpactPromise=null;});
+  return newsImpactPromise;
+}
+function resetNewsImpact(message='輸入台股代號後，查看近期重要新聞與目前價格反應。'){
+  const box=document.getElementById('newsImpactContent');
+  const meta=document.getElementById('newsImpactMeta');
+  if(box) box.innerHTML=`<div class="news-impact-empty">${escHtml(message)}</div>`;
+  if(meta) meta.textContent='V1 先支援台股｜整理事件、可能影響與價格反應';
+}
+async function renderNewsImpact(market,symbol){
+  const box=document.getElementById('newsImpactContent');
+  const meta=document.getElementById('newsImpactMeta');
+  if(!box) return;
+  if(String(market||'').toUpperCase()!=='TW'){
+    resetNewsImpact('News Impact V1 目前先支援台股；美股版之後再獨立加入。');
+    return;
+  }
+  const sym=String(symbol||'').toUpperCase();
+  box.innerHTML='<div class="news-impact-empty">正在讀取近期新聞…</div>';
+  const data=await getNewsImpactData();
+  const stock=data?.stocks?.[sym];
+  if(meta){
+    const t=String(data?.generated_at||'').replace('T',' ').slice(0,16);
+    meta.textContent=t?`台股｜資料更新 ${t}`:'台股｜等待首次新聞資料更新';
+  }
+  if(!stock){
+    box.innerHTML='<div class="news-impact-empty">目前還沒有這檔股票的 News Impact 資料；下一次排程更新後會自動補上。</div>';
+    return;
+  }
+  const items=Array.isArray(stock.items)?stock.items.slice(0,3):[];
+  if(!items.length){
+    box.innerHTML='<div class="news-impact-empty">近期待整理的公開新聞較少，或新聞來源暫時沒有可用結果。</div>';
+    return;
+  }
+  box.innerHTML=items.map((n,i)=>{
+    const url=newsImpactSafeUrl(n.url);
+    const src=[n.source,newsImpactDate(n.published_at)].filter(Boolean).join(' · ');
+    return `<details class="news-impact-item" ${i===0?'open':''}>
+      <summary>
+        <div class="news-impact-summary-top">
+          <span class="news-impact-event">${escHtml(n.event||'公司／產業動態')}</span>
+          <span class="news-impact-horizon">${escHtml(n.horizon||'')}</span>
+        </div>
+        <div class="news-impact-news-title">${escHtml(n.title||'')}</div>
+        <div class="news-impact-source">${escHtml(src)}</div>
+      </summary>
+      <div class="news-impact-detail">
+        <div class="news-impact-row"><b>為什麼重要：</b>${escHtml(n.why||'')}</div>
+        ${n.possible_impact?`<div class="news-impact-row"><b>可能影響：</b>${escHtml(n.possible_impact)}</div>`:''}
+        <div class="news-impact-row"><b>市場目前反應：</b>${escHtml(n.market_reaction||'')}</div>
+        <div class="news-impact-row"><b>與 VCP 的關係：</b>${escHtml(n.vcp_relation||'')}</div>
+        ${url?`<a class="news-impact-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer">查看原始新聞 ↗</a>`:''}
+      </div>
+    </details>`;
+  }).join('');
+}
+
 async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
@@ -2435,6 +2562,7 @@ async function run(){
   }else if(!/^[A-Z][A-Z0-9.\-^]{0,9}$/.test(s)){
    throw new Error('請輸入美股代號，例如 NVDA、TSLA、AAPL。');
   }
+  renderNewsImpact(currentMarket,s);
  let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
@@ -2841,6 +2969,7 @@ function setMarket(m,{reset=true}={}){
  document.querySelectorAll('.marketbtn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
  $('symbol').placeholder=currentMarket==='US'?'例如：NVDA、TSLA、AAPL':'例如：2330、台積電';
  if(reset){
+  resetNewsImpact(currentMarket==='US'?'News Impact V1 目前先支援台股；美股版之後再獨立加入。':'輸入台股代號後，查看近期重要新聞與目前價格反應。');
   $('symbol').value=currentMarket==='US'?'NVDA':'2330';
   $('title').textContent='等待分析';renderSingleFavorite(null,null);$('period').textContent='';if($('singleLiveNote')){$('singleLiveNote').hidden=true;$('singleLiveNote').textContent='';}if($('singleRestoreNote')){$('singleRestoreNote').hidden=true;$('singleRestoreNote').textContent='';}$('state').textContent='—';
   $('score').textContent='—';$('stars').textContent='☆☆☆☆☆';if($('singleStructureQuality')) $('singleStructureQuality').hidden=true;if($('scoreContext')){$('scoreContext').hidden=true;$('scoreContext').textContent='';}$('pivot').textContent='—';$('dist').textContent='—';
