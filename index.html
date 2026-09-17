@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- VCPulse BUILD 2.46.1 MARKET PULSE CONSISTENCY COPY -->
+<!-- VCPulse BUILD 2.46.2 NEWS IMPACT EMPTY-STATE COPY -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
 <html lang="zh-Hant">
@@ -2508,6 +2508,8 @@ async function renderNewsImpact(market,symbol){
   const box=document.getElementById('newsImpactContent');
   const meta=document.getElementById('newsImpactMeta');
   if(!box) return;
+  const radarRow=typeof findAnyRadarMatch==='function'?findAnyRadarMatch(market,symbol):null;
+  const stockLabel=radarRow?.name?`${radarRow.name}（${symbol}）`:`${symbol}`;
   if(String(market||'').toUpperCase()!=='TW'){
     resetNewsImpact('News Impact V1 目前先支援台股；美股版之後再獨立加入。');
     return;
@@ -2521,12 +2523,12 @@ async function renderNewsImpact(market,symbol){
     meta.textContent=t?`台股｜資料更新 ${t}`:'台股｜等待首次新聞資料更新';
   }
   if(!stock){
-    box.innerHTML='<div class="news-impact-empty">目前還沒有這檔股票的 News Impact 資料；下一次排程更新後會自動補上。</div>';
+    box.innerHTML=`<div class="news-impact-empty">目前尚未納入「${escHtml(stockLabel)}」的本次 News Impact 更新；下一次完整更新後會再嘗試整理。</div>`;
     return;
   }
   const items=Array.isArray(stock.items)?stock.items.slice(0,3):[];
   if(!items.length){
-    box.innerHTML='<div class="news-impact-empty">近期待整理的公開新聞較少，或新聞來源暫時沒有可用結果。</div>';
+    box.innerHTML=`<div class="news-impact-empty">近期未發現「${escHtml(stockLabel)}」需要特別整理的重要公開消息。可搭配 VCP 結構、成交量與價格反應持續觀察。</div>`;
     return;
   }
   box.innerHTML=items.map((n,i)=>{
