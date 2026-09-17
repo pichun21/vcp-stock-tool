@@ -1,4 +1,4 @@
-# VCPulse BUILD 2.44.9 STRUCTURE QUALITY LABEL + 2.42.8 PRODUCTION THEME RADAR + THEME NAME MAP GUARD-SAFE + PROD THEME + ALPHA138 DEDUP MAX + BREAKOUT METRICS HARD FIX + FAVORITES FRONTEND SUPPORT + CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
+# VCPulse BUILD 2.44.10 RADAR 200 + STRUCTURE QUALITY LABEL + 2.42.8 PRODUCTION THEME RADAR + THEME NAME MAP GUARD-SAFE + PROD THEME + ALPHA138 DEDUP MAX + BREAKOUT METRICS HARD FIX + FAVORITES FRONTEND SUPPORT + CLICKABLE CAPITAL HOTSPOTS + 2.39 OFFICIAL SAFETY GUARD
 #!/usr/bin/env python3
 import argparse, json, time, os, re, math
 from pathlib import Path
@@ -1605,7 +1605,7 @@ def scan(market):
     print(f"{market} ALL-STOCK QUOTE CACHE: {len(quote_cache)} symbols")
     if restore_event_cache:
         print(f"{market} RESTORE-DATE CACHE: {len(restore_event_cache)} symbols / {sum(len(v) for v in restore_event_cache.values())} events")
-    return results[:150], stats, hotspots, quote_cache, restore_event_cache, flow_rows
+    return results[:200], stats, hotspots, quote_cache, restore_event_cache, flow_rows
 
 def build_theme_stock_name_map(official_quotes=None, intraday_quotes=None, official_results=None, intraday_results=None):
     """Persistent TW symbol->name map for Theme UI, independent of leaderboard rebuild."""
