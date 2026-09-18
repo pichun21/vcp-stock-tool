@@ -1612,8 +1612,8 @@ th{color:#716c64}
     </div>
   </div>
   <div class="user-live-refresh">
-    <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 更新即時行情</button>
-    <span id="userLiveRefreshStatus" class="user-live-status">更新目前雷達股票的價格、今日漲跌與距 Pivot；大盤指數隨每次完整雷達掃描同步更新。</span>
+    <button type="button" id="userLiveRefreshBtn" class="user-live-btn">🔄 重新讀取行情</button>
+    <span id="userLiveRefreshStatus" class="user-live-status">台股行情每 5 分鐘更新；價格、今日漲跌與距 Pivot 使用行情快取，VCP 結構維持完整雷達掃描結果。</span>
   </div>
   <div class="card radar-card">
     <div class="radar-snapshot-switch" id="radarSnapshotSwitch">
@@ -2281,7 +2281,14 @@ async function getSingleLatestQuote(market,symbol){
  }
 
  // 瀏覽器直連交易所/Yahoo 若被 CORS 或裝置網路擋住，
- // 改讀 GitHub Actions 掃描時留下的「全市場盤中快取」。
+ // 先讀每 5 分鐘更新的輕量台股行情快取。它只提供價格欄位，
+ // 不會覆蓋 VCP 結構。
+ if(m==='TW'){
+   const liveCache=serverLiveQuoteFor(m,sym);
+   if(liveCache) return {...liveCache,source:'VCPulse 5 分鐘行情快取'};
+ }
+
+ // 再退回 GitHub Actions 完整掃描時留下的「全市場盤中快取」。
  // 這包含所有可下載股票，不只每日雷達候選股。
  const scannerQuote=getScannerCachedQuote(m,sym);
  if(scannerQuote) return scannerQuote;
@@ -3065,6 +3072,12 @@ let radarThemeLeaderboards={official:{},intraday:{}};
 let radarThemeStockNames={};
 let radarAllQuotes={official:{},intraday:{}};
 let radarRestoreEvents={official:{},intraday:{}};
+// V2.44 — lightweight TW market quote cache. This is intentionally separate
+// from VCP structure snapshots: only price/change/distance are overlaid.
+let serverLiveQuotesTW=new Map();
+let serverLiveQuotesMeta={generated_at:'',latest_quote_time:'',data_dates:[],quote_count:0,target_count:0};
+let serverLiveQuotePollTimer=null;
+
 let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
 
@@ -3366,14 +3379,85 @@ function pivotDistanceVisual(distance){
 }
 
 
+function twTodayYmd(){
+ try{
+   const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+   const obj=Object.fromEntries(parts.map(x=>[x.type,x.value]));
+   return `${obj.year}-${obj.month}-${obj.day}`;
+ }catch(e){ return ''; }
+}
+function serverLiveQuoteFor(market,symbol){
+ if(String(market||'').toUpperCase()!=='TW') return null;
+ const q=serverLiveQuotesTW.get(String(symbol||'').toUpperCase())||null;
+ if(!q) return null;
+ // Never paint a previous trading day's quote as today's "live" price.
+ const qd=String(q.data_date||'');
+ const today=twTodayYmd();
+ if(qd && today && qd!==today) return null;
+ return q;
+}
+function liveQuoteBadgeText(r){
+ if(!r?._live) return '';
+ const t=String(r._quote_time||serverLiveQuotesMeta.latest_quote_time||'').slice(0,5);
+ return t?`行情 ${t}`:'行情';
+}
+async function loadServerLiveQuotesTW(showStatus=false){
+ const status=document.getElementById('userLiveRefreshStatus');
+ try{
+   const res=await fetch(`data/live_quotes_tw.json?t=${Date.now()}`,{cache:'no-store'});
+   if(!res.ok) throw new Error(`HTTP ${res.status}`);
+   const j=await res.json();
+   const quotes=j&&typeof j.quotes==='object'&&j.quotes?j.quotes:{};
+   const next=new Map();
+   Object.entries(quotes).forEach(([sym,q])=>{
+     const price=Number(q?.price), prev=Number(q?.prev_close);
+     if(Number.isFinite(price)&&price>0&&Number.isFinite(prev)&&prev>0){
+       next.set(String(sym).toUpperCase(),{...q,price,prev_close:prev});
+     }
+   });
+   serverLiveQuotesTW=next;
+   serverLiveQuotesMeta={
+     generated_at:String(j.generated_at||''),
+     latest_quote_time:String(j.latest_quote_time||''),
+     data_dates:Array.isArray(j.data_dates)?j.data_dates:[],
+     quote_count:Number(j.quote_count)||next.size,
+     target_count:Number(j.target_count)||0
+   };
+   const qt=serverLiveQuotesMeta.latest_quote_time?serverLiveQuotesMeta.latest_quote_time.slice(0,5):'';
+   if(status && (showStatus || currentMarket==='TW')){
+     status.textContent=next.size
+       ? `台股行情快取 ${qt||'—'}｜${next.size} 檔；價格／今日漲跌／距 Pivot 使用行情快取，VCP 結構仍依完整掃描。`
+       : '台股行情快取尚未建立；目前保留雷達掃描價格。';
+   }
+   return next.size;
+ }catch(e){
+   console.warn('TW live quote cache unavailable',e);
+   if(status && showStatus) status.textContent='暫時讀不到盤中行情快取；已保留雷達掃描資料，不會用錯誤行情覆蓋。';
+   return 0;
+ }
+}
+function startServerLiveQuotePolling(){
+ if(serverLiveQuotePollTimer) return;
+ serverLiveQuotePollTimer=setInterval(async()=>{
+   if(String(currentMarket||'').toUpperCase()!=='TW' || radarSnapshot!=='intraday') return;
+   const before=serverLiveQuotesMeta.generated_at;
+   const count=await loadServerLiveQuotesTW(false);
+   if(count && serverLiveQuotesMeta.generated_at!==before) renderRadar(radarFilter);
+ },60000);
+}
+
 function liveQuoteKey(market,symbol){ return `${String(market||'').toUpperCase()}:${String(symbol||'').toUpperCase()}`; }
 function effectiveRadarRow(r){
- const q=userLiveQuotes.get(liveQuoteKey(r.market,r.symbol));
+ const manual=userLiveQuotes.get(liveQuoteKey(r.market,r.symbol));
+ const cached=(radarSnapshot==='intraday')?serverLiveQuoteFor(r.market,r.symbol):null;
+ const q=manual||cached;
  if(!q) return r;
  const price=Number(q.price), prev=Number(q.prev_close), pivot=Number(r.pivot);
  const change=(Number.isFinite(price)&&Number.isFinite(prev)&&prev!==0)?((price/prev)-1)*100:Number(r.change_pct);
  const distance=(Number.isFinite(price)&&Number.isFinite(pivot)&&pivot!==0)?((price/pivot)-1)*100:Number(r.distance);
- return {...r, live_price:price, change_pct:change, distance:distance, _live:true};
+ return {...r, live_price:price, change_pct:change, distance:distance, _live:true,
+   _quote_time:String(q.quote_time||q.fetched_at||serverLiveQuotesMeta.latest_quote_time||''),
+   _quote_source:String(q.source||'TW live cache')};
 }
 async function fetchUserLiveQuote(r){
  const market=String(r.market||'').toUpperCase(), symbol=String(r.symbol||'').toUpperCase();
@@ -3396,6 +3480,15 @@ async function fetchUserLiveQuote(r){
 }
 async function refreshUserLiveQuotes(){
  const btn=document.getElementById('userLiveRefreshBtn');
+ if(String(currentMarket||'TW').toUpperCase()==='TW'){
+   const status=document.getElementById('userLiveRefreshStatus');
+   if(btn){ btn.disabled=true; btn.textContent='讀取中…'; }
+   if(status) status.textContent='正在重新讀取最近一筆台股行情快取…';
+   const count=await loadServerLiveQuotesTW(true);
+   renderRadar(radarFilter);
+   if(btn){ btn.disabled=false; btn.textContent='🔄 重新讀取行情'; }
+   return count;
+ }
  const status=document.getElementById('userLiveRefreshStatus');
  const targets=radarRows.filter(r=>String(r.market||'').toUpperCase()===String(currentMarket||'TW').toUpperCase());
  if(!targets.length){
@@ -3519,7 +3612,7 @@ function renderRadar(filter='all'){
        })()}
      </div>
    </td>
-   <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span>${r._live?'<span class="live-quote-badge">即時</span>':''}</td>
+   <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span>${r._live?`<span class="live-quote-badge">${escHtml(liveQuoteBadgeText(r))}</span>`:''}</td>
    <td>${esc(volumeLabel(r))}${liquidityDesktop(r)?`<div class="liquidity-desktop">${esc(liquidityDesktop(r))}</div>`:''}</td>
    <td>${esc(squeezeLabel(r))}</td>
    <td>${esc(momentumLabel(r))}</td>
@@ -3670,7 +3763,7 @@ function renderRadar(filter='all'){
             </div>`;
           })()}
          </div>
-         <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}${r._live?' <span class="live-quote-badge">即時</span>':''}</b></div>
+         <div class="mobile-metric">今日漲跌<b class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}${r._live?` <span class="live-quote-badge">${escHtml(liveQuoteBadgeText(r))}</span>`:''}</b></div>
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
        <div class="mobile-signal-row">
@@ -4119,6 +4212,8 @@ async function loadRadar(){
      official:j.official_restore_events||{},
      intraday:j.intraday_restore_events||{}
    };
+   await loadServerLiveQuotesTW(false);
+   startServerLiveQuotePolling();
    radarSnapshot='official';
    radarRows=radarSnapshotData.official;
 
