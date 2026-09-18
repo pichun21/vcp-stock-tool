@@ -1,0 +1,71 @@
+name: TW Live Quotes
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 台股盤中輕量行情快取：09:05 起，每 5 分鐘
+    - cron: "5-55/5 9 * * 1-5"
+      timezone: "Asia/Taipei"
+    - cron: "*/5 10-12 * * 1-5"
+      timezone: "Asia/Taipei"
+    # 13:00–13:35 每 5 分鐘；13:35 再補一次收盤後行情
+    - cron: "0-35/5 13 * * 1-5"
+      timezone: "Asia/Taipei"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tw-live-quotes-main
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Build lightweight TW quote cache
+        run: python tools/live_quotes_tw.py --screening screening.json --output data/live_quotes_tw.json
+
+      - name: Commit live quote cache
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live_quotes_tw.json
+          if git diff --cached --quiet; then
+            echo "No quote change."
+            exit 0
+          fi
+
+          git commit -m "chore: refresh TW live quotes"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              echo "Rebase conflict; aborting to protect main."
+              git rebase --abort || true
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Push succeeded on attempt $attempt."
+              exit 0
+            fi
+            echo "Push raced with another update; retrying ($attempt/3)..."
+            sleep $((attempt * 3))
+          done
+          echo "Push failed after 3 attempts."
+          exit 1
