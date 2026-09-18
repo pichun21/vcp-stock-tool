@@ -3377,20 +3377,6 @@ function effectiveRadarRow(r){
 }
 async function fetchUserLiveQuote(r){
  const market=String(r.market||'').toUpperCase(), symbol=String(r.symbol||'').toUpperCase();
- // V2.42.3 — 雷達卡片與單股分析共用同一套最新行情來源。
- // 台股優先 TWSE MIS；若暫時取不到，再沿用原本歷史價格來源作 fallback。
- if(market==='TW'){
-   const q=await getSingleLatestQuote('TW',symbol);
-   if(q && Number.isFinite(Number(q.price)) && Number.isFinite(Number(q.prev_close))){
-     return {
-       price:Number(q.price),
-       prev_close:Number(q.prev_close),
-       data_date:q.data_date||'',
-       fetched_at:q.quote_time||new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}),
-       source:q.source||'TWSE MIS'
-     };
-   }
- }
  const dataset=market==='US'?'USStockPrice':'TaiwanStockPrice';
  const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
  const f=d=>d.toISOString().slice(0,10);
@@ -3405,8 +3391,7 @@ async function fetchUserLiveQuote(r){
    price:Number(last.close),
    prev_close:prev?Number(prev.close):NaN,
    data_date:last.date||'',
-   fetched_at:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}),
-   source:'price history fallback'
+   fetched_at:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'})
  };
 }
 async function refreshUserLiveQuotes(){
@@ -3420,7 +3405,7 @@ async function refreshUserLiveQuotes(){
  if(btn){ btn.disabled=true; btn.textContent='更新中…'; }
  if(status) status.textContent=`正在更新 ${targets.length} 檔即時行情…`;
  let ok=0, fail=0;
- const chunkSize=8;
+ const chunkSize=6;
  for(let i=0;i<targets.length;i+=chunkSize){
    const chunk=targets.slice(i,i+chunkSize);
    const results=await Promise.allSettled(chunk.map(fetchUserLiveQuote));
@@ -3434,7 +3419,7 @@ async function refreshUserLiveQuotes(){
  }
  userLiveUpdatedAt=new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
  renderRadar(radarFilter);
- if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}｜${userLiveUpdatedAt}（台股卡片與單股分析共用最新行情；大盤隨每次雷達完整重掃更新）`;
+ if(status) status.textContent=`已更新 ${ok} 檔${fail?`，${fail} 檔暫時抓不到`:''}｜${userLiveUpdatedAt}（個股行情即時更新；大盤隨每次雷達完整重掃更新）`;
  if(btn){ btn.disabled=false; btn.textContent='🔄 更新即時行情'; }
 }
 
@@ -4077,10 +4062,6 @@ function setRadarSnapshot(kind){
  renderCapitalHotspots();
  renderThemeLeaderboards();
  forceRadarAllRender();
- // V2.42.3 — 切到台股盤中頁時，自動同步一次最新行情，避免雷達卡片仍停在前一個 30 分鐘掃描快照。
- if(kind==='intraday' && String(currentMarket||'TW').toUpperCase()==='TW'){
-   setTimeout(()=>refreshUserLiveQuotes(),120);
- }
 }
 
 
