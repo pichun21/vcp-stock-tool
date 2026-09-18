@@ -2496,6 +2496,21 @@ async function getNewsImpactData(){
     .finally(()=>{newsImpactPromise=null;});
   return newsImpactPromise;
 }
+function currentNewsVcpRelation(market,symbol,fallback=''){
+  const row=currentSingleFavoriteData;
+  const same=row && String(row.market||'').toUpperCase()===String(market||'').toUpperCase()
+    && String(row.symbol||'').toUpperCase()===String(symbol||'').toUpperCase();
+  if(!same) return fallback||'';
+  const bits=[];
+  // News Impact must not keep its own stale VCP judgement. Reuse the exact
+  // single-stock analysis currently shown above whenever that analysis exists.
+  if(row.structure_quality_good===true) bits.push('💎 結構品質佳');
+  const score=Number(row.score);
+  if(Number.isFinite(score)) bits.push(`VCP ${score}/5`);
+  if(row.volume_dry===true) bits.push('量縮');
+  return bits.length?bits.join('；'):(fallback||'');
+}
+
 function resetNewsImpact(message='輸入台股代號後，查看近期重要新聞與目前價格反應。'){
   const box=document.getElementById('newsImpactContent');
   const meta=document.getElementById('newsImpactMeta');
@@ -2545,7 +2560,7 @@ async function renderNewsImpact(market,symbol){
         <div class="news-impact-row"><b>為什麼重要：</b>${escHtml(n.why||'')}</div>
         ${n.possible_impact?`<div class="news-impact-row"><b>可能影響：</b>${escHtml(n.possible_impact)}</div>`:''}
         <div class="news-impact-row"><b>市場目前反應：</b>${escHtml(n.market_reaction||'')}</div>
-        <div class="news-impact-row"><b>與 VCP 的關係：</b>${escHtml(n.vcp_relation||'')}</div>
+        <div class="news-impact-row"><b>與 VCP 的關係：</b>${escHtml(currentNewsVcpRelation(market,sym,n.vcp_relation||''))}</div>
         ${url?`<a class="news-impact-link" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer">查看原始新聞 ↗</a>`:''}
       </div>
     </details>`;
@@ -2667,13 +2682,16 @@ async function run(){
     market:String(currentMarket).toUpperCase(),symbol:String(s).toUpperCase(),name:stockName||s,
     score:Number.isFinite(Number(a.pts))?Number(a.pts):null,pivot:Number.isFinite(Number(a.pivot))?Number(a.pivot):null,
     distance:Number.isFinite(Number(a.distance))?Number(a.distance):null,change_pct:Number.isFinite(singleChange)?singleChange:null,
-    volume_dry:!!a.dry,type:radarMatch?.type||(a.todayBreakout?'breakout':(a.breakout?'postbreakout':(Number(a.distance)>-5?'near':'forming'))),
+    volume_dry:!!a.dry,structure_quality_good:radarMatch?.structure_quality_good===true,type:radarMatch?.type||(a.todayBreakout?'breakout':(a.breakout?'postbreakout':(Number(a.distance)>-5?'near':'forming'))),
     state:a.state,squeeze_level:radarMatch?.squeeze_level||a.squeezeLevel||'',squeeze_state:a.squeezeState||'',
     momentum:radarMatch?.momentum||a.momentum||'',momentum_dir:radarMatch?.momentum_dir||'',combo:!!a.combo,
     pulse_signal:radarMatch?.pulse_signal||'wait',pulse_label:radarMatch?.pulse_label||'⭐ 單股收藏',
     contractions:Array.isArray(a.seq)?a.seq:[],data_date:d[d.length-1]?.date||'',_favorite_only:!radarMatch
   };
   if(getFavorites().has(favoriteKey(currentMarket,s))) rememberFavoriteMeta(currentSingleFavoriteData);
+  // Refresh News Impact now that the live single-stock VCP analysis is available.
+  // This makes its VCP score/volume/quality line use the same source as the card above.
+  renderNewsImpact(currentMarket,s);
   $('title').textContent=stockName ? `${stockName}（${s}）` : `${s} · ${currentMarket==='US'?'美股':'台股'}`;renderSingleFavorite(currentMarket,s);$('period').textContent=d[0].date+' ～ '+d[d.length-1].date;$('state').textContent=a.state;
   const liveNote=$('singleLiveNote');
   if(liveNote){
