@@ -2751,11 +2751,64 @@ function toggleCapitalHotspot(industry,mode){
  }
  renderCapitalHotspots();
 }
-function openCapitalStock(symbol){
+let capitalReturnState=null;
+
+function rememberCapitalPosition(symbol,sourceEl){
+ capitalReturnState={
+   symbol:String(symbol||'').toUpperCase(),
+   industry:String(capitalHotspotExpanded||''),
+   mode:String(capitalHotspotMode||'vcp'),
+   scrollY:window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+   element:sourceEl || null
+ };
+ const btn=document.getElementById('radarBackFloat');
+ if(btn){
+   btn.hidden=false;
+   btn.textContent='← 返回資金熱區';
+   btn.setAttribute('onclick','returnToCapitalPosition()');
+ }
+}
+
+function returnToCapitalPosition(){
+ if(!capitalReturnState) return;
+ const saved=capitalReturnState;
+ capitalHotspotExpanded=saved.industry || '';
+ capitalHotspotMode=saved.mode || 'vcp';
+ renderCapitalHotspots();
+
+ let target=[...document.querySelectorAll('.capital-stock-btn')].find(el=>{
+   const txt=String(el.textContent||'').toUpperCase();
+   return txt.includes(String(saved.symbol||'').toUpperCase());
+ }) || null;
+ if(target){
+   const card=target.closest('.capital-hotspot') || target;
+   try{ target.scrollIntoView({behavior:'smooth',block:'center'}); }
+   catch(e){ target.scrollIntoView(); }
+   card.classList.remove('radar-return-highlight-3s');
+   void card.offsetWidth;
+   card.classList.add('radar-return-highlight-3s');
+   setTimeout(()=>{ if(card && document.documentElement.contains(card)) card.classList.remove('radar-return-highlight-3s'); },3000);
+ }else{
+   const y=Number(saved.scrollY)||0;
+   try{ window.scrollTo({top:y,behavior:'smooth'}); }
+   catch(e){ window.scrollTo(0,y); }
+ }
+ const btn=document.getElementById('radarBackFloat');
+ if(btn) setTimeout(()=>btn.hidden=true,650);
+}
+
+function openCapitalStock(symbol,sourceEl){
  const input=document.getElementById('symbol');
  if(!input) return;
+ rememberCapitalPosition(symbol,sourceEl);
  input.value=String(symbol||'');
- window.scrollTo({top:0,behavior:'smooth'});
+ const singleSection=input.closest('.section') || input;
+ if(singleSection){
+   try{ singleSection.scrollIntoView({behavior:'smooth',block:'start'}); }
+   catch(e){ singleSection.scrollIntoView(); }
+ }else{
+   window.scrollTo({top:0,behavior:'smooth'});
+ }
  run();
 }
 function renderCapitalHotspots(){
@@ -2778,7 +2831,7 @@ function renderCapitalHotspots(){
    const shown=capitalHotspotMode==='breakout'?breakoutStocks:stocks;
    const title=capitalHotspotMode==='breakout'?`突破 ${breakoutStocks.length} 檔`:`VCP ${stocks.length} 檔`;
    const stockHtml=shown.length
-     ? shown.map(x=>`<button type="button" class="capital-stock-btn ${String(x.type||'')==='breakout'?'breakout':''}" onclick="event.stopPropagation();openCapitalStock('${escHtml(String(x.symbol||''))}')">${escHtml(x.name||x.symbol||'—')} <span class="muted">${escHtml(x.symbol||'')}</span></button>`).join('')
+     ? shown.map(x=>`<button type="button" class="capital-stock-btn ${String(x.type||'')==='breakout'?'breakout':''}" onclick="event.stopPropagation();openCapitalStock('${escHtml(String(x.symbol||''))}',this)">${escHtml(x.name||x.symbol||'—')} <span class="muted">${escHtml(x.symbol||'')}</span></button>`).join('')
      : '<div class="capital-hotspot-none">目前沒有符合的個股。</div>';
    return `
    <div class="capital-hotspot">
