@@ -84,20 +84,18 @@ canvas{width:100%;height:auto;border-radius:12px;background:#fcfcfa;margin-top:1
   box-shadow:0 12px 32px rgba(53,46,38,.06);
 }
 .brand-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:24px}
-.brand-name{font-size:64px;line-height:.95;font-weight:900;letter-spacing:-4px;margin:0;color:#24231f}
-.brand-name .pulse{color:#c58d58}
+.brand-name{margin:0;line-height:1}.brand-logo-img{display:block;width:min(430px,100%);height:auto;max-height:118px;object-fit:contain;object-position:left center}
 .brand-tag{margin-top:12px;font-size:13px;letter-spacing:2.2px;text-transform:uppercase;color:#55524c}
 .brand-sub{font-size:20px;font-weight:800;margin-top:16px}
 .brand-copy{margin-top:14px;color:#6f6b63;line-height:1.7}
 .brand-mascot{display:flex;justify-content:center;align-items:center;min-height:230px}
 .brand-mascot img{width:min(360px,100%);max-height:270px;object-fit:contain;mix-blend-mode:multiply}
-.brand-wave{display:inline-block;margin-left:6px;color:#c9a77f;letter-spacing:-4px;transform:translateY(-10px)}
 .brand-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .brand-pill{padding:7px 11px;border-radius:999px;background:#f7f4ee;border:1px solid #ebe5da;font-size:13px;color:#625d54}
 @media(max-width:760px){
  .brand-hero{padding:22px 20px}
  .brand-grid{grid-template-columns:1fr}
- .brand-name{font-size:48px;letter-spacing:-3px}
+ .brand-logo-img{width:min(310px,92vw);max-height:92px}
  .brand-tag{font-size:10px;letter-spacing:1.35px}
  .brand-sub{font-size:17px}
  .brand-copy{font-size:14px}
@@ -1387,7 +1385,7 @@ th{color:#716c64}
 <section class="brand-hero">
   <div class="brand-grid">
     <div>
-      <h1 class="brand-name" aria-label="VCPulse"><img class="brand-monogram" src="vcp-monogram.png" alt="" aria-hidden="true"><span class="brand-ulse">ulse</span></h1>
+      <h1 class="brand-name"><img class="brand-logo-img" src="vcpulse-logo.png" alt="VCPulse"></h1>
       <div class="brand-tag">Catch the Contraction. Watch the Breakout.</div>
       <div class="brand-sub">VCP × PowerSqueeze 智慧選股雷達</div>
       <div class="brand-copy">好股票，總在收斂之後出發。<br>從 VCP、波動壓縮到 Momentum，一起找出值得觀察的訊號。</div>
@@ -4780,19 +4778,5 @@ document.addEventListener('click',(e)=>{
     flex:0 0 21px !important;
     margin-top:1px !important;
   }
-}
-
-/* VCPulse connected monogram brand lockup — desktop + mobile */
-.brand-name{display:flex;align-items:center;gap:0;letter-spacing:0!important;white-space:nowrap}
-.brand-name .brand-monogram{display:block;width:2.28em;height:.92em;object-fit:contain;object-position:left center;flex:0 0 auto;position:relative;z-index:1}
-.brand-name .brand-ulse{color:var(--vp-caramel,#c58d58);font-size:.86em;line-height:1;font-weight:850;letter-spacing:-.065em;margin-left:-.22em;transform:translateY(.025em);position:relative;z-index:2}
-@media(max-width:760px){
-  .brand-name{font-size:43px;gap:0;max-width:100%}
-  .brand-name .brand-monogram{width:2.15em;height:.90em}
-  .brand-name .brand-ulse{margin-left:-.23em;font-size:.86em}
-}
-@media(max-width:390px){
-  .brand-name{font-size:38px}
-  .brand-name .brand-monogram{width:2.08em}
 }
 </style>
