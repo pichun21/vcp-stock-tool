@@ -4783,13 +4783,13 @@ document.addEventListener('click',(e)=>{
 }
 
 /* VCPulse connected monogram brand lockup — desktop + mobile */
-.brand-name{display:flex;align-items:center;gap:.06em;letter-spacing:0!important;white-space:nowrap}
-.brand-name .brand-monogram{display:block;width:2.28em;height:.92em;object-fit:contain;object-position:left center;flex:0 0 auto}
-.brand-name .brand-ulse{color:var(--vp-caramel,#c58d58);font-weight:900;letter-spacing:-.055em;margin-left:-.10em}
+.brand-name{display:flex;align-items:center;gap:0;letter-spacing:0!important;white-space:nowrap}
+.brand-name .brand-monogram{display:block;width:2.28em;height:.92em;object-fit:contain;object-position:left center;flex:0 0 auto;position:relative;z-index:1}
+.brand-name .brand-ulse{color:var(--vp-caramel,#c58d58);font-size:.86em;line-height:1;font-weight:850;letter-spacing:-.065em;margin-left:-.22em;transform:translateY(.025em);position:relative;z-index:2}
 @media(max-width:760px){
   .brand-name{font-size:43px;gap:0;max-width:100%}
   .brand-name .brand-monogram{width:2.15em;height:.90em}
-  .brand-name .brand-ulse{margin-left:-.10em}
+  .brand-name .brand-ulse{margin-left:-.23em;font-size:.86em}
 }
 @media(max-width:390px){
   .brand-name{font-size:38px}
