@@ -1367,8 +1367,29 @@ th{color:#716c64}
 }
 </style>
 
+
+<style>
+/* V2.44.10 — mobile pull-to-refresh for live quotes */
+#vcpPullRefresh{
+  position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top));z-index:10050;
+  display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;
+  background:rgba(255,253,249,.96);border:1px solid #e2d8ca;box-shadow:0 7px 24px rgba(85,66,43,.14);
+  color:#6f5438;font-size:12px;font-weight:800;line-height:1;
+  transform:translate(-50%,-72px);opacity:0;pointer-events:none;
+  transition:transform .16s ease,opacity .16s ease;will-change:transform,opacity;
+}
+#vcpPullRefresh.show{opacity:1}
+#vcpPullRefresh.refreshing .vcp-ptr-icon{animation:vcpPtrSpin .8s linear infinite}
+.vcp-ptr-icon{font-size:16px;display:inline-block;transform-origin:center}
+@keyframes vcpPtrSpin{to{transform:rotate(360deg)}}
+@media(max-width:760px){html,body{overscroll-behavior-y:contain}}
+@media(min-width:761px){#vcpPullRefresh{display:none!important}}
+</style>
+
 </head>
 <body>
+<div id="vcpPullRefresh" aria-live="polite" aria-hidden="true"><span class="vcp-ptr-icon">↻</span><span class="vcp-ptr-text">下拉更新行情</span></div>
+
 
 <div id="authGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f7f4ee">
   <div style="width:min(430px,100%);background:#fffdfa;border:1px solid #e8e1d7;border-radius:24px;padding:30px;box-shadow:0 12px 32px rgba(53,46,38,.08);text-align:center">
@@ -4605,7 +4626,85 @@ document.addEventListener('click',(e)=>{
  box.hidden=!willOpen;
  btn.setAttribute('aria-expanded',String(willOpen));
 });
-</script></body></html>
+</script>
+<script>
+/* V2.44.10 — app-like pull-to-refresh. Refreshes quote cache only; VCP structure is untouched. */
+(function(){
+  const box=document.getElementById('vcpPullRefresh');
+  if(!box || !('ontouchstart' in window)) return;
+  const txt=box.querySelector('.vcp-ptr-text');
+  let startY=0,startX=0,lastPull=0,pulling=false,armed=false,refreshing=false;
+  const threshold=72,maxVisual=74;
+
+  function setVisual(px,label,isArmed=false){
+    lastPull=Math.max(0,Math.min(maxVisual,px));
+    box.classList.add('show');
+    box.setAttribute('aria-hidden','false');
+    box.style.transform=`translate(-50%, ${-58+lastPull}px)`;
+    txt.textContent=label;
+    const icon=box.querySelector('.vcp-ptr-icon');
+    if(icon && !refreshing) icon.textContent=isArmed?'↑':'↓';
+  }
+  function hideSoon(delay=0){
+    setTimeout(()=>{
+      if(refreshing) return;
+      box.style.transform='translate(-50%,-72px)';
+      box.classList.remove('show');
+      box.setAttribute('aria-hidden','true');
+      const icon=box.querySelector('.vcp-ptr-icon'); if(icon) icon.textContent='↻';
+    },delay);
+  }
+  async function refreshLiveQuotes(){
+    refreshing=true; armed=false;
+    box.classList.add('show','refreshing');
+    box.style.transform='translate(-50%, 4px)';
+    const icon=box.querySelector('.vcp-ptr-icon'); if(icon) icon.textContent='↻';
+    txt.textContent='更新行情中…';
+    try{
+      const count=typeof loadServerLiveQuotesTW==='function' ? await loadServerLiveQuotesTW(true) : 0;
+      if(count){
+        if(typeof renderRadar==='function') renderRadar(radarFilter);
+        const qt=String(serverLiveQuotesMeta?.latest_quote_time||'').slice(0,5);
+        txt.textContent=qt?`✓ 行情已更新 ${qt}`:'✓ 行情已更新';
+      }else{
+        txt.textContent='暫時沒有新的行情';
+      }
+    }catch(e){
+      console.warn('pull-to-refresh failed',e);
+      txt.textContent='更新失敗，保留目前資料';
+    }finally{
+      box.classList.remove('refreshing'); refreshing=false; pulling=false;
+      setTimeout(()=>hideSoon(0),850);
+    }
+  }
+
+  document.addEventListener('touchstart',e=>{
+    if(refreshing || e.touches.length!==1 || window.scrollY>1) return;
+    const t=e.target;
+    if(t && t.closest && t.closest('input,textarea,select,button,a,[contenteditable="true"]')) return;
+    const pt=e.touches[0]; startY=pt.clientY; startX=pt.clientX; pulling=false; armed=false; lastPull=0;
+  },{passive:true});
+
+  document.addEventListener('touchmove',e=>{
+    if(refreshing || e.touches.length!==1 || window.scrollY>1 || !startY) return;
+    const pt=e.touches[0], dy=pt.clientY-startY, dx=Math.abs(pt.clientX-startX);
+    if(dy<=0 || dy<dx*1.15) return;
+    pulling=true; e.preventDefault();
+    armed=dy>=threshold;
+    const visual=Math.min(maxVisual,dy*.72);
+    setVisual(visual,armed?'放開更新行情':'下拉更新行情',armed);
+  },{passive:false});
+
+  document.addEventListener('touchend',()=>{
+    if(!pulling){startY=0;startX=0;return;}
+    const shouldRefresh=armed; startY=0;startX=0; pulling=false; armed=false;
+    if(shouldRefresh) refreshLiveQuotes(); else hideSoon(0);
+  },{passive:true});
+  document.addEventListener('touchcancel',()=>{startY=0;startX=0;pulling=false;armed=false;hideSoon(0);},{passive:true});
+})();
+</script>
+
+</body></html>
 
 <style>
 /* V2.36.5 — 收藏星星緊貼股票名稱 */
