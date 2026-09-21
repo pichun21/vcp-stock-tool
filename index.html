@@ -1377,6 +1377,9 @@ th{color:#716c64}
     <div id="authStatus" style="margin:24px 0 16px;color:#625d54;line-height:1.6">正在確認登入狀態…</div>
     <button id="googleLoginBtn" type="button" style="display:none;width:100%;padding:13px 16px;border-radius:14px;background:#20231f;color:#fff;border:0;font-weight:800;cursor:pointer">使用 Google 帳號登入</button>
     <div id="authError" style="display:none;margin-top:14px;padding:10px 12px;border-radius:12px;background:#fff0ed;color:#8d302b;font-size:13px;line-height:1.5"></div>
+    <div id="authBrowserHint" style="display:none;margin-top:14px;padding:11px 12px;border-radius:12px;background:#fff7e8;border:1px solid #ead8b9;color:#7a5a22;font-size:13px;line-height:1.6;text-align:left">
+      偵測到 Samsung Internet。若登入後出現黑色英文錯誤頁，請關閉該分頁並改用 <b>Google Chrome</b> 開啟 VCPulse；這是瀏覽器未保留 Firebase 登入狀態，並非帳號未授權。
+    </div>
     <div style="margin-top:16px;color:#918a80;font-size:11px">VCPulse 授權登入版</div>
   </div>
 </div>
@@ -4412,6 +4415,10 @@ const userBar = document.getElementById("userBar");
 const statusEl = document.getElementById("authStatus");
 const errorEl = document.getElementById("authError");
 const loginBtn = document.getElementById("googleLoginBtn");
+const browserHintEl = document.getElementById("authBrowserHint");
+const isSamsungInternet = /SamsungBrowser/i.test(navigator.userAgent || "");
+
+if (isSamsungInternet) browserHintEl.style.display = "block";
 
 function showError(message){
   errorEl.textContent = message;
@@ -4423,6 +4430,24 @@ function showSignedOut(){
   userBar.style.display = "none";
   statusEl.textContent = "請先登入 Google 帳號，才能進入 VCPulse。";
   loginBtn.style.display = "block";
+}
+
+function friendlyAuthError(e){
+  const code = String(e?.code || "");
+  const message = String(e?.message || "");
+  if (/web-storage-unsupported|missing.initial.state|sessionStorage/i.test(code + " " + message)) {
+    return "登入狀態沒有被瀏覽器保留。請關閉錯誤分頁，回到 VCPulse 後重試；若使用 Samsung Internet，請改用 Google Chrome。";
+  }
+  if (code === "auth/popup-blocked") {
+    return "瀏覽器封鎖了 Google 登入視窗，請允許彈出式視窗後再試一次。";
+  }
+  if (code === "auth/network-request-failed") {
+    return "登入服務連線失敗，請確認網路後再試一次；切換網路時請重新開始登入。";
+  }
+  if (code === "auth/cancelled-popup-request") {
+    return "登入視窗已被新的登入要求取代，請稍候再按一次登入。";
+  }
+  return "Google 登入失敗，請關閉登入視窗後重試；Android 使用者建議改用 Google Chrome。";
 }
 
 function maskUid(uid){
@@ -4476,13 +4501,17 @@ loginBtn.addEventListener("click", async () => {
   errorEl.style.display = "none";
   loginBtn.disabled = true;
   loginBtn.textContent = "登入中…";
+  const slowLoginTimer = setTimeout(() => {
+    showError("登入仍在等待中。若另一個分頁出現黑色英文錯誤，請將它關閉並回到這裡；Samsung Internet 使用者請改用 Google Chrome。請勿在登入途中切換網路。");
+  }, 12000);
   try {
     await signInWithPopup(auth, provider);
   } catch (e) {
     if (e.code !== "auth/popup-closed-by-user") {
-      showError("Google 登入失敗：" + (e.message || e.code || "未知錯誤"));
+      showError(friendlyAuthError(e));
     }
   } finally {
+    clearTimeout(slowLoginTimer);
     loginBtn.disabled = false;
     loginBtn.textContent = "使用 Google 帳號登入";
   }
