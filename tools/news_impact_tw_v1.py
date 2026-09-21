@@ -139,6 +139,27 @@ def strip_source_suffix(title, source):
         t = t[:-(len(source)+3)].strip()
     return t
 
+def parse_rss(content: bytes):
+    """Parse RSS defensively; Google News occasionally returns invalid XML bytes."""
+    text = content.decode("utf-8", errors="replace")
+    text = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", text)
+    try:
+        return ET.fromstring(text)
+    except ET.ParseError as strict_error:
+        # lxml is already part of requirements.txt. Recovery mode salvages valid
+        # items instead of dropping the entire stock because of one bad token.
+        try:
+            from lxml import etree
+            parser = etree.XMLParser(recover=True)
+            root = etree.fromstring(text.encode("utf-8"), parser=parser)
+            if root is None:
+                raise strict_error
+            return root
+        except ET.ParseError:
+            raise
+        except Exception as recovery_error:
+            raise ET.ParseError(str(recovery_error)) from recovery_error
+
 def fetch_news(session: requests.Session, symbol: str, name: str, days=7):
     qname = clean_name(name)
     query = f'"{qname}" 台股' if qname else f"{symbol} 台股"
@@ -149,9 +170,21 @@ def fetch_news(session: requests.Session, symbol: str, name: str, days=7):
         "https://news.google.com/rss/search?q=" + quote_plus(query)
         + "&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     )
-    r = session.get(url, timeout=15)
-    r.raise_for_status()
-    root = ET.fromstring(r.content)
+    last_error = None
+    for attempt in range(2):
+        try:
+            r = session.get(url, timeout=15)
+            r.raise_for_status()
+            root = parse_rss(r.content)
+            break
+        except (requests.RequestException, ET.ParseError) as e:
+            last_error = e
+            if attempt == 0:
+                time.sleep(0.8)
+                continue
+            raise
+    else:
+        raise last_error or RuntimeError("RSS fetch failed")
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     seen, out = set(), []
     for item in root.findall(".//item"):
@@ -283,8 +316,12 @@ def main():
             ok += 1
         except Exception as e:
             fail += 1
-            # Keep older news when a source is temporarily unavailable.
-            if symbol not in stocks:
+            # Keep the last successful news for current-universe stocks when a
+            # source is temporarily unavailable, including during a full run.
+            old_stock = previous_stocks.get(symbol)
+            if old_stock:
+                stocks[symbol] = dict(old_stock)
+            elif symbol not in stocks:
                 stocks[symbol] = build_stock(row, [])
             stocks[symbol]["fetch_error"] = str(e)[:180]
         if i % 20 == 0:
