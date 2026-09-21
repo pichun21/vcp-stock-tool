@@ -3,13 +3,14 @@ name: TW Live Quotes
 on:
   workflow_dispatch:
   schedule:
-    # 台股盤中輕量行情快取：09:05 起，每 5 分鐘
-    - cron: "5-55/5 9 * * 1-5"
+    # 台股盤中輕量行情快取：09:05 起，每 10 分鐘
+    # 與 VCP screening 的 :00 / :10 / :30 排程錯開，降低同時啟動的機率。
+    - cron: "5-55/10 9 * * 1-5"
       timezone: "Asia/Taipei"
-    - cron: "*/5 10-12 * * 1-5"
+    - cron: "5-55/10 10-12 * * 1-5"
       timezone: "Asia/Taipei"
-    # 13:00–13:35 每 5 分鐘；13:35 再補一次收盤後行情
-    - cron: "0-35/5 13 * * 1-5"
+    # 13:05、13:15、13:25、13:35；最後一輪補收盤後行情
+    - cron: "5-35/10 13 * * 1-5"
       timezone: "Asia/Taipei"
 
 permissions:
