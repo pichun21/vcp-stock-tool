@@ -251,11 +251,23 @@ def main():
     screening = load_json(SCREENING, {})
     rows = collect_tw_rows(screening)
     rows.sort(key=priority, reverse=True)
-    limit = args.full_limit if args.mode == "full" else args.intraday_limit
-    targets = rows[:limit]
+    # The current screening ranking is the source of truth for News Impact membership.
+    # A full run rebuilds the collection; an intraday run refreshes the top 60 while
+    # retaining older news only for stocks still inside the current top-200 universe.
+    universe = rows[:args.full_limit]
+    targets = universe if args.mode == "full" else universe[:args.intraday_limit]
+    allowed_symbols = {str(row.get("symbol", "")) for row in universe}
 
     previous = load_json(OUT, {})
-    stocks = dict(previous.get("stocks") or {})
+    previous_stocks = dict(previous.get("stocks") or {})
+    if args.mode == "full":
+        stocks = {}
+    else:
+        stocks = {
+            symbol: value
+            for symbol, value in previous_stocks.items()
+            if symbol in allowed_symbols
+        }
     session = requests.Session()
     session.headers.update({
         "User-Agent":"Mozilla/5.0 (compatible; VCPulse-NewsImpact/1.0; +https://github.com/pichun21/vcp-stock-tool)"
