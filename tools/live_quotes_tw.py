@@ -122,17 +122,45 @@ def fetch_chunk(session: requests.Session, targets, *, attempts=4):
     return []
 
 
+def _best_level(raw):
+    """Return the first positive price from an MIS 5-level quote string."""
+    for part in str(raw or "").split("_"):
+        x = _num(part)
+        if x is not None and x > 0:
+            return x
+    return None
+
+
 def parse_row(row):
     sym = str(row.get("c") or "").strip().upper()
     if not sym:
         return None
-    price = _num(row.get("z"))
+
+    # MIS `z` is the latest transaction field, but it is frequently `-`
+    # between trades even though a live order book is present.  Prefer the
+    # exact transaction price; when it is absent, use the best bid as an
+    # *indicative* live price (best ask only if there is no bid).  Keep the
+    # price kind in the cache so the UI/debugging can distinguish the two.
+    trade = _num(row.get("z"))
+    bid = _best_level(row.get("b"))
+    ask = _best_level(row.get("a"))
     prev = _num(row.get("y"))
-    # z can be '-' for a thinly-traded symbol before its first trade. Do not
-    # fabricate a last price from bid/ask; keep it missing and preserve the
-    # scanner snapshot in the frontend.
-    if price is None or price <= 0 or prev is None or prev <= 0:
+
+    if trade is not None and trade > 0:
+        price = trade
+        price_kind = "last_trade"
+    elif bid is not None and bid > 0:
+        price = bid
+        price_kind = "best_bid_indicative"
+    elif ask is not None and ask > 0:
+        price = ask
+        price_kind = "best_ask_indicative"
+    else:
         return None
+
+    if prev is None or prev <= 0:
+        return None
+
     pct = (price / prev - 1.0) * 100.0
     return {
         "symbol": sym,
@@ -143,6 +171,7 @@ def parse_row(row):
         "data_date": _quote_date(row),
         "quote_time": _quote_time(row),
         "source": "TWSE MIS",
+        "price_kind": price_kind,
     }
 
 
