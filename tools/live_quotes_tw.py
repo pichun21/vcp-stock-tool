@@ -11,6 +11,7 @@ import argparse
 import json
 import math
 import time
+import random
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -70,13 +71,55 @@ def load_targets(screening_path: Path):
     return out
 
 
-def fetch_chunk(session: requests.Session, targets):
+def fetch_chunk(session: requests.Session, targets, *, attempts=4):
+    """Fetch one small MIS batch with conservative retry/backoff.
+
+    TWSE MIS can transiently return a partial/empty msgArray without raising an
+    HTTP error.  We therefore keep batches small and retry suspiciously short
+    replies before accepting them.
+    """
     ex_ch = "|".join(f"{x['channel']}_{x['symbol']}.tw" for x in targets)
-    params = {"ex_ch": ex_ch, "json": "1", "delay": "0", "_": str(int(time.time() * 1000))}
-    r = session.get(MIS_URL, params=params, timeout=15)
-    r.raise_for_status()
-    j = r.json()
-    return j.get("msgArray") or []
+    expected = len(targets)
+    last_rows = []
+    last_error = None
+
+    for attempt in range(1, attempts + 1):
+        try:
+            params = {
+                "ex_ch": ex_ch,
+                "json": "1",
+                "delay": "0",
+                "_": str(int(time.time() * 1000)),
+            }
+            r = session.get(MIS_URL, params=params, timeout=20)
+            r.raise_for_status()
+            j = r.json()
+            rows = j.get("msgArray") or []
+            last_rows = rows
+
+            # Normally MIS returns a row for nearly every requested symbol,
+            # even when the symbol has not traded yet.  A very short reply is
+            # usually throttling/transient truncation, so retry it.
+            minimum_rows = max(1, math.ceil(expected * 0.75))
+            if len(rows) >= minimum_rows:
+                return rows
+
+            last_error = RuntimeError(
+                f"partial MIS response {len(rows)}/{expected} rows"
+            )
+        except Exception as e:
+            last_error = e
+
+        if attempt < attempts:
+            # Exponential backoff with a little jitter avoids hammering MIS.
+            wait = min(8.0, 1.0 * (2 ** (attempt - 1))) + random.uniform(0.15, 0.55)
+            time.sleep(wait)
+
+    if last_rows:
+        return last_rows
+    if last_error:
+        raise last_error
+    return []
 
 
 def parse_row(row):
@@ -107,7 +150,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--screening", default="screening.json")
     ap.add_argument("--output", default="data/live_quotes_tw.json")
-    ap.add_argument("--chunk-size", type=int, default=40)
+    ap.add_argument("--chunk-size", type=int, default=20)
     args = ap.parse_args()
 
     screening = Path(args.screening)
@@ -120,7 +163,17 @@ def main():
         "User-Agent": "Mozilla/5.0 (VCPulse live quote cache)",
         "Referer": "https://mis.twse.com.tw/stock/index.jsp",
         "Accept": "application/json,text/plain,*/*",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
     })
+
+    # Warm the session once so MIS can set any cookies it expects before the
+    # API batches start.  Failure here is harmless; the API calls still retry.
+    try:
+        session.get("https://mis.twse.com.tw/stock/index.jsp", timeout=15)
+    except Exception:
+        pass
+    time.sleep(0.8)
 
     quotes = {}
     errors = []
@@ -129,13 +182,20 @@ def main():
         chunk = targets[i:i + size]
         try:
             rows = fetch_chunk(session, chunk)
+            before = len(quotes)
             for row in rows:
                 q = parse_row(row)
                 if q:
                     quotes[q["symbol"]] = q
+            added = len(quotes) - before
+            print(
+                f"chunk {i // size + 1}: requested {len(chunk)}, "
+                f"MIS rows {len(rows)}, usable quotes +{added}"
+            )
         except Exception as e:
             errors.append(f"chunk {i // size + 1}: {type(e).__name__}: {e}")
-        time.sleep(0.25)
+        # Keep the request cadence deliberately gentle.
+        time.sleep(1.15 + random.uniform(0.10, 0.35))
 
     dates = sorted({q.get("data_date") for q in quotes.values() if q.get("data_date")})
     times = [q.get("quote_time") for q in quotes.values() if q.get("quote_time")]
