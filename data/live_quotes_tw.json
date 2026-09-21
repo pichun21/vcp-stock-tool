@@ -1,28 +1,17 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-09-21 13:08:56",
-  "generated_at_iso": "2026-09-21T13:08:56+08:00",
+  "generated_at": "2026-09-21 13:38:28",
+  "generated_at_iso": "2026-09-21T13:38:28+08:00",
   "data_dates": [
     "2026-09-21"
   ],
-  "latest_quote_time": "13:09:06",
+  "latest_quote_time": "13:30:00",
   "target_count": 200,
   "quote_count": 199,
   "source": "TWSE MIS",
   "errors": [],
   "quotes": {
-    "2352": {
-      "symbol": "2352",
-      "name": "佳世達",
-      "price": 29.65,
-      "prev_close": 29.2,
-      "change_pct": 1.5411,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
     "6015": {
       "symbol": "6015",
       "name": "宏遠證",
@@ -30,18 +19,40 @@
       "prev_close": 17.6,
       "change_pct": 1.4205,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:05",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2352": {
+      "symbol": "2352",
+      "name": "佳世達",
+      "price": 29.6,
+      "prev_close": 29.2,
+      "change_pct": 1.3699,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2360": {
       "symbol": "2360",
       "name": "致茂",
-      "price": 2385.0,
+      "price": 2375.0,
       "prev_close": 2290.0,
-      "change_pct": 4.1485,
+      "change_pct": 3.7118,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:30",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6239": {
+      "symbol": "6239",
+      "name": "力成",
+      "price": 292.5,
+      "prev_close": 284.0,
+      "change_pct": 2.993,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -52,20 +63,20 @@
       "prev_close": 396.0,
       "change_pct": 2.7778,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:09",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "6239": {
-      "symbol": "6239",
-      "name": "力成",
-      "price": 292.5,
-      "prev_close": 284.0,
-      "change_pct": 2.993,
+    "6805": {
+      "symbol": "6805",
+      "name": "富世達",
+      "price": 2415.0,
+      "prev_close": 2295.0,
+      "change_pct": 5.2288,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "8150": {
       "symbol": "8150",
@@ -74,7 +85,7 @@
       "prev_close": 94.0,
       "change_pct": 9.5745,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -85,7 +96,7 @@
       "prev_close": 21.05,
       "change_pct": 9.9762,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:40",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -96,53 +107,42 @@
       "prev_close": 150.5,
       "change_pct": 2.6578,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:16",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6197": {
       "symbol": "6197",
       "name": "佳必琪",
-      "price": 321.5,
+      "price": 322.0,
       "prev_close": 320.5,
-      "change_pct": 0.312,
+      "change_pct": 0.468,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3044": {
       "symbol": "3044",
       "name": "健鼎",
-      "price": 523.0,
+      "price": 524.0,
       "prev_close": 518.0,
-      "change_pct": 0.9653,
+      "change_pct": 1.1583,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2330": {
       "symbol": "2330",
       "name": "台積電",
-      "price": 2475.0,
+      "price": 2480.0,
       "prev_close": 2460.0,
-      "change_pct": 0.6098,
+      "change_pct": 0.813,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:40",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3693": {
-      "symbol": "3693",
-      "name": "營邦",
-      "price": 704.0,
-      "prev_close": 704.0,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6214": {
       "symbol": "6214",
@@ -151,9 +151,75 @@
       "prev_close": 194.5,
       "change_pct": -1.5424,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:10",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3693": {
+      "symbol": "3693",
+      "name": "營邦",
+      "price": 702.0,
+      "prev_close": 704.0,
+      "change_pct": -0.2841,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "5269": {
+      "symbol": "5269",
+      "name": "祥碩",
+      "price": 1475.0,
+      "prev_close": 1495.0,
+      "change_pct": -1.3378,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2412": {
+      "symbol": "2412",
+      "name": "中華電",
+      "price": 144.5,
+      "prev_close": 145.5,
+      "change_pct": -0.6873,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "8054": {
+      "symbol": "8054",
+      "name": "安國",
+      "price": 84.9,
+      "prev_close": 84.4,
+      "change_pct": 0.5924,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6505": {
+      "symbol": "6505",
+      "name": "台塑化",
+      "price": 88.5,
+      "prev_close": 86.5,
+      "change_pct": 2.3121,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2851": {
+      "symbol": "2851",
+      "name": "中再保",
+      "price": 48.15,
+      "prev_close": 47.0,
+      "change_pct": 2.4468,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2348": {
       "symbol": "2348",
@@ -162,95 +228,51 @@
       "prev_close": 74.2,
       "change_pct": -1.6173,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:01",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6505": {
-      "symbol": "6505",
-      "name": "台塑化",
-      "price": 88.3,
-      "prev_close": 86.5,
-      "change_pct": 2.0809,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:33",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "5269": {
-      "symbol": "5269",
-      "name": "祥碩",
-      "price": 1480.0,
-      "prev_close": 1495.0,
-      "change_pct": -1.0033,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:33",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2851": {
-      "symbol": "2851",
-      "name": "中再保",
-      "price": 48.05,
-      "prev_close": 47.0,
-      "change_pct": 2.234,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6292": {
-      "symbol": "6292",
-      "name": "迅德",
-      "price": 67.3,
-      "prev_close": 67.3,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:25",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "2890": {
       "symbol": "2890",
       "name": "永豐金",
-      "price": 45.85,
+      "price": 45.7,
       "prev_close": 45.25,
-      "change_pct": 1.326,
+      "change_pct": 0.9945,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:29",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2466": {
       "symbol": "2466",
       "name": "冠西電",
-      "price": 108.5,
+      "price": 110.0,
       "prev_close": 106.0,
-      "change_pct": 2.3585,
+      "change_pct": 3.7736,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:17",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "5274": {
       "symbol": "5274",
       "name": "信驊",
-      "price": 19610.0,
+      "price": 19820.0,
       "prev_close": 19290.0,
-      "change_pct": 1.6589,
+      "change_pct": 2.7475,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "6672": {
-      "symbol": "6672",
-      "name": "騰輝電子-KY",
-      "price": 311.5,
-      "prev_close": 302.0,
-      "change_pct": 3.1457,
+    "6292": {
+      "symbol": "6292",
+      "name": "迅德",
+      "price": 68.0,
+      "prev_close": 67.3,
+      "change_pct": 1.0401,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -261,62 +283,62 @@
       "prev_close": 638.0,
       "change_pct": 3.9185,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:47",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2480": {
       "symbol": "2480",
       "name": "敦陽科",
-      "price": 164.0,
+      "price": 164.5,
       "prev_close": 165.0,
-      "change_pct": -0.6061,
+      "change_pct": -0.303,
       "data_date": "2026-09-21",
-      "quote_time": "13:06:20",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "6672": {
+      "symbol": "6672",
+      "name": "騰輝電子-KY",
+      "price": 310.0,
+      "prev_close": 302.0,
+      "change_pct": 2.649,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6016": {
       "symbol": "6016",
       "name": "康和證",
-      "price": 23.7,
+      "price": 23.65,
       "prev_close": 23.0,
-      "change_pct": 3.0435,
+      "change_pct": 2.8261,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:28",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "6805": {
-      "symbol": "6805",
-      "name": "富世達",
-      "price": 2420.0,
-      "prev_close": 2295.0,
-      "change_pct": 5.4466,
+    "3717": {
+      "symbol": "3717",
+      "name": "聯嘉投控",
+      "price": 24.9,
+      "prev_close": 25.1,
+      "change_pct": -0.7968,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:18",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "1710": {
       "symbol": "1710",
       "name": "東聯",
-      "price": 16.95,
+      "price": 17.0,
       "prev_close": 16.35,
-      "change_pct": 3.6697,
+      "change_pct": 3.9755,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:49",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2399": {
-      "symbol": "2399",
-      "name": "映泰",
-      "price": 49.75,
-      "prev_close": 48.45,
-      "change_pct": 2.6832,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -327,86 +349,97 @@
       "prev_close": 162.5,
       "change_pct": 3.6923,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:19",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2399": {
+      "symbol": "2399",
+      "name": "映泰",
+      "price": 49.45,
+      "prev_close": 48.45,
+      "change_pct": 2.064,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2454": {
       "symbol": "2454",
       "name": "聯發科",
-      "price": 4985.0,
+      "price": 5010.0,
       "prev_close": 4710.0,
-      "change_pct": 5.8386,
+      "change_pct": 6.3694,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:18",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3717": {
-      "symbol": "3717",
-      "name": "聯嘉投控",
-      "price": 25.0,
-      "prev_close": 25.1,
-      "change_pct": -0.3984,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:17",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2455": {
       "symbol": "2455",
       "name": "全新",
-      "price": 569.0,
+      "price": 572.0,
       "prev_close": 556.0,
-      "change_pct": 2.3381,
+      "change_pct": 2.8777,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "5347": {
       "symbol": "5347",
       "name": "世界",
-      "price": 171.5,
+      "price": 172.0,
       "prev_close": 172.0,
-      "change_pct": -0.2907,
+      "change_pct": 0.0,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6526": {
       "symbol": "6526",
       "name": "達發",
-      "price": 726.0,
+      "price": 724.0,
       "prev_close": 691.0,
-      "change_pct": 5.0651,
+      "change_pct": 4.7757,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2303": {
-      "symbol": "2303",
-      "name": "聯電",
-      "price": 157.5,
-      "prev_close": 156.0,
-      "change_pct": 0.9615,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:30",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "1314": {
       "symbol": "1314",
       "name": "中石化",
-      "price": 9.16,
+      "price": 9.18,
       "prev_close": 8.96,
-      "change_pct": 2.2321,
+      "change_pct": 2.4554,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:45",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2303": {
+      "symbol": "2303",
+      "name": "聯電",
+      "price": 157.0,
+      "prev_close": 156.0,
+      "change_pct": 0.641,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6257": {
+      "symbol": "6257",
+      "name": "矽格",
+      "price": 250.5,
+      "prev_close": 244.5,
+      "change_pct": 2.454,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "8996": {
       "symbol": "8996",
@@ -415,42 +448,31 @@
       "prev_close": 1430.0,
       "change_pct": 5.2448,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:54",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "6257": {
-      "symbol": "6257",
-      "name": "矽格",
-      "price": 250.0,
-      "prev_close": 244.5,
-      "change_pct": 2.2495,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:52",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "2305": {
       "symbol": "2305",
       "name": "全友",
-      "price": 57.5,
+      "price": 58.8,
       "prev_close": 58.7,
-      "change_pct": -2.0443,
+      "change_pct": 0.1704,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:43",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "3443": {
       "symbol": "3443",
       "name": "創意",
-      "price": 7610.0,
+      "price": 7615.0,
       "prev_close": 7150.0,
-      "change_pct": 6.4336,
+      "change_pct": 6.5035,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3605": {
       "symbol": "3605",
@@ -459,174 +481,152 @@
       "prev_close": 154.0,
       "change_pct": 9.7403,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:29",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "6204": {
       "symbol": "6204",
       "name": "艾華",
-      "price": 110.0,
+      "price": 108.0,
       "prev_close": 110.0,
-      "change_pct": 0.0,
+      "change_pct": -1.8182,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:57",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "2884": {
-      "symbol": "2884",
-      "name": "玉山金",
-      "price": 46.3,
-      "prev_close": 46.4,
-      "change_pct": -0.2155,
+    "8021": {
+      "symbol": "8021",
+      "name": "尖點",
+      "price": 466.0,
+      "prev_close": 460.0,
+      "change_pct": 1.3043,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2905": {
       "symbol": "2905",
       "name": "三商",
-      "price": 18.85,
+      "price": 18.75,
       "prev_close": 18.45,
-      "change_pct": 2.168,
+      "change_pct": 1.626,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:51",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2834": {
-      "symbol": "2834",
-      "name": "臺企銀",
-      "price": 18.35,
-      "prev_close": 18.35,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "3105": {
-      "symbol": "3105",
-      "name": "穩懋",
-      "price": 490.0,
-      "prev_close": 500.0,
-      "change_pct": -2.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:20",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6023": {
-      "symbol": "6023",
-      "name": "元大期",
-      "price": 87.6,
-      "prev_close": 87.5,
-      "change_pct": 0.1143,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:17",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "9917": {
-      "symbol": "9917",
-      "name": "中保科",
-      "price": 106.5,
-      "prev_close": 108.5,
-      "change_pct": -1.8433,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:18",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3675": {
-      "symbol": "3675",
-      "name": "德微",
-      "price": 295.0,
-      "prev_close": 294.0,
-      "change_pct": 0.3401,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:39",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4771": {
-      "symbol": "4771",
-      "name": "望隼",
-      "price": 219.5,
-      "prev_close": 215.0,
-      "change_pct": 2.093,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6416": {
-      "symbol": "6416",
-      "name": "瑞祺電通",
-      "price": 120.0,
-      "prev_close": 120.0,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:22",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6207": {
-      "symbol": "6207",
-      "name": "雷科",
-      "price": 116.5,
-      "prev_close": 115.5,
-      "change_pct": 0.8658,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:30",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "6224": {
       "symbol": "6224",
       "name": "聚鼎",
-      "price": 89.5,
+      "price": 89.2,
       "prev_close": 89.2,
-      "change_pct": 0.3363,
+      "change_pct": 0.0,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:22",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "6207": {
+      "symbol": "6207",
+      "name": "雷科",
+      "price": 117.0,
+      "prev_close": 115.5,
+      "change_pct": 1.2987,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6416": {
+      "symbol": "6416",
+      "name": "瑞祺電通",
+      "price": 121.0,
+      "prev_close": 120.0,
+      "change_pct": 0.8333,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6023": {
+      "symbol": "6023",
+      "name": "元大期",
+      "price": 87.9,
+      "prev_close": 87.5,
+      "change_pct": 0.4571,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "4736": {
       "symbol": "4736",
       "name": "泰博",
-      "price": 133.0,
+      "price": 133.5,
       "prev_close": 133.0,
-      "change_pct": 0.0,
+      "change_pct": 0.3759,
       "data_date": "2026-09-21",
-      "quote_time": "13:03:02",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "1727": {
-      "symbol": "1727",
-      "name": "中華化",
-      "price": 102.5,
-      "prev_close": 106.0,
-      "change_pct": -3.3019,
+    "4771": {
+      "symbol": "4771",
+      "name": "望隼",
+      "price": 219.0,
+      "prev_close": 215.0,
+      "change_pct": 1.8605,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "1313": {
       "symbol": "1313",
       "name": "聯成",
-      "price": 12.25,
+      "price": 12.3,
       "prev_close": 12.25,
+      "change_pct": 0.4082,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2816": {
+      "symbol": "2816",
+      "name": "旺旺保",
+      "price": 40.7,
+      "prev_close": 40.45,
+      "change_pct": 0.618,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6811": {
+      "symbol": "6811",
+      "name": "宏碁資訊",
+      "price": 256.5,
+      "prev_close": 266.5,
+      "change_pct": -3.7523,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2034": {
+      "symbol": "2034",
+      "name": "允強",
+      "price": 21.45,
+      "prev_close": 21.45,
       "change_pct": 0.0,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:28",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3029": {
       "symbol": "3029",
@@ -635,86 +635,64 @@
       "prev_close": 125.0,
       "change_pct": -3.2,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:43",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2034": {
-      "symbol": "2034",
-      "name": "允強",
-      "price": 21.35,
-      "prev_close": 21.45,
-      "change_pct": -0.4662,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:30",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2816": {
-      "symbol": "2816",
-      "name": "旺旺保",
-      "price": 40.6,
-      "prev_close": 40.45,
-      "change_pct": 0.3708,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:31",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2030": {
-      "symbol": "2030",
-      "name": "彰源",
-      "price": 24.65,
-      "prev_close": 24.95,
-      "change_pct": -1.2024,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3324": {
-      "symbol": "3324",
-      "name": "雙鴻",
-      "price": 1515.0,
-      "prev_close": 1480.0,
-      "change_pct": 2.3649,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6811": {
-      "symbol": "6811",
-      "name": "宏碁資訊",
-      "price": 255.0,
-      "prev_close": 266.5,
-      "change_pct": -4.3152,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "5285": {
       "symbol": "5285",
       "name": "界霖",
-      "price": 91.2,
+      "price": 91.7,
       "prev_close": 93.3,
-      "change_pct": -2.2508,
+      "change_pct": -1.7149,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2413": {
+      "symbol": "2413",
+      "name": "環科",
+      "price": 54.0,
+      "prev_close": 53.1,
+      "change_pct": 1.6949,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3324": {
+      "symbol": "3324",
+      "name": "雙鴻",
+      "price": 1520.0,
+      "prev_close": 1480.0,
+      "change_pct": 2.7027,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6617": {
       "symbol": "6617",
       "name": "共信-KY",
-      "price": 140.5,
+      "price": 141.0,
       "prev_close": 143.0,
-      "change_pct": -1.7483,
+      "change_pct": -1.3986,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "1727": {
+      "symbol": "1727",
+      "name": "中華化",
+      "price": 103.0,
+      "prev_close": 106.0,
+      "change_pct": -2.8302,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6620": {
       "symbol": "6620",
@@ -723,62 +701,62 @@
       "prev_close": 149.0,
       "change_pct": -7.7181,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:38",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3551": {
       "symbol": "3551",
       "name": "世禾",
-      "price": 187.0,
+      "price": 186.5,
       "prev_close": 187.5,
-      "change_pct": -0.2667,
+      "change_pct": -0.5333,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:43",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2030": {
+      "symbol": "2030",
+      "name": "彰源",
+      "price": 24.8,
+      "prev_close": 24.95,
+      "change_pct": -0.6012,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "8064": {
+      "symbol": "8064",
+      "name": "東捷",
+      "price": 138.0,
+      "prev_close": 136.0,
+      "change_pct": 1.4706,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6291": {
       "symbol": "6291",
       "name": "沛亨",
-      "price": 510.0,
+      "price": 508.0,
       "prev_close": 524.0,
-      "change_pct": -2.6718,
+      "change_pct": -3.0534,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:15",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2520": {
       "symbol": "2520",
       "name": "冠德",
-      "price": 38.25,
+      "price": 38.35,
       "prev_close": 38.0,
-      "change_pct": 0.6579,
+      "change_pct": 0.9211,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:03",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4960": {
-      "symbol": "4960",
-      "name": "誠美材",
-      "price": 23.55,
-      "prev_close": 22.9,
-      "change_pct": 2.8384,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:32",
-      "source": "TWSE MIS",
-      "price_kind": "last_trade"
-    },
-    "3035": {
-      "symbol": "3035",
-      "name": "智原",
-      "price": 191.5,
-      "prev_close": 190.5,
-      "change_pct": 0.5249,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:56",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -789,20 +767,75 @@
       "prev_close": 39.3,
       "change_pct": 2.9262,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "8064": {
-      "symbol": "8064",
-      "name": "東捷",
-      "price": 138.5,
-      "prev_close": 136.0,
-      "change_pct": 1.8382,
+    "4960": {
+      "symbol": "4960",
+      "name": "誠美材",
+      "price": 23.45,
+      "prev_close": 22.9,
+      "change_pct": 2.4017,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:33",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3035": {
+      "symbol": "3035",
+      "name": "智原",
+      "price": 191.0,
+      "prev_close": 190.5,
+      "change_pct": 0.2625,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "8227": {
+      "symbol": "8227",
+      "name": "巨有科技",
+      "price": 287.5,
+      "prev_close": 279.0,
+      "change_pct": 3.0466,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6148": {
+      "symbol": "6148",
+      "name": "驊宏資",
+      "price": 40.0,
+      "prev_close": 39.85,
+      "change_pct": 0.3764,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3066": {
+      "symbol": "3066",
+      "name": "李洲",
+      "price": 28.7,
+      "prev_close": 29.9,
+      "change_pct": -4.0134,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6683": {
+      "symbol": "6683",
+      "name": "雍智科技",
+      "price": 1675.0,
+      "prev_close": 1670.0,
+      "change_pct": 0.2994,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "3016": {
       "symbol": "3016",
@@ -811,95 +844,51 @@
       "prev_close": 116.5,
       "change_pct": 3.4335,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2413": {
-      "symbol": "2413",
-      "name": "環科",
-      "price": 54.6,
-      "prev_close": 53.1,
-      "change_pct": 2.8249,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3066": {
-      "symbol": "3066",
-      "name": "李洲",
-      "price": 29.15,
-      "prev_close": 29.9,
-      "change_pct": -2.5084,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6643": {
       "symbol": "6643",
       "name": "M31",
-      "price": 479.0,
+      "price": 478.0,
       "prev_close": 458.0,
-      "change_pct": 4.5852,
+      "change_pct": 4.3668,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "8227": {
-      "symbol": "8227",
-      "name": "巨有科技",
-      "price": 287.0,
-      "prev_close": 279.0,
-      "change_pct": 2.8674,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
-      "source": "TWSE MIS",
-      "price_kind": "last_trade"
-    },
-    "6683": {
-      "symbol": "6683",
-      "name": "雍智科技",
-      "price": 1680.0,
-      "prev_close": 1670.0,
-      "change_pct": 0.5988,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:17",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6148": {
-      "symbol": "6148",
-      "name": "驊宏資",
-      "price": 39.6,
-      "prev_close": 39.85,
-      "change_pct": -0.6274,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "3624": {
       "symbol": "3624",
       "name": "光頡",
-      "price": 136.0,
+      "price": 132.5,
       "prev_close": 126.0,
-      "change_pct": 7.9365,
+      "change_pct": 5.1587,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:40",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6834": {
       "symbol": "6834",
       "name": "天二科技",
-      "price": 116.5,
+      "price": 115.0,
       "prev_close": 110.5,
-      "change_pct": 5.4299,
+      "change_pct": 4.0724,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:42",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3467": {
+      "symbol": "3467",
+      "name": "台灣精材",
+      "price": 77.4,
+      "prev_close": 77.4,
+      "change_pct": 0.0,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -910,42 +899,9 @@
       "prev_close": 229.0,
       "change_pct": -2.1834,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:22",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3467": {
-      "symbol": "3467",
-      "name": "台灣精材",
-      "price": 76.8,
-      "prev_close": 77.4,
-      "change_pct": -0.7752,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:38",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "6226": {
-      "symbol": "6226",
-      "name": "光鼎",
-      "price": 44.1,
-      "prev_close": 45.7,
-      "change_pct": -3.5011,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:43",
-      "source": "TWSE MIS",
-      "price_kind": "last_trade"
-    },
-    "6426": {
-      "symbol": "6426",
-      "name": "統新",
-      "price": 369.0,
-      "prev_close": 373.5,
-      "change_pct": -1.2048,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "2855": {
       "symbol": "2855",
@@ -954,9 +910,42 @@
       "prev_close": 53.3,
       "change_pct": 7.5047,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "6226": {
+      "symbol": "6226",
+      "name": "光鼎",
+      "price": 44.5,
+      "prev_close": 45.7,
+      "change_pct": -2.6258,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6426": {
+      "symbol": "6426",
+      "name": "統新",
+      "price": 374.0,
+      "prev_close": 373.5,
+      "change_pct": 0.1339,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6840": {
+      "symbol": "6840",
+      "name": "東研信超",
+      "price": 106.5,
+      "prev_close": 108.0,
+      "change_pct": -1.3889,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "1709": {
       "symbol": "1709",
@@ -965,20 +954,20 @@
       "prev_close": 39.2,
       "change_pct": 9.949,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:15",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
-    "6840": {
-      "symbol": "6840",
-      "name": "東研信超",
-      "price": 107.5,
-      "prev_close": 108.0,
-      "change_pct": -0.463,
+    "4923": {
+      "symbol": "4923",
+      "name": "力士",
+      "price": 62.4,
+      "prev_close": 60.8,
+      "change_pct": 2.6316,
       "data_date": "2026-09-21",
-      "quote_time": "13:05:10",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "8110": {
       "symbol": "8110",
@@ -987,20 +976,9 @@
       "prev_close": 47.4,
       "change_pct": 9.9156,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:16",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4923": {
-      "symbol": "4923",
-      "name": "力士",
-      "price": 63.1,
-      "prev_close": 60.8,
-      "change_pct": 3.7829,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:17",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6538": {
       "symbol": "6538",
@@ -1009,42 +987,42 @@
       "prev_close": 388.0,
       "change_pct": 9.9227,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:14",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6957": {
-      "symbol": "6957",
-      "name": "裕慶-KY",
-      "price": 290.5,
-      "prev_close": 270.5,
-      "change_pct": 7.3937,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:05",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6668": {
       "symbol": "6668",
       "name": "中揚光",
-      "price": 50.4,
+      "price": 50.3,
       "prev_close": 49.25,
-      "change_pct": 2.335,
+      "change_pct": 2.132,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:28",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3031": {
       "symbol": "3031",
       "name": "佰鴻",
-      "price": 28.35,
+      "price": 28.1,
       "prev_close": 28.45,
-      "change_pct": -0.3515,
+      "change_pct": -1.2302,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "6957": {
+      "symbol": "6957",
+      "name": "裕慶-KY",
+      "price": 290.0,
+      "prev_close": 270.5,
+      "change_pct": 7.2089,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "3055": {
       "symbol": "3055",
@@ -1053,42 +1031,42 @@
       "prev_close": 171.0,
       "change_pct": 9.9415,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:07",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "1560": {
       "symbol": "1560",
       "name": "中砂",
-      "price": 912.0,
+      "price": 914.0,
       "prev_close": 896.0,
-      "change_pct": 1.7857,
+      "change_pct": 2.0089,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3264": {
       "symbol": "3264",
       "name": "欣銓",
-      "price": 280.5,
+      "price": 284.0,
       "prev_close": 268.5,
-      "change_pct": 4.4693,
+      "change_pct": 5.7728,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:30",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "2033": {
       "symbol": "2033",
       "name": "佳大",
-      "price": 34.1,
+      "price": 33.95,
       "prev_close": 33.9,
-      "change_pct": 0.59,
+      "change_pct": 0.1475,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:12",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3094": {
       "symbol": "3094",
@@ -1097,9 +1075,9 @@
       "prev_close": 51.7,
       "change_pct": 9.8646,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:02",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6218": {
       "symbol": "6218",
@@ -1108,9 +1086,9 @@
       "prev_close": 61.6,
       "change_pct": 9.9026,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:41",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2221": {
       "symbol": "2221",
@@ -1119,7 +1097,7 @@
       "prev_close": 127.5,
       "change_pct": 9.8039,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:19",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -1130,97 +1108,86 @@
       "prev_close": 38.85,
       "change_pct": 9.9099,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:48",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "8103": {
-      "symbol": "8103",
-      "name": "瀚荃",
-      "price": 129.5,
-      "prev_close": 129.5,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:38",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3354": {
-      "symbol": "3354",
-      "name": "律勝",
-      "price": 30.5,
-      "prev_close": 29.2,
-      "change_pct": 4.4521,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4906": {
-      "symbol": "4906",
-      "name": "正文",
-      "price": 38.4,
-      "prev_close": 37.0,
-      "change_pct": 3.7838,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:58",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6532": {
       "symbol": "6532",
       "name": "瑞耘",
-      "price": 100.5,
+      "price": 100.0,
       "prev_close": 99.3,
-      "change_pct": 1.2085,
+      "change_pct": 0.7049,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:53",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2489": {
-      "symbol": "2489",
-      "name": "瑞軒",
-      "price": 42.95,
-      "prev_close": 44.15,
-      "change_pct": -2.718,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3529": {
-      "symbol": "3529",
-      "name": "力旺",
-      "price": 2855.0,
-      "prev_close": 2845.0,
-      "change_pct": 0.3515,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:30",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "4526": {
       "symbol": "4526",
       "name": "東台",
-      "price": 32.55,
+      "price": 32.6,
       "prev_close": 31.25,
-      "change_pct": 4.16,
+      "change_pct": 4.32,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:12",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "8103": {
+      "symbol": "8103",
+      "name": "瀚荃",
+      "price": 128.5,
+      "prev_close": 129.5,
+      "change_pct": -0.7722,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "7765": {
       "symbol": "7765",
       "name": "中華資安",
-      "price": 240.5,
+      "price": 240.0,
       "prev_close": 243.0,
-      "change_pct": -1.0288,
+      "change_pct": -1.2346,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3529": {
+      "symbol": "3529",
+      "name": "力旺",
+      "price": 2830.0,
+      "prev_close": 2845.0,
+      "change_pct": -0.5272,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3354": {
+      "symbol": "3354",
+      "name": "律勝",
+      "price": 30.4,
+      "prev_close": 29.2,
+      "change_pct": 4.1096,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3491": {
+      "symbol": "3491",
+      "name": "昇達科",
+      "price": 1520.0,
+      "prev_close": 1565.0,
+      "change_pct": -2.8754,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6937": {
       "symbol": "6937",
@@ -1229,86 +1196,86 @@
       "prev_close": 303.5,
       "change_pct": -0.9885,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6667": {
       "symbol": "6667",
       "name": "信紘科",
-      "price": 258.5,
+      "price": 259.5,
       "prev_close": 262.0,
-      "change_pct": -1.3359,
+      "change_pct": -0.9542,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3491": {
-      "symbol": "3491",
-      "name": "昇達科",
-      "price": 1525.0,
-      "prev_close": 1565.0,
-      "change_pct": -2.5559,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3138": {
-      "symbol": "3138",
-      "name": "耀登",
-      "price": 102.0,
-      "prev_close": 108.0,
-      "change_pct": -5.5556,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3714": {
-      "symbol": "3714",
-      "name": "富采",
-      "price": 68.2,
-      "prev_close": 67.4,
-      "change_pct": 1.1869,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:32",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6290": {
       "symbol": "6290",
       "name": "良維",
-      "price": 280.0,
+      "price": 281.0,
       "prev_close": 282.5,
-      "change_pct": -0.885,
+      "change_pct": -0.531,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3714": {
+      "symbol": "3714",
+      "name": "富采",
+      "price": 68.8,
+      "prev_close": 67.4,
+      "change_pct": 2.0772,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "3162": {
       "symbol": "3162",
       "name": "精確",
-      "price": 75.9,
+      "price": 76.0,
       "prev_close": 76.9,
-      "change_pct": -1.3004,
+      "change_pct": -1.1704,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3138": {
+      "symbol": "3138",
+      "name": "耀登",
+      "price": 102.5,
+      "prev_close": 108.0,
+      "change_pct": -5.0926,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "6221": {
       "symbol": "6221",
       "name": "晉泰",
-      "price": 30.1,
+      "price": 31.0,
       "prev_close": 31.5,
-      "change_pct": -4.4444,
+      "change_pct": -1.5873,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:12",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "4770": {
+      "symbol": "4770",
+      "name": "上品",
+      "price": 257.5,
+      "prev_close": 251.0,
+      "change_pct": 2.5896,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "4714": {
       "symbol": "4714",
@@ -1317,97 +1284,86 @@
       "prev_close": 12.1,
       "change_pct": 2.8926,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4770": {
-      "symbol": "4770",
-      "name": "上品",
-      "price": 259.5,
-      "prev_close": 251.0,
-      "change_pct": 3.3865,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:49",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2254": {
       "symbol": "2254",
       "name": "巨鎧精密-創",
-      "price": 78.4,
+      "price": 78.8,
       "prev_close": 76.8,
-      "change_pct": 2.0833,
+      "change_pct": 2.6042,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:05",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6199": {
       "symbol": "6199",
       "name": "天品",
-      "price": 110.0,
+      "price": 114.5,
       "prev_close": 113.0,
-      "change_pct": -2.6549,
+      "change_pct": 1.3274,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:58",
-      "source": "TWSE MIS",
-      "price_kind": "last_trade"
-    },
-    "2449": {
-      "symbol": "2449",
-      "name": "京元電子",
-      "price": 300.5,
-      "prev_close": 291.5,
-      "change_pct": 3.0875,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "7792": {
-      "symbol": "7792",
-      "name": "安葆",
-      "price": 342.0,
-      "prev_close": 339.0,
-      "change_pct": 0.885,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:24",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2468": {
-      "symbol": "2468",
-      "name": "華經",
-      "price": 47.4,
-      "prev_close": 45.85,
-      "change_pct": 3.3806,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "8111": {
       "symbol": "8111",
       "name": "立碁",
-      "price": 81.3,
+      "price": 80.6,
       "prev_close": 78.0,
-      "change_pct": 4.2308,
+      "change_pct": 3.3333,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:38",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "7792": {
+      "symbol": "7792",
+      "name": "安葆",
+      "price": 344.0,
+      "prev_close": 339.0,
+      "change_pct": 1.4749,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2449": {
+      "symbol": "2449",
+      "name": "京元電子",
+      "price": 301.5,
+      "prev_close": 291.5,
+      "change_pct": 3.4305,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2468": {
+      "symbol": "2468",
+      "name": "華經",
+      "price": 46.55,
+      "prev_close": 45.85,
+      "change_pct": 1.5267,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "7717": {
       "symbol": "7717",
       "name": "萊德光電-KY",
-      "price": 590.0,
+      "price": 592.0,
       "prev_close": 600.0,
-      "change_pct": -1.6667,
+      "change_pct": -1.3333,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6425": {
       "symbol": "6425",
@@ -1416,75 +1372,42 @@
       "prev_close": 68.2,
       "change_pct": 9.9707,
       "data_date": "2026-09-21",
-      "quote_time": "13:06:19",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3580": {
-      "symbol": "3580",
-      "name": "友威科",
-      "price": 101.0,
-      "prev_close": 96.8,
-      "change_pct": 4.3388,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6945": {
       "symbol": "6945",
       "name": "圓祥生技",
-      "price": 135.5,
+      "price": 135.0,
       "prev_close": 132.0,
-      "change_pct": 2.6515,
+      "change_pct": 2.2727,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "7799": {
-      "symbol": "7799",
-      "name": "禾榮科",
-      "price": 516.0,
-      "prev_close": 504.0,
-      "change_pct": 2.381,
+    "3580": {
+      "symbol": "3580",
+      "name": "友威科",
+      "price": 100.5,
+      "prev_close": 96.8,
+      "change_pct": 3.8223,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:07",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6133": {
       "symbol": "6133",
       "name": "金橋",
-      "price": 28.1,
+      "price": 28.0,
       "prev_close": 27.45,
-      "change_pct": 2.3679,
+      "change_pct": 2.0036,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3437": {
-      "symbol": "3437",
-      "name": "榮創",
-      "price": 22.3,
-      "prev_close": 22.35,
-      "change_pct": -0.2237,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:56",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "8215": {
-      "symbol": "8215",
-      "name": "明基材",
-      "price": 30.05,
-      "prev_close": 27.35,
-      "change_pct": 9.872,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:16",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6885": {
       "symbol": "6885",
@@ -1493,9 +1416,42 @@
       "prev_close": 31.6,
       "change_pct": -0.3165,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:58",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3437": {
+      "symbol": "3437",
+      "name": "榮創",
+      "price": 22.3,
+      "prev_close": 22.35,
+      "change_pct": -0.2237,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "7799": {
+      "symbol": "7799",
+      "name": "禾榮科",
+      "price": 522.0,
+      "prev_close": 504.0,
+      "change_pct": 3.5714,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "8215": {
+      "symbol": "8215",
+      "name": "明基材",
+      "price": 30.05,
+      "prev_close": 27.35,
+      "change_pct": 9.872,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "7772": {
       "symbol": "7772",
@@ -1504,20 +1460,20 @@
       "prev_close": 155.5,
       "change_pct": 9.9678,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:24",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6742": {
       "symbol": "6742",
       "name": "澤米",
-      "price": 53.9,
+      "price": 54.0,
       "prev_close": 54.7,
-      "change_pct": -1.4625,
+      "change_pct": -1.2797,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:18",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "1569": {
       "symbol": "1569",
@@ -1526,7 +1482,7 @@
       "prev_close": 55.5,
       "change_pct": 9.9099,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:19",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -1537,31 +1493,31 @@
       "prev_close": 42.6,
       "change_pct": 9.9765,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "1609": {
       "symbol": "1609",
       "name": "大亞",
-      "price": 37.9,
+      "price": 37.95,
       "prev_close": 38.0,
-      "change_pct": -0.2632,
+      "change_pct": -0.1316,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:53",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2206": {
       "symbol": "2206",
       "name": "三陽工業",
-      "price": 63.7,
+      "price": 63.8,
       "prev_close": 64.1,
-      "change_pct": -0.624,
+      "change_pct": -0.468,
       "data_date": "2026-09-21",
-      "quote_time": "13:05:30",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "4904": {
       "symbol": "4904",
@@ -1570,31 +1526,20 @@
       "prev_close": 107.0,
       "change_pct": -0.9346,
       "data_date": "2026-09-21",
-      "quote_time": "13:09:02",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "2441": {
       "symbol": "2441",
       "name": "超豐",
-      "price": 128.0,
+      "price": 127.5,
       "prev_close": 123.5,
-      "change_pct": 3.6437,
+      "change_pct": 3.2389,
       "data_date": "2026-09-21",
-      "quote_time": "13:09:06",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "2353": {
-      "symbol": "2353",
-      "name": "宏碁",
-      "price": 32.15,
-      "prev_close": 31.95,
-      "change_pct": 0.626,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:55",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "4542": {
       "symbol": "4542",
@@ -1603,119 +1548,108 @@
       "prev_close": 275.0,
       "change_pct": 10.0,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:58",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "best_bid_indicative"
+    },
+    "2353": {
+      "symbol": "2353",
+      "name": "宏碁",
+      "price": 32.15,
+      "prev_close": 31.95,
+      "change_pct": 0.626,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6116": {
+      "symbol": "6116",
+      "name": "彩晶",
+      "price": 14.8,
+      "prev_close": 14.0,
+      "change_pct": 5.7143,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
     "2476": {
       "symbol": "2476",
       "name": "鉅祥",
-      "price": 124.0,
+      "price": 124.5,
       "prev_close": 124.0,
-      "change_pct": 0.0,
+      "change_pct": 0.4032,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:52",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6116": {
-      "symbol": "6116",
-      "name": "彩晶",
-      "price": 14.55,
-      "prev_close": 14.0,
-      "change_pct": 3.9286,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:32",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6712": {
       "symbol": "6712",
       "name": "長聖",
-      "price": 158.5,
+      "price": 158.0,
       "prev_close": 158.5,
-      "change_pct": 0.0,
+      "change_pct": -0.3155,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:47",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2404": {
-      "symbol": "2404",
-      "name": "漢唐",
-      "price": 1125.0,
-      "prev_close": 1125.0,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:18",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2006": {
       "symbol": "2006",
       "name": "東和鋼鐵",
-      "price": 85.4,
+      "price": 85.5,
       "prev_close": 87.6,
-      "change_pct": -2.5114,
+      "change_pct": -2.3973,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:39",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2404": {
+      "symbol": "2404",
+      "name": "漢唐",
+      "price": 1130.0,
+      "prev_close": 1125.0,
+      "change_pct": 0.4444,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2379": {
       "symbol": "2379",
       "name": "瑞昱",
-      "price": 739.0,
+      "price": 740.0,
       "prev_close": 727.0,
-      "change_pct": 1.6506,
+      "change_pct": 1.7882,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:54",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3617": {
+      "symbol": "3617",
+      "name": "碩天",
+      "price": 249.0,
+      "prev_close": 246.0,
+      "change_pct": 1.2195,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "5426": {
       "symbol": "5426",
       "name": "振發",
-      "price": 29.25,
+      "price": 29.4,
       "prev_close": 29.35,
-      "change_pct": -0.3407,
+      "change_pct": 0.1704,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6691": {
-      "symbol": "6691",
-      "name": "洋基工程",
-      "price": 633.0,
-      "prev_close": 650.0,
-      "change_pct": -2.6154,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:15",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "2412": {
-      "symbol": "2412",
-      "name": "中華電",
-      "price": 143.5,
-      "prev_close": 145.5,
-      "change_pct": -1.3746,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2891": {
-      "symbol": "2891",
-      "name": "中信金",
-      "price": 70.5,
-      "prev_close": 69.5,
-      "change_pct": 1.4388,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:25",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "2897": {
       "symbol": "2897",
@@ -1724,152 +1658,53 @@
       "prev_close": 11.1,
       "change_pct": 1.3514,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:21",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2838": {
       "symbol": "2838",
       "name": "聯邦銀",
-      "price": 21.55,
+      "price": 21.6,
       "prev_close": 21.4,
-      "change_pct": 0.7009,
+      "change_pct": 0.9346,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "8054": {
-      "symbol": "8054",
-      "name": "安國",
-      "price": 84.9,
-      "prev_close": 84.4,
-      "change_pct": 0.5924,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "5483": {
-      "symbol": "5483",
-      "name": "中美晶",
-      "price": 187.0,
-      "prev_close": 187.5,
-      "change_pct": -0.2667,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "7712": {
-      "symbol": "7712",
-      "name": "博盛半導體",
-      "price": 158.5,
-      "prev_close": 158.0,
-      "change_pct": 0.3165,
-      "data_date": "2026-09-21",
-      "quote_time": "13:09:02",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6651": {
-      "symbol": "6651",
-      "name": "全宇昕",
-      "price": 154.0,
-      "prev_close": 146.5,
-      "change_pct": 5.1195,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:47",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "4105": {
       "symbol": "4105",
       "name": "東洋",
-      "price": 78.8,
+      "price": 79.1,
       "prev_close": 78.4,
-      "change_pct": 0.5102,
+      "change_pct": 0.8929,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:39",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "8936": {
-      "symbol": "8936",
-      "name": "國統",
-      "price": 52.3,
-      "prev_close": 52.1,
-      "change_pct": 0.3839,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3045": {
-      "symbol": "3045",
-      "name": "台灣大",
-      "price": 124.0,
-      "prev_close": 124.0,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:09:05",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
-    "2836": {
-      "symbol": "2836",
-      "name": "高雄銀",
-      "price": 12.3,
-      "prev_close": 12.4,
-      "change_pct": -0.8065,
+    "5483": {
+      "symbol": "5483",
+      "name": "中美晶",
+      "price": 186.5,
+      "prev_close": 187.5,
+      "change_pct": -0.5333,
       "data_date": "2026-09-21",
-      "quote_time": "13:05:50",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "1303": {
-      "symbol": "1303",
-      "name": "南亞",
-      "price": 240.0,
-      "prev_close": 238.0,
-      "change_pct": 0.8403,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2885": {
-      "symbol": "2885",
-      "name": "元大金",
-      "price": 70.3,
-      "prev_close": 70.0,
-      "change_pct": 0.4286,
-      "data_date": "2026-09-21",
-      "quote_time": "13:09:05",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
-    "3532": {
-      "symbol": "3532",
-      "name": "台勝科",
-      "price": 433.0,
-      "prev_close": 447.5,
-      "change_pct": -3.2402,
+    "2891": {
+      "symbol": "2891",
+      "name": "中信金",
+      "price": 70.4,
+      "prev_close": 69.5,
+      "change_pct": 1.295,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:57",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2880": {
-      "symbol": "2880",
-      "name": "華南金",
-      "price": 46.8,
-      "prev_close": 47.65,
-      "change_pct": -1.7838,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2481": {
       "symbol": "2481",
@@ -1878,86 +1713,207 @@
       "prev_close": 168.5,
       "change_pct": -0.2967,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:31",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2395": {
-      "symbol": "2395",
-      "name": "研華",
-      "price": 708.0,
-      "prev_close": 690.0,
-      "change_pct": 2.6087,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:27",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2882": {
-      "symbol": "2882",
-      "name": "國泰金",
-      "price": 112.5,
-      "prev_close": 110.5,
-      "change_pct": 1.81,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:36",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6005": {
-      "symbol": "6005",
-      "name": "群益證",
-      "price": 32.3,
-      "prev_close": 31.5,
-      "change_pct": 2.5397,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:45",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2342": {
-      "symbol": "2342",
-      "name": "茂矽",
-      "price": 40.8,
-      "prev_close": 41.05,
-      "change_pct": -0.609,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:11",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3024": {
       "symbol": "3024",
       "name": "憶聲",
-      "price": 14.85,
+      "price": 14.9,
       "prev_close": 15.1,
-      "change_pct": -1.6556,
+      "change_pct": -1.3245,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:40",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "3550": {
-      "symbol": "3550",
-      "name": "聯穎",
-      "price": 24.2,
-      "prev_close": 23.7,
-      "change_pct": 2.1097,
+    "3045": {
+      "symbol": "3045",
+      "name": "台灣大",
+      "price": 124.5,
+      "prev_close": 124.0,
+      "change_pct": 0.4032,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:59",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2836": {
+      "symbol": "2836",
+      "name": "高雄銀",
+      "price": 12.25,
+      "prev_close": 12.4,
+      "change_pct": -1.2097,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2395": {
+      "symbol": "2395",
+      "name": "研華",
+      "price": 706.0,
+      "prev_close": 690.0,
+      "change_pct": 2.3188,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2885": {
+      "symbol": "2885",
+      "name": "元大金",
+      "price": 70.4,
+      "prev_close": 70.0,
+      "change_pct": 0.5714,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "7712": {
+      "symbol": "7712",
+      "name": "博盛半導體",
+      "price": 159.0,
+      "prev_close": 158.0,
+      "change_pct": 0.6329,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6651": {
+      "symbol": "6651",
+      "name": "全宇昕",
+      "price": 154.0,
+      "prev_close": 146.5,
+      "change_pct": 5.1195,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3532": {
+      "symbol": "3532",
+      "name": "台勝科",
+      "price": 440.0,
+      "prev_close": 447.5,
+      "change_pct": -1.676,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2880": {
+      "symbol": "2880",
+      "name": "華南金",
+      "price": 46.65,
+      "prev_close": 47.65,
+      "change_pct": -2.0986,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6173": {
+      "symbol": "6173",
+      "name": "信昌電",
+      "price": 308.0,
+      "prev_close": 314.0,
+      "change_pct": -1.9108,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "8936": {
+      "symbol": "8936",
+      "name": "國統",
+      "price": 52.4,
+      "prev_close": 52.1,
+      "change_pct": 0.5758,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6005": {
+      "symbol": "6005",
+      "name": "群益證",
+      "price": 32.25,
+      "prev_close": 31.5,
+      "change_pct": 2.381,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2382": {
+      "symbol": "2382",
+      "name": "廣達",
+      "price": 344.5,
+      "prev_close": 343.0,
+      "change_pct": 0.4373,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2882": {
+      "symbol": "2882",
+      "name": "國泰金",
+      "price": 113.0,
+      "prev_close": 110.5,
+      "change_pct": 2.2624,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2342": {
+      "symbol": "2342",
+      "name": "茂矽",
+      "price": 41.0,
+      "prev_close": 41.05,
+      "change_pct": -0.1218,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2753": {
+      "symbol": "2753",
+      "name": "八方雲集",
+      "price": 179.5,
+      "prev_close": 180.0,
+      "change_pct": -0.2778,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "5876": {
       "symbol": "5876",
       "name": "上海商銀",
-      "price": 49.15,
+      "price": 49.25,
       "prev_close": 49.45,
-      "change_pct": -0.6067,
+      "change_pct": -0.4044,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:33",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "3550": {
+      "symbol": "3550",
+      "name": "聯穎",
+      "price": 24.5,
+      "prev_close": 23.7,
+      "change_pct": 3.3755,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "5864": {
       "symbol": "5864",
@@ -1966,163 +1922,20 @@
       "prev_close": 35.15,
       "change_pct": 4.2674,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:35",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6173": {
-      "symbol": "6173",
-      "name": "信昌電",
-      "price": 310.5,
-      "prev_close": 314.0,
-      "change_pct": -1.1146,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:52",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2753": {
-      "symbol": "2753",
-      "name": "八方雲集",
-      "price": 179.0,
-      "prev_close": 180.0,
-      "change_pct": -0.5556,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:28",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2382": {
-      "symbol": "2382",
-      "name": "廣達",
-      "price": 342.0,
-      "prev_close": 343.0,
-      "change_pct": -0.2915,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:46",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
-    "3034": {
-      "symbol": "3034",
-      "name": "聯詠",
-      "price": 546.0,
-      "prev_close": 558.0,
-      "change_pct": -2.1505,
+    "1303": {
+      "symbol": "1303",
+      "name": "南亞",
+      "price": 239.5,
+      "prev_close": 238.0,
+      "change_pct": 0.6303,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:33",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "7827": {
-      "symbol": "7827",
-      "name": "漢康-KY創",
-      "price": 161.0,
-      "prev_close": 162.0,
-      "change_pct": -0.6173,
-      "data_date": "2026-09-21",
-      "quote_time": "13:06:31",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "6605": {
-      "symbol": "6605",
-      "name": "帝寶",
-      "price": 139.0,
-      "prev_close": 139.0,
-      "change_pct": 0.0,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:26",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4540": {
-      "symbol": "4540",
-      "name": "全球傳動",
-      "price": 60.5,
-      "prev_close": 59.3,
-      "change_pct": 2.0236,
-      "data_date": "2026-09-21",
-      "quote_time": "13:09:05",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4967": {
-      "symbol": "4967",
-      "name": "十銓",
-      "price": 276.5,
-      "prev_close": 277.0,
-      "change_pct": -0.1805,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:47",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
-    },
-    "2527": {
-      "symbol": "2527",
-      "name": "宏璟",
-      "price": 46.7,
-      "prev_close": 45.8,
-      "change_pct": 1.9651,
-      "data_date": "2026-09-21",
-      "quote_time": "13:09:05",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2207": {
-      "symbol": "2207",
-      "name": "和泰車",
-      "price": 526.0,
-      "prev_close": 537.0,
-      "change_pct": -2.0484,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:42",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "1434": {
-      "symbol": "1434",
-      "name": "福懋",
-      "price": 17.95,
-      "prev_close": 17.8,
-      "change_pct": 0.8427,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:49",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "4590": {
-      "symbol": "4590",
-      "name": "富田-創",
-      "price": 91.6,
-      "prev_close": 91.0,
-      "change_pct": 0.6593,
-      "data_date": "2026-09-21",
-      "quote_time": "13:07:52",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "2597": {
-      "symbol": "2597",
-      "name": "潤弘",
-      "price": 171.0,
-      "prev_close": 172.5,
-      "change_pct": -0.8696,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:23",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "1513": {
-      "symbol": "1513",
-      "name": "中興電",
-      "price": 166.5,
-      "prev_close": 167.0,
-      "change_pct": -0.2994,
-      "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
     },
     "3005": {
       "symbol": "3005",
@@ -2131,75 +1944,262 @@
       "prev_close": 118.5,
       "change_pct": 0.4219,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:34",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "3026": {
-      "symbol": "3026",
-      "name": "禾伸堂",
-      "price": 781.0,
-      "prev_close": 797.0,
-      "change_pct": -2.0075,
+    "6605": {
+      "symbol": "6605",
+      "name": "帝寶",
+      "price": 140.0,
+      "prev_close": 139.0,
+      "change_pct": 0.7194,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:40",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "4967": {
+      "symbol": "4967",
+      "name": "十銓",
+      "price": 276.5,
+      "prev_close": 277.0,
+      "change_pct": -0.1805,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2527": {
+      "symbol": "2527",
+      "name": "宏璟",
+      "price": 46.9,
+      "prev_close": 45.8,
+      "change_pct": 2.4017,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3034": {
+      "symbol": "3034",
+      "name": "聯詠",
+      "price": 548.0,
+      "prev_close": 558.0,
+      "change_pct": -1.7921,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "7827": {
+      "symbol": "7827",
+      "name": "漢康-KY創",
+      "price": 162.0,
+      "prev_close": 162.0,
+      "change_pct": 0.0,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "8109": {
       "symbol": "8109",
       "name": "博大",
-      "price": 132.5,
+      "price": 133.5,
       "prev_close": 134.0,
-      "change_pct": -1.1194,
+      "change_pct": -0.3731,
       "data_date": "2026-09-21",
-      "quote_time": "13:07:35",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "2207": {
+      "symbol": "2207",
+      "name": "和泰車",
+      "price": 523.0,
+      "prev_close": 537.0,
+      "change_pct": -2.6071,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "3026": {
+      "symbol": "3026",
+      "name": "禾伸堂",
+      "price": 791.0,
+      "prev_close": 797.0,
+      "change_pct": -0.7528,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "2597": {
+      "symbol": "2597",
+      "name": "潤弘",
+      "price": 171.0,
+      "prev_close": 172.5,
+      "change_pct": -0.8696,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "4590": {
+      "symbol": "4590",
+      "name": "富田-創",
+      "price": 91.7,
+      "prev_close": 91.0,
+      "change_pct": 0.7692,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "1513": {
+      "symbol": "1513",
+      "name": "中興電",
+      "price": 166.5,
+      "prev_close": 167.0,
+      "change_pct": -0.2994,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "4540": {
+      "symbol": "4540",
+      "name": "全球傳動",
+      "price": 60.4,
+      "prev_close": 59.3,
+      "change_pct": 1.855,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "3402": {
       "symbol": "3402",
       "name": "漢科",
-      "price": 127.5,
+      "price": 127.0,
       "prev_close": 129.0,
-      "change_pct": -1.1628,
+      "change_pct": -1.5504,
       "data_date": "2026-09-21",
-      "quote_time": "13:06:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "8932": {
+      "symbol": "8932",
+      "name": "智通*",
+      "price": 94.9,
+      "prev_close": 92.9,
+      "change_pct": 2.1529,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "6548": {
+      "symbol": "6548",
+      "name": "長科*",
+      "price": 73.3,
+      "prev_close": 74.8,
+      "change_pct": -2.0053,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2428": {
       "symbol": "2428",
       "name": "興勤",
-      "price": 259.0,
+      "price": 258.5,
       "prev_close": 260.0,
-      "change_pct": -0.3846,
+      "change_pct": -0.5769,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:41",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "5434": {
+      "symbol": "5434",
+      "name": "崇越",
+      "price": 537.0,
+      "prev_close": 540.0,
+      "change_pct": -0.5556,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     },
     "2886": {
       "symbol": "2886",
       "name": "兆豐金",
-      "price": 50.9,
+      "price": 51.1,
       "prev_close": 51.1,
-      "change_pct": -0.3914,
+      "change_pct": 0.0,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
-    "6603": {
-      "symbol": "6603",
-      "name": "富強鑫",
-      "price": 28.75,
-      "prev_close": 28.55,
-      "change_pct": 0.7005,
+    "6922": {
+      "symbol": "6922",
+      "name": "宸曜",
+      "price": 206.5,
+      "prev_close": 188.0,
+      "change_pct": 9.8404,
       "data_date": "2026-09-21",
-      "quote_time": "13:08:51",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
+    },
+    "6271": {
+      "symbol": "6271",
+      "name": "同欣電",
+      "price": 230.0,
+      "prev_close": 229.5,
+      "change_pct": 0.2179,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "4916": {
+      "symbol": "4916",
+      "name": "事欣科",
+      "price": 105.0,
+      "prev_close": 105.5,
+      "change_pct": -0.4739,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "9945": {
+      "symbol": "9945",
+      "name": "潤泰新",
+      "price": 29.25,
+      "prev_close": 28.95,
+      "change_pct": 1.0363,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
+    },
+    "5464": {
+      "symbol": "5464",
+      "name": "霖宏",
+      "price": 90.6,
+      "prev_close": 92.7,
+      "change_pct": -2.2654,
+      "data_date": "2026-09-21",
+      "quote_time": "13:30:00",
+      "source": "TWSE MIS",
+      "price_kind": "last_trade"
     }
   }
 }
