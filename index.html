@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- VCPulse OFFICIAL + MARKET DATA AUX 2026-09-23 -->
 <!-- VCPulse BUILD 2.46.2 NEWS IMPACT EMPTY-STATE COPY -->
 <!-- VCPulse BUILD 2.41.43 OFFICIAL-EVENT RESTORE ENGINE V2 -->
 <!-- VCPulse BUILD 2.40.2.1 UI POLISH -->
@@ -56,7 +57,16 @@ button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min
  .section-title h2{font-size:18px}
 }
 .topline{display:flex;justify-content:space-between;gap:12px;align-items:center}.ticker{font-size:25px;font-weight:800}.badge{padding:7px 10px;border-radius:999px;background:#eee;font-weight:700}
-.score{font-size:44px;font-weight:900;margin:8px 0}.stars{font-size:21px;letter-spacing:2px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.score{font-size:44px;font-weight:900;margin:8px 0}.stars{font-size:21px;letter-spacing:2px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media(min-width:761px){
+ .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .metrics .metric:nth-child(1){grid-column:1}
+ .metrics .metric:nth-child(2){grid-column:2}
+ .metrics .metric:nth-child(4){grid-column:3;grid-row:1}
+ .metrics .metric:nth-child(3){grid-column:1 / -1;grid-row:2}
+ .metrics .metric:nth-child(3) b{white-space:nowrap;font-size:20px}
+ .metrics .metric .muted{white-space:nowrap}
+}
 .metric{padding:13px;background:#f7f7f3;border-radius:12px}.metric b{display:block;font-size:20px;margin-top:4px}.muted{color:var(--muted);font-size:13px}
 canvas{width:100%;height:auto;border-radius:12px;background:#fcfcfa;margin-top:14px;display:block}.checks{display:grid;gap:10px;margin-top:12px}
 .check{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:9px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
@@ -1527,6 +1537,30 @@ th{color:#716c64}
 </div>
 <div class="single-signal-row" id="singleSignals"></div>
 <div class="single-liquidity-detail" id="singleLiquidity" hidden></div>
+<div class="aux-market-panel" id="auxMarketPanel" hidden>
+  <div class="aux-block">
+    <div class="aux-head"><b>📈 市場動能</b><span id="momentumAsOf">正式收盤資料</span></div>
+    <div class="aux-grid momentum-grid">
+      <div><span>近5日</span><b id="auxRet5">—</b></div>
+      <div><span>近20日</span><b id="auxRet20">—</b></div>
+      <div><span>距一年高點</span><b id="auxYearHigh">—</b></div>
+      <div><span>成交量比</span><b id="auxTodayVolRatio">—</b></div>
+      <div><span>5日/20日均量</span><b id="auxVolRatio">—</b></div>
+    </div>
+  </div>
+  <div class="aux-block" id="foreignBlock">
+    <div class="aux-head"><b>🌎 外資動向</b><span id="foreignAsOf">每日收盤後更新</span></div>
+    <div class="aux-grid">
+      <div><span id="foreignDayLabel">前一交易日</span><b id="foreignToday">—</b></div>
+      <div><span>近 5 日</span><b id="foreign5">—</b></div>
+      <div><span>近 20 日</span><b id="foreign20">—</b></div>
+      <div><span>連買／連賣</span><b id="foreignStreak">—</b></div>
+      <div><span>外資持股</span><b id="foreignHolding">—</b></div>
+      <div><span>持股近 5 日</span><b id="foreignHolding5">—</b></div>
+    </div>
+    <div class="aux-foot">外資籌碼僅供輔助觀察，不納入 VCP 評分。</div>
+  </div>
+</div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
@@ -2592,6 +2626,7 @@ async function run(){
  let raw=$('symbol').value.trim(), s=raw.toUpperCase(), resolvedName='';
  $('go').disabled=true;$('go').textContent='分析中…';$('err').style.display='none';
  try{
+  resetAuxMarketAndForeign();
   if(currentMarket==='TW'){
    const resolved=await resolveTaiwanInput(raw);
    s=resolved.symbol; resolvedName=resolved.name||'';
@@ -2695,6 +2730,7 @@ async function run(){
   }
 
   updateSingleQuickRead(radarMatch,d,a,liveQuote);
+  updateAuxMarketAndForeign(s,d,currentMarket,liveQuote);
 
   const singlePrev=d.length>1?Number(d[d.length-2]?.close):NaN;
   const singleLast=Number(a.last ?? d[d.length-1]?.close);
@@ -4675,7 +4711,77 @@ document.addEventListener('click',(e)=>{
  box.hidden=!willOpen;
  btn.setAttribute('aria-expanded',String(willOpen));
 });
-</script></body></html>
+</script><style>
+.aux-market-panel{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 2px}
+.aux-block{border:1px solid #e9e2d8;border-radius:16px;padding:12px;background:#fbfaf7}
+.aux-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}.aux-head b{font-size:14px}.aux-head span{font-size:11px;color:#918a80}
+.aux-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.momentum-grid{grid-template-columns:minmax(64px,.8fr) minmax(64px,.8fr) minmax(94px,1.18fr) minmax(82px,1fr) minmax(108px,1.34fr)}.aux-block#foreignBlock .aux-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.aux-grid>div{padding:8px 9px;border-radius:11px;background:#fff;border:1px solid #eee8df;min-width:0}.aux-grid span{display:block;color:#81796f;font-size:11px;margin-bottom:3px}.momentum-grid span{white-space:nowrap;font-size:10.5px}.aux-grid b{font-size:14px;overflow-wrap:anywhere}.aux-grid b.up{color:#238a65}.aux-grid b.down{color:#d34b52}.aux-grid b.neutral{color:#282d29}.aux-foot{font-size:10px;color:#9a938a;margin-top:8px;line-height:1.45}
+@media(max-width:760px){.aux-market-panel{grid-template-columns:1fr}.aux-grid,.aux-block#foreignBlock .aux-grid,.momentum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.momentum-grid span{white-space:normal;font-size:11px}.momentum-grid>div:last-child{grid-column:1/-1}}
+</style>
+<script>
+function auxPct(v,d=1){return Number.isFinite(v)?`${v>0?'+':''}${v.toFixed(d)}%`:'—'}
+function auxSet(id,text,v=null,mode='direction'){const e=document.getElementById(id);if(!e)return;e.textContent=text;if(mode==='neutral'){e.className='neutral';return}e.className=Number.isFinite(v)?(v>0?'up':v<0?'down':'neutral'):'neutral'}
+function resetAuxMarketAndForeign(){
+ const p=document.getElementById('auxMarketPanel');if(p)p.hidden=true;
+ ['auxRet5','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5'].forEach(id=>auxSet(id,'—'));
+ const as=document.getElementById('foreignAsOf');if(as)as.textContent='正式收盤資料'; const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent='正式收盤資料'; const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent='前一交易日';
+}
+function updateMarketMomentum(d,isIntraday=false){
+ if(!Array.isArray(d)||d.length<21)return;
+ const closes=d.map(x=>Number(x.close)).filter(Number.isFinite), vols=d.map(x=>Number(x.Trading_Volume??x.volume)).filter(Number.isFinite);
+ if(closes.length<21)return;
+ const last=closes.at(-1), r5=(last/closes.at(-6)-1)*100, r20=(last/closes.at(-21)-1)*100;
+ const year=closes.slice(-252), hi=Math.max(...year), distHi=(last/hi-1)*100;
+ const avg=a=>a.reduce((x,y)=>x+y,0)/a.length; let vr=NaN,todayVr=NaN;
+ if(vols.length>=21){
+   const prior20=vols.slice(-21,-1), avg20prior=avg(prior20), todayVol=vols.at(-1);
+   if(avg20prior>0 && Number.isFinite(todayVol)){
+     if(isIntraday){
+       const now=new Date(), mins=now.getHours()*60+now.getMinutes(), open=9*60, close=13*60+30;
+       const frac=Math.max(0.05,Math.min(1,(mins-open)/(close-open)));
+       todayVr=(todayVol/frac)/avg20prior;
+     }else todayVr=todayVol/avg20prior;
+   }
+ }
+ if(vols.length>=20){const a5=avg(vols.slice(-5)),a20=avg(vols.slice(-20));if(a20>0)vr=a5/a20}
+ auxSet('auxRet5',auxPct(r5),r5);auxSet('auxRet20',auxPct(r20),r20);auxSet('auxYearHigh',Number.isFinite(distHi)?`${distHi.toFixed(1)}%`:'—',distHi,'neutral');
+ auxSet('auxTodayVolRatio',Number.isFinite(todayVr)?`${todayVr.toFixed(2)} 倍`:'—',null,'neutral');
+ auxSet('auxVolRatio',Number.isFinite(vr)?`${vr.toFixed(2)} 倍`:'—',null,'neutral');
+ const lastRow=d.at(-1)||{}; const dataDate=String(lastRow.date||lastRow.Date||'').slice(0,10); const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent=dataDate?`截至 ${dataDate} ${isIntraday?'盤中':'收盤'}`:'正式收盤資料';
+}
+async function fetchFinMindRows(dataset,symbol,start,end){
+ const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${start}&end_date=${end}`;
+ const r=await fetch(u,{cache:'no-store'}); if(!r.ok)throw new Error(`${dataset} HTTP ${r.status}`); const j=await r.json(); return Array.isArray(j?.data)?j.data:[];
+}
+function foreignNetRows(rows){
+ const m=new Map();
+ rows.filter(x=>String(x.name)==='Foreign_Investor').forEach(x=>{const d=String(x.date||''),net=(Number(x.buy)||0)-(Number(x.sell)||0);m.set(d,(m.get(d)||0)+net)});
+ return [...m.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([date,net])=>({date,net}));
+}
+function foreignStreakText(a){
+ if(!a.length)return '—';let sign=Math.sign(a.at(-1).net);if(!sign)return '當日持平';let n=0;for(let i=a.length-1;i>=0&&Math.sign(a[i].net)===sign;i--)n++;return `連${sign>0?'買':'賣'} ${n} 日`;
+}
+async function updateForeign(symbol){
+ const end=new Date(),start=new Date();start.setDate(end.getDate()-55);const f=d=>d.toISOString().slice(0,10);
+ try{
+  const [inst,hold]=await Promise.all([fetchFinMindRows('TaiwanStockInstitutionalInvestorsBuySell',symbol,f(start),f(end)),fetchFinMindRows('TaiwanStockShareholding',symbol,f(start),f(end))]);
+  const a=foreignNetRows(inst); const sum=n=>a.slice(-n).reduce((z,x)=>z+x.net,0)/1000; const today=a.length?a.at(-1).net/1000:NaN;
+  auxSet('foreignToday',Number.isFinite(today)?`${today>0?'+':''}${Math.round(today).toLocaleString()} 張`:'—',today); const v5=a.length?sum(5):NaN,v20=a.length?sum(20):NaN;
+  auxSet('foreign5',Number.isFinite(v5)?`${v5>0?'+':''}${Math.round(v5).toLocaleString()} 張`:'—',v5);auxSet('foreign20',Number.isFinite(v20)?`${v20>0?'+':''}${Math.round(v20).toLocaleString()} 張`:'—',v20);const streak=foreignStreakText(a);auxSet('foreignStreak',streak,a.length?Math.sign(a.at(-1).net):null);
+  const h=hold.filter(x=>Number.isFinite(Number(x.ForeignInvestmentSharesRatio))).sort((x,y)=>String(x.date).localeCompare(String(y.date)));
+  if(h.length){const cur=Number(h.at(-1).ForeignInvestmentSharesRatio),old=Number(h[Math.max(0,h.length-6)].ForeignInvestmentSharesRatio),chg=cur-old;auxSet('foreignHolding',`${cur.toFixed(2)}%`,null,'neutral');auxSet('foreignHolding5',`${chg>0?'+':''}${chg.toFixed(2)} pp`,chg)} const flowDate=a.length?a.at(-1).date:'';const as=document.getElementById('foreignAsOf');if(as)as.textContent=flowDate?`截至 ${flowDate} 收盤`:'正式收盤資料';const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent=flowDate?`${flowDate.slice(5).replace('-','/')} 買賣超`:'前一交易日';
+ }catch(e){console.warn('Foreign flow unavailable',e);const as=document.getElementById('foreignAsOf');if(as)as.textContent='外資資料暫時無法取得'}
+}
+function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
+ const p=document.getElementById('auxMarketPanel');if(!p)return;p.hidden=false;
+ const today=new Date();const td=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+ const liveDate=String(liveQuote?.data_date||'').slice(0,10);
+ const intraday=String(market).toUpperCase()==='TW' && liveDate===td && !isIntradayLockedAfterOfficial('TW');
+ updateMarketMomentum(d,intraday);
+ const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=String(market).toUpperCase()!=='TW';if(String(market).toUpperCase()==='TW')updateForeign(symbol);
+}
+</script>
+</body></html>
 
 <style>
 /* V2.36.5 — 收藏星星緊貼股票名稱 */
