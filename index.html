@@ -1377,6 +1377,24 @@ th{color:#716c64}
 }
 </style>
 
+
+<style id="help-modal-ux-fix">
+/* BETA — 指標使用說明：固定關閉、視窗內捲動、點背景關閉 */
+.helpbox.open{
+  display:block;position:fixed;z-index:10031;left:50%;top:5vh;transform:translateX(-50%);
+  width:min(920px,calc(100vw - 28px));max-height:90vh;overflow-y:auto;overscroll-behavior:contain;
+  margin:0;padding:22px;background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(35,31,26,.22);
+}
+.help-modal-backdrop{position:fixed;inset:0;z-index:10030;background:rgba(35,31,26,.28);backdrop-filter:blur(2px)}
+.help-modal-close{position:sticky;top:0;z-index:5;float:right;margin:-8px -8px 8px 12px;width:38px;height:38px;
+  border:1px solid #ded7cd;border-radius:999px;background:rgba(255,255,255,.96);color:#514b43;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(35,31,26,.10)}
+body.help-modal-open{overflow:hidden}
+@media(max-width:760px){
+  .helpbox.open{top:12px;width:calc(100vw - 20px);max-height:calc(100dvh - 24px);padding:14px;border-radius:16px}
+  .help-modal-close{top:0;margin:-3px -3px 6px 10px}
+}
+</style>
 </head>
 <body>
 
@@ -1423,6 +1441,7 @@ th{color:#716c64}
   <button class="helpbtn" id="helpBtn" style="position:absolute;right:18px;top:18px">？ 指標使用說明</button>
 </section>
 <div class="card helpbox" id="helpBox">
+  <button type="button" class="help-modal-close" id="helpCloseBtn" aria-label="關閉指標使用說明">×</button>
   <section class="help-section">
   <h3>什麼是 VCP？</h3>
   <p><b>VCP（Volatility Contraction Pattern，波動收縮型態）</b>是觀察股價在上升趨勢中，回檔與波動逐步縮小、成交量降溫，最後等待突破關鍵價位（Pivot）的技術型態。</p>
@@ -1453,6 +1472,31 @@ th{color:#716c64}
     <tr><td>🔴 極低</td><td>&lt; 100 張</td><td>交易風險較高</td></tr>
   </table>
   <p class="muted"><b>補充：</b>流動性品質只作為交易品質參考；VCPulse 仍另外以 20 日平均成交金額作為基本流動性篩選，台股目前門檻為 2,000 萬元。</p>
+  </section>
+  <section class="help-section">
+  <h3>輔助觀察時間尺度</h3>
+  <p style="font-size:16px;line-height:1.8"><b>📈 市場動能（日／盤中） → 🌎 外資動向（日） → 🐳 大戶持股（週）</b></p>
+  <p class="muted">從短期市場變化、每日法人籌碼，到每週大額持股集中趨勢，提供不同時間尺度的輔助觀察。</p>
+  </section>
+  <section class="help-section">
+  <h3>📈 市場動能</h3>
+  <p><b>資料頻率：每日／盤中即時。</b>盤中模式會隨最新行情更新；正式收盤模式則以最近正式收盤資料計算，實際資料日期以區塊右上角「截至日期」為準。</p>
+  <p><b>近5日／近20日</b>：目前股價相較 5／20 個交易日前的漲跌幅。<br><b>距一年高點</b>：目前股價距近一年最高價的幅度。<br><b>成交量比</b>：目前成交量相對基準成交量的倍數。<br><b>5日／20日均量</b>：5 日平均成交量 ÷ 20 日平均成交量。</p>
+  </section>
+  <section class="help-section">
+  <h3>🌎 外資動向</h3>
+  <p><b>資料頻率：每日。</b>外資資料依最新可取得的交易日更新，實際資料日期以區塊右上角「截至日期」為準。</p>
+  <p><b>買賣超</b>：最近一個交易日外資買進與賣出的淨額。<br><b>近5日／近20日</b>：期間累計外資買賣超張數。<br><b>連買／連賣</b>：外資連續買超或賣超的交易日數。<br><b>外資持股</b>：最近資料日的外資持股比例。<br><b>持股近5日</b>：外資持股比例相較 5 個交易日前的變化；<b>pp</b> 代表百分點。</p>
+  </section>
+  <section class="help-section">
+  <h3>🐳 大戶持股趨勢</h3>
+  <p><b>資料頻率：每週。</b>依集保股權分散資料更新，實際資料日期以區塊右上角「截至日期」為準。</p>
+  <p><b>400張以上</b>：持有 400,001 股以上股東的合計持股比例。<br><b>較上週</b>：相較前一週的持股比例變化；<b>pp</b> 代表百分點。<br><b>近4週</b>：目前持股比例相較 4 週前的變化。<br><b>連增／連減</b>：大戶持股比例連續增加或減少的週數。</p>
+  <p class="muted">大戶持股比例上升代表持股較往大額持有人集中；下降則代表集中度降低。此指標反映持股分布變化，不等同買賣訊號。</p>
+  </section>
+  <section class="help-section">
+  <h3>輔助指標資料提醒</h3>
+  <p class="muted">市場動能與籌碼資料僅供輔助觀察，<b>不納入 VCP 評分</b>。不同資料源更新頻率不同，請以各區塊顯示的截至日期為準。</p>
   </section>
   <section class="help-section">
   <h3>每日雷達狀態</h3>
@@ -1559,6 +1603,16 @@ th{color:#716c64}
       <div><span>持股近 5 日</span><b id="foreignHolding5">—</b></div>
     </div>
     <div class="aux-foot">外資籌碼僅供輔助觀察，不納入 VCP 評分。</div>
+  </div>
+  <div class="aux-block" id="whaleBlock">
+    <div class="aux-head"><b>🐳 大戶持股趨勢</b><span id="whaleAsOf">每週更新</span></div>
+    <div class="aux-grid whale-grid">
+      <div><span>400張以上</span><b id="whale400">—</b></div>
+      <div><span>較上週</span><b id="whale1w">—</b></div>
+      <div><span>近4週</span><b id="whale4w">—</b></div>
+      <div><span>連增／連減</span><b id="whaleStreak">—</b></div>
+    </div>
+    <div class="aux-foot">集保籌碼每週更新，僅供輔助觀察，不納入 VCP 評分。</div>
   </div>
 </div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
@@ -4434,8 +4488,28 @@ if(document.readyState==='loading'){
  initBackToTop();
 }
 
-const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox');
-if(helpBtn&&helpBox) helpBtn.onclick=()=>helpBox.classList.toggle('open');
+const helpBtn=document.getElementById('helpBtn'), helpBox=document.getElementById('helpBox'), helpCloseBtn=document.getElementById('helpCloseBtn');
+if(helpBtn&&helpBox){
+  let helpBackdrop=null;
+  const closeHelp=()=>{
+    helpBox.classList.remove('open');
+    document.body.classList.remove('help-modal-open');
+    if(helpBackdrop){ helpBackdrop.remove(); helpBackdrop=null; }
+  };
+  const openHelp=()=>{
+    helpBox.classList.add('open');
+    helpBox.scrollTop=0;
+    document.body.classList.add('help-modal-open');
+    helpBackdrop=document.createElement('div');
+    helpBackdrop.className='help-modal-backdrop';
+    helpBackdrop.setAttribute('aria-hidden','true');
+    helpBackdrop.addEventListener('click',closeHelp);
+    document.body.appendChild(helpBackdrop);
+  };
+  helpBtn.onclick=()=>helpBox.classList.contains('open')?closeHelp():openHelp();
+  if(helpCloseBtn) helpCloseBtn.onclick=closeHelp;
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&helpBox.classList.contains('open')) closeHelp();});
+}
 loadMarketPulse();
 // Initial single-stock analysis waits until radar snapshots are loaded, so the default 2330 can reuse the same scanner data as manual selections.
 loadRadar().finally(()=>run());
@@ -4716,16 +4790,16 @@ document.addEventListener('click',(e)=>{
 .aux-market-panel{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 2px}
 .aux-block{border:1px solid #e9e2d8;border-radius:16px;padding:12px;background:#fbfaf7}
 .aux-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}.aux-head b{font-size:14px}.aux-head span{font-size:11px;color:#918a80}
-.aux-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.momentum-grid{grid-template-columns:minmax(64px,.8fr) minmax(64px,.8fr) minmax(94px,1.18fr) minmax(82px,1fr) minmax(108px,1.34fr)}.aux-block#foreignBlock .aux-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.aux-grid>div{padding:8px 9px;border-radius:11px;background:#fff;border:1px solid #eee8df;min-width:0}.aux-grid span{display:block;color:#81796f;font-size:11px;margin-bottom:3px}.momentum-grid span{white-space:nowrap;font-size:10.5px}.aux-grid b{font-size:14px;overflow-wrap:anywhere}#auxRet5,#auxRet20{white-space:nowrap;overflow-wrap:normal;word-break:keep-all}.aux-grid b.up{color:#238a65}.aux-grid b.down{color:#d34b52}.aux-grid b.neutral{color:#282d29}.aux-foot{font-size:10px;color:#9a938a;margin-top:8px;line-height:1.45}
-@media(max-width:760px){.aux-market-panel{grid-template-columns:1fr}.aux-grid,.aux-block#foreignBlock .aux-grid,.momentum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.momentum-grid span{white-space:normal;font-size:11px}.momentum-grid>div:last-child{grid-column:1/-1}}
+.aux-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.momentum-grid{grid-template-columns:minmax(64px,.8fr) minmax(64px,.8fr) minmax(94px,1.18fr) minmax(82px,1fr) minmax(108px,1.34fr)}.aux-block#foreignBlock .aux-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.aux-block#whaleBlock{grid-column:1/-1}.whale-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.aux-grid>div{padding:8px 9px;border-radius:11px;background:#fff;border:1px solid #eee8df;min-width:0}.aux-grid span{display:block;color:#81796f;font-size:11px;margin-bottom:3px}.momentum-grid span{white-space:nowrap;font-size:10.5px}.aux-grid b{font-size:14px;overflow-wrap:anywhere}#auxRet5,#auxRet20{white-space:nowrap;overflow-wrap:normal;word-break:keep-all}.aux-grid b.up{color:#238a65}.aux-grid b.down{color:#d34b52}.aux-grid b.neutral{color:#282d29}.aux-foot{font-size:10px;color:#9a938a;margin-top:8px;line-height:1.45}
+@media(max-width:760px){.aux-market-panel{grid-template-columns:1fr}.aux-grid,.aux-block#foreignBlock .aux-grid,.momentum-grid,.whale-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.momentum-grid span{white-space:normal;font-size:11px}.momentum-grid>div:last-child{grid-column:1/-1}}
 </style>
 <script>
 function auxPct(v,d=1){return Number.isFinite(v)?`${v>0?'+':''}${v.toFixed(d)}%`:'—'}
 function auxSet(id,text,v=null,mode='direction'){const e=document.getElementById(id);if(!e)return;e.textContent=text;if(mode==='neutral'){e.className='neutral';return}e.className=Number.isFinite(v)?(v>0?'up':v<0?'down':'neutral'):'neutral'}
 function resetAuxMarketAndForeign(){
  const p=document.getElementById('auxMarketPanel');if(p)p.hidden=true;
- ['auxRet5','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5'].forEach(id=>auxSet(id,'—'));
- const as=document.getElementById('foreignAsOf');if(as)as.textContent='正式收盤資料'; const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent='正式收盤資料'; const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent='前一交易日';
+ ['auxRet5','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5','whale400','whale1w','whale4w','whaleStreak'].forEach(id=>auxSet(id,'—'));
+ const as=document.getElementById('foreignAsOf');if(as)as.textContent='正式收盤資料'; const wa=document.getElementById('whaleAsOf');if(wa)wa.textContent='每週更新'; const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent='正式收盤資料'; const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent='前一交易日';
 }
 function updateMarketMomentum(d,isIntraday=false){
  if(!Array.isArray(d)||d.length<21)return;
@@ -4773,13 +4847,33 @@ async function updateForeign(symbol){
   if(h.length){const cur=Number(h.at(-1).ForeignInvestmentSharesRatio),old=Number(h[Math.max(0,h.length-6)].ForeignInvestmentSharesRatio),chg=cur-old;auxSet('foreignHolding',`${cur.toFixed(2)}%`,null,'neutral');auxSet('foreignHolding5',`${chg>0?'+':''}${chg.toFixed(2)} pp`,chg)} const flowDate=a.length?a.at(-1).date:'';const as=document.getElementById('foreignAsOf');if(as)as.textContent=flowDate?`截至 ${flowDate} 收盤`:'正式收盤資料';const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent=flowDate?`${flowDate.slice(5).replace('-','/')} 買賣超`:'前一交易日';
  }catch(e){console.warn('Foreign flow unavailable',e);const as=document.getElementById('foreignAsOf');if(as)as.textContent='外資資料暫時無法取得'}
 }
+let tdccWhaleCache=null;
+async function loadTdccWhales(){
+ if(tdccWhaleCache)return tdccWhaleCache;
+ try{const r=await fetch(`tdcc_whales.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw new Error(`TDCC HTTP ${r.status}`);tdccWhaleCache=await r.json();return tdccWhaleCache}catch(e){console.warn('TDCC whale data unavailable',e);return null}
+}
+function whaleStreakText(rows){
+ if(!Array.isArray(rows)||rows.length<2)return '—';let last=rows.length-1,d=Number(rows[last].big400)-Number(rows[last-1].big400),sign=Math.sign(d);if(!sign)return '本週持平';let n=1;for(let i=last-1;i>=1;i--){let x=Number(rows[i].big400)-Number(rows[i-1].big400);if(Math.sign(x)!==sign)break;n++}return `連${sign>0?'增':'減'} ${n} 週`;
+}
+async function updateWhales(symbol){
+ const wa=document.getElementById('whaleAsOf');
+ try{const all=await loadTdccWhales(),rows=all?.symbols?.[String(symbol)]||[];if(!rows.length){if(wa)wa.textContent='暫無集保資料';return}
+  const cur=rows.at(-1),prev=rows.length>=2?rows.at(-2):null,old4=rows.length>=5?rows.at(-5):null;
+  const v=Number(cur.big400),w1=prev?v-Number(prev.big400):NaN,w4=old4?v-Number(old4.big400):NaN;
+  auxSet('whale400',Number.isFinite(v)?`${v.toFixed(2)}%`:'—',null,'neutral');
+  auxSet('whale1w',Number.isFinite(w1)?`${w1>0?'+':''}${w1.toFixed(2)} pp`:'—',w1);
+  auxSet('whale4w',Number.isFinite(w4)?`${w4>0?'+':''}${w4.toFixed(2)} pp`:'—',w4);
+  const st=whaleStreakText(rows);let sv=rows.length>=2?Number(rows.at(-1).big400)-Number(rows.at(-2).big400):NaN;auxSet('whaleStreak',st,sv);
+  if(wa)wa.textContent=`截至 ${String(cur.date).slice(0,10)}（週資料）`;
+ }catch(e){console.warn('Whale trend unavailable',e);if(wa)wa.textContent='集保資料暫時無法取得'}
+}
 function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const p=document.getElementById('auxMarketPanel');if(!p)return;p.hidden=false;
  const today=new Date();const td=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
  const liveDate=String(liveQuote?.data_date||'').slice(0,10);
  const intraday=String(market).toUpperCase()==='TW' && liveDate===td && !isIntradayLockedAfterOfficial('TW');
  updateMarketMomentum(d,intraday);
- const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=String(market).toUpperCase()!=='TW';if(String(market).toUpperCase()==='TW')updateForeign(symbol);
+ const isTW=String(market).toUpperCase()==='TW';const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=!isTW;const wb=document.getElementById('whaleBlock');if(wb)wb.hidden=!isTW;if(isTW){updateForeign(symbol);updateWhales(symbol)}
 }
 </script>
 </body></html>
