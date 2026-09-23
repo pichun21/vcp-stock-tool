@@ -1395,6 +1395,16 @@ body.help-modal-open{overflow:hidden}
   .help-modal-close{top:0;margin:-3px -3px 6px 10px}
 }
 </style>
+
+<style>
+/* V2.46.1 — 單股桌機版雙欄資訊流：左 K 線→News Impact；右 VCP→輔助籌碼→條件 */
+@media (min-width:761px){
+  #singleStockAnalysis .grid{align-items:start;}
+  #singleStockAnalysis .grid > .card:first-child{grid-column:1;grid-row:1;}
+  #singleStockAnalysis .grid > .card:nth-child(2){grid-column:2;grid-row:1 / span 2;}
+  #singleStockAnalysis .grid > #newsImpactCard{grid-column:1;grid-row:2;margin-top:0;}
+}
+</style>
 </head>
 <body>
 
@@ -1618,9 +1628,6 @@ body.help-modal-open{overflow:hidden}
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
 <div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
-
-</div>
-
 <div class="card news-impact-card" id="newsImpactCard">
   <div class="news-impact-head">
     <div>
@@ -1633,6 +1640,7 @@ body.help-modal-open{overflow:hidden}
     <div class="news-impact-empty">輸入台股代號後，查看近期重要新聞與目前價格反應。</div>
   </div>
   <div class="news-impact-foot">新聞是資訊層，不納入 VCP 星等或雷達排名；市場反應以 VCPulse 最新資料為準。</div>
+</div>
 </div>
 
 <div class="section radar-section">
