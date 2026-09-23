@@ -112,12 +112,17 @@ jobs:
             python scanner.py --market "${{ steps.target.outputs.market }}" --snapshot "${{ steps.target.outputs.snapshot }}"
           fi
 
+      - name: Update TDCC whale holdings
+        if: ${{ steps.target.outputs.market == 'TW' || steps.target.outputs.market == 'both' }}
+        run: |
+          python tdcc_whales.py
+
       - name: Commit screening result
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add screening.json
+          git add screening.json tdcc_whales.json
           if git diff --cached --quiet; then
             echo "No change."
           else
