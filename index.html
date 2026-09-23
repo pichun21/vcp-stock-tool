@@ -2112,6 +2112,8 @@ function applyRestoreEvents(rows,events){
 
 async function resolveTaiwanInput(raw){
  const q=raw.trim();
+ if(/^\d+$/.test(q) && !/^\d{4,6}$/.test(q))
+   throw new Error(`「${q}」不是有效的台股代號格式，請輸入 4 至 6 位數的股票代號，例如 2330。`);
  if(/^\d{4,6}$/.test(q)) return {symbol:q,name:''};
  try{
   let r=await fetch(`${API}?dataset=TaiwanStockInfo`);
@@ -2761,7 +2763,8 @@ async function run(){
  }catch(e){
    const fallback=findAnyRadarMatch(currentMarket,s);
    if(!renderSingleFromRadarFallback(s,fallback)){
-     showErr('目前這台裝置無法取得完整歷史資料，且此股票不在目前每日雷達快取中。請稍後再試，或切換 Wi‑Fi／行動網路後重試。');
+     const inputError=e?.message && (e.message.includes('不是有效的台股代號格式') || e.message.startsWith('找不到「') || e.message.includes('符合多檔股票') || e.message.startsWith('請輸入美股代號'));
+     showErr(inputError ? e.message : `查無「${s}」可供分析的完整歷史資料。請確認股票代號是否正確；若代號正確，請稍後再試。`);
    }
  }
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
