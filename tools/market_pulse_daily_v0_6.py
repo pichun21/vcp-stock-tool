@@ -13,6 +13,11 @@ MODEL=ROOT/'data'/'market_pulse_model_v0_6.json'
 OUT=ROOT/'market_pulse.json'
 TZ=ZoneInfo('Asia/Taipei')
 
+class FutureTradingDate(RuntimeError):
+    def __init__(self, page_date, target_date):
+        self.page_date=page_date
+        super().__init__(f'TAIFEX 下一歸屬日 {page_date}，目標日 {target_date}')
+
 def num(v):
     if v is None: return None
     s=str(v).replace(',','').replace('%','').replace('▲','').replace('▼','').strip()
@@ -34,6 +39,8 @@ def fetch_tx_night(target_date):
     m=re.search(r'日期[：:]\s*(\d{4})[/-](\d{1,2})[/-](\d{1,2})', r.text)
     if not m: raise RuntimeError('TAIFEX 夜盤頁面找不到交易日期')
     page_date=f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    if page_date > target_date:
+        raise FutureTradingDate(page_date,target_date)
     if page_date != target_date:
         raise RuntimeError(f'TAIFEX 最新歸屬日 {page_date}，尚非目標日 {target_date}')
     # pandas 2.x may interpret a raw HTML string as a filesystem path.
@@ -100,6 +107,22 @@ def main():
     now=datetime.now(TZ)
     target_date=now.date().isoformat()
     try: raw['tx_night']=fetch_tx_night(target_date)
+    except FutureTradingDate as e:
+        # TAIFEX may already show the next trading date during a local closure.
+        # Carry forward only a recent, previously validated snapshot; never use
+        # the future contract's return as if it belonged to this morning.
+        try:
+            previous=json.loads(Path(args.output).read_text(encoding='utf-8'))
+            old=previous.get('signals',{}).get('tx_night',{}) if previous.get('status')=='ok' else {}
+            old_date=datetime.strptime(old['date'],'%Y-%m-%d').date()
+            gap=(now.date()-old_date).days
+            if not (0 < gap <= 7 and (datetime.strptime(e.page_date,'%Y-%m-%d').date()-now.date()).days <= 7):
+                raise ValueError('可用夜盤資料距離目標日過遠')
+            if not all(k in old for k in ('value','contract','source')) or not math.isfinite(float(old['value'])):
+                raise ValueError('前次夜盤資料不完整')
+            raw['tx_night']={**old,'carried_forward':True,'next_trading_date':e.page_date}
+        except Exception as fallback_error:
+            errors.append(f'TX night: {e}；無法安全沿用前次夜盤：{fallback_error}')
     except Exception as e: errors.append(f'TX night: {e}')
     for key,sym in {'nasdaq':'^IXIC','sox':'^SOX','us10y':'^TNX','brent':'BZ=F','usdtwd':'TWD=X'}.items():
         try: raw[key]=yf_change(sym,target_date,basis_points=(key=='us10y'))
