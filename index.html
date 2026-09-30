@@ -1547,7 +1547,18 @@ body.help-modal-open{overflow:hidden}
 
 <section class="market-pulse-card" id="marketPulseCard" aria-live="polite">
   <div class="mp-head">
-    <div class="mp-title-row"><div class="mp-title">🌐 Market Pulse </div><button type="button" class="mp-help-btn" id="mpHelpBtn" aria-expanded="false">？ Market Pulse 說明</button></div>
+    <div class="mp-title-row">
+<div id="vcpReadingGuide" style="margin:0 0 14px;padding:10px 14px;border:1px solid #ddd3c5;border-radius:12px;background:rgba(255,255,255,.58);font-size:13px;line-height:1.6;">
+  <span style="font-weight:800;margin-right:10px;">📍 建議閱讀順序</span>
+  <span style="font-weight:700;">Market Pulse 外部環境</span>
+  <span style="opacity:.5;margin:0 6px;">→</span>
+  <span style="font-weight:700;">市場結構狀態 台股內部週期</span>
+  <span style="opacity:.5;margin:0 6px;">→</span>
+  <span style="font-weight:700;">資金熱區／題材雷達 資金方向</span>
+  <span style="opacity:.5;margin:0 6px;">→</span>
+  <span style="font-weight:700;">VCP 個股型態</span>
+</div>
+<div class="mp-title">🌐 Market Pulse </div><button type="button" class="mp-help-btn" id="mpHelpBtn" aria-expanded="false">？ Market Pulse 說明</button></div>
     <div class="mp-wait" id="mpUpdated">讀取中…</div>
   </div>
   <div id="mpBody" class="mp-wait" style="margin-top:12px">正在讀取市場環境…</div>
@@ -1593,18 +1604,7 @@ body.help-modal-open{overflow:hidden}
     </ul>
     <h4>數字怎麼看？</h4>
     <p><b>市場廣度：</b>0–100 的 VCP 市場結構綜合分數。<br><b>1日變化：</b>與前一個正式交易日相比。<br><b>5日變化：</b>與 5 個交易日前相比；資料不足時顯示「—」。<br><b>延伸比：</b>候選股中已過度延伸的比例，用來協助辨識市場是否逐漸成熟。</p>
-    <div style="margin-top:14px;padding:12px 14px;border:1px solid #ddd3c5;border-radius:12px;background:rgba(255,255,255,.48);">
-  <div style="font-weight:800;margin-bottom:7px;">📍 建議閱讀順序</div>
-  <div style="font-weight:700;line-height:1.75;">
-    Market Pulse 外部環境
-    <span style="opacity:.55;"> → </span>
-    市場結構狀態 台股內部週期
-    <span style="opacity:.55;"> → </span>
-    資金熱區／題材雷達 資金方向
-    <span style="opacity:.55;"> → </span>
-    VCP 個股型態
-  </div>
-</div>
+    
     <p style="font-size:11px;color:#918a80">研究規則已於 2026/09/17 凍結，目前持續累積 OOS 資料；不代表未來報酬，也不是台指期或個股買賣訊號。</p>
   </div>
 </section>
