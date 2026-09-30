@@ -119,9 +119,9 @@ jobs:
 
       - name: Update TDCC whale holdings
         if: ${{ steps.target.outputs.market == 'TW' || steps.target.outputs.market == 'both' }}
+        continue-on-error: true
         run: |
           python tdcc_whales.py
-
       - name: Commit screening result
         shell: bash
         run: |
