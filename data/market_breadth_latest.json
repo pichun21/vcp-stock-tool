@@ -1,0 +1,78 @@
+{
+  "data_date": "2026-09-29",
+  "v0.1": {
+    "version": "market_breadth_v0.1",
+    "generated_at": "2026-09-30 01:43",
+    "data_date": "2026-09-29",
+    "market": "TW",
+    "score": 72.1,
+    "regime": "偏多",
+    "candidate_count": 150,
+    "breakout_count": 12,
+    "postbreakout_count": 90,
+    "near_pivot_count": 48,
+    "forming_count": 0,
+    "volume_breakout_count": 12,
+    "active_industry_count": 24,
+    "industry_count": 28,
+    "warm_hotspot_count": 5,
+    "extended_count": 35,
+    "failed_count": 0,
+    "avg_vcp_score": 2.84,
+    "components": {
+      "breakout_breadth": 80.0,
+      "volume_breakout": 100.0,
+      "setup_pressure": 64.0,
+      "vcp_quality": 50.1,
+      "industry_breadth": 100.0,
+      "risk_control": 0.0
+    },
+    "weights": {
+      "breakout_breadth": 0.25,
+      "volume_breakout": 0.2,
+      "setup_pressure": 0.15,
+      "vcp_quality": 0.15,
+      "industry_breadth": 0.15,
+      "risk_control": 0.1
+    },
+    "twse_close": 47631.96,
+    "twse_change_pct": -0.82,
+    "note": "Beta research score; thresholds are heuristic and not yet predictive probabilities. Validate T+1/T+3/T+5 before product use."
+  },
+  "v0.2": {
+    "version": "market_breadth_v0.2",
+    "data_date": "2026-09-29",
+    "score": 72.7,
+    "regime": "偏多",
+    "candidate_count": 150,
+    "breakout_count": 12,
+    "postbreakout_count": 90,
+    "near_pivot_count": 48,
+    "forming_count": 0,
+    "volume_breakout_count": 12,
+    "active_industry_count": 24,
+    "industry_count": 28,
+    "extended_count": 35,
+    "failed_count": 0,
+    "components": {
+      "breakout_impulse": 100,
+      "postbreakout_health": 100,
+      "setup_pressure": 68.8,
+      "vcp_quality": 49.4,
+      "industry_spread": 100,
+      "risk_control": 0
+    },
+    "weights": {
+      "breakout_impulse": 0.2,
+      "postbreakout_health": 0.2,
+      "setup_pressure": 0.15,
+      "vcp_quality": 0.15,
+      "industry_spread": 0.15,
+      "risk_control": 0.15
+    },
+    "twse_close": 47631.96,
+    "twse_change_pct": -0.82,
+    "note": "Experimental calibration; not a trading signal or predictive probability."
+  },
+  "note": "Research-only. Scores are not predictive probabilities or trading signals."
+}
