@@ -1294,7 +1294,7 @@ th{color:#716c64}
 
 /* ===== VCPulse Beta · Market Structure v1.0 frozen research ===== */
 .market-structure-card{margin:0 0 18px;padding:18px 22px;background:#fffdfa;border:1px solid var(--vp-line,#e8e1d7);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
-.ms-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.ms-title{font-size:20px;font-weight:900}.ms-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3eee6;color:#8a6848;vertical-align:middle}.ms-body{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:18px}.ms-state-wrap{display:flex;align-items:center;gap:12px}.ms-icon{font-size:28px}.ms-state{font-size:25px;font-weight:950}.ms-code{font-size:11px;color:#918a80;margin-top:2px}.ms-metrics{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ms-chip{padding:8px 10px;background:#f7f4ee;border-radius:11px;font-size:12px;color:#6f685f}.ms-chip b{color:#2c2924}.ms-note{margin-top:10px;font-size:11px;color:#918a80;line-height:1.55}.ms-help{margin-top:10px;font-size:12px;color:#625d54;line-height:1.6}.ms-help-btn{min-width:0;padding:5px 9px;border:1px solid #ddd2c5;border-radius:999px;background:#fffdfa;color:#625d54;font-size:11px;font-weight:800;cursor:pointer}.ms-help-box{display:none;margin-top:12px;padding:15px 16px;background:#f8f5ef;border:1px solid #e9e1d6;border-radius:14px;color:#625d54;font-size:13px;line-height:1.7}.ms-help-box.open{display:block}.ms-help-box h4{margin:10px 0 5px;color:#2c2924}.ms-help-box p{margin:5px 0}.ms-help-box ul{margin:6px 0 8px;padding-left:20px}.ms-wait{color:#777168;font-size:13px}
+.ms-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.ms-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ms-title{font-size:20px;font-weight:900}.ms-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3eee6;color:#8a6848;vertical-align:middle}.ms-body{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:18px}.ms-state-wrap{display:flex;align-items:center;gap:12px}.ms-icon{font-size:28px}.ms-state{font-size:25px;font-weight:950}.ms-code{font-size:11px;color:#918a80;margin-top:2px}.ms-metrics{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ms-chip{padding:8px 10px;background:#f7f4ee;border-radius:11px;font-size:12px;color:#6f685f}.ms-chip b{color:#2c2924}.ms-note{margin-top:10px;font-size:11px;color:#918a80;line-height:1.55}.ms-help{margin-top:10px;font-size:12px;color:#625d54;line-height:1.6}.ms-help-btn{min-width:0;padding:5px 9px;border:1px solid #ddd2c5;border-radius:999px;background:#fffdfa;color:#625d54;font-size:11px;font-weight:800;cursor:pointer}.ms-help-box{display:none;margin-top:12px;padding:15px 16px;background:#f8f5ef;border:1px solid #e9e1d6;border-radius:14px;color:#625d54;font-size:13px;line-height:1.7}.ms-help-box.open{display:block}.ms-help-box h4{margin:10px 0 5px;color:#2c2924}.ms-help-box p{margin:5px 0}.ms-help-box ul{margin:6px 0 8px;padding-left:20px}.ms-wait{color:#777168;font-size:13px}
 @media(max-width:760px){.market-structure-card{padding:15px;margin-bottom:14px}.ms-title{font-size:18px}.ms-body{align-items:flex-start;flex-direction:column}.ms-state{font-size:23px}.ms-metrics{justify-content:flex-start}.ms-chip{padding:7px 9px}}
 
 /* ===== VCPulse 2.43.0 BETA · Market Pulse v0.6 ===== */
@@ -1574,12 +1574,11 @@ body.help-modal-open{overflow:hidden}
 
 <section class="market-structure-card" id="marketStructureCard" aria-live="polite">
   <div class="ms-head">
-    <div class="ms-title">🧭 市場結構狀態</div>
+    <div class="ms-title-row"><div class="ms-title">🧭 市場結構狀態 <span class="ms-beta">BETA · RESEARCH</span></div><button type="button" class="ms-help-btn" id="msHelpBtn" aria-expanded="false">？ 市場結構說明</button></div>
     <div class="ms-wait" id="msUpdated">讀取中…</div>
   </div>
   <div id="msBody" class="ms-wait" style="margin-top:12px">正在讀取台股市場內部結構…</div>
   <div class="ms-help">依 VCP Market Breadth 的 <b>Level × Direction × Extension Risk</b> 描述市場生命週期；它不是漲跌預測，也不是台指期進出場訊號。</div>
-  <button type="button" class="ms-help-btn" id="msHelpBtn" aria-expanded="false">？ 市場結構說明</button>
   <div class="ms-help-box" id="msHelpBox">
     <p><b>市場結構狀態</b>是利用 VCPulse 每日掃描結果，觀察台股「內部結構」目前位於哪個階段，不只看加權指數漲跌。</p>
     <h4>市場廣度（Market Breadth）是什麼？</h4>
@@ -4933,26 +4932,6 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const isTW=String(market).toUpperCase()==='TW';const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=!isTW;const wb=document.getElementById('whaleBlock');if(wb)wb.hidden=!isTW;if(isTW){updateForeign(symbol);updateWhales(symbol)}
 }
 </script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('msHelpBtn');
-  const box = document.getElementById('msHelpBox');
-  if (!btn || !box) return;
-
-  // 預設收合，點擊後展開；再次點擊則收回。
-  box.style.display = 'none';
-  btn.setAttribute('aria-expanded', 'false');
-
-  btn.addEventListener('click', () => {
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    box.style.display = isOpen ? 'none' : 'block';
-    btn.textContent = isOpen ? '？ 市場結構說明' : '收起說明';
-  });
-});
-</script>
-
 </body></html>
 
 <style>
