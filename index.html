@@ -1292,6 +1292,11 @@ th{color:#716c64}
   .help-section .muted{font-size:11px}
 }
 
+/* ===== VCPulse Beta · Market Structure v1.0 frozen research ===== */
+.market-structure-card{margin:0 0 18px;padding:18px 22px;background:#fffdfa;border:1px solid var(--vp-line,#e8e1d7);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.ms-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.ms-title{font-size:20px;font-weight:900}.ms-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3eee6;color:#8a6848;vertical-align:middle}.ms-body{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:18px}.ms-state-wrap{display:flex;align-items:center;gap:12px}.ms-icon{font-size:28px}.ms-state{font-size:25px;font-weight:950}.ms-code{font-size:11px;color:#918a80;margin-top:2px}.ms-metrics{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ms-chip{padding:8px 10px;background:#f7f4ee;border-radius:11px;font-size:12px;color:#6f685f}.ms-chip b{color:#2c2924}.ms-note{margin-top:10px;font-size:11px;color:#918a80;line-height:1.55}.ms-help{margin-top:10px;font-size:12px;color:#625d54;line-height:1.6}.ms-help-btn{min-width:0;padding:5px 9px;border:1px solid #ddd2c5;border-radius:999px;background:#fffdfa;color:#625d54;font-size:11px;font-weight:800;cursor:pointer}.ms-help-box{display:none;margin-top:12px;padding:15px 16px;background:#f8f5ef;border:1px solid #e9e1d6;border-radius:14px;color:#625d54;font-size:13px;line-height:1.7}.ms-help-box.open{display:block}.ms-help-box h4{margin:10px 0 5px;color:#2c2924}.ms-help-box p{margin:5px 0}.ms-help-box ul{margin:6px 0 8px;padding-left:20px}.ms-wait{color:#777168;font-size:13px}
+@media(max-width:760px){.market-structure-card{padding:15px;margin-bottom:14px}.ms-title{font-size:18px}.ms-body{align-items:flex-start;flex-direction:column}.ms-state{font-size:23px}.ms-metrics{justify-content:flex-start}.ms-chip{padding:7px 9px}}
+
 /* ===== VCPulse 2.43.0 BETA · Market Pulse v0.6 ===== */
 .market-pulse-card{margin:0 0 18px;padding:20px 22px;background:#fffdfa;border:1px solid var(--vp-line,#e8e1d7);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
 .mp-head,.mp-scoreline{display:flex;justify-content:space-between;align-items:center;gap:12px}.mp-title{font-size:20px;font-weight:900}.mp-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3eee6;color:#8a6848;vertical-align:middle}.mp-score{font-size:38px;font-weight:900;letter-spacing:-1px}.mp-state{font-size:17px;font-weight:800}.mp-signals{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:14px}.mp-signal{padding:10px;background:#f7f4ee;border-radius:12px;min-width:0}.mp-signal span{display:block;font-size:11px;color:#777168;white-space:nowrap}.mp-signal b{display:block;margin-top:4px;font-size:15px}.mp-up{color:var(--good)}.mp-down{color:var(--bad)}.mp-flat{color:var(--muted)}.mp-reason{margin-top:12px;font-size:13px;color:#625d54;line-height:1.55}.mp-meta{margin-top:7px;font-size:11px;color:#918a80}.mp-wait{color:#777168;font-size:13px}.mp-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.mp-help-btn{min-width:0;padding:5px 9px;border:1px solid #ddd2c5;border-radius:999px;background:#fffdfa;color:#625d54;font-size:11px;font-weight:800;cursor:pointer}.mp-help{display:none;margin-top:14px;padding:15px 16px;background:#f8f5ef;border:1px solid #e9e1d6;border-radius:14px;color:#625d54;font-size:13px;line-height:1.7}.mp-help.open{display:block}.mp-help h4{margin:0 0 6px;font-size:14px;color:#2c2924}.mp-help p{margin:5px 0}.mp-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:9px 0}.mp-help-item{padding:9px 10px;background:#fffdfa;border-radius:10px}.mp-help-item b{display:block;color:#2c2924}.mp-help-scale{margin:8px 0;padding:10px 12px;border-radius:11px;background:#fffdfa}.mp-help-flow{font-weight:800;color:#514b43}
@@ -1564,6 +1569,33 @@ body.help-modal-open{overflow:hidden}
     <p class="mp-help-flow">Market Pulse 看環境 → 題材雷達看資金方向 → VCP 看型態 → 單股查詢看個股結構</p>
     <p>歷史驗證使用 2021–2026 資料；70 分以上樣本整體明顯偏多、30 分以下樣本整體明顯偏空。此指標用於輔助判讀市場環境。</p>
     <p style="font-size:11px;color:#918a80">Market Pulse 不代表未來報酬，也不構成投資建議。</p>
+  </div>
+</section>
+
+<section class="market-structure-card" id="marketStructureCard" aria-live="polite">
+  <div class="ms-head">
+    <div class="ms-title">🧭 市場結構狀態 <span class="ms-beta">BETA · RESEARCH</span></div>
+    <div class="ms-wait" id="msUpdated">讀取中…</div>
+  </div>
+  <div id="msBody" class="ms-wait" style="margin-top:12px">正在讀取台股市場內部結構…</div>
+  <div class="ms-help">依 VCP Market Breadth 的 <b>Level × Direction × Extension Risk</b> 描述市場生命週期；它不是漲跌預測，也不是台指期進出場訊號。</div>
+  <button type="button" class="ms-help-btn" id="msHelpBtn" aria-expanded="false">？ 市場結構說明</button>
+  <div class="ms-help-box" id="msHelpBox">
+    <p><b>市場結構狀態</b>是利用 VCPulse 每日掃描結果，觀察台股「內部結構」目前位於哪個階段，不只看加權指數漲跌。</p>
+    <h4>市場廣度（Market Breadth）是什麼？</h4>
+    <p>0–100 的 VCP 市場結構綜合分數，用來描述市場中符合健康、成形、接近 Pivot、突破等 VCP 結構的參與程度與延伸風險。它<b>不是上漲股票比例</b>，也不能單獨當成多空預測。</p>
+    <h4>五種市場狀態</h4>
+    <ul>
+      <li><b>🌱 擴張 EXPANSION：</b>內部結構改善，符合條件的 VCP 結構增加。</li>
+      <li><b>🌿 成熟 MATURE_BULL：</b>市場廣度位於相對高檔、參與面較廣，目前沒有明顯惡化；「成熟」不等於即將下跌。</li>
+      <li><b>⚠️ 惡化 DETERIORATION：</b>市場廣度原本較高，但近期內部結構明顯轉弱；屬研究觀察，不是放空訊號。</li>
+      <li><b>🍂 收縮 CONTRACTION：</b>市場廣度偏低且轉弱，健康 VCP 結構較少。</li>
+      <li><b>↔️ 過渡 NEUTRAL_TRANSITION：</b>尚未形成明確的擴張、成熟、惡化或收縮狀態。</li>
+    </ul>
+    <h4>數字怎麼看？</h4>
+    <p><b>市場廣度：</b>0–100 的 VCP 市場結構綜合分數。<br><b>1日變化：</b>與前一個正式交易日相比。<br><b>5日變化：</b>與 5 個交易日前相比；資料不足時顯示「—」。<br><b>延伸比：</b>候選股中已過度延伸的比例，用來協助辨識市場是否逐漸成熟。</p>
+    <p><b>閱讀順序：</b>Market Pulse 看外部環境 → Market Structure 看台股內部週期 → 題材雷達看資金方向 → VCP 看個股型態。</p>
+    <p style="font-size:11px;color:#918a80">研究規則已於 2026/09/17 凍結，目前持續累積 OOS 資料；不代表未來報酬，也不是台指期或個股買賣訊號。</p>
   </div>
 </section>
 
@@ -3140,6 +3172,7 @@ function updateMarketSpecificSnapshotUI(){
 function setMarket(m,{reset=true}={}){
  const prevMarket=String(currentMarket||'').toUpperCase();
  currentMarket=m;
+ const msCard=document.getElementById('marketStructureCard'); if(msCard) msCard.style.display=(String(m).toUpperCase()==='TW'?'':'none');
  if(reset || prevMarket!==String(m||'').toUpperCase()) mobileRadarPage=1;
  updateMarketSpecificSnapshotUI();
  document.querySelectorAll('.radar-market-btn').forEach(b=>b.classList.toggle('active',b.dataset.market===m));
@@ -4294,6 +4327,21 @@ function setRadarSnapshot(kind){
 }
 
 
+async function loadMarketStructure(){
+ const body=document.getElementById('msBody'), updated=document.getElementById('msUpdated'); if(!body)return;
+ const icon={EXPANSION:'🌱',MATURE_BULL:'🌿',DETERIORATION:'⚠️',CONTRACTION:'🍂',NEUTRAL_TRANSITION:'↔️',OVERHEATED:'🌡️',INSUFFICIENT_HISTORY:'⏳'};
+ const fmtDelta=v=>(v===null||v===undefined||v==='')?'—':(Number.isFinite(Number(v))?`${Number(v)>0?'+':''}${Number(v).toFixed(1)}`:'—');
+ try{
+  const r=await fetch(`data/market_structure_latest.json?t=${Date.now()}`,{cache:'no-store'}); if(!r.ok)throw new Error('市場結構資料尚未建立'); const x=await r.json();
+  if(x.status!=='ok'){
+    body.innerHTML=`<div class="ms-state-wrap"><div class="ms-icon">⏳</div><div><div class="ms-state">資料累積中</div><div class="ms-code">至少需要前一個正式收盤 Breadth 才能判斷方向</div></div></div>`;
+  }else{
+    body.innerHTML=`<div class="ms-body"><div class="ms-state-wrap"><div class="ms-icon">${icon[x.state]||'🧭'}</div><div><div class="ms-state">${escHtml(x.label||'—')}</div><div class="ms-code">${escHtml(x.state||'—')}</div></div></div><div class="ms-metrics"><div class="ms-chip">市場廣度 <b>${Number(x.breadth_score).toFixed(1)}</b></div><div class="ms-chip">1日變化 <b>${fmtDelta(x.delta_1d)}</b></div><div class="ms-chip">5日變化 <b>${fmtDelta(x.delta_5d)}</b></div><div class="ms-chip">延伸比 <b>${(Number(x.extension_ratio)*100).toFixed(1)}%</b></div></div></div><div class="ms-note">研究規則已於 2026/09/17 凍結；顯示市場內部結構，不代表未來報酬。</div>`;
+  }
+  updated.textContent=x.data_date?`正式收盤｜${String(x.data_date).slice(5).replace('-','/')}`:'等待資料';
+ }catch(e){body.innerHTML=`<div class="ms-wait">市場結構暫時無法讀取：${escHtml(e.message||String(e))}</div>`;updated.textContent='讀取失敗';}
+}
+
 async function loadMarketPulse(){
  const body=document.getElementById('mpBody'), updated=document.getElementById('mpUpdated'); if(!body)return;
  const fmt=(v,unit='%')=>{const n=Number(v);return Number.isFinite(n)?`${n>0?'+':''}${n.toFixed(2)}${unit}`:'—'};
@@ -4518,6 +4566,7 @@ if(helpBtn&&helpBox){
   if(helpCloseBtn) helpCloseBtn.onclick=closeHelp;
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&helpBox.classList.contains('open')) closeHelp();});
 }
+loadMarketStructure();
 loadMarketPulse();
 // Initial single-stock analysis waits until radar snapshots are loaded, so the default 2330 can reuse the same scanner data as manual selections.
 loadRadar().finally(()=>run());
