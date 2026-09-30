@@ -1546,15 +1546,39 @@ body.help-modal-open{overflow:hidden}
 
 
 
-<div id="vcpReadingGuide" style="margin:10px 0 12px;padding:9px 14px;border:1px solid #ddd3c5;border-radius:12px;background:rgba(255,255,255,.62);font-size:13px;line-height:1.55;">
-  <span style="font-weight:800;margin-right:10px;">📍 建議閱讀順序</span>
-  <span style="font-weight:700;">Market Pulse 外部環境</span>
-  <span style="opacity:.5;margin:0 6px;">→</span>
-  <span style="font-weight:700;">市場結構狀態 台股內部週期</span>
-  <span style="opacity:.5;margin:0 6px;">→</span>
-  <span style="font-weight:700;">資金熱區／題材雷達 資金方向</span>
-  <span style="opacity:.5;margin:0 6px;">→</span>
-  <span style="font-weight:700;">VCP 個股型態</span>
+<style>
+#vcpReadingGuide{margin:10px 0 12px;padding:9px 14px;border:1px solid #ddd3c5;border-radius:12px;background:rgba(255,255,255,.62);font-size:13px;line-height:1.55}
+#vcpReadingGuide .guide-title{font-weight:800;margin-right:10px}
+#vcpReadingGuide .guide-desktop{font-weight:700}
+#vcpReadingGuide .guide-mobile{display:none}
+#vcpReadingGuide .guide-arrow{opacity:.5;margin:0 6px}
+@media (max-width: 640px){
+  #vcpReadingGuide{padding:10px 14px;margin:10px 0 12px}
+  #vcpReadingGuide .guide-title{display:block;margin:0 0 8px}
+  #vcpReadingGuide .guide-desktop{display:none}
+  #vcpReadingGuide .guide-mobile{display:grid;grid-template-columns:max-content 1fr;column-gap:10px;row-gap:3px;align-items:baseline}
+  #vcpReadingGuide .guide-mobile strong{font-weight:800}
+  #vcpReadingGuide .guide-mobile span{font-weight:500;opacity:.72}
+  #vcpReadingGuide .guide-down{grid-column:1 / -1;line-height:1;text-align:left;padding-left:8px;opacity:.45}
+}
+</style>
+<div id="vcpReadingGuide">
+  <span class="guide-title">📍 建議閱讀順序</span>
+  <span class="guide-desktop">
+    Market Pulse 外部環境 <span class="guide-arrow">→</span>
+    市場結構狀態 台股內部週期 <span class="guide-arrow">→</span>
+    資金熱區／題材雷達 資金方向 <span class="guide-arrow">→</span>
+    VCP 個股型態
+  </span>
+  <div class="guide-mobile">
+    <strong>Market Pulse</strong><span>外部環境</span>
+    <div class="guide-down">↓</div>
+    <strong>市場結構狀態</strong><span>台股內部週期</span>
+    <div class="guide-down">↓</div>
+    <strong>資金熱區／題材雷達</strong><span>資金方向</span>
+    <div class="guide-down">↓</div>
+    <strong>VCP 個股型態</strong><span></span>
+  </div>
 </div>
 
 <section class="market-pulse-card" id="marketPulseCard" aria-live="polite">
