@@ -1574,7 +1574,7 @@ body.help-modal-open{overflow:hidden}
 
 <section class="market-structure-card" id="marketStructureCard" aria-live="polite">
   <div class="ms-head">
-    <div class="ms-title">🧭 市場結構狀態 <span class="ms-beta">BETA · RESEARCH</span></div>
+    <div class="ms-title">🧭 市場結構狀態</div>
     <div class="ms-wait" id="msUpdated">讀取中…</div>
   </div>
   <div id="msBody" class="ms-wait" style="margin-top:12px">正在讀取台股市場內部結構…</div>
@@ -4933,6 +4933,26 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const isTW=String(market).toUpperCase()==='TW';const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=!isTW;const wb=document.getElementById('whaleBlock');if(wb)wb.hidden=!isTW;if(isTW){updateForeign(symbol);updateWhales(symbol)}
 }
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('msHelpBtn');
+  const box = document.getElementById('msHelpBox');
+  if (!btn || !box) return;
+
+  // 預設收合，點擊後展開；再次點擊則收回。
+  box.style.display = 'none';
+  btn.setAttribute('aria-expanded', 'false');
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    box.style.display = isOpen ? 'none' : 'block';
+    btn.textContent = isOpen ? '？ 市場結構說明' : '收起說明';
+  });
+});
+</script>
+
 </body></html>
 
 <style>
