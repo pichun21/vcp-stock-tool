@@ -1574,7 +1574,7 @@ body.help-modal-open{overflow:hidden}
 
 <section class="market-structure-card" id="marketStructureCard" aria-live="polite">
   <div class="ms-head">
-    <div class="ms-title-row"><div class="ms-title">🧭 市場結構狀態 <span class="ms-beta">BETA · RESEARCH</span></div><button type="button" class="ms-help-btn" id="msHelpBtn" aria-expanded="false">？ 市場結構說明</button></div>
+    <div class="ms-title-row"><div class="ms-title">🧭 市場結構狀態</div><button type="button" class="ms-help-btn" id="msHelpBtn" aria-expanded="false">？ 市場結構說明</button></div>
     <div class="ms-wait" id="msUpdated">讀取中…</div>
   </div>
   <div id="msBody" class="ms-wait" style="margin-top:12px">正在讀取台股市場內部結構…</div>
@@ -4358,6 +4358,12 @@ async function loadMarketPulse(){
  const btn=document.getElementById('mpHelpBtn'), box=document.getElementById('mpHelpBox');
  if(!btn||!box)return;
  btn.addEventListener('click',()=>{const open=box.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.textContent=open?'收起說明':'？ Market Pulse 說明';});
+})();
+
+(function(){
+ const btn=document.getElementById('msHelpBtn'), box=document.getElementById('msHelpBox');
+ if(!btn||!box)return;
+ btn.addEventListener('click',()=>{const open=box.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.textContent=open?'收起說明':'？ 市場結構說明';});
 })();
 
 async function loadRadar(){
