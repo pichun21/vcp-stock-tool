@@ -1547,37 +1547,65 @@ body.help-modal-open{overflow:hidden}
 
 
 <style>
-#vcpReadingGuide{margin:10px 0 12px;padding:9px 14px;border:1px solid #ddd3c5;border-radius:12px;background:rgba(255,255,255,.62);font-size:13px;line-height:1.55}
-#vcpReadingGuide .guide-title{font-weight:800;margin-right:10px}
+#vcpReadingGuide{
+  margin:10px 0 12px;padding:10px 14px;border:1px solid #ddd3c5;border-radius:12px;
+  background:rgba(255,255,255,.62);font-size:13px;line-height:1.45
+}
+#vcpReadingGuide .guide-title{font-weight:800;margin-right:12px}
 #vcpReadingGuide .guide-desktop{font-weight:700}
+#vcpReadingGuide .guide-arrow{opacity:.42;margin:0 7px}
 #vcpReadingGuide .guide-mobile{display:none}
-#vcpReadingGuide .guide-arrow{opacity:.5;margin:0 6px}
-@media (max-width: 640px){
-  #vcpReadingGuide{padding:10px 14px;margin:10px 0 12px}
-  #vcpReadingGuide .guide-title{display:block;margin:0 0 8px}
+@media (max-width:640px){
+  #vcpReadingGuide{padding:14px 16px;margin:10px 0 12px}
+  #vcpReadingGuide .guide-title{display:block;margin:0 0 13px;font-size:15px}
   #vcpReadingGuide .guide-desktop{display:none}
-  #vcpReadingGuide .guide-mobile{display:grid;grid-template-columns:max-content 1fr;column-gap:10px;row-gap:3px;align-items:baseline}
-  #vcpReadingGuide .guide-mobile strong{font-weight:800}
-  #vcpReadingGuide .guide-mobile span{font-weight:500;opacity:.72}
-  #vcpReadingGuide .guide-down{grid-column:1 / -1;line-height:1;text-align:left;padding-left:8px;opacity:.45}
+  #vcpReadingGuide .guide-mobile{display:block}
+  #vcpReadingGuide .guide-step{
+    position:relative;padding:0 0 13px 38px;min-height:42px
+  }
+  #vcpReadingGuide .guide-step:last-child{padding-bottom:0}
+  #vcpReadingGuide .guide-step:not(:last-child)::after{
+    content:"";position:absolute;left:14px;top:28px;bottom:0;width:1px;
+    background:rgba(112,96,76,.22)
+  }
+  #vcpReadingGuide .guide-num{
+    position:absolute;left:0;top:0;width:29px;height:29px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid #d9cbb9;background:#fffaf3;font-weight:800;font-size:12px
+  }
+  #vcpReadingGuide .guide-name{font-weight:800;font-size:15px;line-height:1.25}
+  #vcpReadingGuide .guide-desc{margin-top:3px;font-size:13px;opacity:.68;line-height:1.3}
 }
 </style>
 <div id="vcpReadingGuide">
   <span class="guide-title">📍 建議閱讀順序</span>
   <span class="guide-desktop">
-    Market Pulse 外部環境 <span class="guide-arrow">→</span>
-    市場結構狀態 台股內部週期 <span class="guide-arrow">→</span>
-    資金熱區／題材雷達 資金方向 <span class="guide-arrow">→</span>
-    VCP 個股型態
+    ① Market Pulse <span class="guide-arrow">→</span>
+    ② 市場結構狀態 <span class="guide-arrow">→</span>
+    ③ 資金熱區／題材雷達 <span class="guide-arrow">→</span>
+    ④ VCP 個股型態
   </span>
   <div class="guide-mobile">
-    <strong>Market Pulse</strong><span>外部環境</span>
-    <div class="guide-down">↓</div>
-    <strong>市場結構狀態</strong><span>台股內部週期</span>
-    <div class="guide-down">↓</div>
-    <strong>資金熱區／題材雷達</strong><span>資金方向</span>
-    <div class="guide-down">↓</div>
-    <strong>VCP 個股型態</strong><span></span>
+    <div class="guide-step">
+      <span class="guide-num">01</span>
+      <div class="guide-name">Market Pulse</div>
+      <div class="guide-desc">掌握外部市場環境</div>
+    </div>
+    <div class="guide-step">
+      <span class="guide-num">02</span>
+      <div class="guide-name">市場結構狀態</div>
+      <div class="guide-desc">判讀台股內部週期</div>
+    </div>
+    <div class="guide-step">
+      <span class="guide-num">03</span>
+      <div class="guide-name">資金熱區／題材雷達</div>
+      <div class="guide-desc">觀察資金方向</div>
+    </div>
+    <div class="guide-step">
+      <span class="guide-num">04</span>
+      <div class="guide-name">VCP 個股型態</div>
+      <div class="guide-desc">尋找個股機會</div>
+    </div>
   </div>
 </div>
 
