@@ -5762,6 +5762,11 @@ body{background-attachment:scroll!important}
 #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite.is-favorite::before{
  content:"";-webkit-mask:var(--star-f) center/contain no-repeat;mask:var(--star-f) center/contain no-repeat}
 </style>
+<style id="ui-star-center-2">
+/* 原本按鈕帶有 gap，隱藏的文字也算一個項目，會把星星推向左邊約 1.5px；清掉 gap 才會真正置中 */
+.favorite-btn:not(.mobile-favorite),.single-title-favorite,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{gap:0!important;column-gap:0!important}
+</style>
 </body></html>
 
 <style>
