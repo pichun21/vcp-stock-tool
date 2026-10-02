@@ -3864,15 +3864,13 @@ function renderRadar(filter='all'){
    setMarket(market,{reset:false});
    $('symbol').value=symbol;
 
-   // Desktop keeps the original section-first behavior. On mobile, run the
-   // analysis first and then land directly on the existing VCP chart card.
+   // Start navigation immediately on both layouts; data loading must not
+   // delay the mobile scroll to the VCP chart card.
    const input=$('symbol');
    const singleSection=input?.closest('.section') || input;
    if(window.matchMedia('(min-width:761px)').matches && singleSection){
      singleSection.scrollIntoView({behavior:'smooth',block:'start'});
    }
-
-   await run();
 
    if(window.matchMedia('(max-width:760px)').matches){
      const chart=$('chart');
@@ -3893,6 +3891,8 @@ function renderRadar(filter='all'){
        });
      }
    }
+
+   await run();
  };
 
  body.querySelectorAll('.favorite-btn').forEach(btn=>{
