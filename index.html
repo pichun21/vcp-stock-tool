@@ -5743,6 +5743,25 @@ body{background-attachment:scroll!important}
 .card.is-loading #chart{opacity:.35;transition:opacity .2s ease}
 .card.is-loading #title,.card.is-loading #period{opacity:.55;transition:opacity .2s ease}
 </style>
+<style id="ui-star-center">
+/* 收藏星星：改用向量圖形遮罩繪製，取代文字符號，確保在圓鈕內精準置中 */
+:root{
+ --star-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6l-5.9 3 1.2-6.5L2.5 9.5l6.6-.9z'/%3E%3C/svg%3E");
+ --star-o:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6l-5.9 3 1.2-6.5L2.5 9.5l6.6-.9z' fill='none' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.favorite-btn:not(.mobile-favorite),.single-title-favorite{display:inline-flex!important;align-items:center;justify-content:center;padding:0!important;font-size:0!important;line-height:0}
+.favorite-btn:not(.mobile-favorite)::before,
+.single-title-favorite::before,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite::before{
+ content:"";display:block;flex:0 0 auto;width:20px;height:20px;font-size:0;line-height:0;
+ background-color:currentColor;
+ -webkit-mask:var(--star-o) center/contain no-repeat;mask:var(--star-o) center/contain no-repeat}
+.single-title-favorite::before{width:22px;height:22px}
+.favorite-btn.is-favorite:not(.mobile-favorite)::before,
+.single-title-favorite.is-favorite::before,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite.is-favorite::before{
+ content:"";-webkit-mask:var(--star-f) center/contain no-repeat;mask:var(--star-f) center/contain no-repeat}
+</style>
 </body></html>
 
 <style>
