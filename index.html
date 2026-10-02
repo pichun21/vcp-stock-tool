@@ -1993,6 +1993,7 @@ function draw(a){
  x.setTransform(dpr,0,0,dpr,0,0);
  let W=cssW,H=cssH;
  x.clearRect(0,0,W,H);
+  const isMob=cssW<=760;
 
  let vals=a.close.slice(-120);
  let rawMin=Math.min(...vals), rawMax=Math.max(...vals);
@@ -2002,43 +2003,37 @@ function draw(a){
  let X=i=>pad.l+i*(W-pad.l-pad.r)/(Math.max(vals.length-1,1));
  let Y=v=>H-pad.b-(v-min)*(H-pad.t-pad.b)/(max-min);
 
- // 圖例：收盤價 / MA20（月線） / Pivot（突破價）
- x.save();
- const legendY=20;
- const legendFont=cssW<=760?'700 10px system-ui,-apple-system,sans-serif':'700 11px system-ui,-apple-system,sans-serif';
- x.font=legendFont;
- x.textBaseline='middle';
- let legendX=pad.l;
+ // 圖例：收盤價 / MA20（月線） / Pivot（突破價）— 依文字實際寬度排版，窄螢幕自動縮小字級
+  x.save();
+  const legendY=20;
+  const legendItems=[
+    {label:'收盤價',color:'#2b2622',text:'#4a423a',w:isMob?1.7:2.2,dash:[]},
+    {label:'MA20（月線）',color:'#2a97ab',text:'#1f7f90',w:isMob?1.7:2.1,dash:[]},
+    {label:'Pivot（突破價）',color:'#cf9a1b',text:'#8a6209',w:isMob?1.4:1.7,dash:[6,4]}
+  ];
+  let lgFont=isMob?10:11;
+  const lgSample=isMob?16:22, lgGap=6, lgItemGap=isMob?12:18;
+  const lgMeasure=function(){
+    x.font='700 '+lgFont+'px system-ui,-apple-system,sans-serif';
+    return legendItems.reduce(function(sum,it){return sum+lgSample+lgGap+x.measureText(it.label).width;},0)+lgItemGap*(legendItems.length-1);
+  };
+  let lgTotal=lgMeasure();
+  while(lgTotal>W-16 && lgFont>8){ lgFont-=0.5; lgTotal=lgMeasure(); }
+  let lgX=pad.l; if(lgX+lgTotal>W-8) lgX=Math.max(8,W-8-lgTotal);
+  x.textBaseline='middle'; x.textAlign='left';
+  legendItems.forEach(function(it){
+    x.strokeStyle=it.color; x.lineWidth=it.w; x.lineCap='round'; x.setLineDash(it.dash);
+    x.beginPath(); x.moveTo(lgX,legendY); x.lineTo(lgX+lgSample,legendY); x.stroke();
+    x.setLineDash([]);
+    x.font='700 '+lgFont+'px system-ui,-apple-system,sans-serif';
+    x.fillStyle=it.text;
+    x.fillText(it.label,lgX+lgSample+lgGap,legendY);
+    lgX+=lgSample+lgGap+x.measureText(it.label).width+lgItemGap;
+  });
+  x.restore();
 
- // 收盤價
- x.strokeStyle='#171a17';
- x.lineWidth=2.8;
- x.setLineDash([]);
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.fillStyle='#334155';
- x.fillText('收盤價',legendX+28,legendY);
- legendX += cssW<=760 ? 80 : 92;
-
- // MA20（月線）
- x.strokeStyle='#0891b2';
- x.lineWidth=2.8;
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.fillStyle='#0e7490';
- x.fillText('MA20（月線）',legendX+28,legendY);
- legendX += cssW<=760 ? 122 : 136;
-
- // Pivot（突破價）
- x.strokeStyle='#d97706';
- x.lineWidth=2;
- x.setLineDash([7,5]);
- x.beginPath(); x.moveTo(legendX,legendY); x.lineTo(legendX+22,legendY); x.stroke();
- x.setLineDash([]);
- x.fillStyle='#b45309';
- x.fillText('Pivot（突破價）',legendX+28,legendY);
- x.restore();
-
- // subtle grid
- x.strokeStyle='#e2e8f0';
+  // subtle grid
+ x.strokeStyle='#ece8e1';
  x.lineWidth=1;
  for(let k=0;k<5;k++){
    let y=pad.t+k*(H-pad.t-pad.b)/4;
@@ -2056,11 +2051,11 @@ function draw(a){
    if(i<0) return;
    const xx=X(i);
    x.save();
-   x.strokeStyle='#94a3b8'; x.globalAlpha=.72; x.lineWidth=1.2; x.setLineDash([4,5]);
+   x.strokeStyle='#b3a898'; x.globalAlpha=.72; x.lineWidth=1.2; x.setLineDash([4,5]);
    x.beginPath(); x.moveTo(xx,pad.t); x.lineTo(xx,H-pad.b); x.stroke();
    x.setLineDash([]); x.globalAlpha=1;
    x.font=cssW<=760?'700 9px system-ui,-apple-system,sans-serif':'700 10px system-ui,-apple-system,sans-serif';
-   x.fillStyle='#64748b'; x.textAlign='center'; x.textBaseline='bottom';
+   x.fillStyle='#8a7f70'; x.textAlign='center'; x.textBaseline='bottom';
    const md=rd.slice(5).replace('-','/');
    x.fillText(`${md} 還原`,Math.max(pad.l+28,Math.min(W-pad.r-28,xx)),H-pad.b-3-(idx%2)*12);
    x.restore();
@@ -2082,8 +2077,8 @@ function draw(a){
      else x.lineTo(X(i),Y(v));
    });
    if(maStarted){
-     if(withHalo){ x.strokeStyle='rgba(255,255,255,.9)'; x.lineWidth=5.6; x.stroke(); }
-     x.strokeStyle='#0891b2'; x.lineWidth=withHalo?2.8:2.4; x.stroke();
+     if(withHalo){ x.strokeStyle='rgba(255,255,255,.9)'; x.lineWidth=isMob?3.8:4.8; x.stroke(); }
+     x.strokeStyle='#2a97ab'; x.lineWidth=withHalo?(isMob?1.8:2.2):(isMob?1.5:1.9); x.stroke();
    }
    x.restore();
  };
@@ -2091,8 +2086,8 @@ function draw(a){
 
 
  // stronger main price line
- x.strokeStyle='#171a17';
- x.lineWidth=2.8;
+ x.strokeStyle='#2b2622';
+ x.lineWidth=isMob?1.7:2.2;
  x.lineJoin='round';
  x.lineCap='round';
  x.beginPath();
@@ -2102,9 +2097,9 @@ function draw(a){
  // Pivot line
  const py=Y(a.pivot);
  x.save();
- x.setLineDash([8,6]);
- x.strokeStyle='#d97706';
- x.lineWidth=1.9;
+ x.setLineDash(isMob?[6,5]:[8,6]);
+ x.strokeStyle='#cf9a1b';
+ x.lineWidth=isMob?1.4:1.7;
  x.beginPath();
  x.moveTo(pad.l,py);
  x.lineTo(W-pad.r,py);
@@ -2113,10 +2108,10 @@ function draw(a){
 
  // Pivot pill
  const pivotText='Pivot '+a.pivot.toFixed(2);
- x.font='700 12px system-ui,-apple-system,sans-serif';
+ x.font=isMob?'700 10.5px system-ui,-apple-system,sans-serif':'700 12px system-ui,-apple-system,sans-serif';
  const tw=x.measureText(pivotText).width;
- const pillX=pad.l+5, pillY=Math.max(pad.t+2,py-27), pillW=tw+18, pillH=22;
- x.fillStyle='rgba(254,243,199,.98)';
+ const pillX=pad.l+5, pillY=Math.max(pad.t+2,py-(isMob?23:27)), pillW=tw+(isMob?14:18), pillH=isMob?18:22;
+ x.fillStyle='rgba(250,237,184,.97)';
  if(x.roundRect){
    x.beginPath();
    x.roundRect(pillX,pillY,pillW,pillH,10);
@@ -2124,17 +2119,17 @@ function draw(a){
  }else{
    x.fillRect(pillX,pillY,pillW,pillH);
  }
- x.fillStyle='#b45309';
+ x.fillStyle='#7a5a05';
  x.textBaseline='middle';
  x.fillText(pivotText,pillX+9,pillY+pillH/2);
 
  let offset=Math.max(0,a.close.length-120);
- const colors=['#e23b4f','#2468d8','#15945a','#8745cf'];
+ const colors=['#d04a3c','#3f6fd1','#3d9a63','#8a56b5'];
  // V2.41.27：桌機維持原本質感；手機才縮細 C1~C4 視覺重量。
  const mobileChart=cssW<=760;
- const contractionGlowWidth=mobileChart?7:10;
- const contractionLineWidth=mobileChart?2.8:3.8;
- const contractionDotRadius=mobileChart?4.5:6;
+ const contractionGlowWidth=mobileChart?6:8;
+ const contractionLineWidth=mobileChart?2.3:3;
+ const contractionDotRadius=mobileChart?3.6:5;
  const contractionLabelSize=mobileChart?14:16;
  const contractionLabelOffset=mobileChart?15:18;
  const placedBadges=[];
@@ -5372,7 +5367,7 @@ html[data-market="TW"]{--up:#dc2626;--down:#15803d}
 <style id="ui-contraction">
 /* 圖下方 C1~C4 卡片：與圖上徽章同色，上緣色帶＋實心徽章＋大字跌幅 */
 .contraction-item{--cc:#8b847c;position:relative;background:#fff!important;border:1px solid #f0eeeb!important;border-top:3px solid var(--cc)!important;border-radius:14px!important;box-shadow:0 1px 2px rgba(46,42,37,.05),0 6px 16px rgba(46,42,37,.04)!important}
-.contraction-item.c1{--cc:#e23b4f}.contraction-item.c2{--cc:#2468d8}.contraction-item.c3{--cc:#15945a}.contraction-item.c4{--cc:#8745cf}
+.contraction-item.c1{--cc:#d04a3c}.contraction-item.c2{--cc:#3f6fd1}.contraction-item.c3{--cc:#3d9a63}.contraction-item.c4{--cc:#8a56b5}
 .contraction-head{display:flex!important;align-items:center;gap:8px}
 .contraction-dot{display:none!important}
 .contraction-head span:nth-child(2){background:var(--cc);color:#fff!important;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:800;line-height:1.5}
@@ -5653,13 +5648,13 @@ body{background-attachment:scroll!important}
   overflow:hidden;
   text-overflow:ellipsis;
 }
-.contraction-item.c1 .contraction-dot{background:#e23b4f}
-.contraction-item.c2 .contraction-dot{background:#2468d8}
-.contraction-item.c3 .contraction-dot{background:#15945a}
-.contraction-item.c4 .contraction-dot{background:#8745cf}
+.contraction-item.c1 .contraction-dot{background:#d04a3c}
+.contraction-item.c2 .contraction-dot{background:#3f6fd1}
+.contraction-item.c3 .contraction-dot{background:#3d9a63}
+.contraction-item.c4 .contraction-dot{background:#8a56b5}
 .contraction-item.c1 .contraction-head{color:#d92f45}
-.contraction-item.c2 .contraction-head{color:#2468d8}
-.contraction-item.c3 .contraction-head{color:#15945a}
+.contraction-item.c2 .contraction-head{color:#3f6fd1}
+.contraction-item.c3 .contraction-head{color:#3d9a63}
 .contraction-item.c4 .contraction-head{color:#7b36c5}
 
 @media(max-width:700px){
