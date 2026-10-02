@@ -3244,7 +3244,7 @@ async function openThemeStock(symbol,sourceEl){
  const code=String(symbol||'').toUpperCase();
  if(!code) return;
  rememberThemePosition(code,sourceEl);
- setMarket('TW',{reset:false});
+ if(String(currentMarket||'').toUpperCase()!=='TW') setMarket('TW',{reset:false});
  $('symbol').value=code;
  const singleSection=$('symbol')?.closest('.section') || $('symbol');
  if(singleSection){
@@ -3948,38 +3948,47 @@ function renderRadar(filter='all'){
    // Remember the exact row/card that was tapped.
    rememberRadarPosition(market,symbol,sourceEl);
 
-   // Use the same market switch used by the manual TW/US buttons.
-   setMarket(market,{reset:false});
+   // Only switch market when it actually changes: setMarket() re-renders the freshness bar,
+   // market overview, hotspots and theme boards, which blocked the main thread on every tap.
+   if(String(currentMarket||'').toUpperCase()!==String(market||'').toUpperCase()){
+     setMarket(market,{reset:false});
+   }
    $('symbol').value=symbol;
 
-   // Desktop keeps the original section-first behavior. On mobile, run the
-   // analysis first and then land directly on the existing VCP chart card.
    const input=$('symbol');
    const singleSection=input?.closest('.section') || input;
-   if(window.matchMedia('(min-width:761px)').matches && singleSection){
+   const isDesktop=window.matchMedia('(min-width:761px)').matches;
+
+   // Scroll to the chart card (keeping the stock title visible below the sticky login bar).
+   // minDelta lets the post-analysis pass skip the scroll when we are already in place.
+   const landOnChart=(minDelta)=>{
+     const chart=$('chart');
+     const chartCard=chart?.closest('.card') || chart;
+     const el=(chartCard && chartCard.getBoundingClientRect().height>40) ? chartCard : singleSection;
+     if(!el) return;
+     const stickyBar=document.getElementById('userBar');
+     const stickyH=(stickyBar && getComputedStyle(stickyBar).display!=='none')
+       ? stickyBar.getBoundingClientRect().height : 0;
+     const cur=window.pageYOffset||document.documentElement.scrollTop||0;
+     const y=Math.max(0,cur+el.getBoundingClientRect().top-stickyH-12);
+     if(Math.abs(y-cur)<minDelta) return;
+     try{ window.scrollTo({top:y,behavior:'smooth'}); }
+     catch(e){ window.scrollTo(0,y); }
+   };
+
+   // Desktop: land on the section right away. Mobile: start scrolling right away too
+   // (it used to wait for the whole analysis request first, which felt like a pause).
+   if(isDesktop && singleSection){
      singleSection.scrollIntoView({behavior:'smooth',block:'start'});
+   }else if(!isDesktop){
+     landOnChart(0);
    }
 
    await run();
 
-   if(window.matchMedia('(max-width:760px)').matches){
-     const chart=$('chart');
-     const chartCard=chart?.closest('.card') || chart;
-     if(chartCard){
-       requestAnimationFrame(()=>{
-         // V2.41.51: keep the stock name/title visible below the sticky login bar.
-         // scrollIntoView(block:start) placed the top of the card underneath #userBar,
-         // so users landed on the chart without seeing which stock they were viewing.
-         const stickyBar=document.getElementById('userBar');
-         const stickyH=(stickyBar && getComputedStyle(stickyBar).display!=='none')
-           ? stickyBar.getBoundingClientRect().height : 0;
-         const gap=12;
-         const y=(window.pageYOffset||document.documentElement.scrollTop||0)
-           + chartCard.getBoundingClientRect().top - stickyH - gap;
-         try{ window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
-         catch(e){ window.scrollTo(0,Math.max(0,y)); }
-       });
-     }
+   // Mobile: once the card has its final size, fine-tune only if we are noticeably off.
+   if(!isDesktop){
+     requestAnimationFrame(()=>landOnChart(24));
    }
  };
 
@@ -5506,6 +5515,10 @@ html[data-market="TW"]{--up:#c8472f;--down:#3f8f72}
 .radar-tab[data-radar="postbreakout"] .edot{--c:#4f8a7e!important}
 .radar-tab[data-radar="near"] .edot{--c:#d9a825!important}
 .radar-tab[data-radar="forming"] .edot{--c:#bb9f73!important}
+</style>
+<style id="ui-scroll-perf">
+/* 固定背景（background-attachment:fixed）會讓捲動時反覆重繪而卡頓，改為隨頁捲動 */
+body{background-attachment:scroll!important}
 </style>
 </body></html>
 
