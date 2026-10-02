@@ -1590,31 +1590,35 @@ body.help-modal-open{overflow:hidden}
 <div id="vcpReadingGuide">
   <span class="guide-title">📍 建議閱讀順序</span>
   <span class="guide-desktop">
-    ① Market Pulse <span class="guide-arrow">→</span>
-    ② 市場結構狀態 <span class="guide-arrow">→</span>
-    ③ 資金熱區／題材雷達 <span class="guide-arrow">→</span>
-    ④ VCP 個股型態
-  </span>
-  <div class="guide-mobile">
-    <div class="guide-step">
+<button type="button" class="guide-link" data-guide="pulse">① Market Pulse</button> <span class="guide-arrow">→</span>
+<button type="button" class="guide-link" data-guide="structure">② 市場結構狀態</button> <span class="guide-arrow">→</span>
+<button type="button" class="guide-link" data-guide="theme">③ 資金熱區／題材雷達</button> <span class="guide-arrow">→</span>
+<button type="button" class="guide-link" data-guide="radar">④ VCP 個股型態</button>
+</span>
+<div class="guide-mobile">
+    <div class="guide-step" data-guide="pulse" role="button" tabindex="0">
       <span class="guide-num">01</span>
       <div class="guide-name">Market Pulse</div>
       <div class="guide-desc">掌握外部市場環境</div>
+<span class="guide-go" aria-hidden="true">›</span>
     </div>
-    <div class="guide-step">
+    <div class="guide-step" data-guide="structure" role="button" tabindex="0">
       <span class="guide-num">02</span>
       <div class="guide-name">市場結構狀態</div>
       <div class="guide-desc">判讀台股內部週期</div>
+<span class="guide-go" aria-hidden="true">›</span>
     </div>
-    <div class="guide-step">
+    <div class="guide-step" data-guide="theme" role="button" tabindex="0">
       <span class="guide-num">03</span>
       <div class="guide-name">資金熱區／題材雷達</div>
       <div class="guide-desc">觀察資金方向</div>
+<span class="guide-go" aria-hidden="true">›</span>
     </div>
-    <div class="guide-step">
+    <div class="guide-step" data-guide="radar" role="button" tabindex="0">
       <span class="guide-num">04</span>
       <div class="guide-name">VCP 個股型態</div>
       <div class="guide-desc">尋找個股機會</div>
+<span class="guide-go" aria-hidden="true">›</span>
     </div>
   </div>
 </div>
@@ -5520,6 +5524,53 @@ html[data-market="TW"]{--up:#c8472f;--down:#3f8f72}
 /* 固定背景（background-attachment:fixed）會讓捲動時反覆重繪而卡頓，改為隨頁捲動 */
 body{background-attachment:scroll!important}
 </style>
+<style id="ui-guide-nav">
+/* 建議閱讀順序：可點擊並跳到對應區塊 */
+#vcpReadingGuide .guide-link{background:none;border:0;padding:3px 8px;margin:0;font:inherit;font-weight:700;color:inherit;cursor:pointer;border-radius:9px;-webkit-tap-highlight-color:rgba(210,137,99,.2);transition:background .15s ease,color .15s ease}
+#vcpReadingGuide .guide-link:hover{background:#fbeae2;color:#a8482a}
+#vcpReadingGuide .guide-step{cursor:pointer;position:relative;-webkit-tap-highlight-color:rgba(210,137,99,.2)}
+#vcpReadingGuide .guide-step .guide-go{position:absolute;right:4px;top:calc(50% - 8px);transform:translateY(-50%);font-size:26px;line-height:1;color:#c4694a;opacity:.75}
+#vcpReadingGuide .guide-step:hover .guide-name,#vcpReadingGuide .guide-step:active .guide-name{color:#a8482a}
+#vcpReadingGuide .guide-step:hover .guide-num,#vcpReadingGuide .guide-step:active .guide-num{background:#fbeae2;border-color:#d28963;color:#a8482a}
+#vcpReadingGuide .guide-step:focus-visible{outline:3px solid rgba(196,105,74,.45);outline-offset:3px;border-radius:12px}
+/* 跳轉到達後，目標區塊短暫亮框提示位置 */
+@keyframes guideFlash{0%,100%{outline-color:rgba(210,137,99,0)}25%,70%{outline-color:rgba(210,137,99,.6)}}
+.guide-flash{outline:3px solid rgba(210,137,99,0);outline-offset:4px;animation:guideFlash 1.6s ease}
+</style>
+<script>
+/* 建議閱讀順序：點擊直接捲動到對應區塊（避開上方固定的登入列） */
+(function(){
+ try{
+  const MAP={
+   pulse:['#marketPulseCard'],
+   structure:['#marketStructureCard','#marketPulseCard'],
+   theme:['#capitalHotspots','#themeLeaderboards','#marketOverview','.radar-card'],
+   radar:['.radar-card','.radar-section']
+  };
+  const visible=function(el){return !!el && !el.hidden && el.offsetParent!==null && el.getBoundingClientRect().height>0;};
+  function go(key){
+   const list=MAP[key]||[]; let el=null;
+   for(let i=0;i<list.length;i++){const c=document.querySelector(list[i]); if(visible(c)){el=c;break;}}
+   if(!el) return;
+   const bar=document.getElementById('userBar');
+   const barH=(bar && getComputedStyle(bar).display!=='none') ? bar.getBoundingClientRect().height : 0;
+   const y=Math.max(0,(window.pageYOffset||document.documentElement.scrollTop||0)+el.getBoundingClientRect().top-barH-12);
+   try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
+   el.classList.remove('guide-flash'); void el.offsetWidth; el.classList.add('guide-flash');
+   setTimeout(function(){el.classList.remove('guide-flash');},1700);
+  }
+  document.addEventListener('click',function(e){
+   const t=e.target.closest&&e.target.closest('[data-guide]');
+   if(t){e.preventDefault();go(t.getAttribute('data-guide'));}
+  });
+  document.addEventListener('keydown',function(e){
+   if((e.key==='Enter'||e.key===' ') && e.target.matches && e.target.matches('.guide-step[data-guide]')){
+    e.preventDefault();go(e.target.getAttribute('data-guide'));
+   }
+  });
+ }catch(e){}
+})();
+</script>
 </body></html>
 
 <style>
