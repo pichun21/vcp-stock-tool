@@ -1623,6 +1623,14 @@ body.help-modal-open{overflow:hidden}
   </div>
 </div>
 
+<nav id="sectionNav" aria-label="區塊導覽">
+<button type="button" class="snav-btn" data-guide="pulse" data-snav="pulse">Market Pulse</button>
+<button type="button" class="snav-btn" data-guide="structure" data-snav="structure">市場結構</button>
+<button type="button" class="snav-btn" data-guide="single" data-snav="single">單股分析</button>
+<button type="button" class="snav-btn" data-guide="theme" data-snav="theme">資金與題材</button>
+<button type="button" class="snav-btn" data-guide="radar" data-snav="radar">每日雷達</button>
+</nav>
+
 <section class="market-pulse-card" id="marketPulseCard" aria-live="polite">
   <div class="mp-head">
     <div class="mp-title-row">
@@ -1866,7 +1874,12 @@ body.help-modal-open{overflow:hidden}
         <button class="radar-tab" data-radar="combo">⚡ VCP＋Squeeze</button>
         </div></div>
       </div>
-      <div class="radar-sort-wrap">
+      <div class="radar-view-toggle" role="group" aria-label="手機清單檢視">
+      <span class="rvt-label">檢視</span>
+      <button type="button" class="rvt-btn" data-view="compact">精簡</button>
+      <button type="button" class="rvt-btn" data-view="full">詳細</button>
+    </div>
+    <div class="radar-sort-wrap">
         <label for="radarSort">排序</label>
         <select id="radarSort" class="radar-sort">
           <option value="smart">智慧排序</option>
@@ -3966,8 +3979,7 @@ function renderRadar(filter='all'){
      const el=(chartCard && chartCard.getBoundingClientRect().height>40) ? chartCard : singleSection;
      if(!el) return;
      const stickyBar=document.getElementById('userBar');
-     const stickyH=(stickyBar && getComputedStyle(stickyBar).display!=='none')
-       ? stickyBar.getBoundingClientRect().height : 0;
+     const stickyH=window.__stickyOffset?window.__stickyOffset():((stickyBar && getComputedStyle(stickyBar).display!=='none')?stickyBar.getBoundingClientRect().height:0);
      const cur=window.pageYOffset||document.documentElement.scrollTop||0;
      const y=Math.max(0,cur+el.getBoundingClientRect().top-stickyH-12);
      if(Math.abs(y-cur)<minDelta) return;
@@ -5540,7 +5552,8 @@ body{background-attachment:scroll!important}
    pulse:['#marketPulseCard'],
    structure:['#marketStructureCard','#marketPulseCard'],
    theme:['#capitalHotspots','#themeLeaderboards','#marketOverview','.radar-card'],
-   radar:['.radar-card','.radar-section']
+   radar:['.radar-card','.radar-section'],
+   single:['#singleStockAnalysis']
   };
   const visible=function(el){return !!el && !el.hidden && el.offsetParent!==null && el.getBoundingClientRect().height>0;};
   function go(key){
@@ -5548,7 +5561,7 @@ body{background-attachment:scroll!important}
    for(let i=0;i<list.length;i++){const c=document.querySelector(list[i]); if(visible(c)){el=c;break;}}
    if(!el) return;
    const bar=document.getElementById('userBar');
-   const barH=(bar && getComputedStyle(bar).display!=='none') ? bar.getBoundingClientRect().height : 0;
+   const barH=window.__stickyOffset?window.__stickyOffset():0;
    const y=Math.max(0,(window.pageYOffset||document.documentElement.scrollTop||0)+el.getBoundingClientRect().top-barH-12);
    try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
    el.classList.remove('guide-flash'); void el.offsetWidth; el.classList.add('guide-flash');
@@ -5564,6 +5577,132 @@ body{background-attachment:scroll!important}
    }
   });
  }catch(e){}
+})();
+</script>
+<style id="ui-nav-compact">
+/* ===== 固定區塊導覽列：疊在登入列下方 ===== */
+#sectionNav{position:sticky;top:var(--ub-h,0px);z-index:9990;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px 2px;margin:6px 0 10px;background:rgba(251,250,248,.97);border-bottom:1px solid var(--line)}
+#sectionNav::-webkit-scrollbar{display:none}
+#sectionNav .snav-btn{flex:0 0 auto;border:1px solid #e3ddd3;background:#fff;color:#4a423a;font-weight:700;font-size:13.5px;padding:7px 14px;border-radius:999px;white-space:nowrap;min-height:36px;-webkit-tap-highlight-color:rgba(210,137,99,.2);transition:background .15s ease,color .15s ease,border-color .15s ease}
+#sectionNav .snav-btn:hover{border-color:#e6bba6;background:#fbeae2}
+#sectionNav .snav-btn.active{background:#b66749;border-color:#b66749;color:#fff;box-shadow:0 3px 10px rgba(182,103,73,.28)}
+.search{top:calc(var(--ub-h,0px) + var(--nav-h,0px))!important}
+
+/* ===== 手機清單：檢視切換 ===== */
+.radar-view-toggle{display:none}
+@media(max-width:760px){
+ .radar-view-toggle{display:flex;align-items:center;gap:8px;margin:2px 0 12px}
+ .rvt-label{font-size:12px;font-weight:700;color:#a79d8e;letter-spacing:.04em;flex:0 0 76px}
+ .rvt-btn{border:1px solid #e3ddd3;background:#fff;color:#4a423a;font-weight:700;font-size:13px;padding:7px 18px;border-radius:999px;min-height:36px}
+ .rvt-btn.active{background:#2b2622;border-color:#2b2622;color:#fff}
+
+ /* ===== 精簡卡片：兩行看完（名稱＋今日漲跌／狀態＋距 Pivot＋星等），點一下展開完整內容 ===== */
+ #radarMobile.compact .mobile-stock-card{position:relative;cursor:pointer}
+ #radarMobile.compact .mobile-stock-card:not(.expanded){display:flex!important;flex-wrap:wrap;align-items:center;gap:7px 8px;padding:11px 12px 20px!important;margin-top:8px!important;border-radius:16px!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded)::before{content:"";order:2;flex:0 0 100%;height:0}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-top,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-top-actions,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-action-head,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metrics{display:contents!important}
+ /* 第一行：收藏星 → 名稱／代號 → 今日漲跌 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{order:0;font-size:0!important;min-width:34px!important;width:34px!important;height:34px!important;padding:0!important;display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite::before{content:"☆";font-size:19px;line-height:1}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite.is-favorite::before{content:"★"}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-top>div:first-child{order:1;flex:1 1 0;min-width:0}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-name{font-size:17px!important;line-height:1.2}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code{font-size:12px!important;margin-top:1px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3){order:1;font-size:0!important;margin:0 0 0 auto!important;padding:0!important;background:none!important;border:0!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3) b{font-size:19px!important;font-weight:800;line-height:1.1}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3) .live-quote-badge{display:none}
+ /* 第二行：狀態標籤、綜合訊號、距 Pivot、星等 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-state{order:3;display:inline-flex!important;margin:0!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-state .st-pill{font-size:12px;padding:4px 10px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row{order:4;margin:0!important;display:inline-flex!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row .pulse-badge{font-size:11.5px!important;padding:3px 9px!important;min-height:0!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2){order:5;margin:0 0 0 auto!important;padding:0!important;background:none!important;border:0!important;font-size:11px!important;color:#8a7f70;display:inline-flex!important;align-items:baseline;gap:4px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2) b{font-size:13px!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2) .pivot-distance-track{display:none!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score{order:6;font-size:12px!important;letter-spacing:0;white-space:nowrap}
+ /* 其餘細節收起 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-cta,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-structure-quality,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-postbreakout-performance,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .attention-summary,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-signal-row,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-why,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(1),
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(4){display:none!important}
+ /* 展開提示：底部置中的小箭頭 */
+ #radarMobile.compact .mobile-stock-card::after{content:"";position:absolute;left:50%;bottom:7px;width:7px;height:7px;border-right:2px solid #b66749;border-bottom:2px solid #b66749;transform:translateX(-50%) rotate(45deg);opacity:.65;pointer-events:none}
+ #radarMobile.compact .mobile-stock-card.expanded::after{bottom:3px;transform:translateX(-50%) rotate(-135deg)}
+ #radarMobile.compact .mobile-stock-card.expanded{padding-bottom:22px!important}
+}
+</style>
+<script>
+/* 固定導覽列：計算固定元素高度、標示目前所在區塊；手機清單：精簡／詳細切換與點擊展開 */
+(function(){
+ try{
+  const root=document.documentElement;
+  const nav=document.getElementById('sectionNav');
+  const ub=document.getElementById('userBar');
+  const vis=function(el){return !!el && el.offsetParent!==null && getComputedStyle(el).display!=='none';};
+  const ubH=function(){return (ub && getComputedStyle(ub).display!=='none')?ub.getBoundingClientRect().height:0;};
+  const navH=function(){return vis(nav)?nav.getBoundingClientRect().height:0;};
+  const syncVars=function(){root.style.setProperty('--ub-h',ubH()+'px');root.style.setProperty('--nav-h',navH()+'px');};
+  window.__stickyOffset=function(){return ubH()+navH();};
+  syncVars();
+  if(window.ResizeObserver){
+   const ro=new ResizeObserver(syncVars);
+   if(ub) ro.observe(ub);
+   if(nav) ro.observe(nav);
+  }
+  window.addEventListener('resize',syncVars);
+  window.addEventListener('load',syncVars);
+
+  // 目前所在區塊
+  const SEL={pulse:['#marketPulseCard'],structure:['#marketStructureCard'],single:['#singleStockAnalysis'],theme:['#capitalHotspots','#themeLeaderboards'],radar:['.radar-card']};
+  const pick=function(list){for(let i=0;i<list.length;i++){const e=document.querySelector(list[i]);if(e && !e.hidden && e.offsetParent!==null && e.getBoundingClientRect().height>0) return e;}return null;};
+  let ticking=false, lastKey=null;
+  const update=function(){
+   ticking=false;
+   if(!vis(nav)) return;
+   const line=window.__stickyOffset()+28;
+   let cur=null;
+   Object.keys(SEL).forEach(function(k){const e=pick(SEL[k]); if(e && e.getBoundingClientRect().top<=line) cur=k;});
+   if(cur===lastKey) return;
+   lastKey=cur;
+   nav.querySelectorAll('.snav-btn').forEach(function(b){
+    const on=(b.getAttribute('data-snav')===cur);
+    b.classList.toggle('active',on);
+    if(on){ try{nav.scrollTo({left:Math.max(0,b.offsetLeft-(nav.clientWidth-b.offsetWidth)/2),behavior:'smooth'});}catch(e){} }
+   });
+  };
+  window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(update);} },{passive:true});
+  window.addEventListener('resize',update);
+  setTimeout(update,400);
+
+  // 手機清單：精簡／詳細
+  const mob=document.getElementById('radarMobile');
+  const KEY='vcpRadarView';
+  let view='compact';
+  try{ const v=localStorage.getItem(KEY); if(v==='full'||v==='compact') view=v; }catch(e){}
+  const apply=function(v){
+   view=v;
+   if(mob) mob.classList.toggle('compact',v==='compact');
+   document.querySelectorAll('.rvt-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-view')===v);});
+   try{localStorage.setItem(KEY,v);}catch(e){}
+  };
+  document.querySelectorAll('.rvt-btn').forEach(function(b){b.addEventListener('click',function(){apply(b.getAttribute('data-view'));});});
+  apply(view);
+  if(mob){
+   mob.addEventListener('click',function(e){
+    if(!mob.classList.contains('compact')) return;
+    const card=e.target.closest('.mobile-stock-card'); if(!card) return;
+    if(e.target.closest('button,a,input,select,textarea,.reason-list')) return;
+    card.classList.toggle('expanded');
+   });
+  }
+ }catch(err){ console.warn('nav/compact init skipped',err); }
 })();
 </script>
 </body></html>
