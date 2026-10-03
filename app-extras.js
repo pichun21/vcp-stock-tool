@@ -360,3 +360,76 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
   new MutationObserver(decorate).observe(mob,{childList:true});
  }catch(e){}
 })();
+;
+/* ---- extra 10: 收藏雲端同步（Firestore: userFavorites/{uid}；未開權限或離線時自動退回只存本機） ---- */
+(function(){
+ try{
+  const SYNC_UID_KEY='vcpulse_fav_synced_uid', DIRTY_KEY='vcpulse_fav_dirty';
+  let pushTimer=null, pulling=false, lastPull=0, disabled=false;
+  const setStatus=function(t,warn){ const e=document.getElementById('favSyncStatus'); if(!e) return; e.textContent=t||''; e.style.color=warn?'#b45309':'#777674'; };
+  const readLocal=function(){ return {items:[...getFavorites()].sort(), meta:getFavoriteMeta()}; };
+  const applyLocal=function(items,meta){
+   localStorage.setItem(FAVORITES_KEY,JSON.stringify(items));
+   localStorage.setItem(FAVORITE_META_KEY,JSON.stringify(meta||{}));
+   try{ updateFavoriteCount(); }catch(e){}
+   try{ renderRadar(radarFilter); }catch(e){}
+   try{ if(currentSingleFavorite && currentSingleFavorite.market) renderSingleFavorite(currentSingleFavorite.market,currentSingleFavorite.symbol); }catch(e){}
+  };
+  const onError=function(e){
+   console.warn('收藏同步失敗',e);
+   const code=String((e&&e.code)||'');
+   if(code==='permission-denied'){ disabled=true; setStatus('⚠ 收藏尚未同步（雲端權限未開）',true); }
+   else setStatus('⚠ 收藏同步失敗，稍後重試',true);
+  };
+  async function pushNow(){
+   const cloud=window.vcpCloud; if(!cloud||disabled) return;
+   const local=readLocal(), meta={};
+   local.items.forEach(function(k){ if(local.meta[k]) meta[k]=local.meta[k]; });
+   try{
+    setStatus('☁ 同步中…');
+    await cloud.save({items:local.items,meta:meta,updatedAt:Date.now()});
+    localStorage.removeItem(DIRTY_KEY); localStorage.setItem(SYNC_UID_KEY,cloud.uid);
+    setStatus('☁ 收藏已同步');
+   }catch(e){ onError(e); }
+  }
+  function schedulePush(){ localStorage.setItem(DIRTY_KEY,'1'); clearTimeout(pushTimer); pushTimer=setTimeout(pushNow,800); }
+  async function pullAndMerge(force){
+   const cloud=window.vcpCloud; if(!cloud||pulling||disabled) return;
+   const now=Date.now(); if(!force && now-lastPull<30000) return; lastPull=now;
+   pulling=true;
+   try{
+    setStatus('☁ 同步中…');
+    const remote=await cloud.load();
+    const remoteItems=(remote&&Array.isArray(remote.items))?remote.items.map(String).sort():[];
+    const remoteMeta=(remote&&remote.meta&&typeof remote.meta==='object')?remote.meta:{};
+    const storedUid=localStorage.getItem(SYNC_UID_KEY);
+    const local=readLocal();
+    if(storedUid && storedUid!==cloud.uid){
+     // 這個瀏覽器上一次是別的帳號：不把對方的本機收藏併進來，直接改用目前帳號的雲端收藏
+     applyLocal(remoteItems,remoteMeta);
+     localStorage.removeItem(DIRTY_KEY); localStorage.setItem(SYNC_UID_KEY,cloud.uid);
+     setStatus('☁ 收藏已同步');
+    }else if(localStorage.getItem(DIRTY_KEY)==='1'){
+     await pushNow();                                   // 本機有尚未上傳的變更：以本機為準
+    }else if(remote && storedUid===cloud.uid){
+     if(JSON.stringify(remoteItems)!==JSON.stringify(local.items)) applyLocal(remoteItems,remoteMeta);   // 已同步過：以雲端為準（其他裝置的新增／刪除）
+     setStatus('☁ 收藏已同步');
+    }else{
+     const items=[...new Set([...remoteItems,...local.items])].sort();   // 第一次同步：兩邊聯集後上傳
+     applyLocal(items,Object.assign({},remoteMeta,local.meta));
+     await pushNow();
+    }
+   }catch(e){ onError(e); }
+   finally{ pulling=false; }
+  }
+  // 收藏有增減時（toggleFavorite 會呼叫 saveFavorites）→ 稍後上傳
+  if(typeof saveFavorites==='function'){
+   const orig=saveFavorites;
+   saveFavorites=function(set){ const r=orig(set); schedulePush(); return r; };
+  }
+  window.addEventListener('vcp-signed-in',function(){ pullAndMerge(true); });
+  if(window.vcpCloud) pullAndMerge(true);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) pullAndMerge(false); });
+  window.addEventListener('online',function(){ if(localStorage.getItem(DIRTY_KEY)==='1'){ disabled=false; schedulePush(); } });
+ }catch(e){ console.warn('收藏同步初始化略過',e); }
+})();

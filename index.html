@@ -46,7 +46,7 @@
 </div>
 <div id="userBar" style="display:none;position:sticky;top:0;z-index:10000;background:#fffefd;border-bottom:1px solid #e8e7e5;padding:8px 14px;font-size:12px">
   <div style="max-width:1440px;margin:auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-    <div><b id="signedInEmail"></b> <span style="color:#777674">｜UID：</span><code id="signedInUid"></code></div>
+    <div><b id="signedInEmail"></b> <span style="color:#777674">｜UID：</span><code id="signedInUid"></code> <span id="favSyncStatus" style="margin-left:8px;color:#777674"></span></div>
     <div style="display:flex;gap:7px">
       <button id="copyUidBtn" type="button" style="min-width:0;padding:7px 10px;border-radius:10px;background:#fff;color:#8f4a2f;border:1px solid #d9d6d2">複製 UID</button>
       <button id="logoutBtn" type="button" style="min-width:0;padding:7px 10px;border-radius:10px;background:#20231f;color:#fff;border:0">登出</button>
@@ -551,7 +551,8 @@ import {
 import {
   getFirestore,
   doc,
-  getDoc
+  getDoc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -757,6 +758,7 @@ document.getElementById("copyUidBtn").addEventListener("click", async () => {
 });
 onAuthStateChanged(auth, async user => {
   if (!user) {
+    window.vcpCloud = null;
     showSignedOut();
     return;
   }
@@ -770,8 +772,21 @@ onAuthStateChanged(auth, async user => {
   try {
     const snap = await getDoc(doc(db, "authorizedUsers", user.uid));
     if (snap.exists() && snap.data()?.enabled === true) {
+      // 收藏雲端同步：只開放「已授權、且是本人」的資料文件 userFavorites/{uid}
+      window.vcpCloud = {
+        uid: user.uid,
+        async load() {
+          const s = await getDoc(doc(db, "userFavorites", user.uid));
+          return s.exists() ? s.data() : null;
+        },
+        async save(data) {
+          await setDoc(doc(db, "userFavorites", user.uid), data);
+        }
+      };
       showSignedIn(user);
+      window.dispatchEvent(new CustomEvent("vcp-signed-in", { detail: { uid: user.uid } }));
     } else {
+      window.vcpCloud = null;
       showUnauthorized(user);
     }
   } catch (e) {
