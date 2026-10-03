@@ -2291,3 +2291,27 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score{display:none!important}
  #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score-inline{display:inline;margin-left:8px;font-size:12px;letter-spacing:.5px;color:#2b2622;white-space:nowrap;vertical-align:baseline}
 }
+
+/* ===== 32. fix-table-width-new-badge-expand-btn（桌機雷達表收窄、NEW 標籤與收藏星區隔、題材「展開全部」放大） ===== */
+/* (a) 桌機雷達表：移除多餘的「市場」欄（上方已有台股／美股切換）、收緊間距、表頭可換行，1280px 寬度下不需橫向捲動 */
+@media(min-width:761px){
+ .radar-table th:nth-child(2),.radar-table td:nth-child(2){display:none}
+ .radar-table th{padding:12px 6px!important;font-size:14px!important;white-space:normal;line-height:1.3;vertical-align:bottom}
+ .radar-table td{padding-left:6px;padding-right:6px}
+}
+/* 「Pivot（突破價）」表頭換行時保持「（突破價）」在同一行，不要被拆成三行 */
+@media(min-width:761px){ .radar-table th:nth-child(4){min-width:84px;word-break:keep-all} }
+/* 較窄的桌機／平板橫向：依重要性依序收起次要欄位（Momentum → 量能） */
+@media(min-width:761px) and (max-width:1270px){ .radar-table th:nth-child(9),.radar-table td:nth-child(9){display:none} }
+@media(min-width:761px) and (max-width:1170px){ .radar-table th:nth-child(7),.radar-table td:nth-child(7){display:none} }
+@media(min-width:761px) and (max-width:1130px){ .radar-table th{padding-left:4px!important;padding-right:4px!important} .radar-table td{padding-left:4px;padding-right:4px} }
+/* (b) NEW 標籤：改為深色實心，與黃色的收藏星星明確區隔 */
+.new-entry-badge{background:#2b2622!important;color:#fbf3e4!important;border:1px solid #2b2622!important;letter-spacing:.06em}
+.new-tag{background:#2b2622;color:#fbf3e4;letter-spacing:.06em}
+/* (c) 題材雷達「展開全部」：手機版改成獨立一列的實心大按鈕（熱門＝陶土橘、蓄勢＝鼠尾草綠） */
+@media(max-width:760px){
+ .theme-board-title{flex-wrap:wrap!important}
+ .theme-board-actions{flex:1 1 100%;order:3;display:flex!important;align-items:center;gap:8px;margin-top:10px}
+ .theme-board-actions .theme-expand-all{flex:1 1 auto;justify-content:center;text-align:center;min-height:42px;font-size:14px!important;font-weight:800;padding:9px 16px!important;color:#fff!important;border:0!important;border-radius:12px!important;background:var(--tb)!important;box-shadow:0 4px 12px rgba(60,50,40,.18);-webkit-tap-highlight-color:rgba(255,255,255,.2)}
+ .theme-board-actions .theme-expand-all:active{filter:brightness(.92)}
+}
