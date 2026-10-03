@@ -1,0 +1,2264 @@
+/* VCPulse 樣式表
+ * 內容為原 index.html 內所有 <style> 區塊，依「原本出現的順序」串接
+ * （順序就是覆蓋優先順序，請勿隨意調換）。
+ * 目錄：
+ *  01. head-01 VCPulse brand
+ *  02. head-02 button.pulse-help-trigger
+ *  03. head-03 V2.41.39 — 手機卡片恢復可點擊 VCPulse 訊號說明
+ *  04. head-04 V2.46.0 — News Impact TW v1
+ *  05. help-modal-ux-fix
+ *  06. head-06 V2.46.1 — 單股桌機版雙欄資訊流：左 K 線→News Impact；右 VCP→輔助籌碼→條件
+ *  07. body-07 #vcpReadingGuide
+ *  08. body-08 V2.40 — 正式收盤更新提示 + 手機單股狀態防重疊
+ *  09. body-09 .aux-market-panel
+ *  10. ui-kpi-pills
+ *  11. ui-icons-type
+ *  12. ui-tech
+ *  13. ui-tech-2
+ *  14. ui-market-theme
+ *  15. ui-contraction
+ *  16. ui-star-pivot
+ *  17. ui-palette
+ *  18. ui-palette-2
+ *  19. ui-scroll-perf
+ *  20. ui-guide-nav
+ *  21. ui-nav-compact
+ *  22. ui-contrast-loading
+ *  23. ui-star-center
+ *  24. ui-star-center-2
+ *  25. body-25 V2.36.5 — 收藏星星緊貼股票名稱
+ *  26. body-26 V2.40.2 — completed TW official snapshot locks the stale int
+ *  27. body-27 V2.41.51 — mobile chart jump keeps stock identity visible be
+ *  28. body-28 V2.44.9 — structure quality label UI
+ *  29. ui-polish-2026-10
+ */
+
+/* ===== 01. head-01 VCPulse brand ===== */
+:root{--bg:#f5f4f4;--card:#fff;--ink:#20231f;--muted:#70756e;--line:#dddcdb;--good:#2f7d52;--warn:#a06a14;--bad:#a33d36}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{max-width:1040px;margin:42px auto;padding:0 18px}.head{display:flex;justify-content:space-between;align-items:end;gap:20px}
+h1{margin:0;font-size:34px}.sub{color:var(--muted);margin-top:6px}.marketbar{display:flex;gap:8px;margin:22px 0 10px}
+.marketbtn{background:#fff;color:#20231f;border:1px solid var(--line);min-width:0;padding:10px 14px}
+.marketbtn.active{background:#20231f;color:#fff}
+.search{display:flex;gap:8px;margin:10px 0 18px}
+input,button{font:inherit;border-radius:12px;border:1px solid var(--line);padding:13px 15px}input{flex:1;background:white;font-size:17px}
+button{background:#20231f;color:#fff;border:0;cursor:pointer;font-weight:700;min-width:110px}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}
+.section{margin-top:20px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 10px}
+.helpbtn{background:#fff;color:#20231f;border:1px solid var(--line);min-width:0;padding:8px 12px}
+.helpbox{display:none;margin:10px 0 18px}
+.helpbox.open{display:block}
+.helpbox h3{margin:18px 0 7px;font-size:17px}
+.helpbox p,.helpbox li{line-height:1.65}
+.helpbox table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.helpbox th,.helpbox td{padding:9px 7px;border-bottom:1px solid #ecebeb;text-align:left;vertical-align:top}
+.section-title h2{margin:0;font-size:20px}
+.section-title .muted{font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px #00000008}
+.radar-card{margin-top:10px}
+.radar-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.radar-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.radar-tab{background:#f3f3f2;color:#20231f;border:1px solid var(--line);min-width:0;padding:8px 12px}
+.radar-tab.active{background:#20231f;color:#fff}
+.radar-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.radar-table th,.radar-table td{padding:11px 8px;border-bottom:1px solid #ecebeb;text-align:left;white-space:nowrap}
+.radar-table th{font-size:12px;color:var(--muted);font-weight:700}.radar-row{cursor:default}.radar-row:hover{background:#f8f9fa}
+.radar-empty{padding:24px 4px;color:var(--muted);text-align:center}
+.status-dot{font-weight:700}
+@media(max-width:760px){
+ .radar-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+ .radar-table{min-width:720px}
+ .section-title h2{font-size:18px}
+}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center}.ticker{font-size:25px;font-weight:800}.badge{padding:7px 10px;border-radius:999px;background:#eee;font-weight:700}
+.score{font-size:44px;font-weight:900;margin:8px 0}.stars{font-size:21px;letter-spacing:2px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media(min-width:761px){
+ .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .metrics .metric:nth-child(1){grid-column:1}
+ .metrics .metric:nth-child(2){grid-column:2}
+ .metrics .metric:nth-child(4){grid-column:3;grid-row:1}
+ .metrics .metric:nth-child(3){grid-column:1 / -1;grid-row:2}
+ .metrics .metric:nth-child(3) b{white-space:nowrap;font-size:20px}
+ .metrics .metric .muted{white-space:nowrap}
+}
+.metric{padding:13px;background:#f7f7f6;border-radius:12px}.metric b{display:block;font-size:20px;margin-top:4px}.muted{color:var(--muted);font-size:13px}
+canvas{width:100%;height:auto;border-radius:12px;background:#fbfbfc;margin-top:14px;display:block}.checks{display:grid;gap:10px;margin-top:12px}
+.check{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:9px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.note{font-size:13px;color:var(--muted);line-height:1.55;margin-top:16px}.error{padding:12px;border-radius:10px;background:#fff0ed;color:#8d302b;display:none;margin-bottom:12px}
+@media(max-width:760px){
+ body{padding-bottom:env(safe-area-inset-bottom)}
+ .wrap{margin:18px auto;padding:0 12px}
+ .head{display:block}.head .muted:last-child{margin-top:6px}
+ h1{font-size:27px}.sub{font-size:14px;line-height:1.45}
+ .marketbar{margin:14px 0 6px}.marketbtn{flex:1}.search{position:sticky;top:0;z-index:10;margin:6px -4px 12px;padding:8px 4px;background:rgba(245,244,244,.96);backdrop-filter:blur(8px)}
+ .search input{min-width:0;font-size:16px;padding:12px}.search button{min-width:92px;padding:12px 10px}
+ .grid{grid-template-columns:1fr;gap:12px}
+ .card{padding:15px;border-radius:15px}
+ .grid .card:nth-child(1){grid-row:1}
+ .grid .card:nth-child(2){grid-row:2}
+ .ticker{font-size:22px}.badge{font-size:13px;padding:6px 8px}
+ .score{font-size:38px;margin:4px 0}.stars{font-size:18px}
+ .metrics{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+ .metric{padding:11px}.metric b{font-size:17px;overflow-wrap:anywhere}
+ canvas{height:auto;margin-top:10px}
+ .checks{font-size:14px}.note{font-size:12px}
+}
+@media(max-width:390px){
+ .metrics{grid-template-columns:1fr 1fr}
+ .metric b{font-size:15px}
+ canvas{height:auto}
+}
+
+/* VCPulse brand */
+.brand-hero{
+  position:relative;overflow:hidden;margin-bottom:18px;padding:28px 30px;
+  border:1px solid var(--line);border-radius:26px;background:#fff;
+  box-shadow:0 12px 32px rgba(53,52,50,.06);
+}
+.brand-grid{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:24px}
+.brand-name{margin:0;line-height:1}.brand-logo-img{display:block;width:min(220px,100%);height:auto;max-height:90px;object-fit:contain;object-position:left center}
+.brand-tag{margin-top:12px;font-size:13px;letter-spacing:2.2px;text-transform:uppercase;color:#555453}
+.brand-sub{font-size:20px;font-weight:800;margin-top:16px}
+.brand-copy{margin-top:14px;color:#6f6e6d;line-height:1.7}
+.brand-mascot{display:flex;justify-content:center;align-items:center;min-height:230px}
+.brand-mascot img{width:min(360px,100%);max-height:270px;object-fit:contain;mix-blend-mode:multiply}
+.brand-mini{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.brand-pill{padding:7px 11px;border-radius:999px;background:#f7f6f5;border:1px solid #ebe9e8;font-size:13px;color:#62615f}
+@media(max-width:760px){
+ .brand-hero{padding:22px 20px}
+ .brand-grid{grid-template-columns:1fr}
+ .brand-logo-img{width:min(145px,48vw);max-height:60px}
+ .brand-tag{font-size:10px;letter-spacing:1.35px}
+ .brand-sub{font-size:17px}
+ .brand-copy{font-size:14px}
+ .brand-mascot{min-height:0}
+ .brand-mascot img{width:250px;max-height:210px}
+}
+
+
+/* ===== VCPulse V2.5 UI ===== */
+:root{
+  --vp-bg:#f7f6f5; --vp-card:#fffefe; --vp-ink:#212020; --vp-muted:#777674;
+  --vp-line:#e8e7e5; --vp-caramel:#b66749; --vp-soft:#f3f2f0;
+}
+body{background:var(--vp-bg)}
+.wrap{max-width:1440px}
+.brand-hero{
+  padding:24px 34px 20px;border-radius:28px;background:var(--vp-card);
+  border:1px solid var(--vp-line);box-shadow:0 12px 30px rgba(57,46,33,.05)
+}
+.brand-grid{grid-template-columns:1fr 420px;gap:18px}
+.brand-name{font-size:72px;letter-spacing:-5px}
+.brand-name .pulse{color:var(--vp-caramel)}
+.brand-wave{display:none!important}
+.brand-tag{font-size:12px;letter-spacing:2.7px;margin-top:10px}
+.brand-sub{font-size:22px;margin-top:14px}
+.brand-copy{font-size:15px;margin-top:10px}
+.brand-mini{margin-top:14px}
+.brand-mascot{min-height:190px}
+.brand-mascot img{width:330px;max-height:230px}
+.helpbtn{background:#fff!important}
+.section-title{margin-top:22px}
+
+/* Make the primary interaction feel closer to the UI concept */
+.card{border-color:var(--vp-line);box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.market button,.radar-tab,button{transition:.15s ease}
+.radar-tabs{gap:10px}
+.radar-tab{border-radius:14px;padding:11px 17px}
+.radar-tab.active{background:#222221;color:#fff}
+table{font-size:14px}
+th{color:#71706e}
+
+/* Mobile is intentionally NOT a shrunken desktop hero */
+@media(max-width:760px){
+  body{background:#f8f7f6}
+  .wrap{padding:12px 14px 34px}
+  .brand-hero{padding:18px 18px 16px;border-radius:22px;margin-bottom:16px}
+  .brand-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 118px;
+    grid-template-areas:
+      "copy dog";
+    align-items:center;gap:8px
+  }
+  .brand-grid>div:first-child{grid-area:copy;min-width:0}
+  .brand-mascot{grid-area:dog;min-height:0;align-self:end}
+  .brand-mascot img{width:118px;max-height:150px}
+  .brand-name{font-size:43px;line-height:1;letter-spacing:-3px;white-space:nowrap}
+  .brand-tag{font-size:8px;letter-spacing:1.15px;white-space:nowrap;margin-top:8px}
+  .brand-sub{font-size:15px;line-height:1.35;margin-top:12px;max-width:230px}
+  .brand-copy{font-size:12px;line-height:1.55;margin-top:8px;max-width:220px}
+  .brand-copy br{display:none}
+  .brand-mini{display:none}
+  .helpbtn{
+    position:absolute!important;right:12px!important;top:12px!important;
+    padding:0!important;font-size:0!important;border-radius:999px!important;
+    width:34px;height:34px;z-index:3;
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    line-height:1!important;
+  }
+  .helpbtn::after{
+    content:"ⓘ";
+    font-size:18px;
+    line-height:1;
+    display:block;
+    width:18px;
+    height:18px;
+    text-align:center;
+  }
+  .section-title{margin-top:16px}
+  .section-title h2{font-size:22px}
+  .section-title .muted{font-size:11px}
+  .market{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .market button{width:100%;padding:12px}
+  .searchrow{gap:8px}
+  .searchrow input{min-width:0;font-size:16px}
+  .searchrow button{white-space:nowrap;padding-left:16px;padding-right:16px}
+  .radar-tabs{
+    display:flex;overflow-x:auto;flex-wrap:nowrap;gap:8px;padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none
+  }
+  .radar-tabs::-webkit-scrollbar{display:none}
+  .radar-tab{flex:0 0 auto;padding:10px 13px;font-size:13px}
+  .radar-card{padding:14px}
+  .radar-table-wrap{border-radius:16px}
+}
+@media(max-width:390px){
+  .brand-grid{grid-template-columns:minmax(0,1fr) 98px}
+  .brand-mascot img{width:98px}
+  .brand-name{font-size:38px}
+  .brand-sub{font-size:14px}
+}
+
+
+/* V2.6 simplified action flow */
+.radar-intro{display:flex;align-items:end;justify-content:space-between;margin:22px 2px 12px}
+.radar-intro h2{margin:3px 0 4px;font-size:25px}
+.radar-intro p{margin:0;color:#777674;font-size:14px}
+.radar-kicker{font-size:11px;font-weight:800;letter-spacing:1.6px;color:#b66749}
+@media(max-width:760px){
+ .radar-intro{margin:18px 2px 10px}
+ .radar-intro h2{font-size:21px}
+ .radar-intro p{font-size:12px}
+}
+
+
+/* ===== VCPulse V2.7 mobile radar cards ===== */
+.radar-mobile{display:none}
+.reason-list{display:grid;gap:5px;margin-top:10px}
+.reason-item{font-size:13px;line-height:1.45;color:#5e5d5c}
+.reason-item b{color:#262525}
+.reason-ok::before{content:"✓ ";font-weight:900;color:#4e9b62}
+.reason-note::before{content:"• ";font-weight:900;color:#b66749}
+.mobile-stock-card{
+  border:1px solid var(--vp-line);background:#fffefe;border-radius:18px;
+  padding:15px 15px 14px;margin-top:10px;box-shadow:0 7px 18px rgba(57,46,33,.035);
+  cursor:default
+}
+.mobile-stock-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.mobile-stock-name{font-weight:900;font-size:17px;line-height:1.25}
+.mobile-stock-code{font-size:12px;color:#727170;margin-top:3px}
+.mobile-score{font-size:13px;white-space:nowrap;letter-spacing:1px}
+.mobile-state{display:inline-flex;align-items:center;margin-top:9px;padding:6px 9px;border-radius:999px;background:#f4f3f2;font-weight:800;font-size:12px}
+.mobile-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:11px}
+.mobile-metric{font-size:12px;color:#777674}
+.mobile-metric b{display:block;color:#2c2b2a;font-size:14px;margin-top:2px}
+.mobile-signal-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.mobile-signal{font-size:12px;padding:6px 8px;border-radius:999px;background:#f7f6f5;border:1px solid #eceae9}
+.mobile-why{margin-top:12px;padding-top:10px;border-top:1px dashed #e6e4e2}
+.mobile-why-title{font-size:12px;font-weight:900;letter-spacing:.2px;color:#3a3938}
+.mobile-cta{margin-top:11px;font-size:12px;font-weight:800;text-align:right;color:#b66749}
+@media(max-width:760px){
+  .radar-table-wrap{display:none!important}
+  .radar-mobile{display:block}
+}
+
+
+/* V2.8 post-breakout */
+.radar-tab[data-radar="postbreakout"].active{background:#784d3d;color:#fff;border-color:#784d3d}
+
+
+/* V2.9 VCPulse signal */
+.pulse-badge{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid #e8e6e4;background:#fff}
+.pulse-hot{background:#fff0e9;border-color:#f3c7b3}.pulse-watch{background:#fffcf9;border-color:#eae3dc}
+.pulse-wait{background:#f2f2f1;border-color:#dddcdb}.pulse-extended{background:#f5edf0;border-color:#decbd2}
+.pulse-explain{margin-top:8px;font-size:11px;color:#777674;line-height:1.5}
+
+
+/* V2.9.2 mobile radar visibility fix */
+.radar-mobile{display:none}
+@media(max-width:760px){
+  .radar-table-wrap{display:none!important}
+  .radar-mobile{display:block!important}
+}
+
+
+/* V2.9.3 clearer VCPulse signal explanation */
+.pulse-help-detail{margin-top:18px;padding-top:16px;border-top:1px solid #e7e5e4}
+.pulse-help-detail h3{margin:0 0 8px;font-size:17px}
+.pulse-help-detail>p{line-height:1.7}
+.pulse-help-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.pulse-help-grid>div{padding:11px 12px;border:1px solid #e8e6e5;border-radius:13px;background:#fffefe}
+.pulse-help-grid b{display:block;margin-bottom:4px}
+.pulse-help-grid span{display:block;font-size:13px;line-height:1.55;color:#6f6e6c}
+.pulse-help-note{padding:10px 12px;border-radius:12px;background:#f5f4f3;font-size:13px}
+.pulse-rule-detail{margin-top:10px;font-size:13px}
+.pulse-rule-detail summary{cursor:pointer;font-weight:800;color:#8f4a2f}
+.pulse-rule-detail p{line-height:1.65;color:#6f6e6c}
+@media(max-width:760px){.pulse-help-grid{grid-template-columns:1fr}}
+
+
+/* V2.9.4 separate stage and VCPulse columns */
+@media(min-width:761px){
+  .radar-table-wrap .pulse-badge{white-space:nowrap}
+}
+
+
+
+/* V2.42.0 — post-breakout 10 trading-day performance */
+.postbreakout-mini{font-size:11px;line-height:1.35;margin-top:4px;white-space:nowrap}
+/* V2.42.1 — mobile breakout performance summary */
+.mobile-postbreakout-performance{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 2px;font-size:13px;font-weight:800;color:#784d3d}
+.mobile-postbreakout-performance span{background:#fbfaf8;border:1px solid #f0ece7;border-radius:999px;padding:5px 9px}
+.mobile-postbreakout-performance .high{color:#8f4a2f;background:#fbfaf9;border-color:#eae7e3}
+/* V2.41.48 mobile analysis CTA — primary, obvious action */
+.mobile-analysis-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  margin:10px 0 0;
+  padding:10px 14px;
+  border:1px solid #d7d1c9;
+  border-radius:13px;
+  background:#b66749;
+  color:#fff;
+  font:inherit;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.1px;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(115,78,46,.12);
+  -webkit-tap-highlight-color:transparent;
+}
+.mobile-analysis-btn:hover{filter:brightness(.98)}
+.mobile-analysis-btn:active{transform:translateY(1px);opacity:.88}
+.mobile-stock-name-btn{
+  appearance:none;border:0;background:transparent;padding:0;margin:0;
+  font:inherit;font-weight:inherit;color:inherit;text-align:left;cursor:pointer;
+  -webkit-tap-highlight-color:transparent
+}
+.mobile-stock-name-btn:focus-visible{outline:2px solid #b66749;outline-offset:3px;border-radius:5px}
+
+
+/* V2.10 shared radar labels + compact mobile cards */
+.mobile-why-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reason-toggle{
+  border:0;background:transparent;padding:3px 0;color:#b66749;
+  font:inherit;font-size:11px;font-weight:900;cursor:pointer;
+  -webkit-tap-highlight-color:transparent
+}
+.reason-more[hidden],.reason-more-detail[hidden]{display:none!important}
+@media(max-width:760px){
+  .mobile-stock-card{padding:13px 14px 12px;margin-top:9px}
+  .mobile-stock-name{font-size:16px}
+  .mobile-state{margin-top:8px;padding:5px 8px}
+  .mobile-metrics{gap:6px 12px;margin-top:9px}
+  .mobile-signal-row{margin-top:8px;gap:6px}
+  .mobile-signal{padding:5px 7px}
+  .mobile-why{margin-top:9px;padding-top:9px}
+  .reason-list{gap:4px;margin-top:7px}
+  .mobile-analysis-btn{margin-top:9px}
+}
+
+
+/* V2.10.1 navigation/link clarity */
+.stock-link{
+  appearance:none;border:0;background:transparent;padding:0;margin:0;
+  font:inherit;font-weight:900;color:inherit;cursor:pointer;text-align:left
+}
+.stock-link:hover{text-decoration:underline}
+.stock-link:focus-visible{outline:2px solid #b66749;outline-offset:3px;border-radius:4px}
+.mobile-analysis-btn{font-size:13px}
+
+
+/* V2.10.2 confirmed navigation fix */
+#singleStockAnalysis{scroll-margin-top:16px}
+.radar-open-analysis{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+
+
+/* ===== V2.11 UI polish: radar header, mobile filters, card hierarchy ===== */
+.radar-intro{
+  padding:18px 20px;margin:22px 0 12px;border:1px solid #e9e7e6;
+  border-radius:20px;background:linear-gradient(135deg,#fffefe 0%,#f8f7f6 100%);
+}
+.radar-intro h2{font-size:27px;letter-spacing:-.4px}
+.radar-summary{
+  min-width:88px;padding:10px 13px;border-radius:15px;background:#fff;
+  border:1px solid #e9e7e6;text-align:center;box-shadow:0 5px 14px rgba(57,46,33,.035)
+}
+.radar-summary b{display:block;font-size:22px;line-height:1;color:#2c2b2a}
+.radar-summary span{display:block;margin-top:4px;font-size:11px;color:#727170;font-weight:800}
+.radar-tabs{gap:7px}
+.radar-tab{transition:.15s ease}
+.radar-tab:active{transform:scale(.97)}
+
+@media(max-width:760px){
+  .radar-intro{
+    margin:17px 0 10px;padding:14px 14px;align-items:center;
+    border-radius:17px
+  }
+  .radar-intro h2{font-size:21px;margin:2px 0 3px}
+  .radar-intro p{font-size:11px;line-height:1.45;max-width:235px}
+  .radar-summary{min-width:66px;padding:8px 9px;border-radius:13px}
+  .radar-summary b{font-size:19px}
+  .radar-summary span{font-size:10px}
+
+  /* All filters visible: two-row compact chip grid instead of clipped horizontal scrolling. */
+  .radar-tabs{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px!important;
+    overflow:visible!important;
+    padding:2px 0 4px!important
+  }
+  .radar-tab{
+    width:100%;min-width:0!important;padding:8px 5px!important;
+    border-radius:12px!important;font-size:11px!important;
+    white-space:nowrap;text-align:center
+  }
+
+  /* Stronger card hierarchy */
+  .mobile-stock-card{
+    border-radius:19px;padding:14px 14px 12px;
+    box-shadow:0 6px 18px rgba(57,46,33,.045)
+  }
+  .mobile-stock-top{align-items:center}
+  .mobile-stock-name{font-size:17px;letter-spacing:-.2px}
+  .mobile-score{font-size:12px}
+  .mobile-state{
+    font-size:11px;margin-top:8px;padding:5px 8px;background:#f3f2f1
+  }
+  .pulse-badge{font-size:11px;padding:5px 8px}
+  .mobile-metrics{
+    margin-top:10px;padding:10px 0 2px;
+    border-top:1px solid #eeeceb
+  }
+  .mobile-metric{font-size:10px}
+  .mobile-metric b{font-size:13px;margin-top:3px}
+  .mobile-signal-row{margin-top:8px}
+  .mobile-signal{font-size:10.5px;padding:5px 7px}
+  .mobile-why{margin-top:9px}
+  .mobile-why-title{font-size:11px}
+  .reason-item{font-size:11.5px}
+  .mobile-analysis-btn{
+    margin-top:9px;padding:10px 14px!important;font-size:12.5px!important
+  }
+}
+
+
+/* V2.11.1 visible candidate count */
+.radar-head-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.radar-count-pill{
+  padding:7px 11px;border:1px solid #e5e3e1;border-radius:999px;background:#fffefd;
+  color:#747371;font-size:12px;font-weight:800;white-space:nowrap
+}
+.radar-count-pill b{font-size:16px;color:#2c2b2a;margin:0 2px}
+@media(max-width:760px){
+ .section-title{align-items:flex-start}
+ .radar-head-meta{width:100%;justify-content:space-between;gap:5px;margin-top:5px}
+ .radar-count-pill{padding:6px 9px;font-size:10.5px}
+ .radar-count-pill b{font-size:14px}
+ #radarUpdated{font-size:10px;text-align:right}
+}
+
+
+/* V2.12 Watchlist */
+.stock-name-line{display:flex;align-items:flex-start;gap:7px}
+.favorite-btn{
+ border:0;background:transparent;padding:0;min-width:22px;width:22px;height:22px;
+ font-size:21px;line-height:1;color:#727270;cursor:pointer;border-radius:50%;
+ display:inline-flex;align-items:center;justify-content:center
+}
+.favorite-btn:hover{transform:scale(1.08)}
+.favorite-btn.is-favorite{color:#b66749}
+
+.single-title-row{
+  display:inline-flex;align-items:center;gap:5px;
+  flex-wrap:nowrap;width:max-content;max-width:100%;
+}
+.single-title-row .ticker{
+  min-width:0;white-space:nowrap;
+}
+.single-title-favorite{
+  border:0;background:transparent;padding:0;cursor:pointer;flex:0 0 auto;
+  width:24px;height:26px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:20px;line-height:1;color:#727170;
+  transform:translateY(-1px);
+  transition:transform .15s ease,color .15s ease;
+}
+.single-title-favorite:hover{transform:translateY(-1px) scale(1.08)}
+.single-title-favorite.is-favorite{color:#b66749}
+
+@media(max-width:720px){
+  .topline{align-items:flex-start;flex-wrap:wrap}
+  .topline>div:first-child{min-width:0;flex:1 1 100%}
+  .single-title-row{gap:4px;width:max-content;max-width:100%}
+  .single-title-row .ticker{white-space:nowrap}
+  .single-title-favorite{font-size:19px;width:22px;height:24px}
+  .topline>.badge{margin-left:auto;margin-top:-42px}
+}
+
+.favorite-tab #favoriteCount{
+ display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;
+ padding:0 5px;margin-left:2px;border-radius:999px;background:#ffffffaa;font-size:10px
+}
+.radar-tab.active #favoriteCount{background:#ffffff24}
+.mobile-top-actions{display:flex;align-items:center;gap:7px}
+.mobile-favorite{font-size:23px;width:25px;height:25px}
+@media(max-width:760px){
+ .radar-tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .favorite-tab{grid-column:auto}
+ .mobile-top-actions{align-items:flex-start}
+}
+
+
+/* V2.12.1 mascot size */
+.brand-mascot img{width:min(410px,100%);max-height:315px}
+@media(max-width:900px) and (min-width:761px){
+  .brand-mascot img{width:370px;max-height:275px}
+}
+@media(max-width:760px){
+  .brand-mascot img{width:138px;max-height:170px}
+}
+@media(max-width:390px){
+  .brand-mascot img{width:120px;max-height:155px}
+}
+
+
+/* V2.12.4 return to radar position */
+.single-head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.return-radar-btn{
+ border:1px solid #dfddda;background:#fffefd;color:#8f4a2f;border-radius:999px;
+ padding:7px 11px;font-size:11px;font-weight:900;cursor:pointer
+}
+.return-radar-btn:hover{background:#f5f3f2}
+.radar-return-highlight{animation:radarReturnGlow 1.8s ease}
+@keyframes radarReturnGlow{
+ 0%,100%{box-shadow:none;background-color:transparent}
+ 20%,65%{box-shadow:0 0 0 3px rgba(184,120,54,.18);background-color:#fffdfa}
+}
+.mobile-stock-card.radar-return-highlight{animation:radarReturnCardGlow 1.8s ease}
+@keyframes radarReturnCardGlow{
+ 0%,100%{box-shadow:0 6px 18px rgba(57,46,33,.045)}
+ 20%,65%{box-shadow:0 0 0 3px rgba(184,120,54,.20),0 8px 22px rgba(57,46,33,.07);background:#fffdfb}
+}
+@media(max-width:760px){
+ .single-head-actions{width:100%;justify-content:space-between;gap:5px;margin-top:4px}
+ .return-radar-btn{padding:6px 9px;font-size:10.5px}
+}
+
+
+/* V2.12.5 Safari-safe return navigation */
+.return-radar-btn:not([hidden]){display:inline-flex!important;align-items:center}
+@media(max-width:760px){
+ .return-radar-btn{position:relative;z-index:3}
+}
+
+
+/* V2.12.6 — fixed return button */
+.radar-back-float{
+ position:fixed;
+ right:18px;
+ bottom:22px;
+ z-index:9999;
+ border:1px solid #d9d6d2;
+ background:#fffefd;
+ color:#8f4a2f;
+ border-radius:999px;
+ padding:11px 15px;
+ font-size:13px;
+ font-weight:900;
+ line-height:1;
+ box-shadow:0 8px 24px rgba(60,45,30,.16);
+ cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+}
+.radar-back-float:hover{background:#f6f4f2}
+.radar-back-float[hidden]{display:none!important}
+
+@media(max-width:760px){
+ .radar-back-float{
+   right:14px;
+   bottom:calc(16px + env(safe-area-inset-bottom));
+   padding:12px 15px;
+   font-size:13px;
+ }
+}
+
+
+/* V2.12.9 — highlight the stock just viewed for 3 seconds */
+.radar-return-highlight-3s{
+ animation:vcpReturnHighlight3s 3s ease-out!important;
+ position:relative;
+ z-index:2;
+}
+@keyframes vcpReturnHighlight3s{
+ 0%{
+   background:#fff9f2;
+   box-shadow:0 0 0 4px rgba(214,157,43,.32),0 8px 24px rgba(83,61,26,.12);
+ }
+ 18%,72%{
+   background:#fffcf9;
+   box-shadow:0 0 0 3px rgba(214,157,43,.22),0 6px 18px rgba(83,61,26,.08);
+ }
+ 100%{
+   background:transparent;
+   box-shadow:none;
+ }
+}
+.mobile-stock-card.radar-return-highlight-3s{
+ animation:vcpReturnCardHighlight3s 3s ease-out!important;
+}
+@keyframes vcpReturnCardHighlight3s{
+ 0%{
+   background:#fff9f2;
+   box-shadow:0 0 0 4px rgba(214,157,43,.32),0 10px 26px rgba(83,61,26,.12);
+ }
+ 18%,72%{
+   background:#fffcf9;
+   box-shadow:0 0 0 3px rgba(214,157,43,.22),0 8px 22px rgba(83,61,26,.09);
+ }
+ 100%{
+   background:#fff;
+ }
+}
+
+
+/* V2.13 — high-attention filter */
+@media(max-width:760px){
+ .radar-tabs{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ .radar-tab{
+   width:100%;
+   justify-content:center;
+ }
+}
+
+
+/* V2.14 — radar sorting */
+.radar-sort-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.radar-sort-wrap label{font-size:12px;font-weight:800;color:#777674}
+.radar-sort{
+ appearance:none;border:1px solid #dddbd9;border-radius:12px;background:#fffefe;color:#292828;
+ font-weight:800;font-size:12px;padding:8px 30px 8px 11px;cursor:pointer;
+ background-image:linear-gradient(45deg,transparent 50%,#777 50%),linear-gradient(135deg,#777 50%,transparent 50%);
+ background-position:calc(100% - 15px) 50%,calc(100% - 10px) 50%;
+ background-size:5px 5px,5px 5px;background-repeat:no-repeat
+}
+@media(max-width:760px){
+ .radar-sort-wrap{width:100%;justify-content:space-between;margin-top:8px}
+ .radar-sort{min-width:150px;padding-top:9px;padding-bottom:9px}
+}
+
+
+/* V2.22.13 — bidirectional Pivot distance visual */
+.pivot-distance-track{
+ position:relative;
+ width:100%;
+ max-width:112px;
+ height:7px;
+ margin-top:8px;
+ border-radius:999px;
+ background:#ebeae9;
+ overflow:hidden;
+}
+.pivot-distance-track::after{
+ content:"";
+ position:absolute;
+ left:50%;
+ top:-2px;
+ bottom:-2px;
+ width:2px;
+ border-radius:2px;
+ background:#8b8988;
+ opacity:.72;
+ transform:translateX(-1px);
+ z-index:2;
+}
+.pivot-distance-fill{
+ position:absolute;
+ top:0;
+ height:100%;
+ border-radius:999px;
+ opacity:.9;
+}
+.pivot-distance-fill.negative{
+ right:50%;
+ background:#d98a3a;
+}
+.pivot-distance-fill.near{
+ background:#d9b84c;
+}
+.pivot-distance-fill.positive{
+ left:50%;
+ background:#64a96f;
+}
+.pivot-distance-track[data-zone="near"] .pivot-distance-fill{
+ left:calc(50% - 4px);
+ width:8px!important;
+}
+
+
+/* V2.16 — 今日新進 */
+.new-entry-badge{
+ display:inline-flex;align-items:center;margin-left:7px;padding:2px 6px;border-radius:999px;
+ background:#fffaf4;color:#8a5a00;border:1px solid #efd28a;font-size:10px;font-weight:900;
+ letter-spacing:.04em;vertical-align:middle;
+}
+.reason-item.reason-new{background:#fffcf9;border-color:#efe8df;color:#75500a;font-weight:800}
+
+
+/* V2.17 — high-attention reason at a glance */
+.attention-summary{margin-top:6px;font-size:11px;line-height:1.45;font-weight:800;color:#75716d;letter-spacing:.01em}
+.desktop-attention{max-width:175px;white-space:normal}
+@media(max-width:760px){.attention-summary{font-size:11px;margin-top:5px}}
+
+
+/* V2.20 — data freshness / snapshot status */
+.radar-freshness{
+ display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;
+ margin:0 0 12px;padding:10px 12px;border:1px solid #e9e7e6;border-radius:14px;
+ background:#f9fafb;font-size:12px;color:#626160;
+}
+.freshness-item{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;background:#fff;border:1px solid #eeedeb}
+.freshness-dot{width:8px;height:8px;border-radius:50%;background:#75b987;box-shadow:0 0 0 3px rgba(117,185,135,.12)}
+.freshness-item.intraday .freshness-dot{background:#e5b84d;box-shadow:0 0 0 3px rgba(229,184,77,.14)}
+.freshness-title{font-weight:900;color:#373635}
+.freshness-note{color:#737270}
+@media(max-width:760px){
+ .radar-freshness{display:grid;grid-template-columns:1fr;padding:9px;margin-bottom:10px}
+ .freshness-item{width:100%;box-sizing:border-box;border-radius:12px}
+}
+
+
+/* V2.21 — official close vs intraday dual snapshots */
+.radar-snapshot-switch{
+ display:flex;gap:8px;align-items:center;margin:0 0 12px;
+}
+.snapshot-btn{
+ border:1px solid #e2e1df;background:#fff;color:#5e5d5b;
+ border-radius:999px;padding:8px 12px;font-weight:850;font-size:12px;cursor:pointer;
+}
+.snapshot-btn.active{
+ background:#262525;color:#fff;border-color:#262525;
+}
+.snapshot-btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:760px){
+ .radar-snapshot-switch{display:grid;grid-template-columns:1fr 1fr}
+ .snapshot-btn{width:100%;padding:8px 7px}
+}
+
+
+/* V2.22.8: remove duplicated radar header metadata */
+#radarUpdated{display:none!important}
+
+/* V2.22.14 — desktop Pivot track */
+.desktop-pivot-distance{
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ gap:2px;
+ min-width:96px;
+}
+.desktop-pivot-distance b{font-weight:800}
+.desktop-pivot-track{
+ width:92px;
+ max-width:92px;
+ margin-top:4px;
+}
+
+
+/* V2.23 — 今日漲跌幅 */
+.change-pct{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.change-pct.up{color:#2f7d52}
+.change-pct.down{color:#b14b42}
+.change-pct.flat{color:#777675}
+
+
+/* V2.25 — 台股大盤概況 */
+.market-overview{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px;
+}
+.market-index-card{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:12px 14px;border:1px solid #e9e7e6;border-radius:14px;background:#fffefe;
+}
+.market-index-name{font-size:12px;color:#777674;font-weight:800}
+.market-index-value{margin-top:3px;font-size:16px;font-weight:950;color:#2e2d2c;font-variant-numeric:tabular-nums}
+.market-index-change{font-size:14px;font-weight:950;white-space:nowrap;font-variant-numeric:tabular-nums}
+.market-index-change.up{color:#2f7d52}
+.market-index-change.down{color:#b14b42}
+.market-index-change.flat{color:#777675}
+.market-index-time{font-size:10px;color:#727170;margin-top:2px}
+@media(max-width:760px){
+ .market-overview{grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+ .market-index-card{display:block;padding:10px 11px}
+ .market-index-value{font-size:14px}
+ .market-index-change{font-size:12px;margin-top:4px}
+ .market-index-time{display:none}
+}
+@media(max-width:390px){
+ .market-index-name{font-size:11px}
+ .market-index-value{font-size:13px}
+ .market-index-change{font-size:11px}
+}
+
+
+/* V2.26 — 單股快速判讀 */
+.single-quick-read{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:13px 0 10px}
+.single-quick-item{background:#f7f6f6;border-radius:14px;padding:11px 12px;min-width:0}
+.single-quick-item span{display:block;font-size:11px;color:#777675;font-weight:800;margin-bottom:5px}
+.single-quick-item b{display:block;font-size:15px;font-weight:950;line-height:1.25;font-variant-numeric:tabular-nums}
+.single-quick-item small{display:block;font-size:9px;color:#727171;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.single-quick-item b.up,.single-relative-strong{color:#2f7d52}
+.single-quick-item b.down,.single-relative-weak{color:#b14b42}
+.single-signal-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 11px}
+.single-signal-chip{display:inline-flex;align-items:center;padding:6px 9px;border:1px solid #e6e5e3;border-radius:999px;background:#fffefe;font-size:11px;font-weight:850}
+.single-liquidity-detail{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:-2px 0 12px;padding:9px 11px;border:1px solid #e7e5e4;border-radius:12px;background:#f9fafb;font-size:11px;color:#6f6e6d}
+.single-liquidity-detail b{color:#302f2f;font-weight:900}
+.liquidity-desktop{margin-top:4px;font-size:10px;color:#777674;white-space:nowrap}
+@media(max-width:760px){.single-liquidity-detail{font-size:10px;padding:8px 9px}.liquidity-desktop{display:none}}
+@media(max-width:760px){
+ .single-quick-read{gap:6px;margin:11px 0 9px}
+ .single-quick-item{padding:9px 8px;border-radius:12px}
+ .single-quick-item span{font-size:10px}
+ .single-quick-item b{font-size:13px}
+ .single-signal-chip{font-size:10px;padding:5px 7px}
+}
+
+/* V2.27 — 美股四大指數 */
+#marketOverview.us-market{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:760px){
+ #marketOverview.us-market{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #marketOverview.us-market .market-index-card{padding:12px}
+ #marketOverview.us-market .market-index-name{font-size:11px}
+ #marketOverview.us-market .market-index-value{font-size:18px}
+ #marketOverview.us-market .market-index-change{font-size:12px}
+}
+
+/* V2.27.1 — 雷達市場切換 */
+.radar-market-switch{
+ display:inline-flex;gap:4px;padding:4px;margin:0 0 10px;
+ border:1px solid #e6e5e3;border-radius:14px;background:#f6f5f4;
+}
+.radar-market-btn{
+ border:0;background:transparent;color:#6e6d6c;border-radius:10px;
+ padding:8px 15px;font-size:12px;font-weight:900;cursor:pointer;
+}
+.radar-market-btn.active{
+ background:#fff;box-shadow:0 1px 5px rgba(60,48,35,.09);color:#2f2e2d;
+}
+@media(max-width:760px){
+ .radar-market-switch{display:flex;width:100%;box-sizing:border-box}
+ .radar-market-btn{flex:1;padding:8px 10px}
+}
+
+
+/* V2.34 — 使用者端即時行情更新 */
+.user-live-refresh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.user-live-btn{
+ min-width:0;border:1px solid #dcd9d6;background:#fffefd;color:#8f4a2f;
+ border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;cursor:pointer
+}
+.user-live-btn:disabled{opacity:.55;cursor:wait}
+.user-live-status{font-size:11px;color:#737270}
+.live-quote-badge{
+ display:inline-flex;align-items:center;margin-left:6px;padding:2px 6px;border-radius:999px;
+ background:#fffcf8;border:1px solid #ece4db;color:#7a5a19;font-size:9px;font-weight:900
+}
+@media(max-width:760px){
+ .user-live-refresh{display:grid;grid-template-columns:auto 1fr;gap:7px;margin-bottom:10px}
+ .user-live-btn{padding:8px 11px}
+ .user-live-status{font-size:10px}
+}
+
+
+/* V2.40.4 — 手機版每日 VCP 雷達標題與目前顯示對齊 */
+@media(max-width:760px){
+  .radar-section .section-title{
+    display:grid;
+    grid-template-columns:minmax(118px,1fr) auto;
+    align-items:center;
+    column-gap:14px;
+    margin-top:16px;
+  }
+  .radar-section .section-title h2{
+    width:118px;
+    max-width:118px;
+    line-height:1.28;
+    margin:0;
+    white-space:normal;
+  }
+  .radar-section .radar-head-meta{
+    width:auto;
+    margin-top:0;
+    justify-content:flex-end;
+    justify-self:end;
+    flex-wrap:nowrap;
+  }
+  .radar-section .radar-count-pill{
+    margin-left:8px;
+    white-space:nowrap;
+  }
+}
+
+
+/* V2.41 — 資金熱區 */
+.capital-hotspots{margin:12px 0 16px}
+.capital-hotspots-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:9px}
+.capital-hotspots-head h3{margin:0;font-size:16px}
+.capital-hotspots-note{font-size:11px;color:var(--muted)}
+.capital-hotspots-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.capital-hotspot{border:1px solid var(--line);border-radius:14px;padding:11px;background:var(--card)}
+.capital-hotspot-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.capital-hotspot-name{font-weight:800;font-size:14px;line-height:1.25}
+.capital-hotspot-score{font-weight:900;font-size:17px;white-space:nowrap}
+.capital-hotspot-level{font-size:11px;margin:5px 0 7px}
+.capital-hotspot-metrics{display:grid;gap:3px;font-size:11px;color:var(--muted)}
+.capital-hotspot-metrics b{color:var(--text)}
+.capital-hotspot-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.capital-hotspot-action{min-width:0;padding:6px 9px;border-radius:999px;border:1px solid var(--line);background:#f8f8fa;color:var(--text);font-size:11px;font-weight:800;cursor:pointer}
+.capital-hotspot-action:hover,.capital-hotspot-action.active{background:#20231f;color:#fff;border-color:#20231f}
+.capital-hotspot-action:disabled{cursor:default;opacity:.45;background:#f3f2f2;color:var(--muted);border-color:var(--line)}
+.capital-hotspot-hint{font-size:10px;color:var(--muted);margin-top:5px}
+.capital-hotspot-detail{margin-top:9px;padding-top:9px;border-top:1px dashed #dedddc}
+.capital-hotspot-detail-title{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;font-weight:800;margin-bottom:6px}
+.capital-hotspot-list{display:flex;flex-wrap:wrap;gap:5px}
+.capital-stock-btn{min-width:0;padding:6px 8px;border-radius:9px;background:#fff;color:#20231f;border:1px solid #dedddc;font-size:11px;font-weight:700;text-align:left}
+.capital-stock-btn:hover{background:#f3f3f2;border-color:#b9b8b7}
+.capital-stock-btn.breakout{border-color:#9fc9a8;background:#f2faf3}
+.capital-hotspot-none{font-size:11px;color:var(--muted);padding:2px 0}
+.capital-hotspots-empty{font-size:12px;color:var(--muted);padding:10px 0}
+.theme-leaderboards{margin:12px 0 16px}.theme-leaderboards-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:9px}.theme-leaderboards-head h3{margin:0;font-size:16px}.theme-leaderboards-note{font-size:11px;color:var(--muted);text-align:right}.theme-leaderboards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.theme-board{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:11px}.theme-board-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;font-size:13px;font-weight:900}
+.theme-board-hot{background:#fffefc;border-color:#eae6e0}
+.theme-board-setup{background:#fbfaf9;border-color:#e8e4df}
+.theme-board-main{font-size:14px;font-weight:900}
+.theme-board-desc{font-size:10px;font-weight:700;color:var(--muted);margin-top:2px}
+.theme-board-tag{font-size:10px;font-weight:900;border-radius:999px;padding:4px 7px;background:#fff;border:1px solid #dddbd9}
+.theme-board-hot .theme-board-tag{background:#fffcf9;border-color:#e5ddd5}
+.theme-board-setup .theme-board-tag{background:#eee8f7;border-color:#cdbfe2}
+.theme-board-hot .theme-row{background:#fffefe}
+.theme-board-setup .theme-row{background:#fbf9fe}
+.theme-board-list{display:grid;gap:6px}.theme-row{display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:center;gap:7px;padding:7px 8px;border:1px solid #e7e6e5;border-radius:10px;background:#fff}.theme-rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:900;background:#eeedeb}.theme-row:nth-child(1) .theme-rank{background:#ffd66b}.theme-row:nth-child(2) .theme-rank{background:#eae5e0}.theme-row:nth-child(3) .theme-rank{background:#e6b47d}.theme-name{min-width:0;font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.theme-sub{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.theme-score{text-align:right;font-size:11px;font-weight:900;line-height:1.25}.theme-score small{display:block;color:var(--muted);font-weight:700}.theme-empty{font-size:12px;color:var(--muted);padding:8px 2px}
+.theme-stock-caption{font-size:9px;color:var(--muted);font-weight:700;margin-top:4px;margin-bottom:2px}
+.theme-stock-links{display:flex;flex-wrap:wrap;gap:4px;margin-top:0}
+.theme-stock-link{appearance:none;border:1px solid #dddbd9;background:#faf9f9;color:var(--ink);border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800;cursor:pointer;line-height:1.25}
+.theme-stock-link:hover{text-decoration:underline;background:#f2f1ef}
+.theme-stock-link:focus-visible{outline:2px solid #b66749;outline-offset:2px}
+@media(max-width:760px){.theme-leaderboards-head{align-items:flex-start}.theme-leaderboards-grid{display:block}.theme-board+.theme-board{margin-top:8px}.theme-leaderboards-note{max-width:170px}}
+
+@media(max-width:760px){
+ .capital-hotspots-head{align-items:flex-start}
+ .capital-hotspots-grid{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scroll-snap-type:x proximity}
+ .capital-hotspot{min-width:172px;scroll-snap-align:start}
+ .capital-hotspots-note{max-width:150px;text-align:right}
+}
+
+
+/* V2.41.2 — 資金熱區 Top 5 與排名圈圈 */
+.capital-hotspots-title{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.capital-top5-badge{display:inline-flex;align-items:center;padding:4px 10px;border:1px solid #eae4dd;border-radius:999px;background:#fffdfa;font-size:12px;font-weight:800;white-space:nowrap}
+.capital-hotspot-rank{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-weight:900;font-size:14px;flex:0 0 28px}
+.capital-hotspot:nth-child(1) .capital-hotspot-rank{background:#ffd66b}
+.capital-hotspot:nth-child(2) .capital-hotspot-rank{background:#eae5e0}
+.capital-hotspot:nth-child(3) .capital-hotspot-rank{background:#e6b47d}
+.capital-hotspot:nth-child(4) .capital-hotspot-rank{background:#a9dda0}
+.capital-hotspot:nth-child(5) .capital-hotspot-rank{background:#c8a4ef}
+.capital-hotspot-namewrap{display:flex;align-items:center;gap:7px;min-width:0}
+/* V2.43.6 — 資金熱區同分並列：避免 1 分變化看起來像排名暴衝 */
+.capital-hotspot .capital-hotspot-rank.rank-1{background:#ffd66b}
+.capital-hotspot .capital-hotspot-rank.rank-2{background:#eae5e0}
+.capital-hotspot .capital-hotspot-rank.rank-3{background:#e6b47d}
+.capital-hotspot .capital-hotspot-rank.rank-4{background:#a9dda0}
+.capital-hotspot .capital-hotspot-rank.rank-5{background:#c8a4ef}
+.capital-hotspot-scorewrap{display:flex;align-items:baseline;gap:5px;white-space:nowrap}
+.capital-hotspot-tie{font-size:9px;font-weight:800;color:var(--muted)}
+.capital-hotspot-scoretrend{margin-top:6px;padding-top:6px;border-top:1px dashed #e3e2e1;font-size:10px;font-weight:750;color:var(--muted)}
+.capital-hotspot-scoretrend b{color:var(--text)}
+
+
+/* V2.41.3 — 手機版收藏加文字，避免和 VCP 評分星星混淆 */
+@media(max-width:720px){
+  .mobile-favorite{
+    width:auto !important;
+    min-width:72px !important;
+    height:32px !important;
+    padding:0 10px !important;
+    border:1px solid #dddbd9 !important;
+    border-radius:999px !important;
+    background:#fff !important;
+    font-size:13px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    gap:3px;
+    white-space:nowrap;
+  }
+  .mobile-favorite.is-favorite{
+    border-color:#d7d0c9 !important;
+    background:#fffefc !important;
+  }
+}
+
+
+/* V2.41.4 — 收藏語意統一：★ 我的收藏 / ☆ 收藏 / ★ 已收藏 */
+/* V2.42.4 — 修正「我的收藏」啟用狀態：深色背景時文字保持白色可讀 */
+.favorite-tab{color:#8f4a2f}
+.favorite-tab.active{color:#fff !important}
+.favorite-tab.active #favoriteCount{color:#fff}
+
+
+/* V2.41.5 — 手機版收藏按鈕縮小 */
+@media(max-width:720px){
+  .mobile-favorite{
+    min-width:60px !important;
+    height:26px !important;
+    padding:0 8px !important;
+    font-size:12px !important;
+    font-weight:800 !important;
+    border-radius:999px !important;
+  }
+}
+
+
+/* V2.41.7 — 每日雷達 / 台美股資料日期與掃描時間重新排版 */
+.radar-freshness{
+  display:grid;
+  gap:10px;
+}
+.freshness-item{
+  display:grid !important;
+  grid-template-columns:minmax(220px,1.25fr) minmax(180px,.9fr) minmax(130px,.65fr);
+  align-items:center;
+  gap:0 !important;
+  padding:13px 16px !important;
+  border:1px solid #e4e2e1;
+  border-radius:15px;
+  background:#fff;
+}
+.freshness-status,
+.freshness-date,
+.freshness-scan{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.freshness-date,
+.freshness-scan{
+  padding-left:18px;
+  border-left:1px solid #e9e7e6;
+}
+.freshness-title{
+  font-size:14px;
+  font-weight:900;
+  line-height:1.25;
+  color:var(--text);
+}
+.freshness-sub{
+  margin-top:3px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+}
+.freshness-date b,
+.freshness-scan b{
+  display:block;
+  font-size:14px;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.freshness-date small,
+.freshness-scan small{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  color:var(--muted);
+}
+.freshness-icon{
+  flex:0 0 auto;
+  font-size:16px;
+  color:#777574;
+}
+
+@media(max-width:760px){
+  .radar-section .section-title h2{
+    width:auto !important;
+    max-width:none !important;
+    white-space:nowrap !important;
+  }
+  .freshness-item{
+    grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) minmax(76px,.62fr);
+    padding:12px 13px !important;
+  }
+  .freshness-status{gap:7px}
+  .freshness-date,
+  .freshness-scan{
+    gap:6px;
+    padding-left:10px;
+  }
+  .freshness-title{font-size:12.5px}
+  .freshness-sub{font-size:9.5px;line-height:1.25}
+  .freshness-date b,
+  .freshness-scan b{
+    font-size:11.5px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  .freshness-date small,
+  .freshness-scan small{font-size:9px}
+  .freshness-icon{display:none}
+}
+
+
+/* V2.42.6.8 — Radar Layout Polish */
+.section-kicker{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}
+.capital-hotspots{margin:10px 0 18px}
+.capital-hotspots-head{align-items:center;margin-bottom:7px}
+.capital-hotspots-title{align-items:center}
+.capital-hotspots-note{cursor:help;border-bottom:1px dotted #aaa;white-space:nowrap}
+.capital-hotspot{padding:9px 10px;border-radius:13px}
+.capital-hotspot-name{font-size:13px}
+.capital-hotspot-score{font-size:16px}
+.capital-hotspot-level{margin:3px 0 4px}
+.capital-hotspot-metrics{gap:1px;line-height:1.25}
+.capital-hotspot-actions{margin-top:5px}
+.capital-hotspot-action{padding:5px 8px}
+.theme-leaderboards{margin:16px 0}
+.theme-leaderboards-head{margin-bottom:8px}
+.theme-leaderboards-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.theme-board-hot{box-shadow:0 3px 12px rgba(139,91,25,.05)}
+.theme-board-setup{box-shadow:none}
+.theme-board-hot .theme-board-main{font-size:15px}
+.theme-board-setup .theme-board-main{font-size:14px}
+.theme-board-hot .theme-rank{transform:scale(1.03)}
+.theme-board-setup .theme-rank{opacity:.86}
+@media(max-width:760px){
+  .capital-hotspots-note{font-size:10px}
+  .theme-leaderboards-grid{display:block}
+  .theme-board-hot .theme-board-main,.theme-board-setup .theme-board-main{font-size:14px}
+}
+
+.theme-help-btn{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;padding:4px 2px;border-bottom:1px dotted #aaa}
+.theme-helpbox{margin:-2px 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:10px;line-height:1.55;color:#635f5a}
+.theme-helpbox span{color:var(--muted)}
+.theme-score{min-width:112px}
+.theme-score small{font-size:9px}
+
+.theme-help-intro{margin-bottom:8px}.theme-help-table-wrap{overflow-x:auto;margin:7px 0 8px}.theme-help-table{width:100%;border-collapse:collapse;min-width:500px;background:#fff}.theme-help-table th,.theme-help-table td{padding:7px 9px;border:1px solid var(--line);text-align:left;vertical-align:top;font-size:10px;line-height:1.4}.theme-help-table thead th{font-weight:900;background:#faf9f9;color:#3f3e3d}.theme-help-table tbody th{width:86px;font-weight:850;background:#fafbfc;color:#626160;white-space:nowrap}.theme-help-note{padding-top:2px;color:#6f6d6c;line-height:1.55}@media(max-width:760px){.theme-helpbox{font-size:10px;padding:9px}.theme-help-table th,.theme-help-table td{padding:6px 7px;font-size:9.5px}}
+
+.capital-hotspots-note{font-family:inherit;cursor:pointer;border:0;border-bottom:1px dotted #aaa;background:transparent;padding:4px 2px;color:var(--muted);font-size:11px}
+.capital-hotspots-note:hover{color:#635f5a}
+.capital-helpbox{margin:-2px 0 9px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:10px;line-height:1.55;color:#635f5a}
+.capital-helpbox span{color:#6f6d6c}
+
+/* V2.42.6.19 — mobile compact theme radar */
+.theme-help-mobile-cards{display:none}
+.theme-score-mobile{display:none}
+
+@media(max-width:760px){
+  /* Help: no horizontal table scrolling on phones */
+  .theme-help-table-wrap{display:none}
+  .theme-help-mobile-cards{display:grid;grid-template-columns:1fr;gap:7px;margin:8px 0}
+  .theme-help-mobile-card{border:1px solid var(--line);border-radius:10px;padding:8px 9px;background:#fff;line-height:1.45;font-size:10px}
+  .theme-help-mobile-card.hot{background:#fffefc;border-color:#eae6e0}
+  .theme-help-mobile-card.setup{background:#fbfaf9;border-color:#e8e4df}
+  .theme-help-mobile-title{font-size:11px;font-weight:900;margin-bottom:4px}
+  .theme-help-mobile-card>div:not(.theme-help-mobile-title){margin-top:2px}
+
+  /* Board/card compaction */
+  .theme-board{padding:9px}
+  .theme-board-title{margin-bottom:6px}
+  .theme-board-list{gap:5px}
+  .theme-row{
+    grid-template-columns:24px minmax(0,1fr);
+    align-items:start;
+    gap:6px;
+    padding:7px;
+  }
+  .theme-rank{width:23px;height:23px;font-size:11px;margin-top:1px}
+  .theme-main{min-width:0}
+  .theme-score-desktop{display:none}
+  .theme-score-mobile{
+    display:block;
+    min-width:auto;
+    text-align:right;
+    font-size:10px;
+    line-height:1.2;
+    white-space:nowrap;
+  }
+  .theme-score-mobile small{font-size:8.5px}
+  .theme-mobile-head{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:6px;
+    align-items:start;
+  }
+  .theme-name{font-size:12px}
+  .theme-sub{font-size:9.5px;margin-top:1px}
+  .theme-stock-caption{font-size:8.5px;margin-top:3px;margin-bottom:2px}
+  .theme-stock-links{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:4px 5px;
+  }
+  .theme-stock-link{
+    width:100%;
+    min-width:0;
+    padding:3px 5px;
+    font-size:9.5px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+
+/* V2.42.6.20 — desktop help adopts the cleaner card language */
+.theme-help-table-wrap{display:none}
+.theme-help-mobile-cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:10px 0;
+}
+.theme-help-mobile-card{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  background:#fff;
+  line-height:1.55;
+  font-size:11px;
+}
+.theme-help-mobile-card.hot{background:#fffefc;border-color:#eae6e0}
+.theme-help-mobile-card.setup{background:#fbfaf9;border-color:#e8e4df}
+.theme-help-mobile-title{font-size:13px;font-weight:900;margin-bottom:6px}
+.theme-help-mobile-card>div:not(.theme-help-mobile-title){margin-top:3px}
+.theme-help-note{margin-top:8px;padding:9px 11px;border-radius:9px;background:#f8f9fa}
+
+@media(max-width:760px){
+  .theme-help-mobile-cards{grid-template-columns:1fr;gap:7px;margin:8px 0}
+  .theme-help-mobile-card{padding:8px 9px;font-size:10px}
+  .theme-help-mobile-title{font-size:11px;margin-bottom:4px}
+  .theme-help-note{padding:7px 8px;margin-top:6px}
+}
+
+/* V2.42.6.20 — mobile collapsible theme representatives */
+.theme-stock-toggle,.theme-expand-all{display:none}
+@media(max-width:760px){
+  .theme-stock-toggle{display:inline-flex;align-items:center;gap:3px;border:0;background:transparent;color:#b66749;font-size:9px;font-weight:850;padding:2px 0;margin-top:3px;cursor:pointer}
+  .theme-stock-toggle::after{content:"＋";font-weight:900}
+  .theme-row.theme-stocks-open .theme-stock-toggle::after{content:"－"}
+  .theme-stock-panel{display:none}
+  .theme-row.theme-stocks-open .theme-stock-panel{display:block}
+  .theme-expand-all{display:inline-flex;border:1px solid #dddbd9;background:rgba(255,255,255,.7);color:#757371;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:850;cursor:pointer;white-space:nowrap}
+  .theme-board-title{align-items:flex-start}
+  .theme-board-actions{display:flex;align-items:center;gap:5px}
+}
+
+/* V2.42.8.1 — 今日漲幅排序方向獨立控制，避免 Safari 原生 select 重複點選誤切換 */
+.change-sort-dir{
+  display:none;
+  min-width:0;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:1px solid #dddbd9;
+  border-radius:10px;
+  background:#fffefe;
+  color:#5f5e5c;
+  font-size:17px;
+  font-weight:900;
+  line-height:1;
+  align-items:center;
+  justify-content:center;
+}
+.change-sort-dir.show{display:inline-flex}
+.change-sort-dir:active{transform:translateY(1px)}
+@media(max-width:760px){
+  .change-sort-dir{width:36px;height:36px}
+}
+
+
+/* V2.42.9.1 — 指標說明章節分區，提升段落辨識 */
+.helpbox{padding:22px}
+.help-section{
+  margin:0 0 14px;padding:16px 18px 15px;
+  border:1px solid #ebeae8;border-radius:15px;background:#f9fafb;
+  box-shadow:0 2px 8px rgba(57,46,33,.025);
+}
+.help-section:last-child{margin-bottom:0}
+.help-section h3{
+  position:relative;margin:0 0 11px;padding-left:12px;font-size:17px;font-weight:950;color:#2e2d2c;
+}
+.help-section h3::before{
+  content:"";position:absolute;left:0;top:2px;bottom:2px;width:4px;border-radius:999px;background:#b66749;
+}
+.help-section p:first-of-type{margin-top:0}
+.help-section p:last-child{margin-bottom:0}
+.help-section table{background:#fff;border:1px solid #eeedeb;border-radius:10px;overflow:hidden}
+@media(max-width:760px){
+  .helpbox{padding:12px}
+  .help-section{margin-bottom:10px;padding:13px 12px;border-radius:13px}
+  .help-section h3{font-size:16px;margin-bottom:9px}
+  .help-section p{font-size:13px;line-height:1.65}
+  .help-section table{font-size:12px}
+  .help-section .muted{font-size:11px}
+}
+
+/* ===== VCPulse Beta · Market Structure v1.0 frozen research ===== */
+.market-structure-card{margin:0 0 18px;padding:18px 22px;background:#fffefe;border:1px solid var(--vp-line,#e8e7e5);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.ms-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.ms-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ms-title{font-size:20px;font-weight:900}.ms-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3f2f0;color:#8f4a2f;vertical-align:middle}.ms-body{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:18px}.ms-state-wrap{display:flex;align-items:center;gap:12px}.ms-icon{font-size:28px}.ms-state{font-size:25px;font-weight:950}.ms-code{font-size:11px;color:#72706f;margin-top:2px}.ms-metrics{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.ms-chip{padding:8px 10px;background:#f7f6f5;border-radius:11px;font-size:12px;color:#6f6e6c}.ms-chip b{color:#2c2b2a}.ms-note{margin-top:10px;font-size:11px;color:#72706f;line-height:1.55}.ms-help{margin-top:10px;font-size:12px;color:#62615f;line-height:1.6}.ms-help-btn{min-width:0;padding:5px 9px;border:1px solid #dddbd8;border-radius:999px;background:#fffefe;color:#62615f;font-size:11px;font-weight:800;cursor:pointer}.ms-help-box{display:none;margin-top:12px;padding:15px 16px;background:#f8f7f6;border:1px solid #e9e7e6;border-radius:14px;color:#62615f;font-size:13px;line-height:1.7}.ms-help-box.open{display:block}.ms-help-box h4{margin:10px 0 5px;color:#2c2b2a}.ms-help-box p{margin:5px 0}.ms-help-box ul{margin:6px 0 8px;padding-left:20px}.ms-wait{color:#777674;font-size:13px}
+@media(max-width:760px){.market-structure-card{padding:15px;margin-bottom:14px}.ms-title{font-size:18px}.ms-body{align-items:flex-start;flex-direction:column}.ms-state{font-size:23px}.ms-metrics{justify-content:flex-start}.ms-chip{padding:7px 9px}}
+
+/* ===== VCPulse 2.43.0 BETA · Market Pulse v0.6 ===== */
+.market-pulse-card{margin:0 0 18px;padding:20px 22px;background:#fffefe;border:1px solid var(--vp-line,#e8e7e5);border-radius:20px;box-shadow:0 8px 22px rgba(57,46,33,.035)}
+.mp-head,.mp-scoreline{display:flex;justify-content:space-between;align-items:center;gap:12px}.mp-title{font-size:20px;font-weight:900}.mp-beta{font-size:10px;padding:4px 7px;border-radius:999px;background:#f3f2f0;color:#8f4a2f;vertical-align:middle}.mp-score{font-size:38px;font-weight:900;letter-spacing:-1px}.mp-state{font-size:17px;font-weight:800}.mp-signals{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:14px}.mp-signal{padding:10px;background:#f7f6f5;border-radius:12px;min-width:0}.mp-signal span{display:block;font-size:11px;color:#777674;white-space:nowrap}.mp-signal b{display:block;margin-top:4px;font-size:15px}.mp-up{color:var(--good)}.mp-down{color:var(--bad)}.mp-flat{color:var(--muted)}.mp-reason{margin-top:12px;font-size:13px;color:#62615f;line-height:1.55}.mp-meta{margin-top:7px;font-size:11px;color:#72706f}.mp-wait{color:#777674;font-size:13px}.mp-title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.mp-help-btn{min-width:0;padding:5px 9px;border:1px solid #dddbd8;border-radius:999px;background:#fffefe;color:#62615f;font-size:11px;font-weight:800;cursor:pointer}.mp-help{display:none;margin-top:14px;padding:15px 16px;background:#f8f7f6;border:1px solid #e9e7e6;border-radius:14px;color:#62615f;font-size:13px;line-height:1.7}.mp-help.open{display:block}.mp-help h4{margin:0 0 6px;font-size:14px;color:#2c2b2a}.mp-help p{margin:5px 0}.mp-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:9px 0}.mp-help-item{padding:9px 10px;background:#fffefe;border-radius:10px}.mp-help-item b{display:block;color:#2c2b2a}.mp-help-scale{margin:8px 0;padding:10px 12px;border-radius:11px;background:#fffefe}.mp-help-flow{font-weight:800;color:#51504e}
+@media(max-width:760px){.market-pulse-card{padding:15px;margin-bottom:14px}.mp-title{font-size:18px}.mp-score{font-size:32px}.mp-signals{grid-template-columns:repeat(3,1fr)}.mp-signal{padding:9px}.mp-signal b{font-size:14px}.mp-help-grid{grid-template-columns:1fr}.mp-head{align-items:flex-start}}
+
+/* ===== 02. head-02 button.pulse-help-trigger ===== */
+button.pulse-help-trigger{
+  font:inherit!important;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  color:#2c2b2a!important;
+  min-width:0!important;
+  padding:6px 9px!important;
+  line-height:1.2!important;
+  border-width:1px!important;
+}.pulse-help-popover[hidden]{display:none!important}.pulse-help-popover{position:fixed;inset:0;z-index:10020;display:flex;align-items:center;justify-content:center;padding:20px}.pulse-help-backdrop{position:absolute;inset:0;background:rgba(35,34,33,.2);backdrop-filter:blur(3px)}.pulse-help-card{position:relative;z-index:1;width:min(430px,calc(100vw - 34px));padding:22px;border:1px solid #dedcd9;border-radius:22px;background:linear-gradient(160deg,#fff,rgba(250,249,248,.98));box-shadow:0 22px 60px rgba(58,56,53,.18)}.pulse-help-close{
+  position:absolute;
+  right:13px;
+  top:11px;
+  width:29px;
+  height:29px;
+  min-width:29px;
+  padding:0;
+  border:1px solid rgba(205,203,200,.72);
+  border-radius:50%;
+  background:rgba(245,244,243,.88);
+  color:#5f5e5d;
+  font-size:17px;
+  font-weight:700;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(60,48,35,.05);
+  cursor:pointer;
+}.pulse-help-pop-title{padding-right:38px;font-size:20px;font-weight:950}.pulse-help-pop-desc{margin-top:10px;color:#666563;font-size:14px;line-height:1.75}.pulse-help-watch-title{margin-top:16px;font-size:12px;font-weight:950;color:#b66749}.pulse-help-pop-watch{margin-top:5px;padding:11px 13px;border-radius:13px;background:#f6f5f3;font-size:13px;line-height:1.7}.pulse-help-ok{width:100%;margin-top:16px;padding:11px;border:0;border-radius:13px;background:#282b27;color:#fff;font-weight:900}@media(max-width:760px){.pulse-help-popover{align-items:flex-end;padding:14px}.pulse-help-card{width:100%;border-radius:22px;padding:21px 18px calc(17px + env(safe-area-inset-bottom))}}
+
+/* ===== 03. head-03 V2.41.39 — 手機卡片恢復可點擊 VCPulse 訊號說明 ===== */
+/* V2.41.39 — 手機卡片恢復可點擊 VCPulse 訊號說明 */
+.mobile-pulse-row{
+  margin-top:7px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+@media(max-width:760px){
+  .mobile-pulse-row .pulse-badge{
+    min-width:0!important;
+    padding:5px 8px!important;
+    font-size:11px!important;
+    line-height:1.15!important;
+  }
+}
+
+/* ===== 04. head-04 V2.46.0 — News Impact TW v1 ===== */
+/* V2.46.0 — News Impact TW v1 */
+.news-impact-card{margin-top:16px}
+.news-impact-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.news-impact-title{font-size:17px;font-weight:950;letter-spacing:-.2px}
+.news-impact-beta{flex:0 0 auto;padding:4px 7px;border-radius:999px;background:#f4f3f1;border:1px solid #e6e3e0;color:#8f4a2f;font-size:10px;font-weight:900}
+.news-impact-content{display:grid;gap:9px;margin-top:13px}
+.news-impact-item{border:1px solid #e8e7e5;border-radius:14px;background:#fffefe;overflow:hidden}
+.news-impact-item>summary{list-style:none;cursor:pointer;padding:12px 13px;display:grid;gap:5px}
+.news-impact-item>summary::-webkit-details-marker{display:none}
+.news-impact-summary-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.news-impact-event{font-size:11px;font-weight:900;padding:4px 7px;border-radius:999px;background:#f6f5f4;color:#8f4a2f}
+.news-impact-horizon{font-size:10px;color:#71706f;font-weight:800}
+.news-impact-news-title{font-size:13px;font-weight:900;line-height:1.45;color:#2c2b2a}
+.news-impact-source{font-size:10px;color:#70706e}
+.news-impact-detail{padding:0 13px 13px;display:grid;gap:8px}
+.news-impact-row{padding:9px 10px;border-radius:11px;background:#f8f7f6;font-size:12px;line-height:1.55;color:#626160}
+.news-impact-row b{color:#2e2d2c}
+.news-impact-link{display:inline-flex;align-items:center;gap:4px;color:#8f4a2f;font-size:11px;font-weight:900;text-decoration:none}
+.news-impact-link:hover{text-decoration:underline}
+.news-impact-empty{padding:15px 4px;color:#71706f;font-size:12px;line-height:1.6}
+.news-impact-foot{margin-top:10px;padding-top:9px;border-top:1px dashed #e8e6e5;color:#737271;font-size:10px;line-height:1.5}
+@media(max-width:760px){
+  .news-impact-card{margin-top:12px}
+  .news-impact-title{font-size:15px}
+  .news-impact-item>summary{padding:11px 12px}
+  .news-impact-news-title{font-size:12px}
+  .news-impact-detail{padding:0 12px 12px}
+}
+
+/* ===== 05. help-modal-ux-fix ===== */
+/* BETA — 指標使用說明：固定關閉、視窗內捲動、點背景關閉 */
+.helpbox.open{
+  display:block;position:fixed;z-index:10031;left:50%;top:5vh;transform:translateX(-50%);
+  width:min(920px,calc(100vw - 28px));max-height:90vh;overflow-y:auto;overscroll-behavior:contain;
+  margin:0;padding:22px;background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(35,34,33,.22);
+}
+.help-modal-backdrop{position:fixed;inset:0;z-index:10030;background:rgba(35,34,33,.28);backdrop-filter:blur(2px)}
+.help-modal-close{position:sticky;top:0;z-index:5;float:right;margin:-8px -8px 8px 12px;width:38px;height:38px;
+  border:1px solid #dedddb;border-radius:999px;background:rgba(255,255,255,.96);color:#51504e;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(35,34,33,.10)}
+body.help-modal-open{overflow:hidden}
+@media(max-width:760px){
+  .helpbox.open{top:12px;width:calc(100vw - 20px);max-height:calc(100dvh - 24px);padding:14px;border-radius:16px}
+  .help-modal-close{top:0;margin:-3px -3px 6px 10px}
+}
+
+/* ===== 06. head-06 V2.46.1 — 單股桌機版雙欄資訊流：左 K 線→News Impact；右 VCP→輔助籌碼→條件 ===== */
+/* V2.46.1 — 單股桌機版雙欄資訊流：左 K 線→News Impact；右 VCP→輔助籌碼→條件 */
+@media (min-width:761px){
+  #singleStockAnalysis .grid{align-items:start;}
+  #singleStockAnalysis .grid > .card:first-child{grid-column:1;grid-row:1;}
+  #singleStockAnalysis .grid > .card:nth-child(2){grid-column:2;grid-row:1 / span 2;}
+  #singleStockAnalysis .grid > #newsImpactCard{grid-column:1;grid-row:2;margin-top:0;}
+}
+
+/* ===== 07. body-07 #vcpReadingGuide ===== */
+#vcpReadingGuide{
+  margin:10px 0 12px;padding:10px 14px;border:1px solid #dddbd8;border-radius:12px;
+  background:rgba(255,255,255,.62);font-size:13px;line-height:1.45
+}
+#vcpReadingGuide .guide-title{font-weight:800;margin-right:12px}
+#vcpReadingGuide .guide-desktop{font-weight:700}
+#vcpReadingGuide .guide-arrow{opacity:.42;margin:0 7px}
+#vcpReadingGuide .guide-mobile{display:none}
+@media (max-width:640px){
+  #vcpReadingGuide{padding:14px 16px;margin:10px 0 12px}
+  #vcpReadingGuide .guide-title{display:block;margin:0 0 13px;font-size:15px}
+  #vcpReadingGuide .guide-desktop{display:none}
+  #vcpReadingGuide .guide-mobile{display:block}
+  #vcpReadingGuide .guide-step{
+    position:relative;padding:0 0 13px 38px;min-height:42px
+  }
+  #vcpReadingGuide .guide-step:last-child{padding-bottom:0}
+  #vcpReadingGuide .guide-step:not(:last-child)::after{
+    content:"";position:absolute;left:14px;top:28px;bottom:0;width:1px;
+    background:rgba(112,109,105,.22)
+  }
+  #vcpReadingGuide .guide-num{
+    position:absolute;left:0;top:0;width:29px;height:29px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid #d9d6d3;background:#fffefd;font-weight:800;font-size:12px
+  }
+  #vcpReadingGuide .guide-name{font-weight:800;font-size:15px;line-height:1.25}
+  #vcpReadingGuide .guide-desc{margin-top:3px;font-size:13px;opacity:.68;line-height:1.3}
+}
+
+/* ===== 08. body-08 V2.40 — 正式收盤更新提示 + 手機單股狀態防重疊 ===== */
+/* V2.40 — 正式收盤更新提示 + 手機單股狀態防重疊 */
+.snapshot-main{display:block;line-height:1.2}
+.snapshot-update-note{
+  display:block;margin-top:3px;font-size:9px;line-height:1.15;
+  font-weight:800;opacity:.72;letter-spacing:.02em;
+}
+.snapshot-btn.active .snapshot-update-note{opacity:.82}
+@media(max-width:760px){
+  /* 單股標題區改為正常換行，狀態 badge 獨立一行，不再以負 margin 疊在內容上 */
+  #singleStockAnalysis .topline{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:0!important;
+  }
+  #singleStockAnalysis .topline>div:first-child{
+    width:100%!important;
+    flex:0 0 auto!important;
+    min-width:0!important;
+  }
+  #singleStockAnalysis .topline>.badge{
+    position:static!important;
+    align-self:flex-start!important;
+    margin:9px 0 2px!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    line-height:1.25!important;
+  }
+  .snapshot-btn{min-height:54px}
+  .snapshot-update-note{font-size:9px;margin-top:4px}
+}
+
+/* ===== 09. body-09 .aux-market-panel ===== */
+.aux-market-panel{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 2px}
+.aux-block{border:1px solid #e9e7e6;border-radius:16px;padding:12px;background:#f9fafb}
+.aux-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}.aux-head b{font-size:14px}.aux-head span{font-size:11px;color:#72706f}
+.aux-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.momentum-grid{grid-template-columns:minmax(64px,.8fr) minmax(64px,.8fr) minmax(94px,1.18fr) minmax(82px,1fr) minmax(108px,1.34fr)}.aux-block#foreignBlock .aux-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.aux-block#whaleBlock{grid-column:1/-1}.whale-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.aux-grid>div{padding:8px 9px;border-radius:11px;background:#fff;border:1px solid #eeedeb;min-width:0}.aux-grid span{display:block;color:#727070;font-size:11px;margin-bottom:3px}.momentum-grid span{white-space:nowrap;font-size:10.5px}.aux-grid b{font-size:14px;overflow-wrap:anywhere}#auxRet5,#auxRet20{white-space:nowrap;overflow-wrap:normal;word-break:keep-all}.aux-grid b.up{color:#238a65}.aux-grid b.down{color:#d34b52}.aux-grid b.neutral{color:#282d29}.aux-foot{font-size:10px;color:#72716f;margin-top:8px;line-height:1.45}
+@media(max-width:760px){.aux-market-panel{grid-template-columns:1fr}.aux-grid,.aux-block#foreignBlock .aux-grid,.momentum-grid,.whale-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.momentum-grid span{white-space:normal;font-size:11px}.momentum-grid>div:last-child{grid-column:1/-1}}
+
+/* ===== 10. ui-kpi-pills ===== */
+/* 摘要卡 */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+.kpi-strip[hidden]{display:none!important}
+.kpi-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;text-align:left;padding:14px 16px 13px 20px!important;background:#fffefd!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 8px 22px rgba(92,64,32,.07)!important;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.kpi-card::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:5px;border-radius:0 4px 4px 0;background:var(--k,#b66749)}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(92,64,32,.13)!important}
+.kpi-card.active{border-color:var(--k,#b66749)!important;background:#fffdfa!important;box-shadow:0 0 0 3px rgba(182,103,73,.16),0 8px 22px rgba(92,64,32,.1)!important}
+.kpi-label{font-size:13px;font-weight:800;color:#6f6c68}
+.kpi-num{font-size:36px;line-height:1.1;font-weight:800;letter-spacing:-1px;color:var(--k,#b66749);font-variant-numeric:tabular-nums}
+.kpi-cap{font-size:12px;color:#726f6c;font-weight:600}
+.kpi-breakout{--k:#2f8a58}.kpi-hot{--k:#d4772f}.kpi-near{--k:#c9961a}.kpi-combo{--k:#a37665}
+@media(max-width:760px){
+ .kpi-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .kpi-card{padding:12px 12px 11px 16px!important;border-radius:16px!important}
+ .kpi-num{font-size:30px}
+ .kpi-cap{font-size:11px}
+}
+/* 狀態色塊標籤 */
+.st-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:800;line-height:1.2;white-space:nowrap;background:var(--pb,#efedea);color:var(--pc,#6f6c68)}
+.st-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--pc,#6f6c68);flex:0 0 auto}
+.st-breakout{--pb:#dff3e7;--pc:#1f7a4a}
+.st-postbreakout{--pb:#fbf6f1;--pc:#985942}
+.st-near{--pb:#fbf7f3;--pc:#8f6a0b}
+.st-forming{--pb:#eceae9;--pc:#7a7774}
+
+/* ===== 11. ui-icons-type ===== */
+/* 圖示：統一線條風格；色點對應狀態色 */
+.eic{width:1.05em;height:1.05em;vertical-align:-.17em;margin-right:.32em;flex:0 0 auto}
+.edot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--c);margin-right:.45em;vertical-align:.04em;box-shadow:0 0 0 2.5px color-mix(in srgb,var(--c) 24%,transparent)}
+.mkt-tag,.new-tag{display:inline-block;padding:1px 6px;margin-right:6px;border-radius:6px;font-size:.78em;font-weight:800;letter-spacing:.04em;vertical-align:.06em;line-height:1.5}
+.mkt-tag{background:#efece9;color:#6f6c68}
+.new-tag{background:#fbeae2;color:#a8482a}
+.radar-tab.active .mkt-tag,.radar-tab.active .new-tag{background:rgba(255,255,255,.18);color:#fbf9f7}
+/* 字級層次：標題 22／小標 17／導言 15／內文 14／備註 12.5（手機各降 0.5～3px） */
+:root{--fs-title:22px;--fs-h3:17px;--fs-lead:15px;--fs-body:14px;--fs-note:12.5px}
+.section-title h2{font-size:var(--fs-title)!important}
+.helpbox h3,.help-section h3,.pulse-help-detail h3{font-size:var(--fs-h3)!important;font-weight:800;line-height:1.4}
+.pulse-help-detail>p{font-size:var(--fs-lead)!important;line-height:1.75!important;color:#8f4a2f}
+.helpbox p,.helpbox li,.help-section p,.help-section li{font-size:var(--fs-body)!important;line-height:1.75}
+.helpbox table,.help-section table{font-size:var(--fs-body)!important}
+.pulse-help-grid b{font-size:16px!important;font-weight:800}
+.pulse-help-grid span{font-size:var(--fs-body)!important;line-height:1.7}
+.helpbox .muted,.help-section .muted{font-size:var(--fs-note)!important}
+.radar-table,.radar-table td{font-size:14.5px}
+@media(max-width:760px){
+ :root{--fs-title:19px;--fs-h3:16px;--fs-lead:14.5px;--fs-body:13.5px;--fs-note:12px}
+ .pulse-help-grid b{font-size:15px!important}
+}
+
+/* ===== 12. ui-tech ===== */
+/* VCPulse 白底科技風：白底＋深藍黑墨色＋藍色主色，狀態各用不同色相，避免顏色過於相近 */
+:root{
+ --bg:#faf9f8;--card:#fff;--ink:#2e2a25;--muted:#8b847c;--line:#f0eeeb;--good:#15803d;--warn:#b45309;--bad:#dc2626;
+ --vp-bg:#faf9f8;--vp-card:#fff;--vp-ink:#2e2a25;--vp-muted:#8b847c;--vp-line:#f0eeeb;--vp-soft:#f9f8f6;
+ --vp-caramel:#b66749;--vp-accent:#b66749;--vp-accent-soft:#fbeae2;--vp-espresso:#2e2a25;
+}
+body{background:radial-gradient(900px 420px at 8% -10%,#fffaf3 0,rgba(255,250,243,0) 60%),radial-gradient(800px 400px at 100% 0,#fffbf6 0,rgba(255,251,246,0) 55%),#faf9f8!important;background-attachment:fixed;color:var(--ink);font-family:"Inter",system-ui,-apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;-webkit-font-smoothing:antialiased}
+/* 版頭：白到淡藍漸層＋右側點陣紋理 */
+.brand-hero{position:relative;overflow:hidden;background:radial-gradient(520px 260px at 88% 40%,#fffaf4 0,rgba(255,250,244,0) 70%),linear-gradient(135deg,#fff 0%,#fffcf9 100%)!important;border:1px solid #f3efea!important;border-radius:26px!important;box-shadow:0 14px 34px rgba(46,42,37,.08)!important;padding:26px 34px 22px!important}
+.brand-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(#e6e0d9 1px,transparent 1.3px) 0 0/20px 20px;opacity:.6;-webkit-mask-image:linear-gradient(90deg,transparent 40%,#000 100%);mask-image:linear-gradient(90deg,transparent 40%,#000 100%)}
+.brand-hero>*{position:relative}
+.brand-logo-img{width:min(250px,100%)!important;max-height:105px!important}
+.brand-tag{color:#b66749!important;font-weight:800}
+.brand-sub{color:var(--ink)!important;font-size:20px!important;font-weight:800}
+.brand-copy{color:#69635c!important}
+.brand-pill{background:#fff!important;border:1px solid #f3efea!important;color:#5e544b!important}
+.brand-mascot img{mix-blend-mode:multiply}
+/* 卡片與標題 */
+.card{background:#fff!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 1px 2px rgba(46,42,37,.05),0 8px 24px rgba(46,42,37,.05)!important}
+.section-title h2{font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.section-title h2::before{content:"";display:inline-block;width:4px;height:.95em;margin-right:10px;border-radius:2px;background:linear-gradient(180deg,#b66749,#06b6d4);vertical-align:-.1em}
+/* 按鈕與輸入框 */
+button{border-radius:12px}
+.searchrow button,.search button,#searchBtn{background:linear-gradient(180deg,#c4694a,#b66749)!important;color:#fff!important;box-shadow:0 6px 14px rgba(182,103,73,.28)}
+.helpbtn,.marketbtn{background:#fff!important;color:var(--ink)!important;border:1px solid #eae6e2!important}
+.marketbtn.active{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important}
+input,select{border-radius:12px;border-color:#eae6e2;background:#fff}
+input:focus,select:focus{outline:none;border-color:#b66749;box-shadow:0 0 0 4px rgba(182,103,73,.16)}
+/* 篩選膠囊：未選＝白底灰框，已選＝深藍黑 */
+.radar-head .radar-tab{background:#fff!important;border:1px solid #eae6e2!important;color:#5e544b!important;font-weight:600}
+.radar-head .radar-tab:hover{border-color:#edc3ae!important;background:#fdf3ed!important}
+.radar-head .radar-tab.active{background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important;box-shadow:0 4px 12px rgba(46,42,37,.22)}
+.radar-group-label{color:#75716c!important;font-weight:700;letter-spacing:.04em}
+/* 表格 */
+.radar-table th{background:#f9f8f6;color:#69635c;font-size:15px!important;font-weight:800;letter-spacing:.02em;padding:15px 10px!important;border-bottom:1px solid #f0eeeb}
+.radar-table td{border-bottom:1px solid #f7f5f4;font-variant-numeric:tabular-nums}
+.radar-row:hover{background:#fffdfa!important}
+.radar-table-wrap{border:1px solid var(--line);border-radius:16px;background:#fff}
+/* 摘要卡 */
+.kpi-card{background:#fff!important;border:1px solid var(--line)!important;box-shadow:0 1px 2px rgba(46,42,37,.05),0 8px 20px rgba(46,42,37,.05)!important}
+.kpi-card:hover{box-shadow:0 12px 26px rgba(46,42,37,.12)!important}
+.kpi-card.active{background:#fffdfa!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--k) 22%,transparent),0 8px 20px rgba(46,42,37,.08)!important}
+.kpi-label{color:#69635c}.kpi-cap{color:#75716c}
+.kpi-breakout{--k:#16a34a}.kpi-hot{--k:#ea580c}.kpi-near{--k:#ca8a04}.kpi-combo{--k:#0891b2}
+/* 狀態標籤：四種不同色相、加細邊框 */
+.st-pill{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 30%,transparent)}
+.st-breakout{--pb:#dcfce7;--pc:#15803d}
+.st-postbreakout{--pb:#fefaf6;--pc:#6d28d9}
+.st-near{--pb:#fef3c7;--pc:#a16207}
+.st-forming{--pb:#f9f8f6;--pc:#8b847c}
+/* 綜合訊號：高關注橘、觀察藍、等待灰、過度延伸紅 */
+.pulse-badge.pulse-hot{background:#ffedd5!important;color:#c2410c!important;border:1px solid #fdba74!important}
+.pulse-badge.pulse-watch{background:#fef9f3!important;color:#894830!important;border:1px solid #d69b85!important}
+.pulse-badge.pulse-wait{background:#f9f8f6!important;color:#69635c!important;border:1px solid #e1ddd9!important}
+.pulse-badge.pulse-extended{background:#fee2e2!important;color:#b91c1c!important;border:1px solid #fca5a5!important}
+.mkt-tag{background:#f0eeeb;color:#69635c}
+.new-tag{background:#ffedd5;color:#c2410c}
+/* 浮動按鈕 */
+.back-to-top-btn,.radar-back-float{background:#fff!important;border:1px solid var(--line)!important;color:#b66749!important;box-shadow:0 8px 20px rgba(46,42,37,.16)!important}
+@media(min-width:761px){.back-to-top-btn{bottom:28px!important;right:22px!important}}
+@media(max-width:760px){
+ .brand-hero{padding:18px 18px 16px!important;border-radius:20px!important}
+ .card{border-radius:16px!important}
+}
+
+/* ===== 13. ui-tech-2 ===== */
+/* 配色補強：數字、進度條、星號、徽章、檢核清單 */
+.change-pct.up,.market-index-change.up{color:#15803d!important;font-weight:700}
+.change-pct.down,.market-index-change.down{color:#dc2626!important;font-weight:700}
+.pivot-distance-track{background:#f0eeeb!important}
+.pivot-distance-fill{opacity:1!important}
+.pivot-distance-fill.positive{background:#16a34a!important}
+.pivot-distance-fill.near{background:#f59e0b!important}
+.pivot-distance-fill.negative{background:#f97316!important}
+.favorite-btn.is-favorite,.single-title-favorite.is-favorite{color:#f59e0b!important}
+.new-entry-badge{background:#fff7ed!important;color:#c2410c!important;border:1px solid #fdba74!important}
+.metric{background:#fcfbfa!important;border:1px solid #f6f4f1}
+.check span{font-size:15px!important;font-weight:600;color:#413a34}
+.check b.good{color:#16a34a!important}.check b.bad{color:#dc2626!important}
+.radar-kicker{color:#b66749!important}
+
+/* ===== 14. ui-market-theme ===== */
+/* 漲跌色依市場切換：預設（美股）綠漲紅跌；台股紅漲綠跌 */
+:root{--up:#15803d;--down:#dc2626}
+html[data-market="TW"]{--up:#dc2626;--down:#15803d}
+.change-pct.up,.market-index-change.up,.single-quick-item b.up,.single-relative-strong,.aux-grid b.up{color:var(--up)!important}
+.change-pct.down,.market-index-change.down,.single-quick-item b.down,.single-relative-weak,.aux-grid b.down{color:var(--down)!important}
+.pivot-distance-fill.positive{background:var(--up)!important}
+.pivot-distance-fill.negative{background:var(--down)!important}
+/* 題材雷達：熱門＝橘紅，蓄勢＝靛紫，頂部色帶＋底色＋名次＋膠囊全面區隔 */
+.theme-board{position:relative;overflow:hidden;border-radius:20px!important}
+.theme-board::before{content:"";position:absolute;left:0;right:0;top:0;height:5px}
+.theme-board-hot{background:linear-gradient(180deg,#fff2e6 0,#fffaf5 150px,#fff 100%)!important;border:1px solid #fdba74!important}
+.theme-board-hot::before{background:linear-gradient(90deg,#f97316,#ef4444)}
+.theme-board-setup{background:linear-gradient(180deg,#fffbf7 0,#fffdfc 150px,#fff 100%)!important;border:1px solid #fdf0e2!important}
+.theme-board-setup::before{background:linear-gradient(90deg,#7c3aed,#c4694a)}
+.theme-board-hot .theme-board-main{color:#c2410c}
+.theme-board-setup .theme-board-main{color:#6d28d9}
+.theme-board-hot .theme-board-tag{background:#ffedd5!important;border-color:#fdba74!important;color:#c2410c}
+.theme-board-setup .theme-board-tag{background:#fefaf6!important;border-color:#fdf0e2!important;color:#6d28d9}
+.theme-board-hot .theme-row{background:#fff!important;border-color:#fde3c8!important}
+.theme-board-setup .theme-row{background:#fff!important;border-color:#fdf8f1!important}
+.theme-board-hot .theme-row .theme-rank{background:#ffedd5!important;color:#9a3412!important}
+.theme-board-hot .theme-row:nth-child(1) .theme-rank{background:#f97316!important;color:#fff!important}
+.theme-board-hot .theme-row:nth-child(2) .theme-rank{background:#fb923c!important;color:#fff!important}
+.theme-board-hot .theme-row:nth-child(3) .theme-rank{background:#fdba74!important;color:#7c2d12!important}
+.theme-board-setup .theme-row .theme-rank{background:#fefaf6!important;color:#5b21b6!important}
+.theme-board-setup .theme-row:nth-child(1) .theme-rank{background:#7c3aed!important;color:#fff!important}
+.theme-board-setup .theme-row:nth-child(2) .theme-rank{background:#d1896f!important;color:#fff!important}
+.theme-board-setup .theme-row:nth-child(3) .theme-rank{background:#fdf0e2!important;color:#4c1d95!important}
+.theme-board-hot .theme-score{color:#c2410c}
+.theme-board-setup .theme-score{color:#6d28d9}
+.theme-board-hot .theme-score small,.theme-board-setup .theme-score small{color:#75716c}
+.theme-board-hot .theme-stock-link{background:#fff7ed!important;border-color:#fed7aa!important;color:#7c2d12}
+.theme-board-hot .theme-stock-link:hover{background:#ffedd5!important}
+.theme-board-setup .theme-stock-link{background:#fffdfa!important;border-color:#fef7ef!important;color:#4c1d95}
+.theme-board-setup .theme-stock-link:hover{background:#fefaf6!important}
+
+/* ===== 15. ui-contraction ===== */
+/* 圖下方 C1~C4 卡片：與圖上徽章同色，上緣色帶＋實心徽章＋大字跌幅 */
+.contraction-item{--cc:#8b847c;position:relative;background:#fff!important;border:1px solid #f0eeeb!important;border-top:3px solid var(--cc)!important;border-radius:14px!important;box-shadow:0 1px 2px rgba(46,42,37,.05),0 6px 16px rgba(46,42,37,.04)!important}
+.contraction-item.c1{--cc:#d04a3c}.contraction-item.c2{--cc:#3f6fd1}.contraction-item.c3{--cc:#3d9a63}.contraction-item.c4{--cc:#8a56b5}
+.contraction-head{display:flex!important;align-items:center;gap:8px}
+.contraction-dot{display:none!important}
+.contraction-head span:nth-child(2){background:var(--cc);color:#fff!important;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:800;line-height:1.5}
+.contraction-head span:nth-child(3){margin-left:auto;color:var(--cc)!important;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.contraction-date{margin-top:6px;color:#75716c!important;font-size:12px;font-variant-numeric:tabular-nums}
+
+/* ===== 16. ui-star-pivot ===== */
+/* 收藏星星：加大、加底色圓鈕；已收藏為金黃實心並帶光暈 */
+.favorite-btn,.single-title-favorite{color:#75716c!important;background:#f9f8f6!important;border:1px solid #f0eeeb!important;border-radius:50%!important;transition:transform .15s ease,color .15s ease,background .15s ease,box-shadow .15s ease}
+.favorite-btn:not(.mobile-favorite){min-width:30px!important;width:30px!important;height:30px!important;font-size:19px!important}
+.single-title-favorite{width:32px!important;height:32px!important;font-size:20px!important}
+.favorite-btn:hover,.single-title-favorite:hover{color:#f59e0b!important;background:#fffbeb!important;border-color:#fcd34d!important}
+.favorite-btn.is-favorite,.single-title-favorite.is-favorite{color:#f59e0b!important;background:#fef3c7!important;border-color:#fbbf24!important;box-shadow:0 0 0 3px rgba(251,191,36,.22),0 4px 10px rgba(245,158,11,.28)}
+.mobile-favorite{color:#77716a!important}
+.mobile-favorite.is-favorite{border-color:#fbbf24!important;background:#fef3c7!important;color:#b45309!important}
+/* 單股標題區：盤中快取提示改琥珀色 */
+#singleLiveNote{color:#b45309!important}
+#singleRestoreNote{color:#77716a!important}
+
+/* ===== 17. ui-palette ===== */
+/* 新配色：鼠尾草綠 #c0d7d1／芥末黃 #edce7c／駝色 #bb9f73／陶土橘 #d28963／鏽紅 #b66749，底色維持乾淨白 */
+:root{
+ --ink:#2b2622;--muted:#7c7368;--line:#e9e5de;
+ --vp-ink:#2b2622;--vp-muted:#7c7368;--vp-line:#e9e5de;
+ --vp-accent:#c4694a;--vp-caramel:#c4694a;--vp-accent-soft:#fbeae2;--vp-espresso:#2b2622;
+}
+body{background:radial-gradient(900px 420px at 8% -10%,rgba(192,215,209,.5) 0,rgba(192,215,209,0) 60%),radial-gradient(800px 400px at 100% 0,rgba(237,206,124,.30) 0,rgba(237,206,124,0) 55%),#fbfaf8!important;background-attachment:fixed;color:var(--ink)}
+/* 版頭 */
+.brand-hero{background:radial-gradient(520px 260px at 88% 40%,rgba(237,206,124,.38) 0,rgba(237,206,124,0) 70%),linear-gradient(135deg,#fff 0%,#f3f8f6 100%)!important;border:1px solid #dfe8e4!important;box-shadow:0 14px 34px rgba(60,50,40,.08)!important}
+.brand-hero::before{background:radial-gradient(#cfdcd7 1px,transparent 1.3px) 0 0/20px 20px}
+.brand-tag{color:#b66749!important}
+.brand-copy{color:#5f574d!important}
+.brand-pill{border-color:#dfe8e4!important;color:#4a423a!important}
+/* 卡片、標題、按鈕 */
+.card{border:1px solid var(--line)!important;box-shadow:0 1px 2px rgba(60,50,40,.05),0 8px 24px rgba(60,50,40,.05)!important}
+.section-title h2::before{background:linear-gradient(180deg,#d28963,#edce7c)!important}
+.searchrow button,.search button,#searchBtn{background:linear-gradient(180deg,#d28963,#b66749)!important;box-shadow:0 6px 14px rgba(182,103,73,.30)!important}
+.helpbtn,.marketbtn{border-color:#e3ddd3!important}
+.marketbtn.active{background:#2b2622!important;border-color:#2b2622!important}
+input:focus,select:focus{border-color:#c4694a!important;box-shadow:0 0 0 4px rgba(210,137,99,.20)!important}
+/* 篩選膠囊 */
+.radar-head .radar-tab{border-color:#e3ddd3!important;color:#4a423a!important}
+.radar-head .radar-tab:hover{border-color:#e6bba6!important;background:#fbeae2!important}
+.radar-head .radar-tab.active{background:#b66749!important;border-color:#b66749!important;color:#fff!important;box-shadow:0 4px 12px rgba(182,103,73,.30)!important}
+.radar-group-label{color:#777066!important}
+.radar-kicker{color:#b66749!important}
+/* 表格 */
+.radar-table th{background:#f6f3ee;color:#6f665b;border-bottom-color:#e9e5de}
+.radar-table td{border-bottom-color:#f1ede6}
+.radar-row:hover{background:#fcf7f2!important}
+.radar-table-wrap{border-color:var(--line)}
+/* 摘要卡：陶土橘／芥末黃／鼠尾草綠／駝色 */
+.kpi-breakout{--k:#d28963}.kpi-hot{--k:#d9a825}.kpi-near{--k:#5f9c8e}.kpi-combo{--k:#a88a5c}
+.kpi-card.active{background:#fcf7f2!important}
+.kpi-label{color:#6f665b}.kpi-cap{color:#777066}
+/* 狀態標籤 */
+.st-breakout{--pb:#fbe4da;--pc:#a8482a}
+.st-postbreakout{--pb:#dcebe7;--pc:#2f6f60}
+.st-near{--pb:#faedb8;--pc:#7a5a05}
+.st-forming{--pb:#efeae1;--pc:#7a6e5d}
+.pulse-badge.pulse-hot{background:#fbe4da!important;color:#a8482a!important;border:1px solid #eab7a0!important}
+.pulse-badge.pulse-watch{background:#e1eeea!important;color:#2f6f60!important;border:1px solid #b3d0c8!important}
+.pulse-badge.pulse-wait{background:#f1ede4!important;color:#6b5d45!important;border:1px solid #d9d1c0!important}
+.pulse-badge.pulse-extended{background:#b66749!important;color:#fff!important;border:1px solid #b66749!important}
+.mkt-tag{background:#efeae1;color:#6f665b}
+.new-tag{background:#f6e3a3;color:#6e4f00}
+.new-entry-badge{background:#faedb8!important;color:#6e4f00!important;border:1px solid #edce7c!important}
+/* 收藏星星、浮動按鈕 */
+.favorite-btn.is-favorite,.single-title-favorite.is-favorite{color:#d9a01a!important;background:#fbefc2!important;border-color:#e7c25a!important;box-shadow:0 0 0 3px rgba(237,206,124,.40),0 4px 10px rgba(217,160,26,.25)!important}
+.favorite-btn:hover,.single-title-favorite:hover{color:#d9a01a!important;background:#fdf6dc!important;border-color:#edce7c!important}
+.mobile-favorite.is-favorite{border-color:#e7c25a!important;background:#fbefc2!important;color:#7a5a05!important}
+.back-to-top-btn,.radar-back-float{color:#b66749!important}
+#singleLiveNote{color:#8a6209!important}
+/* 題材雷達：熱門＝陶土橘，蓄勢＝鼠尾草綠 */
+.theme-board-hot{--tb:#b66749;--tb2:#d28963;--tb3:#ebc3b0;--tbt:#a8482a;--tbbg:#fbebe3;--tbbd:#e8bba6;--tbc:#fdf3ed;--tbcb:#f0d0c0}
+.theme-board-setup{--tb:#4f8a7e;--tb2:#7fb0a5;--tb3:#c0d7d1;--tbt:#2f6f60;--tbbg:#e8f1ee;--tbbd:#b7d2cb;--tbc:#f2f8f6;--tbcb:#d0e3de}
+.theme-board-hot,.theme-board-setup{background:linear-gradient(180deg,var(--tbbg) 0,#fff 150px,#fff 100%)!important;border:1px solid var(--tbbd)!important}
+.theme-board-hot::before,.theme-board-setup::before{background:linear-gradient(90deg,var(--tb2),var(--tb))}
+.theme-board-hot .theme-board-main,.theme-board-setup .theme-board-main,.theme-board-hot .theme-score,.theme-board-setup .theme-score{color:var(--tbt)}
+.theme-board-hot .theme-board-tag,.theme-board-setup .theme-board-tag{background:var(--tbc)!important;border-color:var(--tbbd)!important;color:var(--tbt)}
+.theme-board-hot .theme-row,.theme-board-setup .theme-row{background:#fff!important;border-color:var(--tbcb)!important}
+.theme-board-hot .theme-row .theme-rank,.theme-board-setup .theme-row .theme-rank{background:var(--tbc)!important;color:var(--tbt)!important}
+.theme-board-hot .theme-row:nth-child(1) .theme-rank,.theme-board-setup .theme-row:nth-child(1) .theme-rank{background:var(--tb)!important;color:#fff!important}
+.theme-board-hot .theme-row:nth-child(2) .theme-rank,.theme-board-setup .theme-row:nth-child(2) .theme-rank{background:var(--tb2)!important;color:#fff!important}
+.theme-board-hot .theme-row:nth-child(3) .theme-rank,.theme-board-setup .theme-row:nth-child(3) .theme-rank{background:var(--tb3)!important;color:var(--tbt)!important}
+.theme-board-hot .theme-stock-link,.theme-board-setup .theme-stock-link{background:var(--tbc)!important;border-color:var(--tbcb)!important;color:var(--tbt)}
+.theme-board-hot .theme-stock-link:hover,.theme-board-setup .theme-stock-link:hover{background:var(--tbcb)!important}
+
+/* ===== 18. ui-palette-2 ===== */
+/* 配色一致性補強：藍色閃爍改暖色、焦點／點擊高亮、漲跌色、篩選圓點 */
+html{-webkit-tap-highlight-color:rgba(210,137,99,.20)}
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid rgba(196,105,74,.45)!important;outline-offset:2px}
+button:active{filter:brightness(.97)}
+.radar-back-float:active,.back-to-top-btn:active{background:#fbeae2!important}
+/* 返回清單時的高亮閃爍：原本是藍色，改成陶土橘柔光 */
+@keyframes radarReturnGlow{0%,100%{box-shadow:none;background-color:transparent}20%,65%{box-shadow:0 0 0 3px rgba(210,137,99,.30);background-color:#fdf1ea}}
+@keyframes radarReturnCardGlow{0%,100%{box-shadow:0 6px 18px rgba(60,50,40,.05)}20%,65%{box-shadow:0 0 0 3px rgba(210,137,99,.32),0 8px 22px rgba(60,50,40,.08);background:#fdf1ea}}
+@keyframes vcpReturnHighlight3s{0%{background:#fbe4da;box-shadow:0 0 0 4px rgba(210,137,99,.38),0 8px 24px rgba(60,50,40,.12)}18%,72%{background:#fdf1ea;box-shadow:0 0 0 3px rgba(210,137,99,.26),0 6px 18px rgba(60,50,40,.08)}100%{background:transparent;box-shadow:none}}
+@keyframes vcpReturnCardHighlight3s{0%{background:#fbe4da;box-shadow:0 0 0 4px rgba(210,137,99,.38),0 10px 26px rgba(60,50,40,.12)}18%,72%{background:#fdf1ea;box-shadow:0 0 0 3px rgba(210,137,99,.26),0 8px 22px rgba(60,50,40,.09)}100%{background:transparent;box-shadow:none}}
+/* 漲跌色：改成與整站協調的磚紅與鼠尾草綠（台股紅漲綠跌、美股相反） */
+:root{--up:#3f8f72;--down:#c8472f}
+html[data-market="TW"]{--up:#c8472f;--down:#3f8f72}
+/* 篩選圓點對應狀態標籤色 */
+.radar-tab[data-radar="breakout"] .edot{--c:#d28963!important}
+.radar-tab[data-radar="postbreakout"] .edot{--c:#4f8a7e!important}
+.radar-tab[data-radar="near"] .edot{--c:#d9a825!important}
+.radar-tab[data-radar="forming"] .edot{--c:#bb9f73!important}
+
+/* ===== 19. ui-scroll-perf ===== */
+/* 固定背景（background-attachment:fixed）會讓捲動時反覆重繪而卡頓，改為隨頁捲動 */
+body{background-attachment:scroll!important}
+
+/* ===== 20. ui-guide-nav ===== */
+/* 建議閱讀順序：可點擊並跳到對應區塊 */
+#vcpReadingGuide .guide-link{background:none;border:0;padding:3px 8px;margin:0;font:inherit;font-weight:700;color:inherit;cursor:pointer;border-radius:9px;-webkit-tap-highlight-color:rgba(210,137,99,.2);transition:background .15s ease,color .15s ease}
+#vcpReadingGuide .guide-link:hover{background:#fbeae2;color:#a8482a}
+#vcpReadingGuide .guide-step{cursor:pointer;position:relative;-webkit-tap-highlight-color:rgba(210,137,99,.2)}
+#vcpReadingGuide .guide-step .guide-go{position:absolute;right:4px;top:calc(50% - 8px);transform:translateY(-50%);font-size:26px;line-height:1;color:#c4694a;opacity:.75}
+#vcpReadingGuide .guide-step:hover .guide-name,#vcpReadingGuide .guide-step:active .guide-name{color:#a8482a}
+#vcpReadingGuide .guide-step:hover .guide-num,#vcpReadingGuide .guide-step:active .guide-num{background:#fbeae2;border-color:#d28963;color:#a8482a}
+#vcpReadingGuide .guide-step:focus-visible{outline:3px solid rgba(196,105,74,.45);outline-offset:3px;border-radius:12px}
+/* 跳轉到達後，目標區塊短暫亮框提示位置 */
+@keyframes guideFlash{0%,100%{outline-color:rgba(210,137,99,0)}25%,70%{outline-color:rgba(210,137,99,.6)}}
+.guide-flash{outline:3px solid rgba(210,137,99,0);outline-offset:4px;animation:guideFlash 1.6s ease}
+
+/* ===== 21. ui-nav-compact ===== */
+/* ===== 固定區塊導覽列：疊在登入列下方 ===== */
+#sectionNav{position:sticky;top:var(--ub-h,0px);z-index:9990;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px 2px;margin:6px 0 10px;background:rgba(251,250,248,.97);border-bottom:1px solid var(--line)}
+#sectionNav::-webkit-scrollbar{display:none}
+#sectionNav .snav-btn{flex:0 0 auto;border:1px solid #e3ddd3;background:#fff;color:#4a423a;font-weight:700;font-size:13.5px;padding:7px 14px;border-radius:999px;white-space:nowrap;min-height:36px;-webkit-tap-highlight-color:rgba(210,137,99,.2);transition:background .15s ease,color .15s ease,border-color .15s ease}
+#sectionNav .snav-btn:hover{border-color:#e6bba6;background:#fbeae2}
+#sectionNav .snav-btn.active{background:#b66749;border-color:#b66749;color:#fff;box-shadow:0 3px 10px rgba(182,103,73,.28)}
+.search{top:calc(var(--ub-h,0px) + var(--nav-h,0px))!important}
+
+/* ===== 手機清單：檢視切換 ===== */
+.radar-view-toggle{display:none}
+@media(max-width:760px){
+ .radar-view-toggle{display:flex;align-items:center;gap:8px;margin:2px 0 12px}
+ .rvt-label{font-size:12px;font-weight:700;color:#777066;letter-spacing:.04em;flex:0 0 76px}
+ .rvt-btn{border:1px solid #e3ddd3;background:#fff;color:#4a423a;font-weight:700;font-size:13px;padding:7px 18px;border-radius:999px;min-height:36px}
+ .rvt-btn.active{background:#2b2622;border-color:#2b2622;color:#fff}
+
+ /* ===== 精簡卡片：兩行看完（名稱＋今日漲跌／狀態＋距 Pivot＋星等），點一下展開完整內容 ===== */
+ #radarMobile.compact .mobile-stock-card{position:relative;cursor:pointer}
+ #radarMobile.compact .mobile-stock-card:not(.expanded){display:flex!important;flex-wrap:wrap;align-items:center;gap:7px 8px;padding:11px 12px 20px!important;margin-top:8px!important;border-radius:16px!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded)::before{content:"";order:2;flex:0 0 100%;height:0}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-top,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-top-actions,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-action-head,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metrics{display:contents!important}
+ /* 第一行：收藏星 → 名稱／代號 → 今日漲跌 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{order:0;font-size:0!important;min-width:34px!important;width:34px!important;height:34px!important;padding:0!important;display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite::before{content:"☆";font-size:19px;line-height:1}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite.is-favorite::before{content:"★"}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-top>div:first-child{order:1;flex:1 1 0;min-width:0}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-name{font-size:17px!important;line-height:1.2}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code{font-size:12px!important;margin-top:1px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3){order:1;font-size:0!important;margin:0 0 0 auto!important;padding:0!important;background:none!important;border:0!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3) b{font-size:19px!important;font-weight:800;line-height:1.1}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(3) .live-quote-badge{display:none}
+ /* 第二行：狀態標籤、綜合訊號、距 Pivot、星等 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-state{order:3;display:inline-flex!important;margin:0!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-state .st-pill{font-size:12px;padding:4px 10px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row{order:4;margin:0!important;display:inline-flex!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row .pulse-badge{font-size:11.5px!important;padding:3px 9px!important;min-height:0!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2){order:5;margin:0 0 0 auto!important;padding:0!important;background:none!important;border:0!important;font-size:11px!important;color:#7a7063;display:inline-flex!important;align-items:baseline;gap:4px}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2) b{font-size:13px!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(2) .pivot-distance-track{display:none!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score{order:6;font-size:12px!important;letter-spacing:0;white-space:nowrap}
+ /* 其餘細節收起 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-cta,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-structure-quality,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-postbreakout-performance,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .attention-summary,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-signal-row,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-why,
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(1),
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-metric:nth-child(4){display:none!important}
+ /* 展開提示：底部置中的小箭頭 */
+ #radarMobile.compact .mobile-stock-card::after{content:"";position:absolute;left:50%;bottom:7px;width:7px;height:7px;border-right:2px solid #b66749;border-bottom:2px solid #b66749;transform:translateX(-50%) rotate(45deg);opacity:.65;pointer-events:none}
+ #radarMobile.compact .mobile-stock-card.expanded::after{bottom:3px;transform:translateX(-50%) rotate(-135deg)}
+ #radarMobile.compact .mobile-stock-card.expanded{padding-bottom:22px!important}
+}
+
+/* ===== 22. ui-contrast-loading ===== */
+/* 文字對比：備註與說明文字顏色加深 */
+:root{--muted:#6b6258;--vp-muted:#6b6258}
+#vcpReadingGuide .guide-desc{opacity:.86}
+/* 載入提示：卡片頂端流動色條＋狀態膠囊，舊內容暫時變淡 */
+.vcp-loading-note{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:6px 12px;border-radius:999px;background:#fbeae2;color:#a8482a;font-size:13px;font-weight:700}
+.vcp-loading-note[hidden]{display:none!important}
+.vcp-spinner{width:14px;height:14px;border-radius:50%;border:2.5px solid rgba(182,103,73,.25);border-top-color:#b66749;animation:vcpSpin .8s linear infinite;flex:0 0 auto}
+@keyframes vcpSpin{to{transform:rotate(360deg)}}
+.card.is-loading{position:relative}
+.card.is-loading::after{content:"";position:absolute;left:0;right:0;top:0;height:4px;border-radius:18px 18px 0 0;background:linear-gradient(90deg,rgba(210,137,99,0) 0%,#d28963 40%,#edce7c 60%,rgba(237,206,124,0) 100%);background-size:200% 100%;animation:vcpLoadBar 1.2s linear infinite;pointer-events:none}
+@keyframes vcpLoadBar{from{background-position:200% 0}to{background-position:-200% 0}}
+.card.is-loading #chart{opacity:.35;transition:opacity .2s ease}
+.card.is-loading #title,.card.is-loading #period{opacity:.55;transition:opacity .2s ease}
+
+/* ===== 23. ui-star-center ===== */
+/* 收藏星星：改用向量圖形遮罩繪製，取代文字符號，確保在圓鈕內精準置中 */
+:root{
+ --star-f:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6l-5.9 3 1.2-6.5L2.5 9.5l6.6-.9z'/%3E%3C/svg%3E");
+ --star-o:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6l-5.9 3 1.2-6.5L2.5 9.5l6.6-.9z' fill='none' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.favorite-btn:not(.mobile-favorite),.single-title-favorite{display:inline-flex!important;align-items:center;justify-content:center;padding:0!important;font-size:0!important;line-height:0}
+.favorite-btn:not(.mobile-favorite)::before,
+.single-title-favorite::before,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite::before{
+ content:"";display:block;flex:0 0 auto;width:20px;height:20px;font-size:0;line-height:0;
+ background-color:currentColor;
+ -webkit-mask:var(--star-o) center/contain no-repeat;mask:var(--star-o) center/contain no-repeat}
+.single-title-favorite::before{width:22px;height:22px}
+.favorite-btn.is-favorite:not(.mobile-favorite)::before,
+.single-title-favorite.is-favorite::before,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite.is-favorite::before{
+ content:"";-webkit-mask:var(--star-f) center/contain no-repeat;mask:var(--star-f) center/contain no-repeat}
+
+/* ===== 24. ui-star-center-2 ===== */
+/* 原本按鈕帶有 gap，隱藏的文字也算一個項目，會把星星推向左邊約 1.5px；清掉 gap 才會真正置中 */
+.favorite-btn:not(.mobile-favorite),.single-title-favorite,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{gap:0!important;column-gap:0!important}
+
+/* ===== 25. body-25 V2.36.5 — 收藏星星緊貼股票名稱 ===== */
+/* V2.36.5 — 收藏星星緊貼股票名稱 */
+.single-title-row{
+  display:inline-flex !important;
+  width:auto !important;
+  max-width:max-content !important;
+  flex:0 0 auto !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:6px !important;
+}
+.single-title-row .ticker{
+  flex:0 0 auto !important;
+  width:auto !important;
+  white-space:nowrap !important;
+}
+.single-title-row .single-title-favorite{
+  position:static !important;
+  flex:0 0 22px !important;
+  width:22px !important;
+  min-width:22px !important;
+  max-width:22px !important;
+  height:24px !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-size:20px !important;
+  line-height:24px !important;
+  transform:none !important;
+}
+.single-title-row .single-title-favorite:hover{transform:scale(1.06) !important}
+@media(max-width:720px){
+  .single-title-row{gap:6px !important}
+  .single-title-row .single-title-favorite{
+    flex-basis:21px !important;width:21px !important;min-width:21px !important;
+    max-width:21px !important;font-size:19px !important;
+  }
+}
+
+/* ===== 26. body-26 V2.40.2 — completed TW official snapshot locks the stale int ===== */
+/* V2.40.2 — completed TW official snapshot locks the stale intraday switch */
+.snapshot-btn:disabled{opacity:.38!important;background:#f1f0ef!important;color:#727270!important;border-color:#dddcda!important;box-shadow:none!important;cursor:not-allowed!important}
+
+/* V2.41.18：單股訊號只保留上方狀態膠囊，避免下方重複顯示同一組資訊 */
+#summary{display:none!important}
+
+/* V2.41.20 單股圖表重設計 */
+.contraction-legend{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:12px 0 4px;
+}
+.contraction-legend:empty{display:none}
+.contraction-item{
+  border:1px solid #e7e6e4;
+  background:linear-gradient(180deg,#fffefe 0%,#f8f7f6 100%);
+  border-radius:14px;
+  padding:10px 12px;
+  min-width:0;
+}
+.contraction-head{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-weight:800;
+  font-size:14px;
+  line-height:1.15;
+}
+.contraction-dot{
+  width:10px;height:10px;border-radius:50%;flex:0 0 10px;
+}
+.contraction-date{
+  margin-top:5px;
+  font-size:11px;
+  color:#717070;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.contraction-item.c1 .contraction-dot{background:#d04a3c}
+.contraction-item.c2 .contraction-dot{background:#3f6fd1}
+.contraction-item.c3 .contraction-dot{background:#3d9a63}
+.contraction-item.c4 .contraction-dot{background:#8a56b5}
+.contraction-item.c1 .contraction-head{color:#d92f45}
+.contraction-item.c2 .contraction-head{color:#3f6fd1}
+.contraction-item.c3 .contraction-head{color:#3d9a63}
+.contraction-item.c4 .contraction-head{color:#7b36c5}
+
+@media(max-width:700px){
+  .contraction-legend{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+  .contraction-item{padding:9px 10px;border-radius:12px}
+  .contraction-head{font-size:13px}
+  .contraction-date{font-size:10px}
+}
+
+/* V2.41.23 — 手機雷達 5 檔分頁 + 漸層玻璃回頂端 */
+.mobile-radar-pager{
+  display:none;
+}
+.back-to-top-btn{
+  position:fixed;
+  right:18px;
+  bottom:22px;
+  z-index:9998;
+  width:46px;
+  height:46px;
+  min-width:46px;
+  padding:0;
+  border-radius:50%;
+  border:1px solid rgba(197,141,88,.28);
+  color:#8f4a2f;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.86),rgba(249,247,245,.62));
+  box-shadow:
+    0 8px 24px rgba(78,58,38,.10),
+    inset 0 1px 0 rgba(255,255,255,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px) scale(.96);
+  pointer-events:none;
+  transition:
+    opacity .30s ease,
+    visibility .30s ease,
+    transform .30s ease,
+    background .20s ease,
+    box-shadow .20s ease;
+}
+.back-to-top-btn span{
+  font-size:22px;
+  font-weight:800;
+  line-height:1;
+  transform:translateY(-1px);
+  text-shadow:0 1px 0 rgba(255,255,255,.6);
+}
+.back-to-top-btn.show{
+  opacity:.88;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.back-to-top-btn:hover,
+.back-to-top-btn:focus-visible{
+  opacity:1;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.96),rgba(244,240,236,.78));
+  box-shadow:
+    0 10px 28px rgba(78,58,38,.15),
+    0 0 0 4px rgba(197,141,88,.08),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+.back-to-top-btn:active{
+  transform:translateY(1px) scale(.97);
+}
+
+@media(max-width:760px){
+  .mobile-radar-pager{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:9px;
+    margin:14px 2px 2px;
+    padding:10px;
+    border:1px solid #e6e4e2;
+    border-radius:16px;
+    background:
+      linear-gradient(180deg,rgba(255,254,254,.95),rgba(248,247,246,.88));
+    box-shadow:0 6px 18px rgba(57,46,33,.035);
+  }
+  .mobile-radar-pager[hidden]{display:none!important}
+  .mobile-page-btn{
+    min-width:0;
+    padding:9px 10px;
+    border:1px solid #dddbd8;
+    border-radius:12px;
+    background:rgba(255,255,255,.8);
+    color:#8f4a2f;
+    font-size:12px;
+    font-weight:900;
+  }
+  .mobile-page-btn:disabled{
+    opacity:.34;
+    cursor:not-allowed;
+  }
+  .mobile-page-info{
+    min-width:96px;
+    text-align:center;
+    font-size:11px;
+    line-height:1.45;
+    font-weight:850;
+    color:#6f6e6c;
+    white-space:nowrap;
+  }
+  .back-to-top-btn{
+    right:14px;
+    bottom:calc(16px + env(safe-area-inset-bottom));
+    width:44px;
+    height:44px;
+    min-width:44px;
+  }
+}
+
+/* V2.41.26 — 訊號說明預設收合 */
+.signal-guide-collapsible{
+  width:100%;
+  margin-top:14px;
+  border-top:1px solid #e7e5e4;
+}
+.signal-guide-collapsible > summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:15px 2px;
+  color:#403f3e;
+  user-select:none;
+}
+.signal-guide-collapsible > summary::-webkit-details-marker{display:none}
+.signal-guide-title{font-size:14px;font-weight:900}
+.signal-guide-action{
+  display:flex;align-items:center;gap:5px;
+  color:#74706c;font-size:12px;font-weight:800;white-space:nowrap
+}
+.signal-guide-chevron{
+  display:inline-block;font-size:19px;line-height:1;
+  transform:rotate(90deg);transition:transform .22s ease
+}
+.signal-guide-collapsible[open] .signal-guide-chevron{transform:rotate(-90deg)}
+.signal-guide-collapsible .when-open{display:none}
+.signal-guide-collapsible[open] .when-open{display:inline}
+.signal-guide-collapsible[open] .when-closed{display:none}
+.signal-guide-content{padding:0 0 8px;animation:signalGuideIn .22s ease both}
+@keyframes signalGuideIn{
+ from{opacity:0;transform:translateY(-4px)}
+ to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:760px){
+ .signal-guide-collapsible{margin-top:10px}
+ .signal-guide-collapsible > summary{padding:13px 2px}
+ .signal-guide-title{font-size:13px}
+ .signal-guide-action{font-size:11px}
+}
+
+/* V2.41.30 — 僅明確連結/按鈕可導向單股分析 */
+.radar-row,
+.radar-table tbody tr[data-symbol],
+.mobile-stock-card{
+  cursor:default!important;
+}
+.radar-open-analysis,
+.mobile-analysis-btn{
+  cursor:pointer!important;
+}
+
+@media(max-width:760px){
+  .pulse-help-close{
+    width:28px;
+    height:28px;
+    min-width:28px;
+    font-size:16px;
+    right:12px;
+    top:10px;
+  }
+}
+
+
+/* V2.41.50 — compact mobile VCP-chart CTA + chart-first single-stock view */
+.mobile-action-head{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+@media(max-width:760px){
+  .mobile-top-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end!important;
+    gap:6px;
+    flex:0 0 auto;
+  }
+  .mobile-analysis-btn{
+    width:auto!important;
+    min-width:0;
+    margin:0!important;
+    padding:7px 11px!important;
+    border-radius:999px!important;
+    font-size:11px!important;
+    line-height:1.15;
+    white-space:nowrap;
+    box-shadow:none;
+  }
+}
+
+/* ===== 27. body-27 V2.41.51 — mobile chart jump keeps stock identity visible be ===== */
+/* V2.41.51 — mobile chart jump keeps stock identity visible below sticky login bar */
+@media(max-width:760px){
+  #singleStockAnalysis .grid>.card:first-child{scroll-margin-top:calc(76px + env(safe-area-inset-top));}
+}
+
+/* ===== 28. body-28 V2.44.9 — structure quality label UI ===== */
+/* V2.44.9 — structure quality label UI */
+.structure-quality-badge{
+  display:inline-flex;align-items:center;width:max-content;max-width:100%;
+  margin-top:7px;padding:5px 9px;border-radius:999px;
+  border:1px solid #e2ddd7;background:#fffcf9;color:#6f5720;
+  font-size:12px;font-weight:900;line-height:1.15;white-space:nowrap;cursor:pointer;
+}
+.structure-quality-badge[hidden]{display:none!important}
+.structure-quality-compact{margin-top:5px;padding:4px 7px;font-size:11px}
+.mobile-structure-quality{margin-top:7px}
+@media(max-width:760px){
+  .structure-quality-badge{font-size:11px;padding:5px 8px}
+}
+
+/* V2.42.9 — mobile long US company names must not widen the whole page */
+@media(max-width:720px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .wrap,.grid,.grid>.card,.topline,.topline>div:first-child{min-width:0;max-width:100%}
+  .single-title-row{
+    display:flex !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    flex:1 1 auto !important;
+    align-items:flex-start !important;
+  }
+  .single-title-row .ticker{
+    flex:1 1 auto !important;
+    width:auto !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+    line-height:1.15 !important;
+  }
+  .single-title-row .single-title-favorite{
+    flex:0 0 21px !important;
+    margin-top:1px !important;
+  }
+}
+
+/* ===== 29. ui-polish-2026-10 ===== */
+/* 1) 篩選列分組：快速／關注訊號／位置與型態（不改動 JS 綁定的 .radar-tab） */
+.radar-head .radar-tabs{display:flex!important;flex-direction:column;gap:10px!important;overflow:visible!important;padding:0!important}
+.radar-head .radar-tabs{flex:1 1 100%;width:100%;align-content:flex-start;justify-content:flex-start;grid-template-rows:none!important;grid-auto-rows:auto!important}
+.radar-group{display:flex;align-items:flex-start;gap:10px;flex:0 0 auto;width:100%;max-width:100%;height:auto;min-height:0}
+.radar-group-label{flex:0 0 84px;font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.02em;line-height:38px;white-space:nowrap}
+.radar-group-chips{display:flex;flex-wrap:wrap;gap:7px;min-width:0;flex:1 1 auto}
+.radar-head .radar-tab{width:auto;min-height:38px;padding:8px 13px!important;font-size:13px!important;border-radius:999px!important;white-space:nowrap}
+@media(max-width:760px){
+ .radar-group{flex-direction:column;align-items:stretch;gap:6px}
+ .radar-group-label{flex:none;font-size:11px;line-height:1.2}
+ /* 手機：每組一列、可左右滑動，避免 11 顆按鈕擠成多列 */
+ .radar-group-chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -12px;padding:2px 12px 4px;scroll-snap-type:x proximity}
+ .radar-group-chips::-webkit-scrollbar{display:none}
+ .radar-head .radar-tab{flex:0 0 auto;min-height:40px;padding:8px 14px!important;font-size:13px!important;scroll-snap-align:start}
+}
+/* 2) 鍵盤與無障礙：清楚的 focus 外框、減少動態 */
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #e0a58a;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
