@@ -331,3 +331,15 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
   }
  }catch(err){ console.warn('nav/compact init skipped',err); }
 })();
+;
+/* ---- extra 8: 建議閱讀順序 收合／展開 ---- */
+(function(){
+ try{
+  const g=document.getElementById('vcpReadingGuide'); if(!g) return;
+  const t=g.querySelector('.guide-title'); if(!t) return;
+  const set=function(open){ g.classList.toggle('open',open); t.setAttribute('aria-expanded',open?'true':'false'); };
+  set(false);
+  t.addEventListener('click',function(){ set(!g.classList.contains('open')); });
+  t.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!g.classList.contains('open')); } });
+ }catch(e){}
+})();

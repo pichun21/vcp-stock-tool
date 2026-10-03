@@ -2262,3 +2262,21 @@ body{background-attachment:scroll!important}
 /* 2) 鍵盤與無障礙：清楚的 focus 外框、減少動態 */
 button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #e0a58a;outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ===== 30. fix-guide-star-topbtn（閱讀順序收合、標題星星重複、回到頂端按鈕加強） ===== */
+/* 建議閱讀順序：標題列可點開／收合，預設收起（跟下方導覽列功能重疊，避免佔掉首屏） */
+#vcpReadingGuide .guide-title{cursor:pointer;display:flex!important;align-items:center;justify-content:space-between;gap:8px;-webkit-tap-highlight-color:rgba(210,137,99,.2)}
+#vcpReadingGuide .guide-title::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid #b66749;border-bottom:2px solid #b66749;transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
+#vcpReadingGuide.open .guide-title::after{transform:rotate(-135deg) translateY(-2px)}
+#vcpReadingGuide:not(.open) .guide-desktop,
+#vcpReadingGuide:not(.open) .guide-mobile{display:none!important}
+#vcpReadingGuide:not(.open){padding-top:12px!important;padding-bottom:12px!important}
+/* 單股分析標題旁的星星：原本有更高優先權的 font-size 讓文字星星仍顯示，與向量星星疊成兩顆 */
+.single-title-row .single-title-favorite{font-size:0!important;line-height:0!important;gap:0!important;width:32px!important;min-width:32px!important;max-width:32px!important;height:32px!important;flex:0 0 32px!important}
+/* 回到頂端按鈕：實心陶土橘底＋白色箭頭＋白邊，在白底卡片上也一眼看得到 */
+.back-to-top-btn{width:48px!important;height:48px!important;min-width:48px!important;background:linear-gradient(180deg,#d28963,#b66749)!important;color:#fff!important;border:2px solid #fff!important;box-shadow:0 8px 22px rgba(182,103,73,.45),0 2px 6px rgba(43,38,34,.20)!important}
+.back-to-top-btn.show{opacity:1!important}
+.back-to-top-btn span{color:#fff!important;text-shadow:none!important;font-size:24px!important}
+.back-to-top-btn:hover,.back-to-top-btn:focus-visible{background:linear-gradient(180deg,#d9946f,#a8573a)!important}
+.back-to-top-btn:active{background:#a8573a!important}
+.single-title-favorite::before{transform:translateY(1px)}

@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261003">
+<link rel="stylesheet" href="./styles.css?v=20261004">
 
 
 
@@ -162,12 +162,13 @@
 
 
 <div id="vcpReadingGuide">
-  <span class="guide-title">📍 建議閱讀順序</span>
+  <span class="guide-title" role="button" tabindex="0" aria-expanded="false">📍 建議閱讀順序</span>
   <span class="guide-desktop">
 <button type="button" class="guide-link" data-guide="pulse">① Market Pulse</button> <span class="guide-arrow">→</span>
 <button type="button" class="guide-link" data-guide="structure">② 市場結構狀態</button> <span class="guide-arrow">→</span>
 <button type="button" class="guide-link" data-guide="theme">③ 資金熱區／題材雷達</button> <span class="guide-arrow">→</span>
-<button type="button" class="guide-link" data-guide="radar">④ VCP 個股型態</button>
+<button type="button" class="guide-link" data-guide="radar">④ VCP 個股型態</button> <span class="guide-arrow">→</span>
+<button type="button" class="guide-link" data-guide="single">⑤ 單股查詢</button>
 </span>
 <div class="guide-mobile">
     <div class="guide-step" data-guide="pulse" role="button" tabindex="0">
@@ -192,6 +193,12 @@
       <span class="guide-num">04</span>
       <div class="guide-name">VCP 個股型態</div>
       <div class="guide-desc">尋找個股機會</div>
+<span class="guide-go" aria-hidden="true">›</span>
+    </div>
+    <div class="guide-step" data-guide="single" role="button" tabindex="0">
+      <span class="guide-num">05</span>
+      <div class="guide-name">單股查詢</div>
+      <div class="guide-desc">輸入代號直接分析</div>
 <span class="guide-go" aria-hidden="true">›</span>
     </div>
   </div>
@@ -520,7 +527,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261003"></script>
+<script src="./app.js?v=20261004"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -715,7 +722,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261003"></script>
+<script src="./app-extras.js?v=20261004"></script>
 
 
 
