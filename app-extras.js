@@ -343,3 +343,20 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
   t.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!g.classList.contains('open')); } });
  }catch(e){}
 })();
+;
+/* ---- extra 9: 精簡卡片的星等（複製一份放到代號旁；只在精簡且未展開時由 CSS 顯示） ---- */
+(function(){
+ try{
+  const mob=document.getElementById('radarMobile'); if(!mob) return;
+  const decorate=function(){
+   mob.querySelectorAll('.mobile-stock-card').forEach(function(card){
+    const sc=card.querySelector('.mobile-score'), code=card.querySelector('.mobile-stock-code');
+    if(!sc||!code||code.querySelector('.mobile-score-inline')) return;
+    const s=document.createElement('span'); s.className='mobile-score-inline'; s.setAttribute('aria-hidden','true');
+    s.textContent=sc.textContent.trim(); code.appendChild(s);
+   });
+  };
+  decorate();
+  new MutationObserver(decorate).observe(mob,{childList:true});
+ }catch(e){}
+})();

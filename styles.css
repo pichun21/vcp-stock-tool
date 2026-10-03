@@ -2280,3 +2280,14 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .back-to-top-btn:hover,.back-to-top-btn:focus-visible{background:linear-gradient(180deg,#d9946f,#a8573a)!important}
 .back-to-top-btn:active{background:#a8573a!important}
 .single-title-favorite::before{transform:translateY(1px)}
+
+/* ===== 31. fix-pulse-color-compact-stars（Market Pulse 漲跌色跟隨市場、精簡卡片星等移到代號旁） ===== */
+/* Market Pulse 小方塊：台股紅漲綠跌、美股綠漲紅跌（與雷達、個股分析一致） */
+.mp-up{color:var(--up)!important}
+.mp-down{color:var(--down)!important}
+/* 手機精簡卡片：星等併到「代號・台股」同一行，整張卡片少一行 */
+.mobile-score-inline{display:none}
+@media(max-width:760px){
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score{display:none!important}
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-score-inline{display:inline;margin-left:8px;font-size:12px;letter-spacing:.5px;color:#2b2622;white-space:nowrap;vertical-align:baseline}
+}
