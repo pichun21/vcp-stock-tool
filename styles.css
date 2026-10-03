@@ -2305,13 +2305,14 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 @media(min-width:761px) and (max-width:1270px){ .radar-table th:nth-child(9),.radar-table td:nth-child(9){display:none} }
 @media(min-width:761px) and (max-width:1170px){ .radar-table th:nth-child(7),.radar-table td:nth-child(7){display:none} }
 @media(min-width:761px) and (max-width:1130px){ .radar-table th{padding-left:4px!important;padding-right:4px!important} .radar-table td{padding-left:4px;padding-right:4px} }
-/* (b) NEW 標籤：改為深色實心，與黃色的收藏星星明確區隔 */
-.new-entry-badge{background:#2b2622!important;color:#fbf3e4!important;border:1px solid #2b2622!important;letter-spacing:.06em}
-.new-tag{background:#2b2622;color:#fbf3e4;letter-spacing:.06em}
-/* (c) 題材雷達「展開全部」：手機版改成獨立一列的實心大按鈕（熱門＝陶土橘、蓄勢＝鼠尾草綠） */
+/* (b) NEW 標籤：深青色實心白字——與個股名稱（深色）、收藏星（金黃）、漲跌數字（磚紅）都不同色 */
+.new-entry-badge{background:#237a8a!important;color:#fff!important;border:1px solid #237a8a!important;letter-spacing:.06em}
+.new-tag{background:#237a8a;color:#fff;letter-spacing:.06em}
+/* (c) 題材雷達「展開全部」：手機版放在每個題材卡片底部，淡色整列按鈕（熱門＝陶土橘系、蓄勢＝鼠尾草綠系），不再擠在標題旁 */
 @media(max-width:760px){
- .theme-board-title{flex-wrap:wrap!important}
- .theme-board-actions{flex:1 1 100%;order:3;display:flex!important;align-items:center;gap:8px;margin-top:10px}
- .theme-board-actions .theme-expand-all{flex:1 1 auto;justify-content:center;text-align:center;min-height:42px;font-size:14px!important;font-weight:800;padding:9px 16px!important;color:#fff!important;border:0!important;border-radius:12px!important;background:var(--tb)!important;box-shadow:0 4px 12px rgba(60,50,40,.18);-webkit-tap-highlight-color:rgba(255,255,255,.2)}
- .theme-board-actions .theme-expand-all:active{filter:brightness(.92)}
+ .theme-board{padding-bottom:68px!important}
+ .theme-board-actions{display:contents!important}
+ .theme-board-actions .theme-expand-all{position:absolute!important;left:14px;right:14px;bottom:14px;display:flex!important;align-items:center;justify-content:center;min-height:42px;padding:8px 14px!important;font-size:14px!important;font-weight:800;letter-spacing:.02em;color:var(--tbt)!important;background:var(--tbc)!important;border:1.5px solid var(--tbbd)!important;border-radius:12px!important;box-shadow:none!important;-webkit-tap-highlight-color:rgba(210,137,99,.2)}
+ .theme-board-actions .theme-expand-all:active{background:var(--tbcb)!important}
+ .theme-board-setup .theme-stock-toggle{color:var(--tbt)!important}
 }
