@@ -34,9 +34,12 @@
     <div style="margin-top:8px;color:#777674;font-size:13px;letter-spacing:1px">PowerSqueeze 智慧選股雷達</div>
     <div id="authStatus" style="margin:24px 0 16px;color:#62615f;line-height:1.6">正在確認登入狀態…</div>
     <button id="googleLoginBtn" type="button" style="display:none;width:100%;padding:13px 16px;border-radius:14px;background:#20231f;color:#fff;border:0;font-weight:800;cursor:pointer">使用 Google 帳號登入</button>
+    <div id="gisLoginWrap" style="display:none;justify-content:center;min-height:44px"></div>
+    <button id="usePopupLoginBtn" type="button" style="display:none;margin-top:12px;background:none;border:0;color:#8f4a2f;font-size:12px;text-decoration:underline;cursor:pointer">改用彈出視窗登入</button>
     <div id="authError" style="display:none;margin-top:14px;padding:10px 12px;border-radius:12px;background:#fff0ed;color:#8d302b;font-size:13px;line-height:1.5"></div>
     <div id="authBrowserHint" style="display:none;margin-top:14px;padding:11px 12px;border-radius:12px;background:#fffdfa;border:1px solid #eae6e1;color:#7a5a22;font-size:13px;line-height:1.6;text-align:left">
       偵測到 Samsung Internet。若登入後出現黑色英文錯誤頁，請關閉該分頁並改用 <b>Google Chrome</b> 開啟 VCPulse；這是瀏覽器未保留 Firebase 登入狀態，並非帳號未授權。
+      <a id="openInChromeBtn" href="#" style="display:block;margin-top:10px;padding:10px 12px;border-radius:12px;background:#b66749;color:#fff;text-align:center;font-weight:800;text-decoration:none">用 Chrome 開啟</a>
     </div>
     <div style="margin-top:16px;color:#72706f;font-size:11px">VCPulse 授權登入版</div>
   </div>
@@ -542,7 +545,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  signOut
+  signOut,
+  signInWithCredential
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {
   getFirestore,
@@ -585,7 +589,7 @@ function showSignedOut(){
   appEl.style.display = "none";
   userBar.style.display = "none";
   statusEl.textContent = "請先登入 Google 帳號，才能進入 VCPulse。";
-  loginBtn.style.display = "block";
+  setSignedOutMode(true);
 }
 
 function friendlyAuthError(e){
@@ -618,7 +622,7 @@ function showUnauthorized(user){
   userBar.style.display = "none";
   statusEl.innerHTML = "此帳號尚未取得 <b>VCPulse</b> 使用權限。<br><span style=\"font-size:12px;color:#72706f\">" +
     (user.email || "目前 Google 帳號") + "</span>";
-  loginBtn.style.display = "none";
+  loginBtn.style.display = "none"; setSignedOutMode(false);
   errorEl.style.display = "block";
   errorEl.style.background = "#fff7e8";
   errorEl.style.color = "#7a5a22";
@@ -646,6 +650,7 @@ function showUnauthorized(user){
   }, 0);
 }
 function showSignedIn(user){
+  setSignedOutMode(false);
   gate.style.display = "none";
   appEl.style.display = "";
   userBar.style.display = "block";
@@ -653,6 +658,70 @@ function showSignedIn(user){
   document.getElementById("signedInEmail").textContent = user.email || "Google 使用者";
   document.getElementById("signedInUid").textContent = maskUid(user.uid);
 }
+// ===== Google Identity Services（選用）=====
+// 預設留空＝完全沿用原本的「彈出視窗登入」，行為不變。
+// 要啟用時，請把 Firebase 後台「Authentication → 登入方式 → Google → Web SDK 設定」裡的「網頁用戶端 ID」貼在下面的引號內，
+// 並到 Google Cloud 的該 OAuth 用戶端新增「已授權的 JavaScript 來源」：https://pichun21.github.io
+// 啟用後會顯示 Google 官方登入按鈕（不經過 firebaseapp.com 的彈出頁，可避開 Samsung Internet 的 missing initial state 錯誤）；
+// 若載入失敗或使用者點「改用彈出視窗登入」，仍可使用原本的登入方式。
+const GOOGLE_WEB_CLIENT_ID = "";
+
+const gisWrap = document.getElementById("gisLoginWrap");
+const usePopupBtn = document.getElementById("usePopupLoginBtn");
+const chromeBtn = document.getElementById("openInChromeBtn");
+let signedOutMode = false, gisReady = false, useOldLogin = false;
+
+if (chromeBtn) {
+  chromeBtn.href = "intent://" + location.host + location.pathname + location.search +
+    "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + encodeURIComponent(location.href) + ";end";
+}
+function setSignedOutMode(on){ signedOutMode = !!on; applyLoginMode(); }
+function applyLoginMode(){
+  const gisActive = gisReady && !useOldLogin;
+  gisWrap.style.display = (signedOutMode && gisActive) ? "flex" : "none";
+  loginBtn.style.display = (signedOutMode && !gisActive) ? "block" : "none";
+  usePopupBtn.style.display = (signedOutMode && gisActive) ? "inline-block" : "none";
+  if (isSamsungInternet) browserHintEl.style.display = gisActive ? "none" : "block";
+}
+usePopupBtn.addEventListener("click", () => { useOldLogin = true; applyLoginMode(); });
+
+async function onGoogleCredential(resp){
+  errorEl.style.display = "none";
+  try {
+    if (!resp || !resp.credential) throw new Error("沒有收到 Google 憑證");
+    await signInWithCredential(auth, GoogleAuthProvider.credential(resp.credential));
+  } catch (e) {
+    showError(friendlyAuthError(e));
+  }
+}
+function setupGoogleIdentity(){
+  if (!GOOGLE_WEB_CLIENT_ID) return;
+  const s = document.createElement("script");
+  s.src = "https://accounts.google.com/gsi/client";
+  s.async = true; s.defer = true;
+  s.onload = () => {
+    try {
+      google.accounts.id.initialize({
+        client_id: GOOGLE_WEB_CLIENT_ID,
+        callback: onGoogleCredential,
+        auto_select: false,
+        cancel_on_tap_outside: true,
+        ux_mode: "popup",
+        itp_support: true
+      });
+      const w = Math.max(200, Math.min(320, (gisWrap.parentElement && gisWrap.parentElement.clientWidth) || 300));
+      google.accounts.id.renderButton(gisWrap, { type: "standard", theme: "outline", size: "large", text: "signin_with", shape: "pill", logo_alignment: "left", locale: "zh-TW", width: w });
+      gisReady = true;
+      applyLoginMode();
+    } catch (e) {
+      console.warn("Google Identity Services 初始化失敗，沿用原登入方式", e);
+    }
+  };
+  s.onerror = () => console.warn("Google Identity Services 載入失敗，沿用原登入方式");
+  document.head.appendChild(s);
+}
+setupGoogleIdentity();
+
 loginBtn.addEventListener("click", async () => {
   errorEl.style.display = "none";
   loginBtn.disabled = true;
@@ -696,7 +765,7 @@ onAuthStateChanged(auth, async user => {
   appEl.style.display = "none";
   userBar.style.display = "none";
   statusEl.textContent = "正在確認 VCPulse 使用權限…";
-  loginBtn.style.display = "none";
+  loginBtn.style.display = "none"; setSignedOutMode(false);
   errorEl.style.display = "none";
   try {
     const snap = await getDoc(doc(db, "authorizedUsers", user.uid));
