@@ -713,6 +713,58 @@ def apply_rs_rating(results,market,quote_cache=None):
                 quote_cache[sym]["rs_rating"]=rate(raw)
     return n
 
+# ---------------------------------------------------------------------------
+# V2.46.0 — Minervini Trend Template (technical part), ANNOTATION ONLY.
+# 7 price-based checks; the 8th classic criterion (RS >= 70) is evaluated on the frontend from rs_rating.
+# Uses closing prices only (restore-adjusted, same series as VCP). Never changes score/eligibility/ranking.
+# tt_fail lists the failed check numbers (1-7) so the UI can show exactly what is missing.
+# ---------------------------------------------------------------------------
+TT_RAW={}   # (market, SYMBOL) -> {"count":int,"fail":[ints]}
+
+def compute_tt(df):
+    """Return {"count":0-7,"fail":[...]} or None when there are fewer than ~222 bars."""
+    try:
+        close=pd.to_numeric(df["Close"],errors="coerce").dropna().astype(float)
+        if len(close)<222: return None          # need 200MA plus one month of history for the slope
+        last=float(close.iloc[-1])
+        ma50=float(close.rolling(50).mean().iloc[-1])
+        ma150=float(close.rolling(150).mean().iloc[-1])
+        ma200s=close.rolling(200).mean()
+        ma200=float(ma200s.iloc[-1]); ma200_prev=float(ma200s.iloc[-23])   # ~1 trading month earlier
+        win=close.iloc[-252:]
+        hi=float(win.max()); lo=float(win.min())
+        vals=[last,ma50,ma150,ma200,ma200_prev,hi,lo]
+        if not all(math.isfinite(v) and v>0 for v in vals): return None
+        checks={
+            1: last>ma150 and last>ma200,        # price above 150 & 200 MA
+            2: ma150>ma200,                      # 150 MA above 200 MA
+            3: ma200>ma200_prev,                 # 200 MA rising vs one month ago
+            4: ma50>ma150 and ma50>ma200,        # 50 MA above 150 & 200 MA
+            5: last>ma50,                        # price above 50 MA
+            6: last>=lo*1.30,                    # at least 30% above 52-week low
+            7: last>=hi*0.75,                    # within 25% of 52-week high
+        }
+        fail=[k for k,v in checks.items() if not v]
+        return {"count":7-len(fail),"fail":fail}
+    except Exception:
+        return None
+
+def apply_trend_template(results,market,quote_cache=None):
+    """Attach tt_count / tt_fail to radar candidates and (when given) to the all-stock quote cache."""
+    def put(dst,sym):
+        t=TT_RAW.get((market,sym))
+        if t is None: return False
+        dst["tt_count"]=t["count"]; dst["tt_fail"]=list(t["fail"]); return True
+    ok=0
+    for r in results:
+        if put(r,str(r.get("symbol","")).upper()): ok+=1
+        else:
+            r["tt_count"]=None; r["tt_fail"]=[]
+    if quote_cache is not None:
+        for sym in list(quote_cache.keys()):
+            put(quote_cache[sym],str(sym).upper())
+    return ok
+
 def analyze(df,item,market):
     df=df.dropna(subset=["Close"]).copy()
     if len(df)<170: return None
@@ -1323,6 +1375,8 @@ def download_batch(items,market):
             vcp_d=apply_restore_events_df(d,ev)
             _rs=compute_rs_raw(vcp_d,market)
             if _rs is not None: RS_RAW[(market,str(item["symbol"]).upper())]=_rs
+            _tt=compute_tt(vcp_d)
+            if _tt is not None: TT_RAW[(market,str(item["symbol"]).upper())]=_tt
             r=analyze(vcp_d,item,market)
             if r:
                 r["industry"]=item.get("industry") or ""
@@ -1637,6 +1691,8 @@ def scan(market):
         batch_results,batch_dates,batch_flows,batch_quotes,batch_restore_events=download_batch(b,market)
         results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); restore_event_cache.update(batch_restore_events); time.sleep(1)
     rs_n=apply_rs_rating(results,market,quote_cache)
+    tt_n=apply_trend_template(results,market,quote_cache)
+    print(f"{market} TREND TEMPLATE: attached to {tt_n}/{len(results)} candidates; full 7/7 = {sum(1 for r in results if r.get('tt_count')==7)}")
     print(f"{market} RS RATING: ranked {rs_n} liquid symbols; attached to {sum(1 for r in results if r.get('rs_rating') is not None)}/{len(results)} candidates")
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))

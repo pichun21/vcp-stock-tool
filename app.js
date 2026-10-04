@@ -1577,6 +1577,27 @@ function rsChip(r,asBlock){
  return asBlock?`<div class="rs-line">${chip}</div>`:chip;
 }
 
+/* 趨勢模板（Minervini Trend Template 的價格面 7 項）：只做標註，不影響 VCP 分數與篩選；資料由 scanner.py 的 tt_count / tt_fail 提供 */
+const TT_LABELS={1:'股價在 150 與 200 日線之上',2:'150 日線在 200 日線之上',3:'200 日線上彎（比一個月前高）',4:'50 日線在 150 與 200 日線之上',5:'股價在 50 日線之上',6:'距 52 週低點至少 +30%',7:'距 52 週高點不超過 25%'};
+function ttFull(r){ return Number(r&&r.tt_count)===7 && Number(r&&r.rs_rating)>=70; }
+function ttTipText(count,fail,rs){
+ const miss=(Array.isArray(fail)?fail:[]).map(k=>TT_LABELS[k]).filter(Boolean);
+ let t=`趨勢模板 ${count}/7（價格面）`;
+ if(miss.length) t+=`；未符合：${miss.join('、')}`;
+ else t+=Number(rs)>=70?'；7 項全過，且 RS ≥ 70，完整符合':'；7 項全過（經典標準另要求 RS ≥ 70）';
+ return t+'。僅供參考，不影響 VCP 分數';
+}
+function ttChip(r){
+ const n=Number(r&&r.tt_count);
+ if(r==null||r.tt_count==null||!Number.isFinite(n)) return '';
+ const tier=n>=7?'full':(n>=5?'near':'low');
+ return `<span class="tt-chip tt-${tier}" title="${ttTipText(n,r.tt_fail,r.rs_rating)}">趨勢 ${n}/7</span>`;
+}
+function rsTtLine(r){
+ const a=rsChip(r), b=ttChip(r);
+ return (a||b)?`<div class="rs-line">${a}${b}</div>`:'';
+}
+
 const FAVORITES_KEY='vcpulse_favorites_v1';
 const FAVORITE_META_KEY='vcpulse_favorite_meta_v2';
 function favoriteKey(market,symbol){ return `${String(market||'').toUpperCase()}:${String(symbol||'').toUpperCase()}`; }
@@ -1966,7 +1987,7 @@ function renderRadar(filter='all'){
    (filter==='new' ? r.is_new===true :
    (filter==='quality' ? r.structure_quality_good===true :
    (filter==='combo' ? r.combo :
-    (filter==='rs80' ? Number(r.rs_rating)>=80 : r.type===filter))))));
+    (filter==='rs80' ? Number(r.rs_rating)>=80 : (filter==='tt' ? ttFull(r) : r.type===filter)))))));
  });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
@@ -2021,7 +2042,7 @@ function renderRadar(filter='all'){
      </div>
    </td>
    <td>${esc(marketLabel(r.market))}</td>
-   <td><div>${stars(r.score)}</div>${rsChip(r,true)}${r.structure_quality_good?'<div class="structure-quality-badge structure-quality-compact">💎 結構品質佳</div>':''}</td>
+   <td><div>${stars(r.score)}</div>${rsTtLine(r)}${r.structure_quality_good?'<div class="structure-quality-badge structure-quality-compact">💎 結構品質佳</div>':''}</td>
    
    <td>${fmtNum(r.pivot,2)}</td>
    <td>
@@ -2161,7 +2182,7 @@ function renderRadar(filter='all'){
        <div class="mobile-stock-top">
          <div>
            <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
-           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${rsChip(r)}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>
          </div>
          <div class="mobile-top-actions">
            <div class="mobile-action-head">
@@ -2801,7 +2822,7 @@ function goMobileRadarPage(delta){
    (radarFilter==='new' ? r.is_new===true :
    (radarFilter==='quality' ? r.structure_quality_good===true :
    (radarFilter==='combo' ? r.combo :
-    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : r.type===radarFilter))))));
+    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : (radarFilter==='tt' ? ttFull(r) : r.type===radarFilter)))))));
  });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));

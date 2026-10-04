@@ -2339,3 +2339,26 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* rs-help-chip：雷達「訊號怎麼看」說明卡裡的 RS 範例標籤，避免被卡片內 span 的版面規則拉成整列寬 */
 .pulse-help-grid b .rs-chip{display:inline-flex!important;width:auto!important;font-size:11px!important;line-height:1.5!important;margin:0 6px 0 0!important;vertical-align:middle}
+
+
+/* ===== 35. tt-chip（趨勢模板標籤）與單股頁「趨勢模板」整列 ===== */
+.tt-chip{display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.02em;line-height:1.5;padding:0 7px;margin-left:6px;border-radius:7px;border:1px solid;vertical-align:middle;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tt-full{background:#dcebe7;color:#1f5f50;border-color:#9fc9bd}
+.tt-near{background:#f4f1ea;color:#6b5d45;border-color:#e3ddd0}
+.tt-low{background:transparent;color:#8a7f70;border-color:#e3ddd0;border-style:dashed}
+.rs-line .tt-chip:first-child{margin-left:0}
+@media(max-width:760px){
+ /* 手機精簡卡片空間有限：趨勢標籤只在展開後顯示 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .tt-chip{display:none}
+}
+.momentum-grid>div.tt-tile{grid-column:1/-1!important}
+#auxTt{white-space:normal;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+
+/* 手機卡片代號行：RS 與趨勢標籤放不下時整顆換行，並與代號左對齊 */
+.chip-group{display:inline-block;white-space:nowrap;vertical-align:middle}
+.chip-group .rs-chip,.chip-group .tt-chip{margin-left:0}
+.chip-group .tt-chip{margin-left:6px}
+.chip-group .rs-chip+.tt-chip{margin-left:6px}
+.chip-group .tt-chip:first-child{margin-left:0}
+/* 趨勢模板全過用深綠（避免沿用台股「上漲＝紅」造成誤會） */
+.aux-grid b#auxTt.up{color:#1f5f50!important}

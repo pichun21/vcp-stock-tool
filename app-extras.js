@@ -41,7 +41,7 @@ function auxPct(v,d=1){return Number.isFinite(v)?`${v>0?'+':''}${v.toFixed(d)}%`
 function auxSet(id,text,v=null,mode='direction'){const e=document.getElementById(id);if(!e)return;e.textContent=text;if(mode==='neutral'){e.className='neutral';return}e.className=Number.isFinite(v)?(v>0?'up':v<0?'down':'neutral'):'neutral'}
 function resetAuxMarketAndForeign(){
  const p=document.getElementById('auxMarketPanel');if(p)p.hidden=true;
- ['auxRet5','auxRs','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5','whale400','whale1w','whale4w','whaleStreak'].forEach(id=>auxSet(id,'—'));
+ ['auxRet5','auxRs','auxTt','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5','whale400','whale1w','whale4w','whaleStreak'].forEach(id=>auxSet(id,'—'));
  const as=document.getElementById('foreignAsOf');if(as)as.textContent='正式收盤資料'; const wa=document.getElementById('whaleAsOf');if(wa)wa.textContent='每週更新'; const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent='正式收盤資料'; const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent='前一交易日';
 }
 function updateMarketMomentum(d,isIntraday=false){
@@ -130,13 +130,37 @@ function updateRsTile(symbol,market){
  e.textContent=`${n}（前 ${Math.max(1,100-n)}%）`;
  e.title=`相對強度 RS ${n}：近 3／6／9／12 個月加權漲幅，在同市場流動性足夠的股票中的排名（1–99，越高越強）；僅供參考，不影響 VCP 分數`;
 }
+function ttDataFor(market,symbol){
+ try{
+  const m=String(market||'').toUpperCase(), s=String(symbol||'').toUpperCase();
+  const q=(typeof radarAllQuotes!=='undefined'&&radarAllQuotes)||{};
+  const order=(typeof radarSnapshot!=='undefined'&&radarSnapshot==='intraday')?['intraday','official']:['official','intraday'];
+  for(let i=0;i<order.length;i++){
+   const e=((q[order[i]]||{})[m]||{})[s];
+   if(e&&e.tt_count!=null&&Number.isFinite(Number(e.tt_count))) return e;
+  }
+ }catch(e){}
+ return null;
+}
+function updateTtTile(symbol,market){
+ const box=document.getElementById('auxTt'); if(!box) return;
+ const e=ttDataFor(market,symbol);
+ if(!e){ box.textContent='—'; box.className='neutral'; box.title='尚無趨勢模板資料（要等下一次掃描更新，或上市未滿約 10 個月）'; return; }
+ const n=Number(e.tt_count), fail=Array.isArray(e.tt_fail)?e.tt_fail:[];
+ const rs=rsRatingFor(market,symbol);
+ const miss=fail.map(k=>TT_LABELS[k]).filter(Boolean);
+ let txt=`${n}/7`;
+ if(!miss.length) txt+=Number(rs)>=70?' · 完整符合（含 RS ≥ 70）':' · 價格面全過';
+ else txt+=` · 未過：${miss.join('、')}`;
+ box.textContent=txt; box.className=n>=7?'up':'neutral'; box.title=ttTipText(n,fail,rs);
+}
 function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const p=document.getElementById('auxMarketPanel');if(!p)return;p.hidden=false;
  const today=new Date();const td=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
  const liveDate=String(liveQuote?.data_date||'').slice(0,10);
  const intraday=String(market).toUpperCase()==='TW' && liveDate===td && !isIntradayLockedAfterOfficial('TW');
  updateMarketMomentum(d,intraday);
- try{ updateRsTile(symbol,market); }catch(e){}
+ try{ updateRsTile(symbol,market); }catch(e){} try{ updateTtTile(symbol,market); }catch(e){}
  const isTW=String(market).toUpperCase()==='TW';const fb=document.getElementById('foreignBlock');if(fb)fb.hidden=!isTW;const wb=document.getElementById('whaleBlock');if(wb)wb.hidden=!isTW;if(isTW){updateForeign(symbol);updateWhales(symbol)}
 }
 ;
