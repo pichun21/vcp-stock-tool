@@ -2374,3 +2374,34 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .tt-pips i.ok{background:#2f7d6a;border-color:#2f7d6a}
 .tt-pips i.no{border-color:#c9a27a;background:#fff}
 @media(max-width:380px){.strength-card>b{font-size:25px}}
+
+
+/* ===== 37. 強度評級卡片可點擊 + 說明彈窗（手機為底部面板，桌機為置中視窗） ===== */
+.strength-card[data-help]{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .15s,transform .15s}
+.strength-card[data-help]:active{transform:scale(.985)}
+.strength-card[data-help]:focus-visible{outline:2px solid #2f7d6a;outline-offset:2px}
+.strength-info{position:absolute;top:9px;right:9px;width:18px;height:18px;border-radius:50%;border:1.5px solid #b9b2a3;color:#8a7f70;font:italic 800 11px/15px Georgia,serif;text-align:center;box-sizing:border-box}
+.strength-head{flex-wrap:wrap}
+.sh-backdrop{position:fixed;inset:0;z-index:10100;background:rgba(32,28,22,.45);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .18s}
+.sh-backdrop.open{opacity:1}
+.sh-sheet{width:100%;max-width:520px;max-height:84vh;max-height:84dvh;overflow:auto;-webkit-overflow-scrolling:touch;background:#fffdf9;border-radius:20px 20px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 30px rgba(0,0,0,.18);transform:translateY(24px);transition:transform .2s}
+.sh-backdrop.open .sh-sheet{transform:none}
+.sh-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.sh-top h4{margin:0;font-size:17px;color:#2d2a25}
+.sh-sheet .sh-close{flex:none!important;width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;min-height:0!important;padding:0!important;margin:0!important;border-radius:50%!important;border:1px solid #e3ddd0!important;background:#fff!important;color:#6b5d45!important;font-size:18px!important;line-height:30px!important;text-align:center;cursor:pointer;display:inline-block!important}
+.sh-now{margin:6px 0 10px;padding:8px 11px;border-radius:11px;background:#eef5f2;border:1px solid #cfe2dd;color:#1f5f50;font-weight:800;font-size:14px}
+.sh-sheet p{margin:8px 0;font-size:13.5px;line-height:1.7;color:#4b4741}
+.sh-sheet p b{color:#2d2a25}
+.sh-sheet .sh-note{font-size:12px;color:#7a766d}
+.sh-list{list-style:none;margin:8px 0;padding:0;display:grid;gap:5px}
+.sh-list li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.55;color:#4b4741;padding:6px 9px;border-radius:9px;background:#faf7f0}
+.sh-list li i{flex:none;width:16px;height:16px;margin-top:2px;border-radius:50%;box-sizing:border-box;border:1.5px solid #c9c2b4;display:inline-block}
+.sh-list li.ok i{background:#2f7d6a;border-color:#2f7d6a}
+.sh-list li.no i{border-color:#c9a27a;background:#fff}
+.sh-list li.no{background:#fbf3ea}
+.sh-tiers{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.sh-tiers .rs-chip{margin-left:0}
+@media(min-width:761px){
+ .sh-backdrop{align-items:center}
+ .sh-sheet{border-radius:20px;max-width:460px;padding-bottom:20px}
+}

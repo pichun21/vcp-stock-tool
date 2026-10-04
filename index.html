@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261009">
+<link rel="stylesheet" href="./styles.css?v=20261010">
 
 
 
@@ -323,14 +323,16 @@
       <div><span>5日/20日均量</span><b id="auxVolRatio">—</b></div>
     </div>
     <div class="strength-panel" id="strengthPanel">
-      <div class="strength-head"><b>強度評級</b><span>另外計算 · 不影響 VCP 分數</span></div>
+      <div class="strength-head"><b>強度評級</b><span>點卡片看說明 · 不影響 VCP 分數</span></div>
       <div class="strength-grid">
-        <div class="strength-card" id="rsCard" data-tier="none">
+        <div class="strength-card" id="rsCard" data-tier="none" data-help="rs" role="button" tabindex="0" aria-label="相對強度 RS 說明">
+          <i class="strength-info" aria-hidden="true">i</i>
           <span class="strength-label">相對強度 RS</span>
           <b id="auxRs">—</b>
           <small id="auxRsSub">近 3～12 個月漲幅排名</small>
         </div>
-        <div class="strength-card" id="ttCard" data-tier="none">
+        <div class="strength-card" id="ttCard" data-tier="none" data-help="tt" role="button" tabindex="0" aria-label="趨勢模板說明">
+          <i class="strength-info" aria-hidden="true">i</i>
           <span class="strength-label">趨勢模板</span>
           <b id="auxTt">—</b>
           <div class="tt-pips" id="auxTtPips" aria-hidden="true"></div>
@@ -569,7 +571,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261009"></script>
+<script src="./app.js?v=20261010"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -845,7 +847,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261009"></script>
+<script src="./app-extras.js?v=20261010"></script>
 
 
 

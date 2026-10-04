@@ -124,7 +124,7 @@ function rsRatingFor(market,symbol){
 }
 function resetStrengthPanel(){
  const set=(id,fn)=>{const e=document.getElementById(id); if(e) fn(e);};
- set('rsCard',e=>e.dataset.tier='none'); set('ttCard',e=>e.dataset.tier='none');
+ set('rsCard',e=>e.dataset.tier='none'); set('ttCard',e=>{e.dataset.tier='none';e.dataset.has='';e.dataset.fail='';});
  set('auxRs',e=>{e.textContent='—';e.className='';e.title='';}); set('auxRsSub',e=>e.textContent='近 3～12 個月漲幅排名');
  set('auxTt',e=>{e.textContent='—';e.className='';e.title='';}); set('auxTtSub',e=>e.textContent='價格面 7 項條件');
  set('auxTtPips',e=>e.innerHTML='');
@@ -154,14 +154,66 @@ function updateTtTile(symbol,market){
  const box=document.getElementById('auxTt'); if(!box) return;
  const card=document.getElementById('ttCard'), sub=document.getElementById('auxTtSub'), pips=document.getElementById('auxTtPips');
  const e=ttDataFor(market,symbol);
- if(!e){ box.textContent='—'; box.title='尚無趨勢模板資料（要等下一次掃描更新，或上市未滿約 10 個月）'; if(card) card.dataset.tier='none'; if(sub) sub.textContent='尚無資料'; if(pips) pips.innerHTML=''; return; }
+ if(!e){ if(card){card.dataset.has='';card.dataset.fail='';} box.textContent='—'; box.title='尚無趨勢模板資料（要等下一次掃描更新，或上市未滿約 10 個月）'; if(card) card.dataset.tier='none'; if(sub) sub.textContent='尚無資料'; if(pips) pips.innerHTML=''; return; }
  const n=Number(e.tt_count), fail=Array.isArray(e.tt_fail)?e.tt_fail.map(Number):[];
  const rs=rsRatingFor(market,symbol), miss=fail.map(k=>TT_LABELS[k]).filter(Boolean);
- box.textContent=`${n}/7`; box.title=ttTipText(n,fail,rs);
+ box.textContent=`${n}/7`; box.title=ttTipText(n,fail,rs); if(card){card.dataset.fail=fail.join(',');card.dataset.has='1';}
  if(card) card.dataset.tier=n>=7?'top':(n>=5?'mid':'low');
  if(pips) pips.innerHTML=[1,2,3,4,5,6,7].map(k=>`<i class="${fail.includes(k)?'no':'ok'}" title="${String(TT_LABELS[k]).replace(/"/g,'&quot;')}：${fail.includes(k)?'未通過':'通過'}"></i>`).join('');
  if(sub) sub.textContent=miss.length?`未過：${miss.join('、')}`:(Number(rs)>=70?'價格面全過，且 RS ≥ 70：完整符合':'價格面 7 項全過');
 }
+/* ---- 強度評級：點卡片開說明彈窗 ---- */
+function shEsc(x){return String(x==null?"":x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+function closeStrengthHelp(){
+ const b=document.getElementById('shBackdrop'); if(!b) return;
+ b.classList.remove('open'); document.documentElement.style.overflow=b.dataset.prevOverflow||'';
+ setTimeout(()=>{ if(b.parentNode) b.parentNode.removeChild(b); },180);
+ if(window.__shLastFocus&&window.__shLastFocus.focus) try{window.__shLastFocus.focus();}catch(e){}
+}
+function strengthHelpHtml(kind){
+ if(kind==='rs'){
+  const v=(document.getElementById('auxRs')||{}).textContent||'—', sub=(document.getElementById('auxRsSub')||{}).textContent||'';
+  const now=(v&&v!=='—')?`這檔目前：RS ${v}（${sub.split(' · ')[0]}）`:'這檔目前：尚無 RS 資料（流動性不足、上市未滿約 9 個月，或要等下一次掃描）';
+  return {title:'相對強度 RS',body:`
+   <div class="sh-now">${shEsc(now)}</div>
+   <p><b>一句話：</b>這檔股票近 3～12 個月的漲幅，在同市場排第幾。範圍 1～99，越高越強；畫面上的「前 N%」＝ 100 − RS。例如 RS 90 代表贏過約 9 成的股票。</p>
+   <p><b>怎麼算：</b>取近 3、6、9 個月與近一年的漲幅，依 40%／20%／20%／20% 加權（越近期權重越高），再和同市場、成交值足夠的股票比名次。</p>
+   <div class="sh-tiers"><span class="rs-chip rs-top">90 以上 深綠</span><span class="rs-chip rs-hi">80～89 淺綠</span><span class="rs-chip rs-mid">70～79 米色</span><span class="rs-chip rs-low">70 以下 虛線</span></div>
+   <p><b>為什麼看它：</b>VCP 常見做法是在市場上相對強勢的領導股裡找，偏好 RS 70 以上、越高越好；同樣是 5 星時，RS 能分辨誰本來就強。</p>
+   <p class="sh-note">只是標註，不影響 VCP 星數、入選與排序。反映的是過去漲幅，不代表未來，也不是買賣建議。</p>`};
+ }
+ const card=document.getElementById('ttCard')||{dataset:{}}, has=!!card.dataset.has;
+ const fail=(card.dataset.fail||'').split(',').filter(Boolean).map(Number);
+ const tv=(document.getElementById('auxTt')||{}).textContent||'—';
+ const rows=[1,2,3,4,5,6,7].map(k=>`<li class="${has?(fail.includes(k)?'no':'ok'):''}"><i></i><span>${shEsc(TT_LABELS[k])}${has?(fail.includes(k)?'（未通過）':''):''}</span></li>`).join('');
+ const now=has?`這檔目前：${tv} 項通過${fail.length?'，標示「未通過」的是缺少的條件':'，價格面 7 項全過'}`:'這檔目前：尚無趨勢模板資料（上市未滿約 10 個月，或要等下一次掃描）';
+ return {title:'趨勢模板（價格面 7 項）',body:`
+  <div class="sh-now">${shEsc(now)}</div>
+  <p><b>一句話：</b>檢查這檔股票是不是處在健康的上升趨勢，源自 Mark Minervini 的選股條件。VCP 是在上升趨勢中整理後再突破，趨勢沒過的整理，可能只是長期下跌後的小反彈。</p>
+  <ul class="sh-list">${rows}</ul>
+  <p><b>第 8 項：</b>經典標準還要求 RS ≥ 70，這項直接看左邊的相對強度。篩選「趨勢模板 ✓」＝ 7 項全過且 RS ≥ 70。</p>
+  <p class="sh-note">以收盤價計算（52 週高低點也用收盤價），需約 10 個月資料。沒過不代表看空，要看是哪一項沒過；只是標註，不影響 VCP 星數、入選與排序，也不是買賣建議。</p>`};
+}
+function openStrengthHelp(kind){
+ closeStrengthHelp();
+ const c=strengthHelpHtml(kind);
+ const b=document.createElement('div'); b.id='shBackdrop'; b.className='sh-backdrop';
+ b.dataset.prevOverflow=document.documentElement.style.overflow||'';
+ b.innerHTML=`<div class="sh-sheet" role="dialog" aria-modal="true" aria-label="${shEsc(c.title)}說明"><div class="sh-top"><h4>${shEsc(c.title)}</h4><button type="button" class="sh-close" aria-label="關閉">×</button></div>${c.body}</div>`;
+ b.addEventListener('click',e=>{ if(e.target===b||e.target.closest('.sh-close')) closeStrengthHelp(); });
+ window.__shLastFocus=document.activeElement;
+ document.body.appendChild(b); document.documentElement.style.overflow='hidden';
+ requestAnimationFrame(()=>b.classList.add('open'));
+ const cb=b.querySelector('.sh-close'); if(cb) cb.focus();
+}
+document.addEventListener('click',e=>{
+ const c=e.target.closest&&e.target.closest('#strengthPanel .strength-card[data-help]'); if(!c) return;
+ openStrengthHelp(c.dataset.help);
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&document.getElementById('shBackdrop')){ closeStrengthHelp(); return; }
+ if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.matches&&e.target.matches('#strengthPanel .strength-card[data-help]')){ e.preventDefault(); openStrengthHelp(e.target.dataset.help); }
+});
 function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const p=document.getElementById('auxMarketPanel');if(!p)return;p.hidden=false;
  const today=new Date();const td=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
