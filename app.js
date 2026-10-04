@@ -2169,6 +2169,8 @@ function renderRadar(filter='all'){
      if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(squeezeLabel(r))}，波動處於壓縮狀態</div>`);
      else reasons.push(`<div class="reason-item reason-note">${esc(squeezeLabel(r))}</div>`);
      if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(momentumLabel(r))}</div>`);
+     if(Number.isFinite(Number(r.rs_rating))&&Number(r.rs_rating)>0){ const n=Number(r.rs_rating); reasons.push(`<div class="reason-item ${n>=70?'reason-ok':'reason-note'}">相對強度 <b>RS ${n}</b>，近 3～12 個月漲幅在同市場前 ${Math.max(1,100-n)}%</div>`); }
+     if(r.tt_count!=null&&Number.isFinite(Number(r.tt_count))){ const n=Number(r.tt_count), miss=(Array.isArray(r.tt_fail)?r.tt_fail:[]).map(k=>TT_LABELS[k]).filter(Boolean); reasons.push(`<div class="reason-item ${n>=7?'reason-ok':'reason-note'}">趨勢模板 <b>${n}/7</b>${miss.length?`，未過：${esc(miss.join('、'))}`:'，價格面條件全過'}${n>=7&&Number(r.rs_rating)>=70?'（含 RS ≥ 70，完整符合）':''}</div>`); }
      if(r.type==='breakout') reasons.push(`<div class="reason-item reason-ok">最新交易日首次帶量突破 Pivot</div>`);
      else if(r.type==='postbreakout'){
        reasons.push(`<div class="reason-item reason-ok">突破追蹤 D+${Number(r.breakout_days??0)}${r.breakout_date?` · ${esc(r.breakout_date)} 突破`:``}</div>`);

@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261008">
+<link rel="stylesheet" href="./styles.css?v=20261009">
 
 
 
@@ -114,7 +114,7 @@
   <section class="help-section">
   <h3>📈 市場動能</h3>
   <p><b>資料頻率：每日／盤中即時。</b>盤中模式會隨最新行情更新；正式收盤模式則以最近正式收盤資料計算，實際資料日期以區塊右上角「截至日期」為準。</p>
-  <p><b>近5日／近20日</b>：目前股價相較 5／20 個交易日前的漲跌幅。<br><b>距一年高點</b>：目前股價距近一年最高價的幅度。<br><b>成交量比</b>：目前成交量相對基準成交量的倍數。<br><b>5日／20日均量</b>：5 日平均成交量 ÷ 20 日平均成交量。<br><b>相對強度 RS</b>：近 3～12 個月漲幅在同市場股票中的排名（1～99，越高越強），詳見下方「相對強度 RS」。<br><b>趨勢模板</b>：7 項上升趨勢的價格條件通過幾項，詳見下方「趨勢模板」。</p>
+  <p><b>近5日／近20日</b>：目前股價相較 5／20 個交易日前的漲跌幅。<br><b>距一年高點</b>：目前股價距近一年最高價的幅度。<br><b>成交量比</b>：目前成交量相對基準成交量的倍數。<br><b>5日／20日均量</b>：5 日平均成交量 ÷ 20 日平均成交量。<br><b>強度評級</b>（市場動能下方的獨立區塊）：<b>相對強度 RS</b> 是近 3～12 個月漲幅在同市場的排名（1～99，越高越強）；<b>趨勢模板</b>是 7 項上升趨勢價格條件通過幾項。兩者都是另外計算，詳見下方「相對強度 RS」與「趨勢模板」。</p>
   </section>
   <section class="help-section">
   <h3>🌎 外資動向</h3>
@@ -156,7 +156,7 @@
   <p><b>RS 是「這檔股票近期漲幅在同市場排第幾」，範圍 1～99，數字越高越強。</b>例如 RS 90 代表表現贏過同市場約 9 成的股票（約前 10%）；畫面上的「前 N%」＝ 100 − RS。</p>
   <p><b>怎麼算</b>：取近 3 個月、6 個月、9 個月與近一年的股價漲幅，依 40%／20%／20%／20% 加權（越近期權重越高），再和同市場、近 20 日成交值足夠的股票比較名次。<br>
   <b>顏色</b>：90 以上深綠、80～89 淺綠、70～79 米色、70 以下為虛線淡色。<br>
-  <b>哪裡看得到</b>：每日雷達清單（桌機在 VCP 星等下方、手機在代號旁）、篩選「RS ≥ 80」、排序「RS 強度最高」，以及單股分析「市場動能」裡的「相對強度 RS」。</p>
+  <b>哪裡看得到</b>：每日雷達清單（桌機在 VCP 星等下方、手機在代號旁）、篩選「RS ≥ 80」、排序「RS 強度最高」，單股分析「市場動能」下方的「強度評級」區塊，以及雷達卡片展開「為什麼入選？」裡的一行說明。</p>
   <p><b>為什麼看它</b>：VCP 這類型態偏好在市場上相對強勢的領導股裡尋找，常見做法是偏好 RS 70 以上、越高越好。RS 可以在同樣是 5 星的股票之間，分辨誰本來就是強勢股。</p>
   <p class="muted"><b>注意：</b>① RS 只是標註，<b>不影響 VCP 星數、雷達入選、預設排序與綜合訊號</b>。② 資料約一年，上市未滿約 9 個月或成交值太小的股票沒有 RS，會顯示「—」。③ 反映的是過去漲幅，不代表未來，也不構成投資建議。④ 和單股分析上方的「相對強弱」不同：那個是<b>今天</b>漲跌幅相對大盤的差距；RS 看的是 <b>3～12 個月</b>的長期強弱排名。⑤ RS 隨每次掃描更新，盤中與收盤後的數字可能略有不同。</p>
   </section>
@@ -165,7 +165,7 @@
   <p><b>趨勢模板是「這檔股票是不是處在健康的上升趨勢」的檢查表</b>，源自 Mark Minervini 的選股條件，畫面上顯示為「趨勢 N/7」，N 是通過的價格條件數。</p>
   <p><b>7 項價格條件</b>：① 股價在 150 與 200 日線之上　② 150 日線在 200 日線之上　③ 200 日線上彎（比約一個月前高）　④ 50 日線在 150 與 200 日線之上　⑤ 股價在 50 日線之上　⑥ 距 52 週低點至少 +30%　⑦ 距 52 週高點不超過 25%。<br>
   經典標準還有第 8 項「RS ≥ 70」，這項直接用上方的相對強度判斷，所以<b>篩選「趨勢模板 ✓」＝ 7 項全過，且 RS ≥ 70</b>。</p>
-  <p><b>顏色</b>：7/7 深綠、5～6 項米色、4 項以下為虛線淡色。滑鼠移上去（手機長按）可看到未通過的是哪幾項。單股分析「市場動能」最下方也會列出通過數與缺少的條件。</p>
+  <p><b>顏色</b>：7/7 深綠、5～6 項米色、4 項以下為虛線淡色。滑鼠移上去（手機長按）可看到未通過的是哪幾項。單股分析「市場動能」下方的「強度評級」區塊會用 7 個圓點標示每一項是否通過，並列出缺少的條件；雷達卡片展開「為什麼入選？」也會列出。</p>
   <p><b>為什麼看它</b>：VCP 是在上升趨勢中整理後再突破的型態。趨勢模板能分辨「真正的上升趨勢中收斂」與「長期下跌後的反彈小整理」；VCP 星數只看收斂品質，不看大趨勢，兩者搭配更完整。</p>
   <p class="muted"><b>注意：</b>① 只是標註，<b>不影響 VCP 星數、雷達入選、預設排序與綜合訊號</b>。② 以收盤價計算，52 週高低點也用收盤價，和用盤中高低價的軟體可能略有差異。③ 需要約 10 個月以上的資料，新上市股票會顯示「—」。④ 手機精簡卡片空間有限，趨勢標籤展開後才顯示。⑤ 反映的是過去價格，不代表未來，也不構成投資建議。</p>
   </section>
@@ -321,8 +321,22 @@
       <div><span>距一年高點</span><b id="auxYearHigh">—</b></div>
       <div><span>成交量比</span><b id="auxTodayVolRatio">—</b></div>
       <div><span>5日/20日均量</span><b id="auxVolRatio">—</b></div>
-      <div><span>相對強度 RS</span><b id="auxRs">—</b></div>
-      <div class="tt-tile"><span>趨勢模板（價格面 7 項）</span><b id="auxTt">—</b></div>
+    </div>
+    <div class="strength-panel" id="strengthPanel">
+      <div class="strength-head"><b>強度評級</b><span>另外計算 · 不影響 VCP 分數</span></div>
+      <div class="strength-grid">
+        <div class="strength-card" id="rsCard" data-tier="none">
+          <span class="strength-label">相對強度 RS</span>
+          <b id="auxRs">—</b>
+          <small id="auxRsSub">近 3～12 個月漲幅排名</small>
+        </div>
+        <div class="strength-card" id="ttCard" data-tier="none">
+          <span class="strength-label">趨勢模板</span>
+          <b id="auxTt">—</b>
+          <div class="tt-pips" id="auxTtPips" aria-hidden="true"></div>
+          <small id="auxTtSub">價格面 7 項條件</small>
+        </div>
+      </div>
     </div>
   </div>
   <div class="aux-block" id="foreignBlock">
@@ -555,7 +569,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261008"></script>
+<script src="./app.js?v=20261009"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -831,7 +845,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261008"></script>
+<script src="./app-extras.js?v=20261009"></script>
 
 
 

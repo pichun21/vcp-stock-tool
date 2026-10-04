@@ -40,8 +40,8 @@ document.addEventListener('click',(e)=>{
 function auxPct(v,d=1){return Number.isFinite(v)?`${v>0?'+':''}${v.toFixed(d)}%`:'—'}
 function auxSet(id,text,v=null,mode='direction'){const e=document.getElementById(id);if(!e)return;e.textContent=text;if(mode==='neutral'){e.className='neutral';return}e.className=Number.isFinite(v)?(v>0?'up':v<0?'down':'neutral'):'neutral'}
 function resetAuxMarketAndForeign(){
- const p=document.getElementById('auxMarketPanel');if(p)p.hidden=true;
- ['auxRet5','auxRs','auxTt','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5','whale400','whale1w','whale4w','whaleStreak'].forEach(id=>auxSet(id,'—'));
+ const p=document.getElementById('auxMarketPanel');if(p)p.hidden=true; try{resetStrengthPanel()}catch(e){}
+ ['auxRet5','auxRet20','auxYearHigh','auxTodayVolRatio','auxVolRatio','foreignToday','foreign5','foreign20','foreignStreak','foreignHolding','foreignHolding5','whale400','whale1w','whale4w','whaleStreak'].forEach(id=>auxSet(id,'—'));
  const as=document.getElementById('foreignAsOf');if(as)as.textContent='正式收盤資料'; const wa=document.getElementById('whaleAsOf');if(wa)wa.textContent='每週更新'; const ma=document.getElementById('momentumAsOf');if(ma)ma.textContent='正式收盤資料'; const fl=document.getElementById('foreignDayLabel');if(fl)fl.textContent='前一交易日';
 }
 function updateMarketMomentum(d,isIntraday=false){
@@ -122,13 +122,21 @@ function rsRatingFor(market,symbol){
  }catch(e){}
  return null;
 }
+function resetStrengthPanel(){
+ const set=(id,fn)=>{const e=document.getElementById(id); if(e) fn(e);};
+ set('rsCard',e=>e.dataset.tier='none'); set('ttCard',e=>e.dataset.tier='none');
+ set('auxRs',e=>{e.textContent='—';e.className='';e.title='';}); set('auxRsSub',e=>e.textContent='近 3～12 個月漲幅排名');
+ set('auxTt',e=>{e.textContent='—';e.className='';e.title='';}); set('auxTtSub',e=>e.textContent='價格面 7 項條件');
+ set('auxTtPips',e=>e.innerHTML='');
+}
 function updateRsTile(symbol,market){
  const e=document.getElementById('auxRs'); if(!e) return;
- const n=rsRatingFor(market,symbol);
- e.className='neutral';
- if(n===null){ e.textContent='—'; e.title='尚無相對強度資料（要等下一次掃描更新，或該股不在排名範圍內：流動性不足、上市未滿約 9 個月）'; return; }
- e.textContent=`${n}（前 ${Math.max(1,100-n)}%）`;
+ const n=rsRatingFor(market,symbol), card=document.getElementById('rsCard'), sub=document.getElementById('auxRsSub');
+ if(n===null){ e.textContent='—'; e.title='尚無相對強度資料（要等下一次掃描更新，或該股不在排名範圍內：流動性不足、上市未滿約 9 個月）'; if(card) card.dataset.tier='none'; if(sub) sub.textContent='尚無資料'; return; }
+ e.textContent=String(n);
  e.title=`相對強度 RS ${n}：近 3／6／9／12 個月加權漲幅，在同市場流動性足夠的股票中的排名（1–99，越高越強）；僅供參考，不影響 VCP 分數`;
+ if(card) card.dataset.tier=n>=90?'top':(n>=80?'hi':(n>=70?'mid':'low'));
+ if(sub) sub.textContent=`前 ${Math.max(1,100-n)}% · 近 3～12 個月漲幅排名`;
 }
 function ttDataFor(market,symbol){
  try{
@@ -144,15 +152,15 @@ function ttDataFor(market,symbol){
 }
 function updateTtTile(symbol,market){
  const box=document.getElementById('auxTt'); if(!box) return;
+ const card=document.getElementById('ttCard'), sub=document.getElementById('auxTtSub'), pips=document.getElementById('auxTtPips');
  const e=ttDataFor(market,symbol);
- if(!e){ box.textContent='—'; box.className='neutral'; box.title='尚無趨勢模板資料（要等下一次掃描更新，或上市未滿約 10 個月）'; return; }
- const n=Number(e.tt_count), fail=Array.isArray(e.tt_fail)?e.tt_fail:[];
- const rs=rsRatingFor(market,symbol);
- const miss=fail.map(k=>TT_LABELS[k]).filter(Boolean);
- let txt=`${n}/7`;
- if(!miss.length) txt+=Number(rs)>=70?' · 完整符合（含 RS ≥ 70）':' · 價格面全過';
- else txt+=` · 未過：${miss.join('、')}`;
- box.textContent=txt; box.className=n>=7?'up':'neutral'; box.title=ttTipText(n,fail,rs);
+ if(!e){ box.textContent='—'; box.title='尚無趨勢模板資料（要等下一次掃描更新，或上市未滿約 10 個月）'; if(card) card.dataset.tier='none'; if(sub) sub.textContent='尚無資料'; if(pips) pips.innerHTML=''; return; }
+ const n=Number(e.tt_count), fail=Array.isArray(e.tt_fail)?e.tt_fail.map(Number):[];
+ const rs=rsRatingFor(market,symbol), miss=fail.map(k=>TT_LABELS[k]).filter(Boolean);
+ box.textContent=`${n}/7`; box.title=ttTipText(n,fail,rs);
+ if(card) card.dataset.tier=n>=7?'top':(n>=5?'mid':'low');
+ if(pips) pips.innerHTML=[1,2,3,4,5,6,7].map(k=>`<i class="${fail.includes(k)?'no':'ok'}" title="${String(TT_LABELS[k]).replace(/"/g,'&quot;')}：${fail.includes(k)?'未通過':'通過'}"></i>`).join('');
+ if(sub) sub.textContent=miss.length?`未過：${miss.join('、')}`:(Number(rs)>=70?'價格面全過，且 RS ≥ 70：完整符合':'價格面 7 項全過');
 }
 function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
  const p=document.getElementById('auxMarketPanel');if(!p)return;p.hidden=false;

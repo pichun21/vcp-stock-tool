@@ -2330,12 +2330,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-code-market{display:none}
 }
 
-/* ===== 34. aux-rs-tile（單股分析「市場動能」多一格相對強度 RS，桌機改 6 欄讓格子對齊） ===== */
-/* 6 格（含 RS）在 2 欄版面剛好排成 3 列；取消「最後一格獨占整列」的舊規則 */
-.momentum-grid>div:last-child{grid-column:auto!important}
-@media(min-width:761px){ .momentum-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
-#auxRs{white-space:nowrap;font-size:14px;letter-spacing:-.2px}
-#auxRs{font-variant-numeric:tabular-nums}
+/* ===== 34. （已改為獨立的「強度評級」區塊，見第 36 節；市場動能恢復原本 5 格版面） ===== */
 
 /* rs-help-chip：雷達「訊號怎麼看」說明卡裡的 RS 範例標籤，避免被卡片內 span 的版面規則拉成整列寬 */
 .pulse-help-grid b .rs-chip{display:inline-flex!important;width:auto!important;font-size:11px!important;line-height:1.5!important;margin:0 6px 0 0!important;vertical-align:middle}
@@ -2351,8 +2346,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  /* 手機精簡卡片空間有限：趨勢標籤只在展開後顯示 */
  #radarMobile.compact .mobile-stock-card:not(.expanded) .tt-chip{display:none}
 }
-.momentum-grid>div.tt-tile{grid-column:1/-1!important}
-#auxTt{white-space:normal;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 
 /* 手機卡片代號行：RS 與趨勢標籤放不下時整顆換行，並與代號左對齊 */
 .chip-group{display:inline-block;white-space:nowrap;vertical-align:middle}
@@ -2360,5 +2353,24 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .chip-group .tt-chip{margin-left:6px}
 .chip-group .rs-chip+.tt-chip{margin-left:6px}
 .chip-group .tt-chip:first-child{margin-left:0}
-/* 趨勢模板全過用深綠（避免沿用台股「上漲＝紅」造成誤會） */
-.aux-grid b#auxTt.up{color:#1f5f50!important}
+
+
+/* ===== 36. strength-panel（單股分析「強度評級」：RS 與趨勢模板，和上方動能數字區隔） ===== */
+.strength-panel{margin-top:10px;padding:11px 11px 12px;border-radius:15px;border:1px solid #cfe2dd;background:linear-gradient(160deg,#eef5f2 0%,#f8f5ec 100%);box-shadow:inset 3px 0 0 #7fb3a4}
+.strength-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 2px 8px}
+.strength-head b{font-size:13px;color:#1f5f50;letter-spacing:.04em}
+.strength-head span{font-size:10.5px;color:#7a766d}
+.strength-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.strength-card{padding:10px 11px 11px;border-radius:12px;background:#fff;border:1.5px solid #e3ddd0;min-width:0}
+.strength-card .strength-label{display:block;font-size:11px;color:#727070;margin-bottom:2px;font-weight:700}
+.strength-card>b{display:block;font-size:28px;line-height:1.15;font-weight:900;font-variant-numeric:tabular-nums;color:#8a7f70;letter-spacing:-.5px}
+.strength-card small{display:block;margin-top:3px;font-size:11px;line-height:1.45;color:#6f6c66;overflow-wrap:anywhere}
+.strength-card[data-tier="top"]{background:#f3faf7;border-color:#9fc9bd}.strength-card[data-tier="top"]>b{color:#1f5f50}
+.strength-card[data-tier="hi"]{background:#f7fbf9;border-color:#cfe2dd}.strength-card[data-tier="hi"]>b{color:#2f6f60}
+.strength-card[data-tier="mid"]{background:#fbf9f4;border-color:#e3ddd0}.strength-card[data-tier="mid"]>b{color:#6b5d45}
+.strength-card[data-tier="low"]{border-style:dashed}.strength-card[data-tier="low"]>b{color:#8a7f70}
+.tt-pips{display:flex;gap:5px;margin-top:5px}
+.tt-pips i{width:11px;height:11px;border-radius:50%;box-sizing:border-box;border:1.5px solid #c9c2b4;background:transparent;display:inline-block}
+.tt-pips i.ok{background:#2f7d6a;border-color:#2f7d6a}
+.tt-pips i.no{border-color:#c9a27a;background:#fff}
+@media(max-width:380px){.strength-card>b{font-size:25px}}
