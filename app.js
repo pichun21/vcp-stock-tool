@@ -2310,7 +2310,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
      return `<div class="mobile-stock-card${ttChip(r)?' has-tt':''}" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${(ttChip(r)&&Number(r.score)>=1)?`<span class="star5-mini" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}</div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}</div>
            <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}${sqzFireMini(r)}</div>
          </div>
          <div class="mobile-top-actions">
