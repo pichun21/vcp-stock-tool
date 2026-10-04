@@ -389,6 +389,7 @@
   </div>
 </div>
 <div class="metrics"><div class="metric"><span class="muted">Pivot（突破價）</span><b id="pivot">—</b></div><div class="metric"><span class="muted">距 Pivot</span><b id="dist">—</b></div><div class="metric"><span class="muted">收縮序列</span><b id="contracts">—</b></div><div class="metric"><span class="muted">量能</span><b id="volume">—</b></div></div>
+<div class="sqz-card risk-card" id="singleRisk" hidden></div>
 <div class="checks" id="checks"></div><div class="note" id="summary" aria-hidden="true">輸入股票代號後開始。</div></div>
 
 <div class="card news-impact-card" id="newsImpactCard">
@@ -559,6 +560,7 @@
             <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
             <div><b>📊 相對強度 RS 1～99</b><span>近 3～12 個月漲幅在同市場股票中的排名，越高越強（前 N%＝100−RS）。顏色：90 以上深綠、80～89 淺綠、70～79 米色、70 以下虛線。只是標註，不影響 VCP 星數與上方的綜合訊號。</span></div>
             <div><b>💥 Squeeze 爆發</b><span><b>什麼是？</b>股票在布林帶內側長期震盪（低波動），同時動量指標在零線附近（灰點）。當股價突破布林帶上軌或下軌，搭配動量轉強，就稱為「爆發」。<br><b>為何重要？</b>壓縮期越長能量蓄積越多 → 爆發力越強；日線＋週線同時灰點 → 多時間框架共鳴；配合 VCP 型態＋RS 強度 → 精準篩選潛在飆股。<br><b>方向判定：</b>🔴向上爆發=Bull（上破上軌），🟢向下爆發=Bear（下破下軌）<br><b>篩選：</b>點「💥 Squeeze 爆發」、排序「Squeeze 最強／剛爆發」、卡片上 💥 表示已偵測爆發</span></div>
+            <div><b>🆚 突破和爆發，差在哪？</b><span><b>突破看價格：</b>股價站上 Pivot（突破價）。「今日突破」是最新交易日首次帶量站上，「突破後」是已經在 Pivot 上方、持續追蹤。<br><b>爆發看波動：</b>PowerSqueeze 壓縮結束的第一天，跟 Pivot 沒有關係。<br><b>兩個可以分開發生：</b><br>• 有爆發、還沒突破：波動放開了，但價格還在 Pivot 下方。<br>• 有突破、沒爆發：價格過關了，但之前沒有壓縮，或壓縮早就結束。<br>兩個同時出現，或爆發後接近 Pivot，訊號最完整。</span></div>
           </div>
           <p class="pulse-help-note"><b>重點：</b>「等待」不代表看空；「觀察／高關注」也不代表買進。標籤只是協助比較 VCP 候選股目前所處的階段。</p>
           <details class="pulse-rule-detail">

@@ -107,7 +107,7 @@ function analyze(d){
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
  const hiArr=d.map(x=>+(x.max??x.High??x.high)), loArr=d.map(x=>+(x.min??x.Low??x.low));
  const sqz=sqzFirePack(hiArr,loArr,close,d.map(x=>x.date));
- return {wave:wq,sqz,close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
+ return {wave:wq,sqz,lastLow:(drops.length?drops[drops.length-1].l.p:null),close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart');
@@ -582,6 +582,23 @@ function updateSingleQuickRead(radarMatch,d,a,liveQuote=null){
  updateSingleSqz(a,radarMatch);
  updateSingleLiquidity(radarMatch,a);
 }
+/* 風險參考：最近收縮低點 / Pivot 下 7～8%（僅供參考，不是建議、不計入 VCP 星數） */
+function updateSingleRisk(pivot,last,low){
+ const box=$('singleRisk'); if(!box) return;
+ const P=Number(pivot), L=Number(last), W=Number(low);
+ if(!(P>0)||!(L>0)){ box.hidden=true; box.innerHTML=''; return; }
+ const dist=v=>{const x=(v/L-1)*100; return `${x>0?'+':''}${x.toFixed(1)}%`;};
+ const rows=[];
+ if(W>0){
+   const broke=L<=W;
+   rows.push(`<div class="sqz-row${broke?' is-bear':''}"><span class="sqz-k">最近收縮低點</span><span class="sqz-v">${W.toFixed(2)}<small>　距現價 ${dist(W)}${broke?'　已跌破':''}</small></span></div>`);
+ }
+ const a8=P*0.92, a7=P*0.93, broke2=L<=a7;
+ rows.push(`<div class="sqz-row${broke2?' is-bear':''}"><span class="sqz-k">Pivot 下 7～8%</span><span class="sqz-v">${a8.toFixed(2)}～${a7.toFixed(2)}<small>　距現價 ${dist(a8)}～${dist(a7)}${broke2?'　已跌破':''}</small></span></div>`);
+ box.innerHTML=`<div class="sqz-card-title">風險參考<em>僅供參考，非買賣建議，不計入 VCP 星數</em></div>`+rows.join('')+
+  `<div class="risk-foot">收縮低點以收盤價計算。停損離進場價越遠，同樣部位的單筆虧損越大；實際停損請依自己的資金規劃。</div>`;
+ box.hidden=false;
+}
 /* PowerSqueeze 整併卡：日線狀態／週線狀態／動能，放在同一處 */
 function updateSingleSqz(a,rm){
  const box=$('singleSqz'); if(!box) return;
@@ -607,6 +624,7 @@ function resetSingleQuickRead(){
  if($('singleMarketName')) $('singleMarketName').textContent='';
  if($('singleSignals')) $('singleSignals').innerHTML='';
  if($('singleSqz')){$('singleSqz').hidden=true;$('singleSqz').innerHTML='';}
+ if($('singleRisk')){$('singleRisk').hidden=true;$('singleRisk').innerHTML='';}
  if($('singleLiquidity')){$('singleLiquidity').hidden=true;$('singleLiquidity').innerHTML='';}
 }
 
@@ -869,6 +887,7 @@ function renderSingleFromRadarFallback(symbol,row){
     $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
   }
   updateSingleSqz({squeezeState:squeezeLabel(row),momentum:momentumLabel(row)},row);
+  updateSingleRisk(row.pivot,row.last,null);
   updateSingleLiquidity(row,null);
 
   drawRadarFallbackMessage();
@@ -1212,6 +1231,7 @@ async function __runInner(){
       row('波浪時間逐步縮短',two?`${wv.bars.join(' → ')} 日`:'需要至少兩次收縮',two&&wv.timeShrinking)+
       row('最後一次收縮夠緊（≤ 10%）',two?`最後 ${fmtDepth(wv.seq[wv.seq.length-1])}，第一次 ${fmtDepth(wv.seq[0])}`:'需要至少兩次收縮',two&&wv.lastTight));
   }
+  updateSingleRisk(a.pivot,singleLast,a.lastLow);
   const _sp=effectiveSqz(a,radarMatch); const _fireNote=(_sp.squeeze_fire?` ${sqzDailyText(_sp)}${_sp.squeeze_fire_dir==='bear'?'，動能偏空，不是進場訊號。':'，動能偏多，可留意是否同時接近／突破 Pivot。'}`:'')+(_sp.sqz_w_fire?` ${sqzWeeklyText(_sp)}。`:'');
   $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${_sp.squeeze_fire?'':a.squeezeState+'｜'}Momentum ${a.momentum}。${_fireNote}`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
@@ -3039,3 +3059,4 @@ setInterval(()=>{
 document.addEventListener('visibilitychange',()=>{
  if(!document.hidden && currentMarket==='TW') loadRadar();
 });
+

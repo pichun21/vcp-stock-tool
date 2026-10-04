@@ -2477,3 +2477,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
   #singleStockAnalysis .grid{grid-template-rows:auto 1fr;align-content:start}
   #singleStockAnalysis .grid > #newsImpactCard{align-self:start}
 }
+
+/* 單股分析：風險參考 */
+.risk-card{margin:12px 0}
+.risk-card .sqz-card-title{flex-wrap:wrap}
+.risk-card .sqz-k{flex:0 0 8.6em;white-space:nowrap}
+.risk-card .sqz-v small{display:block;margin-top:2px;font-size:11.5px;font-weight:600;color:#8a8478}
+.risk-card .sqz-row.is-bear .sqz-v small{color:#a0562a}
+.risk-foot{margin-top:6px;padding-top:8px;border-top:1px solid #f0ece4;font-size:11.5px;line-height:1.5;color:#9a9285}
