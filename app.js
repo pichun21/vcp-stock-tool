@@ -2126,6 +2126,7 @@ function renderRadar(filter='all'){
    if(radarSort==='score') return ((b.score??0)-(a.score??0)) || smartSort(a,b);
    if(radarSort==='pivot') return (Math.abs(a.distance??999)-Math.abs(b.distance??999)) || smartSort(a,b);
    if(radarSort==='rs') return ((b.rs_rating??-1)-(a.rs_rating??-1)) || smartSort(a,b);
+   if(radarSort==='tt'){ const ttSort=r=>ttFull(r)?0:1; return (ttSort(a)-ttSort(b)) || ((Number(b.tt_count)??0)-(Number(a.tt_count)??0)) || smartSort(a,b); }
    if(radarSort==='squeeze'){ const fr=r=>sqzFireBull(r)?-1:(squeezeRank[r.squeeze_level]??9); return (fr(a)-fr(b)) || smartSort(a,b); }
    if(radarSort==='momentum') return ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) || smartSort(a,b);
    if(radarSort==='change'){
