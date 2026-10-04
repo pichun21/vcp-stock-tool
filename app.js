@@ -1741,6 +1741,13 @@ function sqzWeeklyText(p){
  const bear=p.sqz_w_fire_dir==='bear', wk=Number(p.sqz_w_fire_weeks)===0?(p.sqz_w_partial?'本週進行中':'本週'):'上週';
  return `📅 週線 Squeeze ${bear?'向下爆發':'爆發'}（${wk}，前 ${p.sqz_w_prev_bars} 週${SQZ_LABEL[p.sqz_w_prev_level]||'壓縮'}）`;
 }
+/* 精簡模式專用：壓縮燈號（強／中／弱壓縮；無壓縮時不顯示，避免精簡卡片太擠） */
+function sqzLampCompact(r){
+ const lv=r&&r.squeeze_level; const map={strong:'強壓縮',medium:'中壓縮',weak:'弱壓縮'};
+ if(!map[lv]) return '';
+ const run=Number(r.squeeze_run_days)>0?`，已連續 ${Number(r.squeeze_run_days)} 日`:'';
+ return `<span class="mobile-sqz-lamp lv-${lv}" title="${escHtml(squeezeLabel(r)+run)}"><i></i>${map[lv]}</span>`;
+}
 function sqzFireMini(r){
  if(!r||(!r.squeeze_fire&&!r.sqz_w_fire)) return '';
  const bits=[]; let bear=false;
@@ -2370,6 +2377,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
          <button type="button"
            class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger"
            data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>
+         ${sqzLampCompact(r)}
        </div>
        
        ${r.pulse_signal==='hot'?`<div class="attention-summary">${esc(attentionReason(r))}</div>`:''}

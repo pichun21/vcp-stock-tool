@@ -2485,3 +2485,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .risk-card .sqz-v small{display:block;margin-top:2px;font-size:11.5px;font-weight:600;color:#8a8478}
 .risk-card .sqz-row.is-bear .sqz-v small{color:#a0562a}
 .risk-foot{margin-top:6px;padding-top:8px;border-top:1px solid #f0ece4;font-size:11.5px;line-height:1.5;color:#9a9285}
+
+/* 精簡模式：壓縮燈號（展開卡片時隱藏，因為展開後已有完整訊號列） */
+.mobile-sqz-lamp{display:none}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row{gap:6px;align-items:center}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-sqz-lamp{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border:1px solid #e6e1d6;border-radius:999px;background:#fffefd;font-size:11.5px;font-weight:800;color:#6b5d45;white-space:nowrap}
+.mobile-sqz-lamp i{width:9px;height:9px;border-radius:50%;background:#c9c2b4;flex:0 0 auto}
+.mobile-sqz-lamp.lv-strong i{background:#d4483b}
+.mobile-sqz-lamp.lv-medium i{background:#e08a2c}
+.mobile-sqz-lamp.lv-weak i{background:#eaa3b6}
