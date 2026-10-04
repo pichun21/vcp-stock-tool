@@ -2424,7 +2424,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 .sqz-fire-mini{display:inline-flex;align-items:center;margin-left:6px;padding:0 7px;border-radius:7px;border:1px solid #e0a65b;background:#fff4e2;color:#8a5200;font-size:11px;font-weight:800;line-height:1.5;white-space:nowrap;vertical-align:middle}
 .sqz-fire-mini.is-bear{border-color:#c9c2b4;background:#f3f1ec;color:#7a766d}
-.mobile-stock-code .sqz-fire-mini{margin-left:0}
+
 
 /* 星等標籤 ★N：精簡卡片有趨勢資料時才顯示；排版避免和 NEW 標籤重疊 */
 .star-badge{display:none}
@@ -2446,3 +2446,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* 精簡卡片：有趨勢資料時，代號旁改顯示「趨勢 N/7」取代星等（展開後星等仍在右上角；沒有趨勢資料的卡片維持顯示星等） */
  #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .mobile-score-inline{display:none}
+
+/* 💥 Squeeze 爆發標籤：移到名稱行旁，跟 ★N 並排 */
+.mobile-stock-name .sqz-fire-mini{vertical-align:middle;position:relative;top:-1px;margin-left:6px}
