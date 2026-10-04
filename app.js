@@ -1568,12 +1568,13 @@ function updateSingleLiquidity(radarMatch,a){
 function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
 /* 相對強度（RS）標籤：只做標註，不影響 VCP 分數與篩選；資料由 scanner.py 的 rs_rating（1–99）提供 */
+function shChipSym(r){ const x=[r&&(r.symbol||r.code),r&&(r.name||r.stock_name)].filter(Boolean).join(" ").replace(/[&<>"']/g,""); return x; }
 function rsChip(r,asBlock){
  const n=Number(r&&r.rs_rating);
  if(!Number.isFinite(n)||n<=0) return '';
  const tier=n>=90?'top':(n>=80?'hi':(n>=70?'mid':'low'));
  const tip=`相對強度 RS ${n}：近 3／6／9／12 個月加權漲幅，在同市場流動性足夠的股票中排名前 ${Math.max(1,100-n)}%（1–99，越高越強；僅供參考，不影響 VCP 分數）`;
- const chip=`<span class="rs-chip rs-${tier}" title="${tip}">RS ${n}</span>`;
+ const chip=`<span class="rs-chip rs-${tier} sh-chip" data-sh="rs" data-rs="${n}" data-sym="${shChipSym(r)}" role="button" tabindex="0" title="${tip}">RS ${n}</span>`;
  return asBlock?`<div class="rs-line">${chip}</div>`:chip;
 }
 
@@ -1591,7 +1592,7 @@ function ttChip(r){
  const n=Number(r&&r.tt_count);
  if(r==null||r.tt_count==null||!Number.isFinite(n)) return '';
  const tier=n>=7?'full':(n>=5?'near':'low');
- return `<span class="tt-chip tt-${tier}" title="${ttTipText(n,r.tt_fail,r.rs_rating)}">趨勢 ${n}/7</span>`;
+ return `<span class="tt-chip tt-${tier} sh-chip" data-sh="tt" data-tt="${n}" data-fail="${(Array.isArray(r.tt_fail)?r.tt_fail:[]).join(',')}" data-rs="${Number(r.rs_rating)||''}" data-sym="${shChipSym(r)}" role="button" tabindex="0" title="${ttTipText(n,r.tt_fail,r.rs_rating)}">趨勢 ${n}/7</span>`;
 }
 function rsTtLine(r){
  const a=rsChip(r), b=ttChip(r);
