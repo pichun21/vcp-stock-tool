@@ -2329,3 +2329,13 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  /* 精簡卡片：市場已由上方切換顯示，代號行省略「· 台股」，騰出空間給 RS 與星等 */
  #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-code-market{display:none}
 }
+
+/* ===== 34. aux-rs-tile（單股分析「市場動能」多一格相對強度 RS，桌機改 6 欄讓格子對齊） ===== */
+/* 6 格（含 RS）在 2 欄版面剛好排成 3 列；取消「最後一格獨占整列」的舊規則 */
+.momentum-grid>div:last-child{grid-column:auto!important}
+@media(min-width:761px){ .momentum-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+#auxRs{white-space:nowrap;font-size:14px;letter-spacing:-.2px}
+#auxRs{font-variant-numeric:tabular-nums}
+
+/* rs-help-chip：雷達「訊號怎麼看」說明卡裡的 RS 範例標籤，避免被卡片內 span 的版面規則拉成整列寬 */
+.pulse-help-grid b .rs-chip{display:inline-flex!important;width:auto!important;font-size:11px!important;line-height:1.5!important;margin:0 6px 0 0!important;vertical-align:middle}

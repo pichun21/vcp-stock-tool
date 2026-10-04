@@ -693,18 +693,24 @@ def compute_rs_raw(df,market):
     except Exception:
         return None
 
-def apply_rs_rating(results,market):
-    """Rank every collected raw score into a 1-99 percentile and attach it to result rows."""
+def apply_rs_rating(results,market,quote_cache=None):
+    """Rank every collected raw score into a 1-99 percentile.
+    Attaches it to radar candidates AND (when given) to the all-stock quote cache, so the single-stock
+    page and favourites can show RS for any symbol, not only radar candidates."""
     vals=np.sort(np.array([v for (m,_),v in RS_RAW.items() if m==market],dtype=float))
     n=len(vals)
+    def rate(raw):
+        lo=int(np.searchsorted(vals,raw,side="left")); hi=int(np.searchsorted(vals,raw,side="right"))
+        return int(min(99,max(1,round(1+98*(((lo+hi)/2.0)/n)))))
     for r in results:
         raw=RS_RAW.get((market,str(r.get("symbol","")).upper()))
         if raw is None or n<30:                 # too small a universe to rank meaningfully
             r["rs_rating"]=None; continue
-        lo=int(np.searchsorted(vals,raw,side="left")); hi=int(np.searchsorted(vals,raw,side="right"))
-        pct=((lo+hi)/2.0)/n
-        r["rs_rating"]=int(min(99,max(1,round(1+98*pct))))
-        r["rs_universe"]=n
+        r["rs_rating"]=rate(raw); r["rs_universe"]=n
+    if quote_cache is not None and n>=30:
+        for (m,sym),raw in RS_RAW.items():
+            if m==market and sym in quote_cache:
+                quote_cache[sym]["rs_rating"]=rate(raw)
     return n
 
 def analyze(df,item,market):
@@ -1630,7 +1636,7 @@ def scan(market):
         print(f"{market}: batch {i}/{len(batches)}")
         batch_results,batch_dates,batch_flows,batch_quotes,batch_restore_events=download_batch(b,market)
         results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); restore_event_cache.update(batch_restore_events); time.sleep(1)
-    rs_n=apply_rs_rating(results,market)
+    rs_n=apply_rs_rating(results,market,quote_cache)
     print(f"{market} RS RATING: ranked {rs_n} liquid symbols; attached to {sum(1 for r in results if r.get('rs_rating') is not None)}/{len(results)} candidates")
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))

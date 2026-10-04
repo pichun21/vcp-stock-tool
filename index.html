@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261006">
+<link rel="stylesheet" href="./styles.css?v=20261007">
 
 
 
@@ -114,7 +114,7 @@
   <section class="help-section">
   <h3>📈 市場動能</h3>
   <p><b>資料頻率：每日／盤中即時。</b>盤中模式會隨最新行情更新；正式收盤模式則以最近正式收盤資料計算，實際資料日期以區塊右上角「截至日期」為準。</p>
-  <p><b>近5日／近20日</b>：目前股價相較 5／20 個交易日前的漲跌幅。<br><b>距一年高點</b>：目前股價距近一年最高價的幅度。<br><b>成交量比</b>：目前成交量相對基準成交量的倍數。<br><b>5日／20日均量</b>：5 日平均成交量 ÷ 20 日平均成交量。</p>
+  <p><b>近5日／近20日</b>：目前股價相較 5／20 個交易日前的漲跌幅。<br><b>距一年高點</b>：目前股價距近一年最高價的幅度。<br><b>成交量比</b>：目前成交量相對基準成交量的倍數。<br><b>5日／20日均量</b>：5 日平均成交量 ÷ 20 日平均成交量。<br><b>相對強度 RS</b>：近 3～12 個月漲幅在同市場股票中的排名（1～99，越高越強），詳見下方「相對強度 RS」。</p>
   </section>
   <section class="help-section">
   <h3>🌎 外資動向</h3>
@@ -152,6 +152,15 @@
   <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
   </section>
   <section class="help-section">
+  <h3>相對強度 RS</h3>
+  <p><b>RS 是「這檔股票近期漲幅在同市場排第幾」，範圍 1～99，數字越高越強。</b>例如 RS 90 代表表現贏過同市場約 9 成的股票（約前 10%）；畫面上的「前 N%」＝ 100 − RS。</p>
+  <p><b>怎麼算</b>：取近 3 個月、6 個月、9 個月與近一年的股價漲幅，依 40%／20%／20%／20% 加權（越近期權重越高），再和同市場、近 20 日成交值足夠的股票比較名次。<br>
+  <b>顏色</b>：90 以上深綠、80～89 淺綠、70～79 米色、70 以下為虛線淡色。<br>
+  <b>哪裡看得到</b>：每日雷達清單（桌機在 VCP 星等下方、手機在代號旁）、篩選「RS ≥ 80」、排序「RS 強度最高」，以及單股分析「市場動能」裡的「相對強度 RS」。</p>
+  <p><b>為什麼看它</b>：VCP 這類型態偏好在市場上相對強勢的領導股裡尋找，常見做法是偏好 RS 70 以上、越高越好。RS 可以在同樣是 5 星的股票之間，分辨誰本來就是強勢股。</p>
+  <p class="muted"><b>注意：</b>① RS 只是標註，<b>不影響 VCP 星數、雷達入選、預設排序與綜合訊號</b>。② 資料約一年，上市未滿約 9 個月或成交值太小的股票沒有 RS，會顯示「—」。③ 反映的是過去漲幅，不代表未來，也不構成投資建議。④ 和單股分析上方的「相對強弱」不同：那個是<b>今天</b>漲跌幅相對大盤的差距；RS 看的是 <b>3～12 個月</b>的長期強弱排名。⑤ RS 隨每次掃描更新，盤中與收盤後的數字可能略有不同。</p>
+  </section>
+  <section class="help-section">
   <h3>每日雷達如何排序？</h3>
   <p>每日雷達優先顯示當下較值得注意的狀態，而不是只看星數：</p>
   <p><b>① 狀態</b>：🟢 今日帶量突破 → 🔵 突破後 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
@@ -159,6 +168,7 @@
   <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮<br>
   <b>④ Momentum</b>：↑ 多方增強 → ↗ 空方減弱 → ↘ 多方減弱 → ↓ 空方增強<br>
   <b>⑤ 距 Pivot</b>：其他條件相同時，距 Pivot 較近者優先。</p>
+  <p class="muted"><b>RS</b> 不參與預設排序；想先看最強勢的股票，可以用排序選單的「RS 強度最高」，或篩選「RS ≥ 80」。</p>
   <p class="muted"><b>重要：</b>VCP 與 PowerSqueeze 都是本站依公開技術分析概念建立的程式化判讀；本站 PowerSqueeze 並非 Growin 專有指標數值的複製。所有訊號皆不代表未來上漲機率，也不構成投資建議。</p>  </section>
 </div>
 
@@ -302,6 +312,7 @@
       <div><span>距一年高點</span><b id="auxYearHigh">—</b></div>
       <div><span>成交量比</span><b id="auxTodayVolRatio">—</b></div>
       <div><span>5日/20日均量</span><b id="auxVolRatio">—</b></div>
+      <div><span>相對強度 RS</span><b id="auxRs">—</b></div>
     </div>
   </div>
   <div class="aux-block" id="foreignBlock">
@@ -493,6 +504,7 @@
             <div><b>👀 觀察</b><span>VCP 已具一定品質，且 Pivot 位置、PowerSqueeze 或 Momentum 已有進一步配合，值得提高注意力。</span></div>
             <div><b>⏳ 等待</b><span>雖符合 VCP 雷達基本條件，但目前位置、壓縮或動能的配合仍不足，等待條件進一步改善。</span></div>
             <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
+            <div><b><span class="rs-chip rs-hi" style="margin-left:0">RS 87</span> 相對強度</b><span>近 3～12 個月漲幅在同市場股票中的排名（1～99，越高越強；前 N%＝100−RS）。只是標註，不影響 VCP 星數與上方的綜合訊號。</span></div>
           </div>
           <p class="pulse-help-note"><b>重點：</b>「等待」不代表看空；「觀察／高關注」也不代表買進。標籤只是協助比較 VCP 候選股目前所處的階段。</p>
           <details class="pulse-rule-detail">
@@ -532,7 +544,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261006"></script>
+<script src="./app.js?v=20261007"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -808,7 +820,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261006"></script>
+<script src="./app-extras.js?v=20261007"></script>
 
 
 
