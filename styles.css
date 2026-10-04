@@ -2459,3 +2459,15 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* 說明：Squeeze 範例圓點列 */
 .help-dots{font-size:22px;letter-spacing:6px;line-height:1.7;margin:2px 0 6px;padding-left:4px;white-space:nowrap}
+
+/* 單股分析：PowerSqueeze 整併卡（日線／週線／動能） */
+.sqz-card{margin:0 0 12px;padding:10px 12px;border:1px solid #e7e5e4;border-radius:14px;background:#fffefd}
+.sqz-card[hidden]{display:none}
+.sqz-card-title{display:flex;gap:8px;align-items:baseline;margin-bottom:4px;font-size:12.5px;font-weight:800;color:#6b5d45}
+.sqz-card-title em{font-style:normal;font-weight:600;font-size:11.5px;color:#9a9285}
+.sqz-row{display:flex;gap:12px;align-items:baseline;padding:7px 0;border-top:1px solid #f0ece4;font-size:13.5px;line-height:1.5}
+.sqz-row:first-of-type{border-top:0}
+.sqz-k{flex:0 0 2.6em;color:#8a8478;font-weight:700;font-size:12px}
+.sqz-v{flex:1;min-width:0;font-weight:800;color:#302f2f}
+.sqz-row.is-fire .sqz-v{color:#9a4f33}
+.sqz-row.is-bear .sqz-v{color:#a0562a}
