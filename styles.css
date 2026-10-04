@@ -2433,3 +2433,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 }
 
 .mobile-stock-name .star5-mini{vertical-align:middle;position:relative;top:-1px}
+
+/* ★N 小標籤：5 星金色、4 星淺金、3 星以下灰色 */
+@media(max-width:760px){
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .star5-mini[data-score="4"]{border-color:#e6d7a0;background:#fffbe8;color:#8a6d1a}
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .star5-mini[data-score="3"],
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .star5-mini[data-score="2"],
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .star5-mini[data-score="1"]{border-color:#d8d2c4;background:#f4f1ea;color:#6f685a}
+}
