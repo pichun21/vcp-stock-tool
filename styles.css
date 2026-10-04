@@ -2449,3 +2449,13 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* 💥 Squeeze 爆發標籤：移到名稱行旁，跟 ★N 並排 */
 .mobile-stock-name .sqz-fire-mini{vertical-align:middle;position:relative;top:-1px;margin-left:6px}
+
+/* 💥 Squeeze 爆發：VCP＋Squeeze 卡片內的小捷徑 */
+.kpi-fire{display:inline-flex;align-items:center;gap:3px;margin-top:5px;padding:2px 9px;border-radius:999px;background:rgba(182,103,73,.12);color:#9a4f33;font-size:12px;font-weight:700;cursor:pointer;line-height:1.5}
+.kpi-fire[hidden]{display:none}
+.kpi-fire b{font-weight:800}
+.kpi-fire:hover,.kpi-fire.active{background:#b66749;color:#fff}
+@media (max-width:640px){.kpi-fire{font-size:11px;padding:2px 8px}}
+
+/* 說明：Squeeze 範例圓點列 */
+.help-dots{font-size:22px;letter-spacing:6px;line-height:1.7;margin:2px 0 6px;padding-left:4px;white-space:nowrap}
