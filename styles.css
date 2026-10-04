@@ -2316,3 +2316,16 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  .theme-board-actions .theme-expand-all:active{background:var(--tbcb)!important}
  .theme-board-setup .theme-stock-toggle{color:var(--tbt)!important}
 }
+
+/* ===== 33. rs-chip（相對強度 RS 標籤、篩選與手機精簡卡片的版面配合） ===== */
+.rs-chip{display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.02em;line-height:1.5;padding:0 7px;margin-left:6px;border-radius:7px;border:1px solid;vertical-align:middle;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rs-top{background:#dcebe7;color:#1f5f50;border-color:#9fc9bd}
+.rs-hi{background:#eef5f2;color:#2f6f60;border-color:#cfe2dd}
+.rs-mid{background:#f4f1ea;color:#6b5d45;border-color:#e3ddd0}
+.rs-low{background:transparent;color:#8a7f70;border-color:#e3ddd0;border-style:dashed}
+.rs-line{margin-top:3px}
+.rs-line .rs-chip{margin-left:0}
+@media(max-width:760px){
+ /* 精簡卡片：市場已由上方切換顯示，代號行省略「· 台股」，騰出空間給 RS 與星等 */
+ #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-code-market{display:none}
+}

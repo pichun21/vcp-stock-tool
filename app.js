@@ -1567,6 +1567,16 @@ function updateSingleLiquidity(radarMatch,a){
 }
 function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
+/* 相對強度（RS）標籤：只做標註，不影響 VCP 分數與篩選；資料由 scanner.py 的 rs_rating（1–99）提供 */
+function rsChip(r,asBlock){
+ const n=Number(r&&r.rs_rating);
+ if(!Number.isFinite(n)||n<=0) return '';
+ const tier=n>=90?'top':(n>=80?'hi':(n>=70?'mid':'low'));
+ const tip=`相對強度 RS ${n}：近 3／6／9／12 個月加權漲幅，在同市場流動性足夠的股票中排名前 ${Math.max(1,100-n)}%（1–99，越高越強；僅供參考，不影響 VCP 分數）`;
+ const chip=`<span class="rs-chip rs-${tier}" title="${tip}">RS ${n}</span>`;
+ return asBlock?`<div class="rs-line">${chip}</div>`:chip;
+}
+
 const FAVORITES_KEY='vcpulse_favorites_v1';
 const FAVORITE_META_KEY='vcpulse_favorite_meta_v2';
 function favoriteKey(market,symbol){ return `${String(market||'').toUpperCase()}:${String(symbol||'').toUpperCase()}`; }
@@ -1955,7 +1965,8 @@ function renderRadar(filter='all'){
    (['hot','watch','wait','extended'].includes(filter) ? r.pulse_signal===filter :
    (filter==='new' ? r.is_new===true :
    (filter==='quality' ? r.structure_quality_good===true :
-   (filter==='combo' ? r.combo : r.type===filter)))));
+   (filter==='combo' ? r.combo :
+    (filter==='rs80' ? Number(r.rs_rating)>=80 : r.type===filter))))));
  });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
@@ -1974,6 +1985,7 @@ function renderRadar(filter='all'){
  rows.sort((a,b)=>{
    if(radarSort==='score') return ((b.score??0)-(a.score??0)) || smartSort(a,b);
    if(radarSort==='pivot') return (Math.abs(a.distance??999)-Math.abs(b.distance??999)) || smartSort(a,b);
+   if(radarSort==='rs') return ((b.rs_rating??-1)-(a.rs_rating??-1)) || smartSort(a,b);
    if(radarSort==='squeeze') return ((squeezeRank[a.squeeze_level]??9)-(squeezeRank[b.squeeze_level]??9)) || smartSort(a,b);
    if(radarSort==='momentum') return ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) || smartSort(a,b);
    if(radarSort==='change'){
@@ -2009,7 +2021,7 @@ function renderRadar(filter='all'){
      </div>
    </td>
    <td>${esc(marketLabel(r.market))}</td>
-   <td><div>${stars(r.score)}</div>${r.structure_quality_good?'<div class="structure-quality-badge structure-quality-compact">💎 結構品質佳</div>':''}</td>
+   <td><div>${stars(r.score)}</div>${rsChip(r,true)}${r.structure_quality_good?'<div class="structure-quality-badge structure-quality-compact">💎 結構品質佳</div>':''}</td>
    
    <td>${fmtNum(r.pivot,2)}</td>
    <td>
@@ -2149,7 +2161,7 @@ function renderRadar(filter='all'){
        <div class="mobile-stock-top">
          <div>
            <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
-           <div class="mobile-stock-code">${esc(r.symbol)} · ${r.market==='TW'?'台股':'美股'}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${rsChip(r)}</div>
          </div>
          <div class="mobile-top-actions">
            <div class="mobile-action-head">
@@ -2788,7 +2800,8 @@ function goMobileRadarPage(delta){
    (['hot','watch','wait','extended'].includes(radarFilter) ? r.pulse_signal===radarFilter :
    (radarFilter==='new' ? r.is_new===true :
    (radarFilter==='quality' ? r.structure_quality_good===true :
-   (radarFilter==='combo' ? r.combo : r.type===radarFilter)))));
+   (radarFilter==='combo' ? r.combo :
+    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : r.type===radarFilter))))));
  });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));

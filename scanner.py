@@ -664,6 +664,49 @@ def local_turns(close):
         elif (item[1]=="H" and item[2]>q[-1][2]) or (item[1]=="L" and item[2]<q[-1][2]): q[-1]=item
     return q
 
+# ---------------------------------------------------------------------------
+# V2.45.0 — Relative Strength (RS) rating, ANNOTATION ONLY.
+# IBD / Minervini-style: weighted 3/6/9/12-month price performance, then ranked as a
+# percentile (1-99) against the liquid tradable universe of the same market.
+# It never changes the VCP score, radar eligibility, ranking, pulse points or lifecycle state.
+# ---------------------------------------------------------------------------
+RS_RAW={}   # (market, SYMBOL) -> weighted performance score (percent)
+
+def compute_rs_raw(df,market):
+    """Weighted relative-strength raw score for one stock, or None when data is insufficient.
+    Uses the same (restore-adjusted) series that VCP analysis uses."""
+    try:
+        close=pd.to_numeric(df["Close"],errors="coerce").dropna().astype(float)
+        if len(close)<190: return None
+        vol=pd.to_numeric(df["Volume"],errors="coerce").fillna(0).astype(float).reindex(close.index).fillna(0)
+        min_liq=20_000_000 if market=="TW" else 10_000_000
+        if float((close.iloc[-20:]*vol.iloc[-20:]).mean())<min_liq: return None
+        last=float(close.iloc[-1])
+        if not (math.isfinite(last) and last>0): return None
+        n_long=min(252,len(close)-1)          # yfinance period="1y" is ~245 bars, so use what is available
+        score=0.0
+        for n,w in ((63,0.4),(126,0.2),(189,0.2),(n_long,0.2)):
+            base=float(close.iloc[-1-n])
+            if not (math.isfinite(base) and base>0): return None
+            score+=w*((last/base-1.0)*100.0)
+        return score if math.isfinite(score) else None
+    except Exception:
+        return None
+
+def apply_rs_rating(results,market):
+    """Rank every collected raw score into a 1-99 percentile and attach it to result rows."""
+    vals=np.sort(np.array([v for (m,_),v in RS_RAW.items() if m==market],dtype=float))
+    n=len(vals)
+    for r in results:
+        raw=RS_RAW.get((market,str(r.get("symbol","")).upper()))
+        if raw is None or n<30:                 # too small a universe to rank meaningfully
+            r["rs_rating"]=None; continue
+        lo=int(np.searchsorted(vals,raw,side="left")); hi=int(np.searchsorted(vals,raw,side="right"))
+        pct=((lo+hi)/2.0)/n
+        r["rs_rating"]=int(min(99,max(1,round(1+98*pct))))
+        r["rs_universe"]=n
+    return n
+
 def analyze(df,item,market):
     df=df.dropna(subset=["Close"]).copy()
     if len(df)<170: return None
@@ -1272,6 +1315,8 @@ def download_batch(items,market):
             # V2.41.41: VCP uses the confirmed restore-date events.
             # Raw `d` remains unchanged for quote cache and capital-hotspot value.
             vcp_d=apply_restore_events_df(d,ev)
+            _rs=compute_rs_raw(vcp_d,market)
+            if _rs is not None: RS_RAW[(market,str(item["symbol"]).upper())]=_rs
             r=analyze(vcp_d,item,market)
             if r:
                 r["industry"]=item.get("industry") or ""
@@ -1585,6 +1630,8 @@ def scan(market):
         print(f"{market}: batch {i}/{len(batches)}")
         batch_results,batch_dates,batch_flows,batch_quotes,batch_restore_events=download_batch(b,market)
         results.extend(batch_results); latest_dates.extend(batch_dates); flow_rows.extend(batch_flows); quote_cache.update(batch_quotes); restore_event_cache.update(batch_restore_events); time.sleep(1)
+    rs_n=apply_rs_rating(results,market)
+    print(f"{market} RS RATING: ranked {rs_n} liquid symbols; attached to {sum(1 for r in results if r.get('rs_rating') is not None)}/{len(results)} candidates")
     state_rank={"breakout":0,"postbreakout":1,"near":2,"forming":3}
     results.sort(key=lambda r:(state_rank.get(r["type"],9),-r["score"],abs(r["distance"])))
     today=datetime.now(TAIPEI).strftime("%Y-%m-%d")

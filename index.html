@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261004">
+<link rel="stylesheet" href="./styles.css?v=20261006">
 
 
 
@@ -441,6 +441,7 @@
         <div class="radar-group" role="group" aria-label="快速"><span class="radar-group-label">快速</span><div class="radar-group-chips">
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
+        <button class="radar-tab" data-radar="rs80" title="相對強度排名 80 以上">RS ≥ 80</button>
         </div></div>
         <div class="radar-group" role="group" aria-label="關注訊號"><span class="radar-group-label">關注訊號</span><div class="radar-group-chips">
         <button class="radar-tab" data-radar="hot">🔥 高關注</button>
@@ -468,6 +469,7 @@
         <select id="radarSort" class="radar-sort">
           <option value="smart">智慧排序</option>
           <option value="score">VCP 分數</option>
+          <option value="rs">RS 強度最高</option>
           <option value="pivot">距 Pivot 最近</option>
           <option value="squeeze">Squeeze 最強</option>
           <option value="momentum">Momentum 最強</option>
@@ -530,7 +532,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261004"></script>
+<script src="./app.js?v=20261006"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -806,7 +808,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261004"></script>
+<script src="./app-extras.js?v=20261006"></script>
 
 
 
