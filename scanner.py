@@ -765,6 +765,105 @@ def apply_trend_template(results,market,quote_cache=None):
             put(quote_cache[sym],str(sym).upper())
     return ok
 
+# ---------------------------------------------------------------------------
+# V2.46.0 — VCP wave-quality annotations + Squeeze FIRE signal (daily + weekly).
+# Wave quality (time_shrinking / last_tight) is ANNOTATION ONLY: it never changes the
+# VCP score, radar eligibility or lifecycle state.
+# Squeeze fire = the first "no-squeeze" (grey) bar right after a run of coloured
+# (compressed) bars. It adds pulse points only when SQZ_FIRE_SCORING is True, because a
+# fresh fire bar otherwise loses its compression points the very day it triggers.
+# ---------------------------------------------------------------------------
+WAVE_TIME_TOL=1.25            # a later wave may be at most 25% longer than the previous one
+LAST_CONTRACTION_MAX_PCT=10.0 # final contraction must be <= 10% deep ...
+LAST_CONTRACTION_MAX_RATIO=0.70  # ... and <= 70% of the first contraction
+SQZ_MIN_RUN=3                 # compression must have lasted >= 3 bars to count as a real squeeze
+SQZ_FIRE_FRESH_DAYS=2         # daily fire counts as "fresh" for D+0..D+2
+SQZ_FIRE_FRESH_WEEKS=1        # weekly fire counts as "fresh" for this week / last week
+SQZ_FIRE_SCORING=True
+_SQZ_NAME={3:"strong",2:"medium",1:"weak"}
+_SQZ_LABEL={"strong":"強力壓縮","medium":"中度壓縮","weak":"一般壓縮"}
+
+def wave_quality(drops):
+    """drops: [(high_idx, low_idx, depth_pct)] of the last contractions (oldest first)."""
+    bars=[int(b-a) for a,b,_ in drops]
+    seq=[float(x[2]) for x in drops]
+    ts=lt=False
+    if len(drops)>=2:
+        ts=bool(all(bars[i]<=bars[i-1]*WAVE_TIME_TOL for i in range(1,len(bars))) and bars[-1]<bars[0])
+        lt=bool(seq[-1]<=LAST_CONTRACTION_MAX_PCT and seq[-1]<=seq[0]*LAST_CONTRACTION_MAX_RATIO)
+    return {"contraction_bars":bars,"time_shrinking":ts,"last_tight":lt}
+
+def squeeze_levels(high,low,close):
+    """Per-bar compression level: 3 strong (KC 1.0), 2 medium (1.5), 1 weak (2.0), 0 none, -1 unknown."""
+    c=pd.to_numeric(close,errors="coerce").astype(float)
+    h=pd.to_numeric(high,errors="coerce").astype(float); l=pd.to_numeric(low,errors="coerce").astype(float)
+    mid=c.rolling(20).mean(); sd=c.rolling(20).std(ddof=0)
+    up=mid+2*sd; lo=mid-2*sd
+    ema=c.ewm(span=20,adjust=False).mean(); pc=c.shift(1)
+    tr=pd.concat([(h-l).abs(),(h-pc).abs(),(l-pc).abs()],axis=1).max(axis=1)
+    atr=tr.rolling(20).mean()
+    def inside(m): return (up<(ema+atr*m))&(lo>(ema-atr*m))
+    lvl=pd.Series(0,index=c.index,dtype=int)
+    lvl[inside(2.0)]=1; lvl[inside(1.5)]=2; lvl[inside(1.0)]=3
+    lvl[~(up.notna()&atr.notna())]=-1
+    return lvl
+
+def squeeze_fire(levels,mom,max_age,min_run=SQZ_MIN_RUN):
+    """Find the first grey bar after a coloured run. age 0 = the latest bar is the first grey bar."""
+    L=[int(x) for x in levels]; n=len(L)
+    out={"level_now":(L[-1] if n else -1),"run_now":0,"age":None,"prev_level":0,"prev_bars":0,"dir":None}
+    if n<2 or L[-1]<0: return out
+    if L[-1]>0:
+        i=n-1; k=0
+        while i>=0 and L[i]>0: k+=1; i-=1
+        out["run_now"]=k; return out
+    i=n-1; k=0
+    while i>=0 and L[i]==0: k+=1; i-=1
+    if i<0 or L[i]<=0: return out
+    age=k-1
+    if age>max_age: return out
+    j=i; run=0; peak=0
+    while j>=0 and L[j]>0: run+=1; peak=max(peak,L[j]); j-=1
+    if run<min_run: return out
+    m=float(mom[n-k]) if mom is not None and n-k<len(mom) and pd.notna(mom[n-k]) else 0.0
+    out.update(age=age,prev_level=peak,prev_bars=run,dir=("bull" if m>=0 else "bear"))
+    return out
+
+def squeeze_fire_pack(df,close,high,low):
+    """Daily + weekly squeeze fire fields for one symbol (all plain JSON types)."""
+    res={}
+    lv=squeeze_levels(high,low,close)
+    mom=(close-close.rolling(20).mean()).values
+    d=squeeze_fire(lv.values,mom,5)
+    res["squeeze_run_days"]=int(d["run_now"])
+    res["squeeze_fire_days"]=d["age"]
+    res["squeeze_fire"]=bool(d["age"] is not None and d["age"]<=SQZ_FIRE_FRESH_DAYS)
+    res["squeeze_fire_dir"]=d["dir"]
+    res["squeeze_fire_prev_level"]=_SQZ_NAME.get(d["prev_level"],"")
+    res["squeeze_fire_prev_bars"]=int(d["prev_bars"])
+    # weekly version (the in-progress week is included, like most charting platforms)
+    res.update({"sqz_w_level":"","sqz_w_run":0,"sqz_w_fire_weeks":None,"sqz_w_fire":False,"sqz_w_fire_dir":None,
+                "sqz_w_prev_level":"","sqz_w_prev_bars":0,"sqz_w_partial":False})
+    try:
+        wk=pd.DataFrame({"High":pd.to_numeric(high,errors="coerce"),"Low":pd.to_numeric(low,errors="coerce"),
+                         "Close":pd.to_numeric(close,errors="coerce")}).resample("W-FRI").agg(
+                         {"High":"max","Low":"min","Close":"last"}).dropna(subset=["Close"])
+        if len(wk)>=30:
+            wl=squeeze_levels(wk["High"],wk["Low"],wk["Close"])
+            wm=(wk["Close"]-wk["Close"].rolling(20).mean()).values
+            w=squeeze_fire(wl.values,wm,3)
+            res["sqz_w_level"]=_SQZ_NAME.get(w["level_now"],"")
+            res["sqz_w_run"]=int(w["run_now"])
+            res["sqz_w_fire_weeks"]=w["age"]
+            res["sqz_w_fire"]=bool(w["age"] is not None and w["age"]<=SQZ_FIRE_FRESH_WEEKS)
+            res["sqz_w_fire_dir"]=w["dir"]
+            res["sqz_w_prev_level"]=_SQZ_NAME.get(w["prev_level"],"")
+            res["sqz_w_prev_bars"]=int(w["prev_bars"])
+            res["sqz_w_partial"]=bool(close.index[-1].isoweekday()<5)
+    except Exception as e:
+        print("weekly squeeze warning",e)
+    return res
+
 def analyze(df,item,market):
     df=df.dropna(subset=["Close"]).copy()
     if len(df)<170: return None
@@ -779,6 +878,7 @@ def analyze(df,item,market):
     # make a broken price series look like a progressively tightening setup.
     drops=[x for x in drops if math.isfinite(float(x[2])) and 0 < float(x[2]) < 95][-4:]
     seq=[x[2] for x in drops]
+    wq=wave_quality(drops)
     contracting=len(seq)>=2 and all(seq[i]<seq[i-1]*1.12 for i in range(1,len(seq)))
     recent=close.iloc[-35:]; pivot=float(recent.iloc[:-3].max()); last=float(close.iloc[-1])
     distance=(last/pivot-1)*100
@@ -870,6 +970,8 @@ def analyze(df,item,market):
     if typ=="breakout" and score<4: return None
     if typ!="postbreakout" and distance>12: return None
 
+    # computed only for rows that survive every gate above (keeps the full-universe scan fast)
+    sqz=squeeze_fire_pack(df,close,high,low)
     signal_points=0; signal_reasons=[]
     if score>=5: signal_points+=2; signal_reasons.append("VCP 5/5")
     elif score>=4: signal_points+=1; signal_reasons.append("VCP 4/5")
@@ -879,6 +981,12 @@ def analyze(df,item,market):
     if squeeze_level=="strong": signal_points+=2; signal_reasons.append("強力壓縮")
     elif squeeze_level=="medium": signal_points+=1; signal_reasons.append("中度壓縮")
     elif squeeze_level=="weak": signal_points+=0.5; signal_reasons.append("一般壓縮")
+    if SQZ_FIRE_SCORING and sqz["squeeze_fire"] and sqz["squeeze_fire_dir"]=="bull":
+        _p={"strong":2,"medium":1,"weak":0.5}.get(sqz["squeeze_fire_prev_level"],0.5)
+        signal_points+=_p
+        signal_reasons.append(f"Squeeze 剛爆發（前 {sqz['squeeze_fire_prev_bars']} 日{_SQZ_LABEL.get(sqz['squeeze_fire_prev_level'],'壓縮')}）")
+    if SQZ_FIRE_SCORING and sqz["sqz_w_fire"] and sqz["sqz_w_fire_dir"]=="bull":
+        signal_points+=1; signal_reasons.append("週線 Squeeze 爆發")
     if momentum_dir=="bull_up": signal_points+=2; signal_reasons.append("多方增強")
     elif momentum_dir=="bear_up": signal_points+=1; signal_reasons.append("空方減弱")
     if typ=="postbreakout" and distance>8:
@@ -928,10 +1036,12 @@ def analyze(df,item,market):
         },
         "atr20_to_60":round(float(atr_ratio_core),4) if math.isfinite(atr_ratio_core) else None,
         "contractions":[round(float(x),4) for x in seq],
+        "contraction_bars":wq["contraction_bars"],"time_shrinking":wq["time_shrinking"],"last_tight":wq["last_tight"],
         "contracts":" → ".join(f"-{x:.0f}%" for x in seq) if seq else "—",
         "pivot":round(pivot,2),"last":round(last,2),"distance":round(distance,2),"change_pct":round(change_pct,2),
         "volume_dry":dry,"type":typ,"state":state,"squeeze_level":squeeze_level,
         "squeeze_state":squeeze_state,"momentum":momentum,"momentum_dir":momentum_dir,
+        **sqz,
         "combo":combo,"breakout_days":breakout_days,"breakout_date":breakout_date,
         "breakout_return_pct":round(breakout_return_pct,2) if breakout_return_pct is not None else None,
         "breakout_high_pct":round(breakout_high_pct,2) if breakout_high_pct is not None else None,

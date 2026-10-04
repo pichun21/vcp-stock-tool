@@ -2,6 +2,72 @@
 const $=id=>document.getElementById(id), API='https://api.finmindtrade.com/api/v4/data';
 function pct(x){return (x>=0?'+':'')+x.toFixed(1)+'%'}
 function sma(a,n){return a.map((_,i)=>i<n-1?null:a.slice(i-n+1,i+1).reduce((x,y)=>x+y,0)/n)}
+/* V2.46.0 — 與 scanner.py 同一套判斷：波浪品質（只標註）＋ Squeeze 爆發（日線／週線） */
+const WAVE_TIME_TOL=1.25, LAST_CONTRACTION_MAX_PCT=10, LAST_CONTRACTION_MAX_RATIO=0.70, SQZ_MIN_RUN=3, SQZ_FIRE_FRESH_DAYS=2, SQZ_FIRE_FRESH_WEEKS=1;
+const SQZ_NAME={3:'strong',2:'medium',1:'weak'}, SQZ_LABEL={strong:'強力壓縮',medium:'中度壓縮',weak:'一般壓縮'};
+function waveQuality(drops){
+ const bars=drops.map(x=>x.l.i-x.h.i), seq=drops.map(x=>Number(x.drop));
+ let timeShrinking=false,lastTight=false;
+ if(drops.length>=2){
+  timeShrinking=bars.slice(1).every((b,i)=>b<=bars[i]*WAVE_TIME_TOL) && bars[bars.length-1]<bars[0];
+  lastTight=seq[seq.length-1]<=LAST_CONTRACTION_MAX_PCT && seq[seq.length-1]<=seq[0]*LAST_CONTRACTION_MAX_RATIO;
+ }
+ return {contractionBars:bars,timeShrinking,lastTight};
+}
+function sqzLevels(high,low,close){
+ const n=close.length, out=new Array(n).fill(-1);
+ let ema=close[0]; const emaArr=[ema], a=2/21;
+ for(let i=1;i<n;i++){ ema=a*close[i]+(1-a)*ema; emaArr.push(ema); }
+ const tr=close.map((c,i)=>i===0?Math.abs(high[i]-low[i]):Math.max(Math.abs(high[i]-low[i]),Math.abs(high[i]-close[i-1]),Math.abs(low[i]-close[i-1])));
+ for(let i=0;i<n;i++){
+  if(i<19) continue;                      // 20 根 BB 與 20 根 ATR 都要滿（與 pandas rolling(20) 相同）
+  const w=close.slice(i-19,i+1), m=w.reduce((x,y)=>x+y,0)/20, sd=Math.sqrt(w.reduce((x,y)=>x+(y-m)**2,0)/20);
+  const t=tr.slice(i-19,i+1); if(t.some(v=>!Number.isFinite(v))) continue;
+  const atr=t.reduce((x,y)=>x+y,0)/20, up=m+2*sd, lo=m-2*sd;
+  const inside=k=>up<emaArr[i]+atr*k && lo>emaArr[i]-atr*k;
+  out[i]=inside(1.0)?3:inside(1.5)?2:inside(2.0)?1:0;
+ }
+ return out;
+}
+function sqzFire(levels,mom,maxAge,minRun=SQZ_MIN_RUN){
+ const n=levels.length, out={levelNow:n?levels[n-1]:-1,runNow:0,age:null,prevLevel:0,prevBars:0,dir:null};
+ if(n<2||levels[n-1]<0) return out;
+ if(levels[n-1]>0){ let k=0,i=n-1; while(i>=0&&levels[i]>0){k++;i--} out.runNow=k; return out; }
+ let i=n-1,k=0; while(i>=0&&levels[i]===0){k++;i--}
+ if(i<0||levels[i]<=0) return out;
+ const age=k-1; if(age>maxAge) return out;
+ let j=i,run=0,peak=0; while(j>=0&&levels[j]>0){run++; peak=Math.max(peak,levels[j]); j--}
+ if(run<minRun) return out;
+ const m=Number.isFinite(mom[n-k])?mom[n-k]:0;
+ out.age=age; out.prevLevel=peak; out.prevBars=run; out.dir=m>=0?'bull':'bear';
+ return out;
+}
+function sqzMomentum(close){ return close.map((c,i)=>i<19?NaN:c-close.slice(i-19,i+1).reduce((x,y)=>x+y,0)/20); }
+function isoWeekKey(dateStr){ // 週五收盤制：同一個週一～週日歸同一週
+ const t=new Date(dateStr+'T00:00:00Z'); const dow=(t.getUTCDay()+6)%7; // Mon=0
+ const mon=new Date(t.getTime()-dow*86400000); return mon.toISOString().slice(0,10);
+}
+function sqzFirePack(high,low,close,dates){
+ const res={};
+ const d=sqzFire(sqzLevels(high,low,close),sqzMomentum(close),5);
+ res.squeeze_run_days=d.runNow; res.squeeze_fire_days=d.age;
+ res.squeeze_fire=d.age!==null&&d.age<=SQZ_FIRE_FRESH_DAYS; res.squeeze_fire_dir=d.dir;
+ res.squeeze_fire_prev_level=SQZ_NAME[d.prevLevel]||''; res.squeeze_fire_prev_bars=d.prevBars;
+ Object.assign(res,{sqz_w_level:'',sqz_w_run:0,sqz_w_fire_weeks:null,sqz_w_fire:false,sqz_w_fire_dir:null,sqz_w_prev_level:'',sqz_w_prev_bars:0,sqz_w_partial:false});
+ try{
+  const keys=[],H=[],L=[],C=[];
+  dates.forEach((dt,i)=>{ const k=isoWeekKey(dt); if(!keys.length||keys[keys.length-1]!==k){keys.push(k);H.push(high[i]);L.push(low[i]);C.push(close[i]);}
+   else{ const j=keys.length-1; H[j]=Math.max(H[j],high[i]); L[j]=Math.min(L[j],low[i]); C[j]=close[i]; } });
+  if(C.length>=30){
+   const w=sqzFire(sqzLevels(H,L,C),sqzMomentum(C),3);
+   res.sqz_w_level=SQZ_NAME[w.levelNow]||''; res.sqz_w_run=w.runNow; res.sqz_w_fire_weeks=w.age;
+   res.sqz_w_fire=w.age!==null&&w.age<=SQZ_FIRE_FRESH_WEEKS; res.sqz_w_fire_dir=w.dir;
+   res.sqz_w_prev_level=SQZ_NAME[w.prevLevel]||''; res.sqz_w_prev_bars=w.prevBars;
+   const ld=new Date(dates[dates.length-1]+'T00:00:00Z'); const wd=ld.getUTCDay(); res.sqz_w_partial=(wd>=1&&wd<=4);
+  }
+ }catch(e){ console.warn('weekly squeeze',e); }
+ return res;
+}
 function analyze(d){
  const close=d.map(x=>+x.close), vol=d.map(x=>+x.Trading_Volume||+x.Trading_money||0), rawVolume=d.map(x=>+x.Trading_Volume||+x.Volume||0), money=d.map(x=>+x.Trading_money||(+x.close)*(+x.Trading_Volume||+x.Volume||0)), n=close.length, ma50=sma(close,50), ma150=sma(close,150);
  let trend=ma50[n-1]&&ma150[n-1]&&close[n-1]>ma50[n-1]&&ma50[n-1]>ma150[n-1];
@@ -12,6 +78,7 @@ function analyze(d){
  // V2.43.2 — keep browser-side single-stock contraction logic identical to scanner.py.
  // Near-100% peak-to-trough legs are broken/unusable price-series artifacts, not VCP contractions.
  drops=drops.filter(x=>Number.isFinite(Number(x.drop)) && Number(x.drop)>0 && Number(x.drop)<95).slice(-4);
+ const wq=waveQuality(drops);
  let seq=drops.map(x=>x.drop), contracting=seq.length>=2&&seq.slice(1).every((x,i)=>x<seq[i]*1.12);
  let recent=close.slice(-35), pivot=Math.max(...recent.slice(0,-3)), last=close[n-1], distance=(last/pivot-1)*100;
  let v20=vol.slice(-20).reduce((a,b)=>a+b,0)/20, v60=vol.slice(-60,-20).reduce((a,b)=>a+b,0)/Math.max(1,vol.slice(-60,-20).length), dry=v20<v60*.85;
@@ -38,7 +105,9 @@ function analyze(d){
  let prev=close[n-2], todayBreakout=prev<=pivot && breakout && breakoutVol;
  let pts=0; if(trend)pts++; if(seq.length>=2)pts++; if(contracting)pts++; if(dry)pts++; if(todayBreakout||(!breakout&&distance>-8))pts++;
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
- return {close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
+ const hiArr=d.map(x=>+(x.max??x.High??x.high)), loArr=d.map(x=>+(x.min??x.Low??x.low));
+ const sqz=sqzFirePack(hiArr,loArr,close,d.map(x=>x.date));
+ return {wave:wq,sqz,close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart');
@@ -509,7 +578,8 @@ function updateSingleQuickRead(radarMatch,d,a,liveQuote=null){
  if(radarMatch?.pulse_signal==='hot') chips.push('🔥 高關注');
  else if(radarMatch?.pulse_signal==='watch') chips.push('👀 觀察');
  else if(radarMatch?.pulse_signal==='wait') chips.push('⏳ 等待');
- if(a?.squeezeState) chips.push(a.squeezeState);
+ { const sp0=effectiveSqz(a,radarMatch); if(a?.squeezeState && !sp0.squeeze_fire) chips.push(a.squeezeState); }
+ { const sp=effectiveSqz(a,radarMatch); const t1=sqzDailyText(sp), t2=sqzWeeklyText(sp); if(t1) chips.push(t1); if(t2) chips.push(t2); }
  if(a?.momentum) chips.push(`Momentum ${a.momentum}`);
  $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
  updateSingleLiquidity(radarMatch,a);
@@ -1117,7 +1187,17 @@ async function __runInner(){
     ['中期上升趨勢',a.trend],['至少兩次價格收縮',a.seq.length>=2],['回檔幅度逐步縮小',a.contracting],['近期成交量乾涸',a.dry],['接近／突破 Pivot',a.distance>-8]
   ];
   $('checks').innerHTML=rows.map(r=>`<div class="check"><span>${r[0]}</span><b class="${r[1]?'good':'bad'}">${r[1]?'✓':'×'}</b></div>`).join('');
-  $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${a.squeezeState}｜Momentum ${a.momentum}。`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
+  {
+    const wv=effectiveWave(a,radarMatch), sp=effectiveSqz(a,radarMatch), two=(wv.seq||[]).length>=2;
+    const row=(label,detail,ok,txt,cls)=>`<div class="check check-extra"><span>${label}${detail?`<small>${escHtml(detail)}</small>`:''}</span><b class="${cls||(ok?'good':'mute')}">${txt||(ok?'✓':'–')}</b></div>`;
+    const dFire=sp.squeeze_fire?(sp.squeeze_fire_dir==='bear'?row('Squeeze 爆發（日線）',sqzDailyText(sp),false,'偏空','warn'):row('Squeeze 爆發（日線）',sqzDailyText(sp),true,'✓ '+sqzFireAge(sp.squeeze_fire_days))):row('Squeeze 爆發（日線）',Number(sp.squeeze_run_days)>0?`目前壓縮中，已連續 ${sp.squeeze_run_days} 日`:'',false);
+    const wFire=sp.sqz_w_fire?(sp.sqz_w_fire_dir==='bear'?row('Squeeze 爆發（週線）',sqzWeeklyText(sp),false,'偏空','warn'):row('Squeeze 爆發（週線）',sqzWeeklyText(sp),true,'✓')):row('Squeeze 爆發（週線）',sp.sqz_w_level?`週線壓縮中（${SQZ_LABEL[sp.sqz_w_level]}，已 ${sp.sqz_w_run} 週）`:'',false);
+    $('checks').insertAdjacentHTML('beforeend',`<div class="checks-extra-title">進階參考<em>不計入 VCP 星數</em></div>`+
+      row('波浪時間逐步縮短',two?`${wv.bars.join(' → ')} 日`:'需要至少兩次收縮',two&&wv.timeShrinking)+
+      row('最後一次收縮夠緊（≤ 10%）',two?`最後 ${fmtDepth(wv.seq[wv.seq.length-1])}，第一次 ${fmtDepth(wv.seq[0])}`:'需要至少兩次收縮',two&&wv.lastTight)+dFire+wFire);
+  }
+  const _sp=effectiveSqz(a,radarMatch); const _fireNote=(_sp.squeeze_fire?` ${sqzDailyText(_sp)}${_sp.squeeze_fire_dir==='bear'?'，動能偏空，不是進場訊號。':'，動能偏多，可留意是否同時接近／突破 Pivot。'}`:'')+(_sp.sqz_w_fire?` ${sqzWeeklyText(_sp)}。`:'');
+  $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${_sp.squeeze_fire?'':a.squeezeState+'｜'}Momentum ${a.momentum}。${_fireNote}`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
   renderContractionLegend(a)
  }catch(e){
@@ -1534,7 +1614,10 @@ function kpiGo(k){
   const w=document.querySelector('.radar-table-wrap'), mb=document.getElementById('radarMobile');
   const tg=(w&&w.offsetParent)?w:mb; if(tg) setTimeout(()=>tg.scrollIntoView({behavior:'smooth',block:'start'}),60);
 }
-function squeezeLabel(r){ return RADAR_UI.squeeze[r.squeeze_level] || r.squeeze_state || '—'; }
+function squeezeLabel(r){
+ if(r.squeeze_fire){ return `💥 Squeeze ${r.squeeze_fire_dir==='bear'?'向下爆發':'爆發'} ${sqzFireAge(r.squeeze_fire_days)}`; }
+ return RADAR_UI.squeeze[r.squeeze_level] || r.squeeze_state || '—';
+}
 function momentumLabel(r){ return RADAR_UI.momentum[r.momentum_dir] || r.momentum || '—'; }
 function attentionReason(r){
  const bits=[`${Number(r.score||0)}★`];
@@ -1543,6 +1626,8 @@ function attentionReason(r){
  else if(r.type==='near') bits.push('接近突破');
  const sq={strong:'強力壓縮',medium:'中度壓縮',weak:'一般壓縮'}[r.squeeze_level];
  if(sq) bits.push(sq);
+ else if(r.squeeze_fire&&r.squeeze_fire_dir==='bull') bits.push('Squeeze 爆發');
+ if(r.sqz_w_fire&&r.sqz_w_fire_dir==='bull') bits.push('週線爆發');
  if(r.momentum_dir==='bull_up') bits.push('多方增強');
  else if(r.momentum_dir==='bear_up') bits.push('空方減弱');
  return bits.slice(0,4).join(' · ');
@@ -1597,6 +1682,39 @@ function ttChip(r){
 function rsTtLine(r){
  const a=rsChip(r), b=ttChip(r);
  return (a||b)?`<div class="rs-line">${a}${b}</div>`:'';
+}
+
+/* V2.46.0 — Squeeze 爆發（彩色點 → 第一個灰點）與 VCP 波浪品質的顯示輔助 */
+function fmtDepth(x){ const v=Math.abs(Number(x)); return Number.isFinite(v)?(v<10?v.toFixed(1):String(Math.round(v)))+'%':'—'; }
+function sqzFireAge(n){ return Number(n)===0?'今日':`D+${Number(n)}`; }
+function sqzFireBull(r){ return !!(r&&((r.squeeze_fire&&r.squeeze_fire_dir==='bull')||(r.sqz_w_fire&&r.sqz_w_fire_dir==='bull'))); }
+function effectiveSqz(a,rm){ return (rm&&Object.prototype.hasOwnProperty.call(rm,'squeeze_fire'))?rm:((a&&a.sqz)||{}); }
+function effectiveWave(a,rm){
+ if(rm&&Object.prototype.hasOwnProperty.call(rm,'time_shrinking')) return {bars:Array.isArray(rm.contraction_bars)?rm.contraction_bars:[],timeShrinking:!!rm.time_shrinking,lastTight:!!rm.last_tight,seq:Array.isArray(rm.contractions)?rm.contractions.map(Number):[]};
+ const w=(a&&a.wave)||{}; return {bars:w.contractionBars||[],timeShrinking:!!w.timeShrinking,lastTight:!!w.lastTight,seq:(a&&a.seq)||[]};
+}
+function sqzDailyText(p){
+ if(!p||!p.squeeze_fire) return '';
+ const bear=p.squeeze_fire_dir==='bear', lv=SQZ_LABEL[p.squeeze_fire_prev_level]||'壓縮';
+ return `💥 Squeeze ${bear?'向下爆發':'爆發'} ${sqzFireAge(p.squeeze_fire_days)}（前 ${p.squeeze_fire_prev_bars} 日${lv}）`;
+}
+function sqzWeeklyText(p){
+ if(!p||!p.sqz_w_fire) return '';
+ const bear=p.sqz_w_fire_dir==='bear', wk=Number(p.sqz_w_fire_weeks)===0?(p.sqz_w_partial?'本週進行中':'本週'):'上週';
+ return `📅 週線 Squeeze ${bear?'向下爆發':'爆發'}（${wk}，前 ${p.sqz_w_prev_bars} 週${SQZ_LABEL[p.sqz_w_prev_level]||'壓縮'}）`;
+}
+function sqzFireMini(r){
+ if(!r||(!r.squeeze_fire&&!r.sqz_w_fire)) return '';
+ const bits=[]; let bear=false;
+ if(r.squeeze_fire){ bits.push((r.squeeze_fire_dir==='bear'?'↓':'')+sqzFireAge(r.squeeze_fire_days)); bear=r.squeeze_fire_dir==='bear'; }
+ if(r.sqz_w_fire){ bits.push('週'+(r.sqz_w_fire_dir==='bear'?'↓':'')); if(!r.squeeze_fire) bear=r.sqz_w_fire_dir==='bear'; }
+ const tip=[sqzDailyText(r),sqzWeeklyText(r)].filter(Boolean).join('；');
+ return ` <span class="sqz-fire-mini${bear?' is-bear':''}" title="${escHtml(tip)}">💥 ${escHtml(bits.join('・'))}</span>`;
+}
+function sqzWeeklyChip(r){
+ if(!r||!r.sqz_w_fire) return '';
+ const bear=r.sqz_w_fire_dir==='bear';
+ return `<span class="sqz-w-chip${bear?' is-bear':''}" title="${escHtml(sqzWeeklyText(r))}">週 💥${bear?'↓':''}</span>`;
 }
 
 const FAVORITES_KEY='vcpulse_favorites_v1';
@@ -1988,7 +2106,7 @@ function renderRadar(filter='all'){
    (filter==='new' ? r.is_new===true :
    (filter==='quality' ? r.structure_quality_good===true :
    (filter==='combo' ? r.combo :
-    (filter==='rs80' ? Number(r.rs_rating)>=80 : (filter==='tt' ? ttFull(r) : r.type===filter)))))));
+    (filter==='rs80' ? Number(r.rs_rating)>=80 : (filter==='tt' ? ttFull(r) : (filter==='fire' ? sqzFireBull(r) : r.type===filter))))))));
  });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
@@ -2008,7 +2126,7 @@ function renderRadar(filter='all'){
    if(radarSort==='score') return ((b.score??0)-(a.score??0)) || smartSort(a,b);
    if(radarSort==='pivot') return (Math.abs(a.distance??999)-Math.abs(b.distance??999)) || smartSort(a,b);
    if(radarSort==='rs') return ((b.rs_rating??-1)-(a.rs_rating??-1)) || smartSort(a,b);
-   if(radarSort==='squeeze') return ((squeezeRank[a.squeeze_level]??9)-(squeezeRank[b.squeeze_level]??9)) || smartSort(a,b);
+   if(radarSort==='squeeze'){ const fr=r=>sqzFireBull(r)?-1:(squeezeRank[r.squeeze_level]??9); return (fr(a)-fr(b)) || smartSort(a,b); }
    if(radarSort==='momentum') return ((momentumRank[a.momentum_dir]??9)-(momentumRank[b.momentum_dir]??9)) || smartSort(a,b);
    if(radarSort==='change'){
      const av=Number(a.change_pct), bv=Number(b.change_pct);
@@ -2059,7 +2177,7 @@ function renderRadar(filter='all'){
    </td>
    <td><span class="change-pct ${changePctClass(r.change_pct)}">${changePctText(r.change_pct)}</span>${r._live?`<span class="live-quote-badge">${escHtml(liveQuoteBadgeText(r))}</span>`:''}</td>
    <td>${esc(volumeLabel(r))}${liquidityDesktop(r)?`<div class="liquidity-desktop">${esc(liquidityDesktop(r))}</div>`:''}</td>
-   <td>${esc(squeezeLabel(r))}</td>
+   <td>${esc(squeezeLabel(r))}${sqzWeeklyChip(r)}</td>
    <td>${esc(momentumLabel(r))}</td>
    <td class="status-dot">${stagePill(r)}${r.type==='postbreakout'?`<div class="muted postbreakout-mini">目前 ${esc(signedPct(r.breakout_return_pct ?? r.distance))} · 最高漲幅 ${esc(signedPct(r.breakout_high_pct ?? r.breakout_return_pct ?? r.distance))}</div>`:''}</td>
    <td><button type="button" class="pulse-badge pulse-${esc(r.pulse_signal||'wait')} pulse-help-trigger" data-pulse="${esc(r.pulse_signal||'wait')}">${esc(pulseLabel(r))}</button>${r.pulse_signal==='hot'?`<div class="attention-summary desktop-attention">${esc(attentionReason(r))}</div>`:''}</td>
@@ -2165,10 +2283,18 @@ function renderRadar(filter='all'){
        reasons.push(`<div class="reason-item reason-ok"><b>VCP ${r.score}/5</b>，符合本站主要候選門檻</div>`);
      }
      if((r.contractions||[]).length>=2) reasons.push(`<div class="reason-item reason-ok">收縮：${esc(contractionText(r))}</div>`);
+if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeof r.time_shrinking==='boolean'){
+  const bars=(r.contraction_bars||[]).join(' → ');
+  reasons.push(`<div class="reason-item ${r.time_shrinking?'reason-ok':'reason-note'}">波浪時間 ${esc(bars)} 日，${r.time_shrinking?'逐步縮短':'沒有逐步縮短'}</div>`);
+  const lastC=fmtDepth((r.contractions||[]).slice(-1)[0]).replace('%','');
+  reasons.push(`<div class="reason-item ${r.last_tight?'reason-ok':'reason-note'}">最後一次收縮 ${lastC}%，${r.last_tight?'夠緊（≤ 10% 且明顯小於第一次）':'還不夠緊'}</div>`);
+}
      if(r.volume_dry) reasons.push(`<div class="reason-item reason-ok">整理期間成交量呈現量縮</div>`);
      if(r.structure_quality_good) reasons.push(`<div class="reason-item reason-ok">💎 VCP 結構品質佳，收斂與量縮條件整體較完整</div>`);
-     if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(squeezeLabel(r))}，波動處於壓縮狀態</div>`);
-     else reasons.push(`<div class="reason-item reason-note">${esc(squeezeLabel(r))}</div>`);
+     if(r.squeeze_level && r.squeeze_level!=='none') reasons.push(`<div class="reason-item reason-ok">${esc(squeezeLabel(r))}，波動處於壓縮狀態${Number(r.squeeze_run_days)>0?`（已連續 ${Number(r.squeeze_run_days)} 日）`:''}</div>`);
+     else if(!r.squeeze_fire) reasons.push(`<div class="reason-item reason-note">${esc(squeezeLabel(r))}</div>`);
+     if(r.squeeze_fire) reasons.push(`<div class="reason-item ${r.squeeze_fire_dir==='bear'?'reason-note':'reason-ok'}">${esc(sqzDailyText(r))}：第一根「無壓縮」，動能${r.squeeze_fire_dir==='bear'?'偏空，不是進場訊號':'偏多'}</div>`);
+     if(r.sqz_w_fire) reasons.push(`<div class="reason-item ${r.sqz_w_fire_dir==='bear'?'reason-note':'reason-ok'}">${esc(sqzWeeklyText(r))}，動能${r.sqz_w_fire_dir==='bear'?'偏空':'偏多'}</div>`);
      if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(momentumLabel(r))}</div>`);
      if(Number.isFinite(Number(r.rs_rating))&&Number(r.rs_rating)>0){ const n=Number(r.rs_rating); reasons.push(`<div class="reason-item ${n>=70?'reason-ok':'reason-note'}">相對強度 <b>RS ${n}</b>，近 3～12 個月漲幅在同市場前 ${Math.max(1,100-n)}%</div>`); }
      if(r.tt_count!=null&&Number.isFinite(Number(r.tt_count))){ const n=Number(r.tt_count), miss=(Array.isArray(r.tt_fail)?r.tt_fail:[]).map(k=>TT_LABELS[k]).filter(Boolean); reasons.push(`<div class="reason-item ${n>=7?'reason-ok':'reason-note'}">趨勢模板 <b>${n}/7</b>${miss.length?`，未過：${esc(miss.join('、'))}`:'，價格面條件全過'}${n>=7&&Number(r.rs_rating)>=70?'（含 RS ≥ 70，完整符合）':''}</div>`); }
@@ -2181,11 +2307,11 @@ function renderRadar(filter='all'){
      else if(!r._favorite_only && r.type==='near') reasons.push(`<div class="reason-item reason-ok">距 Pivot ${fmtPctRaw(r.distance)}，已進入接近區</div>`);
      else if(!r._favorite_only) reasons.push(`<div class="reason-item reason-note">型態仍在成形，距 Pivot ${fmtPctRaw(r.distance)}</div>`);
 
-     return `<div class="mobile-stock-card" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
+     return `<div class="mobile-stock-card${ttChip(r)?' has-tt':''}" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button></div>
-           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${(ttChip(r)&&Number(r.score)>=5)?'<span class="star5-mini" title="VCP 5/5" aria-label="VCP 5 顆星">★5</span>':''}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}${sqzFireMini(r)}</div>
          </div>
          <div class="mobile-top-actions">
            <div class="mobile-action-head">
@@ -2222,7 +2348,8 @@ function renderRadar(filter='all'){
          <div class="mobile-metric">量能<b>${esc(volumeLabel(r))}</b></div>
        </div>
        <div class="mobile-signal-row">
-         <span class="mobile-signal">${esc(squeezeLabel(r))}</span>
+         <span class="mobile-signal${r.squeeze_fire?' mobile-signal-fire':''}">${esc(squeezeLabel(r))}</span>
+          ${r.sqz_w_fire?`<span class="mobile-signal mobile-signal-fire">${esc('📅 週線爆發'+(r.sqz_w_fire_dir==='bear'?'（偏空）':''))}</span>`:''}
          <span class="mobile-signal">${esc(momentumLabel(r))}</span>
          ${liquidityCompact(r)?`<span class="mobile-signal">${esc(liquidityCompact(r))}</span>`:''}
          ${r.combo?'<span class="mobile-signal">⚡ VCP＋Squeeze</span>':''}
@@ -2825,7 +2952,7 @@ function goMobileRadarPage(delta){
    (radarFilter==='new' ? r.is_new===true :
    (radarFilter==='quality' ? r.structure_quality_good===true :
    (radarFilter==='combo' ? r.combo :
-    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : (radarFilter==='tt' ? ttFull(r) : r.type===radarFilter)))))));
+    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : (radarFilter==='tt' ? ttFull(r) : (radarFilter==='fire' ? sqzFireBull(r) : r.type===radarFilter))))))));
  });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));

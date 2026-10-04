@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261011">
+<link rel="stylesheet" href="./styles.css?v=20261012">
 
 
 
@@ -142,6 +142,7 @@
   <h3>PowerSqueeze 是什麼？</h3>
   <p>本站另外比較 <b>Bollinger Bands（20日、2個標準差）</b> 與 <b>Keltner Channel（EMA20＋ATR20）</b> 的寬度。當布林通道收進 Keltner Channel 內，代表近期波動正在壓縮。</p>
   <p>本站分為：🔴 <b>強力壓縮</b>、🟠 <b>中度壓縮</b>、🩷 <b>一般壓縮</b>、⚪ <b>無壓縮</b>。壓縮越強代表波動越集中，但不代表之後一定上漲。</p>
+  <p class="muted">壓縮的「彩色點」轉成第一個「無壓縮」的灰點時，就是下方說明的 <b>💥 Squeeze 爆發</b>。</p>
   </section>
   <section class="help-section">
   <h3>Momentum 動能</h3>
@@ -150,6 +151,21 @@
   <section class="help-section">
   <h3>⚡ VCP＋Squeeze</h3>
   <p>代表股票同時符合本站 VCP 候選條件（4 分以上），且目前處於 PowerSqueeze 壓縮狀態。PowerSqueeze <b>不另外增加 VCP 星數</b>。</p>
+  </section>
+  <section class="help-section">
+  <h3>💥 Squeeze 爆發（進場訊號）</h3>
+  <p><b>爆發＝壓縮了一段時間之後，第一根「無壓縮」的 K 棒。</b>也就是 PowerSqueeze 從彩色點（🔴🟠🩷）轉成第一個灰點（⚪），代表波動從收斂轉為放大，常被當作觀察進場的時間點。</p>
+  <p><b>怎麼判斷</b>：① 前面要連續壓縮至少 3 根（排除只閃一下的雜訊）。② 日線：今日～D+2 內都算「剛爆發」，顯示為「💥 Squeeze 爆發 D+0」；D+0 就是今天剛轉灰。③ 週線：把日線合成週 K 後用同樣規則判斷，本週或上週爆發才顯示「週 💥」。④ 看動能方向：爆發當天股價在 20 日均價之上算<b>偏多</b>，在下方則標「向下爆發（偏空）」，那不是進場訊號。</p>
+  <p><b>哪裡看得到</b>：雷達清單的壓縮欄位（爆發時取代「無壓縮」）、手機卡片訊號列、篩選「💥 Squeeze 爆發」（日線或週線偏多爆發）、排序「Squeeze 最強／剛爆發」、單股分析「進階參考」，以及卡片展開的「為什麼入選？」。</p>
+  <p class="muted"><b>注意：</b>① 偏多的爆發會替「綜合訊號」加分（前一段壓縮越強加越多；週線爆發另加 1 分），因為爆發當天已經沒有壓縮分數，不加分的話剛爆發的股票反而會被排到後面；<b>VCP 星數與入選門檻不受影響</b>。② 雷達只收 VCP 4 分以上的股票，Squeeze 剛爆發但 VCP 分數不足的股票不會出現在雷達，請到單股分析查詢。③ 週線包含進行中的這一週，週五收盤前可能還會改變（會標「本週進行中」）。④ 盤中掃描的日線也是未收盤的 K 棒。⑤ 爆發不保證延續，假突破很常見，也不構成投資建議。</p>
+  </section>
+  <section class="help-section">
+  <h3>VCP 波浪品質（時間縮短・最後收縮）</h3>
+  <p>原本的「回檔幅度逐步縮小」只比較每次回檔的深度。這裡再補上兩項檢查，源自 VCP 的經典描述：</p>
+  <p><b>① 波浪時間逐步縮短</b>：每次回檔從高點跌到低點花的交易日，後一次不能比前一次明顯更長（容許多 25%），而且最後一次要比第一次短。例如 20 → 12 → 7 日是縮短，10 → 15 → 20 日則不是。<br>
+  <b>② 最後一次收縮夠緊</b>：最後一次回檔要在 <b>10% 以內</b>，而且不超過第一次的 70%。只是「沒有變大」還不夠，要真的收到夠小。</p>
+  <p><b>哪裡看得到</b>：單股分析「進階參考」區塊，以及雷達卡片展開「為什麼入選？」的兩行說明（✓ 綠色表示符合，米色表示不符合）。</p>
+  <p class="muted"><b>注意：</b>只是標註，<b>不影響 VCP 星數、雷達入選與預設排序</b>。門檻（25%、10%、70%）是本站設定的經驗值，台股與美股的波動不同，不是唯一標準。需要至少兩次完整的收縮才會判斷，否則顯示「需要至少兩次收縮」。不構成投資建議。</p>
   </section>
   <section class="help-section">
   <h3>相對強度 RS</h3>
@@ -174,7 +190,7 @@
   <p>每日雷達優先顯示當下較值得注意的狀態，而不是只看星數：</p>
   <p><b>① 狀態</b>：🟢 今日帶量突破 → 🔵 突破後 → 🟡 接近 Pivot → ⚪ VCP 成形中<br>
   <b>② VCP 完整度</b>：★★★★★ → ★★★★☆<br>
-  <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮<br>
+  <b>③ PowerSqueeze</b>：🔴 強力壓縮 → 🟠 中度壓縮 → 🩷 一般壓縮 → ⚪ 無壓縮（💥 剛爆發的股票在「Squeeze 最強／剛爆發」排序中排最前面）<br>
   <b>④ Momentum</b>：↑ 多方增強 → ↗ 空方減弱 → ↘ 多方減弱 → ↓ 空方增強<br>
   <b>⑤ 距 Pivot</b>：其他條件相同時，距 Pivot 較近者優先。</p>
   <p class="muted"><b>RS</b> 不參與預設排序；想先看最強勢的股票，可以用排序選單的「RS 強度最高」，或篩選「RS ≥ 80」。</p>
@@ -480,6 +496,7 @@
         <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
         <button class="radar-tab" data-radar="rs80" title="相對強度排名 80 以上">RS ≥ 80</button>
         <button class="radar-tab" data-radar="tt" title="趨勢模板 7 項價格條件全過，且 RS ≥ 70">趨勢模板 ✓</button>
+        <button class="radar-tab" data-radar="fire" title="日線剛爆發（今日～D+2）或週線爆發，且動能偏多">💥 Squeeze 爆發</button>
         </div></div>
         <div class="radar-group" role="group" aria-label="關注訊號"><span class="radar-group-label">關注訊號</span><div class="radar-group-chips">
         <button class="radar-tab" data-radar="hot">🔥 高關注</button>
@@ -509,7 +526,7 @@
           <option value="score">VCP 分數</option>
           <option value="rs">RS 強度最高</option>
           <option value="pivot">距 Pivot 最近</option>
-          <option value="squeeze">Squeeze 最強</option>
+          <option value="squeeze">Squeeze 最強／剛爆發</option>
           <option value="momentum">Momentum 最強</option>
           <option value="change">今日漲幅</option>
         </select>
@@ -571,7 +588,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261011"></script>
+<script src="./app.js?v=20261012"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -847,7 +864,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261011"></script>
+<script src="./app-extras.js?v=20261012"></script>
 
 
 

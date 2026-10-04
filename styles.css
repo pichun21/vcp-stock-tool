@@ -2343,8 +2343,8 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .tt-low{background:transparent;color:#8a7f70;border-color:#e3ddd0;border-style:dashed}
 .rs-line .tt-chip:first-child{margin-left:0}
 @media(max-width:760px){
- /* 手機精簡卡片空間有限：趨勢標籤只在展開後顯示 */
- #radarMobile.compact .mobile-stock-card:not(.expanded) .tt-chip{display:none}
+ /* 手機精簡卡片：有趨勢資料時，代號旁改顯示「趨勢 N/7」取代星等（展開後星等仍在右上角；沒有趨勢資料的卡片維持顯示星等） */
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .mobile-score-inline{display:none}
 }
 
 /* 手機卡片代號行：RS 與趨勢標籤放不下時整顆換行，並與代號左對齊 */
@@ -2409,3 +2409,27 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sh-chip{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sh-chip:active{filter:brightness(.94)}
 .sh-chip:focus-visible{outline:2px solid #2f7d6a;outline-offset:1px}
+
+
+/* ===== 38. V2.46.0 Squeeze 爆發標籤、單股「進階參考」列 ===== */
+.sqz-w-chip{display:inline-flex;align-items:center;margin-left:6px;padding:0 7px;border-radius:7px;border:1px solid #e0a65b;background:#fff4e2;color:#8a5200;font-size:11px;font-weight:800;line-height:1.5;white-space:nowrap;vertical-align:middle}
+.sqz-w-chip.is-bear{border-color:#c9c2b4;background:#f3f1ec;color:#7a766d}
+.mobile-signal-fire{border-color:#e0a65b!important;background:#fff4e2!important;color:#8a5200!important;font-weight:800}
+.checks-extra-title{margin-top:6px;padding-top:10px;border-top:1px dashed #d9d2c3;font-size:12.5px;font-weight:800;color:#6b5d45;display:flex;gap:8px;align-items:baseline}
+.checks-extra-title em{font-style:normal;font-weight:600;font-size:11.5px;color:#9a9285}
+.check.check-extra span small{display:block;margin-top:2px;font-size:11.5px!important;font-weight:500;color:#8a8478;line-height:1.4}
+.check.check-extra b{white-space:nowrap}
+.check b.mute{color:#a29b8c!important}
+.check b.warn{color:#b45309!important}
+
+.sqz-fire-mini{display:inline-flex;align-items:center;margin-left:6px;padding:0 7px;border-radius:7px;border:1px solid #e0a65b;background:#fff4e2;color:#8a5200;font-size:11px;font-weight:800;line-height:1.5;white-space:nowrap;vertical-align:middle}
+.sqz-fire-mini.is-bear{border-color:#c9c2b4;background:#f3f1ec;color:#7a766d}
+.mobile-stock-code .sqz-fire-mini{margin-left:0}
+
+/* 精簡卡片：趨勢標籤取代星等後，5 星另外用小標籤保留（只在精簡且未展開時顯示） */
+.star5-mini{display:none}
+@media(max-width:760px){
+ #radarMobile.compact .mobile-stock-card.has-tt:not(.expanded) .star5-mini{display:inline-flex;align-items:center;margin-left:6px;padding:0 7px;border-radius:7px;border:1px solid #e3c35a;background:#fff7d6;color:#7a5a00;font-size:11px;font-weight:800;line-height:1.5;letter-spacing:.2px;white-space:nowrap;vertical-align:middle}
+}
+
+.mobile-stock-name .star5-mini{vertical-align:middle;position:relative;top:-1px}
