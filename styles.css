@@ -2471,3 +2471,9 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sqz-v{flex:1;min-width:0;font-weight:800;color:#302f2f}
 .sqz-row.is-fire .sqz-v{color:#9a4f33}
 .sqz-row.is-bear .sqz-v{color:#a0562a}
+
+/* 桌機版：右欄較長時，多出來的高度全部給最下面的空白，不要把 K 線圖和 News Impact 之間撐出空隙 */
+@media (min-width:761px){
+  #singleStockAnalysis .grid{grid-template-rows:auto 1fr;align-content:start}
+  #singleStockAnalysis .grid > #newsImpactCard{align-self:start}
+}
