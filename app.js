@@ -107,14 +107,17 @@ function analyze(d){
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
  const hiArr=d.map(x=>+(x.max??x.High??x.high)), loArr=d.map(x=>+(x.min??x.Low??x.low));
  const sqz=sqzFirePack(hiArr,loArr,close,d.map(x=>x.date));
- return {wave:wq,sqz,lastLow:(drops.length?drops[drops.length-1].l.p:null),close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,dates:d.map(x=>x.date)}
+ return {wave:wq,sqz,lastLow:(drops.length?drops[drops.length-1].l.p:null),close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,vols:rawVolume,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart');
  const cssW=Math.max(320,Math.round(c.getBoundingClientRect().width||720));
  if(window.__chartA!==a) window.__chartHover=null;
   window.__chartA=a; window.__chartDrawnW=cssW;
- const cssH=Math.round(cssW*0.50);
+ const volAll=Array.isArray(a.vols)?a.vols:[];
+  const hasVol=volAll.length===a.close.length && volAll.slice(-120).some(v=>v>0);
+  const cssH=Math.round(cssW*(hasVol?0.60:0.50));
+  const volH=hasVol?Math.round(cssH*0.17):0;
  const dpr=Math.min(window.devicePixelRatio||1,2.5);
 
  // High-DPI backing store keeps lines/text crisp on phones and Retina screens.
@@ -133,7 +136,7 @@ function draw(a){
  let rawMin=Math.min(...vals), rawMax=Math.max(...vals);
  let range=Math.max(rawMax-rawMin,1);
  let min=rawMin-range*.08, max=rawMax+range*.10;
- let pad={l:42,r:28,t:54,b:30};
+ let pad={l:42,r:28,t:hasVol?(isMob?58:60):54,b:30+(hasVol?volH+10:0)};
  let X=i=>pad.l+i*(W-pad.l-pad.r)/(Math.max(vals.length-1,1));
  let Y=v=>H-pad.b-(v-min)*(H-pad.t-pad.b)/(max-min);
 
@@ -177,7 +180,39 @@ function draw(a){
    x.stroke();
  }
 
- // 還原日標記：使用 scanner 已確認的價格尺度切換日。
+ // 成交量柱（圖表下方）：淡綠＝量縮、橘＝放量上漲、深褐＝放量突破、其餘中性灰綠
+  if(hasVol){
+    const vs=volAll.slice(-120), off0=a.close.length-vs.length;
+    const base=H-30;
+    const sorted=vs.slice().sort((p,q)=>p-q), p97=sorted[Math.min(sorted.length-1,Math.floor(sorted.length*0.97))]||1;
+    const vmax=Math.max(1,Math.min(Math.max(...vs),p97*1.35));
+    const avg20At=function(gi){ let sum=0,cnt=0; for(let j=Math.max(0,gi-20);j<gi;j++){ sum+=volAll[j]; cnt++; } return cnt?sum/cnt:0; };
+    const bw=Math.max(1.6,(W-pad.l-pad.r)/vs.length*0.62);
+    x.save();
+    x.strokeStyle='#e4dfd6'; x.lineWidth=1; x.beginPath(); x.moveTo(pad.l,base+.5); x.lineTo(W-pad.r,base+.5); x.stroke();
+    vs.forEach(function(v,i){
+      const gi=off0+i, av=avg20At(gi), up=gi>0&&a.close[gi]>=a.close[gi-1];
+      const brk=gi>0&&a.close[gi]>a.pivot&&a.close[gi-1]<=a.pivot&&av>0&&v>=av*1.35;
+      let col='#d5dcd8';
+      if(brk) col='#b0603f'; else if(av>0&&v>=av*1.4&&up) col='#d9906f'; else if(av>0&&v<av*0.75) col='#bcd3cc';
+      const h=Math.max(1,Math.min(1,v/vmax)*(volH-2));
+      x.fillStyle=col; x.fillRect(X(i)-bw/2,base-h,bw,h);
+    });
+    x.font='700 '+(isMob?9:10)+'px system-ui,-apple-system,sans-serif'; x.fillStyle='#9a9285'; x.textAlign='right'; x.textBaseline='middle';
+    x.fillText('量',pad.l-6,base-volH/2);
+    // 圖例第二列
+    const items2=[{label:'量縮',color:'#bcd3cc'},{label:'放量上漲',color:'#d9906f'},{label:'放量突破',color:'#b0603f'}];
+    x.textAlign='left'; x.textBaseline='middle';
+    let lx=pad.l; const fs2=isMob?10:11; x.font='700 '+fs2+'px system-ui,-apple-system,sans-serif';
+    items2.forEach(function(it){
+      x.fillStyle=it.color; x.fillRect(lx,38-5,10,10);
+      x.fillStyle='#6b6258'; x.fillText(it.label,lx+15,38);
+      lx+=15+x.measureText(it.label).width+(isMob?12:18);
+    });
+    x.restore();
+  }
+
+  // 還原日標記：使用 scanner 已確認的價格尺度切換日。
  const chartDates=a.dates.slice(-120).map(v=>String(v||'').slice(0,10));
  const restoreInView=(a.restoreEvents||[]).filter(ev=>chartDates.includes(restoreEffectiveDate(ev)));
  restoreInView.forEach((ev,idx)=>{
