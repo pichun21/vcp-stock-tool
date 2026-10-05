@@ -2544,3 +2544,21 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* 觀察徽章改藍色，避免和「突破後」的綠色一樣 */
 .pulse-badge.pulse-watch{background:#e4edf8!important;color:#2f5d8a!important;border:1px solid #b6cbe4!important}
+
+/* V2.44 — 單股查詢：今日 VCP 入選標示（芥末黃，點一下跳到雷達那一列） */
+.single-radar-hit{
+  display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;
+  margin:6px 0 2px;padding:5px 10px 5px 5px;max-width:100%;
+  border:1px solid #edce7c;border-radius:999px;background:#fdf6dc;
+  font:inherit;font-size:13px;line-height:1.4;color:#5b4a1e;text-align:left;cursor:pointer;
+  transition:background .15s ease,border-color .15s ease;
+}
+.single-radar-hit[hidden]{display:none!important}
+.single-radar-hit:hover{background:#faedb8;border-color:#d9b34f}
+.single-radar-hit:focus-visible{outline:2px solid #d28963;outline-offset:2px}
+.single-radar-hit .srh-tag{background:#edce7c;color:#4d3a08;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.single-radar-hit .srh-info{color:#6e5a2a}
+.single-radar-hit .srh-go{color:#b66749;font-weight:700;white-space:nowrap;margin-left:auto}
+@media(max-width:720px){
+  .single-radar-hit{border-radius:14px}
+}

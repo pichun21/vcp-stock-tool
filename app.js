@@ -1717,6 +1717,7 @@ let radarSort = 'smart';
 let radarChangeSortDir = 'desc'; // desc: 漲最多→跌最多；asc: 跌最多→漲最多
 let mobileRadarPage = 1;
 const MOBILE_RADAR_PAGE_SIZE = 5;
+let lastRadarRenderedRows = [];
 
 const RADAR_UI={
   market:{
@@ -1973,7 +1974,7 @@ let currentSingleFavoriteData=null;
 function renderSingleFavorite(market,symbol){
  const btn=document.getElementById('singleFavorite');
  if(!btn) return;
- if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; currentSingleFavoriteData=null; return; }
+ if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; currentSingleFavoriteData=null; renderSingleRadarHit(); return; }
  currentSingleFavorite={market:String(market).toUpperCase(),symbol:String(symbol).toUpperCase()};
  const fav=getFavorites().has(favoriteKey(currentSingleFavorite.market,currentSingleFavorite.symbol));
  btn.hidden=false;
@@ -1981,6 +1982,57 @@ function renderSingleFavorite(market,symbol){
  btn.classList.toggle('is-favorite',fav);
  btn.setAttribute('aria-label',fav?'取消收藏':'收藏股票');
  btn.title=fav?'取消收藏':'收藏股票';
+ renderSingleRadarHit();
+}
+// V2.44 — 單股查詢時，若這檔股票也在目前雷達名單中，於標題下方顯示「今日 VCP 入選」，
+// 點一下直接跳到雷達清單中的那一列（手機會自動翻到正確頁碼）。
+function findRadarRowFor(market,symbol){
+ const m=String(market||'').toUpperCase(), sym=String(symbol||'').toUpperCase();
+ if(!m || !sym) return null;
+ return (Array.isArray(radarRows)?radarRows:[]).find(r=>String(r.market||'').toUpperCase()===m && String(r.symbol||'').toUpperCase()===sym) || null;
+}
+function renderSingleRadarHit(){
+ const el=document.getElementById('singleRadarHit');
+ if(!el) return;
+ const cur=(typeof currentSingleFavorite!=='undefined' && currentSingleFavorite) || {};
+ const row=findRadarRowFor(cur.market,cur.symbol);
+ if(!row){ el.hidden=true; el.innerHTML=''; return; }
+ const esc=t=>String(t??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+ const bits=[stageLabel(row), pulseLabel(row)].filter(x=>x && x!=='—');
+ el.hidden=false;
+ el.innerHTML=`<span class="srh-tag">今日 VCP 入選</span><span class="srh-info">${bits.map(esc).join('｜')}</span><span class="srh-go">在雷達中查看 ›</span>`;
+ el.setAttribute('aria-label','這檔股票在今日 VCP 雷達名單中，點選跳到雷達清單');
+}
+function jumpToRadarStock(){
+ const cur=(typeof currentSingleFavorite!=='undefined' && currentSingleFavorite) || {};
+ const m=String(cur.market||'').toUpperCase(), sym=String(cur.symbol||'').toUpperCase();
+ if(!m || !sym) return;
+ const idxIn=()=>lastRadarRenderedRows.findIndex(r=>String(r.market||'').toUpperCase()===m && String(r.symbol||'').toUpperCase()===sym);
+ // 先用目前的篩選條件找；被篩選條件擋掉的話，清除篩選再找一次。
+ renderRadar(radarFilter);
+ let idx=idxIn();
+ if(idx<0){ clearRadarAllFilters(); idx=idxIn(); }
+ const back=document.getElementById('radarBackFloat');
+ if(back) back.hidden=true;
+ if(idx>=0){
+   mobileRadarPage=Math.floor(idx/MOBILE_RADAR_PAGE_SIZE)+1;
+   renderRadar(radarFilter);
+ }
+ const nodes=[...document.querySelectorAll('[data-market][data-symbol]')].filter(el=>
+   String(el.dataset.market||'').toUpperCase()===m && String(el.dataset.symbol||'').toUpperCase()===sym &&
+   (el.matches('.mobile-stock-card') || el.matches('tr[data-symbol]')));
+ const target=nodes.find(el=>el.offsetParent!==null) || null;
+ if(!target){
+   const w=document.querySelector('.radar-table-wrap'), mb=document.getElementById('radarMobile');
+   const tg=(w&&w.offsetParent)?w:mb;
+   if(tg){ try{ tg.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ tg.scrollIntoView(); } }
+   return;
+ }
+ try{ target.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){ target.scrollIntoView(); }
+ target.classList.remove('radar-return-highlight-3s');
+ void target.offsetWidth;
+ target.classList.add('radar-return-highlight-3s');
+ setTimeout(()=>{ if(target && document.documentElement.contains(target)) target.classList.remove('radar-return-highlight-3s'); },3000);
 }
 function toggleFavorite(market,symbol,row=null){
  market=String(market||'').toUpperCase(); symbol=String(symbol||'').toUpperCase();
@@ -2301,6 +2353,8 @@ function renderRadar(filter='all'){
    }
    return smartSort(a,b);
  });
+ lastRadarRenderedRows=rows;
+ try{ renderSingleRadarHit(); }catch(e){}
 
  if(!rows.length){
    body.innerHTML='<tr><td colspan="11" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
