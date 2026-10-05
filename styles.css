@@ -2532,3 +2532,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .rc-note{font-size:11.5px;color:#9a9285;margin-top:6px}
 .radar-preset-chip{min-width:0;padding:7px 14px;border-radius:999px;border:1px solid #d9cdb8;background:#fff;color:#5c4f3a;font-size:13.5px;font-weight:800;white-space:nowrap}
 .radar-preset-chip.active{background:#b6694b;border-color:#b6694b;color:#fff}
+
+/* 自訂面板：桌機版改成三欄並縮小字級，與整體風格一致 */
+@media (min-width:900px){
+  .rc-body{grid-template-columns:1.25fr 1fr 1fr;gap:22px;align-items:start;padding-bottom:16px}
+  .rc-grid input,.rc-grid select,.rc-sort-row select,.rc-save input{font-size:13px;padding:7px 10px}
+  .rc-sort-row select{min-width:0}
+  .rc-save{flex-wrap:wrap}
+  .rc-save input{flex:1 1 140px}
+}
