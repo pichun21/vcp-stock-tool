@@ -1601,6 +1601,39 @@ const RADAR_AND_FLAGS = {
   favorites:r=>isFavorite(r), 'new':r=>r.is_new===true, quality:r=>r.structure_quality_good===true,
   combo:r=>!!r.combo, rs80:r=>Number(r.rs_rating)>=80, tt:r=>ttFull(r), fire:r=>sqzFireBull(r)
 };
+/* 階段 3：數值條件（留空＝不限制）與自訂排序（最多兩層） */
+let radarNum = { rs:null, dist:null, score:null, chg:null };
+let radarCustomSort = [ {key:'score',dir:'desc'}, {key:'',dir:'desc'} ];
+const RADAR_CSORT = {
+  score:   {label:'VCP 分數',            val:r=>Number(r.score), def:'desc'},
+  rs:      {label:'RS 強度',             val:r=>Number(r.rs_rating), def:'desc'},
+  distance:{label:'距 Pivot（絕對值）',   val:r=>Math.abs(Number(r.distance)), def:'asc'},
+  change:  {label:'今日漲幅',            val:r=>Number(r.change_pct), def:'desc'},
+  tt:      {label:'趨勢模板項數',         val:r=>Number(r.tt_count), def:'desc'},
+  squeeze: {label:'壓縮強度（💥最前）',   val:r=>sqzFireBull(r)?4:({strong:3,medium:2,weak:1,none:0}[r.squeeze_level]), def:'desc'},
+  sqzdays: {label:'壓縮連續天數',         val:r=>Number(r.squeeze_run_days), def:'desc'},
+  momentum:{label:'Momentum 強度',       val:r=>({bull_up:3,bear_up:2,bull_down:1,bear_down:0}[r.momentum_dir]), def:'desc'}
+};
+function radarNumActive(){ return Object.values(radarNum).some(v=>v!=null); }
+function radarNumPass(r){
+  const n=radarNum;
+  if(n.rs!=null && !(Number(r.rs_rating)>=n.rs)) return false;
+  if(n.dist!=null){ const d=Math.abs(Number(r.distance)); if(!(Number.isFinite(d)&&d<=n.dist)) return false; }
+  if(n.score!=null && !(Number(r.score)>=n.score)) return false;
+  if(n.chg!=null && !(Number(r.change_pct)>=n.chg)) return false;
+  return true;
+}
+function radarCustomCompare(a,b,fallback){
+  for(const c of radarCustomSort){
+    const d=RADAR_CSORT[c.key]; if(!d) continue;
+    let av=d.val(a), bv=d.val(b);
+    av=Number.isFinite(av)?av:null; bv=Number.isFinite(bv)?bv:null;
+    if(av===null&&bv===null) continue;
+    if(av===null) return 1; if(bv===null) return -1;
+    if(av!==bv) return c.dir==='asc'?av-bv:bv-av;
+  }
+  return fallback(a,b);
+}
 function radarKeys(filter){ return (!filter||filter==='all')?[]:String(filter).split('+').filter(Boolean); }
 function radarRowPass(r,filter){
   const keys=radarKeys(filter); if(!keys.length) return true;
@@ -1617,16 +1650,26 @@ function syncRadarTabs(){
     b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
   });
   const box=document.getElementById('radarFilterSummary'); if(!box) return;
-  box.hidden=!keys.length;
+  const numParts=[];
+  if(radarNum.rs!=null) numParts.push('RS ≥ '+radarNum.rs);
+  if(radarNum.dist!=null) numParts.push('距 Pivot ≤ '+radarNum.dist+'%');
+  if(radarNum.score!=null) numParts.push('VCP ≥ '+radarNum.score+' 星');
+  if(radarNum.chg!=null) numParts.push('今日漲幅 ≥ '+radarNum.chg+'%');
+  box.hidden=!(keys.length||numParts.length);
   const txt=box.querySelector('.rfs-text');
-  if(txt) txt.textContent=keys.map(k=>{const b=document.querySelector('.radar-tab[data-radar="'+k+'"]'); return b?(k==='favorites'?'★ 我的收藏':b.textContent.trim()):k;}).join(' ＋ ');
+  if(txt) txt.textContent=keys.map(k=>{const b=document.querySelector('.radar-tab[data-radar="'+k+'"]'); return b?(k==='favorites'?'★ 我的收藏':b.textContent.trim()):k;}).concat(numParts).join(' ＋ ');
+  try{ if(typeof syncRadarCustomUI==='function') syncRadarCustomUI(); }catch(e){}
 }
 function setRadarFilterKeys(keys){
   radarFilter=keys.length?keys.join('+'):'all';
   mobileRadarPage=1; syncRadarTabs(); renderRadar(radarFilter);
 }
+function clearRadarAllFilters(){
+  radarNum={rs:null,dist:null,score:null,chg:null};
+  setRadarFilterKeys([]);
+}
 function toggleRadarKey(k){
-  if(k==='all') return setRadarFilterKeys([]);
+  if(k==='all') return clearRadarAllFilters();
   const keys=radarKeys(radarFilter), i=keys.indexOf(k);
   if(i>=0) keys.splice(i,1); else keys.push(k);
   setRadarFilterKeys(keys);
@@ -1690,6 +1733,7 @@ function updateKpiStrip(filter){
 }
 function kpiGo(k){
   /* KPI 卡片＝單一捷徑：已經只選這一項就取消，否則改成只選這一項 */
+  radarNum={rs:null,dist:null,score:null,chg:null};
   setRadarFilterKeys(radarFilter===k?[]:[k]);
   const w=document.querySelector('.radar-table-wrap'), mb=document.getElementById('radarMobile');
   const tg=(w&&w.offsetParent)?w:mb; if(tg) setTimeout(()=>tg.scrollIntoView({behavior:'smooth',block:'start'}),60);
@@ -2187,6 +2231,7 @@ function renderRadar(filter='all'){
    return radarRowPass(r,filter);
   });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
+  if(radarNumActive()){ for(let i=rows.length-1;i>=0;i--) if(!radarNumPass(rows[i])) rows.splice(i,1); }
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const pulseRank={hot:0,watch:1,wait:2,extended:3};
  const statusRank={breakout:0,postbreakout:1,near:2,forming:3};
@@ -2201,7 +2246,8 @@ function renderRadar(filter='all'){
    (Math.abs(a.distance??999)-Math.abs(b.distance??999));
 
  rows.sort((a,b)=>{
-   if(radarSort==='score') return ((b.score??0)-(a.score??0)) || smartSort(a,b);
+   if(radarSort==='custom') return radarCustomCompare(a,b,smartSort);
+    if(radarSort==='score') return ((b.score??0)-(a.score??0)) || smartSort(a,b);
    if(radarSort==='pivot') return (Math.abs(a.distance??999)-Math.abs(b.distance??999)) || smartSort(a,b);
    if(radarSort==='rs') return ((b.rs_rating??-1)-(a.rs_rating??-1)) || smartSort(a,b);
    if(radarSort==='tt'){ const ttSort=r=>ttFull(r)?0:1; return (ttSort(a)-ttSort(b)) || ((Number(b.tt_count)??0)-(Number(a.tt_count)??0)) || smartSort(a,b); }
@@ -2968,7 +3014,7 @@ document.querySelectorAll('.radar-tab').forEach(btn=>{
  btn.addEventListener('click',()=>toggleRadarKey(btn.dataset.radar));
 });
 const radarFilterClear=document.getElementById('radarFilterClear');
-if(radarFilterClear) radarFilterClear.addEventListener('click',()=>setRadarFilterKeys([]));
+if(radarFilterClear) radarFilterClear.addEventListener('click',clearRadarAllFilters);
 const radarSortSelect=document.getElementById('radarSort');
 const changeSortDirBtn=document.getElementById('changeSortDirBtn');
 
@@ -3020,7 +3066,7 @@ const mobileNextPage=document.getElementById('mobileNextPage');
 function goMobileRadarPage(delta){
  const marketRows=radarRows.filter(r=>{
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
-   return radarRowPass(r,radarFilter);
+   return radarRowPass(r,radarFilter) && (!radarNumActive() || radarNumPass(effectiveRadarRow(r)));
   });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));
@@ -3089,3 +3135,93 @@ document.addEventListener('visibilitychange',()=>{
  if(!document.hidden && currentMarket==='TW') loadRadar();
 });
 
+
+
+/* ===== 階段 3：自訂篩選面板（數值條件、自訂排序、我的篩選） ===== */
+(function(){
+  const $i=id=>document.getElementById(id);
+  const PRESET_KEY='vcpulse_filter_presets_v1';
+  const loadPresets=()=>{ try{ const x=JSON.parse(localStorage.getItem(PRESET_KEY)||'[]'); return Array.isArray(x)?x:[]; }catch(e){ return []; } };
+  const savePresets=a=>{ try{ localStorage.setItem(PRESET_KEY,JSON.stringify(a)); }catch(e){} };
+  const currentState=()=>({keys:radarKeys(radarFilter),nums:Object.assign({},radarNum),
+    sort:{mode:radarSort,changeDir:radarChangeSortDir,custom:radarCustomSort.map(x=>Object.assign({},x))}});
+  const sig=st=>JSON.stringify([[...st.keys].sort(),st.nums.rs,st.nums.dist,st.nums.score,st.nums.chg,st.sort.mode,
+    st.sort.mode==='change'?st.sort.changeDir:'',st.sort.mode==='custom'?st.sort.custom:'']);
+  const dirText=d=>d==='asc'?'小→大':'大→小';
+  function fillSortSelects(){
+    const opts=Object.entries(RADAR_CSORT).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
+    const a=$i('radarCs1Key'), b=$i('radarCs2Key');
+    if(a) a.innerHTML=opts; if(b) b.innerHTML='<option value="">（不用）</option>'+opts;
+  }
+  function renderPresets(){
+    const list=loadPresets(), cur=sig(currentState());
+    const chips=$i('radarPresetChips'), grp=$i('radarPresetGroup'), box=$i('radarPresetList');
+    if(grp) grp.hidden=!list.length;
+    if(chips) chips.innerHTML=list.map(p=>`<button type="button" class="radar-preset-chip${sig(Object.assign({keys:[],nums:{},sort:{}},p,{nums:Object.assign({rs:null,dist:null,score:null,chg:null},p.nums),sort:Object.assign({mode:'smart',changeDir:'desc',custom:[]},p.sort)}))===cur?' active':''}" data-preset="${escHtml(p.id)}">${escHtml(p.name)}</button>`).join('');
+    if(box) box.innerHTML=list.length?list.map(p=>`<div class="rc-preset-row"><span>${escHtml(p.name)}</span><button type="button" data-preset-apply="${escHtml(p.id)}">套用</button><button type="button" class="rc-del" data-preset-del="${escHtml(p.id)}" aria-label="刪除 ${escHtml(p.name)}">刪除</button></div>`).join(''):'<div class="rc-note">還沒有儲存的篩選。</div>';
+  }
+  window.syncRadarCustomUI=function(){
+    const setv=(id,v)=>{ const e=$i(id); if(e && document.activeElement!==e) e.value=(v==null?'':v); };
+    setv('radarNumRs',radarNum.rs); setv('radarNumDist',radarNum.dist); setv('radarNumScore',radarNum.score); setv('radarNumChg',radarNum.chg);
+    const c1=radarCustomSort[0]||{key:'score',dir:'desc'}, c2=radarCustomSort[1]||{key:'',dir:'desc'};
+    const k1=$i('radarCs1Key'), k2=$i('radarCs2Key'), d1=$i('radarCs1Dir'), d2=$i('radarCs2Dir');
+    if(k1) k1.value=c1.key||'score'; if(k2) k2.value=c2.key||''; if(d1) d1.textContent=dirText(c1.dir); if(d2){ d2.textContent=dirText(c2.dir); d2.disabled=!c2.key; }
+    const sel=$i('radarSort'); if(sel && sel.value!==radarSort) sel.value=radarSort;
+    const n=Object.values(radarNum).filter(v=>v!=null).length+(radarSort==='custom'?1:0), bd=$i('radarCustomBadge');
+    if(bd){ bd.hidden=!n; bd.textContent=n; }
+    renderPresets();
+  };
+  function numFrom(id,int){ const e=$i(id); if(!e||e.value==='') return null; const v=Number(e.value); return Number.isFinite(v)?(int?Math.round(v):v):null; }
+  let t=null;
+  function onNumInput(){
+    radarNum={rs:numFrom('radarNumRs',true),dist:numFrom('radarNumDist'),score:numFrom('radarNumScore',true),chg:numFrom('radarNumChg')};
+    if(radarNum.dist!=null && radarNum.dist<0) radarNum.dist=null;
+    clearTimeout(t); t=setTimeout(()=>{ mobileRadarPage=1; syncRadarTabs(); renderRadar(radarFilter); },250);
+  }
+  ['radarNumRs','radarNumDist','radarNumScore','radarNumChg'].forEach(id=>{ const e=$i(id); if(e){ e.addEventListener('input',onNumInput); e.addEventListener('change',onNumInput); } });
+  function onSortChange(){
+    radarSort='custom'; mobileRadarPage=1;
+    const k1=$i('radarCs1Key').value, k2=$i('radarCs2Key').value;
+    const old=radarCustomSort;
+    radarCustomSort=[
+      {key:k1,dir:(old[0]&&old[0].key===k1)?old[0].dir:RADAR_CSORT[k1].def},
+      {key:k2,dir:(old[1]&&old[1].key===k2)?old[1].dir:(k2?RADAR_CSORT[k2].def:'desc')}
+    ];
+    syncChangeSortDirectionUI(); syncRadarTabs(); renderRadar(radarFilter);
+  }
+  ['radarCs1Key','radarCs2Key'].forEach(id=>{ const e=$i(id); if(e) e.addEventListener('change',onSortChange); });
+  [['radarCs1Dir',0],['radarCs2Dir',1]].forEach(([id,i])=>{ const e=$i(id); if(e) e.addEventListener('click',()=>{
+    if(!radarCustomSort[i]||!radarCustomSort[i].key) return;
+    radarCustomSort[i].dir=radarCustomSort[i].dir==='asc'?'desc':'asc';
+    radarSort='custom'; mobileRadarPage=1; syncChangeSortDirectionUI(); syncRadarTabs(); renderRadar(radarFilter);
+  }); });
+  function applyPreset(p){
+    radarNum=Object.assign({rs:null,dist:null,score:null,chg:null},p.nums||{});
+    const so=p.sort||{};
+    radarSort=so.mode||'smart'; radarChangeSortDir=so.changeDir||'desc';
+    radarCustomSort=(Array.isArray(so.custom)&&so.custom.length?so.custom:[{key:'score',dir:'desc'},{key:'',dir:'desc'}]).map(x=>Object.assign({},x));
+    while(radarCustomSort.length<2) radarCustomSort.push({key:'',dir:'desc'});
+    syncChangeSortDirectionUI(); setRadarFilterKeys(Array.isArray(p.keys)?p.keys:[]);
+  }
+  function onPresetClick(e){
+    const a=e.target.closest('[data-preset],[data-preset-apply],[data-preset-del]'); if(!a) return;
+    const list=loadPresets();
+    const del=a.dataset.presetDel;
+    if(del){ savePresets(list.filter(p=>p.id!==del)); renderPresets(); return; }
+    const id=a.dataset.preset||a.dataset.presetApply, p=list.find(x=>x.id===id); if(p) applyPreset(p);
+  }
+  const chips=$i('radarPresetChips'), box=$i('radarPresetList');
+  if(chips) chips.addEventListener('click',onPresetClick);
+  if(box) box.addEventListener('click',onPresetClick);
+  const saveBtn=$i('radarPresetSave'), nameEl=$i('radarPresetName');
+  if(saveBtn) saveBtn.addEventListener('click',()=>{
+    const st=currentState();
+    if(!st.keys.length && !radarNumActive() && st.sort.mode==='smart'){ if(nameEl){ nameEl.placeholder='請先設定條件或排序'; nameEl.focus(); } return; }
+    const list=loadPresets();
+    if(list.length>=12){ if(nameEl){ nameEl.value=''; nameEl.placeholder='最多存 12 組，請先刪除'; } return; }
+    const name=((nameEl&&nameEl.value)||'').trim().slice(0,12)||('我的篩選 '+(list.length+1));
+    list.push({id:'p'+Date.now().toString(36),name,keys:st.keys,nums:st.nums,sort:st.sort});
+    savePresets(list); if(nameEl){ nameEl.value=''; nameEl.placeholder='幫它取個名字'; } renderPresets();
+  });
+  fillSortSelects(); window.syncRadarCustomUI();
+})();

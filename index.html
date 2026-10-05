@@ -500,6 +500,7 @@
     </div>
     <div class="radar-head">
       <div class="radar-tabs">
+        <div class="radar-group" id="radarPresetGroup" role="group" aria-label="我的篩選" hidden><span class="radar-group-label">我的篩選</span><div class="radar-group-chips" id="radarPresetChips"></div></div>
         <div class="radar-group" role="group" aria-label="快速"><span class="radar-group-label">快速</span><div class="radar-group-chips">
         <button class="radar-tab active" data-radar="all">全部</button>
         <button class="radar-tab favorite-tab" data-radar="favorites">★ 我的收藏 <span id="favoriteCount">0</span></button>
@@ -546,11 +547,34 @@
           <option value="squeeze">Squeeze 最強／剛爆發</option>
           <option value="momentum">Momentum 最強</option>
           <option value="change">今日漲幅</option>
+          <option value="custom">自訂排序（見下方 ⚙）</option>
         </select>
         <button type="button" id="changeSortDirBtn" class="change-sort-dir" aria-label="切換今日漲幅排序方向" title="切換今日漲幅排序方向">↓</button>
         <div class="muted">預計顯示 4 分以上</div>
       </div>
     </div>
+    <details class="radar-custom" id="radarCustom">
+      <summary><span>⚙ 自訂篩選與排序</span><span class="rc-badge" id="radarCustomBadge" hidden></span></summary>
+      <div class="rc-body">
+        <div class="rc-sec"><div class="rc-title">數值條件<em>留空＝不限制，可和上方按鈕一起疊加</em></div>
+          <div class="rc-grid">
+            <label><span>RS ≥</span><input id="radarNumRs" type="number" inputmode="numeric" min="0" max="99" placeholder="例 80"></label>
+            <label><span>距 Pivot ≤</span><span class="rc-unit"><input id="radarNumDist" type="number" inputmode="decimal" min="0" step="0.5" placeholder="例 3">%</span></label>
+            <label><span>VCP 分數 ≥</span><select id="radarNumScore"><option value="">不限</option><option value="5">5 星</option><option value="4">4 星</option><option value="3">3 星</option><option value="2">2 星</option></select></label>
+            <label><span>今日漲幅 ≥</span><span class="rc-unit"><input id="radarNumChg" type="number" inputmode="decimal" step="0.5" placeholder="例 2">%</span></label>
+          </div>
+        </div>
+        <div class="rc-sec"><div class="rc-title">自訂排序<em>最多兩層，第 1 層相同才看第 2 層</em></div>
+          <div class="rc-sort-row"><span>第 1 層</span><select id="radarCs1Key"></select><button type="button" id="radarCs1Dir" class="rc-dir">大→小</button></div>
+          <div class="rc-sort-row"><span>第 2 層</span><select id="radarCs2Key"></select><button type="button" id="radarCs2Dir" class="rc-dir">大→小</button></div>
+        </div>
+        <div class="rc-sec"><div class="rc-title">我的篩選<em>存下目前的按鈕、數值條件與排序</em></div>
+          <div class="rc-save"><input id="radarPresetName" maxlength="12" placeholder="幫它取個名字"><button type="button" id="radarPresetSave">儲存目前條件</button></div>
+          <div id="radarPresetList" class="rc-presets"></div>
+          <div class="rc-note">只存在這個瀏覽器，不會跨裝置同步。</div>
+        </div>
+      </div>
+    </details>
     <details class="signal-guide-collapsible radar-signal-guide">
       <summary>
         <span class="signal-guide-title">ⓘ VCPulse 訊號怎麼看？</span>
