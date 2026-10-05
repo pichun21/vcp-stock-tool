@@ -1595,7 +1595,7 @@ const RADAR_OR_GROUPS = {
   pulse: { hot:r=>r.pulse_signal==='hot', watch:r=>r.pulse_signal==='watch', wait:r=>r.pulse_signal==='wait', extended:r=>r.pulse_signal==='extended' },
   stage: { breakout:r=>r.type==='breakout', postbreakout:r=>r.type==='postbreakout', near:r=>r.type==='near', forming:r=>r.type==='forming' },
   sqz:   { sqz_strong:r=>r.squeeze_level==='strong', sqz_medium:r=>r.squeeze_level==='medium', sqz_weak:r=>r.squeeze_level==='weak',
-           sqz_any:r=>['strong','medium','weak'].includes(r.squeeze_level) }
+           sqz_none:r=>!['strong','medium','weak'].includes(r.squeeze_level) }
 };
 const RADAR_AND_FLAGS = {
   favorites:r=>isFavorite(r), 'new':r=>r.is_new===true, quality:r=>r.structure_quality_good===true,
