@@ -194,14 +194,15 @@ function draw(a){
       const gi=off0+i, av=avg20At(gi), up=gi>0&&a.close[gi]>=a.close[gi-1];
       const brk=gi>0&&a.close[gi]>a.pivot&&a.close[gi-1]<=a.pivot&&av>0&&v>=av*1.35;
       let col='#d5dcd8';
-      if(brk) col='#b0603f'; else if(av>0&&v>=av*1.4&&up) col='#d9906f'; else if(av>0&&v>=av*1.4&&!up) col='#7f9bb3'; else if(av>0&&v<av*0.75) col='#bcd3cc';
+      if(brk) col='#c0262d'; else if(av>0&&v>=av*1.4&&up) col='#eba96a'; else if(av>0&&v>=av*1.4&&!up) col='#7f9bb3'; else if(av>0&&v<av*0.75) col='#bcd3cc';
       const h=Math.max(1,Math.min(1,v/vmax)*(volH-2));
       x.fillStyle=col; x.fillRect(X(i)-bw/2,base-h,bw,h);
+      if(brk){ const tx=X(i), ty=base-h-4; x.fillStyle='#c0262d'; x.beginPath(); x.moveTo(tx,ty-6); x.lineTo(tx-4,ty); x.lineTo(tx+4,ty); x.closePath(); x.fill(); }   // 突破日加小三角，色盲也看得出來
     });
     x.font='700 '+(isMob?9:10)+'px system-ui,-apple-system,sans-serif'; x.fillStyle='#9a9285'; x.textAlign='right'; x.textBaseline='middle';
     x.fillText('量',pad.l-6,base-volH/2);
     // 圖例第二列
-    const items2=[{label:'量縮',color:'#bcd3cc'},{label:'一般',color:'#d5dcd8'},{label:'放量上漲',color:'#d9906f'},{label:'放量下跌',color:'#7f9bb3'},{label:'放量突破',color:'#b0603f'}];
+    const items2=[{label:'量縮',color:'#bcd3cc'},{label:'一般',color:'#d5dcd8'},{label:'放量上漲',color:'#eba96a'},{label:'放量下跌',color:'#7f9bb3'},{label:'放量突破',color:'#c0262d'}];
     x.textAlign='left'; x.textBaseline='middle';
     let fs2=isMob?10:11, gap2=isMob?9:16;
     const measure2=function(){ x.font='700 '+fs2+'px system-ui,-apple-system,sans-serif'; return items2.reduce(function(sum,it){return sum+15+x.measureText(it.label).width;},0)+gap2*(items2.length-1); };
