@@ -1589,6 +1589,48 @@ let userLiveQuotes=new Map();
 let userLiveUpdatedAt='';
 
 let radarFilter = 'all';
+/* 多選篩選：radarFilter 是組合字串（'all' 或 'a+b'），沿用既有程式。
+   規則：同一組（關注訊號／型態階段／壓縮等級）＝「或」，不同組與其他條件＝「且」。 */
+const RADAR_OR_GROUPS = {
+  pulse: { hot:r=>r.pulse_signal==='hot', watch:r=>r.pulse_signal==='watch', wait:r=>r.pulse_signal==='wait', extended:r=>r.pulse_signal==='extended' },
+  stage: { breakout:r=>r.type==='breakout', postbreakout:r=>r.type==='postbreakout', near:r=>r.type==='near', forming:r=>r.type==='forming' },
+  sqz:   { sqz_strong:r=>r.squeeze_level==='strong', sqz_medium:r=>r.squeeze_level==='medium', sqz_weak:r=>r.squeeze_level==='weak',
+           sqz_any:r=>['strong','medium','weak'].includes(r.squeeze_level) }
+};
+const RADAR_AND_FLAGS = {
+  favorites:r=>isFavorite(r), 'new':r=>r.is_new===true, quality:r=>r.structure_quality_good===true,
+  combo:r=>!!r.combo, rs80:r=>Number(r.rs_rating)>=80, tt:r=>ttFull(r), fire:r=>sqzFireBull(r)
+};
+function radarKeys(filter){ return (!filter||filter==='all')?[]:String(filter).split('+').filter(Boolean); }
+function radarRowPass(r,filter){
+  const keys=radarKeys(filter); if(!keys.length) return true;
+  for(const g of Object.values(RADAR_OR_GROUPS)){
+    const picked=keys.filter(k=>g[k]); if(picked.length && !picked.some(k=>g[k](r))) return false;
+  }
+  for(const k of keys){ if(RADAR_AND_FLAGS[k] && !RADAR_AND_FLAGS[k](r)) return false; }
+  return true;
+}
+function syncRadarTabs(){
+  const keys=radarKeys(radarFilter);
+  document.querySelectorAll('.radar-tab').forEach(b=>{
+    const k=b.dataset.radar, on=(k==='all')?keys.length===0:keys.includes(k);
+    b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
+  });
+  const box=document.getElementById('radarFilterSummary'); if(!box) return;
+  box.hidden=!keys.length;
+  const txt=box.querySelector('.rfs-text');
+  if(txt) txt.textContent=keys.map(k=>{const b=document.querySelector('.radar-tab[data-radar="'+k+'"]'); return b?(k==='favorites'?'★ 我的收藏':b.textContent.trim()):k;}).join(' ＋ ');
+}
+function setRadarFilterKeys(keys){
+  radarFilter=keys.length?keys.join('+'):'all';
+  mobileRadarPage=1; syncRadarTabs(); renderRadar(radarFilter);
+}
+function toggleRadarKey(k){
+  if(k==='all') return setRadarFilterKeys([]);
+  const keys=radarKeys(radarFilter), i=keys.indexOf(k);
+  if(i>=0) keys.splice(i,1); else keys.push(k);
+  setRadarFilterKeys(keys);
+}
 let radarSort = 'smart';
 let radarChangeSortDir = 'desc'; // desc: 漲最多→跌最多；asc: 跌最多→漲最多
 let mobileRadarPage = 1;
@@ -1647,8 +1689,8 @@ function updateKpiStrip(filter){
   box.hidden=!rows.length;
 }
 function kpiGo(k){
-  const key=(typeof radarFilter!=='undefined'&&radarFilter===k)?'all':k;
-  const t=document.querySelector('.radar-tab[data-radar="'+key+'"]'); if(t) t.click();
+  /* KPI 卡片＝單一捷徑：已經只選這一項就取消，否則改成只選這一項 */
+  setRadarFilterKeys(radarFilter===k?[]:[k]);
   const w=document.querySelector('.radar-table-wrap'), mb=document.getElementById('radarMobile');
   const tg=(w&&w.offsetParent)?w:mb; if(tg) setTimeout(()=>tg.scrollIntoView({behavior:'smooth',block:'start'}),60);
 }
@@ -1913,10 +1955,7 @@ function returnToRadarPosition(){
    mobileRadarPage=Math.max(1,Number(saved.page));
  }
  if(saved.filter){
-   radarFilter=saved.filter;
-   document.querySelectorAll('.radar-tab').forEach(
-     b=>b.classList.toggle('active',b.dataset.radar===saved.filter)
-   );
+   radarFilter=saved.filter; syncRadarTabs();
  }
  renderRadar(radarFilter);
 
@@ -2126,15 +2165,15 @@ function renderRadar(filter='all'){
  try{updateKpiStrip(filter);}catch(e){}
  const body=$('radarBody'), mobile=$('radarMobile');
  // 若收藏是從舊版或單股分析留下、當下只有代號，背景補齊名稱後重畫一次。
- if(filter==='favorites'){
+ if(radarKeys(filter).includes('favorites')){
    hydrateFavoriteNames(currentMarket).then(changed=>{
-     if(changed && radarFilter==='favorites') renderRadar('favorites');
+     if(changed && radarKeys(radarFilter).includes('favorites')) renderRadar(radarFilter);
    });
  }
  let sourceRows=Array.isArray(radarRows)?radarRows.slice():[];
  // V2.42.2 — 收藏是使用者自己的清單，不應受 VCP 雷達入選名單限制。
  // 單股分析收藏的非 VCP 標的，也要能在「我的收藏」重新找到。
- if(filter==='favorites'){
+ if(radarKeys(filter).includes('favorites')){
    const favs=getFavorites(), meta=getFavoriteMeta();
    const seen=new Set(sourceRows.map(r=>favoriteKey(r.market,r.symbol)));
    for(const key of favs){
@@ -2145,14 +2184,8 @@ function renderRadar(filter='all'){
  }
  const rows=sourceRows.filter(r=>{
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
-   return filter==='all' ||
-   (filter==='favorites' ? isFavorite(r) :
-   (['hot','watch','wait','extended'].includes(filter) ? r.pulse_signal===filter :
-   (filter==='new' ? r.is_new===true :
-   (filter==='quality' ? r.structure_quality_good===true :
-   (filter==='combo' ? r.combo :
-    (filter==='rs80' ? Number(r.rs_rating)>=80 : (filter==='tt' ? ttFull(r) : (filter==='fire' ? sqzFireBull(r) : r.type===filter))))))));
- });
+   return radarRowPass(r,filter);
+  });
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
  const pulseRank={hot:0,watch:1,wait:2,extended:3};
@@ -2732,10 +2765,7 @@ function renderFreshness(){
 }
 
 function forceRadarAllRender(){
- radarFilter='all';
- document.querySelectorAll('.radar-tab').forEach(
-   b=>b.classList.toggle('active',b.dataset.radar==='all')
- );
+ radarFilter='all'; syncRadarTabs();
  // Render now, then once more after the browser has finished the click/layout cycle.
  renderRadar('all');
  requestAnimationFrame(()=>renderRadar('all'));
@@ -2935,13 +2965,10 @@ async function loadRadar(){
 }
 
 document.querySelectorAll('.radar-tab').forEach(btn=>{
- btn.addEventListener('click',()=>{
-  radarFilter=btn.dataset.radar;
-  mobileRadarPage=1;
-  document.querySelectorAll('.radar-tab').forEach(b=>b.classList.toggle('active',b===btn));
-  renderRadar(radarFilter);
- });
+ btn.addEventListener('click',()=>toggleRadarKey(btn.dataset.radar));
 });
+const radarFilterClear=document.getElementById('radarFilterClear');
+if(radarFilterClear) radarFilterClear.addEventListener('click',()=>setRadarFilterKeys([]));
 const radarSortSelect=document.getElementById('radarSort');
 const changeSortDirBtn=document.getElementById('changeSortDirBtn');
 
@@ -2993,14 +3020,8 @@ const mobileNextPage=document.getElementById('mobileNextPage');
 function goMobileRadarPage(delta){
  const marketRows=radarRows.filter(r=>{
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
-   return radarFilter==='all' ||
-   (radarFilter==='favorites' ? isFavorite(r) :
-   (['hot','watch','wait','extended'].includes(radarFilter) ? r.pulse_signal===radarFilter :
-   (radarFilter==='new' ? r.is_new===true :
-   (radarFilter==='quality' ? r.structure_quality_good===true :
-   (radarFilter==='combo' ? r.combo :
-    (radarFilter==='rs80' ? Number(r.rs_rating)>=80 : (radarFilter==='tt' ? ttFull(r) : (radarFilter==='fire' ? sqzFireBull(r) : r.type===radarFilter))))))));
- });
+   return radarRowPass(r,radarFilter);
+  });
  const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
  mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));
  renderRadar(radarFilter);
