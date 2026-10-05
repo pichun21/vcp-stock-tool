@@ -194,20 +194,23 @@ function draw(a){
       const gi=off0+i, av=avg20At(gi), up=gi>0&&a.close[gi]>=a.close[gi-1];
       const brk=gi>0&&a.close[gi]>a.pivot&&a.close[gi-1]<=a.pivot&&av>0&&v>=av*1.35;
       let col='#d5dcd8';
-      if(brk) col='#b0603f'; else if(av>0&&v>=av*1.4&&up) col='#d9906f'; else if(av>0&&v<av*0.75) col='#bcd3cc';
+      if(brk) col='#b0603f'; else if(av>0&&v>=av*1.4&&up) col='#d9906f'; else if(av>0&&v>=av*1.4&&!up) col='#7f9bb3'; else if(av>0&&v<av*0.75) col='#bcd3cc';
       const h=Math.max(1,Math.min(1,v/vmax)*(volH-2));
       x.fillStyle=col; x.fillRect(X(i)-bw/2,base-h,bw,h);
     });
     x.font='700 '+(isMob?9:10)+'px system-ui,-apple-system,sans-serif'; x.fillStyle='#9a9285'; x.textAlign='right'; x.textBaseline='middle';
     x.fillText('量',pad.l-6,base-volH/2);
     // 圖例第二列
-    const items2=[{label:'量縮',color:'#bcd3cc'},{label:'放量上漲',color:'#d9906f'},{label:'放量突破',color:'#b0603f'}];
+    const items2=[{label:'量縮',color:'#bcd3cc'},{label:'一般',color:'#d5dcd8'},{label:'放量上漲',color:'#d9906f'},{label:'放量下跌',color:'#7f9bb3'},{label:'放量突破',color:'#b0603f'}];
     x.textAlign='left'; x.textBaseline='middle';
-    let lx=pad.l; const fs2=isMob?10:11; x.font='700 '+fs2+'px system-ui,-apple-system,sans-serif';
+    let fs2=isMob?10:11, gap2=isMob?9:16;
+    const measure2=function(){ x.font='700 '+fs2+'px system-ui,-apple-system,sans-serif'; return items2.reduce(function(sum,it){return sum+15+x.measureText(it.label).width;},0)+gap2*(items2.length-1); };
+    let tot2=measure2(); while(tot2>W-16 && fs2>8){ fs2-=0.5; tot2=measure2(); }
+    let lx=Math.max(8,Math.min(pad.l,W-8-tot2));
     items2.forEach(function(it){
       x.fillStyle=it.color; x.fillRect(lx,38-5,10,10);
       x.fillStyle='#6b6258'; x.fillText(it.label,lx+15,38);
-      lx+=15+x.measureText(it.label).width+(isMob?12:18);
+      lx+=15+x.measureText(it.label).width+gap2;
     });
     x.restore();
   }
