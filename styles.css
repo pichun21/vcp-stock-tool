@@ -2541,3 +2541,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
   .rc-save{flex-wrap:wrap}
   .rc-save input{flex:1 1 140px}
 }
+
+/* 觀察徽章改藍色，避免和「突破後」的綠色一樣 */
+.pulse-badge.pulse-watch{background:#e4edf8!important;color:#2f5d8a!important;border:1px solid #b6cbe4!important}
