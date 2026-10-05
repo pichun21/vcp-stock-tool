@@ -3151,7 +3151,7 @@ document.addEventListener('visibilitychange',()=>{
   function fillSortSelects(){
     const opts=Object.entries(RADAR_CSORT).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
     const a=$i('radarCs1Key'), b=$i('radarCs2Key');
-    if(a) a.innerHTML=opts; if(b) b.innerHTML='<option value="">（不用）</option>'+opts;
+    if(a) a.innerHTML='<option value="">（不用）</option>'+opts; if(b) b.innerHTML='<option value="">（不用）</option>'+opts;
   }
   function renderPresets(){
     const list=loadPresets(), cur=sig(currentState());
@@ -3165,7 +3165,9 @@ document.addEventListener('visibilitychange',()=>{
     setv('radarNumRs',radarNum.rs); setv('radarNumDist',radarNum.dist); setv('radarNumScore',radarNum.score); setv('radarNumChg',radarNum.chg);
     const c1=radarCustomSort[0]||{key:'score',dir:'desc'}, c2=radarCustomSort[1]||{key:'',dir:'desc'};
     const k1=$i('radarCs1Key'), k2=$i('radarCs2Key'), d1=$i('radarCs1Dir'), d2=$i('radarCs2Dir');
-    if(k1) k1.value=c1.key||'score'; if(k2) k2.value=c2.key||''; if(d1) d1.textContent=dirText(c1.dir); if(d2){ d2.textContent=dirText(c2.dir); d2.disabled=!c2.key; }
+    const on=(radarSort==='custom')&&!!c1.key;   // 第 1 層「不用」＝沒有啟用自訂排序
+    if(k1) k1.value=on?c1.key:''; if(k2){ k2.value=on?(c2.key||''):''; k2.disabled=!on; }
+    if(d1){ d1.textContent=dirText(c1.dir); d1.disabled=!on; } if(d2){ d2.textContent=dirText(c2.dir); d2.disabled=!on||!c2.key; }
     const sel=$i('radarSort'); if(sel && sel.value!==radarSort) sel.value=radarSort;
     const n=Object.values(radarNum).filter(v=>v!=null).length+(radarSort==='custom'?1:0), bd=$i('radarCustomBadge');
     if(bd){ bd.hidden=!n; bd.textContent=n; }
@@ -3180,8 +3182,11 @@ document.addEventListener('visibilitychange',()=>{
   }
   ['radarNumRs','radarNumDist','radarNumScore','radarNumChg'].forEach(id=>{ const e=$i(id); if(e){ e.addEventListener('input',onNumInput); e.addEventListener('change',onNumInput); } });
   function onSortChange(){
-    radarSort='custom'; mobileRadarPage=1;
-    const k1=$i('radarCs1Key').value, k2=$i('radarCs2Key').value;
+    mobileRadarPage=1;
+    const wasCustom=(radarSort==='custom');
+    const k1=$i('radarCs1Key').value, k2=wasCustom?$i('radarCs2Key').value:((radarCustomSort[1]&&radarCustomSort[1].key)||'');
+    if(!k1){ radarSort='smart'; syncChangeSortDirectionUI(); syncRadarTabs(); renderRadar(radarFilter); return; }   // 第 1 層選「不用」→ 回到智慧排序（設定保留）
+    radarSort='custom';
     const old=radarCustomSort;
     radarCustomSort=[
       {key:k1,dir:(old[0]&&old[0].key===k1)?old[0].dir:RADAR_CSORT[k1].def},
@@ -3191,7 +3196,7 @@ document.addEventListener('visibilitychange',()=>{
   }
   ['radarCs1Key','radarCs2Key'].forEach(id=>{ const e=$i(id); if(e) e.addEventListener('change',onSortChange); });
   [['radarCs1Dir',0],['radarCs2Dir',1]].forEach(([id,i])=>{ const e=$i(id); if(e) e.addEventListener('click',()=>{
-    if(!radarCustomSort[i]||!radarCustomSort[i].key) return;
+    if(!radarCustomSort[i]||!radarCustomSort[i].key||radarSort!=='custom') return;
     radarCustomSort[i].dir=radarCustomSort[i].dir==='asc'?'desc':'asc';
     radarSort='custom'; mobileRadarPage=1; syncChangeSortDirectionUI(); syncRadarTabs(); renderRadar(radarFilter);
   }); });
