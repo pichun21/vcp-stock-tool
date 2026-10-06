@@ -115,6 +115,54 @@ def download(items, years):
     return out
 
 
+def to_day(ts):
+    ts = pd.Timestamp(ts)
+    if ts.tzinfo is not None:
+        ts = ts.tz_localize(None)
+    return ts.normalize()
+
+
+INDEX_TICKER = {"TW": "^TWII", "US": "^GSPC"}
+
+
+def download_index(market, years):
+    """下載大盤（台股加權／標普 500）收盤價；失敗回傳 None（回測仍會跑，只是不做大盤分組）。"""
+    start = (pd.Timestamp.today().normalize() - pd.DateOffset(years=years + 2)).strftime("%Y-%m-%d")
+    for attempt in range(3):
+        try:
+            d = sc.yf.download(tickers=INDEX_TICKER[market], start=start, interval="1d", auto_adjust=True,
+                               progress=False, threads=False, timeout=60)
+            if d is None or d.empty:
+                raise RuntimeError("empty")
+            c = d["Close"]
+            if isinstance(c, pd.DataFrame):
+                c = c.iloc[:, 0]
+            c = pd.to_numeric(c, errors="coerce").dropna()
+            c.index = pd.DatetimeIndex([to_day(x) for x in c.index])
+            return c[~c.index.duplicated(keep="last")].sort_index()
+        except Exception as e:
+            print("  大盤下載失敗，重試", e)
+            time.sleep(5 * (attempt + 1))
+    return None
+
+
+def regime_series(index_close, ma_days):
+    """大盤環境：當天收盤 > 自己的 N 日均線 → True（多頭環境）。"""
+    if index_close is None or len(index_close) < ma_days + 20:
+        return None
+    ma = index_close.rolling(ma_days).mean()
+    r = (index_close > ma)
+    r = r.where(ma.notna())
+    return r
+
+
+def synthetic_index(data):
+    closes = pd.concat([d["Close"] / d["Close"].iloc[0] for _, d in data.values()], axis=1)
+    c = closes.mean(axis=1).dropna()
+    c.index = pd.DatetimeIndex([to_day(x) for x in c.index])
+    return c
+
+
 def synthetic_universe(n, years, seed):
     rng = np.random.default_rng(seed)
     days = pd.bdate_range(end=pd.Timestamp.today().normalize(), periods=int(252 * (years + 1)))
@@ -216,7 +264,7 @@ def simulate(O, H, L, C, MA20, e, cost_pct):
     return {"entry": round(float(entry), 4), "A": exit_a, "B": exit_b, "fwd": fwd}
 
 
-def run_market(market, data, years, cost_pct, seed):
+def run_market(market, data, years, cost_pct, seed, regime=None):
     rng = random.Random(seed)
     first_valid = None
     trades = {g: [] for g, _ in GROUPS}
@@ -241,6 +289,9 @@ def run_market(market, data, years, cost_pct, seed):
                     return
                 last_taken[group] = t
                 rec = {"symbol": sym, "date": idx[t].strftime("%Y-%m-%d"), **sim}
+                if regime is not None:
+                    v = regime.asof(to_day(idx[t]))
+                    rec["regime"] = None if pd.isna(v) else bool(v)
                 if row is not None:
                     rec["pivot"] = row.get("pivot")
                     rec["score"] = row.get("score")
@@ -306,10 +357,13 @@ def stats(rets, Rs):
     }
 
 
-def summarize(trades):
+def summarize(trades, regime_filter=None):
+    """regime_filter: None=全部、True=大盤在均線之上、False=大盤在均線之下"""
     out = {}
     for g, name in GROUPS:
         tr = sorted(trades[g], key=lambda r: r["date"])
+        if regime_filter is not None:
+            tr = [t for t in tr if t.get("regime") is regime_filter]
         res = {"name": name, "signals": len(tr)}
         for ex in ("A", "B"):
             sel = [t for t in tr if t.get(ex)]
@@ -323,7 +377,7 @@ def summarize(trades):
         res["fwd"] = fwd
         by_year = {}
         for t in tr:
-            if t.get("A") and t["A"]:
+            if t.get("A"):
                 by_year.setdefault(t["date"][:4], []).append(t["A"]["ret"])
         res["by_year_exitA"] = {y: {"n": len(v), "win_pct": round(float(np.mean([x > 0 for x in v]) * 100), 1),
                                     "avg_ret": round(float(np.mean(v)), 2)} for y, v in sorted(by_year.items())}
@@ -335,45 +389,68 @@ def fmt(v, suffix=""):
     return "—" if v is None else f"{v}{suffix}"
 
 
+def table_exit(res, ex):
+    rows = ["| 訊號 | 筆數 | 勝率 | 平均報酬 | 中位數 | 賺賠比 | 獲利因子 | 平均 R | 最大連虧 |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    for g, name in GROUPS:
+        s_ = res[g][ex]
+        if s_["n"] == 0:
+            rows.append(f"| {name} | 0 | — | — | — | — | — | — | — |")
+        else:
+            rows.append(f"| {name} | {s_['n']} | {s_['win_pct']}% | {s_['avg_ret']}% | {s_['median_ret']}% | "
+                        f"{fmt(s_['payoff'])} | {fmt(s_['profit_factor'])} | {s_['avg_R']} | {s_['max_loss_streak']} |")
+    return rows + [""]
+
+
+def table_fwd(res):
+    rows = ["| 訊號 | 5 日 | 10 日 | 20 日 | 40 日 |", "|---|---:|---:|---:|---:|"]
+    for g, name in GROUPS:
+        cells = []
+        for k in FWD:
+            f = res[g]["fwd"][str(k)]
+            cells.append("—" if f["n"] == 0 else f"{f['avg']}%（勝 {f['win_pct']}%，n={f['n']}）")
+        rows.append(f"| {name} | " + " | ".join(cells) + " |")
+    return rows + [""]
+
+
+def table_year(res):
+    years = sorted({y for g, _ in GROUPS for y in res[g]["by_year_exitA"]})
+    if not years:
+        return ["（無資料）", ""]
+    rows = ["| 訊號 | " + " | ".join(years) + " |", "|---|" + "---:|" * len(years)]
+    for g, name in GROUPS:
+        cells = []
+        for y in years:
+            v = res[g]["by_year_exitA"].get(y)
+            cells.append("—" if not v else f"{v['avg_ret']}%（n={v['n']}）")
+        rows.append(f"| {name} | " + " | ".join(cells) + " |")
+    return rows + [""]
+
+
 def markdown(all_res, meta):
-    L = ["# VCPulse 回測結果", "",
+    L = ["# VCPulse 回測結果（含大盤環境分組）", "",
          f"- 回測期間：近 {meta['years']} 年｜股票池：每市場隨機取 {meta['max_symbols']} 檔（今天仍在交易的股票）",
          f"- 進場：訊號日隔天開盤｜停損 {int(STOP_PCT * 100)}%｜出場 A＝跌破 MA20（最長 {MAX_HOLD} 日）｜出場 B＝持有 {FIXED_HOLD} 日",
+         f"- 大盤環境：訊號當天大盤收盤 > 大盤 {meta['regime_ma']} 日均線＝「多頭環境」（台股用加權指數、美股用標普 500）",
          "- ⚠️ 倖存者偏差會讓結果偏樂觀；訊號之間不獨立；不含滑價。看「相對基準組」比看絕對數字更有意義。", ""]
-    for market, res in all_res.items():
+    for market, subsets in all_res.items():
         L += [f"## {market}（成本已扣 {meta['cost'][market]}%）", ""]
-        for ex, title in (("exitA", "出場 A：停損 8% ＋ 跌破 MA20"), ("exitB", f"出場 B：停損 8% ＋ 持有 {FIXED_HOLD} 日")):
-            L += [f"### {title}", "",
-                  "| 訊號 | 筆數 | 勝率 | 平均報酬 | 中位數 | 賺賠比 | 獲利因子 | 平均 R | 最大連虧 |",
-                  "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
-            for g, name in GROUPS:
-                s = res[g][ex]
-                if s["n"] == 0:
-                    L.append(f"| {name} | 0 | — | — | — | — | — | — | — |")
-                    continue
-                L.append(f"| {name} | {s['n']} | {s['win_pct']}% | {s['avg_ret']}% | {s['median_ret']}% | "
-                         f"{fmt(s['payoff'])} | {fmt(s['profit_factor'])} | {s['avg_R']} | {s['max_loss_streak']} |")
-            L.append("")
-        L += ["### 不設停損的固定持有報酬（看訊號本身的品質）", "",
-              "| 訊號 | 5 日 | 10 日 | 20 日 | 40 日 |", "|---|---:|---:|---:|---:|"]
-        for g, name in GROUPS:
-            cells = []
-            for k in FWD:
-                f = res[g]["fwd"][str(k)]
-                cells.append("—" if f["n"] == 0 else f"{f['avg']}%（勝 {f['win_pct']}%，n={f['n']}）")
-            L.append(f"| {name} | " + " | ".join(cells) + " |")
-        L.append("")
-        L += ["### 各年度（出場 A 平均報酬，看穩不穩定）", "", "| 訊號 | " + " | ".join(
-            sorted({y for g, _ in GROUPS for y in res[g]["by_year_exitA"]})) + " |"]
-        years_sorted = sorted({y for g, _ in GROUPS for y in res[g]["by_year_exitA"]})
-        L.append("|---|" + "---:|" * len(years_sorted))
-        for g, name in GROUPS:
-            cells = []
-            for y in years_sorted:
-                v = res[g]["by_year_exitA"].get(y)
-                cells.append("—" if not v else f"{v['avg_ret']}%（n={v['n']}）")
-            L.append(f"| {name} | " + " | ".join(cells) + " |")
-        L.append("")
+        share = meta.get("regime_share", {}).get(market)
+        if share is not None:
+            L += [f"> 所有進場日中，大盤處於多頭環境的比例：{share}%", ""]
+        L += ["### 一、不過濾（全部）", "", "**出場 A：停損 8% ＋ 跌破 MA20**", ""] + table_exit(subsets["all"], "exitA")
+        if "on" in subsets:
+            L += ["### 二、只在大盤多頭環境進場", "", "**出場 A：停損 8% ＋ 跌破 MA20**", ""] + table_exit(subsets["on"], "exitA")
+            L += [f"**出場 B：停損 8% ＋ 持有 {FIXED_HOLD} 日**", ""] + table_exit(subsets["on"], "exitB")
+            L += ["**不設停損的固定持有報酬**", ""] + table_fwd(subsets["on"])
+            L += ["**各年度（出場 A 平均報酬）**", ""] + table_year(subsets["on"])
+            L += ["### 三、大盤空頭環境進場（對照用）", "", "**出場 A：停損 8% ＋ 跌破 MA20**", ""] + table_exit(subsets["off"], "exitA")
+            L += ["**不設停損的固定持有報酬**", ""] + table_fwd(subsets["off"])
+        else:
+            L += ["（大盤資料下載失敗，沒有大盤環境分組）", ""]
+        L += ["### 附：不過濾時的其他表格", "", f"**出場 B：停損 8% ＋ 持有 {FIXED_HOLD} 日**", ""] + table_exit(subsets["all"], "exitB")
+        L += ["**不設停損的固定持有報酬**", ""] + table_fwd(subsets["all"])
+        L += ["**各年度（出場 A 平均報酬）**", ""] + table_year(subsets["all"])
     return "\n".join(L)
 
 
@@ -383,6 +460,7 @@ def main():
     ap.add_argument("--years", type=int, default=3)
     ap.add_argument("--max-symbols", type=int, default=500)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--regime-ma", type=int, default=50, help="大盤環境：大盤收盤高於幾日均線算多頭")
     ap.add_argument("--cost-tw", type=float, default=0.5, help="台股來回成本（%%，含證交稅與手續費）")
     ap.add_argument("--cost-us", type=float, default=0.1, help="美股來回成本（%%）")
     ap.add_argument("--out-dir", default="backtest_out")
@@ -392,25 +470,36 @@ def main():
     markets = ["TW", "US"] if args.market == "both" else [args.market]
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    all_res, all_trades = {}, {}
+    all_res, all_trades, shares = {}, {}, {}
     costs = {"TW": args.cost_tw, "US": args.cost_us}
     for market in markets:
         print(f"== {market} ==", flush=True)
         if args.synthetic:
             data = synthetic_universe(min(args.max_symbols, 60), args.years, args.seed)
+            index_close = synthetic_index(data)
         else:
             universe = sc.fetch_tw_universe() if market == "TW" else sc.fetch_us_universe()
             random.Random(args.seed).shuffle(universe)
             universe = universe[:args.max_symbols]
             print(f"  股票池：隨機取 {len(universe)} 檔", flush=True)
             data = download(universe, args.years)
-        print(f"  有效資料：{len(data)} 檔", flush=True)
-        trades = run_market(market, data, args.years, costs[market], args.seed)
+            index_close = download_index(market, args.years)
+        regime = regime_series(index_close, args.regime_ma)
+        print(f"  有效資料：{len(data)} 檔｜大盤資料：{'OK' if regime is not None else '失敗'}", flush=True)
+        trades = run_market(market, data, args.years, costs[market], args.seed, regime)
         all_trades[market] = trades
-        all_res[market] = summarize(trades)
+        subsets = {"all": summarize(trades)}
+        if regime is not None:
+            subsets["on"] = summarize(trades, True)
+            subsets["off"] = summarize(trades, False)
+            flags = [t.get("regime") for g, _ in GROUPS for t in trades[g] if t.get("regime") is not None]
+            if flags:
+                shares[market] = round(100.0 * sum(flags) / len(flags), 1)
+        all_res[market] = subsets
 
     meta = {"years": args.years, "max_symbols": args.max_symbols, "cost": costs, "seed": args.seed,
-            "stop_pct": STOP_PCT, "max_hold": MAX_HOLD, "fixed_hold": FIXED_HOLD}
+            "stop_pct": STOP_PCT, "max_hold": MAX_HOLD, "fixed_hold": FIXED_HOLD,
+            "regime_ma": args.regime_ma, "regime_share": shares}
     (out_dir / "backtest_result.json").write_text(
         json.dumps({"meta": meta, "summary": all_res, "trades": all_trades}, ensure_ascii=False), encoding="utf-8")
     md = markdown(all_res, meta)
