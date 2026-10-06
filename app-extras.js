@@ -69,7 +69,7 @@ function updateMarketMomentum(d,isIntraday=false){
 }
 async function fetchFinMindRows(dataset,symbol,start,end){
  const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${start}&end_date=${end}`;
- const r=await fetch(u,{cache:'no-store'}); if(!r.ok)throw new Error(`${dataset} HTTP ${r.status}`); const j=await r.json(); return Array.isArray(j?.data)?j.data:[];
+ const j=await fmFetchJson(u,{ttl:30*60e3}); return Array.isArray(j?.data)?j.data:[];
 }
 function foreignNetRows(rows){
  const m=new Map();
@@ -362,7 +362,8 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
    structure:['#marketStructureCard','#marketPulseCard'],
    theme:['#capitalHotspots','#themeLeaderboards','#marketOverview','.radar-card'],
    radar:['.radar-card','.radar-section'],
-   single:['#singleStockAnalysis']
+   single:['#singleStockAnalysis'],
+    ma:['#maRadarSection']
   };
   const visible=function(el){return !!el && !el.hidden && el.offsetParent!==null && el.getBoundingClientRect().height>0;};
   function go(key){
@@ -410,7 +411,7 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
   window.addEventListener('load',syncVars);
 
   // 目前所在區塊
-  const SEL={pulse:['#marketPulseCard'],structure:['#marketStructureCard'],single:['#singleStockAnalysis'],theme:['#capitalHotspots','#themeLeaderboards'],radar:['.radar-card']};
+  const SEL={pulse:['#marketPulseCard'],structure:['#marketStructureCard'],single:['#singleStockAnalysis'],theme:['#capitalHotspots','#themeLeaderboards'],radar:['.radar-card'],ma:['#maRadarSection']};
   const pick=function(list){for(let i=0;i<list.length;i++){const e=document.querySelector(list[i]);if(e && !e.hidden && e.offsetParent!==null && e.getBoundingClientRect().height>0) return e;}return null;};
   let ticking=false, lastKey=null;
   const update=function(){

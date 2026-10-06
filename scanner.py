@@ -747,6 +747,7 @@ def apply_rs_rating(results,market,quote_cache=None):
 # tt_fail lists the failed check numbers (1-7) so the UI can show exactly what is missing.
 # ---------------------------------------------------------------------------
 TT_RAW={}   # (market, SYMBOL) -> {"count":int,"fail":[ints]}
+MA_CLOSES={}   # (market, SYMBOL) -> {"name","last","c":[最近約 300 個收盤價]}，給「均線雷達」盤中計算 MA／EMA 用
 
 def compute_tt(df):
     """Return {"count":0-7,"fail":[...]} or None when there are fewer than ~222 bars."""
@@ -1521,8 +1522,41 @@ def download_batch(items,market):
                 if ev:
                     r["restore_events"]=ev
                 results.append(r)
+                if market=="TW":
+                    try:
+                        _cl=pd.to_numeric(vcp_d["Close"],errors="coerce").dropna()
+                        if len(_cl)>=60:
+                            MA_CLOSES[(market,str(item["symbol"]).upper())]={
+                                "name":item.get("name") or "",
+                                "last":pd.Timestamp(_cl.index[-1]).strftime("%Y-%m-%d"),
+                                "c":[round(float(x),2) for x in _cl.iloc[-300:]]
+                            }
+                    except Exception as _e:
+                        print("ma closes warning",item.get("symbol"),_e)
         except Exception as e: print("analyze warning",item["symbol"],e)
     return results, dates, flows, quotes, restore_events
+
+def write_ma_closes(market, rows, data_date, stamp):
+    """正式收盤掃描後，輸出雷達候選股的歷史收盤價（data/ma_closes_{market}.json）。
+    網站「均線雷達」盤中拿即時價，在瀏覽器裡自己算任何週期的 MA／EMA；不需要任何外部 API。"""
+    try:
+        syms={}
+        for r in rows:
+            k=(market,str(r.get("symbol","")).upper())
+            if k in MA_CLOSES:
+                syms[k[1]]=MA_CLOSES[k]
+        if not syms:
+            print(f"{market} MA CLOSES: nothing to write")
+            return
+        out_dir=os.path.join(os.path.dirname(os.path.abspath(__file__)),"data")
+        os.makedirs(out_dir,exist_ok=True)
+        path=os.path.join(out_dir,f"ma_closes_{market}.json")
+        payload={"version":1,"market":market,"data_date":data_date,"generated_at":stamp,"count":len(syms),"symbols":syms}
+        with open(path,"w",encoding="utf-8") as f:
+            json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
+        print(f"{market} MA CLOSES: wrote {len(syms)} symbols -> {path}")
+    except Exception as e:
+        print("ma closes write warning:",repr(e))
 
 def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     """Build VCPulse industry heat from broad-market observations.
@@ -2195,6 +2229,7 @@ def main():
                 if market=="TW" else {"themeTop5":[],"setupTop5":[]}
             )
             official_results=_replace_market(official_results,market,rows)
+            write_ma_closes(market,rows,current_date,nowstamp)
             official_markets[market]={
                 "data_date":current_date,
                 "count":len(rows),

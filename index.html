@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261017">
+<link rel="stylesheet" href="./styles.css?v=20261018">
 
 
 
@@ -255,6 +255,7 @@
 <button type="button" class="snav-btn" data-guide="single" data-snav="single">單股分析</button>
 <button type="button" class="snav-btn" data-guide="theme" data-snav="theme">資金與題材</button>
 <button type="button" class="snav-btn" data-guide="radar" data-snav="radar">每日雷達</button>
+<button type="button" class="snav-btn" data-guide="ma" data-snav="ma">均線雷達</button>
 </nav>
 
 <section class="market-pulse-card" id="marketPulseCard" aria-live="polite">
@@ -633,8 +634,48 @@
     </div>
   </div>
 </div>
+<div class="section ma-radar" id="maRadarSection">
+  <div class="ma-head"><div class="ma-title">📈 均線雷達（盤中）</div></div>
+  <div class="ma-note">台股・每日雷達 200 檔　｜　盤中狀態，收盤才算數　｜　僅供篩選參考，不構成買賣建議</div>
+  <details class="ma-how">
+    <summary>怎麼運作？</summary>
+    <p><b>站上</b>：現價高於該條均線。<b>剛站上</b>：昨收在均線之下、現價在均線之上（今天才由下往上穿越）。<b>跌破／剛跌破</b>則相反。</p>
+    <p>資料來自每日收盤掃描存下的歷史收盤價，盤中再用最新價在你的瀏覽器裡計算，不會消耗任何外部查詢額度。可以選 <b>MA（簡單均線）</b>或 <b>EMA（指數均線）</b>，三條線的週期都能自己改。</p>
+    <p class="muted">注意：① 盤中穿越很容易在收盤前又掉回去，請以收盤為準。② 目前只涵蓋每日雷達的 200 檔，不是全市場。③ EMA 週期很長時（接近資料天數），數值會略有誤差，標示「≈」。④ 均線資料每個交易日收盤後更新一次；若看到「歷史資料可能落後」，代表還沒跑到最新一次掃描。</p>
+  </details>
+  <div class="ma-controls">
+    <div class="ma-row-ctl"><span class="ma-lab">均線種類</span>
+      <div class="ma-seg"><button type="button" data-matype="MA">MA 簡單</button><button type="button" data-matype="EMA">EMA 指數</button></div>
+    </div>
+    <div class="ma-row-ctl"><span class="ma-lab">週期（日）</span>
+      <div class="ma-periods">
+        <label><span id="maL0"></span><input id="maP0" type="number" inputmode="numeric" min="2" max="300"></label>
+        <label><span id="maL1"></span><input id="maP1" type="number" inputmode="numeric" min="2" max="300"></label>
+        <label><span id="maL2"></span><input id="maP2" type="number" inputmode="numeric" min="2" max="300"></label>
+        <button type="button" id="maPReset" class="ma-mini">預設值</button>
+      </div>
+    </div>
+    <div class="ma-row-ctl"><span class="ma-lab">篩選條件</span>
+      <div class="ma-conds">
+        <select id="maC0"></select><select id="maC1"></select><select id="maC2"></select>
+      </div>
+    </div>
+    <div class="ma-row-ctl"><span class="ma-lab">快速</span>
+      <div class="ma-presets">
+        <button type="button" data-mapreset="all"></button><button type="button" data-mapreset="up1"></button><button type="button" data-mapreset="up2"></button><button type="button" data-mapreset="up3"></button><button type="button" data-mapreset="down1"></button><button type="button" data-mapreset="clear" class="ma-clear">清除條件</button>
+      </div>
+    </div>
+    <div class="ma-row-ctl"><span class="ma-lab">排序</span>
+      <select id="maSort" class="ma-sort"><option value="above">站上均線數（多→少）</option><option value="chg">今日漲幅（高→低）</option><option value="bias1">離第 1 條線最近</option></select>
+    </div>
+  </div>
+  <div id="maSummary" class="ma-summary" role="status"></div>
+  <div id="maList" class="ma-list"></div>
+  <button type="button" id="maMore" class="ma-more" hidden>顯示更多</button>
+</div>
 </div></div>
-<script src="./app.js?v=20261017"></script>
+<script src="./app.js?v=20261018"></script>
+<script src="./ma-radar.js?v=20261018"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -910,7 +951,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261017"></script>
+<script src="./app-extras.js?v=20261018"></script>
 
 
 
