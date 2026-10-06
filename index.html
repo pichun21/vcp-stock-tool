@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261019">
+<link rel="stylesheet" href="./styles.css?v=20261020">
 
 
 
@@ -674,11 +674,16 @@
   </div>
   <div id="maSummary" class="ma-summary" role="status"></div>
   <div id="maList" class="ma-list"></div>
-  <button type="button" id="maMore" class="ma-more" hidden>顯示更多</button>
+  <div class="ma-pager" id="maPager" hidden>
+    <button type="button" id="maPrev">‹ 上一頁</button>
+    <span id="maPageInfo">第 1 / 1 頁</span>
+    <button type="button" id="maNext">下一頁 ›</button>
+    <button type="button" id="maToTop" class="ma-totop">↑ 回到篩選條件</button>
+  </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261019"></script>
-<script src="./ma-radar.js?v=20261019"></script>
+<script src="./app.js?v=20261020"></script>
+<script src="./ma-radar.js?v=20261020"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -954,7 +959,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261019"></script>
+<script src="./app-extras.js?v=20261020"></script>
 
 
 

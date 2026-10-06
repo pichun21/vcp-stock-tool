@@ -14,7 +14,7 @@
   var SORT_LABEL = { above: '站上均線數（多→少）', chg: '今日漲幅（高→低）', bias1: '離第 1 條線最近' };
 
   var st = loadState();
-  var closes = null, quotes = null, loadError = '', shown = 0, timer = null;
+  var closes = null, quotes = null, loadError = '', page = 0, timer = null;
   function pageSize() { return st.view === 'full' ? PAGE_FULL : PAGE_COMPACT; }
 
   function loadState() {
@@ -140,13 +140,12 @@
   }
 
   function render() {
-    var list = $('maList'), summary = $('maSummary'), more = $('maMore');
+    var list = $('maList'), summary = $('maSummary'), pager = $('maPager');
     var periods = st.periods[st.type];
     if (loadError) {
-      list.innerHTML = '<div class="ma-empty">' + esc(loadError) + '</div>'; summary.textContent = ''; more.hidden = true; return;
+      list.innerHTML = '<div class="ma-empty">' + esc(loadError) + '</div>'; summary.textContent = ''; pager.hidden = true; return;
     }
-    if (!closes) { list.innerHTML = '<div class="ma-empty">載入中…</div>'; more.hidden = true; return; }
-    if (!shown) shown = pageSize();
+    if (!closes) { list.innerHTML = '<div class="ma-empty">載入中…</div>'; pager.hidden = true; return; }
     var all = buildRows(), rows = sortRows(all.filter(passes));
     var names = periods.map(function (n) { return lineName(st.type, n); });
     var shorts = periods.map(function (n) { return shortName(st.type, n); });
@@ -154,9 +153,12 @@
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔</div>' +
       '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) : '｜無盤中行情，以最近收盤計算') + '</span>';
-    if (!rows.length) { list.innerHTML = '<div class="ma-empty">目前沒有符合條件的股票。可以放寬條件，或按「清除條件」。</div>'; more.hidden = true; return; }
+    if (!rows.length) { list.innerHTML = '<div class="ma-empty">目前沒有符合條件的股票。可以放寬條件，或按「清除條件」。</div>'; pager.hidden = true; return; }
     var html = '';
-    rows.slice(0, shown).forEach(function (r) {
+    var size = pageSize(), totalPages = Math.max(1, Math.ceil(rows.length / size));
+    if (page >= totalPages) page = totalPages - 1;
+    if (page < 0) page = 0;
+    rows.slice(page * size, (page + 1) * size).forEach(function (r) {
       var dir = r.chg > 0 ? 'up' : (r.chg < 0 ? 'down' : 'flat');
       if (st.view === 'full') {
         html += '<div class="ma-row"><div class="ma-id"><b>' + esc(r.name || r.sym) + '</b><span>' + esc(r.sym) + '</span></div>' +
@@ -169,8 +171,10 @@
       }
     });
     list.innerHTML = html;
-    more.hidden = rows.length <= shown;
-    more.textContent = '顯示更多（還有 ' + (rows.length - shown) + ' 檔）';
+    pager.hidden = false;
+    $('maPageInfo').textContent = '第 ' + (page + 1) + ' / ' + totalPages + ' 頁（共 ' + rows.length + ' 檔）';
+    $('maPrev').disabled = page <= 0;
+    $('maNext').disabled = page >= totalPages - 1;
   }
 
   function syncControls() {
@@ -205,7 +209,7 @@
     if (pr.down1) pr.down1.textContent = '剛跌破' + names[0];
   }
 
-  function changed() { shown = pageSize(); saveState(); syncControls(); render(); }
+  function changed() { page = 0; saveState(); syncControls(); render(); }
 
   /* ---------- 事件 ---------- */
   document.querySelectorAll('[data-matype]').forEach(function (b) {
@@ -228,7 +232,16 @@
   document.querySelectorAll('[data-mapreset]').forEach(function (b) {
     b.addEventListener('click', function () { var p = presets[b.getAttribute('data-mapreset')]; if (p) { st.conds = p.slice(); changed(); } });
   });
-  var moreBtn = $('maMore'); if (moreBtn) moreBtn.addEventListener('click', function () { shown += pageSize(); render(); });
+  function scrollToEl(id) {
+    var el = $(id); if (!el) return;
+    var off = (window.__stickyOffset ? window.__stickyOffset() : 0) + 10;
+    var y = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - off;
+    window.scrollTo(0, Math.max(0, y));
+  }
+  var prevBtn = $('maPrev'), nextBtn = $('maNext'), topBtn = $('maToTop');
+  if (prevBtn) prevBtn.addEventListener('click', function () { page -= 1; render(); scrollToEl('maSummary'); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { page += 1; render(); scrollToEl('maSummary'); });
+  if (topBtn) topBtn.addEventListener('click', function () { scrollToEl('maRadarSection'); });
 
   /* ---------- 載入 ---------- */
   function getJson(url) {

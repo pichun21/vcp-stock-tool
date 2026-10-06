@@ -2629,3 +2629,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .ma-mini-chip.st-below{background:#e8f3ed;border-color:#c6e0d2;color:#2f6f60}
 .ma-mini-chip.st-na{background:#f4f1ea;color:#9a9285}
 .ma-mini-chip.is-cross{border-width:2px;border-color:#e08a2c;box-shadow:0 0 0 2px rgba(224,138,44,.2)}
+
+/* 均線雷達：分頁（取代無限往下的「顯示更多」） */
+.ma-pager{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-top:12px}
+.ma-pager[hidden]{display:none}
+.ma-pager button{min-width:0;padding:9px 10px;border-radius:999px;border:1px solid #d9cdb8;background:#fff;color:#5c4f3a;font-size:13px;font-weight:800}
+.ma-pager button:disabled{opacity:.35}
+.ma-pager span{font-size:12px;color:#8a8478;text-align:center;line-height:1.35}
+.ma-pager .ma-totop{grid-column:1 / -1;border-style:dashed;color:#a0562a}
