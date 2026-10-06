@@ -1531,6 +1531,13 @@ def download_batch(items,market):
                                 "last":pd.Timestamp(_cl.index[-1]).strftime("%Y-%m-%d"),
                                 "c":[round(float(x),2) for x in _cl.iloc[-300:]]
                             }
+                            try:
+                                _hi=pd.to_numeric(vcp_d["High"],errors="coerce").dropna()
+                                _lo=pd.to_numeric(vcp_d["Low"],errors="coerce").dropna()
+                                if len(_hi) and len(_lo):
+                                    MA_CLOSES[(market,str(item["symbol"]).upper())]["hl"]=[round(float(_hi.iloc[-1]),2),round(float(_lo.iloc[-1]),2)]
+                            except Exception:
+                                pass
                     except Exception as _e:
                         print("ma closes warning",item.get("symbol"),_e)
         except Exception as e: print("analyze warning",item["symbol"],e)

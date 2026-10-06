@@ -2637,3 +2637,10 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .ma-pager button:disabled{opacity:.35}
 .ma-pager span{font-size:12px;color:#8a8478;text-align:center;line-height:1.35}
 .ma-pager .ma-totop{grid-column:1 / -1;border-style:dashed;color:#a0562a}
+
+/* 均線雷達：回測／測壓狀態與提醒 */
+.ma-chip.st-retest{background:#fff6f2;border:1px dashed #e3b8aa;color:#b5604a}
+.ma-chip.st-probe{background:#f2f8f5;border:1px dashed #b7d6c6;color:#4a8670}
+.ma-mini-chip.st-retest{background:#fff6f2;border:1px dashed #e3b8aa;color:#b5604a}
+.ma-mini-chip.st-probe{background:#f2f8f5;border:1px dashed #b7d6c6;color:#4a8670}
+.ma-warn{flex-basis:100%;color:#a0562a!important;font-size:11.5px}
