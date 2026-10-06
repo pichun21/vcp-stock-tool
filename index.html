@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261023">
+<link rel="stylesheet" href="./styles.css?v=20261024">
 
 
 
@@ -636,13 +636,13 @@
 </div>
 <div class="section ma-radar" id="maRadarSection">
   <div class="ma-head"><div class="ma-title">📈 均線雷達（盤中）</div></div>
-  <div class="ma-note">台股・每日雷達 200 檔　｜　盤中狀態，收盤才算數　｜　僅供篩選參考，不構成買賣建議</div>
+  <div class="ma-note">台股全市場（上市＋上櫃，和 VCP 無關）　｜　盤中狀態，收盤才算數　｜　僅供篩選參考，不構成買賣建議</div>
   <details class="ma-how">
     <summary>怎麼運作？六種狀態是什麼意思</summary>
     <p>每條均線都用「今天這根 K 棒」和均線的位置來分：</p>
     <p><b>站上</b>：現價在均線上方，今天最低價也在均線上方（整根在上面）。<br><b>突破</b>：昨收在均線下方、現價在均線上方，K 棒穿過去；低點在均線上或下都算（例如跳空直接站上）。<br><b>回測</b>：現價在均線上方，但今天低點碰到或跌到均線。<br><b>跌破</b>：昨收在均線上方、現價在均線下方，K 棒穿下去。<br><b>均線下</b>：現價在均線下方，今天最高價也在均線下方（整根在下面）。<br><b>測壓</b>：現價在均線下方，但今天高點碰到或漲到均線。</p>
-    <p>資料來自每日收盤掃描存下的歷史收盤價與盤中行情（含今日高低價），在你的瀏覽器裡計算，不會消耗任何外部查詢額度。可以選 <b>MA（簡單均線）</b>或 <b>EMA（指數均線）</b>，三條線的週期都能自己改。</p>
-    <p class="muted">注意：① 盤中的狀態隨時會變，請以收盤為準。② 目前只涵蓋每日雷達的 200 檔，不是全市場。③ EMA 週期很長時（接近資料天數），數值會略有誤差，標示「≈」。④ 如果行情檔還沒有今日高低價，「站上／均線下」會暫時用現價判斷（標「≈」），「回測／測壓」暫時無法判斷。</p>
+    <p>資料來自每日收盤掃描存下的全台股歷史收盤價，以及盤中行情（含今日高低價），在你的瀏覽器裡計算，不會消耗任何外部查詢額度。可以選 <b>MA（簡單均線）</b>或 <b>EMA（指數均線）</b>，三條線的週期都能自己改。</p>
+    <p class="muted">注意：① 盤中的狀態隨時會變，請以收盤為準。② 範圍是全台股，預設只看近 20 日平均成交值 3,000 萬以上的股票（避免冷門股雜訊），可以自己調整；也可以切到只看 VCP 雷達那 200 檔。③ EMA 週期很長時（接近資料天數），數值會略有誤差，標示「≈」。④ 如果行情檔還沒有今日高低價，「站上／均線下」會暫時用現價判斷（標「≈」），「回測／測壓」暫時無法判斷。</p>
   </details>
   <div class="ma-controls">
     <div class="ma-row-ctl"><span class="ma-lab">均線種類</span>
@@ -666,6 +666,12 @@
         <button type="button" data-mapreset="all"></button><button type="button" data-mapreset="up1"></button><button type="button" data-mapreset="up2"></button><button type="button" data-mapreset="up3"></button><button type="button" data-mapreset="down1"></button><button type="button" data-mapreset="clear" class="ma-clear">清除條件</button>
       </div>
     </div>
+    <div class="ma-row-ctl"><span class="ma-lab">範圍</span>
+      <div class="ma-seg"><button type="button" data-mascope="all">全台股</button><button type="button" data-mascope="radar">只看 VCP 雷達</button></div>
+    </div>
+    <div class="ma-row-ctl"><span class="ma-lab">成交值</span>
+      <select id="maAv" class="ma-sort"><option value="0">不限</option><option value="1000">近 20 日均額 ≥ 1,000 萬</option><option value="3000">近 20 日均額 ≥ 3,000 萬</option><option value="10000">近 20 日均額 ≥ 1 億</option><option value="30000">近 20 日均額 ≥ 3 億</option></select>
+    </div>
     <div class="ma-row-ctl"><span class="ma-lab">排序</span>
       <select id="maSort" class="ma-sort"><option value="above">現價在均線上的條數（多→少）</option><option value="chg">今日漲幅（高→低）</option><option value="bias1">離第 1 條線最近</option></select>
     </div>
@@ -684,8 +690,8 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261023"></script>
-<script src="./ma-radar.js?v=20261023"></script>
+<script src="./app.js?v=20261024"></script>
+<script src="./ma-radar.js?v=20261024"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -961,7 +967,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261023"></script>
+<script src="./app-extras.js?v=20261024"></script>
 
 
 

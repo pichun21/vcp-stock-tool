@@ -1,5 +1,6 @@
-/* VCPulse 均線雷達（盤中）
- * 資料：data/ma_closes_TW.json（每日正式收盤掃描產生，雷達 200 檔的歷史收盤）＋ data/live_quotes_tw.json（盤中行情快取）
+/* VCPulse 均線雷達（盤中）— 掃描整個台股（上市＋上櫃），和 VCP 完全無關
+ * 資料：data/ma_closes_TW.json（每日正式收盤掃描產生，全市場歷史收盤）＋ data/live_quotes_all_tw.json（全市場盤中行情，極簡格式）
+ *       找不到全市場行情時，退回 data/live_quotes_tw.json（雷達 200 檔）
  * 在瀏覽器裡用「昨日以前的收盤價＋目前價」計算 MA／EMA，不使用任何外部 API，也不消耗 FinMind 額度。
  * 以「今天這根 K 棒」和均線的位置關係分成 6 種狀態（盤中狀態，收盤才算數）：
  *   站上：現價在均線上方，且今日最低價也在均線上方（整根在上面）
@@ -15,6 +16,7 @@
 
   var KEY = 'vcpMaRadarV1';
   var PAGE_FULL = 20, PAGE_COMPACT = 30;
+  var AV_OPTIONS = [0, 1000, 3000, 10000, 30000];   // 近 20 日平均成交值（萬元）
   var DEFAULT_PERIODS = { MA: [20, 60, 240], EMA: [23, 67, 240] };
   var STATES = {
     above:  { txt: '站上',   cls: 'st-above',  cross: '',          up: true  },
@@ -29,11 +31,11 @@
   var SORT_LABEL = { above: '現價在均線上的條數（多→少）', chg: '今日漲幅（高→低）', bias1: '離第 1 條線最近' };
 
   var st = loadState();
-  var closes = null, quotes = null, loadError = '', page = 0, timer = null;
+  var closes = null, quotes = null, quotesRadar = null, qmap = {}, radarSet = {}, loadError = '', page = 0, timer = null, started = false;
   function pageSize() { return st.view === 'full' ? PAGE_FULL : PAGE_COMPACT; }
 
   function loadState() {
-    var base = { type: 'MA', periods: { MA: DEFAULT_PERIODS.MA.slice(), EMA: DEFAULT_PERIODS.EMA.slice() }, conds: ['', '', ''], sort: 'above', view: 'compact' };
+    var base = { type: 'MA', periods: { MA: DEFAULT_PERIODS.MA.slice(), EMA: DEFAULT_PERIODS.EMA.slice() }, conds: ['', '', ''], sort: 'above', view: 'compact', scope: 'all', minAv: 3000 };
     try {
       var s = JSON.parse(localStorage.getItem(KEY) || 'null');
       if (s && (s.type === 'MA' || s.type === 'EMA')) {
@@ -46,6 +48,8 @@
         if (Array.isArray(s.conds) && s.conds.length === 3) base.conds = s.conds.map(function (c) { c = OLD_COND[c] || c; return COND_LABEL.hasOwnProperty(c) ? c : ''; });
         if (SORT_LABEL[s.sort]) base.sort = s.sort;
         if (s.view === 'full' || s.view === 'compact') base.view = s.view;
+        if (s.scope === 'all' || s.scope === 'radar') base.scope = s.scope;
+        if (AV_OPTIONS.indexOf(Number(s.minAv)) >= 0) base.minAv = Number(s.minAv);
       }
     } catch (e) { /* 忽略 */ }
     return base;
@@ -110,16 +114,39 @@
     };
   }
 
+  /* 把兩種行情檔整理成 qmap[代號] = {price, prev_close, high, low, data_date, name} */
+  function buildQuoteMap() {
+    qmap = {}; radarSet = {};
+    if (quotes && quotes.quotes) {
+      var date = (quotes.data_dates && quotes.data_dates.length) ? quotes.data_dates[quotes.data_dates.length - 1] : '';
+      Object.keys(quotes.quotes).forEach(function (sym) {
+        var v = quotes.quotes[sym];
+        if (Array.isArray(v)) qmap[sym] = { price: v[0], prev_close: v[1], high: v[2], low: v[3], data_date: date };
+        else if (v) qmap[sym] = v;
+      });
+    }
+    if (quotesRadar && quotesRadar.quotes) {
+      Object.keys(quotesRadar.quotes).forEach(function (sym) {
+        radarSet[sym] = true;
+        var v = quotesRadar.quotes[sym];
+        if (v && (!qmap[sym] || !isFinite(qmap[sym].price))) qmap[sym] = v;
+        else if (v && qmap[sym] && v.name) qmap[sym].name = v.name;
+      });
+    }
+  }
+
   function buildRows() {
     var out = [], periods = st.periods[st.type], syms = closes && closes.symbols ? closes.symbols : {};
     Object.keys(syms).forEach(function (sym) {
-      var item = syms[sym], q = quotes && quotes.quotes ? quotes.quotes[sym] : null;
+      var item = syms[sym], q = qmap[sym] || null;
       if (!item || !item.c || item.c.length < 30) return;
+      if (st.scope === 'radar' && !radarSet[sym]) return;
+      if (st.minAv > 0 && !(Number(item.av) >= st.minAv)) return;
       var lines = periods.map(function (N) { return calc(st.type, N, item, q); });
       var base = lines.find(function (x) { return x; });
       if (!base) return;
       out.push({
-        sym: sym, name: (q && q.name) || item.name || '', price: base.price,
+        sym: sym, name: (q && q.name) || item.name || '', ind: item.ind || '', price: base.price,
         chg: base.prev > 0 ? (base.price / base.prev - 1) * 100 : 0, lines: lines, live: !!q
       });
     });
@@ -176,7 +203,7 @@
     }).join('');
     box.innerHTML = '<details><summary>各均線的狀態分布（共 ' + all.length + ' 檔，不受篩選影響）</summary>' +
       '<div class="ma-dist-wrap"><table><thead><tr><th></th>' + order.map(function (k) { return '<th>' + STATES[k].txt + '</th>'; }).join('') + '<th>合計</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
-      '<p>每日雷達收的是 VCP 結構完整、趨勢向上的股票，大多數早就在均線上方，所以「突破」（昨天還在均線下、今天才穿上去）本來就不會多。</p></details>';
+      (st.scope === 'radar' ? '<p>目前只看 VCP 雷達那 200 檔，這些是趨勢向上的股票，大多早就在均線上方，所以「突破」本來就不會多。想掃全市場，請把「範圍」改成「全台股」。</p>' : '<p>範圍是全台股（依你設定的成交值門檻過濾）。</p>') + '</details>';
   }
 
   function render() {
@@ -193,8 +220,9 @@
     renderDist(all, names);
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     var known = all.filter(function (r) { return r.lines.some(function (l) { return l && l.hlKnown; }); }).length;
-    summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔</div>' +
-      '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) : '｜無盤中行情，以最近收盤計算') + '</span>' +
+    var liveN = all.filter(function (r) { return r.live; }).length;
+    summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔' + (st.scope === 'radar' ? '（僅 VCP 雷達）' : '（全台股）') + '</div>' +
+      '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) + '（' + liveN + ' 檔有盤中價）' : '｜無盤中行情，以最近收盤計算') + '</span>' +
       (all.length && known < all.length * 0.5 ? '<span class="ma-warn">⚠ 尚無今日高低價資料，「站上／均線下」暫以現價判斷（標 ≈），「回測／測壓」暫時無法判斷。</span>' : '');
     if (!rows.length) { list.innerHTML = '<div class="ma-empty">目前沒有符合條件的股票。可以放寬條件，或按「清除條件」。</div>'; pager.hidden = true; return; }
     var html = '';
@@ -236,6 +264,10 @@
       var lab = $('maL' + i); if (lab) lab.textContent = '第 ' + (i + 1) + ' 線 ' + lineName(st.type, periods[i]);
     }
     var so = $('maSort'); if (so) so.value = st.sort;
+    var av = $('maAv'); if (av) av.value = String(st.minAv);
+    document.querySelectorAll('[data-mascope]').forEach(function (b) {
+      var on = b.getAttribute('data-mascope') === st.scope; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
     document.querySelectorAll('[data-maview]').forEach(function (b) {
       var on = b.getAttribute('data-maview') === st.view; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
@@ -269,6 +301,10 @@
   document.querySelectorAll('[data-maview]').forEach(function (b) {
     b.addEventListener('click', function () { st.view = b.getAttribute('data-maview'); changed(); });
   });
+  document.querySelectorAll('[data-mascope]').forEach(function (b) {
+    b.addEventListener('click', function () { st.scope = b.getAttribute('data-mascope'); changed(); });
+  });
+  var avSel = $('maAv'); if (avSel) avSel.addEventListener('change', function () { st.minAv = Number(avSel.value) || 0; changed(); });
   var sortSel = $('maSort'); if (sortSel) sortSel.addEventListener('change', function () { st.sort = sortSel.value; changed(); });
   var resetP = $('maPReset'); if (resetP) resetP.addEventListener('click', function () { st.periods[st.type] = DEFAULT_PERIODS[st.type].slice(); changed(); });
   var presets = { all: ['above', 'above', 'above'], up1: ['break', '', ''], up2: ['', 'break', ''], up3: ['', '', 'break'], down1: ['fall', '', ''], clear: ['', '', ''] };
@@ -286,7 +322,7 @@
   if (nextBtn) nextBtn.addEventListener('click', function () { page += 1; render(); scrollToEl('maSummary'); });
   if (topBtn) topBtn.addEventListener('click', function () { scrollToEl('maRadarSection'); });
 
-  /* ---------- 載入 ---------- */
+  /* ---------- 載入（捲到這個區塊附近才開始載入，避免拖慢首頁） ---------- */
   function getJson(url) {
     return fetch(url + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error(url + ' ' + r.status); return r.json();
@@ -294,19 +330,34 @@
   }
   function load() {
     var p1 = closes ? Promise.resolve(closes) : getJson('data/ma_closes_TW.json').catch(function () { return null; });
-    var p2 = getJson('data/live_quotes_tw.json').catch(function () { return null; });
-    return Promise.all([p1, p2]).then(function (res) {
+    var p2 = getJson('data/live_quotes_all_tw.json').catch(function () { return null; });
+    var p3 = getJson('data/live_quotes_tw.json').catch(function () { return null; });
+    return Promise.all([p1, p2, p3]).then(function (res) {
       if (res[0] && res[0].symbols) { closes = res[0]; loadError = ''; }
       else if (!closes) loadError = '尚無均線資料：需要等下一次「正式收盤掃描」跑完，才會產生 data/ma_closes_TW.json。';
       if (res[1] && res[1].quotes) quotes = res[1];
+      if (res[2] && res[2].quotes) quotesRadar = res[2];
+      buildQuoteMap();
       render();
     });
   }
-  function start() {
-    syncControls(); render(); load();
-    if (timer) clearInterval(timer);
+  function begin() {
+    if (started) return; started = true;
+    load();
     timer = setInterval(function () { if (!document.hidden) load(); }, 120000);
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && started) load(); });
+  }
+  function start() {
+    syncControls(); render();
+    var sec = $('maRadarSection');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); begin(); }
+      }, { rootMargin: '800px 0px' });
+      io.observe(sec);
+    } else begin();
+    window.addEventListener('hashchange', begin);
+    document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-guide="ma"]')) begin(); });
   }
 
   window.VCPMaRadar = { calc: calc, lineName: lineName };   // 供測試使用

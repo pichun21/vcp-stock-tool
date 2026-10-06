@@ -1511,6 +1511,7 @@ def download_batch(items,market):
             # V2.41.41: VCP uses the confirmed restore-date events.
             # Raw `d` remains unchanged for quote cache and capital-hotspot value.
             vcp_d=apply_restore_events_df(d,ev)
+            capture_ma_closes(market,item,vcp_d,d)
             _rs=compute_rs_raw(vcp_d,market)
             if _rs is not None: RS_RAW[(market,str(item["symbol"]).upper())]=_rs
             _tt=compute_tt(vcp_d)
@@ -1522,46 +1523,62 @@ def download_batch(items,market):
                 if ev:
                     r["restore_events"]=ev
                 results.append(r)
-                if market=="TW":
-                    try:
-                        _cl=pd.to_numeric(vcp_d["Close"],errors="coerce").dropna()
-                        if len(_cl)>=60:
-                            MA_CLOSES[(market,str(item["symbol"]).upper())]={
-                                "name":item.get("name") or "",
-                                "last":pd.Timestamp(_cl.index[-1]).strftime("%Y-%m-%d"),
-                                "c":[round(float(x),2) for x in _cl.iloc[-300:]]
-                            }
-                            try:
-                                _hi=pd.to_numeric(vcp_d["High"],errors="coerce").dropna()
-                                _lo=pd.to_numeric(vcp_d["Low"],errors="coerce").dropna()
-                                if len(_hi) and len(_lo):
-                                    MA_CLOSES[(market,str(item["symbol"]).upper())]["hl"]=[round(float(_hi.iloc[-1]),2),round(float(_lo.iloc[-1]),2)]
-                            except Exception:
-                                pass
-                    except Exception as _e:
-                        print("ma closes warning",item.get("symbol"),_e)
         except Exception as e: print("analyze warning",item["symbol"],e)
     return results, dates, flows, quotes, restore_events
 
-def write_ma_closes(market, rows, data_date, stamp):
-    """正式收盤掃描後，輸出雷達候選股的歷史收盤價（data/ma_closes_{market}.json）。
-    網站「均線雷達」盤中拿即時價，在瀏覽器裡自己算任何週期的 MA／EMA；不需要任何外部 API。"""
+def capture_ma_closes(market, item, vcp_d, raw_d):
+    """記錄「每一檔」有效台股的歷史收盤（不只 VCP 候選股），給均線雷達在瀏覽器裡計算 MA／EMA。
+    欄位：name 名稱、ex 市場(tse 上市／otc 上櫃)、ind 產業、last 最後一根日期、c 收盤價陣列（還原分割）、
+    av 近 20 日平均成交值（萬元，未還原原始價）、hl 最後一根的最高／最低價。"""
+    if market!="TW":
+        return
     try:
-        syms={}
-        for r in rows:
-            k=(market,str(r.get("symbol","")).upper())
-            if k in MA_CLOSES:
-                syms[k[1]]=MA_CLOSES[k]
-        if not syms:
-            print(f"{market} MA CLOSES: nothing to write")
+        cl=pd.to_numeric(vcp_d["Close"],errors="coerce").dropna()
+        if len(cl)<60:
+            return
+        ex=str(item.get("exchange") or "").upper()
+        rec={
+            "name":item.get("name") or "",
+            "ex":"otc" if ("TPEX" in ex or "OTC" in ex) else "tse",
+            "ind":item.get("industry") or "",
+            "last":pd.Timestamp(cl.index[-1]).strftime("%Y-%m-%d"),
+            "c":[round(float(x),2) for x in cl.iloc[-300:]],
+        }
+        try:
+            rc=pd.to_numeric(raw_d["Close"],errors="coerce")
+            rv=pd.to_numeric(raw_d["Volume"],errors="coerce").fillna(0)
+            val=(rc*rv).replace([np.inf,-np.inf],np.nan).dropna()
+            if len(val)>=5:
+                rec["av"]=int(round(float(val.iloc[-20:].mean())/10000))
+        except Exception:
+            pass
+        try:
+            hi=pd.to_numeric(vcp_d["High"],errors="coerce").dropna()
+            lo=pd.to_numeric(vcp_d["Low"],errors="coerce").dropna()
+            if len(hi) and len(lo):
+                rec["hl"]=[round(float(hi.iloc[-1]),2),round(float(lo.iloc[-1]),2)]
+        except Exception:
+            pass
+        MA_CLOSES[(market,str(item["symbol"]).upper())]=rec
+    except Exception as e:
+        print("ma closes warning",item.get("symbol"),e)
+
+def write_ma_closes(market, rows, data_date, stamp):
+    """正式收盤掃描後，輸出全市場歷史收盤（data/ma_closes_{market}.json）。
+    網站「均線雷達」盤中拿即時價，在瀏覽器裡自己算任何週期的 MA／EMA；不需要任何外部 API。
+    檔案太小（例如這次下載大量失敗）時不覆蓋，避免把好的資料換成殘缺的。"""
+    try:
+        syms={k[1]:v for k,v in MA_CLOSES.items() if k[0]==market}
+        if len(syms)<300:
+            print(f"{market} MA CLOSES: only {len(syms)} symbols, keep previous file")
             return
         out_dir=os.path.join(os.path.dirname(os.path.abspath(__file__)),"data")
         os.makedirs(out_dir,exist_ok=True)
         path=os.path.join(out_dir,f"ma_closes_{market}.json")
-        payload={"version":1,"market":market,"data_date":data_date,"generated_at":stamp,"count":len(syms),"symbols":syms}
+        payload={"version":2,"market":market,"scope":"all","data_date":data_date,"generated_at":stamp,"count":len(syms),"symbols":syms}
         with open(path,"w",encoding="utf-8") as f:
             json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
-        print(f"{market} MA CLOSES: wrote {len(syms)} symbols -> {path}")
+        print(f"{market} MA CLOSES: wrote {len(syms)} symbols -> {path} ({os.path.getsize(path)/1e6:.1f} MB)")
     except Exception as e:
         print("ma closes write warning:",repr(e))
 
