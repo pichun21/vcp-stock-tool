@@ -71,6 +71,19 @@ def load_targets(screening_path: Path):
     return out
 
 
+def load_targets_from_closes(closes_path: Path):
+    """全市場模式：目標清單來自掃描程式輸出的 data/ma_closes_TW.json（含每檔的上市／上櫃）。"""
+    payload = json.loads(closes_path.read_text(encoding="utf-8"))
+    out = []
+    for sym, item in (payload.get("symbols") or {}).items():
+        sym = str(sym).strip().upper()
+        if not sym:
+            continue
+        channel = "otc" if str((item or {}).get("ex") or "").lower() == "otc" else "tse"
+        out.append({"symbol": sym, "exchange": channel.upper(), "channel": channel})
+    return out
+
+
 def fetch_chunk(session: requests.Session, targets, *, attempts=4):
     """Fetch one small MIS batch with conservative retry/backoff.
 
@@ -195,11 +208,14 @@ def main():
     ap.add_argument("--screening", default="screening.json")
     ap.add_argument("--output", default="data/live_quotes_tw.json")
     ap.add_argument("--chunk-size", type=int, default=20)
+    ap.add_argument("--closes", default="", help="全市場模式：從 ma_closes_TW.json 取得目標清單（取代 screening.json）")
+    ap.add_argument("--compact", action="store_true", help="輸出精簡 JSON（全市場檔案較大時使用）")
+    ap.add_argument("--slim", action="store_true", help="全市場極簡格式：quotes[代號]=[現價,昨收,最高,最低]，不含名稱（名稱在 ma_closes_TW.json），大幅縮小每次提交的檔案")
     args = ap.parse_args()
 
     screening = Path(args.screening)
     output = Path(args.output)
-    targets = load_targets(screening)
+    targets = load_targets_from_closes(Path(args.closes)) if args.closes else load_targets(screening)
     now = datetime.now(TZ)
 
     session = requests.Session()
@@ -253,6 +269,7 @@ def main():
         "target_count": len(targets),
         "quote_count": len(quotes),
         "source": "TWSE MIS",
+        "scope": "all" if args.closes else "radar",
         "errors": errors,
         "quotes": quotes,
     }
@@ -268,9 +285,31 @@ def main():
                 print(" -", x)
         raise SystemExit(2)
 
+    if args.slim:
+        payload = {
+            "version": 2,
+            "market": "TW",
+            "format": "slim",
+            "fields": ["price", "prev_close", "high", "low"],
+            "generated_at": payload["generated_at"],
+            "data_dates": dates,
+            "latest_quote_time": payload["latest_quote_time"],
+            "target_count": len(targets),
+            "quote_count": len(quotes),
+            "scope": "all",
+            "quotes": {
+                s: [q.get("price"), q.get("prev_close"), q.get("high"), q.get("low")]
+                for s, q in quotes.items()
+            },
+        }
+        args.compact = True
+
     output.parent.mkdir(parents=True, exist_ok=True)
     tmp = output.with_suffix(output.suffix + ".tmp")
-    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    if args.compact:
+        tmp.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    else:
+        tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     tmp.replace(output)
     print(f"TW live quote cache: {len(quotes)}/{len(targets)} symbols -> {output}")
     if errors:
