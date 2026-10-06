@@ -1534,6 +1534,11 @@ def capture_ma_closes(market, item, vcp_d, raw_d):
         return
     try:
         cl=pd.to_numeric(vcp_d["Close"],errors="coerce").dropna()
+        try:
+            _good=pd.to_numeric(raw_d["Close"],errors="coerce").dropna().index
+            cl=cl[cl.index.isin(_good)]
+        except Exception:
+            pass
         if len(cl)<60:
             return
         ex=str(item.get("exchange") or "").upper()
@@ -1555,7 +1560,9 @@ def capture_ma_closes(market, item, vcp_d, raw_d):
         try:
             hi=pd.to_numeric(vcp_d["High"],errors="coerce").dropna()
             lo=pd.to_numeric(vcp_d["Low"],errors="coerce").dropna()
-            if len(hi) and len(lo):
+            hi=hi[hi.index<=cl.index[-1]]
+            lo=lo[lo.index<=cl.index[-1]]
+            if len(hi) and len(lo) and hi.index[-1]==cl.index[-1] and lo.index[-1]==cl.index[-1]:
                 rec["hl"]=[round(float(hi.iloc[-1]),2),round(float(lo.iloc[-1]),2)]
         except Exception:
             pass
@@ -1582,19 +1589,31 @@ def write_ma_closes(market, rows, data_date, stamp):
     except Exception as e:
         print("ma closes write warning:",repr(e))
 
-def write_ma_closes_if_complete(market, latest_date, stamp):
-    """最新一根日線是「已收盤的交易日」時（今天還沒開盤或休市），不需要等 OFFICIAL GUARD 放行，
-    只要幾乎所有股票都有這一天的資料（>=95%），就可以安全輸出均線雷達用的歷史收盤。"""
+def write_ma_closes_if_complete(market, latest_date, stamp, today=""):
+    """最新一根日線是「已收盤的交易日」時（今天還沒開盤或休市），不需要等 OFFICIAL GUARD 放行。
+    以「最多股票共有的最後一天」當資料日；該日涵蓋 >=90% 的股票、且早於今天，就輸出均線雷達用的歷史收盤。
+    會印出最後一天的分布，方便判斷是哪一種資料問題。"""
     try:
         recs=[v for k,v in MA_CLOSES.items() if k[0]==market]
-        if len(recs)<300 or not latest_date:
+        if len(recs)<300:
+            print(f"{market} MA CLOSES: only {len(recs)} symbols captured, skip")
             return
-        n=sum(1 for v in recs if v.get("last")==latest_date)
+        from collections import Counter
+        cnt=Counter(v.get("last") for v in recs)
+        top=cnt.most_common(4)
+        print(f"{market} MA CLOSES last-bar dates: "+", ".join(f"{d}={n}" for d,n in top)+f" (of {len(recs)})")
+        mode_date,n=top[0]
         pct=n/len(recs)*100
-        if pct<95.0:
-            print(f"{market} MA CLOSES: latest bar {latest_date} only on {n}/{len(recs)} symbols ({pct:.1f}%), skip")
+        if not mode_date or (today and mode_date>=today):
+            print(f"{market} MA CLOSES: most common last bar {mode_date} is not a completed past day, skip")
             return
-        write_ma_closes(market,[],latest_date,stamp)
+        if pct<90.0:
+            print(f"{market} MA CLOSES: most common last bar {mode_date} only on {n}/{len(recs)} ({pct:.1f}%), skip")
+            return
+        # 只保留以該日為最後一根的股票，避免混入停牌或落後的資料
+        keep={k:v for k,v in MA_CLOSES.items() if k[0]!=market or v.get("last")==mode_date}
+        MA_CLOSES.clear(); MA_CLOSES.update(keep)
+        write_ma_closes(market,[],mode_date,stamp)
     except Exception as e:
         print("ma closes (guard-free) warning:",repr(e))
 
@@ -2223,7 +2242,7 @@ def main():
             _latest=str((scan_stats or {}).get("latest_date") or "")
             _today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
             if _latest and _latest<_today:
-                write_ma_closes_if_complete(market,_latest,nowstamp)
+                write_ma_closes_if_complete(market,_latest,nowstamp,_today)
         if args.snapshot=="official":
             official=True
         elif args.snapshot=="intraday":
