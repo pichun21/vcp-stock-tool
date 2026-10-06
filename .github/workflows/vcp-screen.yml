@@ -128,6 +128,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add screening.json tdcc_whales.json data/market_breadth_latest.json data/market_breadth_history.csv data/market_structure_latest.json
+          # 均線雷達用的歷史收盤檔（只有正式收盤掃描才會產生；不存在時略過，避免 git add 因找不到檔案而失敗）
+          for f in data/ma_closes_*.json; do [ -f "$f" ] && git add "$f"; done
           if git diff --cached --quiet; then
             echo "No change."
           else
