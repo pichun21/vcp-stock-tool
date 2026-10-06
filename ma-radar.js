@@ -8,16 +8,17 @@
   if (!$('maRadarSection')) return;
 
   var KEY = 'vcpMaRadarV1';
-  var PAGE = 40;
+  var PAGE_FULL = 20, PAGE_COMPACT = 30;
   var DEFAULT_PERIODS = { MA: [20, 60, 240], EMA: [23, 67, 240] };
   var COND_LABEL = { '': '不限', above: '站上', up: '剛站上', below: '跌破', down: '剛跌破' };
   var SORT_LABEL = { above: '站上均線數（多→少）', chg: '今日漲幅（高→低）', bias1: '離第 1 條線最近' };
 
   var st = loadState();
-  var closes = null, quotes = null, loadError = '', shown = PAGE, timer = null;
+  var closes = null, quotes = null, loadError = '', shown = 0, timer = null;
+  function pageSize() { return st.view === 'full' ? PAGE_FULL : PAGE_COMPACT; }
 
   function loadState() {
-    var base = { type: 'MA', periods: { MA: DEFAULT_PERIODS.MA.slice(), EMA: DEFAULT_PERIODS.EMA.slice() }, conds: ['', '', ''], sort: 'above' };
+    var base = { type: 'MA', periods: { MA: DEFAULT_PERIODS.MA.slice(), EMA: DEFAULT_PERIODS.EMA.slice() }, conds: ['', '', ''], sort: 'above', view: 'compact' };
     try {
       var s = JSON.parse(localStorage.getItem(KEY) || 'null');
       if (s && (s.type === 'MA' || s.type === 'EMA')) {
@@ -29,6 +30,7 @@
         });
         if (Array.isArray(s.conds) && s.conds.length === 3) base.conds = s.conds.map(function (c) { return COND_LABEL.hasOwnProperty(c) ? c : ''; });
         if (SORT_LABEL[s.sort]) base.sort = s.sort;
+        if (s.view === 'full' || s.view === 'compact') base.view = s.view;
       }
     } catch (e) { /* 忽略 */ }
     return base;
@@ -128,6 +130,15 @@
       (l.above ? '站上 ' : '跌破 ') + fmtPct(l.bias) + '</b>' + (cross ? '<i class="ma-x">★ ' + cross + '</i>' : '') + '<em>均線 ' + fmtPrice(l.ma) + '</em></div>';
   }
 
+  var SHORT = { 5: '週', 10: '雙週', 20: '月', 60: '季', 120: '半年', 240: '年' };
+  function shortName(type, n) { return (type === 'MA' && SHORT[n]) ? SHORT[n] : type + n; }
+  function miniHtml(l, name) {
+    if (!l) return '<span class="ma-mini-chip st-na">' + esc(name) + ' —</span>';
+    var cross = l.up || l.down;
+    return '<span class="ma-mini-chip ' + (l.above ? 'st-above' : 'st-below') + (cross ? ' is-cross' : '') + '">' + (cross ? '★' : '') +
+      esc(name) + (l.approx ? '≈' : '') + ' ' + (l.above ? '▲' : '▼') + Math.abs(l.bias).toFixed(1) + '%</span>';
+  }
+
   function render() {
     var list = $('maList'), summary = $('maSummary'), more = $('maMore');
     var periods = st.periods[st.type];
@@ -135,8 +146,11 @@
       list.innerHTML = '<div class="ma-empty">' + esc(loadError) + '</div>'; summary.textContent = ''; more.hidden = true; return;
     }
     if (!closes) { list.innerHTML = '<div class="ma-empty">載入中…</div>'; more.hidden = true; return; }
+    if (!shown) shown = pageSize();
     var all = buildRows(), rows = sortRows(all.filter(passes));
     var names = periods.map(function (n) { return lineName(st.type, n); });
+    var shorts = periods.map(function (n) { return shortName(st.type, n); });
+    list.className = 'ma-list' + (st.view === 'full' ? '' : ' is-compact');
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔</div>' +
       '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) : '｜無盤中行情，以最近收盤計算') + '</span>';
@@ -144,9 +158,15 @@
     var html = '';
     rows.slice(0, shown).forEach(function (r) {
       var dir = r.chg > 0 ? 'up' : (r.chg < 0 ? 'down' : 'flat');
-      html += '<div class="ma-row"><div class="ma-id"><b>' + esc(r.name || r.sym) + '</b><span>' + esc(r.sym) + '</span></div>' +
-        '<div class="ma-px"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></div>' +
-        '<div class="ma-lines">' + r.lines.map(function (l, i) { return chipHtml(l, names[i]); }).join('') + '</div></div>';
+      if (st.view === 'full') {
+        html += '<div class="ma-row"><div class="ma-id"><b>' + esc(r.name || r.sym) + '</b><span>' + esc(r.sym) + '</span></div>' +
+          '<div class="ma-px"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></div>' +
+          '<div class="ma-lines">' + r.lines.map(function (l, i) { return chipHtml(l, names[i]); }).join('') + '</div></div>';
+      } else {
+        html += '<div class="ma-crow"><div class="ma-ctop"><span class="ma-cname"><b>' + esc(r.name || r.sym) + '</b><i>' + esc(r.sym) + '</i></span>' +
+          '<span class="ma-cpx"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></span></div>' +
+          '<div class="ma-cchips">' + r.lines.map(function (l, i) { return miniHtml(l, shorts[i]); }).join('') + '</div></div>';
+      }
     });
     list.innerHTML = html;
     more.hidden = rows.length <= shown;
@@ -169,6 +189,9 @@
       var lab = $('maL' + i); if (lab) lab.textContent = '第 ' + (i + 1) + ' 線 ' + lineName(st.type, periods[i]);
     }
     var so = $('maSort'); if (so) so.value = st.sort;
+    document.querySelectorAll('[data-maview]').forEach(function (b) {
+      var on = b.getAttribute('data-maview') === st.view; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
     var names = periods.map(function (n) { return lineName(st.type, n); });
     var pr = {
       all: document.querySelector('[data-mapreset="all"]'), up1: document.querySelector('[data-mapreset="up1"]'),
@@ -182,7 +205,7 @@
     if (pr.down1) pr.down1.textContent = '剛跌破' + names[0];
   }
 
-  function changed() { shown = PAGE; saveState(); syncControls(); render(); }
+  function changed() { shown = pageSize(); saveState(); syncControls(); render(); }
 
   /* ---------- 事件 ---------- */
   document.querySelectorAll('[data-matype]').forEach(function (b) {
@@ -196,13 +219,16 @@
     var sel = $('maC' + i);
     if (sel) sel.addEventListener('change', function () { st.conds[i] = sel.value; changed(); });
   });
+  document.querySelectorAll('[data-maview]').forEach(function (b) {
+    b.addEventListener('click', function () { st.view = b.getAttribute('data-maview'); changed(); });
+  });
   var sortSel = $('maSort'); if (sortSel) sortSel.addEventListener('change', function () { st.sort = sortSel.value; changed(); });
   var resetP = $('maPReset'); if (resetP) resetP.addEventListener('click', function () { st.periods[st.type] = DEFAULT_PERIODS[st.type].slice(); changed(); });
   var presets = { all: ['above', 'above', 'above'], up1: ['up', '', ''], up2: ['', 'up', ''], up3: ['', '', 'up'], down1: ['down', '', ''], clear: ['', '', ''] };
   document.querySelectorAll('[data-mapreset]').forEach(function (b) {
     b.addEventListener('click', function () { var p = presets[b.getAttribute('data-mapreset')]; if (p) { st.conds = p.slice(); changed(); } });
   });
-  var moreBtn = $('maMore'); if (moreBtn) moreBtn.addEventListener('click', function () { shown += PAGE; render(); });
+  var moreBtn = $('maMore'); if (moreBtn) moreBtn.addEventListener('click', function () { shown += pageSize(); render(); });
 
   /* ---------- 載入 ---------- */
   function getJson(url) {

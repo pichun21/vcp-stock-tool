@@ -2610,3 +2610,22 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .ma-chip b{white-space:nowrap}
 .ma-chip .ma-x{display:block;font-style:normal;font-size:11px;font-weight:800;color:#b5651d}
 @media (max-width:640px){ .ma-chip b{font-size:12px} }
+
+/* 均線雷達：精簡檢視（每檔兩行） */
+.ma-seg button.active{background:#20231f;border-color:#20231f;color:#fff}
+.ma-list.is-compact{gap:6px}
+.ma-crow{padding:8px 10px;border:1px solid #efe9dc;border-radius:12px;background:#fff}
+.ma-ctop{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.ma-cname{display:flex;align-items:baseline;gap:6px;min-width:0}
+.ma-cname b{font-size:14px;color:#302f2f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ma-cname i{font-style:normal;font-size:11px;color:#9a9285}
+.ma-cpx{display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+.ma-cpx b{font-size:14px;color:#302f2f}
+.ma-cpx .chg{font-size:12px;font-weight:800}
+.ma-cpx .chg.up{color:#c0392b}.ma-cpx .chg.down{color:#2f8f5b}.ma-cpx .chg.flat{color:#8a8478}
+.ma-cchips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.ma-mini-chip{padding:4px 6px;border-radius:8px;border:1px solid transparent;font-size:11.5px;font-weight:800;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ma-mini-chip.st-above{background:#fbebe6;border-color:#f2cbc0;color:#a8412a}
+.ma-mini-chip.st-below{background:#e8f3ed;border-color:#c6e0d2;color:#2f6f60}
+.ma-mini-chip.st-na{background:#f4f1ea;color:#9a9285}
+.ma-mini-chip.is-cross{border-width:2px;border-color:#e08a2c;box-shadow:0 0 0 2px rgba(224,138,44,.2)}

@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261018">
+<link rel="stylesheet" href="./styles.css?v=20261019">
 
 
 
@@ -668,14 +668,17 @@
     <div class="ma-row-ctl"><span class="ma-lab">排序</span>
       <select id="maSort" class="ma-sort"><option value="above">站上均線數（多→少）</option><option value="chg">今日漲幅（高→低）</option><option value="bias1">離第 1 條線最近</option></select>
     </div>
+    <div class="ma-row-ctl"><span class="ma-lab">檢視</span>
+      <div class="ma-seg"><button type="button" data-maview="compact">精簡</button><button type="button" data-maview="full">詳細</button></div>
+    </div>
   </div>
   <div id="maSummary" class="ma-summary" role="status"></div>
   <div id="maList" class="ma-list"></div>
   <button type="button" id="maMore" class="ma-more" hidden>顯示更多</button>
 </div>
 </div></div>
-<script src="./app.js?v=20261018"></script>
-<script src="./ma-radar.js?v=20261018"></script>
+<script src="./app.js?v=20261019"></script>
+<script src="./ma-radar.js?v=20261019"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -951,7 +954,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261018"></script>
+<script src="./app-extras.js?v=20261019"></script>
 
 
 
