@@ -1,0 +1,51 @@
+name: VCPulse Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      market:
+        description: "回測市場"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - TW
+          - US
+      years:
+        description: "回測年數"
+        required: true
+        default: "3"
+      max_symbols:
+        description: "每個市場隨機取幾檔（越多越久）"
+        required: true
+        default: "500"
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Run backtest
+        run: python backtest.py --market "${{ github.event.inputs.market }}" --years "${{ github.event.inputs.years }}" --max-symbols "${{ github.event.inputs.max_symbols }}"
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-result
+          path: backtest_out/
