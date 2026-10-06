@@ -348,6 +348,33 @@ def _fetch_tpex_official_close():
         return None
 
 
+def fetch_market_regime(ma_days=50):
+    """大盤環境：加權指數／S&P 500 收盤是否在 N 日均線之上（回測顯示大盤走弱時突破訊號較容易失敗）。
+    只用日線收盤計算；抓不到的市場不放進結果，網站會自動隱藏提示。"""
+    targets = {"TW": ("^TWII", "加權指數"), "US": ("^GSPC", "S&P 500")}
+    out = {}
+    for market, (ticker, label) in targets.items():
+        try:
+            df = yf.download(ticker, period="1y", interval="1d", auto_adjust=False, progress=False, threads=False)
+            if df is None or len(df) < ma_days + 5:
+                continue
+            close = df["Close"].iloc[:, 0] if isinstance(df.columns, pd.MultiIndex) else df["Close"]
+            close = close.dropna()
+            if len(close) < ma_days + 5:
+                continue
+            ma = close.rolling(ma_days).mean()
+            last, m = float(close.iloc[-1]), float(ma.iloc[-1])
+            out[market] = {
+                "index": label, "ticker": ticker, "ma_days": ma_days,
+                "close": round(last, 2), "ma": round(m, 2),
+                "dist_pct": round((last / m - 1) * 100, 2), "above": bool(last > m),
+                "as_of": pd.Timestamp(close.index[-1]).strftime("%Y-%m-%d"),
+            }
+        except Exception as e:
+            print(f"market regime {ticker} warning:", repr(e))
+    return out
+
+
 def fetch_tw_benchmarks(official=False):
     """Fetch Taiwan benchmarks on the GitHub Actions server.
 
@@ -2227,6 +2254,13 @@ def main():
     ))
     print(f"TW THEME NAME MAP: {len(theme_stock_names)} symbols")
 
+    # 大盤環境（50 日線）：失敗時沿用上次的值
+    market_regime=dict(old.get("market_regime",{}) or {})
+    try:
+        market_regime.update(fetch_market_regime())
+    except Exception as e:
+        print("market regime warning:", repr(e))
+
     # Backward-compatible "results" stays the official snapshot only.
     payload={
         "generated_at":datetime.now(TAIPEI).strftime("%Y-%m-%d %H:%M"),
@@ -2238,6 +2272,7 @@ def main():
         "intraday_markets":intraday_markets,
         "official_benchmarks":official_benchmarks,
         "intraday_benchmarks":intraday_benchmarks,
+        "market_regime":market_regime,
         "official_capital_hotspots":official_capital_hotspots,
         "intraday_capital_hotspots":intraday_capital_hotspots,
         "official_theme_leaderboards":official_theme_leaderboards,

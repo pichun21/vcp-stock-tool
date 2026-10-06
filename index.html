@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=2443">
 <link rel="manifest" href="./site.webmanifest?v=2443">
 <title>VCPulse｜PowerSqueeze 智慧選股雷達</title>
-<link rel="stylesheet" href="./styles.css?v=20261014">
+<link rel="stylesheet" href="./styles.css?v=20261017">
 
 
 
@@ -323,7 +323,7 @@
 <div class="search"><input id="symbol" value="2330" placeholder="搜尋台積電、2330…"><button id="go">開始分析</button></div>
 <div id="err" class="error"></div>
 <div class="grid">
-<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><button type="button" id="singleRadarHit" class="single-radar-hit" hidden onclick="jumpToRadarStock()"></button><div class="muted" id="period"></div><div id="vcpLoadingNote" class="vcp-loading-note" hidden role="status" aria-live="polite"><span class="vcp-spinner" aria-hidden="true"></span><span id="vcpLoadingText">分析中…</span></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div><div id="singleRestoreNote" class="muted" style="margin-top:5px;color:#6f6d6b" hidden></div></div><div class="badge" id="state">—</div></div>
+<div class="card"><div class="topline"><div><div class="single-title-row"><div class="ticker" id="title">等待分析</div><button type="button" id="singleFavorite" class="single-title-favorite" hidden aria-label="收藏股票" title="收藏股票">☆</button></div><div class="muted" id="period"></div><div id="vcpLoadingNote" class="vcp-loading-note" hidden role="status" aria-live="polite"><span class="vcp-spinner" aria-hidden="true"></span><span id="vcpLoadingText">分析中…</span></div><div id="singleLiveNote" class="muted" style="margin-top:5px;color:#9a6a1c" hidden></div><div id="singleRestoreNote" class="muted" style="margin-top:5px;color:#6f6d6b" hidden></div></div><div class="badge" id="state">—</div></div>
 <canvas id="chart" width="720" height="360"></canvas>
 <div id="contractionLegend" class="contraction-legend"></div>
 <div class="note">圖：近約 120 個交易日收盤價；上方圖例標示收盤價、MA20（月線）與 Pivot（突破價）；圖中 C1～C4 標示各次回檔區間，跌幅與日期統一列於下方，滑鼠移到區間上（手機點一下）可直接看詳細數字。圖下方的柱狀是每日成交量（和前 20 日平均比較）：淡綠＝量縮、灰＝一般、橘＝放量上漲、藍灰＝放量下跌、紅色＋小三角＝放量突破 Pivot（沒有突破的股票不會出現紅色）。VCP 是型態辨識，不代表突破一定成功。</div></div>
@@ -492,6 +492,7 @@
       <button type="button" class="snapshot-btn" data-snapshot="intraday" onclick="setRadarSnapshot('intraday')">👀 盤中即時 <span id="intradayCount"></span></button>
     </div>
     <div id="snapshotStatus" class="muted" role="status" style="margin:7px 0 12px;font-size:12px"></div>
+    <div class="regime-banner" id="regimeBanner" hidden role="status"></div>
     <div class="kpi-strip" id="kpiStrip" hidden aria-label="今日雷達摘要">
       <button type="button" class="kpi-card kpi-breakout" data-kpi="breakout" onclick="kpiGo('breakout')"><span class="kpi-label">今日突破</span><b class="kpi-num">—</b><span class="kpi-cap">首次帶量站上 Pivot</span></button>
       <button type="button" class="kpi-card kpi-hot" data-kpi="hot" onclick="kpiGo('hot')"><span class="kpi-label">高關注</span><b class="kpi-num">—</b><span class="kpi-cap">多項條件同時配合</span></button>
@@ -591,6 +592,7 @@
             <div><b>⚠️ 過度延伸</b><span>突破後已距 Pivot 超過 8%，提醒目前位置已不像剛突破時那麼接近 Pivot。</span></div>
             <div><b>📊 相對強度 RS 1～99</b><span>近 3～12 個月漲幅在同市場股票中的排名，越高越強（前 N%＝100−RS）。顏色：90 以上深綠、80～89 淺綠、70～79 米色、70 以下虛線。只是標註，不影響 VCP 星數與上方的綜合訊號。</span></div>
             <div><b>💥 Squeeze 爆發</b><span><b>什麼是？</b>股票在布林帶內側長期震盪（低波動），同時動量指標在零線附近（灰點）。當股價突破布林帶上軌或下軌，搭配動量轉強，就稱為「爆發」。<br><b>為何重要？</b>壓縮期越長能量蓄積越多 → 爆發力越強；日線＋週線同時灰點 → 多時間框架共鳴；配合 VCP 型態＋RS 強度 → 精準篩選潛在飆股。<br><b>方向判定：</b>🔴向上爆發=Bull（上破上軌），🟢向下爆發=Bear（下破下軌）<br><b>篩選：</b>點「💥 Squeeze 爆發」、排序「Squeeze 最強／剛爆發」、卡片上 💥 表示已偵測爆發</span></div>
+            <div><b>🌐 大盤環境提醒</b><span>雷達頂部會顯示大盤（台股加權指數、美股 S&amp;P 500）目前在 50 日線之上或之下。我們用近 5 年、台股與美股各約 500 檔做過回測：大盤跌破 50 日線時，帶量突破的平均報酬明顯較差（台股約 -1.4%、美股約 -2.0%）；大盤站上 50 日線時則接近或略好於一般上升趨勢股。<b>這只是歷史統計，不保證未來；回測也有倖存者偏差，沒有計入滑價。</b>請把它當作「該不該保守一點」的提醒，不是買賣訊號。</span></div>
             <div><b>🧩 篩選可以疊加</b><span>篩選條件可以一次點好幾個。<b>同一組</b>（例如強壓縮＋中壓縮）代表「或」，兩種都會顯示；<b>不同組</b>（例如中壓縮＋RS ≥ 80＋近 Pivot）代表「且」，要全部符合才會顯示。再點一次可取消，「全部」或「清除」可一鍵還原。</span></div>
             <div><b>🆚 突破和爆發，差在哪？</b><span><b>突破看價格：</b>股價站上 Pivot（突破價）。「今日突破」是最新交易日首次帶量站上，「突破後」是已經在 Pivot 上方、持續追蹤。<br><b>爆發看波動：</b>PowerSqueeze 壓縮結束的第一天，跟 Pivot 沒有關係。<br><b>兩個可以分開發生：</b>• 有爆發、還沒突破：波動放開了，但價格還在 Pivot 下方。<br>• 有突破、沒爆發：價格過關了，但之前沒有壓縮，或壓縮早就結束。<br>兩個同時出現，或爆發後接近 Pivot，訊號最完整。</span></div>
           </div>
@@ -632,7 +634,7 @@
   </div>
 </div>
 </div></div>
-<script src="./app.js?v=20261014"></script>
+<script src="./app.js?v=20261017"></script>
 
 
 <button type="button" id="radarBackFloat" class="radar-back-float" hidden aria-label="返回剛才的雷達位置" onclick="returnToRadarPosition()">
@@ -908,7 +910,7 @@ onAuthStateChanged(auth, async user => {
 <button type="button" id="backToTopBtn" class="back-to-top-btn" aria-label="回到頂端" title="回到頂端">
   <span aria-hidden="true">↑</span>
 </button>
-<script src="./app-extras.js?v=20261013"></script>
+<script src="./app-extras.js?v=20261017"></script>
 
 
 

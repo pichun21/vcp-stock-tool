@@ -2545,20 +2545,15 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 /* 觀察徽章改藍色，避免和「突破後」的綠色一樣 */
 .pulse-badge.pulse-watch{background:#e4edf8!important;color:#2f5d8a!important;border:1px solid #b6cbe4!important}
 
-/* V2.44 — 單股查詢：今日 VCP 入選標示（芥末黃，點一下跳到雷達那一列） */
-.single-radar-hit{
-  display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;
-  margin:6px 0 2px;padding:5px 10px 5px 5px;max-width:100%;
-  border:1px solid #edce7c;border-radius:999px;background:#fdf6dc;
-  font:inherit;font-size:13px;line-height:1.4;color:#5b4a1e;text-align:left;cursor:pointer;
-  transition:background .15s ease,border-color .15s ease;
-}
-.single-radar-hit[hidden]{display:none!important}
-.single-radar-hit:hover{background:#faedb8;border-color:#d9b34f}
-.single-radar-hit:focus-visible{outline:2px solid #d28963;outline-offset:2px}
-.single-radar-hit .srh-tag{background:#edce7c;color:#4d3a08;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
-.single-radar-hit .srh-info{color:#6e5a2a}
-.single-radar-hit .srh-go{color:#b66749;font-weight:700;white-space:nowrap;margin-left:auto}
-@media(max-width:720px){
-  .single-radar-hit{border-radius:14px}
-}
+/* 查詢失敗：收起上一檔結果、重試按鈕 */
+#singleStockAnalysis .grid.single-stale{display:none!important}
+.error .err-retry{margin-left:8px;min-width:0;padding:5px 12px;border-radius:999px;border:1px solid #d9a99b;background:#fff;color:#a0452d;font-size:12.5px;font-weight:800}
+
+/* 大盤環境提示 */
+.regime-banner{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 12px;padding:10px 14px;border-radius:12px;font-size:12.5px;line-height:1.5}
+.regime-banner[hidden]{display:none}
+.regime-banner b{font-weight:800}
+.regime-banner span{flex:1 1 100%;color:#6b6258}
+.regime-banner em{font-style:normal;font-size:11.5px;color:#9a9285}
+.regime-banner.is-up{background:#eef5f1;border:1px solid #cfe2d8;color:#2f6f60}
+.regime-banner.is-down{background:#fff3e6;border:1px solid #f0cfa8;color:#9a5a1c}

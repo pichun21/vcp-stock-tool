@@ -435,14 +435,86 @@ function renderContractionLegend(a){
  }).join('');
 }
 
+/* ===== FinMind 請求快取層：同一檔不重複打 API，限流時改用舊快取，降低「用久了就查不到」 =====
+   - 記憶體 + localStorage 快取（最多保留 24 筆，滿了先丟最舊的）
+   - 同一個網址同時發出只送一次；遇到 402／429（額度用完）就冷卻 45 秒，不再連續重打
+   - 價格與法人資料「不使用過期舊資料」：抓不到就如實報錯，不顯示舊數字；只有股票名稱清單（幾乎不變）可退回舊快取 */
+const FM_MEM=new Map(), FM_INFLIGHT=new Map(), FM_LS='vcp_fm1:', FM_LS_MAX=24;
+let FM_COOLDOWN_UNTIL=0;
+function fmLsGet(key){
+  try{
+    const raw=localStorage.getItem(FM_LS+key); if(!raw) return null;
+    const i=raw.indexOf('|'); return {t:Number(raw.slice(0,i)),j:JSON.parse(raw.slice(i+1))};
+  }catch(e){ return null; }
+}
+function fmLsEvict(force){
+  try{
+    const ks=[]; for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith(FM_LS)) ks.push(k); }
+    let over=ks.length-FM_LS_MAX; if(force) over=Math.max(over,Math.ceil(ks.length/3)); if(over<=0) return;
+    const withT=ks.map(k=>{ const raw=localStorage.getItem(k)||''; return [k,Number(raw.slice(0,raw.indexOf('|')))||0]; }).sort((a,b)=>a[1]-b[1]);
+    for(let i=0;i<over&&i<withT.length;i++) localStorage.removeItem(withT[i][0]);
+  }catch(e){}
+}
+function fmLsSet(key,ent){
+  const v=ent.t+'|'+JSON.stringify(ent.j);
+  try{ localStorage.setItem(FM_LS+key,v); }
+  catch(e){ fmLsEvict(true); try{ localStorage.setItem(FM_LS+key,v); }catch(e2){} }
+  fmLsEvict(false);
+}
+async function fmFetchJson(url,opt){
+  const o=Object.assign({ttl:3600e3,persist:true,timeout:15000,retries:1,staleMax:0},opt||{});
+  const key=String(url).replace(API,'');
+  let hit=FM_MEM.get(key);
+  if(!hit&&o.persist){ hit=fmLsGet(key); if(hit) FM_MEM.set(key,hit); }
+  if(hit && Date.now()-hit.t<o.ttl) return hit.j;
+  if(FM_INFLIGHT.has(key)) return FM_INFLIGHT.get(key);
+  const run=(async()=>{
+    let err=null;
+    if(Date.now()<FM_COOLDOWN_UNTIL){ err=Object.assign(new Error('FinMind cooldown'),{code:'busy',detail:'冷卻中：剛被限流，約 45 秒內不再重打'}); }
+    else for(let a=0;a<=o.retries;a++){
+      try{
+        const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),o.timeout);
+        let r; try{ r=await fetch(url,{cache:'no-store',signal:ctl.signal}); } finally{ clearTimeout(tm); }
+        const j=await r.json().catch(()=>null);
+        if(r.ok && j && !(j.status && Number(j.status)!==200)){
+          const ent={t:Date.now(),j}; FM_MEM.set(key,ent); if(o.persist) fmLsSet(key,ent); return j;
+        }
+        if(r.status===402||r.status===429||(j&&(Number(j.status)===402||Number(j.status)===429))){
+          FM_COOLDOWN_UNTIL=Date.now()+45000; err=Object.assign(new Error('FinMind rate limit'),{code:'busy',detail:'HTTP '+r.status}); break;
+        }
+        err=Object.assign(new Error('FinMind HTTP '+r.status),{code:'http',detail:'HTTP '+r.status});
+      }catch(e){ err=Object.assign(new Error('FinMind network'),{code:'net',detail:(e&&e.name==='AbortError')?('逾時 '+Math.round(o.timeout/1000)+' 秒'):('連線失敗：'+((e&&e.message)||'未知'))}); }
+      if(a<o.retries) await new Promise(res=>setTimeout(res,1200));
+    }
+    if(hit && Date.now()-hit.t<o.staleMax){ console.warn('FinMind unavailable; using stale cache',key); return hit.j; }
+    throw err;
+  })().finally(()=>FM_INFLIGHT.delete(key));
+  FM_INFLIGHT.set(key,run); return run;
+}
+/* 股票清單（代號→名稱）：只存精簡版，快取 7 天；抓不到時退回任何舊資料 */
+async function fmStockInfo(market){
+  const dataset=market==='US'?'USStockInfo':'TaiwanStockInfo', mk='info:'+dataset;
+  let hit=FM_MEM.get(mk)||fmLsGet(mk);
+  if(hit && Date.now()-hit.t<7*864e5){ FM_MEM.set(mk,hit); return hit.j; }
+  try{
+    const j=await fmFetchJson(`${API}?dataset=${dataset}`,{persist:false,ttl:7*864e5,retries:1});
+    const seen=new Set(), rows=[];
+    for(const x of (Array.isArray(j?.data)?j.data:[])){
+      const id=String(x?.stock_id||''); if(!id||seen.has(id)) continue; seen.add(id);
+      rows.push({stock_id:id,stock_name:String(x.stock_name||id)});
+    }
+    if(rows.length){ const ent={t:Date.now(),j:rows}; FM_MEM.set(mk,ent); fmLsSet(mk,ent); return rows; }
+  }catch(e){}
+  if(hit) return hit.j;
+  return [];
+}
+
 let currentMarket='TW';
 async function getStockName(s,market){
  try{
-  let dataset=market==='US'?'USStockInfo':'TaiwanStockInfo';
-  let r=await fetch(`${API}?dataset=${dataset}`);
-  let j=await r.json();
-  if(j.data){
-   let row=j.data.find(x=>String(x.stock_id).toUpperCase()===s.toUpperCase());
+  const infoRows=await fmStockInfo(market);
+   if(infoRows.length){
+    let row=infoRows.find(x=>String(x.stock_id).toUpperCase()===s.toUpperCase());
    if(row) return row.stock_name || row.stock_id;
   }
  }catch(e){}
@@ -559,9 +631,7 @@ async function resolveTaiwanInput(raw){
    throw new Error(`「${q}」不是有效的台股代號格式，請輸入 4 至 6 位數的股票代號，例如 2330。`);
  if(/^\d{4,6}$/.test(q)) return {symbol:q,name:''};
  try{
-  let r=await fetch(`${API}?dataset=TaiwanStockInfo`);
-  let j=await r.json();
-  const rows=(j.data||[]).filter(x=>x.stock_id && x.stock_name);
+  const rows=(await fmStockInfo('TW')).filter(x=>x.stock_id && x.stock_name);
   let exact=rows.find(x=>String(x.stock_name).trim()===q);
   if(exact) return {symbol:String(exact.stock_id),name:String(exact.stock_name)};
   let hits=rows.filter(x=>String(x.stock_name).includes(q));
@@ -793,8 +863,8 @@ async function getSingleLatestQuote(market,symbol){
    const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
    const f=d=>d.toISOString().slice(0,10);
    const u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(sym)}&start_date=${f(start)}&end_date=${f(end)}`;
-   const j=await fetchJson(u,7000);
-   if(!j || !Array.isArray(j.data) || !j.data.length) return null;
+   const j=await fmFetchJson(u,{ttl:120000,persist:false,retries:0,timeout:7000}).catch(()=>null);
+    if(!j || !Array.isArray(j.data) || !j.data.length) return null;
    const rows=normalizeData(j.data,m);
    if(!rows.length) return null;
    const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
@@ -1106,14 +1176,13 @@ async function __runInner(){
  let end=new Date(), start=new Date();start.setDate(end.getDate()-420);let f=d=>d.toISOString().slice(0,10);
   let dataset=currentMarket==='US'?'USStockPrice':'TaiwanStockPrice';
   let u=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(s)}&start_date=${f(start)}&end_date=${f(end)}`;
-  let d=[];
-  try{
-    const r=await fetch(u,{cache:'no-store'});
-    const j=await r.json();
-    if(r.ok && Array.isArray(j?.data) && j.data.length>=160) d=normalizeData(j.data,currentMarket);
-  }catch(e){
-    console.warn('FinMind history unavailable',e);
-  }
+  let d=[], finmindIssue=null, finmindDetail='';   // finmindIssue：'busy'（額度用完／冷卻）、'net'／'http'（連線問題）、null
+   try{
+     const j=await fmFetchJson(u,{ttl:10*60e3});
+     if(Array.isArray(j?.data) && j.data.length>=160) d=normalizeData(j.data,currentMarket);
+   }catch(e){
+     finmindIssue=e?.code||'net'; finmindDetail=e?.detail||''; console.warn('FinMind history unavailable',e);
+   }
   // Desktop Chrome can block browser-to-Yahoo requests by CORS. For TW-listed
   // stocks, use TWSE's official monthly STOCK_DAY endpoint as a browser-safe fallback.
   if(d.length<160 && currentMarket==='TW'){
@@ -1123,7 +1192,7 @@ async function __runInner(){
       console.info('Using TWSE official history fallback',s,d.length);
     }
   }
-  if(d.length<160) throw new Error('歷史資料不足');
+  if(d.length<160) throw Object.assign(new Error(finmindIssue?'__TRANSIENT__':'歷史資料不足'),{kind:finmindIssue,detail:finmindDetail});
   const restoreEvents=getRestoreEvents(currentMarket,s);
   if(restoreEvents.length) d=applyRestoreEvents(d,restoreEvents);
   const radarMatch=findLatestRadarMatch(currentMarket,s);
@@ -1275,16 +1344,38 @@ async function __runInner(){
   $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${_sp.squeeze_fire?'':a.squeezeState+'｜'}Momentum ${a.momentum}。${_fireNote}`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
   renderContractionLegend(a)
+   setSingleStale(false);
  }catch(e){
    const fallback=findAnyRadarMatch(currentMarket,s);
-   if(!renderSingleFromRadarFallback(s,fallback)){
-     const inputError=e?.message && (e.message.includes('不是有效的台股代號格式') || e.message.startsWith('找不到「') || e.message.includes('符合多檔股票') || e.message.startsWith('請輸入美股代號'));
+   if(renderSingleFromRadarFallback(s,fallback)){
+      setSingleStale(false);
+    }else{
+      if(e?.message==='__TRANSIENT__'){
+        showErr(e.kind==='busy'
+          ? `資料來源（FinMind）的免費查詢額度暫時用完，不是代號錯誤。剛查過的股票會直接用快取，其他請約 1～2 分鐘後再試。${e.detail?`（原因：${e.detail}）`:''}`
+          : `暫時抓不到「${s}」的歷史資料：資料來源連線不穩，不是代號錯誤。${e.detail?`（原因：${e.detail}）`:''}`,true);
+        setSingleStale(true);
+        return;
+      }
+      const inputError=e?.message && (e.message.includes('不是有效的台股代號格式') || e.message.startsWith('找不到「') || e.message.includes('符合多檔股票') || e.message.startsWith('請輸入美股代號'));
      showErr(inputError ? e.message : `查無「${s}」可供分析的完整歷史資料。請確認股票代號是否正確；若代號正確，請稍後再試。`);
-   }
+      setSingleStale(true);
+    }
  }
  finally{$('go').disabled=false;$('go').textContent='開始分析'}
 }
-function showErr(t){$('err').textContent=t;$('err').style.display='block'}
+function showErr(t,retry){
+  const box=$('err'); box.textContent=t; box.style.display='block';
+  if(retry){
+    const b=document.createElement('button'); b.type='button'; b.className='err-retry'; b.textContent='再試一次';
+    b.addEventListener('click',()=>{ const go=$('go'); if(go&&!go.disabled) go.click(); });
+    box.appendChild(document.createTextNode(' 請稍等幾秒後')); box.appendChild(b);
+  }
+}
+/* 查詢失敗時，把上一檔股票的結果收起來，避免錯誤訊息下面還顯示別檔的圖表而被誤會 */
+function setSingleStale(on){
+  const g=document.querySelector('#singleStockAnalysis .grid'); if(g) g.classList.toggle('single-stale',!!on);
+}
 
 let capitalHotspotExpanded='';
 let capitalHotspotMode='vcp';
@@ -1613,6 +1704,7 @@ let radarSnapshotManuallyChosen=false;
 let radarSnapshotData={official:[],intraday:[]};
 let radarSnapshotMeta={official:{},intraday:{}};
 let radarBenchmarkData={official:{},intraday:{}};
+let radarMarketRegime = {};
 let radarCapitalHotspots={official:{},intraday:{}};
 let radarThemeLeaderboards={official:{},intraday:{}};
 let radarThemeStockNames={};
@@ -1717,7 +1809,6 @@ let radarSort = 'smart';
 let radarChangeSortDir = 'desc'; // desc: 漲最多→跌最多；asc: 跌最多→漲最多
 let mobileRadarPage = 1;
 const MOBILE_RADAR_PAGE_SIZE = 5;
-let lastRadarRenderedRows = [];
 
 const RADAR_UI={
   market:{
@@ -1944,10 +2035,7 @@ async function hydrateFavoriteNames(market){
  if(!missing.length){ favoriteNameHydratedMarkets.add(m); return false; }
  favoriteNameHydrating=true;
  try{
-   const dataset=m==='US'?'USStockInfo':'TaiwanStockInfo';
-   const r=await fetch(`${API}?dataset=${dataset}`);
-   const j=await r.json();
-   const rows=Array.isArray(j?.data)?j.data:[];
+   const rows=await fmStockInfo(m);
    const nameMap=new Map(rows.filter(x=>x?.stock_id).map(x=>[String(x.stock_id).toUpperCase(),String(x.stock_name||x.stock_id)]));
    let changed=false;
    for(const key of missing){
@@ -1974,7 +2062,7 @@ let currentSingleFavoriteData=null;
 function renderSingleFavorite(market,symbol){
  const btn=document.getElementById('singleFavorite');
  if(!btn) return;
- if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; currentSingleFavoriteData=null; renderSingleRadarHit(); return; }
+ if(!market || !symbol){ btn.hidden=true; currentSingleFavorite={market:null,symbol:null}; currentSingleFavoriteData=null; return; }
  currentSingleFavorite={market:String(market).toUpperCase(),symbol:String(symbol).toUpperCase()};
  const fav=getFavorites().has(favoriteKey(currentSingleFavorite.market,currentSingleFavorite.symbol));
  btn.hidden=false;
@@ -1982,57 +2070,6 @@ function renderSingleFavorite(market,symbol){
  btn.classList.toggle('is-favorite',fav);
  btn.setAttribute('aria-label',fav?'取消收藏':'收藏股票');
  btn.title=fav?'取消收藏':'收藏股票';
- renderSingleRadarHit();
-}
-// V2.44 — 單股查詢時，若這檔股票也在目前雷達名單中，於標題下方顯示「今日 VCP 入選」，
-// 點一下直接跳到雷達清單中的那一列（手機會自動翻到正確頁碼）。
-function findRadarRowFor(market,symbol){
- const m=String(market||'').toUpperCase(), sym=String(symbol||'').toUpperCase();
- if(!m || !sym) return null;
- return (Array.isArray(radarRows)?radarRows:[]).find(r=>String(r.market||'').toUpperCase()===m && String(r.symbol||'').toUpperCase()===sym) || null;
-}
-function renderSingleRadarHit(){
- const el=document.getElementById('singleRadarHit');
- if(!el) return;
- const cur=(typeof currentSingleFavorite!=='undefined' && currentSingleFavorite) || {};
- const row=findRadarRowFor(cur.market,cur.symbol);
- if(!row){ el.hidden=true; el.innerHTML=''; return; }
- const esc=t=>String(t??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
- const bits=[stageLabel(row), pulseLabel(row)].filter(x=>x && x!=='—');
- el.hidden=false;
- el.innerHTML=`<span class="srh-tag">今日 VCP 入選</span><span class="srh-info">${bits.map(esc).join('｜')}</span><span class="srh-go">在雷達中查看 ›</span>`;
- el.setAttribute('aria-label','這檔股票在今日 VCP 雷達名單中，點選跳到雷達清單');
-}
-function jumpToRadarStock(){
- const cur=(typeof currentSingleFavorite!=='undefined' && currentSingleFavorite) || {};
- const m=String(cur.market||'').toUpperCase(), sym=String(cur.symbol||'').toUpperCase();
- if(!m || !sym) return;
- const idxIn=()=>lastRadarRenderedRows.findIndex(r=>String(r.market||'').toUpperCase()===m && String(r.symbol||'').toUpperCase()===sym);
- // 先用目前的篩選條件找；被篩選條件擋掉的話，清除篩選再找一次。
- renderRadar(radarFilter);
- let idx=idxIn();
- if(idx<0){ clearRadarAllFilters(); idx=idxIn(); }
- const back=document.getElementById('radarBackFloat');
- if(back) back.hidden=true;
- if(idx>=0){
-   mobileRadarPage=Math.floor(idx/MOBILE_RADAR_PAGE_SIZE)+1;
-   renderRadar(radarFilter);
- }
- const nodes=[...document.querySelectorAll('[data-market][data-symbol]')].filter(el=>
-   String(el.dataset.market||'').toUpperCase()===m && String(el.dataset.symbol||'').toUpperCase()===sym &&
-   (el.matches('.mobile-stock-card') || el.matches('tr[data-symbol]')));
- const target=nodes.find(el=>el.offsetParent!==null) || null;
- if(!target){
-   const w=document.querySelector('.radar-table-wrap'), mb=document.getElementById('radarMobile');
-   const tg=(w&&w.offsetParent)?w:mb;
-   if(tg){ try{ tg.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ tg.scrollIntoView(); } }
-   return;
- }
- try{ target.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){ target.scrollIntoView(); }
- target.classList.remove('radar-return-highlight-3s');
- void target.offsetWidth;
- target.classList.add('radar-return-highlight-3s');
- setTimeout(()=>{ if(target && document.documentElement.contains(target)) target.classList.remove('radar-return-highlight-3s'); },3000);
 }
 function toggleFavorite(market,symbol,row=null){
  market=String(market||'').toUpperCase(); symbol=String(symbol||'').toUpperCase();
@@ -2244,9 +2281,8 @@ async function fetchUserLiveQuote(r){
  const end=new Date(), start=new Date(); start.setDate(end.getDate()-12);
  const f=d=>d.toISOString().slice(0,10);
  const url=`${API}?dataset=${dataset}&data_id=${encodeURIComponent(symbol)}&start_date=${f(start)}&end_date=${f(end)}`;
- const res=await fetch(url,{cache:'no-store'});
- const j=await res.json();
- if(!res.ok || !Array.isArray(j.data) || !j.data.length) throw new Error(symbol);
+ const j=await fmFetchJson(url,{ttl:120000,persist:false,retries:0});
+  if(!Array.isArray(j.data) || !j.data.length) throw new Error(symbol);
  const d=normalizeData(j.data,market);
  if(!d.length) throw new Error(symbol);
  const last=d[d.length-1], prev=d.length>=2?d[d.length-2]:null;
@@ -2295,7 +2331,20 @@ async function refreshUserLiveQuotes(){
  if(btn){ btn.disabled=false; btn.textContent='🔄 更新即時行情'; }
 }
 
+/* 大盤環境提示：大盤（台股加權／S&P 500）在 50 日線上或下。回測顯示在線下時突破訊號平均報酬明顯較差。 */
+function updateRegimeBanner(){
+  const box=document.getElementById('regimeBanner'); if(!box) return;
+  const r=radarMarketRegime&&radarMarketRegime[currentMarket];
+  if(!r||typeof r.above!=='boolean'||!Number.isFinite(Number(r.dist_pct))){ box.hidden=true; return; }
+  const d=Number(r.dist_pct), sign=d>0?'+':'', up=r.above;
+  box.hidden=false; box.className='regime-banner '+(up?'is-up':'is-down');
+  box.innerHTML=(up
+    ? `<b>🟢 大盤環境：${escHtml(r.index)}站在 ${r.ma_days} 日線之上（${sign}${d.toFixed(1)}%）</b><span>多頭環境，突破訊號相對較有參考性。</span>`
+    : `<b>🟠 大盤環境：${escHtml(r.index)}跌破 ${r.ma_days} 日線（${sign}${d.toFixed(1)}%）</b><span>回測顯示此時突破訊號的平均表現明顯較差，請保守看待，並自行評估風險。</span>`)
+    +`<em>資料日 ${escHtml(r.as_of||'')}</em>`;
+}
 function renderRadar(filter='all'){
+  try{ updateRegimeBanner(); }catch(e){}
  updateFavoriteCount();
  try{updateKpiStrip(filter);}catch(e){}
  const body=$('radarBody'), mobile=$('radarMobile');
@@ -2353,8 +2402,6 @@ function renderRadar(filter='all'){
    }
    return smartSort(a,b);
  });
- lastRadarRenderedRows=rows;
- try{ renderSingleRadarHit(); }catch(e){}
 
  if(!rows.length){
    body.innerHTML='<tr><td colspan="11" class="muted" style="padding:30px;text-align:center">目前這個分類沒有符合條件的股票。</td></tr>';
@@ -3031,7 +3078,8 @@ async function loadRadar(){
      official:j.official_markets||j.markets||{},
      intraday:j.intraday_markets||{}
    };
-   radarBenchmarkData={
+   radarMarketRegime=j.market_regime||{};
+    radarBenchmarkData={
      official:j.official_benchmarks||{},
      intraday:j.intraday_benchmarks||{}
    };
