@@ -2644,3 +2644,15 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .ma-mini-chip.st-retest{background:#fff6f2;border:1px dashed #e3b8aa;color:#b5604a}
 .ma-mini-chip.st-probe{background:#f2f8f5;border:1px dashed #b7d6c6;color:#4a8670}
 .ma-warn{flex-basis:100%;color:#a0562a!important;font-size:11.5px}
+
+/* 均線雷達：狀態分布 */
+.ma-dist{margin:0 0 10px}
+.ma-dist details{border:1px solid #efe9dc;border-radius:12px;background:#fffaf0}
+.ma-dist summary{padding:8px 12px;cursor:pointer;font-size:12px;font-weight:800;color:#6b5d45}
+.ma-dist-wrap{overflow-x:auto;padding:0 10px}
+.ma-dist table{width:100%;border-collapse:collapse;font-size:12px;text-align:center}
+.ma-dist th,.ma-dist td{padding:5px 6px;border-top:1px solid #f0ece4;white-space:nowrap}
+.ma-dist thead th{border-top:0;color:#8a8478;font-weight:700}
+.ma-dist tbody th{text-align:left;color:#5c4f3a}
+.ma-dist td.hl{font-weight:800;color:#a8412a}
+.ma-dist p{margin:6px 12px 10px;font-size:11.5px;line-height:1.55;color:#8a8478}

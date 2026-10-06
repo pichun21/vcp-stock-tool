@@ -165,6 +165,20 @@
       esc(name) + (l.approx ? '≈' : '') + ' ' + S.txt + Math.abs(l.bias).toFixed(1) + '%</span>';
   }
 
+  /* 各均線的狀態分布（全部 200 檔，不受篩選影響）：用來判斷「突破很少」是正常還是資料有問題 */
+  function renderDist(all, names) {
+    var box = $('maDist'); if (!box) return;
+    var order = ['above', 'break', 'retest', 'fall', 'below', 'probe'];
+    var rows = names.map(function (nm, i) {
+      var cnt = { above: 0, 'break': 0, retest: 0, fall: 0, below: 0, probe: 0 }, n = 0;
+      all.forEach(function (r) { var l = r.lines[i]; if (l) { cnt[l.state]++; n++; } });
+      return '<tr><th>' + esc(nm) + '</th>' + order.map(function (k) { return '<td' + (k === 'break' || k === 'fall' ? ' class="hl"' : '') + '>' + cnt[k] + '</td>'; }).join('') + '<td>' + n + '</td></tr>';
+    }).join('');
+    box.innerHTML = '<details><summary>各均線的狀態分布（共 ' + all.length + ' 檔，不受篩選影響）</summary>' +
+      '<div class="ma-dist-wrap"><table><thead><tr><th></th>' + order.map(function (k) { return '<th>' + STATES[k].txt + '</th>'; }).join('') + '<th>合計</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '<p>每日雷達收的是 VCP 結構完整、趨勢向上的股票，大多數早就在均線上方，所以「突破」（昨天還在均線下、今天才穿上去）本來就不會多。</p></details>';
+  }
+
   function render() {
     var list = $('maList'), summary = $('maSummary'), pager = $('maPager');
     var periods = st.periods[st.type];
@@ -176,6 +190,7 @@
     var names = periods.map(function (n) { return lineName(st.type, n); });
     var shorts = periods.map(function (n) { return shortName(st.type, n); });
     list.className = 'ma-list' + (st.view === 'full' ? '' : ' is-compact');
+    renderDist(all, names);
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     var known = all.filter(function (r) { return r.lines.some(function (l) { return l && l.hlKnown; }); }).length;
     summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔</div>' +
