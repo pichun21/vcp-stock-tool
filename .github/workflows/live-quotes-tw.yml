@@ -23,6 +23,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - name: Checkout latest main
         uses: actions/checkout@v4
@@ -42,12 +43,24 @@ jobs:
       - name: Build lightweight TW quote cache
         run: python tools/live_quotes_tw.py --screening screening.json --output data/live_quotes_tw.json
 
+      # 全市場行情（均線雷達用）：目標清單來自每日收盤掃描產生的 data/ma_closes_TW.json。
+      # 只有該檔已經是「全市場版」（含 "scope":"all"）才會執行；失敗不影響上面的雷達行情檔。
+      - name: Build all-market TW quote cache (for MA radar)
+        continue-on-error: true
+        run: |
+          if [ -f data/ma_closes_TW.json ] && grep -q '"scope":"all"' data/ma_closes_TW.json; then
+            python tools/live_quotes_tw.py --closes data/ma_closes_TW.json --output data/live_quotes_all_tw.json --slim --chunk-size 20
+          else
+            echo "ma_closes_TW.json is not an all-market file yet; skip."
+          fi
+
       - name: Commit live quote cache
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/live_quotes_tw.json
+          if [ -f data/live_quotes_all_tw.json ]; then git add data/live_quotes_all_tw.json; fi
           if git diff --cached --quiet; then
             echo "No quote change."
             exit 0
