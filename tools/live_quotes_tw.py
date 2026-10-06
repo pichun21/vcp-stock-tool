@@ -162,7 +162,22 @@ def parse_row(row):
         return None
 
     pct = (price / prev - 1.0) * 100.0
+
+    # 今日開／高／低（均線雷達用來判斷整根 K 棒在均線上方或穿過均線）。
+    # MIS 在尚未成交時這些欄位是 "-"，_num 會回傳 None，前端會自動退回只用現價判斷。
+    op = _num(row.get("o"))
+    hi = _num(row.get("h"))
+    lo = _num(row.get("l"))
+    extra = {}
+    if op is not None and op > 0:
+        extra["open"] = round(op, 4)
+    if hi is not None and hi > 0:
+        extra["high"] = round(max(hi, price), 4)
+    if lo is not None and lo > 0:
+        extra["low"] = round(min(lo, price), 4)
+
     return {
+        **extra,
         "symbol": sym,
         "name": str(row.get("n") or "").strip(),
         "price": round(price, 4),
