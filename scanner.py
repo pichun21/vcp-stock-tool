@@ -1582,6 +1582,22 @@ def write_ma_closes(market, rows, data_date, stamp):
     except Exception as e:
         print("ma closes write warning:",repr(e))
 
+def write_ma_closes_if_complete(market, latest_date, stamp):
+    """最新一根日線是「已收盤的交易日」時（今天還沒開盤或休市），不需要等 OFFICIAL GUARD 放行，
+    只要幾乎所有股票都有這一天的資料（>=95%），就可以安全輸出均線雷達用的歷史收盤。"""
+    try:
+        recs=[v for k,v in MA_CLOSES.items() if k[0]==market]
+        if len(recs)<300 or not latest_date:
+            return
+        n=sum(1 for v in recs if v.get("last")==latest_date)
+        pct=n/len(recs)*100
+        if pct<95.0:
+            print(f"{market} MA CLOSES: latest bar {latest_date} only on {n}/{len(recs)} symbols ({pct:.1f}%), skip")
+            return
+        write_ma_closes(market,[],latest_date,stamp)
+    except Exception as e:
+        print("ma closes (guard-free) warning:",repr(e))
+
 def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     """Build VCPulse industry heat from broad-market observations.
     This is an activity/attention model, not official buy/sell net flow.
@@ -2203,6 +2219,11 @@ def main():
             continue
 
         current_date=max((r.get("data_date") or "" for r in rows),default="")
+        if market=="TW":
+            _latest=str((scan_stats or {}).get("latest_date") or "")
+            _today=datetime.now(TAIPEI).strftime("%Y-%m-%d")
+            if _latest and _latest<_today:
+                write_ma_closes_if_complete(market,_latest,nowstamp)
         if args.snapshot=="official":
             official=True
         elif args.snapshot=="intraday":

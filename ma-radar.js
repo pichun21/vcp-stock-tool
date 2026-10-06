@@ -31,7 +31,7 @@
   var SORT_LABEL = { above: '現價在均線上的條數（多→少）', chg: '今日漲幅（高→低）', bias1: '離第 1 條線最近' };
 
   var st = loadState();
-  var closes = null, quotes = null, quotesRadar = null, qmap = {}, radarSet = {}, loadError = '', page = 0, timer = null, started = false;
+  var closesHasAv = true, closes = null, quotes = null, quotesRadar = null, qmap = {}, radarSet = {}, loadError = '', page = 0, timer = null, started = false;
   function pageSize() { return st.view === 'full' ? PAGE_FULL : PAGE_COMPACT; }
 
   function loadState() {
@@ -141,7 +141,7 @@
       var item = syms[sym], q = qmap[sym] || null;
       if (!item || !item.c || item.c.length < 30) return;
       if (st.scope === 'radar' && !radarSet[sym]) return;
-      if (st.minAv > 0 && !(Number(item.av) >= st.minAv)) return;
+      if (st.minAv > 0 && closesHasAv && !(Number(item.av) >= st.minAv)) return;
       var lines = periods.map(function (N) { return calc(st.type, N, item, q); });
       var base = lines.find(function (x) { return x; });
       if (!base) return;
@@ -221,8 +221,10 @@
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     var known = all.filter(function (r) { return r.lines.some(function (l) { return l && l.hlKnown; }); }).length;
     var liveN = all.filter(function (r) { return r.live; }).length;
+    var oldFile = !closesHasAv || (closes.scope && closes.scope !== 'all') || (closes.count && closes.count < 500);
     summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔' + (st.scope === 'radar' ? '（僅 VCP 雷達）' : '（全台股）') + '</div>' +
       '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) + '（' + liveN + ' 檔有盤中價）' : '｜無盤中行情，以最近收盤計算') + '</span>' +
+      (oldFile ? '<span class="ma-warn">⚠ 目前的均線資料檔還是舊版（只含 VCP 雷達約 ' + (closes.count || '200') + ' 檔、沒有成交值），請重新跑一次「正式收盤掃描」產生全台股資料檔；在那之前成交值門檻不會套用。</span>' : '') +
       (all.length && known < all.length * 0.5 ? '<span class="ma-warn">⚠ 尚無今日高低價資料，「站上／均線下」暫以現價判斷（標 ≈），「回測／測壓」暫時無法判斷。</span>' : '');
     if (!rows.length) { list.innerHTML = '<div class="ma-empty">目前沒有符合條件的股票。可以放寬條件，或按「清除條件」。</div>'; pager.hidden = true; return; }
     var html = '';
@@ -333,7 +335,10 @@
     var p2 = getJson('data/live_quotes_all_tw.json').catch(function () { return null; });
     var p3 = getJson('data/live_quotes_tw.json').catch(function () { return null; });
     return Promise.all([p1, p2, p3]).then(function (res) {
-      if (res[0] && res[0].symbols) { closes = res[0]; loadError = ''; }
+      if (res[0] && res[0].symbols) {
+        closes = res[0]; loadError = '';
+        closesHasAv = Object.keys(closes.symbols).some(function (k) { return closes.symbols[k] && closes.symbols[k].av != null; });
+      }
       else if (!closes) loadError = '尚無均線資料：需要等下一次「正式收盤掃描」跑完，才會產生 data/ma_closes_TW.json。';
       if (res[1] && res[1].quotes) quotes = res[1];
       if (res[2] && res[2].quotes) quotesRadar = res[2];
