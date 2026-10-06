@@ -81,7 +81,8 @@ def clean_frame(d):
 
 def download(items, years):
     out = {}
-    period = f"{years + 1}y"
+    # 用起始日期而不是 period（yfinance 的 period 只正式支援 1y、2y、5y、10y 等固定值，6y 這類不保證可用）
+    start = (pd.Timestamp.today().normalize() - pd.DateOffset(years=years + 1, months=1)).strftime("%Y-%m-%d")
     size = 100
     for i in range(0, len(items), size):
         b = items[i:i + size]
@@ -90,7 +91,7 @@ def download(items, years):
         raw = None
         for attempt in range(3):
             try:
-                raw = sc.yf.download(tickers=tickers, period=period, interval="1d", group_by="ticker",
+                raw = sc.yf.download(tickers=tickers, start=start, interval="1d", group_by="ticker",
                                      auto_adjust=True, progress=False, threads=True, timeout=60)
                 break
             except Exception as e:
