@@ -206,6 +206,32 @@
       (st.scope === 'radar' ? '<p>目前只看 VCP 雷達那 200 檔，這些是趨勢向上的股票，大多早就在均線上方，所以「突破」本來就不會多。想掃全市場，請把「範圍」改成「全台股」。</p>' : '<p>範圍是全台股（依你設定的成交值門檻過濾）。</p>') + '</details>';
   }
 
+  /* ---------- 資料健康檢查：盤中時一眼確認資料是否正常 ---------- */
+  function taipeiNow() {
+    var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Taipei', hour12: false, weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).formatToParts(new Date()), o = {};
+    p.forEach(function (x) { o[x.type] = x.value; });
+    return { wd: o.weekday, date: o.year + '-' + o.month + '-' + o.day, min: (+o.hour % 24) * 60 + (+o.minute) };
+  }
+  function healthHtml(all, known, liveN) {
+    var n = taipeiNow(), total = all.length || 1;
+    var inSession = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].indexOf(n.wd) >= 0 && n.min >= 540 && n.min <= 815;
+    var gen = quotes && quotes.generated_at || '', delay = null, qDate = '';
+    var m = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}):(\d{2})/.exec(gen);
+    if (m) { qDate = m[1]; if (m[1] === n.date) delay = n.min - (+m[2] * 60 + +m[3]); }
+    var livePct = liveN / total * 100, hlPct = known / total * 100;
+    var items = [], bad = false;
+    function add(ok, txt) { items.push((ok ? '✅ ' : '⚠️ ') + txt); if (!ok) bad = true; }
+    if (!quotes) { items.push('⚠️ 沒有盤中行情檔，目前以最近收盤計算'); bad = inSession; }
+    else if (inSession) {
+      add(delay !== null && delay <= 25, delay === null ? '行情是舊的（' + esc(gen || '無時間') + '，不是今天）' : '行情約 ' + Math.max(delay, 0) + ' 分鐘前更新（正常 ≤ 25 分）');
+      add(livePct >= 85, '有盤中價 ' + liveN + '/' + all.length + '（' + livePct.toFixed(0) + '%，正常 ≥ 85%）');
+      add(hlPct >= 80, '有今日高低價 ' + known + '/' + all.length + '（' + hlPct.toFixed(0) + '%，正常 ≥ 80%）');
+    } else {
+      items.push('ℹ️ 非盤中時段（週一至週五 09:00–13:35 才會更新）；目前行情時間 ' + esc(gen || '—') + '，以最近一次資料計算');
+    }
+    return '<div class="ma-health' + (bad ? ' is-bad' : '') + '"><b>資料健康檢查</b>' + items.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div>';
+  }
+
   function render() {
     var list = $('maList'), summary = $('maSummary'), pager = $('maPager');
     var periods = st.periods[st.type];
@@ -221,6 +247,7 @@
     var asOf = closes.data_date || '', qTime = quotes && (quotes.latest_quote_time || quotes.generated_at) || '';
     var known = all.filter(function (r) { return r.lines.some(function (l) { return l && l.hlKnown; }); }).length;
     var liveN = all.filter(function (r) { return r.live; }).length;
+    var hb = $('maHealth'); if (hb) hb.innerHTML = healthHtml(all, known, liveN);
     var oldFile = !closesHasAv || (closes.scope && closes.scope !== 'all') || (closes.count && closes.count < 500);
     summary.innerHTML = '<div>符合 <b>' + rows.length + '</b> / ' + all.length + ' 檔' + (st.scope === 'radar' ? '（僅 VCP 雷達）' : '（全台股）') + '</div>' +
       '<span>均線資料日 ' + esc(asOf) + (qTime ? '｜行情 ' + esc(qTime) + '（' + liveN + ' 檔有盤中價）' : '｜無盤中行情，以最近收盤計算') + '</span>' +
