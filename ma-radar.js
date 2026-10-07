@@ -77,14 +77,27 @@
     return { hi: Math.max(hi, price), lo: Math.min(lo, price), known: true };
   }
 
+  /* 上一個「平日」（不含國定假日判斷）；均線檔的資料日若比它還舊，代表缺了至少一根收盤 */
+  function prevWeekday(ds) {
+    var t = new Date(ds + 'T00:00:00Z'); if (isNaN(t)) return '';
+    do { t = new Date(t.getTime() - 86400000); } while (t.getUTCDay() === 0 || t.getUTCDay() === 6);
+    return t.toISOString().slice(0, 10);
+  }
+  function gapMissing(q) {
+    var qd = q && q.data_date, cd = closes && closes.data_date;
+    if (!qd || !cd) return false;
+    return cd < prevWeekday(qd);
+  }
+
   /* 回傳 null 代表資料不足。closes 陣列的最後一筆可能已包含「今天」，用昨收對齊後再算。 */
   function calc(type, N, item, q) {
-    var c = item.c, L = c.length, price, prev, prevCloses, stale = false;
+    var c = item.c, L = c.length, price, prev, prevCloses, stale = false, filled = false;
     if (q && isFinite(q.price) && isFinite(q.prev_close) && q.prev_close > 0) {
       price = Number(q.price); prev = Number(q.prev_close);
       var near = function (a, b) { return Math.abs(a - b) / b < 0.0005; };
       if (near(c[L - 1], prev)) prevCloses = c;
       else if (L >= 2 && near(c[L - 2], prev)) prevCloses = c.slice(0, L - 1);
+      else if (gapMissing(q)) { prevCloses = c.concat([prev]); filled = true; }   // 均線檔缺了昨天的收盤：用行情的昨收補一根
       else { prevCloses = c; stale = true; }
     } else {
       if (L < 3) return null;
@@ -110,7 +123,7 @@
     return {
       ma: nowMa, bias: (price / nowMa - 1) * 100, state: state, up: STATES[state].up,
       cross: state === 'break' || state === 'fall', hlKnown: hl.known,
-      approx: type === 'EMA' && P < 3 * N, stale: stale, price: price, prev: prev
+      approx: type === 'EMA' && P < 3 * N, stale: stale, filled: filled, price: price, prev: prev
     };
   }
 
@@ -221,6 +234,11 @@
     var livePct = liveN / total * 100, hlPct = known / total * 100;
     var items = [], bad = false;
     function add(ok, txt) { items.push((ok ? '✅ ' : '⚠️ ') + txt); if (!ok) bad = true; }
+    var cd = closes && closes.data_date || '', qd2 = quotes && quotes.data_dates && quotes.data_dates.length ? quotes.data_dates[quotes.data_dates.length - 1] : (m ? m[1] : '');
+    if (cd && qd2) {
+      var need = prevWeekday(qd2), okc = cd >= need;
+      if (!okc || inSession) add(okc, okc ? '均線資料日 ' + esc(cd) + '（已含上一個交易日收盤）' : '均線資料日 ' + esc(cd) + ' 比應有的 ' + esc(need) + ' 舊，缺收盤資料（已暫用昨收補一根；請到 Actions 檢查「正式收盤掃描」）');
+    }
     if (!quotes) { items.push('⚠️ 沒有盤中行情檔，目前以最近收盤計算'); bad = inSession; }
     else if (inSession) {
       add(delay !== null && delay <= 25, delay === null ? '行情是舊的（' + esc(gen || '無時間') + '，不是今天）' : '行情約 ' + Math.max(delay, 0) + ' 分鐘前更新（正常 ≤ 25 分）');
