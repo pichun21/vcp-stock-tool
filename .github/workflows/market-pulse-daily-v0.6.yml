@@ -3,7 +3,7 @@ name: Market Pulse Daily (Beta)
 on:
   workflow_dispatch:
   schedule:
-    - cron: "10 7 * * 1-5"
+    - cron: "16 7 * * 1-5"
       timezone: "Asia/Taipei"
 
 permissions:
