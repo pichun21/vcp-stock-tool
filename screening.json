@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13 19:16",
+  "generated_at": "2026-10-13 20:36",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-10-13",
       "count": 200,
-      "scanned_at": "2026-10-13 17:21",
+      "scanned_at": "2026-10-13 20:36",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -162,11 +162,11 @@
       "index": "加權指數",
       "ticker": "^TWII",
       "ma_days": 50,
-      "close": 49301.96,
-      "ma": 46273.81,
-      "dist_pct": 6.54,
+      "close": 48341.31,
+      "ma": 46441.97,
+      "dist_pct": 4.09,
       "above": true,
-      "as_of": "2026-10-12"
+      "as_of": "2026-10-13"
     },
     "US": {
       "index": "S&P 500",
@@ -810,7 +810,7 @@
         "heat_level": "hot",
         "heat_label": "🔥 強力升溫",
         "market_share_pct": 2.2,
-        "value_ratio": 3.58,
+        "value_ratio": 3.6,
         "breadth_pct": 73.5,
         "avg_change_pct": 1.98,
         "vcp_count": 12,
@@ -227822,7 +227822,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9109,
+      "atr20_to_60": 0.9118,
       "contractions": [
         21.2953,
         11.1111,
@@ -227867,7 +227867,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-08",
       "breakout_return_pct": 4.37,
-      "breakout_high_pct": 6.09,
+      "breakout_high_pct": 6.21,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -231651,7 +231651,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0284,
+      "atr20_to_60": 1.0242,
       "contractions": [
         3.0019,
         3.4221,
@@ -238313,7 +238313,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-13",
-      "avg_value_20d": 50017498352.0,
+      "avg_value_20d": 50763626852.0,
       "industry": "電子工業",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -238591,7 +238591,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-13",
-      "avg_value_20d": 1618575680.0,
+      "avg_value_20d": 1627967630.0,
       "industry": "航運業",
       "split_adjusted": false,
       "rs_rating": 77,
