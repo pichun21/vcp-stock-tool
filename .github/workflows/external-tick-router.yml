@@ -1,0 +1,127 @@
+name: External Tick Router
+
+# 由外部定時服務（cron-job.org）每 5 分鐘呼叫一次。
+# 本身不做選股，只看「這一輪是幾點幾分」，決定要啟動哪些 workflow。
+# 這樣就不必依賴 GitHub 自己的 schedule（負載高時常延遲數小時或直接略過）。
+#
+# 時間判斷用的是「這次執行被建立的時間」，不是開始跑的時間；
+# 就算 runner 排隊晚了幾分鐘，也不會判斷錯時段。
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "只顯示這一輪會啟動什麼，不真的啟動"
+        required: false
+        default: false
+        type: boolean
+      at_taipei:
+        description: "測試用：假裝現在是台北時間（格式 2026-10-14 09:10），留空＝用實際時間"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: external-tick-router
+  cancel-in-progress: false
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Decide and dispatch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          AT_TAIPEI: ${{ inputs.at_taipei }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, sys
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+
+          TPE = ZoneInfo("Asia/Taipei")
+          NY = ZoneInfo("America/New_York")
+
+          # 1) 取得這一輪的時間：測試用覆寫 > 這次 run 的建立時間
+          at = (os.environ.get("AT_TAIPEI") or "").strip()
+          if at:
+              now = datetime.strptime(at, "%Y-%m-%d %H:%M").replace(tzinfo=TPE)
+          else:
+              raw = subprocess.check_output(
+                  ["gh", "api", f"repos/{os.environ['GH_REPO']}/actions/runs/{os.environ['RUN_ID']}",
+                   "--jq", ".created_at"], text=True).strip()
+              now = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+
+          # 2) 對齊到最近的 5 分鐘格（cron-job.org 每 5 分鐘呼叫一次）
+          epoch = int(now.timestamp())
+          slot = datetime.fromtimestamp(round(epoch / 300) * 300, tz=TPE)
+          t = slot.astimezone(TPE)
+          n = slot.astimezone(NY)
+          hm = t.strftime("%H:%M")
+          tw_weekday = t.weekday() < 5            # 台北 週一～週五
+          tw_tue_sat = 1 <= t.weekday() <= 5      # 台北 週二～週六
+          ny_weekday = n.weekday() < 5            # 美東 週一～週五
+          print(f"建立時間 {now.isoformat()} → 對齊台北 {t:%a %Y-%m-%d %H:%M}／美東 {n:%a %H:%M}")
+
+          tasks = []  # (workflow 檔名, inputs dict, 說明)
+
+          if tw_weekday:
+              # 盤前
+              if hm == "07:00":
+                  tasks.append(("news-impact-tw-v1.yml", {"mode": "full"}, "新聞盤前完整整理"))
+              if hm == "07:15":
+                  tasks.append(("market-pulse-daily-v0.6.yml", {}, "Market Pulse"))
+              # 台股盤中 VCP 重掃
+              if hm in ("09:10", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00"):
+                  tasks.append(("vcp-screen.yml", {"run_type": "intraday_TW"}, "台股盤中 VCP 重掃"))
+              # 台股即時行情：09:05～13:35 每 10 分鐘（:05 :15 :25 …）
+              mins = t.hour * 60 + t.minute
+              if 9 * 60 + 5 <= mins <= 13 * 60 + 35 and t.minute % 10 == 5:
+                  tasks.append(("live-quotes-tw.yml", {}, "台股即時行情"))
+              # 新聞盤中
+              if hm in ("09:25", "11:25", "13:25"):
+                  tasks.append(("news-impact-tw-v1.yml", {"mode": "intraday"}, "新聞盤中更新"))
+              # 收盤後
+              if hm == "18:10":
+                  tasks.append(("vcp-screen.yml", {"run_type": "official_TW"}, "台股正式收盤"))
+              if hm == "18:30":
+                  tasks.append(("news-impact-tw-v1.yml", {"mode": "full"}, "新聞收盤完整整理"))
+              if hm == "19:15":
+                  tasks.append(("vcp-screen.yml", {"run_type": "benchmark_TW"}, "台股大盤補更新"))
+
+          # 美股正式收盤：台北 週二～週六 07:10
+          if tw_tue_sat and hm == "07:10":
+              tasks.append(("vcp-screen.yml", {"run_type": "official_US"}, "美股正式收盤"))
+
+          # 美股盤中：美東 週一～週五 09:30～15:30 每小時（夏令／冬令自動切換）
+          if ny_weekday and n.minute == 30 and 9 <= n.hour <= 15:
+              tasks.append(("vcp-screen.yml", {"run_type": "intraday_US"}, "美股盤中 VCP 重掃"))
+
+          if not tasks:
+              print("這一輪沒有排定的工作。")
+              sys.exit(0)
+
+          dry = (os.environ.get("DRY_RUN") or "").lower() == "true"
+          failed = 0
+          for wf, inputs, label in tasks:
+              cmd = ["gh", "workflow", "run", wf, "--ref", "main"]
+              for k, v in inputs.items():
+                  cmd += ["-f", f"{k}={v}"]
+              print(f"→ {label}：{' '.join(cmd)}" + ("（dry run，不執行）" if dry else ""))
+              if dry:
+                  continue
+              r = subprocess.run(cmd, text=True, capture_output=True)
+              if r.returncode != 0:
+                  failed += 1
+                  print(f"   啟動失敗：{r.stderr.strip()}")
+          sys.exit(1 if failed else 0)
+          PY
