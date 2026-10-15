@@ -2,13 +2,13 @@
   "version": "market-pulse-v0.6.3-beta",
   "status": "ok",
   "experimental": true,
-  "generated_at": "2026-10-15T07:15:55.445281+08:00",
+  "generated_at": "2026-10-15T09:29:06.621845+08:00",
   "target_date": "2026-10-15",
   "data_cutoff": "07:00 Asia/Taipei",
-  "score": 12.4,
+  "score": 11.9,
   "state": "偏空",
   "emoji": "🔴",
-  "predicted_tw_close_ret": -1.724,
+  "predicted_tw_close_ret": -1.763,
   "consistency": "高",
   "reason": "台指夜盤偏空、費半偏空、台股相對科技股偏多",
   "signals": {
@@ -42,9 +42,9 @@
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "brent": {
-      "value": 0.16084602613153365,
+      "value": -1.125936620226664,
       "date": "2026-10-14",
-      "close": 105.86000061035156,
+      "close": 104.5,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
@@ -58,14 +58,14 @@
   },
   "derived": {
     "tx_tech_divergence": 1.3378,
-    "oil_yield_shock": 0.0
+    "oil_yield_shock": 0
   },
   "contributions": {
     "tx_night": -1.3223,
     "nasdaq": -0.1804,
     "sox": -0.4722,
     "us10y": 0.0021,
-    "brent": 0.003,
+    "brent": -0.0364,
     "usdtwd": -0.0528,
     "tx_tech_divergence": 0.1963,
     "oil_yield_shock": 0.0124
