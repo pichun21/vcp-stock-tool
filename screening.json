@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16 22:34",
+  "generated_at": "2026-10-16 22:54",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-10-16",
       "count": 173,
-      "scanned_at": "2026-10-16 18:13",
+      "scanned_at": "2026-10-16 22:54",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-10-16",
       "count": 173,
-      "scanned_at": "2026-10-16 18:13",
+      "scanned_at": "2026-10-16 22:54",
       "snapshot_type": "official"
     }
   },
@@ -172,9 +172,9 @@
       "index": "S&P 500",
       "ticker": "^GSPC",
       "ma_days": 50,
-      "close": 7740.25,
-      "ma": 7708.03,
-      "dist_pct": 0.42,
+      "close": 7737.71,
+      "ma": 7707.98,
+      "dist_pct": 0.39,
       "above": true,
       "as_of": "2026-10-16"
     }
@@ -21623,6 +21623,13 @@
           6,
           7
         ]
+      },
+      "8908": {
+        "price": 40.2,
+        "prev_close": 39.6,
+        "data_date": "2026-10-16",
+        "name": "欣雄",
+        "source": "VCPulse scanner"
       },
       "8916": {
         "price": 40.2,
