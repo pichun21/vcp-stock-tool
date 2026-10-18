@@ -279,11 +279,11 @@
     rows.slice(page * size, (page + 1) * size).forEach(function (r) {
       var dir = r.chg > 0 ? 'up' : (r.chg < 0 ? 'down' : 'flat');
       if (st.view === 'full') {
-        html += '<div class="ma-row"><div class="ma-id"><b>' + esc(r.name || r.sym) + '</b><span>' + esc(r.sym) + '</span></div>' +
+        html += '<div class="ma-row' + (r.sym === lastSym ? ' ma-last' : '') + '" data-ma-sym="' + esc(r.sym) + '"><div class="ma-id"><button type="button" class="ma-open" data-ma-open="' + esc(r.sym) + '">' + esc(r.name || r.sym) + '</button>' + (r.sym === lastSym ? '<em class="ma-last-tag">剛剛看過</em>' : '') + '<span>' + esc(r.sym) + '</span></div>' +
           '<div class="ma-px"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></div>' +
           '<div class="ma-lines">' + r.lines.map(function (l, i) { return chipHtml(l, names[i]); }).join('') + '</div></div>';
       } else {
-        html += '<div class="ma-crow"><div class="ma-ctop"><span class="ma-cname"><b>' + esc(r.name || r.sym) + '</b><i>' + esc(r.sym) + '</i></span>' +
+        html += '<div class="ma-crow' + (r.sym === lastSym ? ' ma-last' : '') + '" data-ma-sym="' + esc(r.sym) + '"><div class="ma-ctop"><span class="ma-cname"><button type="button" class="ma-open" data-ma-open="' + esc(r.sym) + '">' + esc(r.name || r.sym) + '</button>' + (r.sym === lastSym ? '<em class="ma-last-tag">剛剛看過</em>' : '') + '<i>' + esc(r.sym) + '</i></span>' +
           '<span class="ma-cpx"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></span></div>' +
           '<div class="ma-cchips">' + r.lines.map(function (l, i) { return miniHtml(l, shorts[i]); }).join('') + '</div></div>';
       }
@@ -364,6 +364,47 @@
     var y = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - off;
     window.scrollTo(0, Math.max(0, y));
   }
+  /* ---------- 點股票名稱 → 單股查詢；返回時回到原本頁碼並標示剛剛那一檔 ---------- */
+  var lastSym = '', returnState = null;
+  var listEl = $('maList');
+  if (listEl) listEl.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-ma-open]');
+    if (b) openStock(b.getAttribute('data-ma-open'));
+  });
+  function openStock(sym) {
+    if (!sym || typeof run !== 'function') return;
+    lastSym = sym;
+    returnState = { sym: sym, page: page, scrollY: window.pageYOffset || document.documentElement.scrollTop || 0 };
+    render();
+    var back = $('radarBackFloat');
+    if (back) { back.hidden = false; back.textContent = '← 返回均線雷達'; back.setAttribute('onclick', 'VCPMaRadar.back()'); }
+    try { if (String(currentMarket || '').toUpperCase() !== 'TW') setMarket('TW', { reset: false }); } catch (err) { /* 忽略 */ }
+    var input = $('symbol'); if (!input) return;
+    input.value = sym;
+    var sec = input.closest('.section') || input;
+    try { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (err) { sec.scrollIntoView(); }
+    run();
+  }
+  function goBack() {
+    var back = $('radarBackFloat'); if (back) back.hidden = true;
+    if (!returnState) return;
+    var saved = returnState;
+    // 資料每 2 分鐘會更新，排序可能變動：優先找出這檔目前所在的頁
+    var rows = sortRows(buildRows().filter(passes)), size = pageSize();
+    var idx = rows.findIndex(function (r) { return r.sym === saved.sym; });
+    page = idx >= 0 ? Math.floor(idx / size) : saved.page;
+    render();
+    var target = listEl && listEl.querySelector('[data-ma-sym="' + saved.sym.replace(/"/g, '') + '"]');
+    if (target) {
+      try { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (err) { target.scrollIntoView(); }
+      target.classList.remove('radar-return-highlight-3s'); void target.offsetWidth;
+      target.classList.add('radar-return-highlight-3s');
+      setTimeout(function () { target.classList.remove('radar-return-highlight-3s'); }, 3000);
+    } else {
+      try { window.scrollTo({ top: saved.scrollY, behavior: 'smooth' }); } catch (err) { window.scrollTo(0, saved.scrollY); }
+    }
+  }
+
   var prevBtn = $('maPrev'), nextBtn = $('maNext'), topBtn = $('maToTop');
   if (prevBtn) prevBtn.addEventListener('click', function () { page -= 1; render(); scrollToEl('maSummary'); });
   if (nextBtn) nextBtn.addEventListener('click', function () { page += 1; render(); scrollToEl('maSummary'); });
@@ -410,6 +451,6 @@
     document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-guide="ma"]')) begin(); });
   }
 
-  window.VCPMaRadar = { calc: calc, lineName: lineName };   // 供測試使用
+  window.VCPMaRadar = { calc: calc, lineName: lineName, back: goBack };   // 供測試使用
   start();
 })();
