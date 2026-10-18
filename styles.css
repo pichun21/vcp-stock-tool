@@ -2684,7 +2684,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 .ma-top{display:flex;align-items:center;gap:8px;min-height:36px}
 .ma-who{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 7px;min-width:0;flex:1 1 auto}
-.ma-open{min-width:0;width:auto;flex:0 1 auto;appearance:none;border:0;background:none;padding:0;margin:0;font:inherit;font-size:15.5px;font-weight:800;color:var(--ma-ink);cursor:pointer;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ma-open{min-width:0;width:auto;height:auto;min-height:0;flex:0 1 auto;appearance:none;border:0;background:none;padding:2px 0;margin:0;font:inherit;font-size:15.5px;font-weight:800;line-height:1.4;color:var(--ma-ink);cursor:pointer;text-align:left;text-decoration:none;max-width:100%;overflow:visible;white-space:normal;word-break:break-all}
 .ma-open:hover{color:#B5651D}
 .ma-code{font-size:12px;color:var(--ma-sub);white-space:nowrap}
 .ma-last-tag{display:inline-block;padding:1px 8px;border-radius:6px;background:var(--ma-seen-bg);color:var(--ma-seen-ink);font-size:11px;font-weight:700;line-height:1.6;white-space:nowrap;align-self:center}

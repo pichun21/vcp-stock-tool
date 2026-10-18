@@ -3216,12 +3216,10 @@ const mobilePrevPage=document.getElementById('mobilePrevPage');
 const mobileNextPage=document.getElementById('mobileNextPage');
 
 function goMobileRadarPage(delta){
- const marketRows=radarRows.filter(r=>{
-   if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
-   return radarRowPass(r,radarFilter) && (!radarNumActive() || radarNumPass(effectiveRadarRow(r)));
-  });
- const totalPages=Math.max(1,Math.ceil(marketRows.length/MOBILE_RADAR_PAGE_SIZE));
- mobileRadarPage=Math.max(1,Math.min(totalPages,mobileRadarPage+delta));
+ // 修正：原本只用 VCP 雷達名單算總頁數，「我的收藏」裡不在雷達名單的股票（單股、均線收藏）
+ // 沒被算進去，頁數偏少，到某一頁之後按「下一頁」就沒反應。
+ // 改成直接加減頁碼，由 renderRadar 用實際要顯示的清單筆數校正上下限。
+ mobileRadarPage=Math.max(1,mobileRadarPage+delta);
  renderRadar(radarFilter);
 
  const mobile=document.getElementById('radarMobile');
