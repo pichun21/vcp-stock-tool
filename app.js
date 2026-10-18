@@ -2012,7 +2012,10 @@ function favoriteFallbackRow(key,meta={}){
 function rememberFavoriteMeta(row){
  if(!row || !row.market || !row.symbol) return;
  const key=favoriteKey(row.market,row.symbol), meta=getFavoriteMeta();
+ const prevSrc=meta[key]?._fav_src;
  meta[key]={...favoriteFallbackRow(key,row),...row,market:String(row.market).toUpperCase(),symbol:String(row.symbol).toUpperCase(),_favorite_only:!!row._favorite_only};
+ // 收藏來源（vcp／ma／single）：只是多一個欄位，舊收藏沒有此欄位時不顯示標籤
+ const src=row._fav_src||prevSrc; if(src) meta[key]._fav_src=src; else delete meta[key]._fav_src;
  saveFavoriteMeta(meta);
 }
 
@@ -2056,6 +2059,12 @@ async function hydrateFavoriteNames(market){
  }
 }
 function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
+const FAV_SRC_LABEL={vcp:'VCP',ma:'均線',single:'單股'};
+function favSrcBadge(r){
+ if(!radarKeys(radarFilter).includes('favorites')) return '';
+ const src=getFavoriteMeta()[favoriteKey(r.market,r.symbol)]?._fav_src;
+ return FAV_SRC_LABEL[src]?`<span class="fav-src-badge fav-src-${src}" title="從${FAV_SRC_LABEL[src]==='VCP'?'VCP 雷達':FAV_SRC_LABEL[src]==='均線'?'均線雷達':'單股分析'}收藏">${FAV_SRC_LABEL[src]}</span>`:'';
+}
 function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
 let currentSingleFavorite={market:null,symbol:null};
 let currentSingleFavoriteData=null;
@@ -2079,7 +2088,9 @@ function toggleFavorite(market,symbol,row=null){
  }else{
    set.add(key);
    const source=row || findAnyRadarMatch(market,symbol) || favoriteFallbackRow(key);
-   rememberFavoriteMeta({...source,market,symbol,_favorite_only:!findAnyRadarMatch(market,symbol)});
+   // 來源：均線雷達會帶 _fav_src:'ma'；單股分析會傳入 row；VCP 雷達清單不傳 row
+   const favSrc=(row&&row._fav_src)||(row?'single':'vcp');
+   rememberFavoriteMeta({...source,market,symbol,_favorite_only:!findAnyRadarMatch(market,symbol),_fav_src:favSrc});
  }
  saveFavorites(set);
  renderRadar(radarFilter);
@@ -2421,7 +2432,7 @@ function renderRadar(filter='all'){
    <td>
      <div class="stock-name-line">
        <button type="button" class="favorite-btn ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}" title="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★':'☆'}</button>
-       <div><button type="button" class="stock-link radar-open-analysis" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>
+       <div><button type="button" class="stock-link radar-open-analysis" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${favSrcBadge(r)}
        <div class="muted">${esc(r.symbol)}</div></div>
      </div>
    </td>
@@ -2575,7 +2586,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
      return `<div class="mobile-stock-card${ttChip(r)?' has-tt':''}" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${favSrcBadge(r)}${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
            <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>
          </div>
          <div class="mobile-top-actions">

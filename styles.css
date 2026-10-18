@@ -2661,8 +2661,79 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .ma-health b{font-weight:800}
 .ma-health.is-bad{border-color:#f0c9a0;background:#fff4e6;color:#8a4b12}
 
-/* 均線雷達：股票名稱可點 → 單股查詢；返回後標示剛剛看過的那一檔 */
-.ma-open{appearance:none;border:0;background:none;padding:0;margin:0;font:inherit;font-weight:800;color:inherit;cursor:pointer;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-.ma-open:hover{color:#b5651d}
-.ma-last{box-shadow:inset 3px 0 0 #d28963;background:#fdf6f1}
-.ma-last-tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#d28963;color:#fff;font-style:normal;font-size:11px;font-weight:800;vertical-align:middle;white-space:nowrap}
+/* ===== 均線雷達：股票卡片 UI V1.0（只改外觀；訊號判斷與數值不變） ===== */
+.ma-radar{
+ --ma-page:#FCF9F3;--ma-card:#FFFFFF;--ma-ink:#2F2F2F;--ma-sub:#8B8275;--ma-line:#E6DCCB;
+ --ma-above-bg:#F7E0DA;--ma-above-ink:#A54435;--ma-above-bar:#D98979;
+ --ma-strong-bg:#F2CFC4;--ma-strong-ink:#9E3425;--ma-strong-bar:#C45F4A;
+ --ma-break-bg:#F3C75B;--ma-break-ink:#473515;
+ --ma-retest-bg:#E6F0EB;--ma-retest-ink:#356D5E;--ma-retest-bar:#8FAEA2;
+ --ma-neutral:#B5B5B5;--ma-cool-bg:#EEF1F0;--ma-cool-ink:#5E6B67;
+ --ma-seen-bg:#E9E4DA;--ma-seen-ink:#645D52;
+ --ma-fav-off:#9C927F;--ma-fav-on:#C77B59;
+ --ma-up:#C0392B;--ma-down:#2F8F5B;
+}
+.ma-list,.ma-list.is-compact{display:grid;gap:8px}
+.ma-card{position:relative;background:var(--ma-card);border:1px solid var(--ma-line);border-radius:14px;padding:10px 6px 10px 15px;box-shadow:0 1px 3px rgba(80,64,40,.05);overflow:hidden;transition:box-shadow .15s ease,border-color .15s ease}
+.ma-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ma-neutral)}
+.ma-card.ed-above::before{background:var(--ma-strong-bar)}
+.ma-card.ed-break::before{background:var(--ma-break-bg)}
+.ma-card.ed-retest::before{background:var(--ma-retest-bar)}
+.ma-card.ed-other::before,.ma-card.ed-na::before{background:var(--ma-neutral)}
+@media (hover:hover){.ma-card:hover{border-color:#D9CBB3;box-shadow:0 3px 10px rgba(80,64,40,.08)}}
+
+.ma-top{display:flex;align-items:center;gap:8px;min-height:36px}
+.ma-who{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 7px;min-width:0;flex:1 1 auto}
+.ma-open{min-width:0;width:auto;flex:0 1 auto;appearance:none;border:0;background:none;padding:0;margin:0;font:inherit;font-size:15.5px;font-weight:800;color:var(--ma-ink);cursor:pointer;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ma-open:hover{color:#B5651D}
+.ma-code{font-size:12px;color:var(--ma-sub);white-space:nowrap}
+.ma-last-tag{display:inline-block;padding:1px 8px;border-radius:6px;background:var(--ma-seen-bg);color:var(--ma-seen-ink);font-size:11px;font-weight:700;line-height:1.6;white-space:nowrap;align-self:center}
+.ma-quote{display:flex;align-items:baseline;gap:6px;white-space:nowrap;flex:0 0 auto}
+.ma-quote b{font-size:15.5px;font-weight:800;color:var(--ma-ink);font-variant-numeric:tabular-nums}
+.ma-quote .chg{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.ma-quote .chg.up{color:var(--ma-up)}.ma-quote .chg.down{color:var(--ma-down)}.ma-quote .chg.flat{color:var(--ma-sub)}
+.ma-fav{flex:0 0 44px;min-width:0;max-width:44px;width:44px;height:44px;margin:-6px 0 -6px -4px;display:grid;place-items:center;border:0;border-radius:12px;background:transparent;color:var(--ma-fav-off);font-size:20px;line-height:1;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+.ma-fav.is-on{color:var(--ma-fav-on)}
+.ma-fav:focus-visible{outline:2px solid var(--ma-fav-on);outline-offset:-4px}
+.ma-fav.pop{animation:maFavPop .28s ease}
+@keyframes maFavPop{40%{transform:scale(1.28)}100%{transform:scale(1)}}
+
+.ma-tags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px;padding-right:9px}
+.ma-tag{position:relative;display:flex;align-items:baseline;flex-wrap:wrap;gap:0 6px;min-width:0;padding:6px 8px 9px;border-radius:9px;background:var(--ma-cool-bg);color:var(--ma-cool-ink);line-height:1.25;overflow:hidden}
+.ma-tl{font-size:11.5px;font-weight:600;opacity:.75;white-space:nowrap}
+.ma-ts{font-size:12px;font-weight:700;white-space:nowrap}
+.ma-tv{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;margin-left:auto}
+.ma-tm{flex-basis:100%;font-style:normal;font-size:10.5px;opacity:.75;margin-top:2px}
+.ma-bar{position:absolute;left:8px;right:8px;bottom:4px;height:3px;border-radius:3px;background:rgba(0,0,0,.06);overflow:hidden}
+.ma-bar>i{display:block;height:100%;border-radius:3px;background:var(--ma-above-bar)}
+.ma-tag.tn-above{background:var(--ma-above-bg);color:var(--ma-above-ink)}
+.ma-tag.tn-strong{background:var(--ma-strong-bg);color:var(--ma-strong-ink)}
+.ma-tag.tn-strong .ma-bar>i{background:var(--ma-strong-bar)}
+.ma-tag.tn-break{background:var(--ma-break-bg);color:var(--ma-break-ink)}
+.ma-tag.tn-break .ma-tl{opacity:1;font-weight:800}
+.ma-tag.tn-retest{background:var(--ma-retest-bg);color:var(--ma-retest-ink)}
+.ma-tag.tn-retest .ma-bar>i{background:var(--ma-retest-bar)}
+.ma-tag.tn-below{background:var(--ma-cool-bg);color:var(--ma-cool-ink)}
+.ma-tag.tn-fall{background:var(--ma-cool-bg);color:var(--ma-cool-ink);box-shadow:inset 0 0 0 1px #9FAFA9}
+.ma-tag.tn-probe{box-shadow:none;outline:1px dashed #B9C4C0;outline-offset:-1px}
+.ma-tag.tn-na{background:#F4F1EA;color:#9A9285}
+
+/* 返回清單時的 3 秒提示：改為暖灰，不用黃色 */
+.ma-card.radar-return-highlight-3s{animation:maSeenGlow 3s ease-out!important}
+@keyframes maSeenGlow{0%,60%{box-shadow:0 0 0 3px rgba(139,130,117,.28),0 4px 14px rgba(80,64,40,.10)}100%{box-shadow:0 1px 3px rgba(80,64,40,.05)}}
+
+@media (max-width:420px){
+ .ma-card{padding:9px 4px 9px 12px}
+ .ma-open,.ma-quote b{font-size:14.5px}
+ .ma-quote .chg{font-size:11.5px}
+ .ma-tags{gap:4px;padding-right:6px}
+ .ma-tag{padding:5px 6px 8px;gap:0 4px}
+ .ma-tl{font-size:10.5px}.ma-ts{font-size:11px}.ma-tv{font-size:12.5px}
+ .ma-bar{left:6px;right:6px}
+}
+@media (max-width:360px){
+ .ma-tv{flex-basis:100%;margin-left:0;font-size:13px}
+}
+
+/* 收藏清單：收藏來源小標籤（暖灰，不用黃色） */
+.fav-src-badge{display:inline-block;margin-left:6px;padding:0 6px;border-radius:5px;background:#E9E4DA;color:#645D52;font-size:10.5px;font-weight:700;line-height:1.7;vertical-align:middle;white-space:nowrap}

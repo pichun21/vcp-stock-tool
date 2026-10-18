@@ -189,21 +189,55 @@
   /* ---------- 畫面 ---------- */
   function fmtPct(v) { return (v > 0 ? '+' : '') + v.toFixed(1) + '%'; }
   function fmtPrice(v) { return v >= 1000 ? v.toFixed(0) : v.toFixed(2); }
-  function chipHtml(l, name) {
-    if (!l) return '<div class="ma-chip st-na"><span class="ma-n">' + esc(name) + '</span><b>資料不足</b></div>';
-    var S = STATES[l.state], approx = !l.hlKnown && (l.state === 'above' || l.state === 'below') ? ' ≈' : '';
-    return '<div class="ma-chip ' + S.cls + (l.cross ? ' is-cross' : '') + '"><span class="ma-n">' + esc(name) + (l.approx ? ' ≈' : '') + '</span><b>' +
-      S.txt + approx + ' ' + fmtPct(l.bias) + '</b>' + (l.cross ? '<i class="ma-x">★ ' + S.cross + '</i>' : '') + '<em>均線 ' + fmtPrice(l.ma) + '</em></div>';
+  /* ---------- 卡片視覺設定（只影響畫面，不回寫任何訊號判斷）----------
+     strongPct：站上乖離 ≥ 此值顯示「強勢站上」配色
+     barCapPct：強度線滿格對應的乖離；超過一律畫滿，原始百分比照常完整顯示 */
+  var UI_LEVELS = { strongPct: 30, barCapPct: 60 };
+  function barPct(l) { return Math.max(4, Math.min(100, Math.abs(l.bias) / UI_LEVELS.barCapPct * 100)).toFixed(0); }
+  function toneCls(l) {
+    if (!l) return 'tn-na';
+    if (l.state === 'break') return 'tn-break';
+    if (l.state === 'above') return Math.abs(l.bias) >= UI_LEVELS.strongPct ? 'tn-strong' : 'tn-above';
+    return 'tn-' + l.state;   // retest／fall／below／probe
+  }
+  /* 左側狀態線：沿用第 1 條均線（月線，也是排序「離第 1 條線最近」的基準線）的狀態，不另訂優先規則 */
+  function edgeCls(r) {
+    var l = r.lines[0]; if (!l) return 'ed-na';
+    if (l.state === 'above') return 'ed-above';
+    if (l.state === 'break') return 'ed-break';
+    if (l.state === 'retest') return 'ed-retest';
+    return 'ed-other';
+  }
+  function isFav(sym) {
+    try { return typeof getFavorites === 'function' && getFavorites().has('TW:' + String(sym).toUpperCase()); } catch (e) { return false; }
+  }
+  function favBtn(r) {
+    var on = isFav(r.sym);
+    return '<button type="button" class="ma-fav' + (on ? ' is-on' : '') + '" data-ma-fav="' + esc(r.sym) + '" aria-pressed="' + on + '" aria-label="' + (on ? '取消收藏 ' : '收藏 ') + esc(r.name || r.sym) + '" title="' + (on ? '取消收藏' : '收藏') + '">' + (on ? '★' : '☆') + '</button>';
+  }
+  function tagHtml(l, label, full) {
+    if (!l) return '<div class="ma-tag tn-na"><span class="ma-tl">' + esc(label) + '</span><span class="ma-ts">資料不足</span></div>';
+    var S = STATES[l.state], approx = !l.hlKnown && (l.state === 'above' || l.state === 'below') ? '≈' : '';
+    var star = l.cross && l.up ? '★ ' : '';
+    var title = label + ' ' + S.txt + ' ' + fmtPct(l.bias) + '｜均線 ' + fmtPrice(l.ma) + (l.cross ? '｜' + S.cross : '');
+    var bar = (l.state === 'above' || l.state === 'retest') ? '<i class="ma-bar"><i style="width:' + barPct(l) + '%"></i></i>' : '';
+    return '<div class="ma-tag ' + toneCls(l) + '" title="' + esc(title) + '">' +
+      '<span class="ma-tl">' + star + esc(label) + (l.approx ? '≈' : '') + '</span>' +
+      '<span class="ma-ts">' + S.txt + approx + '</span>' +
+      '<b class="ma-tv">' + Math.abs(l.bias).toFixed(1) + '%</b>' + bar +
+      (full ? '<em class="ma-tm">均線 ' + fmtPrice(l.ma) + (l.cross ? '｜' + S.cross : '') + '</em>' : '') + '</div>';
+  }
+  function cardHtml(r, labels, full) {
+    var dir = r.chg > 0 ? 'up' : (r.chg < 0 ? 'down' : 'flat'), last = r.sym === lastSym;
+    return '<div class="ma-card ' + edgeCls(r) + (last ? ' ma-last' : '') + '" data-ma-sym="' + esc(r.sym) + '">' +
+      '<div class="ma-top"><div class="ma-who"><button type="button" class="ma-open" data-ma-open="' + esc(r.sym) + '">' + esc(r.name || r.sym) + '</button>' +
+      '<span class="ma-code">' + esc(r.sym) + '</span>' + (last ? '<span class="ma-last-tag">剛剛看過</span>' : '') + '</div>' +
+      '<div class="ma-quote"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></div>' + favBtn(r) + '</div>' +
+      '<div class="ma-tags">' + r.lines.map(function (l, i) { return tagHtml(l, labels[i], full); }).join('') + '</div></div>';
   }
 
   var SHORT = { 5: '週', 10: '雙週', 20: '月', 60: '季', 120: '半年', 240: '年' };
   function shortName(type, n) { return (type === 'MA' && SHORT[n]) ? SHORT[n] : type + n; }
-  function miniHtml(l, name) {
-    if (!l) return '<span class="ma-mini-chip st-na">' + esc(name) + ' —</span>';
-    var S = STATES[l.state];
-    return '<span class="ma-mini-chip ' + S.cls + (l.cross ? ' is-cross' : '') + '">' + (l.cross ? '★' : '') +
-      esc(name) + (l.approx ? '≈' : '') + ' ' + S.txt + Math.abs(l.bias).toFixed(1) + '%</span>';
-  }
 
   /* 各均線的狀態分布（全部 200 檔，不受篩選影響）：用來判斷「突破很少」是正常還是資料有問題 */
   function renderDist(all, names) {
@@ -277,16 +311,7 @@
     if (page >= totalPages) page = totalPages - 1;
     if (page < 0) page = 0;
     rows.slice(page * size, (page + 1) * size).forEach(function (r) {
-      var dir = r.chg > 0 ? 'up' : (r.chg < 0 ? 'down' : 'flat');
-      if (st.view === 'full') {
-        html += '<div class="ma-row' + (r.sym === lastSym ? ' ma-last' : '') + '" data-ma-sym="' + esc(r.sym) + '"><div class="ma-id"><button type="button" class="ma-open" data-ma-open="' + esc(r.sym) + '">' + esc(r.name || r.sym) + '</button>' + (r.sym === lastSym ? '<em class="ma-last-tag">剛剛看過</em>' : '') + '<span>' + esc(r.sym) + '</span></div>' +
-          '<div class="ma-px"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></div>' +
-          '<div class="ma-lines">' + r.lines.map(function (l, i) { return chipHtml(l, names[i]); }).join('') + '</div></div>';
-      } else {
-        html += '<div class="ma-crow' + (r.sym === lastSym ? ' ma-last' : '') + '" data-ma-sym="' + esc(r.sym) + '"><div class="ma-ctop"><span class="ma-cname"><button type="button" class="ma-open" data-ma-open="' + esc(r.sym) + '">' + esc(r.name || r.sym) + '</button>' + (r.sym === lastSym ? '<em class="ma-last-tag">剛剛看過</em>' : '') + '<i>' + esc(r.sym) + '</i></span>' +
-          '<span class="ma-cpx"><b>' + fmtPrice(r.price) + '</b><span class="chg ' + dir + '">' + fmtPct(r.chg) + '</span></span></div>' +
-          '<div class="ma-cchips">' + r.lines.map(function (l, i) { return miniHtml(l, shorts[i]); }).join('') + '</div></div>';
-      }
+      html += cardHtml(r, st.view === 'full' ? names : shorts, st.view === 'full');
     });
     list.innerHTML = html;
     pager.hidden = false;
@@ -368,9 +393,27 @@
   var lastSym = '', returnState = null;
   var listEl = $('maList');
   if (listEl) listEl.addEventListener('click', function (e) {
+    var f = e.target.closest && e.target.closest('[data-ma-fav]');
+    if (f) { e.preventDefault(); e.stopPropagation(); toggleFav(f); return; }
     var b = e.target.closest && e.target.closest('[data-ma-open]');
     if (b) openStock(b.getAttribute('data-ma-open'));
   });
+  /* 收藏：直接沿用網站既有的 toggleFavorite（同一份本機收藏＋登入後的雲端同步），不另建資料 */
+  function toggleFav(btn) {
+    if (typeof toggleFavorite !== 'function') return;
+    var sym = btn.getAttribute('data-ma-fav'), row = null;
+    buildRows().some(function (r) { if (r.sym === sym) { row = r; return true; } return false; });
+    try { toggleFavorite('TW', sym, row ? { market: 'TW', symbol: sym, name: row.name, _fav_src: 'ma' } : { market: 'TW', symbol: sym, _fav_src: 'ma' }); }
+    catch (e) { console.warn('收藏失敗', e); }
+    render();   // 依實際儲存結果重畫星號
+    var nb = listEl && listEl.querySelector('[data-ma-fav="' + sym + '"]');
+    if (nb) { nb.classList.add('pop'); nb.focus({ preventScroll: true }); }
+  }
+  // 雲端同步把其他裝置的收藏拉下來時，網站會呼叫 renderRadar；順便重畫均線雷達的星號
+  if (typeof renderRadar === 'function') {
+    var origRR = renderRadar;
+    window.renderRadar = renderRadar = function () { var out = origRR.apply(this, arguments); if (closes) { try { render(); } catch (e) { /* 忽略 */ } } return out; };
+  }
   function openStock(sym) {
     if (!sym || typeof run !== 'function') return;
     lastSym = sym;
