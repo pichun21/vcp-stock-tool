@@ -2060,10 +2060,26 @@ async function hydrateFavoriteNames(market){
 }
 function saveFavorites(set){ localStorage.setItem(FAVORITES_KEY,JSON.stringify([...set])); updateFavoriteCount(); }
 const FAV_SRC_LABEL={vcp:'VCP',ma:'均線',single:'單股'};
+const FAV_SRC_FULL={vcp:'VCP 雷達',ma:'均線雷達',single:'單股查詢',none:'未標記'};
+let favSrcFilter='';
+function renderFavSrcBar(srcList){
+ const bar=document.getElementById('favSrcBar'); if(!bar) return;
+ if(!srcList){ bar.hidden=true; return; }
+ const cnt={vcp:0,ma:0,single:0,none:0}; srcList.forEach(k=>{cnt[k]=(cnt[k]||0)+1;});
+ if(favSrcFilter && !cnt[favSrcFilter]) favSrcFilter='';
+ const btn=(k,label,n)=>`<button type="button" class="fav-src-chip${k?' fav-src-'+k:''}${favSrcFilter===k?' active':''}" data-fav-src="${k}" aria-pressed="${favSrcFilter===k}">${label}<b>${n}</b></button>`;
+ bar.innerHTML='<span class="fav-src-title">收藏來源</span>'+btn('','全部',srcList.length)+
+   ['vcp','ma','single','none'].filter(k=>cnt[k]||k!=='none').map(k=>btn(k,FAV_SRC_FULL[k],cnt[k])).join('');
+ bar.hidden=false;
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest&&e.target.closest('[data-fav-src]'); if(!b) return;
+ favSrcFilter=b.dataset.favSrc||''; mobileRadarPage=1; renderRadar(radarFilter);
+});
 function favSrcBadge(r){
  if(!radarKeys(radarFilter).includes('favorites')) return '';
  const src=getFavoriteMeta()[favoriteKey(r.market,r.symbol)]?._fav_src;
- return FAV_SRC_LABEL[src]?`<span class="fav-src-badge fav-src-${src}" title="從${FAV_SRC_LABEL[src]==='VCP'?'VCP 雷達':FAV_SRC_LABEL[src]==='均線'?'均線雷達':'單股分析'}收藏">${FAV_SRC_LABEL[src]}</span>`:'';
+ return FAV_SRC_LABEL[src]?`<span class="fav-src-badge fav-src-${src}" title="從${FAV_SRC_FULL[src]}收藏">${FAV_SRC_FULL[src]}</span>`:'';
 }
 function isFavorite(r){ return getFavorites().has(favoriteKey(r.market,r.symbol)); }
 let currentSingleFavorite={market:null,symbol:null};
@@ -2381,6 +2397,13 @@ function renderRadar(filter='all'){
    if(String(r.market||'').toUpperCase()!==String(currentMarket||'TW').toUpperCase()) return false;
    return radarRowPass(r,filter);
   });
+ // 收藏來源篩選（只在「我的收藏」時作用；不改收藏資料）
+ if(radarKeys(filter).includes('favorites')){
+   const meta=getFavoriteMeta(), srcOf=r=>meta[favoriteKey(r.market,r.symbol)]?._fav_src||'none';
+   const favRows=rows.filter(r=>getFavorites().has(favoriteKey(r.market,r.symbol)));
+   renderFavSrcBar(favRows.map(srcOf));
+   if(favSrcFilter){ for(let i=rows.length-1;i>=0;i--) if(srcOf(rows[i])!==favSrcFilter) rows.splice(i,1); }
+ }else renderFavSrcBar(null);
  for(let i=0;i<rows.length;i++) rows[i]=effectiveRadarRow(rows[i]);
   if(radarNumActive()){ for(let i=rows.length-1;i>=0;i--) if(!radarNumPass(rows[i])) rows.splice(i,1); }
  const countEl=$('radarCount'); if(countEl) countEl.textContent=rows.length;
@@ -2586,10 +2609,10 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
      return `<div class="mobile-stock-card${ttChip(r)?' has-tt':''}" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}">
        <div class="mobile-stock-top">
          <div>
-           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${favSrcBadge(r)}${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
+           <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
            <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>
          </div>
-         <div class="mobile-top-actions">
+         <div class="mobile-top-actions">${favSrcBadge(r)?`<div class="fav-src-corner">${favSrcBadge(r)}</div>`:''}
            <div class="mobile-action-head">
              <button type="button" class="favorite-btn mobile-favorite ${isFavorite(r)?'is-favorite':''}" data-favorite="1" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="${isFavorite(r)?'取消收藏':'收藏股票'}">${isFavorite(r)?'★ 已收藏':'☆ 收藏'}</button>
              <div class="mobile-score">${stars(r.score)}</div>

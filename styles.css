@@ -2735,5 +2735,21 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
  .ma-tv{flex-basis:100%;margin-left:0;font-size:13px}
 }
 
-/* 收藏清單：收藏來源小標籤（暖灰，不用黃色） */
-.fav-src-badge{display:inline-block;margin-left:6px;padding:0 6px;border-radius:5px;background:#E9E4DA;color:#645D52;font-size:10.5px;font-weight:700;line-height:1.7;vertical-align:middle;white-space:nowrap}
+/* 收藏清單：收藏來源標籤與篩選（暖色系，不用突破的金黃色） */
+.fav-src-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:800;line-height:1.5;vertical-align:middle;white-space:nowrap;border:1px solid transparent}
+.fav-src-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.fav-src-badge.fav-src-vcp{background:#F6E5DC;color:#9A4F2E;border-color:#E8C5B3}
+.fav-src-badge.fav-src-ma{background:#E2EBF3;color:#3C5F7E;border-color:#C3D4E3}
+.fav-src-badge.fav-src-single{background:#ECE6DB;color:#5C5347;border-color:#D8CDBB}
+.fav-src-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 4px;padding:10px 12px;border-radius:14px;background:#FCF9F3;border:1px solid #E6DCCB}
+.fav-src-bar[hidden]{display:none}
+.fav-src-title{font-size:12.5px;font-weight:800;color:#8B8275;margin-right:2px}
+.fav-src-chip{min-width:0;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid #E6DCCB;background:#fff;color:#5C5347;font-size:13px;font-weight:800;cursor:pointer}
+.fav-src-chip b{font-size:11.5px;padding:0 6px;border-radius:999px;background:#F1ECE3;color:#645D52}
+.fav-src-chip.fav-src-vcp{color:#9A4F2E}.fav-src-chip.fav-src-ma{color:#3C5F7E}
+.fav-src-chip.active{background:#5C4F3A;border-color:#5C4F3A;color:#fff}
+.fav-src-chip.active b{background:rgba(255,255,255,.2);color:#fff}
+/* 手機卡片：收藏來源標籤放在右側、漲跌幅上方，不擠到名稱那一排 */
+#radarMobile .fav-src-corner{display:flex;justify-content:flex-end;width:100%;margin:0 0 4px}
+#radarMobile .fav-src-corner .fav-src-badge{margin:0;font-size:11.5px;padding:1px 9px}
+#radarMobile .mobile-top-actions:has(.fav-src-corner){flex-direction:column;align-items:flex-end;gap:2px}
