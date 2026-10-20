@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20 09:33",
+  "generated_at": "2026-10-20 09:53",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -7,7 +7,7 @@
     "US": {
       "data_date": "2026-10-19",
       "count": 200,
-      "scanned_at": "2026-10-20 07:14",
+      "scanned_at": "2026-10-20 09:53",
       "snapshot_type": "official"
     },
     "TW": {
@@ -21,7 +21,7 @@
     "US": {
       "data_date": "2026-10-19",
       "count": 200,
-      "scanned_at": "2026-10-20 07:14",
+      "scanned_at": "2026-10-20 09:53",
       "snapshot_type": "official"
     },
     "TW": {
@@ -162,10 +162,10 @@
       "index": "加權指數",
       "ticker": "^TWII",
       "ma_days": 50,
-      "close": 46443.37,
-      "ma": 46735.41,
-      "dist_pct": -0.62,
-      "above": false,
+      "close": 46837.66,
+      "ma": 46791.8,
+      "dist_pct": 0.1,
+      "above": true,
       "as_of": "2026-10-20"
     },
     "US": {
@@ -35178,7 +35178,7 @@
         "data_date": "2026-10-19",
         "name": "Alphabet Inc. (Class A)",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 63,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -35601,7 +35601,7 @@
         "data_date": "2026-10-19",
         "name": "Autodesk",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 46,
         "tt_count": 3,
         "tt_fail": [
           2,
@@ -35667,6 +35667,21 @@
           7
         ]
       },
+      "BKR": {
+        "price": 55.81,
+        "prev_close": 55.7,
+        "data_date": "2026-10-19",
+        "name": "Baker Hughes",
+        "source": "VCPulse scanner",
+        "rs_rating": 57,
+        "tt_count": 3,
+        "tt_fail": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
       "BALL": {
         "price": 63.84,
         "prev_close": 63.2,
@@ -35722,7 +35737,7 @@
         "data_date": "2026-10-19",
         "name": "Berkshire Hathaway",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 65,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -35745,16 +35760,6 @@
         "name": "Bio-Techne",
         "source": "VCPulse scanner",
         "rs_rating": 64,
-        "tt_count": 7,
-        "tt_fail": []
-      },
-      "BIIB": {
-        "price": 233.48,
-        "prev_close": 232.65,
-        "data_date": "2026-10-19",
-        "name": "Biogen",
-        "source": "VCPulse scanner",
-        "rs_rating": 87,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -36165,7 +36170,7 @@
         ]
       },
       "CDW": {
-        "price": 152.645,
+        "price": 152.65,
         "prev_close": 150.48,
         "data_date": "2026-10-19",
         "name": "CDW Corporation",
@@ -36303,7 +36308,7 @@
         "data_date": "2026-10-19",
         "name": "Chubb Limited",
         "source": "VCPulse scanner",
-        "rs_rating": 68,
+        "rs_rating": 69,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -36439,7 +36444,7 @@
         "data_date": "2026-10-19",
         "name": "CME Group",
         "source": "VCPulse scanner",
-        "rs_rating": 69,
+        "rs_rating": 70,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -36918,7 +36923,7 @@
         "data_date": "2026-10-19",
         "name": "Dexcom",
         "source": "VCPulse scanner",
-        "rs_rating": 79,
+        "rs_rating": 80,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -36969,7 +36974,7 @@
         "data_date": "2026-10-19",
         "name": "Dollar Tree",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 58,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -38230,12 +38235,12 @@
         ]
       },
       "HUBB": {
-        "price": 464.92,
-        "prev_close": 461.1,
-        "data_date": "2026-10-19",
+        "price": 461.1,
+        "prev_close": 464.71,
+        "data_date": "2026-10-16",
         "name": "Hubbell Incorporated",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 41,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -39250,7 +39255,7 @@
         "data_date": "2026-10-19",
         "name": "MetLife",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 78,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -39508,7 +39513,7 @@
         "data_date": "2026-10-19",
         "name": "Newmont",
         "source": "VCPulse scanner",
-        "rs_rating": 74,
+        "rs_rating": 75,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -39909,7 +39914,7 @@
         "data_date": "2026-10-19",
         "name": "Parker Hannifin",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 61,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -39983,7 +39988,7 @@
         "data_date": "2026-10-19",
         "name": "Pfizer",
         "source": "VCPulse scanner",
-        "rs_rating": 72,
+        "rs_rating": 73,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -40104,7 +40109,7 @@
         "data_date": "2026-10-19",
         "name": "Procter & Gamble",
         "source": "VCPulse scanner",
-        "rs_rating": 61,
+        "rs_rating": 62,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -40537,7 +40542,7 @@
         "data_date": "2026-10-19",
         "name": "Salesforce",
         "source": "VCPulse scanner",
-        "rs_rating": 80,
+        "rs_rating": 81,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -41398,7 +41403,7 @@
         "data_date": "2026-10-19",
         "name": "United Rentals",
         "source": "VCPulse scanner",
-        "rs_rating": 63,
+        "rs_rating": 64,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -42751,7 +42756,7 @@
         "data_date": "2026-10-19",
         "name": "Fluor Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 41,
+        "rs_rating": 42,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -43931,7 +43936,7 @@
         "data_date": "2026-10-19",
         "name": "Laureate Education, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 73,
+        "rs_rating": 74,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -44625,7 +44630,7 @@
         "data_date": "2026-10-19",
         "name": "Kulicke & Soffa Industries Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 76,
+        "rs_rating": 77,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -45873,7 +45878,7 @@
         "data_date": "2026-10-19",
         "name": "Nicolet Bankshares Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 66,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -46374,7 +46379,7 @@
         "data_date": "2026-10-19",
         "name": "Kinetik Holdings Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 81,
+        "rs_rating": 82,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -46401,7 +46406,7 @@
         "data_date": "2026-10-19",
         "name": "Abm Industries Inc /De/",
         "source": "VCPulse scanner",
-        "rs_rating": 71,
+        "rs_rating": 72,
         "tt_count": 6,
         "tt_fail": [
           2
@@ -46584,7 +46589,7 @@
         ]
       },
       "MARA": {
-        "price": 7.375,
+        "price": 7.38,
         "prev_close": 7.53,
         "data_date": "2026-10-19",
         "name": "MARA Holdings, Inc.",
@@ -46733,7 +46738,7 @@
         "data_date": "2026-10-19",
         "name": "DNOW Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 75,
+        "rs_rating": 76,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -47822,7 +47827,7 @@
         "data_date": "2026-10-19",
         "name": "KOHLS Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 82,
+        "rs_rating": 83,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -48238,12 +48243,12 @@
         ]
       },
       "ADEA": {
-        "price": 21.05,
-        "prev_close": 20.42,
-        "data_date": "2026-10-19",
+        "price": 20.42,
+        "prev_close": 21.74,
+        "data_date": "2026-10-16",
         "name": "Adeia Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 33,
+        "rs_rating": 32,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -48788,7 +48793,7 @@
         "data_date": "2026-10-19",
         "name": "Addus HomeCare Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 60,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -49021,12 +49026,12 @@
         ]
       },
       "WLY": {
-        "price": 51.78,
-        "prev_close": 52.72,
-        "data_date": "2026-10-19",
+        "price": 52.72,
+        "prev_close": 52.97,
+        "data_date": "2026-10-16",
         "name": "John Wiley & Sons, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 83,
+        "rs_rating": 86,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -49081,7 +49086,7 @@
         "data_date": "2026-10-19",
         "name": "Sonos Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 67,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -50775,7 +50780,7 @@
         "data_date": "2026-10-19",
         "name": "Omnicell, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 33,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -50792,7 +50797,7 @@
         "data_date": "2026-10-19",
         "name": "Dime Commercial Bancshares, Inc. /NY/",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 68,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -52125,7 +52130,7 @@
         "data_date": "2026-10-19",
         "name": "EDGEWELL PERSONAL CARE Co",
         "source": "VCPulse scanner",
-        "rs_rating": 78,
+        "rs_rating": 79,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -53013,7 +53018,7 @@
         ]
       },
       "ROCK": {
-        "price": 37.715,
+        "price": 37.72,
         "prev_close": 37.89,
         "data_date": "2026-10-19",
         "name": "Gibraltar Industries, Inc.",
@@ -55148,7 +55153,7 @@
         ]
       },
       "RBCAA": {
-        "price": 90.675,
+        "price": 90.68,
         "prev_close": 92.39,
         "data_date": "2026-10-19",
         "name": "Republic Bancorp Inc /Ky/",
@@ -55213,7 +55218,7 @@
         "data_date": "2026-10-19",
         "name": "Eagle Bancorp Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 70,
+        "rs_rating": 71,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -55506,8 +55511,8 @@
       },
       "UA": {
         "price": 4.63,
-        "prev_close": 4.63,
-        "data_date": "2026-10-19",
+        "prev_close": 4.75,
+        "data_date": "2026-10-16",
         "name": "Under Armour, Inc.",
         "source": "VCPulse scanner",
         "rs_rating": 16,
@@ -56050,7 +56055,7 @@
         "data_date": "2026-10-19",
         "name": "Vishay Precision Group, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 59,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -56670,7 +56675,7 @@
         "data_date": "2026-10-19",
         "name": "Ardmore Shipping Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 87,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -56745,7 +56750,7 @@
         ]
       },
       "MLAB": {
-        "price": 123.305,
+        "price": 123.31,
         "prev_close": 122.48,
         "data_date": "2026-10-19",
         "name": "Mesa Laboratories Inc /Co/",
@@ -57742,12 +57747,12 @@
         "tt_fail": []
       },
       "KOPN": {
-        "price": 3.555,
+        "price": 3.56,
         "prev_close": 3.29,
         "data_date": "2026-10-19",
         "name": "Kopin Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 47,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -58675,7 +58680,7 @@
         "source": "VCPulse scanner"
       },
       "ACHV": {
-        "price": 6.605,
+        "price": 6.61,
         "prev_close": 6.38,
         "data_date": "2026-10-19",
         "name": "Achieve Life Sciences, Inc.",
@@ -61485,7 +61490,7 @@
         ]
       },
       "BTBT": {
-        "price": 0.9051,
+        "price": 0.905,
         "prev_close": 0.96,
         "data_date": "2026-10-19",
         "name": "Bit Digital, Inc",
@@ -61925,7 +61930,7 @@
         ]
       },
       "URG": {
-        "price": 0.8287,
+        "price": 0.83,
         "prev_close": 0.85,
         "data_date": "2026-10-19",
         "name": "Ur-Energy Inc",
@@ -62919,7 +62924,7 @@
         ]
       },
       "OCGN": {
-        "price": 0.7873,
+        "price": 0.787,
         "prev_close": 0.78,
         "data_date": "2026-10-19",
         "name": "Ocugen, Inc.",
@@ -64081,7 +64086,7 @@
         "tt_fail": []
       },
       "OPTU": {
-        "price": 0.9029,
+        "price": 0.903,
         "prev_close": 0.903,
         "data_date": "2026-10-19",
         "name": "Optimum Communications, Inc.",
@@ -64285,7 +64290,7 @@
         ]
       },
       "APMD": {
-        "price": 16.595,
+        "price": 16.6,
         "prev_close": 17.76,
         "data_date": "2026-10-19",
         "name": "Apnimed, Inc.",
@@ -65085,9 +65090,9 @@
         ]
       },
       "SITC": {
-        "price": 3.56,
-        "prev_close": 3.43,
-        "data_date": "2026-10-19",
+        "price": 3.43,
+        "prev_close": 3.01,
+        "data_date": "2026-10-16",
         "name": "SITE Centers Corp.",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -65355,7 +65360,7 @@
         ]
       },
       "AKBA": {
-        "price": 0.6801,
+        "price": 0.68,
         "prev_close": 0.67,
         "data_date": "2026-10-19",
         "name": "Akebia Therapeutics, Inc.",
@@ -65372,7 +65377,7 @@
         ]
       },
       "SES": {
-        "price": 0.7001,
+        "price": 0.7,
         "prev_close": 0.714,
         "data_date": "2026-10-19",
         "name": "SES AI Corp",
@@ -65472,7 +65477,7 @@
         ]
       },
       "BLND": {
-        "price": 0.9868,
+        "price": 0.987,
         "prev_close": 0.9,
         "data_date": "2026-10-19",
         "name": "Blend Labs, Inc.",
@@ -65616,7 +65621,7 @@
         ]
       },
       "LCTX": {
-        "price": 0.9528,
+        "price": 0.95,
         "prev_close": 0.98,
         "data_date": "2026-10-19",
         "name": "Lineage Cell Therapeutics, Inc.",
@@ -65812,7 +65817,7 @@
         ]
       },
       "GALT": {
-        "price": 3.495,
+        "price": 3.5,
         "prev_close": 3.62,
         "data_date": "2026-10-19",
         "name": "Galectin Therapeutics Inc",
@@ -65957,7 +65962,7 @@
         ]
       },
       "STRO": {
-        "price": 11.255,
+        "price": 11.26,
         "prev_close": 10.94,
         "data_date": "2026-10-19",
         "name": "Sutro Biopharma, Inc.",
@@ -66036,7 +66041,7 @@
         ]
       },
       "EU": {
-        "price": 0.7974,
+        "price": 0.8,
         "prev_close": 0.83,
         "data_date": "2026-10-19",
         "name": "enCore Energy Corp.",
@@ -66935,7 +66940,7 @@
         ]
       },
       "CHRS": {
-        "price": 0.9587,
+        "price": 0.959,
         "prev_close": 0.99,
         "data_date": "2026-10-19",
         "name": "Coherus Oncology, Inc.",
@@ -68002,7 +68007,7 @@
         ]
       },
       "MVST": {
-        "price": 0.5068,
+        "price": 0.507,
         "prev_close": 0.518,
         "data_date": "2026-10-19",
         "name": "Microvast Holdings, Inc.",
@@ -68316,7 +68321,7 @@
         ]
       },
       "SLNH": {
-        "price": 0.5908,
+        "price": 0.59,
         "prev_close": 0.67,
         "data_date": "2026-10-19",
         "name": "Soluna Holdings, Inc",
@@ -68514,7 +68519,7 @@
         ]
       },
       "LUCD": {
-        "price": 0.3774,
+        "price": 0.377,
         "prev_close": 0.478,
         "data_date": "2026-10-19",
         "name": "Lucid Diagnostics Inc.",
@@ -68561,7 +68566,7 @@
         ]
       },
       "LDI": {
-        "price": 0.5159,
+        "price": 0.516,
         "prev_close": 0.534,
         "data_date": "2026-10-19",
         "name": "loanDepot, Inc.",
@@ -68717,7 +68722,7 @@
         ]
       },
       "VERI": {
-        "price": 0.5775,
+        "price": 0.578,
         "prev_close": 0.54,
         "data_date": "2026-10-19",
         "name": "Veritone, Inc.",
@@ -68810,7 +68815,7 @@
         ]
       },
       "HRTX": {
-        "price": 0.3609,
+        "price": 0.36,
         "prev_close": 0.36,
         "data_date": "2026-10-19",
         "name": "Heron Therapeutics, Inc. /De/",
@@ -68861,7 +68866,7 @@
         ]
       },
       "HYPR": {
-        "price": 0.7772,
+        "price": 0.777,
         "prev_close": 0.755,
         "data_date": "2026-10-19",
         "name": "Hyperfine, Inc.",
@@ -69223,7 +69228,7 @@
         ]
       },
       "TYGO": {
-        "price": 0.8273,
+        "price": 0.827,
         "prev_close": 0.825,
         "data_date": "2026-10-19",
         "name": "Tigo Energy, Inc.",
@@ -69240,7 +69245,7 @@
         ]
       },
       "BZAI": {
-        "price": 0.2528,
+        "price": 0.253,
         "prev_close": 0.252,
         "data_date": "2026-10-19",
         "name": "Blaize Holdings, Inc.",
@@ -69302,7 +69307,7 @@
         ]
       },
       "CNTX": {
-        "price": 0.2384,
+        "price": 0.238,
         "prev_close": 0.244,
         "data_date": "2026-10-19",
         "name": "Context Therapeutics Inc.",
@@ -69391,7 +69396,7 @@
         ]
       },
       "INV": {
-        "price": 0.3317,
+        "price": 0.332,
         "prev_close": 0.328,
         "data_date": "2026-10-19",
         "name": "Innventure, Inc.",
@@ -69439,7 +69444,7 @@
         ]
       },
       "ACH": {
-        "price": 0.2202,
+        "price": 0.22,
         "prev_close": 0.24,
         "data_date": "2026-10-19",
         "name": "Accendra Health Inc/Va/",
@@ -69524,7 +69529,7 @@
         ]
       },
       "CNTB": {
-        "price": 0.8998,
+        "price": 0.9,
         "prev_close": 0.906,
         "data_date": "2026-10-19",
         "name": "Connect Biopharma Holdings Ltd",
@@ -144682,7 +144687,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 53401978.0,
+      "avg_value_20d": 53402036.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -144720,7 +144725,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8614,
+      "atr20_to_60": 0.8615,
       "contractions": [
         11.8812,
         10.2389,
@@ -144776,7 +144781,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13675624.0,
+      "avg_value_20d": 13675628.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -144813,7 +144818,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7928,
+      "atr20_to_60": 0.7933,
       "contractions": [
         8.9875,
         7.9266,
@@ -144870,7 +144875,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28761547.0,
+      "avg_value_20d": 28958618.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -144906,7 +144911,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8353,
+      "atr20_to_60": 0.8354,
       "contractions": [
         9.5667,
         3.9624,
@@ -144951,7 +144956,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.02,
-      "breakout_high_pct": 0.25,
+      "breakout_high_pct": 0.26,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -144961,7 +144966,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38479525.0,
+      "avg_value_20d": 38545111.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -144998,7 +145003,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.96,
+      "atr20_to_60": 0.9605,
       "contractions": [
         7.0563,
         7.6721,
@@ -145053,7 +145058,7 @@
         "Squeeze 剛爆發（前 8 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 261581047.0,
+      "avg_value_20d": 261721147.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -145091,7 +145096,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7611,
+      "atr20_to_60": 0.7615,
       "contractions": [
         22.6644,
         10.7009,
@@ -145147,7 +145152,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30295771.0,
+      "avg_value_20d": 30295777.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 14,
@@ -145188,7 +145193,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.061,
+      "atr20_to_60": 1.0621,
       "contractions": [
         21.4741,
         5.7992,
@@ -145243,7 +145248,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 26721413.0,
+      "avg_value_20d": 26721456.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -145332,7 +145337,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 109147223.0,
+      "avg_value_20d": 109146956.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -145511,7 +145516,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 61626976.0,
+      "avg_value_20d": 61626868.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -145599,7 +145604,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10862512.0,
+      "avg_value_20d": 10862517.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -145688,7 +145693,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 107359075.0,
+      "avg_value_20d": 107363508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -145780,7 +145785,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 483218725.0,
+      "avg_value_20d": 483287254.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -145814,7 +145819,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8753,
+      "atr20_to_60": 0.8752,
       "contractions": [
         9.3665,
         6.9601,
@@ -145869,7 +145874,7 @@
         "Squeeze 剛爆發（前 15 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 140682045.0,
+      "avg_value_20d": 140682060.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 52,
@@ -145906,7 +145911,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.856,
+      "atr20_to_60": 0.8564,
       "contractions": [
         19.2961,
         3.814,
@@ -145961,7 +145966,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 14670182.0,
+      "avg_value_20d": 14671619.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 26,
@@ -146002,7 +146007,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9349,
+      "atr20_to_60": 0.9458,
       "contractions": [
         6.9978,
         4.1748,
@@ -146056,7 +146061,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 40694848.0,
+      "avg_value_20d": 40695707.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -146092,7 +146097,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0007,
+      "atr20_to_60": 1.001,
       "contractions": [
         4.1769,
         10.5008,
@@ -146146,7 +146151,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 25618778.0,
+      "avg_value_20d": 25618777.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -146236,7 +146241,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 463179646.0,
+      "avg_value_20d": 463226173.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -146270,7 +146275,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9238,
+      "atr20_to_60": 0.9239,
       "contractions": [
         3.4019,
         5.8441,
@@ -146324,7 +146329,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1924762449.0,
+      "avg_value_20d": 1925203523.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -146413,10 +146418,10 @@
         "Squeeze 剛爆發（前 11 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 856865726.0,
+      "avg_value_20d": 857176123.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 72,
+      "rs_rating": 73,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -146504,7 +146509,7 @@
         "Squeeze 剛爆發（前 14 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 285409802.0,
+      "avg_value_20d": 285415056.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -146596,7 +146601,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20131737.0,
+      "avg_value_20d": 20131723.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -146684,7 +146689,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1589894329.0,
+      "avg_value_20d": 1591780573.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -146772,7 +146777,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20001742.0,
+      "avg_value_20d": 20001796.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -146897,7 +146902,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.817,
+      "atr20_to_60": 0.8176,
       "contractions": [
         11.5992,
         15.3307,
@@ -146952,7 +146957,7 @@
         "Squeeze 剛爆發（前 17 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38270158.0,
+      "avg_value_20d": 38270350.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -147042,7 +147047,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20893561.0,
+      "avg_value_20d": 20894256.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -147135,7 +147140,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 103794537.0,
+      "avg_value_20d": 103795874.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -147169,7 +147174,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0293,
+      "atr20_to_60": 1.031,
       "contractions": [
         1.948,
         2.3187,
@@ -147223,7 +147228,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 482106637.0,
+      "avg_value_20d": 482114674.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -147313,7 +147318,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 72600372.0,
+      "avg_value_20d": 73035445.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -147494,7 +147499,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20230720.0,
+      "avg_value_20d": 20230764.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -147585,7 +147590,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 266573821.0,
+      "avg_value_20d": 266579009.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -147619,7 +147624,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.023,
+      "atr20_to_60": 1.0237,
       "contractions": [
         9.9831,
         3.5211,
@@ -147675,7 +147680,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28336499.0,
+      "avg_value_20d": 28336527.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -147764,7 +147769,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 137756301.0,
+      "avg_value_20d": 137762035.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -147852,7 +147857,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 410853654.0,
+      "avg_value_20d": 412036946.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -147886,7 +147891,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0128,
+      "atr20_to_60": 1.013,
       "contractions": [
         16.8827,
         4.8139,
@@ -147941,7 +147946,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 499353280.0,
+      "avg_value_20d": 499355599.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -148031,7 +148036,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 385913003.0,
+      "avg_value_20d": 385913090.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -148122,7 +148127,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 644819552.0,
+      "avg_value_20d": 645233374.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -148213,7 +148218,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 15196617.0,
+      "avg_value_20d": 15196621.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -148308,7 +148313,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 159545598.0,
+      "avg_value_20d": 159545463.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -148345,7 +148350,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0135,
+      "atr20_to_60": 1.0156,
       "contractions": [
         2.4263,
         8.7122,
@@ -148400,7 +148405,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 428755828.0,
+      "avg_value_20d": 428768373.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -148489,7 +148494,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 34414501.0,
+      "avg_value_20d": 34800059.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -148578,7 +148583,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 476251965.0,
+      "avg_value_20d": 476254817.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -148614,7 +148619,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9917,
+      "atr20_to_60": 0.9919,
       "contractions": [
         9.965,
         4.0131,
@@ -148659,7 +148664,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 6.28,
-      "breakout_high_pct": 7.12,
+      "breakout_high_pct": 7.14,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -148669,7 +148674,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 87249972.0,
+      "avg_value_20d": 87250717.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -148758,7 +148763,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 180767643.0,
+      "avg_value_20d": 180773418.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -148792,7 +148797,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0025,
+      "atr20_to_60": 1.003,
       "contractions": [
         16.7403,
         3.948,
@@ -148847,7 +148852,7 @@
         "Squeeze 剛爆發（前 7 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 84039607.0,
+      "avg_value_20d": 84039543.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -148883,7 +148888,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8164,
+      "atr20_to_60": 0.8261,
       "contractions": [
         6.4064,
         9.3583,
@@ -148928,7 +148933,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 8.96,
-      "breakout_high_pct": 9.67,
+      "breakout_high_pct": 9.68,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -148939,7 +148944,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19189693.0,
+      "avg_value_20d": 19189816.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -148976,7 +148981,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0889,
+      "atr20_to_60": 1.0897,
       "contractions": [
         0.3439,
         0.4463,
@@ -149021,7 +149026,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.04,
-      "breakout_high_pct": 0.05,
+      "breakout_high_pct": 0.06,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -149032,7 +149037,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 91719397.0,
+      "avg_value_20d": 91719191.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -149066,7 +149071,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.4743,
+      "atr20_to_60": 0.4756,
       "contractions": [
         0.2963,
         0.7035,
@@ -149111,7 +149116,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 0.05,
-      "breakout_high_pct": 0.09,
+      "breakout_high_pct": 0.1,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -149122,7 +149127,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 60585916.0,
+      "avg_value_20d": 60586022.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -149212,7 +149217,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 47195040.0,
+      "avg_value_20d": 47195070.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -149302,7 +149307,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 215047868.0,
+      "avg_value_20d": 215469327.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -149336,7 +149341,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9678,
+      "atr20_to_60": 0.968,
       "contractions": [
         4.6496,
         1.9882,
@@ -149390,7 +149395,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 192369751.0,
+      "avg_value_20d": 192369787.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -149483,100 +149488,10 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 3721843410.0,
+      "avg_value_20d": 3722285508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
-      "rs_universe": 1608,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "BIIB",
-      "name": "Biogen",
-      "exchange": "",
-      "score": 2,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.0393,
-      "contractions": [
-        2.1876,
-        2.4914,
-        6.1378,
-        4.4864
-      ],
-      "contraction_bars": [
-        5,
-        9,
-        3,
-        8
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-2% → -2% → -6% → -4%",
-      "pivot": 232.83,
-      "last": 233.48,
-      "distance": 0.28,
-      "change_pct": 0.36,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 9,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 33,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-10-19",
-      "breakout_return_pct": 0.28,
-      "breakout_high_pct": 1.36,
-      "holding_pivot": true,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "中度壓縮",
-        "多方增強"
-      ],
-      "data_date": "2026-10-19",
-      "avg_value_20d": 284380689.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 87,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -149661,7 +149576,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 213516305.0,
+      "avg_value_20d": 213624639.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -149755,7 +149670,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 40695669.0,
+      "avg_value_20d": 40697822.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -149843,7 +149758,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 167149013.0,
+      "avg_value_20d": 167390770.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -149935,7 +149850,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 45485873.0,
+      "avg_value_20d": 45487880.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -149969,7 +149884,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0351,
+      "atr20_to_60": 1.0352,
       "contractions": [
         3.5296,
         0.7216,
@@ -150014,7 +149929,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.45,
-      "breakout_high_pct": 2.4,
+      "breakout_high_pct": 2.41,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -150024,7 +149939,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30258685.0,
+      "avg_value_20d": 30258405.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -150113,7 +150028,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 502378627.0,
+      "avg_value_20d": 502384435.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -150202,7 +150117,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 903575798.0,
+      "avg_value_20d": 903885159.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -150295,7 +150210,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 33889648.0,
+      "avg_value_20d": 33926865.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -150329,7 +150244,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9371,
+      "atr20_to_60": 0.9373,
       "contractions": [
         8.6307,
         3.0354,
@@ -150384,7 +150299,7 @@
         "Squeeze 剛爆發（前 16 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 310199446.0,
+      "avg_value_20d": 310199451.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -150474,7 +150389,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 437418518.0,
+      "avg_value_20d": 437434548.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -150565,7 +150480,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 17631228.0,
+      "avg_value_20d": 17631263.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -150658,10 +150573,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1301169622.0,
+      "avg_value_20d": 1316287158.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 61,
+      "rs_rating": 62,
       "rs_universe": 1608,
       "tt_count": 4,
       "tt_fail": [
@@ -150696,7 +150611,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8351,
+      "atr20_to_60": 0.8375,
       "contractions": [
         3.1758,
         2.8159,
@@ -150751,7 +150666,7 @@
         "Squeeze 剛爆發（前 60 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 17847703.0,
+      "avg_value_20d": 17847750.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -150839,7 +150754,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 387123111.0,
+      "avg_value_20d": 387127752.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -150876,7 +150791,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0389,
+      "atr20_to_60": 1.0397,
       "contractions": [
         1.4569,
         8.5364,
@@ -150921,7 +150836,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.85,
-      "breakout_high_pct": 1.22,
+      "breakout_high_pct": 1.23,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -150931,7 +150846,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 138338373.0,
+      "avg_value_20d": 138338421.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -150967,7 +150882,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1246,
+      "atr20_to_60": 1.1248,
       "contractions": [
         9.5878,
         3.3198,
@@ -151012,7 +150927,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 0.88,
-      "breakout_high_pct": 5.2,
+      "breakout_high_pct": 5.27,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -151022,7 +150937,7 @@
         "Squeeze 剛爆發（前 15 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 44167757.0,
+      "avg_value_20d": 44167842.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -151059,7 +150974,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.098,
+      "atr20_to_60": 1.0983,
       "contractions": [
         3.1491,
         9.0129,
@@ -151113,7 +151028,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 319652130.0,
+      "avg_value_20d": 319655300.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -151149,7 +151064,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9048,
+      "atr20_to_60": 0.9146,
       "contractions": [
         1.6698,
         1.3508,
@@ -151205,7 +151120,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 127219759.0,
+      "avg_value_20d": 127229755.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -151241,7 +151156,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8343,
+      "atr20_to_60": 0.8344,
       "contractions": [
         1.5559,
         3.8265,
@@ -151295,10 +151210,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2155531108.0,
+      "avg_value_20d": 2155726330.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 64,
+      "rs_rating": 65,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -151331,7 +151246,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8903,
+      "atr20_to_60": 0.8906,
       "contractions": [
         1.9442,
         5.2859,
@@ -151385,7 +151300,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 471718897.0,
+      "avg_value_20d": 472105328.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -151421,7 +151336,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0295,
+      "atr20_to_60": 1.0322,
       "contractions": [
         5.9748,
         8.209,
@@ -151475,10 +151390,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 81806032.0,
+      "avg_value_20d": 81806069.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 82,
+      "rs_rating": 83,
       "rs_universe": 1608,
       "tt_count": 5,
       "tt_fail": [
@@ -151567,7 +151482,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 806089567.0,
+      "avg_value_20d": 807367101.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -151607,7 +151522,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8692,
+      "atr20_to_60": 0.869,
       "contractions": [
         2.0978,
         2.4148,
@@ -151661,7 +151576,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 529381475.0,
+      "avg_value_20d": 530896975.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -151752,7 +151667,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38503754.0,
+      "avg_value_20d": 38516600.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 64,
@@ -151789,7 +151704,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8412,
+      "atr20_to_60": 0.8464,
       "contractions": [
         2.2516,
         6.0112,
@@ -151843,7 +151758,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 178983533.0,
+      "avg_value_20d": 178983299.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -151879,7 +151794,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8674,
+      "atr20_to_60": 0.8793,
       "contractions": [
         2.847,
         2.5692,
@@ -151935,10 +151850,10 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19899274.0,
+      "avg_value_20d": 19899228.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 71,
+      "rs_rating": 72,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -151971,7 +151886,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1045,
+      "atr20_to_60": 1.1048,
       "contractions": [
         2.8927,
         7.3951,
@@ -152027,7 +151942,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2253804140.0,
+      "avg_value_20d": 2253908037.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -152116,7 +152031,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 24703797.0,
+      "avg_value_20d": 24703780.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
@@ -152152,7 +152067,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9074,
+      "atr20_to_60": 0.9073,
       "contractions": [
         5.665,
         8.0277,
@@ -152294,7 +152209,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421940087.0,
+      "avg_value_20d": 431146893.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -152382,7 +152297,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38930526.0,
+      "avg_value_20d": 38930519.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -152470,7 +152385,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13593146.0,
+      "avg_value_20d": 13712424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -152558,7 +152473,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 198397411.0,
+      "avg_value_20d": 198396724.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -152595,7 +152510,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0562,
+      "atr20_to_60": 1.0561,
       "contractions": [
         0.8299,
         3.1393,
@@ -152649,7 +152564,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2222676286.0,
+      "avg_value_20d": 2222830020.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -152737,10 +152652,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 510103486.0,
+      "avg_value_20d": 510203580.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 68,
+      "rs_rating": 69,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -152826,7 +152741,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 14425670.0,
+      "avg_value_20d": 14425751.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -152916,7 +152831,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 379152509.0,
+      "avg_value_20d": 379152626.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -152953,7 +152868,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9528,
+      "atr20_to_60": 0.9542,
       "contractions": [
         4.3374,
         1.4188,
@@ -153007,7 +152922,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1411653487.0,
+      "avg_value_20d": 1414048663.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -153041,7 +152956,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9056,
+      "atr20_to_60": 0.9057,
       "contractions": [
         21.275,
         4.9542,
@@ -153097,7 +153012,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 226242337.0,
+      "avg_value_20d": 226242769.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -153134,7 +153049,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0326,
+      "atr20_to_60": 1.0328,
       "contractions": [
         4.618,
         5.8469,
@@ -153189,7 +153104,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 281616583.0,
+      "avg_value_20d": 281616657.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -153281,7 +153196,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 195409279.0,
+      "avg_value_20d": 195411775.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -153315,7 +153230,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8388,
+      "atr20_to_60": 0.8398,
       "contractions": [
         4.0393,
         20.2899,
@@ -153369,7 +153284,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10993071.0,
+      "avg_value_20d": 10993010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -153460,7 +153375,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1753484073.0,
+      "avg_value_20d": 1753484782.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -153496,7 +153411,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9978,
+      "atr20_to_60": 0.9979,
       "contractions": [
         6.4539,
         7.5506,
@@ -153541,7 +153456,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 1.92,
-      "breakout_high_pct": 3.09,
+      "breakout_high_pct": 3.11,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -153551,7 +153466,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 422715727.0,
+      "avg_value_20d": 422780580.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -153585,7 +153500,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8274,
+      "atr20_to_60": 0.8278,
       "contractions": [
         10.0516,
         5.0687,
@@ -153639,7 +153554,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 34218685.0,
+      "avg_value_20d": 34218918.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -153673,7 +153588,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9054,
+      "atr20_to_60": 0.9096,
       "contractions": [
         8.5407,
         2.7046,
@@ -153728,7 +153643,7 @@
         "Squeeze 剛爆發（前 22 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 22123417.0,
+      "avg_value_20d": 22123823.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -153762,7 +153677,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9175,
+      "atr20_to_60": 0.9176,
       "contractions": [
         3.981,
         2.1429,
@@ -153816,7 +153731,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 789587042.0,
+      "avg_value_20d": 791014424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -153905,7 +153820,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 32179049.0,
+      "avg_value_20d": 32178613.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 33,
@@ -154002,7 +153917,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 48531517.0,
+      "avg_value_20d": 48531495.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -154040,7 +153955,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0142,
+      "atr20_to_60": 1.0143,
       "contractions": [
         11.5335,
         2.4811,
@@ -154094,7 +154009,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2345911931.0,
+      "avg_value_20d": 2346367746.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -154189,7 +154104,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 16858685.0,
+      "avg_value_20d": 16858725.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -154278,7 +154193,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421596438.0,
+      "avg_value_20d": 421598291.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -154368,7 +154283,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 43229213.0,
+      "avg_value_20d": 43229204.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -154402,7 +154317,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0148,
+      "atr20_to_60": 1.0154,
       "contractions": [
         6.993,
         1.2107,
@@ -154457,7 +154372,7 @@
         "Squeeze 剛爆發（前 18 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 42189070.0,
+      "avg_value_20d": 42309491.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -154546,7 +154461,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 49524252.0,
+      "avg_value_20d": 49525326.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -154636,7 +154551,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 85373790.0,
+      "avg_value_20d": 85373968.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -154724,7 +154639,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28319618.0,
+      "avg_value_20d": 28319676.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -154812,10 +154727,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 529081276.0,
+      "avg_value_20d": 530810035.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 69,
+      "rs_rating": 70,
       "rs_universe": 1608,
       "tt_count": 5,
       "tt_fail": [
@@ -154905,7 +154820,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 57040072.0,
+      "avg_value_20d": 57040075.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -154939,7 +154854,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.953,
+      "atr20_to_60": 0.9529,
       "contractions": [
         1.9231,
         2.5427,
@@ -154993,7 +154908,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 175670513.0,
+      "avg_value_20d": 175670379.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -155027,7 +154942,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8806,
+      "atr20_to_60": 0.8828,
       "contractions": [
         0.9313,
         6.1076,
@@ -155083,7 +154998,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10371035.0,
+      "avg_value_20d": 10371043.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -155174,7 +155089,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2695030595.0,
+      "avg_value_20d": 2695159714.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -155208,7 +155123,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0628,
+      "atr20_to_60": 1.0636,
       "contractions": [
         5.3768,
         3.8232,
@@ -155262,7 +155177,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 173324700.0,
+      "avg_value_20d": 173324922.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -155353,7 +155268,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41301414.0,
+      "avg_value_20d": 41303593.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -155444,7 +155359,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 302847630.0,
+      "avg_value_20d": 303819508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 18,
@@ -155485,7 +155400,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0858,
+      "atr20_to_60": 1.0883,
       "contractions": [
         4.2504,
         5.1623,
@@ -155530,7 +155445,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 3.36,
-      "breakout_high_pct": 5.27,
+      "breakout_high_pct": 5.47,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -155540,7 +155455,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20847331.0,
+      "avg_value_20d": 20847248.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -155629,7 +155544,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10785330.0,
+      "avg_value_20d": 10785339.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -155666,7 +155581,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8675,
+      "atr20_to_60": 0.868,
       "contractions": [
         15.7651,
         14.4825,
@@ -155720,7 +155635,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27613189.0,
+      "avg_value_20d": 27613179.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 29,
@@ -155760,7 +155675,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9754,
+      "atr20_to_60": 0.9757,
       "contractions": [
         7.1275,
         7.2088,
@@ -155805,7 +155720,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 3.65,
-      "breakout_high_pct": 3.81,
+      "breakout_high_pct": 3.83,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -155815,7 +155730,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 237162733.0,
+      "avg_value_20d": 237163228.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -155904,7 +155819,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 39513043.0,
+      "avg_value_20d": 39680739.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -155983,7 +155898,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 4.05,
-      "breakout_high_pct": 4.88,
+      "breakout_high_pct": 4.89,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -155992,7 +155907,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 361115939.0,
+      "avg_value_20d": 361116080.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -156082,7 +155997,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 182788059.0,
+      "avg_value_20d": 182788252.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -156171,7 +156086,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67246907.0,
+      "avg_value_20d": 67248010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -156260,7 +156175,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 74113549.0,
+      "avg_value_20d": 74113567.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -156298,7 +156213,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.359,
+      "atr20_to_60": 1.3596,
       "contractions": [
         4.7458,
         13.2712,
@@ -156343,7 +156258,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 4.48,
-      "breakout_high_pct": 8.87,
+      "breakout_high_pct": 8.97,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -156353,7 +156268,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 33824521.0,
+      "avg_value_20d": 33825456.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -156443,7 +156358,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27373496.0,
+      "avg_value_20d": 27373429.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
@@ -156483,7 +156398,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0624,
+      "atr20_to_60": 1.0621,
       "contractions": [
         9.201,
         18.5256,
@@ -156539,7 +156454,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 54960514.0,
+      "avg_value_20d": 54961010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 22,
@@ -156634,7 +156549,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 464838107.0,
+      "avg_value_20d": 464874250.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -156725,7 +156640,7 @@
         "Squeeze 剛爆發（前 12 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10821881.0,
+      "avg_value_20d": 10854631.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -156759,7 +156674,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1476,
+      "atr20_to_60": 1.1497,
       "contractions": [
         7.1642,
         10.499,
@@ -156804,7 +156719,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 6.85,
-      "breakout_high_pct": 7.48,
+      "breakout_high_pct": 7.53,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -156814,7 +156729,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30558911.0,
+      "avg_value_20d": 30558972.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -156908,7 +156823,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28890205.0,
+      "avg_value_20d": 28890160.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -156997,7 +156912,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27939000.0,
+      "avg_value_20d": 27939099.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -157089,7 +157004,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 66453213.0,
+      "avg_value_20d": 66453458.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -157123,7 +157038,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1478,
+      "atr20_to_60": 1.149,
       "contractions": [
         5.6401,
         8.9685,
@@ -157179,7 +157094,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1592937633.0,
+      "avg_value_20d": 1593267333.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -157273,7 +157188,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 56566276.0,
+      "avg_value_20d": 56570917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -157311,7 +157226,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2185,
+      "atr20_to_60": 1.2187,
       "contractions": [
         6.6315,
         5.887,
@@ -157356,7 +157271,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 14.79,
-      "breakout_high_pct": 18.79,
+      "breakout_high_pct": 18.83,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -157368,7 +157283,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 66292015.0,
+      "avg_value_20d": 66298409.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -157405,7 +157320,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1193,
+      "atr20_to_60": 1.1197,
       "contractions": [
         2.5665,
         1.7932,
@@ -157459,7 +157374,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 344769584.0,
+      "avg_value_20d": 344784361.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -157553,7 +157468,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 243974732.0,
+      "avg_value_20d": 243974727.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -157590,7 +157505,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9687,
+      "atr20_to_60": 0.9774,
       "contractions": [
         10.631,
         4.4235,
@@ -157635,7 +157550,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 0.12,
-      "breakout_high_pct": 2.32,
+      "breakout_high_pct": 2.63,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -157644,7 +157559,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 228560078.0,
+      "avg_value_20d": 229795763.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 35,
@@ -157684,7 +157599,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.92,
+      "atr20_to_60": 0.9213,
       "contractions": [
         8.0151,
         2.8353,
@@ -157738,7 +157653,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 95757873.0,
+      "avg_value_20d": 95758203.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -157775,7 +157690,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.858,
+      "atr20_to_60": 0.8581,
       "contractions": [
         11.9142,
         6.7744,
@@ -157830,7 +157745,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 241247835.0,
+      "avg_value_20d": 241248921.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 23,
@@ -157926,7 +157841,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19353511.0,
+      "avg_value_20d": 19353424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -158017,7 +157932,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 558298417.0,
+      "avg_value_20d": 560347273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -158056,7 +157971,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8956,
+      "atr20_to_60": 0.899,
       "contractions": [
         4.179,
         6.0943,
@@ -158111,7 +158026,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 453763633.0,
+      "avg_value_20d": 453763949.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -158151,7 +158066,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8923,
+      "atr20_to_60": 0.8925,
       "contractions": [
         3.7845,
         1.6646,
@@ -158206,7 +158121,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 202574011.0,
+      "avg_value_20d": 202574148.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 43,
@@ -158300,7 +158215,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 301221577.0,
+      "avg_value_20d": 301222043.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -158395,7 +158310,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 92541432.0,
+      "avg_value_20d": 92541917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -158435,7 +158350,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7395,
+      "atr20_to_60": 0.7396,
       "contractions": [
         26.5285,
         3.8702,
@@ -158480,7 +158395,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 1.32,
-      "breakout_high_pct": 2.0,
+      "breakout_high_pct": 2.02,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -158490,7 +158405,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 71821686.0,
+      "avg_value_20d": 71944687.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -158583,7 +158498,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2140167467.0,
+      "avg_value_20d": 2140184142.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -158675,7 +158590,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 29850672.0,
+      "avg_value_20d": 29850688.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 22,
@@ -158770,7 +158685,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 483520669.0,
+      "avg_value_20d": 484107739.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -158809,7 +158724,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9498,
+      "atr20_to_60": 0.9499,
       "contractions": [
         6.6175,
         3.6815,
@@ -158854,7 +158769,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 2.18,
-      "breakout_high_pct": 2.46,
+      "breakout_high_pct": 2.47,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -158864,7 +158779,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1008028380.0,
+      "avg_value_20d": 1008929135.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -158955,7 +158870,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 457351640.0,
+      "avg_value_20d": 457437742.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -159046,7 +158961,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1094267862.0,
+      "avg_value_20d": 1094347186.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -159140,7 +159055,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41774411.0,
+      "avg_value_20d": 41896982.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 27,
@@ -159235,7 +159150,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12979202.0,
+      "avg_value_20d": 12979273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -159329,7 +159244,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 906071985.0,
+      "avg_value_20d": 908168321.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -159369,7 +159284,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0375,
+      "atr20_to_60": 1.0403,
       "contractions": [
         1.9385,
         2.8363,
@@ -159414,7 +159329,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 3.81,
-      "breakout_high_pct": 4.66,
+      "breakout_high_pct": 4.67,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -159423,7 +159338,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 370337758.0,
+      "avg_value_20d": 370337887.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -159462,7 +159377,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8547,
+      "atr20_to_60": 0.8599,
       "contractions": [
         4.4128,
         2.6751,
@@ -159517,7 +159432,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 23066278.0,
+      "avg_value_20d": 23066301.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 28,
@@ -159557,7 +159472,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8943,
+      "atr20_to_60": 0.8974,
       "contractions": [
         8.5959,
         4.3684,
@@ -159612,7 +159527,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 18116199.0,
+      "avg_value_20d": 18116270.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -159652,7 +159567,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9059,
+      "atr20_to_60": 0.9063,
       "contractions": [
         9.5611,
         3.3165,
@@ -159697,7 +159612,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 5.3,
-      "breakout_high_pct": 5.62,
+      "breakout_high_pct": 5.64,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -159707,7 +159622,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 62767206.0,
+      "avg_value_20d": 62768410.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -159743,7 +159658,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1474,
+      "atr20_to_60": 1.1476,
       "contractions": [
         12.7548,
         10.5612,
@@ -159798,7 +159713,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 18523733.0,
+      "avg_value_20d": 18523965.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -159835,7 +159750,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7929,
+      "atr20_to_60": 0.8003,
       "contractions": [
         0.6648,
         0.1257,
@@ -159858,16 +159773,16 @@
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": 0,
-      "squeeze_fire": true,
-      "squeeze_fire_dir": "bull",
-      "squeeze_fire_prev_level": "weak",
-      "squeeze_fire_prev_bars": 5,
+      "squeeze_run_days": 6,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
       "sqz_w_level": "",
       "sqz_w_run": 0,
       "sqz_w_fire_weeks": null,
@@ -159876,7 +159791,7 @@
       "sqz_w_prev_level": "",
       "sqz_w_prev_bars": 0,
       "sqz_w_partial": true,
-      "combo": false,
+      "combo": true,
       "breakout_days": null,
       "breakout_date": null,
       "breakout_return_pct": null,
@@ -159888,10 +159803,10 @@
       "pulse_reasons": [
         "VCP 5/5",
         "接近 Pivot",
-        "Squeeze 剛爆發（前 5 日一般壓縮）"
+        "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12400207.0,
+      "avg_value_20d": 12400000.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -159980,7 +159895,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 229962368.0,
+      "avg_value_20d": 229963108.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -160074,7 +159989,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67537198.0,
+      "avg_value_20d": 67537222.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -160108,7 +160023,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9857,
+      "atr20_to_60": 0.9868,
       "contractions": [
         5.0804,
         4.2607,
@@ -160164,7 +160079,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 11373108528.0,
+      "avg_value_20d": 11387642751.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -160198,7 +160113,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7291,
+      "atr20_to_60": 0.73,
       "contractions": [
         14.3611,
         10.8014,
@@ -160253,7 +160168,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 141981687.0,
+      "avg_value_20d": 143107847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 51,
@@ -160347,7 +160262,7 @@
         "Squeeze 剛爆發（前 9 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12173060.0,
+      "avg_value_20d": 12173070.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -160440,7 +160355,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 15846118.0,
+      "avg_value_20d": 15846130.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 31,
@@ -160627,7 +160542,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12488595896.0,
+      "avg_value_20d": 12489875636.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -160716,7 +160631,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13010049.0,
+      "avg_value_20d": 13013095.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -160808,7 +160723,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 11386199.0,
+      "avg_value_20d": 11386201.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -160842,7 +160757,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7983,
+      "atr20_to_60": 0.803,
       "contractions": [
         2.9814,
         9.179,
@@ -160897,7 +160812,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 242251834.0,
+      "avg_value_20d": 242254603.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -160990,7 +160905,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 23639817.0,
+      "avg_value_20d": 23639833.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -161079,7 +160994,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 88741385.0,
+      "avg_value_20d": 88741305.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -161168,7 +161083,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 24299327.0,
+      "avg_value_20d": 24299244.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -161202,7 +161117,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8071,
+      "atr20_to_60": 0.8069,
       "contractions": [
         8.313,
         6.434,
@@ -161258,7 +161173,7 @@
         "Squeeze 剛爆發（前 17 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67164533.0,
+      "avg_value_20d": 67164476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -161352,7 +161267,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30271823.0,
+      "avg_value_20d": 30271798.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -161533,7 +161448,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 54033653.0,
+      "avg_value_20d": 54179496.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -161626,7 +161541,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 450948240.0,
+      "avg_value_20d": 450954549.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -161716,7 +161631,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 211445878.0,
+      "avg_value_20d": 211446102.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -161807,7 +161722,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41082153.0,
+      "avg_value_20d": 41082590.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -161844,7 +161759,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8085,
+      "atr20_to_60": 0.8086,
       "contractions": [
         1.3904,
         5.294,
@@ -161900,7 +161815,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 201483994.0,
+      "avg_value_20d": 201752786.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -161990,7 +161905,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 163972841.0,
+      "avg_value_20d": 163973439.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -162024,7 +161939,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.837,
+      "atr20_to_60": 0.8371,
       "contractions": [
         4.4738,
         8.6464,
@@ -162080,99 +161995,10 @@
         "Squeeze 剛爆發（前 8 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 347668257.0,
+      "avg_value_20d": 347675108.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
-      "rs_universe": 1608,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": true,
-      "new_reason": "今日進入 Pivot 接近區並新進雷達"
-    },
-    {
-      "market": "US",
-      "symbol": "WLY",
-      "name": "John Wiley & Sons, Inc.",
-      "exchange": "",
-      "score": 4,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": true
-      },
-      "structure_quality_good": true,
-      "structure_quality_label": "💎 結構品質佳",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": true,
-        "pivot_valid": true,
-        "current_clear_trigger": true
-      },
-      "atr20_to_60": 0.8118,
-      "contractions": [
-        9.327,
-        12.9719,
-        5.0868,
-        2.863
-      ],
-      "contraction_bars": [
-        5,
-        10,
-        4,
-        1
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-9% → -13% → -5% → -3%",
-      "pivot": 52.58,
-      "last": 51.78,
-      "distance": -1.52,
-      "change_pct": -1.78,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": 4,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": "bull",
-      "squeeze_fire_prev_level": "medium",
-      "squeeze_fire_prev_bars": 12,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 4,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": null,
-      "breakout_date": null,
-      "breakout_return_pct": null,
-      "breakout_high_pct": null,
-      "holding_pivot": false,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 3,
-      "pulse_reasons": [
-        "VCP 4/5",
-        "接近 Pivot"
-      ],
-      "data_date": "2026-10-19",
-      "avg_value_20d": 19948444.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 83,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -162203,7 +162029,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8896,
+      "atr20_to_60": 0.8915,
       "contractions": [
         5.4243,
         2.517,
@@ -162260,7 +162086,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 117815600.0,
+      "avg_value_20d": 117815558.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 39,
@@ -162357,7 +162183,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 289409120.0,
+      "avg_value_20d": 289414544.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -162391,7 +162217,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9583,
+      "atr20_to_60": 0.9584,
       "contractions": [
         11.4062,
         4.8332,
@@ -162448,7 +162274,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1486463351.0,
+      "avg_value_20d": 1486827850.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -162541,7 +162367,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421304414.0,
+      "avg_value_20d": 421304671.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -162550,6 +162376,95 @@
       "tt_fail": [
         2
       ],
+      "is_new": true,
+      "new_reason": "今日進入 Pivot 接近區並新進雷達"
+    },
+    {
+      "market": "US",
+      "symbol": "WLY",
+      "name": "John Wiley & Sons, Inc.",
+      "exchange": "",
+      "score": 4,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": true,
+      "structure_quality_label": "💎 結構品質佳",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": true,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 0.8252,
+      "contractions": [
+        9.327,
+        12.9719,
+        5.0868,
+        2.863
+      ],
+      "contraction_bars": [
+        5,
+        10,
+        4,
+        1
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-9% → -13% → -5% → -3%",
+      "pivot": 53.71,
+      "last": 52.72,
+      "distance": -1.84,
+      "change_pct": -0.47,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": 3,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": "bull",
+      "squeeze_fire_prev_level": "medium",
+      "squeeze_fire_prev_bars": 12,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 3,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": false,
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
+      "data_date": "2026-10-16",
+      "avg_value_20d": 20080331.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 86,
+      "rs_universe": 1608,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": true,
       "new_reason": "今日進入 Pivot 接近區並新進雷達"
     },
@@ -162632,7 +162547,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 59958302.0,
+      "avg_value_20d": 59958411.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -162725,7 +162640,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 133768468.0,
+      "avg_value_20d": 133768486.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -162815,7 +162730,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 110308267.0,
+      "avg_value_20d": 110308723.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -162828,6 +162743,95 @@
         6,
         7
       ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "US",
+      "symbol": "ACIW",
+      "name": "Aci Worldwide, Inc.",
+      "exchange": "",
+      "score": 4,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": true,
+      "structure_quality_label": "💎 結構品質佳",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": true,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 0.8,
+      "contractions": [
+        5.532,
+        1.8697,
+        6.5717,
+        2.0758
+      ],
+      "contraction_bars": [
+        3,
+        2,
+        6,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-6% → -2% → -7% → -2%",
+      "pivot": 53.28,
+      "last": 52.22,
+      "distance": -1.99,
+      "change_pct": -1.1,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
+      "data_date": "2026-10-19",
+      "avg_value_20d": 34037171.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 59,
+      "rs_universe": 1608,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": false,
       "new_reason": ""
     }
@@ -173645,7 +173649,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 53401978.0,
+      "avg_value_20d": 53402036.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -173683,7 +173687,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8614,
+      "atr20_to_60": 0.8615,
       "contractions": [
         11.8812,
         10.2389,
@@ -173739,7 +173743,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13675624.0,
+      "avg_value_20d": 13675628.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -173776,7 +173780,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7928,
+      "atr20_to_60": 0.7933,
       "contractions": [
         8.9875,
         7.9266,
@@ -173833,7 +173837,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28761547.0,
+      "avg_value_20d": 28958618.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -173869,7 +173873,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8353,
+      "atr20_to_60": 0.8354,
       "contractions": [
         9.5667,
         3.9624,
@@ -173914,7 +173918,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.02,
-      "breakout_high_pct": 0.25,
+      "breakout_high_pct": 0.26,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -173924,7 +173928,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38479525.0,
+      "avg_value_20d": 38545111.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -173961,7 +173965,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.96,
+      "atr20_to_60": 0.9605,
       "contractions": [
         7.0563,
         7.6721,
@@ -174016,7 +174020,7 @@
         "Squeeze 剛爆發（前 8 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 261581047.0,
+      "avg_value_20d": 261721147.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -174054,7 +174058,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7611,
+      "atr20_to_60": 0.7615,
       "contractions": [
         22.6644,
         10.7009,
@@ -174110,7 +174114,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30295771.0,
+      "avg_value_20d": 30295777.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 14,
@@ -174151,7 +174155,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.061,
+      "atr20_to_60": 1.0621,
       "contractions": [
         21.4741,
         5.7992,
@@ -174206,7 +174210,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 26721413.0,
+      "avg_value_20d": 26721456.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -174295,7 +174299,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 109147223.0,
+      "avg_value_20d": 109146956.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -174474,7 +174478,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 61626976.0,
+      "avg_value_20d": 61626868.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -174562,7 +174566,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10862512.0,
+      "avg_value_20d": 10862517.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -174651,7 +174655,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 107359075.0,
+      "avg_value_20d": 107363508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -174743,7 +174747,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 483218725.0,
+      "avg_value_20d": 483287254.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -174777,7 +174781,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8753,
+      "atr20_to_60": 0.8752,
       "contractions": [
         9.3665,
         6.9601,
@@ -174832,7 +174836,7 @@
         "Squeeze 剛爆發（前 15 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 140682045.0,
+      "avg_value_20d": 140682060.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 52,
@@ -174869,7 +174873,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.856,
+      "atr20_to_60": 0.8564,
       "contractions": [
         19.2961,
         3.814,
@@ -174924,7 +174928,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 14670182.0,
+      "avg_value_20d": 14671619.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 26,
@@ -174965,7 +174969,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9349,
+      "atr20_to_60": 0.9458,
       "contractions": [
         6.9978,
         4.1748,
@@ -175019,7 +175023,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 40694848.0,
+      "avg_value_20d": 40695707.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -175055,7 +175059,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0007,
+      "atr20_to_60": 1.001,
       "contractions": [
         4.1769,
         10.5008,
@@ -175109,7 +175113,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 25618778.0,
+      "avg_value_20d": 25618777.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -175199,7 +175203,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 463179646.0,
+      "avg_value_20d": 463226173.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -175233,7 +175237,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9238,
+      "atr20_to_60": 0.9239,
       "contractions": [
         3.4019,
         5.8441,
@@ -175287,7 +175291,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1924762449.0,
+      "avg_value_20d": 1925203523.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -175376,10 +175380,10 @@
         "Squeeze 剛爆發（前 11 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 856865726.0,
+      "avg_value_20d": 857176123.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 72,
+      "rs_rating": 73,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -175467,7 +175471,7 @@
         "Squeeze 剛爆發（前 14 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 285409802.0,
+      "avg_value_20d": 285415056.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -175559,7 +175563,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20131737.0,
+      "avg_value_20d": 20131723.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -175647,7 +175651,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1589894329.0,
+      "avg_value_20d": 1591780573.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -175735,7 +175739,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20001742.0,
+      "avg_value_20d": 20001796.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -175860,7 +175864,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.817,
+      "atr20_to_60": 0.8176,
       "contractions": [
         11.5992,
         15.3307,
@@ -175915,7 +175919,7 @@
         "Squeeze 剛爆發（前 17 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38270158.0,
+      "avg_value_20d": 38270350.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -176005,7 +176009,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20893561.0,
+      "avg_value_20d": 20894256.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -176098,7 +176102,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 103794537.0,
+      "avg_value_20d": 103795874.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -176132,7 +176136,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0293,
+      "atr20_to_60": 1.031,
       "contractions": [
         1.948,
         2.3187,
@@ -176186,7 +176190,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 482106637.0,
+      "avg_value_20d": 482114674.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -176276,7 +176280,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 72600372.0,
+      "avg_value_20d": 73035445.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -176457,7 +176461,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20230720.0,
+      "avg_value_20d": 20230764.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -176548,7 +176552,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 266573821.0,
+      "avg_value_20d": 266579009.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -176582,7 +176586,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.023,
+      "atr20_to_60": 1.0237,
       "contractions": [
         9.9831,
         3.5211,
@@ -176638,7 +176642,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28336499.0,
+      "avg_value_20d": 28336527.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -176727,7 +176731,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 137756301.0,
+      "avg_value_20d": 137762035.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -176815,7 +176819,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 410853654.0,
+      "avg_value_20d": 412036946.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -176849,7 +176853,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0128,
+      "atr20_to_60": 1.013,
       "contractions": [
         16.8827,
         4.8139,
@@ -176904,7 +176908,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 499353280.0,
+      "avg_value_20d": 499355599.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -176994,7 +176998,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 385913003.0,
+      "avg_value_20d": 385913090.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -177085,7 +177089,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 644819552.0,
+      "avg_value_20d": 645233374.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -177176,7 +177180,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 15196617.0,
+      "avg_value_20d": 15196621.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -177271,7 +177275,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 159545598.0,
+      "avg_value_20d": 159545463.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -177308,7 +177312,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0135,
+      "atr20_to_60": 1.0156,
       "contractions": [
         2.4263,
         8.7122,
@@ -177363,7 +177367,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 428755828.0,
+      "avg_value_20d": 428768373.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -177452,7 +177456,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 34414501.0,
+      "avg_value_20d": 34800059.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -177541,7 +177545,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 476251965.0,
+      "avg_value_20d": 476254817.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -177577,7 +177581,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9917,
+      "atr20_to_60": 0.9919,
       "contractions": [
         9.965,
         4.0131,
@@ -177622,7 +177626,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 6.28,
-      "breakout_high_pct": 7.12,
+      "breakout_high_pct": 7.14,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -177632,7 +177636,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 87249972.0,
+      "avg_value_20d": 87250717.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -177721,7 +177725,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 180767643.0,
+      "avg_value_20d": 180773418.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -177755,7 +177759,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0025,
+      "atr20_to_60": 1.003,
       "contractions": [
         16.7403,
         3.948,
@@ -177810,7 +177814,7 @@
         "Squeeze 剛爆發（前 7 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 84039607.0,
+      "avg_value_20d": 84039543.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -177846,7 +177850,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8164,
+      "atr20_to_60": 0.8261,
       "contractions": [
         6.4064,
         9.3583,
@@ -177891,7 +177895,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 8.96,
-      "breakout_high_pct": 9.67,
+      "breakout_high_pct": 9.68,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -177902,7 +177906,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19189693.0,
+      "avg_value_20d": 19189816.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -177939,7 +177943,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0889,
+      "atr20_to_60": 1.0897,
       "contractions": [
         0.3439,
         0.4463,
@@ -177984,7 +177988,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.04,
-      "breakout_high_pct": 0.05,
+      "breakout_high_pct": 0.06,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -177995,7 +177999,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 91719397.0,
+      "avg_value_20d": 91719191.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -178029,7 +178033,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.4743,
+      "atr20_to_60": 0.4756,
       "contractions": [
         0.2963,
         0.7035,
@@ -178074,7 +178078,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 0.05,
-      "breakout_high_pct": 0.09,
+      "breakout_high_pct": 0.1,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -178085,7 +178089,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 60585916.0,
+      "avg_value_20d": 60586022.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -178175,7 +178179,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 47195040.0,
+      "avg_value_20d": 47195070.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -178265,7 +178269,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 215047868.0,
+      "avg_value_20d": 215469327.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -178299,7 +178303,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9678,
+      "atr20_to_60": 0.968,
       "contractions": [
         4.6496,
         1.9882,
@@ -178353,7 +178357,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 192369751.0,
+      "avg_value_20d": 192369787.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -178446,100 +178450,10 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 3721843410.0,
+      "avg_value_20d": 3722285508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
-      "rs_universe": 1608,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "BIIB",
-      "name": "Biogen",
-      "exchange": "",
-      "score": 2,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.0393,
-      "contractions": [
-        2.1876,
-        2.4914,
-        6.1378,
-        4.4864
-      ],
-      "contraction_bars": [
-        5,
-        9,
-        3,
-        8
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-2% → -2% → -6% → -4%",
-      "pivot": 232.83,
-      "last": 233.48,
-      "distance": 0.28,
-      "change_pct": 0.36,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 9,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 33,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-10-19",
-      "breakout_return_pct": 0.28,
-      "breakout_high_pct": 1.36,
-      "holding_pivot": true,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "中度壓縮",
-        "多方增強"
-      ],
-      "data_date": "2026-10-19",
-      "avg_value_20d": 284380689.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 87,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -178624,7 +178538,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 213516305.0,
+      "avg_value_20d": 213624639.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -178718,7 +178632,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 40695669.0,
+      "avg_value_20d": 40697822.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -178806,7 +178720,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 167149013.0,
+      "avg_value_20d": 167390770.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -178898,7 +178812,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 45485873.0,
+      "avg_value_20d": 45487880.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -178932,7 +178846,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0351,
+      "atr20_to_60": 1.0352,
       "contractions": [
         3.5296,
         0.7216,
@@ -178977,7 +178891,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.45,
-      "breakout_high_pct": 2.4,
+      "breakout_high_pct": 2.41,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -178987,7 +178901,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30258685.0,
+      "avg_value_20d": 30258405.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -179076,7 +178990,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 502378627.0,
+      "avg_value_20d": 502384435.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -179165,7 +179079,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 903575798.0,
+      "avg_value_20d": 903885159.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -179258,7 +179172,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 33889648.0,
+      "avg_value_20d": 33926865.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -179292,7 +179206,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9371,
+      "atr20_to_60": 0.9373,
       "contractions": [
         8.6307,
         3.0354,
@@ -179347,7 +179261,7 @@
         "Squeeze 剛爆發（前 16 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 310199446.0,
+      "avg_value_20d": 310199451.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -179437,7 +179351,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 437418518.0,
+      "avg_value_20d": 437434548.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -179528,7 +179442,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 17631228.0,
+      "avg_value_20d": 17631263.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -179621,10 +179535,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1301169622.0,
+      "avg_value_20d": 1316287158.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 61,
+      "rs_rating": 62,
       "rs_universe": 1608,
       "tt_count": 4,
       "tt_fail": [
@@ -179659,7 +179573,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8351,
+      "atr20_to_60": 0.8375,
       "contractions": [
         3.1758,
         2.8159,
@@ -179714,7 +179628,7 @@
         "Squeeze 剛爆發（前 60 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 17847703.0,
+      "avg_value_20d": 17847750.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -179802,7 +179716,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 387123111.0,
+      "avg_value_20d": 387127752.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -179839,7 +179753,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0389,
+      "atr20_to_60": 1.0397,
       "contractions": [
         1.4569,
         8.5364,
@@ -179884,7 +179798,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 0.85,
-      "breakout_high_pct": 1.22,
+      "breakout_high_pct": 1.23,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -179894,7 +179808,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 138338373.0,
+      "avg_value_20d": 138338421.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -179930,7 +179844,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1246,
+      "atr20_to_60": 1.1248,
       "contractions": [
         9.5878,
         3.3198,
@@ -179975,7 +179889,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 0.88,
-      "breakout_high_pct": 5.2,
+      "breakout_high_pct": 5.27,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -179985,7 +179899,7 @@
         "Squeeze 剛爆發（前 15 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 44167757.0,
+      "avg_value_20d": 44167842.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -180022,7 +179936,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.098,
+      "atr20_to_60": 1.0983,
       "contractions": [
         3.1491,
         9.0129,
@@ -180076,7 +179990,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 319652130.0,
+      "avg_value_20d": 319655300.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -180112,7 +180026,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9048,
+      "atr20_to_60": 0.9146,
       "contractions": [
         1.6698,
         1.3508,
@@ -180168,7 +180082,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 127219759.0,
+      "avg_value_20d": 127229755.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -180204,7 +180118,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8343,
+      "atr20_to_60": 0.8344,
       "contractions": [
         1.5559,
         3.8265,
@@ -180258,10 +180172,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2155531108.0,
+      "avg_value_20d": 2155726330.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 64,
+      "rs_rating": 65,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -180294,7 +180208,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8903,
+      "atr20_to_60": 0.8906,
       "contractions": [
         1.9442,
         5.2859,
@@ -180348,7 +180262,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 471718897.0,
+      "avg_value_20d": 472105328.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -180384,7 +180298,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0295,
+      "atr20_to_60": 1.0322,
       "contractions": [
         5.9748,
         8.209,
@@ -180438,10 +180352,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 81806032.0,
+      "avg_value_20d": 81806069.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 82,
+      "rs_rating": 83,
       "rs_universe": 1608,
       "tt_count": 5,
       "tt_fail": [
@@ -180530,7 +180444,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 806089567.0,
+      "avg_value_20d": 807367101.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -180570,7 +180484,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8692,
+      "atr20_to_60": 0.869,
       "contractions": [
         2.0978,
         2.4148,
@@ -180624,7 +180538,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 529381475.0,
+      "avg_value_20d": 530896975.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -180715,7 +180629,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38503754.0,
+      "avg_value_20d": 38516600.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 64,
@@ -180752,7 +180666,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8412,
+      "atr20_to_60": 0.8464,
       "contractions": [
         2.2516,
         6.0112,
@@ -180806,7 +180720,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 178983533.0,
+      "avg_value_20d": 178983299.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -180842,7 +180756,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8674,
+      "atr20_to_60": 0.8793,
       "contractions": [
         2.847,
         2.5692,
@@ -180898,10 +180812,10 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19899274.0,
+      "avg_value_20d": 19899228.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 71,
+      "rs_rating": 72,
       "rs_universe": 1608,
       "tt_count": 6,
       "tt_fail": [
@@ -180934,7 +180848,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1045,
+      "atr20_to_60": 1.1048,
       "contractions": [
         2.8927,
         7.3951,
@@ -180990,7 +180904,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2253804140.0,
+      "avg_value_20d": 2253908037.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -181079,7 +180993,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 24703797.0,
+      "avg_value_20d": 24703780.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
@@ -181115,7 +181029,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9074,
+      "atr20_to_60": 0.9073,
       "contractions": [
         5.665,
         8.0277,
@@ -181257,7 +181171,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421940087.0,
+      "avg_value_20d": 431146893.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -181345,7 +181259,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 38930526.0,
+      "avg_value_20d": 38930519.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -181433,7 +181347,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13593146.0,
+      "avg_value_20d": 13712424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -181521,7 +181435,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 198397411.0,
+      "avg_value_20d": 198396724.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -181558,7 +181472,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0562,
+      "atr20_to_60": 1.0561,
       "contractions": [
         0.8299,
         3.1393,
@@ -181612,7 +181526,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2222676286.0,
+      "avg_value_20d": 2222830020.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 77,
@@ -181700,10 +181614,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 510103486.0,
+      "avg_value_20d": 510203580.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 68,
+      "rs_rating": 69,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -181789,7 +181703,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 14425670.0,
+      "avg_value_20d": 14425751.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -181879,7 +181793,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 379152509.0,
+      "avg_value_20d": 379152626.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -181916,7 +181830,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9528,
+      "atr20_to_60": 0.9542,
       "contractions": [
         4.3374,
         1.4188,
@@ -181970,7 +181884,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1411653487.0,
+      "avg_value_20d": 1414048663.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -182004,7 +181918,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9056,
+      "atr20_to_60": 0.9057,
       "contractions": [
         21.275,
         4.9542,
@@ -182060,7 +181974,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 226242337.0,
+      "avg_value_20d": 226242769.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -182097,7 +182011,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0326,
+      "atr20_to_60": 1.0328,
       "contractions": [
         4.618,
         5.8469,
@@ -182152,7 +182066,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 281616583.0,
+      "avg_value_20d": 281616657.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -182244,7 +182158,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 195409279.0,
+      "avg_value_20d": 195411775.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -182278,7 +182192,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8388,
+      "atr20_to_60": 0.8398,
       "contractions": [
         4.0393,
         20.2899,
@@ -182332,7 +182246,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10993071.0,
+      "avg_value_20d": 10993010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -182423,7 +182337,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1753484073.0,
+      "avg_value_20d": 1753484782.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -182459,7 +182373,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9978,
+      "atr20_to_60": 0.9979,
       "contractions": [
         6.4539,
         7.5506,
@@ -182504,7 +182418,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 1.92,
-      "breakout_high_pct": 3.09,
+      "breakout_high_pct": 3.11,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -182514,7 +182428,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 422715727.0,
+      "avg_value_20d": 422780580.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -182548,7 +182462,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8274,
+      "atr20_to_60": 0.8278,
       "contractions": [
         10.0516,
         5.0687,
@@ -182602,7 +182516,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 34218685.0,
+      "avg_value_20d": 34218918.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -182636,7 +182550,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9054,
+      "atr20_to_60": 0.9096,
       "contractions": [
         8.5407,
         2.7046,
@@ -182691,7 +182605,7 @@
         "Squeeze 剛爆發（前 22 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 22123417.0,
+      "avg_value_20d": 22123823.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -182725,7 +182639,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9175,
+      "atr20_to_60": 0.9176,
       "contractions": [
         3.981,
         2.1429,
@@ -182779,7 +182693,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 789587042.0,
+      "avg_value_20d": 791014424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -182868,7 +182782,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 32179049.0,
+      "avg_value_20d": 32178613.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 33,
@@ -182965,7 +182879,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 48531517.0,
+      "avg_value_20d": 48531495.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -183003,7 +182917,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0142,
+      "atr20_to_60": 1.0143,
       "contractions": [
         11.5335,
         2.4811,
@@ -183057,7 +182971,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2345911931.0,
+      "avg_value_20d": 2346367746.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -183152,7 +183066,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 16858685.0,
+      "avg_value_20d": 16858725.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -183241,7 +183155,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421596438.0,
+      "avg_value_20d": 421598291.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -183331,7 +183245,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 43229213.0,
+      "avg_value_20d": 43229204.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -183365,7 +183279,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0148,
+      "atr20_to_60": 1.0154,
       "contractions": [
         6.993,
         1.2107,
@@ -183420,7 +183334,7 @@
         "Squeeze 剛爆發（前 18 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 42189070.0,
+      "avg_value_20d": 42309491.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -183509,7 +183423,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 49524252.0,
+      "avg_value_20d": 49525326.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -183599,7 +183513,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 85373790.0,
+      "avg_value_20d": 85373968.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -183687,7 +183601,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28319618.0,
+      "avg_value_20d": 28319676.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -183775,10 +183689,10 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 529081276.0,
+      "avg_value_20d": 530810035.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 69,
+      "rs_rating": 70,
       "rs_universe": 1608,
       "tt_count": 5,
       "tt_fail": [
@@ -183868,7 +183782,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 57040072.0,
+      "avg_value_20d": 57040075.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -183902,7 +183816,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.953,
+      "atr20_to_60": 0.9529,
       "contractions": [
         1.9231,
         2.5427,
@@ -183956,7 +183870,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 175670513.0,
+      "avg_value_20d": 175670379.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -183990,7 +183904,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8806,
+      "atr20_to_60": 0.8828,
       "contractions": [
         0.9313,
         6.1076,
@@ -184046,7 +183960,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10371035.0,
+      "avg_value_20d": 10371043.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -184137,7 +184051,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2695030595.0,
+      "avg_value_20d": 2695159714.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -184171,7 +184085,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0628,
+      "atr20_to_60": 1.0636,
       "contractions": [
         5.3768,
         3.8232,
@@ -184225,7 +184139,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 173324700.0,
+      "avg_value_20d": 173324922.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -184316,7 +184230,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41301414.0,
+      "avg_value_20d": 41303593.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -184407,7 +184321,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 302847630.0,
+      "avg_value_20d": 303819508.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 18,
@@ -184448,7 +184362,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0858,
+      "atr20_to_60": 1.0883,
       "contractions": [
         4.2504,
         5.1623,
@@ -184493,7 +184407,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 3.36,
-      "breakout_high_pct": 5.27,
+      "breakout_high_pct": 5.47,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -184503,7 +184417,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 20847331.0,
+      "avg_value_20d": 20847248.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -184592,7 +184506,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10785330.0,
+      "avg_value_20d": 10785339.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -184629,7 +184543,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8675,
+      "atr20_to_60": 0.868,
       "contractions": [
         15.7651,
         14.4825,
@@ -184683,7 +184597,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27613189.0,
+      "avg_value_20d": 27613179.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 29,
@@ -184723,7 +184637,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9754,
+      "atr20_to_60": 0.9757,
       "contractions": [
         7.1275,
         7.2088,
@@ -184768,7 +184682,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 3.65,
-      "breakout_high_pct": 3.81,
+      "breakout_high_pct": 3.83,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -184778,7 +184692,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 237162733.0,
+      "avg_value_20d": 237163228.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -184867,7 +184781,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 39513043.0,
+      "avg_value_20d": 39680739.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -184946,7 +184860,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 4.05,
-      "breakout_high_pct": 4.88,
+      "breakout_high_pct": 4.89,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -184955,7 +184869,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 361115939.0,
+      "avg_value_20d": 361116080.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -185045,7 +184959,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 182788059.0,
+      "avg_value_20d": 182788252.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -185134,7 +185048,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67246907.0,
+      "avg_value_20d": 67248010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -185223,7 +185137,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 74113549.0,
+      "avg_value_20d": 74113567.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -185261,7 +185175,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.359,
+      "atr20_to_60": 1.3596,
       "contractions": [
         4.7458,
         13.2712,
@@ -185306,7 +185220,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 4.48,
-      "breakout_high_pct": 8.87,
+      "breakout_high_pct": 8.97,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -185316,7 +185230,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 33824521.0,
+      "avg_value_20d": 33825456.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -185406,7 +185320,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27373496.0,
+      "avg_value_20d": 27373429.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
@@ -185446,7 +185360,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0624,
+      "atr20_to_60": 1.0621,
       "contractions": [
         9.201,
         18.5256,
@@ -185502,7 +185416,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 54960514.0,
+      "avg_value_20d": 54961010.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 22,
@@ -185597,7 +185511,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 464838107.0,
+      "avg_value_20d": 464874250.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -185688,7 +185602,7 @@
         "Squeeze 剛爆發（前 12 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 10821881.0,
+      "avg_value_20d": 10854631.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -185722,7 +185636,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1476,
+      "atr20_to_60": 1.1497,
       "contractions": [
         7.1642,
         10.499,
@@ -185767,7 +185681,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 6.85,
-      "breakout_high_pct": 7.48,
+      "breakout_high_pct": 7.53,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -185777,7 +185691,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30558911.0,
+      "avg_value_20d": 30558972.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -185871,7 +185785,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 28890205.0,
+      "avg_value_20d": 28890160.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -185960,7 +185874,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 27939000.0,
+      "avg_value_20d": 27939099.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 62,
@@ -186052,7 +185966,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 66453213.0,
+      "avg_value_20d": 66453458.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -186086,7 +186000,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1478,
+      "atr20_to_60": 1.149,
       "contractions": [
         5.6401,
         8.9685,
@@ -186142,7 +186056,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1592937633.0,
+      "avg_value_20d": 1593267333.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -186236,7 +186150,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 56566276.0,
+      "avg_value_20d": 56570917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -186274,7 +186188,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2185,
+      "atr20_to_60": 1.2187,
       "contractions": [
         6.6315,
         5.887,
@@ -186319,7 +186233,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 14.79,
-      "breakout_high_pct": 18.79,
+      "breakout_high_pct": 18.83,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -186331,7 +186245,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 66292015.0,
+      "avg_value_20d": 66298409.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -186368,7 +186282,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1193,
+      "atr20_to_60": 1.1197,
       "contractions": [
         2.5665,
         1.7932,
@@ -186422,7 +186336,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 344769584.0,
+      "avg_value_20d": 344784361.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -186516,7 +186430,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 243974732.0,
+      "avg_value_20d": 243974727.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -186553,7 +186467,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9687,
+      "atr20_to_60": 0.9774,
       "contractions": [
         10.631,
         4.4235,
@@ -186598,7 +186512,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 0.12,
-      "breakout_high_pct": 2.32,
+      "breakout_high_pct": 2.63,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -186607,7 +186521,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 228560078.0,
+      "avg_value_20d": 229795763.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 35,
@@ -186647,7 +186561,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.92,
+      "atr20_to_60": 0.9213,
       "contractions": [
         8.0151,
         2.8353,
@@ -186701,7 +186615,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 95757873.0,
+      "avg_value_20d": 95758203.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -186738,7 +186652,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.858,
+      "atr20_to_60": 0.8581,
       "contractions": [
         11.9142,
         6.7744,
@@ -186793,7 +186707,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 241247835.0,
+      "avg_value_20d": 241248921.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 23,
@@ -186889,7 +186803,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 19353511.0,
+      "avg_value_20d": 19353424.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -186980,7 +186894,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 558298417.0,
+      "avg_value_20d": 560347273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -187019,7 +186933,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8956,
+      "atr20_to_60": 0.899,
       "contractions": [
         4.179,
         6.0943,
@@ -187074,7 +186988,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 453763633.0,
+      "avg_value_20d": 453763949.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -187114,7 +187028,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8923,
+      "atr20_to_60": 0.8925,
       "contractions": [
         3.7845,
         1.6646,
@@ -187169,7 +187083,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 202574011.0,
+      "avg_value_20d": 202574148.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 43,
@@ -187263,7 +187177,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 301221577.0,
+      "avg_value_20d": 301222043.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -187358,7 +187272,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 92541432.0,
+      "avg_value_20d": 92541917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -187398,7 +187312,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.7395,
+      "atr20_to_60": 0.7396,
       "contractions": [
         26.5285,
         3.8702,
@@ -187443,7 +187357,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-10-19",
       "breakout_return_pct": 1.32,
-      "breakout_high_pct": 2.0,
+      "breakout_high_pct": 2.02,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -187453,7 +187367,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 71821686.0,
+      "avg_value_20d": 71944687.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -187546,7 +187460,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 2140167467.0,
+      "avg_value_20d": 2140184142.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -187638,7 +187552,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 29850672.0,
+      "avg_value_20d": 29850688.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 22,
@@ -187733,7 +187647,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 483520669.0,
+      "avg_value_20d": 484107739.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -187772,7 +187686,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9498,
+      "atr20_to_60": 0.9499,
       "contractions": [
         6.6175,
         3.6815,
@@ -187817,7 +187731,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 2.18,
-      "breakout_high_pct": 2.46,
+      "breakout_high_pct": 2.47,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -187827,7 +187741,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1008028380.0,
+      "avg_value_20d": 1008929135.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -187918,7 +187832,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 457351640.0,
+      "avg_value_20d": 457437742.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -188009,7 +187923,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1094267862.0,
+      "avg_value_20d": 1094347186.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -188103,7 +188017,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41774411.0,
+      "avg_value_20d": 41896982.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 27,
@@ -188198,7 +188112,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12979202.0,
+      "avg_value_20d": 12979273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -188292,7 +188206,7 @@
         "Squeeze 剛爆發（前 18 日中度壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 906071985.0,
+      "avg_value_20d": 908168321.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -188332,7 +188246,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0375,
+      "atr20_to_60": 1.0403,
       "contractions": [
         1.9385,
         2.8363,
@@ -188377,7 +188291,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-15",
       "breakout_return_pct": 3.81,
-      "breakout_high_pct": 4.66,
+      "breakout_high_pct": 4.67,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -188386,7 +188300,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 370337758.0,
+      "avg_value_20d": 370337887.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 56,
@@ -188425,7 +188339,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8547,
+      "atr20_to_60": 0.8599,
       "contractions": [
         4.4128,
         2.6751,
@@ -188480,7 +188394,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 23066278.0,
+      "avg_value_20d": 23066301.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 28,
@@ -188520,7 +188434,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8943,
+      "atr20_to_60": 0.8974,
       "contractions": [
         8.5959,
         4.3684,
@@ -188575,7 +188489,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 18116199.0,
+      "avg_value_20d": 18116270.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -188615,7 +188529,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9059,
+      "atr20_to_60": 0.9063,
       "contractions": [
         9.5611,
         3.3165,
@@ -188660,7 +188574,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 5.3,
-      "breakout_high_pct": 5.62,
+      "breakout_high_pct": 5.64,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -188670,7 +188584,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 62767206.0,
+      "avg_value_20d": 62768410.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -188706,7 +188620,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1474,
+      "atr20_to_60": 1.1476,
       "contractions": [
         12.7548,
         10.5612,
@@ -188761,7 +188675,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 18523733.0,
+      "avg_value_20d": 18523965.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -188798,7 +188712,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7929,
+      "atr20_to_60": 0.8003,
       "contractions": [
         0.6648,
         0.1257,
@@ -188821,16 +188735,16 @@
       "volume_dry": true,
       "type": "near",
       "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
       "momentum": "↘ 多方減弱",
       "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": 0,
-      "squeeze_fire": true,
-      "squeeze_fire_dir": "bull",
-      "squeeze_fire_prev_level": "weak",
-      "squeeze_fire_prev_bars": 5,
+      "squeeze_run_days": 6,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
       "sqz_w_level": "",
       "sqz_w_run": 0,
       "sqz_w_fire_weeks": null,
@@ -188839,7 +188753,7 @@
       "sqz_w_prev_level": "",
       "sqz_w_prev_bars": 0,
       "sqz_w_partial": true,
-      "combo": false,
+      "combo": true,
       "breakout_days": null,
       "breakout_date": null,
       "breakout_return_pct": null,
@@ -188851,10 +188765,10 @@
       "pulse_reasons": [
         "VCP 5/5",
         "接近 Pivot",
-        "Squeeze 剛爆發（前 5 日一般壓縮）"
+        "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12400207.0,
+      "avg_value_20d": 12400000.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -188943,7 +188857,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 229962368.0,
+      "avg_value_20d": 229963108.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -189037,7 +188951,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67537198.0,
+      "avg_value_20d": 67537222.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -189071,7 +188985,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9857,
+      "atr20_to_60": 0.9868,
       "contractions": [
         5.0804,
         4.2607,
@@ -189127,7 +189041,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 11373108528.0,
+      "avg_value_20d": 11387642751.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -189161,7 +189075,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7291,
+      "atr20_to_60": 0.73,
       "contractions": [
         14.3611,
         10.8014,
@@ -189216,7 +189130,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 141981687.0,
+      "avg_value_20d": 143107847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 51,
@@ -189310,7 +189224,7 @@
         "Squeeze 剛爆發（前 9 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12173060.0,
+      "avg_value_20d": 12173070.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -189403,7 +189317,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 15846118.0,
+      "avg_value_20d": 15846130.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 31,
@@ -189590,7 +189504,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 12488595896.0,
+      "avg_value_20d": 12489875636.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -189679,7 +189593,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 13010049.0,
+      "avg_value_20d": 13013095.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -189771,7 +189685,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 11386199.0,
+      "avg_value_20d": 11386201.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -189805,7 +189719,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.7983,
+      "atr20_to_60": 0.803,
       "contractions": [
         2.9814,
         9.179,
@@ -189860,7 +189774,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 242251834.0,
+      "avg_value_20d": 242254603.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -189953,7 +189867,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 23639817.0,
+      "avg_value_20d": 23639833.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -190042,7 +189956,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 88741385.0,
+      "avg_value_20d": 88741305.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -190131,7 +190045,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 24299327.0,
+      "avg_value_20d": 24299244.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -190165,7 +190079,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8071,
+      "atr20_to_60": 0.8069,
       "contractions": [
         8.313,
         6.434,
@@ -190221,7 +190135,7 @@
         "Squeeze 剛爆發（前 17 日強力壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 67164533.0,
+      "avg_value_20d": 67164476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -190315,7 +190229,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 30271823.0,
+      "avg_value_20d": 30271798.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -190496,7 +190410,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 54033653.0,
+      "avg_value_20d": 54179496.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -190589,7 +190503,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 450948240.0,
+      "avg_value_20d": 450954549.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -190679,7 +190593,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 211445878.0,
+      "avg_value_20d": 211446102.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -190770,7 +190684,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 41082153.0,
+      "avg_value_20d": 41082590.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -190807,7 +190721,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8085,
+      "atr20_to_60": 0.8086,
       "contractions": [
         1.3904,
         5.294,
@@ -190863,7 +190777,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 201483994.0,
+      "avg_value_20d": 201752786.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -190953,7 +190867,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 163972841.0,
+      "avg_value_20d": 163973439.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -190987,7 +190901,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.837,
+      "atr20_to_60": 0.8371,
       "contractions": [
         4.4738,
         8.6464,
@@ -191043,99 +190957,10 @@
         "Squeeze 剛爆發（前 8 日一般壓縮）"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 347668257.0,
+      "avg_value_20d": 347675108.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
-      "rs_universe": 1608,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": true,
-      "new_reason": "今日進入 Pivot 接近區並新進雷達"
-    },
-    {
-      "market": "US",
-      "symbol": "WLY",
-      "name": "John Wiley & Sons, Inc.",
-      "exchange": "",
-      "score": 4,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": true
-      },
-      "structure_quality_good": true,
-      "structure_quality_label": "💎 結構品質佳",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": true,
-        "pivot_valid": true,
-        "current_clear_trigger": true
-      },
-      "atr20_to_60": 0.8118,
-      "contractions": [
-        9.327,
-        12.9719,
-        5.0868,
-        2.863
-      ],
-      "contraction_bars": [
-        5,
-        10,
-        4,
-        1
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-9% → -13% → -5% → -3%",
-      "pivot": 52.58,
-      "last": 51.78,
-      "distance": -1.52,
-      "change_pct": -1.78,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": 4,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": "bull",
-      "squeeze_fire_prev_level": "medium",
-      "squeeze_fire_prev_bars": 12,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 4,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": null,
-      "breakout_date": null,
-      "breakout_return_pct": null,
-      "breakout_high_pct": null,
-      "holding_pivot": false,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 3,
-      "pulse_reasons": [
-        "VCP 4/5",
-        "接近 Pivot"
-      ],
-      "data_date": "2026-10-19",
-      "avg_value_20d": 19948444.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 83,
       "rs_universe": 1608,
       "tt_count": 7,
       "tt_fail": [],
@@ -191166,7 +190991,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8896,
+      "atr20_to_60": 0.8915,
       "contractions": [
         5.4243,
         2.517,
@@ -191223,7 +191048,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 117815600.0,
+      "avg_value_20d": 117815558.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 39,
@@ -191320,7 +191145,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 289409120.0,
+      "avg_value_20d": 289414544.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -191354,7 +191179,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9583,
+      "atr20_to_60": 0.9584,
       "contractions": [
         11.4062,
         4.8332,
@@ -191411,7 +191236,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 1486463351.0,
+      "avg_value_20d": 1486827850.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -191504,7 +191329,7 @@
         "中度壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 421304414.0,
+      "avg_value_20d": 421304671.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -191513,6 +191338,95 @@
       "tt_fail": [
         2
       ],
+      "is_new": true,
+      "new_reason": "今日進入 Pivot 接近區並新進雷達"
+    },
+    {
+      "market": "US",
+      "symbol": "WLY",
+      "name": "John Wiley & Sons, Inc.",
+      "exchange": "",
+      "score": 4,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": true,
+      "structure_quality_label": "💎 結構品質佳",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": true,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 0.8252,
+      "contractions": [
+        9.327,
+        12.9719,
+        5.0868,
+        2.863
+      ],
+      "contraction_bars": [
+        5,
+        10,
+        4,
+        1
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-9% → -13% → -5% → -3%",
+      "pivot": 53.71,
+      "last": 52.72,
+      "distance": -1.84,
+      "change_pct": -0.47,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": 3,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": "bull",
+      "squeeze_fire_prev_level": "medium",
+      "squeeze_fire_prev_bars": 12,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 3,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": false,
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
+      "data_date": "2026-10-16",
+      "avg_value_20d": 20080331.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 86,
+      "rs_universe": 1608,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": true,
       "new_reason": "今日進入 Pivot 接近區並新進雷達"
     },
@@ -191595,7 +191509,7 @@
         "接近 Pivot"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 59958302.0,
+      "avg_value_20d": 59958411.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -191688,7 +191602,7 @@
         "多方增強"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 133768468.0,
+      "avg_value_20d": 133768486.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -191778,7 +191692,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-10-19",
-      "avg_value_20d": 110308267.0,
+      "avg_value_20d": 110308723.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -191791,6 +191705,95 @@
         6,
         7
       ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "US",
+      "symbol": "ACIW",
+      "name": "Aci Worldwide, Inc.",
+      "exchange": "",
+      "score": 4,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": true,
+      "structure_quality_label": "💎 結構品質佳",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": true,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 0.8,
+      "contractions": [
+        5.532,
+        1.8697,
+        6.5717,
+        2.0758
+      ],
+      "contraction_bars": [
+        3,
+        2,
+        6,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-6% → -2% → -7% → -2%",
+      "pivot": 53.28,
+      "last": 52.22,
+      "distance": -1.99,
+      "change_pct": -1.1,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 3,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot"
+      ],
+      "data_date": "2026-10-19",
+      "avg_value_20d": 34037171.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 59,
+      "rs_universe": 1608,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": false,
       "new_reason": ""
     }
