@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20 22:35",
+  "generated_at": "2026-10-20 23:08",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-10-20",
       "count": 114,
-      "scanned_at": "2026-10-20 18:14",
+      "scanned_at": "2026-10-20 23:08",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-10-20",
       "count": 114,
-      "scanned_at": "2026-10-20 18:14",
+      "scanned_at": "2026-10-20 23:08",
       "snapshot_type": "official"
     }
   },
@@ -172,9 +172,9 @@
       "index": "S&P 500",
       "ticker": "^GSPC",
       "ma_days": 50,
-      "close": 7736.16,
-      "ma": 7704.74,
-      "dist_pct": 0.41,
+      "close": 7738.13,
+      "ma": 7704.78,
+      "dist_pct": 0.43,
       "above": true,
       "as_of": "2026-10-20"
     }
@@ -497,7 +497,7 @@
         "heat_score": 68,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
-        "market_share_pct": 36.0,
+        "market_share_pct": 35.9,
         "value_ratio": 0.74,
         "breadth_pct": 28.3,
         "avg_change_pct": -0.42,
@@ -6917,7 +6917,8 @@
     "TWLO": "Twilio",
     "VYLR": "Vylor",
     "RGEN": "Repligen Corp",
-    "7806": "精華生醫"
+    "7806": "精華生醫",
+    "6467": "泰合"
   },
   "all_stock_quote_cache_version": 1,
   "official_quotes": {
@@ -23873,6 +23874,13 @@
           5,
           6
         ]
+      },
+      "6467": {
+        "price": 200.0,
+        "prev_close": 199.0,
+        "data_date": "2026-10-20",
+        "name": "泰合",
+        "source": "VCPulse scanner"
       },
       "6465": {
         "price": 46.05,
@@ -153382,7 +153390,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3065,
+      "atr20_to_60": 1.3054,
       "contractions": [
         14.1775,
         5.4545,
@@ -154285,7 +154293,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0715,
+      "atr20_to_60": 1.0725,
       "contractions": [
         14.3247,
         17.8244,
@@ -154318,26 +154326,25 @@
       "squeeze_fire_dir": null,
       "squeeze_fire_prev_level": "",
       "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 0,
-      "sqz_w_fire": true,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "strong",
-      "sqz_w_prev_bars": 32,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 33,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
       "sqz_w_partial": true,
       "combo": false,
       "breakout_days": 2,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 10.71,
-      "breakout_high_pct": 13.68,
+      "breakout_high_pct": 13.81,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
-      "pulse_points": 5,
+      "pulse_points": 4,
       "pulse_reasons": [
         "突破後仍守 Pivot",
-        "週線 Squeeze 爆發",
         "多方增強",
         "突破後距 Pivot 超過 8%"
       ],
@@ -154376,7 +154383,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2007,
+      "atr20_to_60": 1.203,
       "contractions": [
         3.8462,
         12.5,
@@ -154421,7 +154428,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 12.33,
-      "breakout_high_pct": 17.81,
+      "breakout_high_pct": 18.15,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -154646,7 +154653,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8883,
+      "atr20_to_60": 0.8874,
       "contractions": [
         13.5638,
         8.658,
@@ -160697,7 +160704,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9328,
+      "atr20_to_60": 0.9344,
       "contractions": [
         6.2827,
         2.2887,
@@ -182018,7 +182025,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3065,
+      "atr20_to_60": 1.3054,
       "contractions": [
         14.1775,
         5.4545,
@@ -182921,7 +182928,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0715,
+      "atr20_to_60": 1.0725,
       "contractions": [
         14.3247,
         17.8244,
@@ -182954,26 +182961,25 @@
       "squeeze_fire_dir": null,
       "squeeze_fire_prev_level": "",
       "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 0,
-      "sqz_w_fire": true,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "strong",
-      "sqz_w_prev_bars": 32,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 33,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
       "sqz_w_partial": true,
       "combo": false,
       "breakout_days": 2,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 10.71,
-      "breakout_high_pct": 13.68,
+      "breakout_high_pct": 13.81,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
-      "pulse_points": 5,
+      "pulse_points": 4,
       "pulse_reasons": [
         "突破後仍守 Pivot",
-        "週線 Squeeze 爆發",
         "多方增強",
         "突破後距 Pivot 超過 8%"
       ],
@@ -183012,7 +183018,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2007,
+      "atr20_to_60": 1.203,
       "contractions": [
         3.8462,
         12.5,
@@ -183057,7 +183063,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-10-16",
       "breakout_return_pct": 12.33,
-      "breakout_high_pct": 17.81,
+      "breakout_high_pct": 18.15,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -183282,7 +183288,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8883,
+      "atr20_to_60": 0.8874,
       "contractions": [
         13.5638,
         8.658,
@@ -189333,7 +189339,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9328,
+      "atr20_to_60": 0.9344,
       "contractions": [
         6.2827,
         2.2887,
