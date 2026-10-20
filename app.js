@@ -1934,9 +1934,31 @@ function ttChip(r){
  const tier=n>=7?'full':(n>=5?'near':'low');
  return `<span class="tt-chip tt-${tier} sh-chip" data-sh="tt" data-tt="${n}" data-fail="${(Array.isArray(r.tt_fail)?r.tt_fail:[]).join(',')}" data-rs="${Number(r.rs_rating)||''}" data-sym="${shChipSym(r)}" role="button" tabindex="0" title="${ttTipText(n,r.tt_fail,r.rs_rating)}">趨勢 ${n}/7</span>`;
 }
+/* 停損距離（Darvas／Minervini 風格）：只做標註，不影響 VCP 分數與篩選。
+   停損參考價 stop_price＝最後一段收縮的最低點（scanner.py 提供）；
+   進場參考：突破前用 Pivot（等突破才買），突破後用現價。 */
+function slInfo(r){
+ const sp=Number(r&&r.stop_price); if(!(sp>0)) return null;
+ const post=r.type==='breakout'||r.type==='postbreakout';
+ const entry=Number(post?r.last:r.pivot); if(!(entry>0)) return null;
+ const risk=(entry/sp-1)>=0?(1-sp/entry)*100:-1;
+ const broken=Number(r.last)>0&&Number(r.last)<sp;
+ const tier=broken?'broken':(risk<=5?'tight':(risk<=8?'ok':'wide'));
+ return {sp,entry,risk,post,broken,tier};
+}
+function slTipText(i){
+ if(i.broken) return `現價已跌破停損參考價 ${i.sp}（最後一段收縮低點），型態可能失敗。僅供參考，不影響 VCP 分數`;
+ return `停損參考價 ${i.sp}（最後一段收縮低點）；以${i.post?'現價':'Pivot '+i.entry+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
+  (i.tier==='tight'?'停損很近，風險小':i.tier==='ok'?'在 8% 以內，屬一般可接受範圍':'超過 8%，進場點離停損偏遠，有追高風險')+'。僅供參考，不影響 VCP 分數';
+}
+function slChip(r){
+ const i=slInfo(r); if(!i) return '';
+ const txt=i.broken?'破停損':`停損 ${i.risk.toFixed(1)}%`;
+ return `<span class="sl-chip sl-${i.tier}" title="${slTipText(i)}">${txt}</span>`;
+}
 function rsTtLine(r){
- const a=rsChip(r), b=ttChip(r);
- return (a||b)?`<div class="rs-line">${a}${b}</div>`:'';
+ const a=rsChip(r), b=ttChip(r), c=slChip(r);
+ return (a||b||c)?`<div class="rs-line">${a}${b}${c}</div>`:'';
 }
 
 /* V2.46.0 — Squeeze 爆發（彩色點 → 第一個灰點）與 VCP 波浪品質的顯示輔助 */
@@ -2597,6 +2619,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
      if(r.momentum) reasons.push(`<div class="reason-item reason-note">Momentum：${esc(momentumLabel(r))}</div>`);
      if(Number.isFinite(Number(r.rs_rating))&&Number(r.rs_rating)>0){ const n=Number(r.rs_rating); reasons.push(`<div class="reason-item ${n>=70?'reason-ok':'reason-note'}">相對強度 <b>RS ${n}</b>，近 3～12 個月漲幅在同市場前 ${Math.max(1,100-n)}%</div>`); }
      if(r.tt_count!=null&&Number.isFinite(Number(r.tt_count))){ const n=Number(r.tt_count), miss=(Array.isArray(r.tt_fail)?r.tt_fail:[]).map(k=>TT_LABELS[k]).filter(Boolean); reasons.push(`<div class="reason-item ${n>=7?'reason-ok':'reason-note'}">趨勢模板 <b>${n}/7</b>${miss.length?`，未過：${esc(miss.join('、'))}`:'，價格面條件全過'}${n>=7&&Number(r.rs_rating)>=70?'（含 RS ≥ 70，完整符合）':''}</div>`); }
+     { const sl=slInfo(r); if(sl) reasons.push(`<div class="reason-item ${sl.tier==='tight'||sl.tier==='ok'?'reason-ok':'reason-note'}">停損距離：${esc(slTipText(sl).replace(/。僅供參考.*$/,''))}</div>`); }
      if(r.type==='breakout') reasons.push(`<div class="reason-item reason-ok">最新交易日首次帶量突破 Pivot</div>`);
      else if(r.type==='postbreakout'){
        reasons.push(`<div class="reason-item reason-ok">突破追蹤 D+${Number(r.breakout_days??0)}${r.breakout_date?` · ${esc(r.breakout_date)} 突破`:``}</div>`);
@@ -2610,7 +2633,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
        <div class="mobile-stock-top">
          <div>
            <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
-           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r)||slChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+slChip(r)+'</span>':''}</div>
          </div>
          <div class="mobile-top-actions">${favSrcBadge(r)?`<div class="fav-src-corner">${favSrcBadge(r)}</div>`:''}
            <div class="mobile-action-head">

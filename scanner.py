@@ -1048,8 +1048,28 @@ def analyze(df,item,market):
             # A session high cannot logically be below the latest close-based return.
             breakout_high_pct=max(breakout_high_pct, breakout_return_pct)
 
+    # V2.47.0 — stop-loss reference, ANNOTATION ONLY (Darvas / Minervini style):
+    # the lowest Low of the latest contraction leg (peak -> trough, +3 bars) inside the
+    # 35-bar Pivot window, else the base low of that window. The
+    # frontend turns it into a risk % from the entry reference (Pivot before a
+    # breakout, latest price after one). Never affects score / ranking / pulse.
+    stop_price=None
+    try:
+        n_bars=len(df); base_start=n_bars-35   # same window as the Pivot
+        if drops and int(drops[-1][1])>=base_start:
+            a_i,b_i=max(int(drops[-1][0]),base_start),int(drops[-1][1])
+            lw=pd.to_numeric(df["Low"].iloc[a_i:min(n_bars,b_i+4)],errors="coerce").dropna()
+        else:   # no recent contraction: fall back to the base low of the Pivot window
+            lw=pd.to_numeric(df["Low"].iloc[base_start:n_bars-3],errors="coerce").dropna()
+        if len(lw):
+            sp=float(lw.min())
+            if math.isfinite(sp) and 0<sp<max(float(pivot),float(last)): stop_price=round(sp,2)
+    except Exception:
+        stop_price=None
+
     return {
         "market":market,"symbol":item["symbol"],"name":item["name"],"exchange":item.get("exchange",""),"score":int(score),
+        "stop_price":stop_price,
         "score_components":score_components,
         "structure_quality_good":structure_quality_good,
         "structure_quality_label":"💎 結構品質佳" if structure_quality_good else "",

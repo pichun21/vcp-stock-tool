@@ -2753,3 +2753,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 #radarMobile .fav-src-corner{display:flex;justify-content:flex-end;width:100%;margin:0 0 4px}
 #radarMobile .fav-src-corner .fav-src-badge{margin:0;font-size:11.5px;padding:1px 9px}
 #radarMobile .mobile-top-actions:has(.fav-src-corner){flex-direction:column;align-items:flex-end;gap:2px}
+
+
+/* ===== 37. sl-chip（停損距離標籤，只做標註） ===== */
+.sl-chip{display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.02em;line-height:1.5;padding:0 7px;margin-left:6px;border-radius:7px;border:1px solid;vertical-align:middle;white-space:nowrap;font-variant-numeric:tabular-nums;cursor:help}
+.sl-tight{background:#dcebe7;color:#1f5f50;border-color:#9fc9bd}
+.sl-ok{background:#fbf3dc;color:#7a5f1c;border-color:#edce7c}
+.sl-wide{background:#f8e6dc;color:#9a4f2c;border-color:#d28963}
+.sl-broken{background:#b66749;color:#fff;border-color:#b66749}
+.rs-line .sl-chip:first-child,.chip-group .sl-chip:first-child{margin-left:0}
