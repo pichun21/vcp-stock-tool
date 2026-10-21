@@ -215,12 +215,12 @@ const INFO_HELP={
   const head=document.querySelector('#singleLiquidity b'); const t=head?head.textContent.replace('流動性','').trim():'';
   const lv=t.replace(/^[^一-鿿]+/,'').trim();
   const extra=[...document.querySelectorAll('#singleLiquidity span')].map(x=>x.textContent.trim()).filter(Boolean).join('、');
-  const tiers=[['高','2,000 張以上','高'],['良好','1,000～2,000 張','良好'],['普通','500～1,000 張','普通'],['偏低','300～500 張','偏低'],['低','100～300 張','低'],['極低','不到 100 張','極低']];
+  const tiers=[['🟢 高','2,000 張以上','高'],['🟢 良好','1,000～2,000 張','良好'],['🟡 普通','500～1,000 張','普通'],['🟠 偏低','300～500 張','偏低'],['⚠️ 低','100～300 張','低'],['🔴 極低','不到 100 張','極低']];
   return {title:'流動性',body:`
    ${ihNow(lv?`這檔目前：${lv}${extra?'，'+extra:''}`:'')}
    <p><b>一句話：</b>看這檔股票平常成交量夠不夠大。量太小容易買不到、賣不掉，或一筆單就把價格推動很多。</p>
-   <p><b>怎麼算：</b>近 20 個交易日的平均成交量（張），目前只有台股顯示。綠點是這檔目前的等級。</p>
-   ${ihItems(tiers.map(x=>[x[0]+'：',x[1],x[2]===lv?'ok':'']))}
+   <p><b>怎麼算：</b>近 20 個交易日的平均成交量（張），目前只有台股顯示。綠色底色那一列是這檔目前的等級。</p>
+   ${ihItems(tiers.map(x=>[x[0]+'：',x[1]+(x[2]===lv?'<em class="sh-cur-tag">這檔目前</em>':''),x[2]===lv?'cur':'']))}
    <p class="sh-note">20日均額是近 20 日平均成交金額，可以和自己的部位大小比較；部位占每日成交額比例越高，進出越容易影響價格。只是參考，不影響 VCP 星數。</p>`};
  },
  stop(){
