@@ -1950,7 +1950,9 @@ function slInfo(r){
 }
 function slTipText(i){
  const nowTxt=i.live?`盤中即時價 ${i.cur}`:`現價 ${i.cur}`;
- if(i.broken) return `${nowTxt} 已跌破停損參考價 ${i.sp}（最後一段收縮低點），型態可能失敗。僅供參考，不影響 VCP 分數`;
+ if(i.broken) return i.post
+  ? `${nowTxt} 已跌破停損價 ${i.sp}（最後一段收縮低點），突破失敗，持有者應考慮出場。僅供參考，不影響 VCP 分數`
+  : `${nowTxt} 已跌破整理區低點 ${i.sp}，還沒突破就先破底，VCP 型態可能失敗，暫不適合等突破進場。僅供參考，不影響 VCP 分數`;
  return `停損參考價 ${i.sp}（最後一段收縮低點）；以${i.post?nowTxt:'Pivot '+i.entry+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
   (i.tier==='tight'?'停損很近，風險小':i.tier==='ok'?'在 8% 以內，屬一般可接受範圍':'超過 8%，進場點離停損偏遠，有追高風險')+'。僅供參考，不影響 VCP 分數';
 }
@@ -1958,7 +1960,7 @@ function fmtStopPx(v){ const n=Number(v); return n>=1000?n.toFixed(0):n>=100?n.t
 function slChip(r){
  const i=slInfo(r); if(!i) return '';
  const px=fmtStopPx(i.sp);
- const txt=i.broken?`破停損 ${px}`:`停損 ${px} · ${i.risk.toFixed(1)}%`;
+ const txt=i.broken?(i.post?`破停損 ${px} · 考慮出場`:`跌破整理低點 ${px} · 型態轉弱`):`停損 ${px} · ${i.risk.toFixed(1)}% ${({tight:'風險小',ok:'可接受',wide:'偏遠'})[i.tier]}`;
  return `<span class="sl-chip sl-${i.tier}${i.live?' sl-live':''}" title="${slTipText(i)}">${txt}</span>`;
 }
 /* 突破量能確認（Darvas：突破時有沒有買盤撐）：只做標註，不影響 VCP 分數與篩選。
@@ -2654,7 +2656,7 @@ if((r.contractions||[]).length>=2 && (r.contraction_bars||[]).length>=2 && typeo
        <div class="mobile-stock-top">
          <div>
            <div class="mobile-stock-name"><button type="button" class="mobile-stock-name-btn" data-market="${esc(r.market)}" data-symbol="${esc(r.symbol)}" aria-label="查看 ${esc(r.name||r.symbol)} VCP 圖">${esc(r.name||r.symbol)}${r.is_new?'<span class="new-entry-badge">NEW</span>':''}</button>${Number(r.score)>=1?`<span class="star-badge" data-score="${Math.min(5,Math.round(Number(r.score)))}" title="VCP ${Math.min(5,Math.round(Number(r.score)))}/5" aria-label="VCP ${Math.min(5,Math.round(Number(r.score)))} 顆星">★${Math.min(5,Math.round(Number(r.score)))}</span>`:''}${sqzFireMini(r)}</div>
-           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r)||slChip(r)||bvChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+slChip(r)+bvChip(r)+'</span>':''}</div>
+           <div class="mobile-stock-code">${esc(r.symbol)}<span class="mobile-code-market"> · ${r.market==='TW'?'台股':'美股'}</span>${(rsChip(r)||ttChip(r))?' <span class="chip-group">'+rsChip(r)+ttChip(r)+'</span>':''}</div>${(slChip(r)||bvChip(r))?'<div class="mobile-risk-line">'+slChip(r)+bvChip(r)+'</div>':''}
          </div>
          <div class="mobile-top-actions">${favSrcBadge(r)?`<div class="fav-src-corner">${favSrcBadge(r)}</div>`:''}
            <div class="mobile-action-head">
