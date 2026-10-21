@@ -1067,9 +1067,24 @@ def analyze(df,item,market):
     except Exception:
         stop_price=None
 
+    # V2.48.0 — breakout volume confirmation, ANNOTATION ONLY (Darvas: is there
+    # buying behind the breakout?). Breakout-day volume / 50-day average volume
+    # before that day. Only for breakout / postbreakout rows.
+    breakout_vol_ratio=None
+    try:
+        if typ in ("breakout","postbreakout") and breakout_days is not None:
+            bi=len(vol)-1-int(breakout_days)
+            base=vol.iloc[max(0,bi-50):bi]
+            base=base[base>0]
+            if bi>=20 and len(base)>=20:
+                bv=float(vol.iloc[bi]); av=float(base.mean())
+                if av>0 and math.isfinite(bv): breakout_vol_ratio=round(bv/av,2)
+    except Exception:
+        breakout_vol_ratio=None
+
     return {
         "market":market,"symbol":item["symbol"],"name":item["name"],"exchange":item.get("exchange",""),"score":int(score),
-        "stop_price":stop_price,
+        "stop_price":stop_price,"breakout_vol_ratio":breakout_vol_ratio,
         "score_components":score_components,
         "structure_quality_good":structure_quality_good,
         "structure_quality_label":"💎 結構品質佳" if structure_quality_good else "",
