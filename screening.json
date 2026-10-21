@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21 23:57",
+  "generated_at": "2026-10-22 00:20",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -162,19 +162,19 @@
       "index": "加權指數",
       "ticker": "^TWII",
       "ma_days": 50,
-      "close": 46887.77,
-      "ma": 46834.14,
-      "dist_pct": 0.11,
-      "above": true,
-      "as_of": "2026-10-21"
+      "close": 46292.93,
+      "ma": 46780.91,
+      "dist_pct": -1.04,
+      "above": false,
+      "as_of": "2026-10-20"
     },
     "US": {
       "index": "S&P 500",
       "ticker": "^GSPC",
       "ma_days": 50,
-      "close": 7746.13,
-      "ma": 7704.63,
-      "dist_pct": 0.54,
+      "close": 7751.51,
+      "ma": 7704.73,
+      "dist_pct": 0.61,
       "above": true,
       "as_of": "2026-10-21"
     }
@@ -6808,6 +6808,8 @@
     "7806": "精華生醫",
     "6467": "泰合"
   },
+  "theme_weight_mode": "evidence",
+  "theme_weight_shadow_history": [],
   "all_stock_quote_cache_version": 1,
   "official_quotes": {
     "TW": {
@@ -229521,6 +229523,5 @@
       "is_new": false,
       "new_reason": ""
     }
-  ],
-  "benchmark_refreshed_at": "2026-10-21 23:57"
+  ]
 }
