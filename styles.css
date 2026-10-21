@@ -2770,3 +2770,49 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 
 /* 停損標籤用到盤中即時價時，前面加一個小點提示 */
 .sl-chip.sl-live::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;margin-right:4px;opacity:.75}
+
+/* 手機卡片：停損／量能標籤獨立成一行並可換行，避免把右側按鈕擠出卡片 */
+.mobile-stock-top>div:first-child{min-width:0}
+.mobile-risk-line{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.mobile-risk-line .sl-chip{margin-left:0;white-space:nowrap}
+
+/* 單股分析：停損參考卡主列 */
+.risk-main{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0 4px;padding:10px 12px;border-radius:12px;border:1px solid}
+.risk-main.sl-tight{background:#dcebe7;color:#1f5f50;border-color:#9fc9bd}
+.risk-main.sl-ok{background:#fbf3dc;color:#7a5f1c;border-color:#edce7c}
+.risk-main.sl-wide{background:#f8e6dc;color:#9a4f2c;border-color:#d28963}
+.risk-main.sl-broken{background:#b66749;color:#fff;border-color:#b66749}
+.risk-main-k{display:block;font-size:11px;font-weight:700;opacity:.85}
+.risk-main b{font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.2}
+.risk-main-r{text-align:right;display:flex;flex-direction:column;gap:2px;font-size:12px}
+.risk-main-r b{font-size:15px}
+.risk-main-r em{font-style:normal;font-weight:800;font-size:13px}
+.risk-live{font-style:normal;font-size:10px;margin-left:6px;padding:0 5px;border-radius:6px;border:1px solid currentColor}
+.risk-sub{font-size:11px;color:#6f6e6d;line-height:1.55;margin:0 2px 6px}
+
+/* 說明卡裡的停損／量能範例標籤：不要被說明卡的 span 規則拉成整列 */
+.pulse-help-grid span .sl-chip{display:inline-flex!important;width:auto!important;font-size:11px!important;line-height:1.5!important;margin:1px 2px!important;padding:0 7px!important;vertical-align:middle;cursor:default}
+.pulse-help-grid span .sl-chip.sl-tight,.pulse-help-grid span .sl-chip.bv-strong{color:#1f5f50!important}
+.pulse-help-grid span .sl-chip.sl-ok{color:#7a5f1c!important}
+.pulse-help-grid span .sl-chip.bv-ok{color:#2f6f60!important}
+.pulse-help-grid span .sl-chip.sl-wide,.pulse-help-grid span .sl-chip.bv-weak{color:#9a4f2c!important}
+.pulse-help-grid span .sl-chip.sl-broken{color:#fff!important}
+
+/* ⓘ 說明按鈕（市場動能／PowerSqueeze／流動性） */
+.info-help-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;margin-left:6px;padding:0;border:1px solid #d9d4ca;border-radius:50%;background:#fff;color:#8a7f70;font-size:12px;font-weight:700;line-height:1;cursor:pointer;vertical-align:middle;flex:0 0 auto}
+.info-help-btn:hover,.info-help-btn:focus-visible{background:#f4f1ea;color:#6b5d45;border-color:#bb9f73;outline:none}
+.sqz-card-title .info-help-btn{margin-left:auto}
+.sqz-card-title{display:flex;align-items:center;gap:6px}
+.single-liquidity-detail .info-help-btn{margin-left:auto}
+.sh-plain{margin:8px 0 10px;padding-left:18px}
+.sh-plain li{margin:4px 0;line-height:1.6}
+
+/* 雷達浮動切換（原切換按鈕捲出畫面後顯示） */
+.snap-float{position:fixed;left:16px;bottom:20px;z-index:900;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,255,255,.96);border:1px solid #e3ddd0;box-shadow:0 6px 20px rgba(60,45,30,.16);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .18s,transform .18s}
+.snap-float.show{opacity:1;transform:none;pointer-events:auto}
+.snap-float button{border:0;background:transparent;color:#6b5d45;font-weight:800;font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.snap-float button.active{background:#2b2622;color:#fff}
+.snap-float button:disabled{opacity:.4;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){.snap-float{transition:none}}
+.info-help-btn{width:20px!important;height:20px!important;min-width:0!important;max-width:20px!important;flex:0 0 20px!important;padding:0!important;border-radius:50%!important}
+.single-liquidity-detail .info-help-btn{margin-left:0!important}

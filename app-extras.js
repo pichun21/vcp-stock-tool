@@ -177,7 +177,47 @@ function shCardData(kind){
  return {rs:Number.isFinite(rsv)&&rsv>0?rsv:NaN, tt:(card.dataset.has&&Number.isFinite(ttc))?ttc:NaN,
   fail:(card.dataset.fail||'').split(',').filter(Boolean).map(Number), sym:''};
 }
+/* 單股分析右側欄的 ⓘ 說明（市場動能／PowerSqueeze／流動性），沿用強度評級的說明面板 */
+const INFO_HELP={
+ momentum:{title:'市場動能',body:`
+  <p><b>一句話：</b>看這檔股票最近漲得怎樣、成交量有沒有放大，用來判斷現在是不是有資金在動。</p>
+  <ul class="sh-plain">
+   <li><b>近5日／近20日：</b>現價和 5、20 個交易日前收盤價相比的漲跌幅，大約是近一週、近一個月的表現。</li>
+   <li><b>距一年高點：</b>現價離近一年（約 252 個交易日）最高收盤價還差多少。VCP 好的候選股通常離高點不遠（趨勢模板要求 25% 以內）。</li>
+   <li><b>成交量比：</b>今天的成交量 ÷ 前 20 日平均量。盤中會依開盤經過的時間換算成全天估計量，所以早盤數字會比較跳動。1 倍以上代表比平常熱，突破時最好有 1.5 倍以上。</li>
+   <li><b>5日/20日均量：</b>近 5 日平均量 ÷ 近 20 日平均量。小於 1 代表最近在量縮，VCP 整理期間這是好事；突破時則希望放大。</li>
+  </ul>
+  <p class="sh-note">只是參考數據，不影響 VCP 星數，也不是買賣建議。</p>`},
+ sqz:{title:'PowerSqueeze',body:`
+  <p><b>一句話：</b>看股價波動是不是被壓縮到很小。波動越小，就像彈簧壓越緊，之後出現大行情的機會越高，但方向不一定往上。</p>
+  <ul class="sh-plain">
+   <li><b>日線：</b>布林通道（20 日、2 個標準差）縮進肯特納通道（20 日 EMA ± ATR）裡面就算壓縮。縮在 1 倍 ATR 內是強力壓縮、1.5 倍內是中度、2 倍內是一般。後面的「已連續 N 日」是壓縮持續多久。</li>
+   <li><b>週線：</b>同樣的算法套在週 K 線上，看較長時間的壓縮。日線、週線同時壓縮，代表整理得更久、更扎實。</li>
+   <li><b>動能：</b>收盤價減 20 日均價，再看和前一天比是變大還是變小：↑ 多方增強、↘ 多方減弱、↓ 空方增強、↗ 空方減弱。</li>
+   <li><b>Squeeze 爆發：</b>壓縮結束、第一次回到「無壓縮」的那天，代表波動開始放大；要搭配動能方向看是往上還是往下。</li>
+  </ul>
+  <p class="sh-note">不計入 VCP 星數，只是幫忙判斷時機的參考。</p>`},
+ liq:{title:'流動性',body:`
+  <p><b>一句話：</b>看這檔股票平常成交量夠不夠大，量太小的股票容易買不到、賣不掉，或一筆單就把價格推動很多。</p>
+  <p><b>怎麼算：</b>近 20 個交易日的平均成交量（張），目前只有台股顯示。</p>
+  <ul class="sh-plain">
+   <li>🟢 <b>高：</b>2,000 張以上</li>
+   <li>🟢 <b>良好：</b>1,000～2,000 張</li>
+   <li>🟡 <b>普通：</b>500～1,000 張</li>
+   <li>🟠 <b>偏低：</b>300～500 張</li>
+   <li>⚠️ <b>低：</b>100～300 張</li>
+   <li>🔴 <b>極低：</b>不到 100 張</li>
+  </ul>
+  <p><b>20日均額：</b>近 20 日平均成交金額，可以和自己的部位大小比較；部位占每日成交額比例越高，進出越容易影響價格。</p>
+  <p class="sh-note">只是參考，不影響 VCP 星數。</p>`}
+};
+function infoHelpBtn(kind,label){ return `<button type="button" class="info-help-btn" data-info-help="${kind}" aria-label="${label}說明">ⓘ</button>`; }
+document.addEventListener('click',e=>{
+ const c=e.target.closest&&e.target.closest('[data-info-help]'); if(!c) return;
+ e.preventDefault(); e.stopPropagation(); openStrengthHelp(c.dataset.infoHelp);
+},true);
 function strengthHelpHtml(kind,d){
+ if(INFO_HELP[kind]) return INFO_HELP[kind];
  d=d||shCardData(kind);
  const who=d.sym?shEsc(d.sym):'這檔';
  if(kind==='rs'){
@@ -556,4 +596,35 @@ function updateAuxMarketAndForeign(symbol,d,market,liveQuote=null){
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) pullAndMerge(false); });
   window.addEventListener('online',function(){ if(localStorage.getItem(DIRTY_KEY)==='1'){ disabled=false; schedulePush(); } });
  }catch(e){ console.warn('收藏同步初始化略過',e); }
+})();
+
+
+/* ===== 雷達「正式收盤／盤中即時」浮動切換：原本的切換按鈕捲出畫面後，左下角出現小切換 ===== */
+(function(){
+ function init(){
+  const sw=document.getElementById('radarSnapshotSwitch'); if(!sw||document.getElementById('snapFloat')) return;
+  const card=sw.closest('.radar-card')||sw.parentElement;
+  const f=document.createElement('div'); f.id='snapFloat'; f.className='snap-float'; f.setAttribute('role','group'); f.setAttribute('aria-label','切換正式收盤或盤中即時');
+  f.innerHTML='<button type="button" data-s="official">正式收盤</button><button type="button" data-s="intraday">盤中即時</button>';
+  document.body.appendChild(f);
+  const sync=()=>{
+   f.querySelectorAll('button').forEach(b=>{
+    const o=sw.querySelector(`.snapshot-btn[data-snapshot="${b.dataset.s}"]`);
+    b.classList.toggle('active',!!(o&&o.classList.contains('active')));
+    b.disabled=!!(o&&(o.disabled||o.classList.contains('disabled')));
+   });
+  };
+  f.addEventListener('click',e=>{
+   const b=e.target.closest('button[data-s]'); if(!b||b.disabled) return;
+   if(typeof setRadarSnapshot==='function') setRadarSnapshot(b.dataset.s);
+   sync();
+  });
+  new MutationObserver(sync).observe(sw,{subtree:true,attributes:true,attributeFilter:['class','disabled']});
+  let swOut=false, cardIn=false;
+  const update=()=>{ const show=swOut&&cardIn&&card.offsetParent!==null; f.classList.toggle('show',show); if(show) sync(); };
+  new IntersectionObserver(es=>{ es.forEach(en=>{ swOut=!en.isIntersecting && en.boundingClientRect.top<0; }); update(); }).observe(sw);
+  new IntersectionObserver(es=>{ es.forEach(en=>{ cardIn=en.isIntersecting; }); update(); },{rootMargin:'-80px 0px -120px 0px'}).observe(card);
+  sync();
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();

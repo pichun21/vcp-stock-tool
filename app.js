@@ -749,7 +749,7 @@ function updateSingleSqz(a,rm){
  else if(sp.sqz_w_level){ w=`${SQZ_LABEL[sp.sqz_w_level]||'壓縮'}，已 ${Number(sp.sqz_w_run)||0} 週`; }
  else{ w='無壓縮'; }
  const m=a?.momentum||'—';
- box.innerHTML=`<div class="sqz-card-title">PowerSqueeze<em>不計入 VCP 星數</em></div>`+
+ box.innerHTML=`<div class="sqz-card-title">PowerSqueeze<em>不計入 VCP 星數</em><button type="button" class="info-help-btn" data-info-help="sqz" aria-label="PowerSqueeze 說明">ⓘ</button></div>`+
   `<div class="sqz-row${dCls}"><span class="sqz-k">日線</span><span class="sqz-v">${escHtml(d)}</span></div>`+
   `<div class="sqz-row${wCls}"><span class="sqz-k">週線</span><span class="sqz-v">${escHtml(w)}</span></div>`+
   `<div class="sqz-row"><span class="sqz-k">動能</span><span class="sqz-v">${escHtml(m)}</span></div>`;
@@ -1933,7 +1933,7 @@ function fmtMoneyTW(v){const n=Number(v);if(!Number.isFinite(n))return '—';if(
 function liquidityCompact(r){const q=liquidityInfo(r);return q?`${q.emoji} ${q.label}`:'';}
 function liquidityDesktop(r){const q=liquidityInfo(r);return q?`${q.emoji} ${q.label} · ${fmtLots(q.lots)} 張`:'';}
 function updateSingleLiquidity(radarMatch,a){
- const box=$('singleLiquidity');if(!box)return;const src={market:currentMarket,avg_volume_20d_lots:radarMatch?.avg_volume_20d_lots,avg_volume_20d:radarMatch?.avg_volume_20d,avgVolume20:a?.avgVolume20};const q=liquidityInfo(src);if(!q){box.hidden=true;box.innerHTML='';return;}const value=Number(radarMatch?.avg_value_20d ?? a?.avgValue20);box.hidden=false;box.innerHTML=`<b>流動性 ${q.emoji} ${q.label}</b><span>20日均量 ${fmtLots(q.lots)} 張</span>${Number.isFinite(value)?`<span>20日均額 ${fmtMoneyTW(value)}</span>`:''}`;
+ const box=$('singleLiquidity');if(!box)return;const src={market:currentMarket,avg_volume_20d_lots:radarMatch?.avg_volume_20d_lots,avg_volume_20d:radarMatch?.avg_volume_20d,avgVolume20:a?.avgVolume20};const q=liquidityInfo(src);if(!q){box.hidden=true;box.innerHTML='';return;}const value=Number(radarMatch?.avg_value_20d ?? a?.avgValue20);box.hidden=false;box.innerHTML=`<b>流動性 ${q.emoji} ${q.label}</b><button type="button" class="info-help-btn" data-info-help="liq" aria-label="流動性說明">ⓘ</button><span>20日均量 ${fmtLots(q.lots)} 張</span>${Number.isFinite(value)?`<span>20日均額 ${fmtMoneyTW(value)}</span>`:''}`;
 }
 function signedPct(v){ const n=Number(v); if(!Number.isFinite(n)) return '—'; return `${n>0?'+':''}${n.toFixed(1)}%`; }
 
