@@ -144,7 +144,8 @@ function draw(a){
   const isMob=cssW<=760;
 
  let vals=a.close.slice(-120);
- let rawMin=Math.min(...vals), rawMax=Math.max(...vals);
+ const stopV=Number(a.stopPrice), hasStop=stopV>0;
+ let rawMin=Math.min(...vals,...(hasStop?[stopV]:[])), rawMax=Math.max(...vals);
  let range=Math.max(rawMax-rawMin,1);
  let min=rawMin-range*.08, max=rawMax+range*.10;
  let pad={l:42,r:28,t:hasVol?(isMob?58:60):54,b:30+(hasVol?volH+10:0)};
@@ -157,7 +158,8 @@ function draw(a){
   const legendItems=[
     {label:'收盤價',color:'#2b2622',text:'#4a423a',w:isMob?1.7:2.2,dash:[]},
     {label:'MA20（月線）',color:'#2a97ab',text:'#1f7f90',w:isMob?1.7:2.1,dash:[]},
-    {label:'Pivot（突破價）',color:'#cf9a1b',text:'#8a6209',w:isMob?1.4:1.7,dash:[6,4]}
+    {label:'Pivot（突破價）',color:'#cf9a1b',text:'#8a6209',w:isMob?1.4:1.7,dash:[6,4]},
+    ...(hasStop?[{label:'停損',color:'#b66749',text:'#9a4f2c',w:isMob?1.4:1.7,dash:[3,4]}]:[])
   ];
   let lgFont=isMob?10:11;
   const lgSample=isMob?16:22, lgGap=6, lgItemGap=isMob?12:18;
@@ -306,6 +308,18 @@ function draw(a){
  x.fillStyle='#7a5a05';
  x.textBaseline='middle';
  x.fillText(pivotText,pillX+9,pillY+pillH/2);
+
+ // 停損線（鏽紅短虛線）＋右側標籤
+ if(hasStop){
+   const sy=Y(stopV);
+   x.save(); x.setLineDash(isMob?[3,4]:[4,5]); x.strokeStyle='#b66749'; x.lineWidth=isMob?1.4:1.7;
+   x.beginPath(); x.moveTo(pad.l,sy); x.lineTo(W-pad.r,sy); x.stroke(); x.restore();
+   const st='停損 '+fmtStopPx(stopV);
+   x.save(); x.font=isMob?'700 10.5px system-ui,-apple-system,sans-serif':'700 12px system-ui,-apple-system,sans-serif';
+   const sw=x.measureText(st).width+(isMob?14:18), sh=isMob?18:22, sx=W-pad.r-sw-4, syy=Math.min(H-pad.b-sh-2,sy+4);
+   x.fillStyle='rgba(248,230,220,.97)'; if(x.roundRect){x.beginPath();x.roundRect(sx,syy,sw,sh,10);x.fill();}else x.fillRect(sx,syy,sw,sh);
+   x.fillStyle='#9a4f2c'; x.textBaseline='middle'; x.fillText(st,sx+(isMob?7:9),syy+sh/2); x.restore();
+ }
 
  let offset=Math.max(0,a.close.length-120);
  const colors=['#d04a3c','#3f6fd1','#3d9a63','#8a56b5'];
@@ -702,21 +716,23 @@ function updateSingleQuickRead(radarMatch,d,a,liveQuote=null){
  updateSingleSqz(a,radarMatch);
  updateSingleLiquidity(radarMatch,a);
 }
-/* 風險參考：最近收縮低點 / Pivot 下 7～8%（僅供參考，不是建議、不計入 VCP 星數） */
-function updateSingleRisk(pivot,last,low){
+/* 停損參考：與雷達卡片同一套規則（slInfo），再附 Pivot 下 7～8% 當第二參考。僅供參考，不計入 VCP 星數 */
+function updateSingleRisk(row){
  const box=$('singleRisk'); if(!box) return;
- const P=Number(pivot), L=Number(last), W=Number(low);
+ const P=Number(row&&row.pivot), L=Number(row&&(Number(row.live_price)>0?row.live_price:row.last));
  if(!(P>0)||!(L>0)){ box.hidden=true; box.innerHTML=''; return; }
  const dist=v=>{const x=(v/L-1)*100; return `${x>0?'+':''}${x.toFixed(1)}%`;};
- const rows=[];
- if(W>0){
-   const broke=L<=W;
-   rows.push(`<div class="sqz-row${broke?' is-bear':''}"><span class="sqz-k">最近收縮低點</span><span class="sqz-v">${W.toFixed(2)}<small>　距現價 ${dist(W)}${broke?'　已跌破':''}</small></span></div>`);
+ const rows=[]; const i=slInfo(row);
+ if(i){
+   const verdict=i.broken?(i.post?'破停損 · 考慮出場':'跌破整理低點 · 型態轉弱'):({tight:'風險小',ok:'可接受',wide:'偏遠'})[i.tier];
+   rows.push(`<div class="risk-main sl-${i.tier}"><div><span class="risk-main-k">停損價${i.live?'<i class="risk-live">盤中</i>':''}</span><b>${fmtStopPx(i.sp)}</b></div>`+
+     `<div class="risk-main-r">${i.broken?'':`<span>風險 <b>${i.risk.toFixed(1)}%</b></span>`}<em>${verdict}</em></div></div>`);
+   rows.push(`<div class="risk-sub">${escHtml(slTipText(i).replace(/。僅供參考.*$/,''))}</div>`);
  }
  const a8=P*0.92, a7=P*0.93, broke2=L<=a7;
  rows.push(`<div class="sqz-row${broke2?' is-bear':''}"><span class="sqz-k">Pivot 下 7～8%</span><span class="sqz-v">${a8.toFixed(2)}～${a7.toFixed(2)}<small>　距現價 ${dist(a8)}～${dist(a7)}${broke2?'　已跌破':''}</small></span></div>`);
- box.innerHTML=`<div class="sqz-card-title">風險參考<em>僅供參考，非買賣建議，不計入 VCP 星數</em></div>`+rows.join('')+
-  `<div class="risk-foot">收縮低點以收盤價計算。停損離進場價越遠，同樣部位的單筆虧損越大；實際停損請依自己的資金規劃。</div>`;
+ box.innerHTML=`<div class="sqz-card-title">停損參考<em>僅供參考，非買賣建議，不計入 VCP 星數</em></div>`+rows.join('')+
+  `<div class="risk-foot">停損價＝最後一段收縮的最低點，跟雷達卡片同一套規則。停損離進場價越遠，同樣部位的單筆虧損越大；實際停損請依自己的資金規劃。</div>`;
  box.hidden=false;
 }
 /* PowerSqueeze 整併卡：日線狀態／週線狀態／動能，放在同一處 */
@@ -1007,7 +1023,7 @@ function renderSingleFromRadarFallback(symbol,row){
     $('singleSignals').innerHTML=chips.map(x=>`<span class="single-signal-chip">${escHtml(x)}</span>`).join('');
   }
   updateSingleSqz({squeezeState:squeezeLabel(row),momentum:momentumLabel(row)},row);
-  updateSingleRisk(row.pivot,row.last,null);
+  updateSingleRisk(row);
   updateSingleLiquidity(row,null);
 
   drawRadarFallbackMessage();
@@ -1351,7 +1367,9 @@ async function __runInner(){
       row('波浪時間逐步縮短',two?`${wv.bars.join(' → ')} 日`:'需要至少兩次收縮',two&&wv.timeShrinking)+
       row('最後一次收縮夠緊（≤ 10%）',two?`最後 ${fmtDepth(wv.seq[wv.seq.length-1])}，第一次 ${fmtDepth(wv.seq[0])}`:'需要至少兩次收縮',two&&wv.lastTight));
   }
-  updateSingleRisk(a.pivot,singleLast,a.lastLow);
+  if(Number(radarMatch?.stop_price)>0) a.stopPrice=Number(radarMatch.stop_price);
+  a.stopType=currentSingleFavoriteData?.type||'';
+  updateSingleRisk({type:a.stopType,pivot:a.pivot,last:singleLast,stop_price:a.stopPrice,live_price:(liveQuote&&Number(liveQuote.price)>0)?Number(liveQuote.price):null});
   const _sp=effectiveSqz(a,radarMatch); const _fireNote=(_sp.squeeze_fire?` ${sqzDailyText(_sp)}${_sp.squeeze_fire_dir==='bear'?'，動能偏空，不是進場訊號。':'，動能偏多，可留意是否同時接近／突破 Pivot。'}`:'')+(_sp.sqz_w_fire?` ${sqzWeeklyText(_sp)}。`:'');
   $('summary').textContent=`${a.combo?'⚡ VCP＋Squeeze｜':''}${_sp.squeeze_fire?'':a.squeezeState+'｜'}Momentum ${a.momentum}。${_fireNote}`+(a.todayBreakout?' 最新交易日首次帶量突破 Pivot；仍應留意失敗突破風險。':(a.breakout?' 股價已在 Pivot 上方，屬突破後觀察，不列為「今日帶量突破」。':(a.distance>-5?' 價格已靠近 Pivot，可列入觀察，不必預先猜突破。':' 目前離 Pivot 還有距離，先觀察型態是否繼續收緊。')));
   draw(a)
@@ -1961,11 +1979,11 @@ function slInfo(r){
  return {sp,entry,risk,post,broken,tier,live,cur};
 }
 function slTipText(i){
- const nowTxt=i.live?`盤中即時價 ${i.cur}`:`現價 ${i.cur}`;
+ const nowTxt=i.live?`盤中即時價 ${fmtStopPx(i.cur)}`:`現價 ${fmtStopPx(i.cur)}`;
  if(i.broken) return i.post
-  ? `${nowTxt} 已跌破停損價 ${i.sp}（最後一段收縮低點），突破失敗，持有者應考慮出場。僅供參考，不影響 VCP 分數`
-  : `${nowTxt} 已跌破整理區低點 ${i.sp}，還沒突破就先破底，VCP 型態可能失敗，暫不適合等突破進場。僅供參考，不影響 VCP 分數`;
- return `停損參考價 ${i.sp}（最後一段收縮低點）；以${i.post?nowTxt:'Pivot '+i.entry+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
+  ? `${nowTxt} 已跌破停損價 ${fmtStopPx(i.sp)}（最後一段收縮低點），突破失敗，持有者應考慮出場。僅供參考，不影響 VCP 分數`
+  : `${nowTxt} 已跌破整理區低點 ${fmtStopPx(i.sp)}，還沒突破就先破底，VCP 型態可能失敗，暫不適合等突破進場。僅供參考，不影響 VCP 分數`;
+ return `停損參考價 ${fmtStopPx(i.sp)}（最後一段收縮低點）；以${i.post?nowTxt:'Pivot '+fmtStopPx(i.entry)+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
   (i.tier==='tight'?'停損很近，風險小':i.tier==='ok'?'在 8% 以內，屬一般可接受範圍':'超過 8%，進場點離停損偏遠，有追高風險')+'。僅供參考，不影響 VCP 分數';
 }
 function fmtStopPx(v){ const n=Number(v); return n>=1000?n.toFixed(0):n>=100?n.toFixed(1):n.toFixed(2).replace(/0$/,''); }
