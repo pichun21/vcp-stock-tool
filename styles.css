@@ -2762,3 +2762,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sl-wide{background:#f8e6dc;color:#9a4f2c;border-color:#d28963}
 .sl-broken{background:#b66749;color:#fff;border-color:#b66749}
 .rs-line .sl-chip:first-child,.chip-group .sl-chip:first-child{margin-left:0}
+
+/* ===== 38. 突破量能標籤（沿用 sl-chip 外框） ===== */
+.bv-strong{background:#dcebe7;color:#1f5f50;border-color:#9fc9bd}
+.bv-ok{background:#eef5f2;color:#2f6f60;border-color:#cfe2dd}
+.bv-weak{background:#f8e6dc;color:#9a4f2c;border-color:#d28963;border-style:dashed}
+
+/* 停損標籤用到盤中即時價時，前面加一個小點提示 */
+.sl-chip.sl-live::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;margin-right:4px;opacity:.75}

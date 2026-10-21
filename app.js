@@ -1940,15 +1940,18 @@ function ttChip(r){
 function slInfo(r){
  const sp=Number(r&&r.stop_price); if(!(sp>0)) return null;
  const post=r.type==='breakout'||r.type==='postbreakout';
- const entry=Number(post?r.last:r.pivot); if(!(entry>0)) return null;
+ // 盤中有即時行情（live_price）就用即時價，否則用掃描時的價格
+ const live=Number(r.live_price)>0, cur=live?Number(r.live_price):Number(r.last);
+ const entry=Number(post?cur:r.pivot); if(!(entry>0)) return null;
  const risk=(entry/sp-1)>=0?(1-sp/entry)*100:-1;
- const broken=Number(r.last)>0&&Number(r.last)<sp;
+ const broken=cur>0&&cur<sp;
  const tier=broken?'broken':(risk<=5?'tight':(risk<=8?'ok':'wide'));
- return {sp,entry,risk,post,broken,tier};
+ return {sp,entry,risk,post,broken,tier,live,cur};
 }
 function slTipText(i){
- if(i.broken) return `現價已跌破停損參考價 ${i.sp}（最後一段收縮低點），型態可能失敗。僅供參考，不影響 VCP 分數`;
- return `停損參考價 ${i.sp}（最後一段收縮低點）；以${i.post?'現價':'Pivot '+i.entry+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
+ const nowTxt=i.live?`盤中即時價 ${i.cur}`:`現價 ${i.cur}`;
+ if(i.broken) return `${nowTxt} 已跌破停損參考價 ${i.sp}（最後一段收縮低點），型態可能失敗。僅供參考，不影響 VCP 分數`;
+ return `停損參考價 ${i.sp}（最後一段收縮低點）；以${i.post?nowTxt:'Pivot '+i.entry+' 突破進場'}計算，風險約 ${i.risk.toFixed(1)}%。`+
   (i.tier==='tight'?'停損很近，風險小':i.tier==='ok'?'在 8% 以內，屬一般可接受範圍':'超過 8%，進場點離停損偏遠，有追高風險')+'。僅供參考，不影響 VCP 分數';
 }
 function fmtStopPx(v){ const n=Number(v); return n>=1000?n.toFixed(0):n>=100?n.toFixed(1):n.toFixed(2).replace(/0$/,''); }
@@ -1956,7 +1959,7 @@ function slChip(r){
  const i=slInfo(r); if(!i) return '';
  const px=fmtStopPx(i.sp);
  const txt=i.broken?`破停損 ${px}`:`停損 ${px} · ${i.risk.toFixed(1)}%`;
- return `<span class="sl-chip sl-${i.tier}" title="${slTipText(i)}">${txt}</span>`;
+ return `<span class="sl-chip sl-${i.tier}${i.live?' sl-live':''}" title="${slTipText(i)}">${txt}</span>`;
 }
 /* 突破量能確認（Darvas：突破時有沒有買盤撐）：只做標註，不影響 VCP 分數與篩選。
    breakout_vol_ratio＝突破當天成交量 ÷ 突破前 50 日均量（scanner.py 提供，只有突破／突破後才有）。 */
