@@ -2866,3 +2866,49 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .theme-help-evidence ul{margin:4px 0 6px;padding-left:0;list-style:none}
 .theme-help-evidence li{margin:2px 0}
 .theme-help-evidence .te-badge{margin:0 6px 0 0;min-width:18px;text-align:center}
+
+/* ── 手機精簡卡（2026-10-22）：收合狀態只留一個彩色狀態標籤，其餘改成灰色小字；展開後恢復完整標籤 ── */
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .rs-chip,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .tt-chip,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip{
+  background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;
+  min-height:0!important;border-radius:0!important;color:#8a8178!important;font-weight:600!important;font-size:12px!important;letter-spacing:0!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .chip-group{display:inline!important;gap:0!important;margin:0!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .rs-chip::before,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .tt-chip::before{content:"·";margin:0 5px;color:#c4bbb0;font-weight:400}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line{display:block!important;margin-top:1px!important;gap:0!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-wide,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-broken,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .bv-weak{color:#b6493a!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .bv-strong,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .bv-ok{display:none!important}
+
+/* 高關注、壓縮燈、結構品質：收進展開區 */
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-pulse-row,
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-structure-quality{display:none!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip:not(.bv-ok):not(.bv-strong){display:inline!important;white-space:nowrap;width:auto!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-ok,#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-strong{display:none!important}
+/* 可點說明的灰字：加虛線底線提示 */
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .sh-chip{text-decoration:underline dotted #b9ab9c!important;text-underline-offset:3px;cursor:pointer}
+/* 手機精簡卡 v2：名稱列不換行、收藏鈕縮小、代號列對齊、擠壓標示改名 */
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{min-width:28px!important;width:28px!important;height:28px!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-name{display:flex!important;align-items:center;gap:6px;flex-wrap:nowrap;min-width:0}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-name-btn{width:auto!important;min-width:0!important;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .star-badge{flex:none;margin:0!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .sqz-fire-mini{flex:none;margin:0!important;padding:0 6px!important;font-size:0!important;line-height:18px;height:18px}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .sqz-fire-mini::after{content:"💥擠壓 " attr(data-age);font-size:10.5px;font-weight:800}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code{display:flex!important;align-items:center;flex-wrap:wrap;white-space:nowrap;margin-top:3px}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-code-market{display:none!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line{font-size:12px;line-height:1.5}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .bv-weak::before{content:"⚠ ";color:#b6493a!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .bv-weak::after{content:""}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-weak{display:block!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .rs-chip::before,#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code .tt-chip::before{display:inline-block;text-decoration:none}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-weak{margin-left:6px!important}
+/* 精簡卡 v3：收藏鈕與文字拉開距離、行距放寬 */
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-favorite{margin-right:6px!important}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-top>div:first-child{padding-left:2px}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-name{line-height:1.3;margin-bottom:2px}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code{margin-top:4px!important;line-height:1.5}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line{margin-top:2px!important;line-height:1.55}
+#radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-weak{margin-left:0!important;display:block!important}

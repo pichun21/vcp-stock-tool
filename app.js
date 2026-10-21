@@ -2045,7 +2045,7 @@ function sqzFireMini(r){
  if(r.squeeze_fire){ bits.push((r.squeeze_fire_dir==='bear'?'↓':'')+sqzFireAge(r.squeeze_fire_days)); bear=r.squeeze_fire_dir==='bear'; }
  if(r.sqz_w_fire){ bits.push('週'+(r.sqz_w_fire_dir==='bear'?'↓':'')); if(!r.squeeze_fire) bear=r.sqz_w_fire_dir==='bear'; }
  const tip=[sqzDailyText(r),sqzWeeklyText(r)].filter(Boolean).join('；');
- return ` <span class="sqz-fire-mini${bear?' is-bear':''}" title="${escHtml(tip)}">💥 ${escHtml(bits.join('・'))}</span>`;
+ return ` <span class="sqz-fire-mini${bear?' is-bear':''}" data-age="${escHtml(bits.join('・'))}" title="${escHtml(tip)}">💥 ${escHtml(bits.join('・'))}</span>`;
 }
 function sqzWeeklyChip(r){
  if(!r||!r.sqz_w_fire) return '';
