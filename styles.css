@@ -2804,8 +2804,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sqz-card-title .info-help-btn{margin-left:auto}
 .sqz-card-title{display:flex;align-items:center;gap:6px}
 .single-liquidity-detail .info-help-btn{margin-left:auto}
-.sh-plain{margin:8px 0 10px;padding-left:18px}
-.sh-plain li{margin:4px 0;line-height:1.6}
 
 /* 雷達浮動切換（原切換按鈕捲出畫面後顯示） */
 .snap-float{position:fixed;left:16px;bottom:20px;z-index:900;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,255,255,.96);border:1px solid #e3ddd0;box-shadow:0 6px 20px rgba(60,45,30,.16);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .18s,transform .18s}
@@ -2816,3 +2814,8 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 @media(prefers-reduced-motion:reduce){.snap-float{transition:none}}
 .info-help-btn{width:20px!important;height:20px!important;min-width:0!important;max-width:20px!important;flex:0 0 20px!important;padding:0!important;border-radius:50%!important}
 .single-liquidity-detail .info-help-btn{margin-left:0!important}
+
+/* ⓘ 說明的逐項清單：沿用趨勢模板的列樣式；沒有狀態的列不顯示圓點 */
+.sh-defs li:not(.ok):not(.no) i{display:none}
+.sh-defs li b{color:#2d2a25;font-weight:800}
+.sh-sheet .sh-tiers .sl-chip{margin-left:0}

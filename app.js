@@ -722,7 +722,7 @@ function updateSingleRisk(row){
  const P=Number(row&&row.pivot), L=Number(row&&(Number(row.live_price)>0?row.live_price:row.last));
  if(!(P>0)||!(L>0)){ box.hidden=true; box.innerHTML=''; return; }
  const dist=v=>{const x=(v/L-1)*100; return `${x>0?'+':''}${x.toFixed(1)}%`;};
- const rows=[]; const i=slInfo(row);
+ const rows=[]; const i=slInfo(row); window.__singleStopInfo=i||null;
  if(i){
    const verdict=i.broken?(i.post?'破停損 · 考慮出場':'跌破整理低點 · 型態轉弱'):({tight:'風險小',ok:'可接受',wide:'偏遠'})[i.tier];
    rows.push(`<div class="risk-main sl-${i.tier}"><div><span class="risk-main-k">停損價${i.live?'<i class="risk-live">盤中</i>':''}</span><b>${fmtStopPx(i.sp)}</b></div>`+
@@ -731,7 +731,7 @@ function updateSingleRisk(row){
  }
  const a8=P*0.92, a7=P*0.93, broke2=L<=a7;
  rows.push(`<div class="sqz-row${broke2?' is-bear':''}"><span class="sqz-k">Pivot 下 7～8%</span><span class="sqz-v">${a8.toFixed(2)}～${a7.toFixed(2)}<small>　距現價 ${dist(a8)}～${dist(a7)}${broke2?'　已跌破':''}</small></span></div>`);
- box.innerHTML=`<div class="sqz-card-title">停損參考<em>僅供參考，非買賣建議，不計入 VCP 星數</em></div>`+rows.join('')+
+ box.innerHTML=`<div class="sqz-card-title">停損參考<em>僅供參考，非買賣建議，不計入 VCP 星數</em><button type="button" class="info-help-btn" data-info-help="stop" aria-label="停損參考說明">ⓘ</button></div>`+rows.join('')+
   `<div class="risk-foot">停損價＝最後一段收縮的最低點，跟雷達卡片同一套規則。停損離進場價越遠，同樣部位的單筆虧損越大；實際停損請依自己的資金規劃。</div>`;
  box.hidden=false;
 }
