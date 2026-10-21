@@ -107,7 +107,18 @@ function analyze(d){
  let state=todayBreakout?'🟢 今日帶量突破':(!breakout&&distance>-5?'🟡 接近 Pivot':(!breakout?'⚪ VCP 成形中':'🔵 突破後觀察'));
  const hiArr=d.map(x=>+(x.max??x.High??x.high)), loArr=d.map(x=>+(x.min??x.Low??x.low));
  const sqz=sqzFirePack(hiArr,loArr,close,d.map(x=>x.date));
- return {wave:wq,sqz,lastLow:(drops.length?drops[drops.length-1].l.p:null),close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,vols:rawVolume,dates:d.map(x=>x.date)}
+ // 停損參考價：與 scanner.py 相同規則（35 日 Pivot 區間內最後一段收縮的最低 Low；沒有就用區間低點）
+ let stopPrice=null;
+ try{
+  const lowAt=i=>{const v=+(d[i].min??d[i].Low??d[i].low); return Number.isFinite(v)&&v>0?v:+d[i].close;};
+  const bs=n-35, ld=drops[drops.length-1];
+  let a0,a1; if(ld&&ld.l.i>=bs){a0=Math.max(ld.h.i,bs);a1=Math.min(n,ld.l.i+4);}else{a0=bs;a1=n-3;}
+  let m=Infinity; for(let i=Math.max(0,a0);i<a1;i++){const v=lowAt(i); if(v<m)m=v;}
+  // 還沒突破時停損不能高於 Pivot（進場點），改用整段區間低點
+  if(!(last>pivot)&&m>=pivot){ m=Infinity; for(let i=Math.max(0,bs);i<n-3;i++){const v=lowAt(i); if(v<m)m=v;} }
+  if(Number.isFinite(m)&&m>0) stopPrice=Math.round(m*100)/100;
+ }catch(e){ stopPrice=null; }
+ return {stopPrice,wave:wq,sqz,lastLow:(drops.length?drops[drops.length-1].l.p:null),close,trend,seq,drops,contracting,dry,pivot,last,distance,breakout,breakoutVol,todayBreakout,pts,state,squeezeLevel,squeezeState,momentum,combo:(pts>=4&&squeezeLevel!=='none'),avgVolume20,avgValue20,vols:rawVolume,dates:d.map(x=>x.date)}
 }
 function draw(a){
  let c=$('chart');
@@ -1281,7 +1292,8 @@ async function __runInner(){
     state:a.state,squeeze_level:radarMatch?.squeeze_level||a.squeezeLevel||'',squeeze_state:a.squeezeState||'',
     momentum:radarMatch?.momentum||a.momentum||'',momentum_dir:radarMatch?.momentum_dir||'',combo:!!a.combo,
     pulse_signal:radarMatch?.pulse_signal||'wait',pulse_label:radarMatch?.pulse_label||'⭐ 單股收藏',
-    contractions:Array.isArray(a.seq)?a.seq:[],data_date:d[d.length-1]?.date||'',_favorite_only:!radarMatch
+    contractions:Array.isArray(a.seq)?a.seq:[],data_date:d[d.length-1]?.date||'',_favorite_only:!radarMatch,
+    last:Number.isFinite(singleLast)?singleLast:null,stop_price:(Number(radarMatch?.stop_price)>0?Number(radarMatch.stop_price):(Number(a.stopPrice)>0?Number(a.stopPrice):null))
   };
   if(getFavorites().has(favoriteKey(currentMarket,s))) rememberFavoriteMeta(currentSingleFavoriteData);
   // Refresh News Impact now that the live single-stock VCP analysis is available.
@@ -2050,7 +2062,9 @@ function favoriteFallbackRow(key,meta={}){
    momentum:meta.momentum||'',momentum_dir:meta.momentum_dir||'',
    combo:!!meta.combo,pulse_signal:meta.pulse_signal||'wait',pulse_label:meta.pulse_label||'⭐ 單股收藏',
    contractions:Array.isArray(meta.contractions)?meta.contractions:[],
-   data_date:meta.data_date||'',_favorite_only:true
+   data_date:meta.data_date||'',_favorite_only:true,
+   stop_price:Number(meta.stop_price)>0?Number(meta.stop_price):null,
+   last:Number(meta.last)>0?Number(meta.last):null
  };
 }
 function rememberFavoriteMeta(row){
