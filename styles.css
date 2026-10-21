@@ -2825,3 +2825,35 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sh-defs li.cur b{color:#1f5f50}
 .sh-list.sh-defs li span i.edot{display:inline-block!important;flex:none;width:.62em!important;height:.62em!important;margin:0 .45em 0 2px!important;border:0!important;border-radius:50%;background:var(--c)!important;vertical-align:.04em;box-shadow:0 0 0 2.5px color-mix(in srgb,var(--c) 24%,transparent)}
 .sh-cur-tag{font-style:normal;margin-left:8px;padding:0 7px;border-radius:7px;background:#2f7d6a;color:#fff;font-size:11px;font-weight:800;white-space:nowrap}
+
+/* ── 題材證據標註 v1（2026-10-21）：只做標註，不影響分數 ── */
+.te-mat{display:inline-block;margin-left:6px;padding:0 6px;border-radius:99px;font-size:9.5px;font-weight:800;line-height:1.5;vertical-align:1px}
+.te-mat-revenue{background:#c0d7d1;color:#2f4a43}
+.te-mat-building{background:#fbf3dc;color:#6b5a2a;border:1px solid #edce7c}
+.te-mat-watching{background:#f1ece6;color:#6b6258}
+.te-badge{display:inline-block;margin-left:4px;padding:0 5px;border-radius:5px;font-size:9px;font-weight:900;line-height:1.5;vertical-align:1px}
+.te-a{background:#c0d7d1;color:#2f4a43}
+.te-b{background:#e4efeb;color:#3f5f57}
+.te-c{background:#fbf3dc;color:#6b5a2a}
+.te-x{background:#efebe6;color:#8a8178}
+.te-none{background:transparent;color:#a39a90;font-weight:700;border:1px dashed #d6cfc6}
+.te-card{margin-top:16px}
+.te-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.te-card-title{font-size:17px;font-weight:950;letter-spacing:-.2px}
+.te-empty{padding:15px 4px;color:#71706f;font-size:12px;line-height:1.6}
+.te-item{padding:12px 2px;border-bottom:1px solid #eeebe7}
+.te-item:last-child{border-bottom:0}
+.te-item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.te-item-head .te-badge{margin-left:0;font-size:11px;padding:1px 7px}
+.te-theme{font-weight:900;font-size:14px}
+.te-expo{font-size:12px;color:var(--muted);font-weight:700}
+.te-role{font-size:12px;color:var(--muted);margin-top:3px}
+.te-ev{font-size:13px;line-height:1.65;margin-top:6px}
+.te-note{font-size:12px;line-height:1.6;color:var(--muted);margin-top:4px}
+.te-src{font-size:11.5px;color:var(--muted);margin-top:6px}
+.te-src a{color:#b66749}
+.te-stale{color:#b66749;font-weight:800}
+.te-dim{opacity:.6}
+.te-foot{margin-top:10px;padding-top:9px;border-top:1px dashed #e8e6e5;color:#737271;font-size:10px;line-height:1.5}
+@media (max-width:640px){.te-card{margin-top:12px}.te-card-title{font-size:15px}.te-ev{font-size:12.5px}}
+.te-cov{display:inline-block;margin-left:6px;font-size:9.5px;font-weight:800;color:#5f857b}

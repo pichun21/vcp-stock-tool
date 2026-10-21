@@ -14,6 +14,10 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "screening.json"
 THEME_DB = ROOT / "data" / "vcpulse_themes_v2_6_score_calibration.json"
+THEME_EVIDENCE = ROOT / "data" / "theme-evidence.json"
+# 題材成分股權重來源："evidence"＝題材證據表（2026-10-21 起為預設）；"db"＝原本題材資料庫（等級×純度×信心）。
+# 另一套會當作影子排名一起計算並存檔，畫面只顯示這裡指定的那一套。
+THEME_WEIGHT_MODE = os.environ.get("VCP_THEME_WEIGHT_MODE", "evidence")
 FINMIND = "https://api.finmindtrade.com/api/v4/data"
 TAIPEI = ZoneInfo("Asia/Taipei")
 
@@ -1746,7 +1750,68 @@ def build_capital_hotspots(flow_rows, candidate_rows, topn=5):
     return rows
 
 
-def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0, topn=5):
+# ── 題材證據權重層（2026-10-21）──────────────────────────────
+# 雷達題材 → 證據表題材；以「：」結尾代表整個大題材
+EVIDENCE_THEME_MAP={
+    "AI伺服器":["AI 伺服器：伺服器組裝代工","AI 伺服器：機構件（滑軌、機殼）","AI 伺服器：散熱與液冷"],
+    "液冷":["AI 伺服器：散熱與液冷"],
+    "AI電力基建":["AI 伺服器：電源與 BBU","AI 伺服器：資料中心電力設備（變壓器、GIS）"],
+    # CPO 只認 CPO 專屬證據；一般光通訊（可插拔模組、被動元件）只算在高速光通訊
+    "CPO/矽光子":["矽光子／CPO：CPO 封裝與光學引擎","矽光子／CPO：雷射光源","矽光子／CPO：光纖耦合／FAU、配線","矽光子／CPO：光電測試設備","矽光子／CPO：封裝耦合設備"],
+    "高速光通訊":["矽光子／CPO：高速光通訊模組與元件","矽光子／CPO：雷射光源","矽光子／CPO：光纖耦合／FAU、配線"],
+    "機器人":["AI 機器人："],
+    "機器人關鍵零組件":["AI 機器人："],
+    "先進封裝":["先進封裝："],
+    "先進封裝供應鏈":["先進封裝："],
+    "IC載板":["先進封裝：封裝基板"],
+    "低軌衛星":["次世代通訊：低軌衛星地面設備","次世代通訊：低軌衛星零組件（PCB、材料、RF、線束）"],
+    "AI PCB":["AI PCB："],
+    "重電/強韌電網":["重電／電網：電網重電設備（台電強韌電網與海外電力公司）"],
+}
+EVIDENCE_GRADE_W={"A":1.0,"B":.75,"C":.45,"D":0.0,"待核":0.0}
+EVIDENCE_PURITY={"高":90,"中":50,"低":20}      # 未揭露：沿用資料庫純度，沒有就用 50
+EVIDENCE_CONFIDENCE=90                           # 有來源可查的證據一律視為高信心
+UNVERIFIED_DISCOUNT=0.7                          # 有證據表的題材中，還沒查證的成分股打七折
+_EVIDENCE_CACHE=None
+
+def load_theme_evidence():
+    global _EVIDENCE_CACHE
+    if _EVIDENCE_CACHE is None:
+        try:
+            _EVIDENCE_CACHE=json.loads(THEME_EVIDENCE.read_text(encoding="utf-8")) if THEME_EVIDENCE.exists() else {}
+        except Exception as e:
+            print("theme evidence warning",e)
+            _EVIDENCE_CACHE={}
+    return _EVIDENCE_CACHE
+
+def _evidence_match(theme_id,patterns):
+    return any(theme_id.startswith(p) if p.endswith("：") else theme_id==p for p in patterns)
+
+def evidence_best_tag(code,radar_theme):
+    """某檔股票在某雷達題材下最強的證據；題材沒有證據表時回傳 None，有證據表但沒查證回傳 {}。"""
+    pats=EVIDENCE_THEME_MAP.get(radar_theme)
+    ev=load_theme_evidence()
+    if not pats or not ev:
+        return None
+    order=["A","B","C","D","待核"]
+    tags=[t for t in ((ev.get("stocks") or {}).get(str(code),{}).get("tags") or []) if _evidence_match(t.get("theme",""),pats)]
+    tags.sort(key=lambda t:order.index(t.get("grade")) if t.get("grade") in order else 9)
+    return tags[0] if tags else {}
+
+def evidence_formal_codes(radar_theme):
+    """證據表中屬於該雷達題材的 A、B 級股票（用來補進原本漏掉的成分股）。"""
+    pats=EVIDENCE_THEME_MAP.get(radar_theme)
+    ev=load_theme_evidence()
+    if not pats or not ev:
+        return []
+    out=[]
+    for code,sd in (ev.get("stocks") or {}).items():
+        if any(_evidence_match(t.get("theme",""),pats) and t.get("grade") in ("A","B") for t in (sd.get("tags") or [])):
+            out.append(str(code))
+    return sorted(out)
+
+
+def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0, topn=5, weight_mode="db"):
     """Production-safe Theme engine merge.
 
     Heat is calculated from *all observed Taiwan-market constituents* in the theme,
@@ -1810,15 +1875,39 @@ def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0,
             return 0.0,[]
         return w,best.get("segments") or []
 
+    def membership_evidence(code,theme):
+        """證據模式：有證據就用證據決定權重；沒查證的打折；題材沒有證據表則沿用資料庫。"""
+        db_w,db_segs=membership(code,theme)
+        tag=evidence_best_tag(code,theme)
+        if tag is None:                     # 這個題材還沒建證據表
+            return db_w,db_segs
+        if not tag:                         # 有證據表但這檔還沒查證
+            return db_w*UNVERIFIED_DISCOUNT,db_segs
+        gw=EVIDENCE_GRADE_W.get(tag.get("grade"),0.0)
+        if gw<=0:
+            return 0.0,[]
+        purity=EVIDENCE_PURITY.get(tag.get("exposure"))
+        if purity is None:
+            sd=stocks.get(str(code),{})
+            ps=[m.get("purity",0) for m in (sd.get("themes") or {}).values()]
+            purity=max(ps) if ps else 50
+        w=gw*(.40+.60*purity/100)*(.50+.50*EVIDENCE_CONFIDENCE/100)
+        seg=str(tag.get("theme","")).split("：")[-1]
+        return w,(db_segs or [seg])
+
+    weigh=membership_evidence if weight_mode=="evidence" else membership
+
     out=[]
     for theme,info in rankable.items():
         members=[]; segw={}
-        for code in info.get("codes",[]):
-            code=str(code)
+        codes=[str(c) for c in info.get("codes",[])]
+        if weight_mode=="evidence":
+            codes+= [c for c in evidence_formal_codes(theme) if c not in codes]
+        for code in codes:
             m=by_market.get(code)
             if not m:
                 continue
-            w,segs=membership(code,theme)
+            w,segs=weigh(code,theme)
             if w<=0:
                 continue
             members.append({"code":code,"m":m,"c":by_candidate.get(code),"raw_w":w})
@@ -1894,20 +1983,35 @@ def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0,
             life,label="watch","觀察"
 
         segs=[x for x,_ in sorted(segw.items(),key=lambda kv:-kv[1])[:2]]
-        candidates=[x for x in members if x["c"]]
-        candidates.sort(key=lambda x:(-(x["c"].get("score") or 0),abs(x["c"].get("distance") if x["c"].get("distance") is not None else 99)))
-        top_codes=[x["code"] for x in candidates[:5]]
-        if len(top_codes)<5:
-            fallback=sorted(members,key=lambda x:(-(x["m"].get("change_pct") or 0),-(x["m"].get("value_ratio") or 0)))
-            for x in fallback:
-                if x["code"] not in top_codes:
-                    top_codes.append(x["code"])
-                if len(top_codes)>=5:
-                    break
+        def ev_rank(code):
+            # 代表股優先順序：A（曝險不是「低」）→ B（曝險不是「低」）→ A／B 曝險低 → 未查證 → C → D／待核
+            t=evidence_best_tag(code,theme)
+            if not t: return 3
+            g=t.get("grade"); e=t.get("exposure")
+            if g in ("A","B"): return 2 if e=="低" else (0 if g=="A" else 1)
+            if g=="C": return 4
+            return 5
+        # 先看證據強弱，同一級裡雷達有訊號的優先，再比 VCP 分數、距 Pivot、當日漲幅
+        ranked=sorted(members,key=lambda x:(
+            ev_rank(x["code"]),
+            0 if x["c"] else 1,
+            -((x["c"] or {}).get("score") or 0),
+            abs((x["c"] or {}).get("distance") if (x["c"] or {}).get("distance") is not None else 99),
+            -(x["m"].get("change_pct") or 0)))
+        top_codes=[x["code"] for x in ranked[:5]]
 
+        verified=0; has_ev=EVIDENCE_THEME_MAP.get(theme) is not None and bool(load_theme_evidence())
+        if has_ev:
+            for x in members:
+                t=evidence_best_tag(x["code"],theme)
+                if t and t.get("grade") in ("A","B"):
+                    verified+=1
         out.append({
             "theme":theme,
             "constituents":len(members),
+            "evidenceCoverage":({"verified":verified,"total":len(members)} if has_ev else None),
+            "_codes":sorted(x["code"] for x in members),
+            "weightMode":weight_mode,
             "effectiveWeight":round(raw_sw,2),
             "heat":round(heat),"setup":round(setup),
             "lifecycle":life,"lifecycleLabel":label,
@@ -1935,14 +2039,65 @@ def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0,
             "marketReturnPct":round(float(market_return_pct),2)
         })
 
-    theme_top=sorted(out,key=lambda x:(-x["heat"],-x["setup"],-x["effectiveWeight"]))[:topn]
-    setup_top=sorted(out,key=lambda x:(-x["setup"],-x["heat"],-x["effectiveWeight"]))[:topn]
+    def pick(rows,exclude=()):
+        # 成分股重疊八成以上的題材視為同一群，只留排名較前的那個，避免兩個題材佔掉兩格
+        chosen=[]
+        for x in rows:
+            if x["theme"] in exclude:
+                continue
+            a=set(x["_codes"])
+            if any(len(a & set(y["_codes"]))/max(1,len(a | set(y["_codes"])))>=0.8 for y in chosen):
+                continue
+            chosen.append(x)
+            if len(chosen)>=topn:
+                break
+        return chosen
+    theme_top=pick(sorted(out,key=lambda x:(-x["heat"],-x["setup"],-x["effectiveWeight"])))
+    # 蓄勢榜只放「尚未最熱」的題材：已在熱門榜、且熱度高於蓄勢分數的題材（已在發動）不重複上榜。
+    # 用相對比較而不用固定門檻，因為實際熱度分布多落在 10～50，固定門檻不會觸發。
+    launched={x["theme"] for x in theme_top if x["heat"]>x["setup"]}
+    setup_top=pick(sorted(out,key=lambda x:(-x["setup"],-x["heat"],-x["effectiveWeight"])),exclude=launched)
+    for x in out:
+        x.pop("_codes",None)
     print(f"TW THEME ENGINE: observed={len(by_market)} candidates={len(by_candidate)} eligible={len(out)}")
     if theme_top:
         print("TW THEME TOP5:"," | ".join(f"{x['theme']} H{x['heat']} S{x['setup']}" for x in theme_top))
     if setup_top:
         print("TW SETUP TOP5:"," | ".join(f"{x['theme']} S{x['setup']} H{x['heat']}" for x in setup_top))
     return {"themeTop5":theme_top,"setupTop5":setup_top}
+
+
+def build_theme_leaderboards_with_shadow(market_rows, candidate_rows, market_return_pct=0.0, topn=5):
+    """畫面用 THEME_WEIGHT_MODE 指定的權重；另一套當影子排名一起存，方便比對。"""
+    live_mode="evidence" if THEME_WEIGHT_MODE=="evidence" else "db"
+    shadow_mode="db" if live_mode=="evidence" else "evidence"
+    live=build_theme_leaderboards(market_rows,candidate_rows,market_return_pct,topn,weight_mode=live_mode)
+    if not load_theme_evidence():
+        return live
+    try:
+        shadow=build_theme_leaderboards(market_rows,candidate_rows,market_return_pct,topn,weight_mode=shadow_mode)
+    except Exception as e:
+        print("theme shadow warning",e)
+        return live
+    def brief(rows):
+        return [{"theme":x["theme"],"heat":x["heat"],"setup":x["setup"],"constituents":x["constituents"],
+                 "topStocks":x.get("topStocks",[])} for x in rows]
+    live["weightShadow"]={"liveMode":live_mode,"shadowMode":shadow_mode,
+                          "themeTop5":brief(shadow.get("themeTop5",[])),"setupTop5":brief(shadow.get("setupTop5",[]))}
+    print("TW THEME SHADOW ("+shadow_mode+"):"," | ".join(f"{x['theme']} H{x['heat']} S{x['setup']}" for x in shadow.get("themeTop5",[])))
+    return live
+
+
+def append_theme_shadow_history(history, data_date, board):
+    """每次正式收盤掃描記一筆新舊排名，保留最近 60 筆。"""
+    sh=(board or {}).get("weightShadow")
+    if not sh:
+        return history
+    entry={"date":data_date,"liveMode":sh["liveMode"],"shadowMode":sh["shadowMode"],
+           "live":{"heat":[x["theme"] for x in board.get("themeTop5",[])],"setup":[x["theme"] for x in board.get("setupTop5",[])]},
+           "shadow":{"heat":[x["theme"] for x in sh.get("themeTop5",[])],"setup":[x["theme"] for x in sh.get("setupTop5",[])]}}
+    history=[h for h in (history or []) if h.get("date")!=data_date]+[entry]
+    return history[-60:]
 
 
 def scan(market):
@@ -2213,6 +2368,7 @@ def main():
     official_restore_events=dict(old.get("official_restore_events",{}) or {})
     intraday_restore_events=dict(old.get("intraday_restore_events",{}) or {})
     theme_stock_names=dict(old.get("theme_stock_names",{}) or {})
+    theme_shadow_history=list(old.get("theme_weight_shadow_history",[]) or [])
 
     # Migration from pre-V2.21 payloads.
     if not old.get("dual_snapshot_version"):
@@ -2324,7 +2480,7 @@ def main():
                     r["new_reason"]=""
 
             theme_leaderboards=(
-                build_theme_leaderboards(theme_market_rows,rows,theme_market_return)
+                build_theme_leaderboards_with_shadow(theme_market_rows,rows,theme_market_return)
                 if market=="TW" else {"themeTop5":[],"setupTop5":[]}
             )
             official_results=_replace_market(official_results,market,rows)
@@ -2345,6 +2501,7 @@ def main():
                 official_capital_hotspots["TW"]=capital_hotspots
             if market=="TW" and (theme_leaderboards.get("themeTop5") or theme_leaderboards.get("setupTop5")):
                 official_theme_leaderboards["TW"]=theme_leaderboards
+                theme_shadow_history=append_theme_shadow_history(theme_shadow_history,current_date,theme_leaderboards)
             if market_quote_cache:
                 official_quotes[market]=market_quote_cache
             if market_restore_events:
@@ -2358,7 +2515,7 @@ def main():
                 r["is_new"]=False
                 r["new_reason"]=""
             theme_leaderboards=(
-                build_theme_leaderboards(theme_market_rows,rows,theme_market_return)
+                build_theme_leaderboards_with_shadow(theme_market_rows,rows,theme_market_return)
                 if market=="TW" else {"themeTop5":[],"setupTop5":[]}
             )
             intraday_results=_replace_market(intraday_results,market,rows)
@@ -2413,6 +2570,8 @@ def main():
         "intraday_theme_leaderboards":intraday_theme_leaderboards,
         "theme_engine_version":"2.42.6-alpha138-max",
         "theme_stock_names":theme_stock_names,
+        "theme_weight_mode":THEME_WEIGHT_MODE,
+        "theme_weight_shadow_history":theme_shadow_history,
         "all_stock_quote_cache_version":1,
         "official_quotes":official_quotes,
         "intraday_quotes":intraday_quotes,
