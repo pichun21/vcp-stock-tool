@@ -2912,3 +2912,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-stock-code{margin-top:4px!important;line-height:1.5}
 #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line{margin-top:2px!important;line-height:1.55}
 #radarMobile.compact .mobile-stock-card:not(.expanded) .mobile-risk-line .sl-chip.bv-weak{margin-left:0!important;display:block!important}
+/* 桌機表格：VCP 欄的 RS／趨勢／停損／量能標籤自動換行，避免把表格撐出畫面（2026-10-22） */
+.radar-table .rs-line{display:flex!important;flex-wrap:wrap;gap:4px;max-width:250px;white-space:normal}
+.radar-table .rs-line>span{white-space:nowrap;margin:0!important}
+@media (min-width:761px){.radar-table-wrap{overflow-x:auto!important}}
