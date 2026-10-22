@@ -1766,6 +1766,7 @@ EVIDENCE_THEME_MAP={
     "IC載板":["先進封裝：封裝基板"],
     "低軌衛星":["次世代通訊：低軌衛星地面設備","次世代通訊：低軌衛星零組件（PCB、材料、RF、線束）"],
     "AI PCB":["AI PCB："],
+    "半導體設備":["半導體設備："],
     "重電/強韌電網":["重電／電網：電網重電設備（台電強韌電網與海外電力公司）"],
 }
 EVIDENCE_GRADE_W={"A":1.0,"B":.75,"C":.45,"D":0.0,"待核":0.0}
@@ -2040,22 +2041,23 @@ def build_theme_leaderboards(market_rows, candidate_rows, market_return_pct=0.0,
         })
 
     def pick(rows,exclude=()):
-        # 成分股重疊八成以上的題材視為同一群，只留排名較前的那個，避免兩個題材佔掉兩格
+        # 成分股重疊八成以上的題材視為同一群，只留排名較前的那個，避免兩個題材佔掉兩格；
+        # exclude 傳入的題材（例如已在熱門榜的）連同它的「同一群」也一併排除
         chosen=[]
+        excl=[x for x in rows if x["theme"] in exclude]
         for x in rows:
             if x["theme"] in exclude:
                 continue
             a=set(x["_codes"])
-            if any(len(a & set(y["_codes"]))/max(1,len(a | set(y["_codes"])))>=0.8 for y in chosen):
+            if any(len(a & set(y["_codes"]))/max(1,len(a | set(y["_codes"])))>=0.8 for y in chosen+excl):
                 continue
             chosen.append(x)
             if len(chosen)>=topn:
                 break
         return chosen
     theme_top=pick(sorted(out,key=lambda x:(-x["heat"],-x["setup"],-x["effectiveWeight"])))
-    # 蓄勢榜只放「尚未最熱」的題材：已在熱門榜、且熱度高於蓄勢分數的題材（已在發動）不重複上榜。
-    # 用相對比較而不用固定門檻，因為實際熱度分布多落在 10～50，固定門檻不會觸發。
-    launched={x["theme"] for x in theme_top if x["heat"]>x["setup"]}
+    # 蓄勢榜只放「尚未最熱」的題材：已在熱門榜的題材（含成分股重疊八成以上的同群題材）不再進蓄勢榜，兩榜不重複
+    launched={x["theme"] for x in theme_top}
     setup_top=pick(sorted(out,key=lambda x:(-x["setup"],-x["heat"],-x["effectiveWeight"])),exclude=launched)
     for x in out:
         x.pop("_codes",None)
