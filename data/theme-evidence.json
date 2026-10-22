@@ -1,5 +1,5 @@
 {
- "version": "v31",
+ "version": "v33",
  "generated": "2026-10-22",
  "rules": {
   "membership": {
@@ -391,6 +391,14 @@
    "status": "已建",
    "whitepaper": "圖2-1-3-2 封裝製程奈米級全方位感測",
    "policy": "五大信賴：半導體"
+  },
+  {
+   "id": "半導體通路：AI 與資料中心零組件",
+   "group": "半導體通路",
+   "name": "AI 與資料中心零組件",
+   "status": "已建",
+   "whitepaper": "",
+   "policy": ""
   },
   {
    "id": "安控／資安：影像監控與資安",
@@ -959,6 +967,21 @@
       "title": "中興電股東會（財報狗）",
       "url": "https://statementdog.com/news/16564",
       "date": "2026-05-26"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "甲醇產氫發電系統",
+     "evidence": "2026/4/23 法說：氫能策略由延宕的氫能巴士轉向貨櫃型甲醇產氫發電系統，研發基地設於美國；未提出貨或營收",
+     "exposureNote": "仍在研發",
+     "path": "",
+     "source": {
+      "title": "中興電 2026/4/23 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-1513-2026-04-23",
+      "date": "2026-04-23"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -1864,6 +1887,48 @@
     }
    ]
   },
+  "2377": {
+   "name": "微星",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI 伺服器：伺服器組裝代工",
+     "grade": "B",
+     "exposure": "低",
+     "role": "AI 伺服器品牌",
+     "evidence": "2026/3/13 法說：AI 產品今年預計成長 50～100%；2025 年營收中零組件 50%、系統 42%，其他（含伺服器）僅 8%",
+     "exposureNote": "伺服器占營收不超過 8%",
+     "path": "AI 伺服器 → 品牌出貨",
+     "source": {
+      "title": "微星法說（聯合報）",
+      "url": "https://udn.com/news/story/7253/9378911",
+      "date": "2026-03-13"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "2379": {
+   "name": "瑞昱",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI 網通：寬頻與交換器",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "網通晶片（乙太網路、Wi-Fi）",
+     "evidence": "2026/4/30 法說：AI 帶動網通需求，800G、1.6T 乙太網路交換器需求升溫，管理型交換器與 GPON 受惠；未揭露網通占比",
+     "exposureNote": "網通與 AI 占比未揭露",
+     "path": "AI 資料中心網路 → 網通晶片",
+     "source": {
+      "title": "瑞昱法說（聯合報）",
+      "url": "https://udn.com/news/story/7253/9475089",
+      "date": "2026-04-30"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "2382": {
    "name": "廣達",
    "market": "上市",
@@ -2009,6 +2074,27 @@
       "title": "南亞科投顧報告（旺得富）",
       "url": "https://wantrich.chinatimes.com/news/20260921900210-420101",
       "date": "2026-09-21"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "2409": {
+   "name": "友達",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "B",
+     "exposure": "低",
+     "role": "Micro LED 顯示面板",
+     "evidence": "2026/3/27 法說：Micro LED 面板已於 2025 年 9 月為 Garmin 運動手錶量產出貨，產線由 Gen1 移至 G4.5；未揭露 Micro LED 營收",
+     "exposureNote": "Micro LED 相對總營收（2025 年 2,814 億元）很小",
+     "path": "Micro LED 穿戴 → 面板出貨",
+     "source": {
+      "title": "友達 2026/3/27 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-2409-2026-03-27",
+      "date": "2026-03-27"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -2513,6 +2599,27 @@
       "title": "智原第二季法說（工商時報）",
       "url": "https://www.ctee.com.tw/news/20260728701489-430201",
       "date": "2026-07-28"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3036": {
+   "name": "文曄",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體通路：AI 與資料中心零組件",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "半導體零組件通路",
+     "evidence": "業務已拓展至 AI 資料中心零組件通路；大摩估 2028 年資料中心可能貢獻營收 64%",
+     "exposureNote": "資料中心占比為法人估計",
+     "path": "AI 資料中心 → 零組件通路",
+     "source": {
+      "title": "大聯大、文曄（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9515435",
+      "date": "2026-05-21"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3292,6 +3399,27 @@
     }
    ]
   },
+  "3702": {
+   "name": "大聯大",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體通路：AI 與資料中心零組件",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "半導體零組件通路",
+     "evidence": "第一季營收 3,165 億元、年增 27%；管理層預期推論與邊緣 AI 需求持續強勁；大摩指運算領域占獲利 49%",
+     "exposureNote": "AI 占比未揭露",
+     "path": "AI 與運算 → 零組件通路",
+     "source": {
+      "title": "大聯大、文曄（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9515435",
+      "date": "2026-05-21"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "3704": {
    "name": "合勤控",
    "market": "上市",
@@ -3970,6 +4098,27 @@
     }
    ]
   },
+  "5269": {
+   "name": "祥碩",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "IC 設計：AI 晶片／ASIC",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "高速 SerDes、PCIe Switch",
+     "evidence": "2026/6/17 股東會：成立新竹團隊開發高速 SerDes，80G PAM4 已發表、112G 預計 2026 底至 2027 初 tape out；公司表示 AI 伺服器業績尚需時間",
+     "exposureNote": "AI 伺服器尚無營收",
+     "path": "",
+     "source": {
+      "title": "祥碩進軍 AI 伺服器（聯合報）",
+      "url": "https://udn.com/news/story/7240/9572057",
+      "date": "2026-06-17"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "5340": {
    "name": "建榮",
    "market": "上市",
@@ -4156,6 +4305,27 @@
       "date": "2025-08-18"
      },
      "verified": "本次查證（2026-10-18）"
+    }
+   ]
+  },
+  "5498": {
+   "name": "凱崴",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "AI PCB：上游材料（銅箔、玻纖布、鑽針、錫膏）",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "PCB 鑽針、鑽孔代工",
+     "evidence": "主要產品為 PCB 鑽針、機械／雷射鑽孔與基板材料；AI 伺服器高層厚板帶動鑽針耗用（報導敘述）",
+     "exposureNote": "AI 占比未揭露",
+     "path": "AI 伺服器高層板 → 鑽針",
+     "source": {
+      "title": "PCB 鑽針族群（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=255462",
+      "date": "2026-10-14"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -4456,6 +4626,27 @@
     }
    ]
   },
+  "6269": {
+   "name": "台郡",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "AI PCB：伺服器與交換器 PCB",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "軟板、AI 伺服器傳輸產品",
+     "evidence": "法人預期 2026 年 AI 伺服器傳輸產品成為成長動能；公司轉型中，單一客戶占比由九成以上降到五至六成",
+     "exposureNote": "AI 產品尚無占比；目前毛利率偏低",
+     "path": "",
+     "source": {
+      "title": "台郡轉型（經濟日報）",
+      "url": "https://money.udn.com/money/story/5607/9817275",
+      "date": "2026-10-15"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6271": {
    "name": "同欣電",
    "market": "上市",
@@ -4544,6 +4735,21 @@
       "title": "康舒 6 月營收（旺得富）",
       "url": "https://wantrich.chinatimes.com/news/20260710900206-420101",
       "date": "2026-07-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "智慧車輛：充電樁與電能調度",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "充電樁電源模組、車載電源",
+     "evidence": "2026/9 在波蘭展出 40kW、60kW 充電樁電源模組（可並聯至 150kW 以上）與 11kW 車載電源，與歐洲客戶及夥伴合作；未揭露營收",
+     "exposureNote": "充電相關占比未揭露",
+     "path": "歐洲充電建置 → 電源模組",
+     "source": {
+      "title": "康舒 New Mobility Congress（優分析）",
+      "url": "https://uanalyze.com.tw/articles/4113555846",
+      "date": "2026-09-22"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -5050,6 +5256,27 @@
     }
    ]
   },
+  "6706": {
+   "name": "惠特",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "LED／Micro LED 點測分選設備",
+     "evidence": "主要產品含 LED 與 Micro LED 點測、分選、檢測設備，但公司 2026 年重點轉向矽光子雷射測試與 CPO 設備，未提 Micro LED 出貨；1～4 月營收年減 58%",
+     "exposureNote": "Micro LED 不是公司目前重點",
+     "path": "",
+     "source": {
+      "title": "惠特營運（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=227408",
+      "date": "2026-05-19"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6712": {
    "name": "長聖",
    "market": "上櫃",
@@ -5489,6 +5716,27 @@
       "title": "FOPLP 資金搶進（經濟日報）",
       "url": "https://money.udn.com/money/amp/story/5607/9473919",
       "date": "2026-04-30"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "8070": {
+   "name": "長華*",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "先進封裝：封裝設備",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "CoWoS 壓模機代理、導線架",
+     "evidence": "代理日本 Yamada 壓模機用於台積電 CoWoS 製程，Yamada 產能由每月 1.5 台提升至 6 台；下一代 CoWoS 設備原型機 2026 年 6 月推出",
+     "exposureNote": "先進封裝占比未揭露；主力仍是導線架與材料",
+     "path": "CoWoS 擴產 → 壓模設備",
+     "source": {
+      "title": "長華 2026/1/28 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-8070-2026-01-28",
+      "date": "2026-01-28"
      },
      "verified": "本次查證（2026-10-21）"
     }
