@@ -1,6 +1,6 @@
 {
- "version": "v25",
- "generated": "2026-10-21",
+ "version": "v31",
+ "generated": "2026-10-22",
  "rules": {
   "membership": {
    "formal": [
@@ -36,7 +36,7 @@
    "id": "AI：AI 軟體與應用服務",
    "group": "AI",
    "name": "AI 軟體與應用服務",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-3-1-2 人工智慧創新服務；圖2-3-2-1 生成式 AI 製程模擬",
    "policy": "AI 新十大建設"
   },
@@ -47,6 +47,14 @@
    "status": "未建",
    "whitepaper": "圖2-3-2-2 虛實映射網路",
    "policy": "AI 新十大建設"
+  },
+  {
+   "id": "AI PCB：PCB 製程設備",
+   "group": "AI PCB",
+   "name": "PCB 製程設備",
+   "status": "已建",
+   "whitepaper": "",
+   "policy": ""
   },
   {
    "id": "AI PCB：上游材料（銅箔、玻纖布、鑽針、錫膏）",
@@ -353,10 +361,18 @@
    "policy": ""
   },
   {
-   "id": "半導體設備：前段／廠務設備",
+   "id": "半導體設備：前段設備與關鍵零組件",
    "group": "半導體設備",
-   "name": "前段／廠務設備",
-   "status": "未建",
+   "name": "前段設備與關鍵零組件",
+   "status": "已建",
+   "whitepaper": "圖2-1-3-3 關鍵模組；圖2-1-3-1 半導體試產線",
+   "policy": "五大信賴：半導體"
+  },
+  {
+   "id": "半導體設備：廠務工程與無塵室",
+   "group": "半導體設備",
+   "name": "廠務工程與無塵室",
+   "status": "已建",
    "whitepaper": "圖2-1-3-3 關鍵模組；圖2-1-3-1 半導體試產線",
    "policy": "五大信賴：半導體"
   },
@@ -369,10 +385,10 @@
    "policy": "淨零轉型"
   },
   {
-   "id": "半導體設備：檢測／量測",
+   "id": "半導體設備：檢測量測與測試介面",
    "group": "半導體設備",
-   "name": "檢測／量測",
-   "status": "未建",
+   "name": "檢測量測與測試介面",
+   "status": "已建",
    "whitepaper": "圖2-1-3-2 封裝製程奈米級全方位感測",
    "policy": "五大信賴：半導體"
   },
@@ -380,7 +396,7 @@
    "id": "安控／資安：影像監控與資安",
    "group": "安控／資安",
    "name": "影像監控與資安",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "政策篇：五大信賴「安控」",
    "policy": "五大信賴：安控；13 戰略：安控"
   },
@@ -388,7 +404,7 @@
    "id": "智慧機械：五軸工具機",
    "group": "智慧機械",
    "name": "五軸工具機",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-4-1-1 五軸空間精度",
    "policy": ""
   },
@@ -396,7 +412,7 @@
    "id": "智慧機械：工具機智慧零組件",
    "group": "智慧機械",
    "name": "工具機智慧零組件",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-4-1-3 工具機智慧零組件",
    "policy": ""
   },
@@ -404,7 +420,7 @@
    "id": "智慧機械：智慧工廠系統",
    "group": "智慧機械",
    "name": "智慧工廠系統",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-4-3-1 智慧工廠 AI 加值",
    "policy": ""
   },
@@ -420,7 +436,7 @@
    "id": "智慧車輛：充電樁與電能調度",
    "group": "智慧車輛",
    "name": "充電樁與電能調度",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-5-1-3 AI 智慧充電與電能調度",
    "policy": "淨零轉型"
   },
@@ -436,7 +452,7 @@
    "id": "智慧車輛：電動商用車（巴士、物流車）",
    "group": "智慧車輛",
    "name": "電動商用車（巴士、物流車）",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-5-1-2 電動商用載具高效關鍵系統",
    "policy": ""
   },
@@ -452,7 +468,7 @@
    "id": "智慧車輛：電輔自行車",
    "group": "智慧車輛",
    "name": "電輔自行車",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-5-1-4 智能化電輔自行車",
    "policy": ""
   },
@@ -468,7 +484,7 @@
    "id": "服務科技：運動科技",
    "group": "服務科技",
    "name": "運動科技",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-8-1-1 新興運動科技",
    "policy": ""
   },
@@ -516,7 +532,7 @@
    "id": "次世代通訊：6G／非地面網路",
    "group": "次世代通訊",
    "name": "6G／非地面網路",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-2-1-2 6G 地面與非地面網路；圖2-2-1-5 實驗網",
    "policy": "13 戰略：次世代通訊"
   },
@@ -548,7 +564,7 @@
    "id": "次世代通訊：高頻材料（次太赫茲、CCL）",
    "group": "次世代通訊",
    "name": "高頻材料（次太赫茲、CCL）",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-2-1-3 次太赫茲關鍵材料",
    "policy": ""
   },
@@ -564,7 +580,7 @@
    "id": "氫能：燃料電池與運具",
    "group": "氫能",
    "name": "燃料電池與運具",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-5-2-1 氫能船舶；圖2-5-2-3 質子交換膜燃料電池材料",
    "policy": "淨零轉型"
   },
@@ -583,6 +599,14 @@
    "status": "已建",
    "whitepaper": "政策：國防部 96 億元可攜式反制系統標案（非白皮書技術篇）",
    "policy": "五大信賴：軍工"
+  },
+  {
+   "id": "無人機：地面站與強固型電腦",
+   "group": "無人機",
+   "name": "地面站與強固型電腦",
+   "status": "已建",
+   "whitepaper": "",
+   "policy": ""
   },
   {
    "id": "無人機：整機與系統整合",
@@ -644,7 +668,7 @@
    "id": "生醫：新藥",
    "group": "生醫",
    "name": "新藥",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "新藥章",
    "policy": "13 戰略：生技醫療"
   },
@@ -668,7 +692,7 @@
    "id": "生醫：細胞治療",
    "group": "生醫",
    "name": "細胞治療",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-6-2-2 細胞生物製劑與關鍵原料",
    "policy": "13 戰略：生技醫療"
   },
@@ -676,7 +700,7 @@
    "id": "生醫：藥品製造韌性／CDMO",
    "group": "生醫",
    "name": "藥品製造韌性／CDMO",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "生醫韌性章；圖2-6-1-1 藥品國產自製",
    "policy": "13 戰略：生技醫療"
   },
@@ -684,7 +708,7 @@
    "id": "生醫：醫療器材",
    "group": "生醫",
    "name": "醫療器材",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-6-3-1 高階與創新醫材",
    "policy": "健康臺灣"
   },
@@ -812,7 +836,7 @@
    "id": "顯示科技：Micro LED／柔性顯示",
    "group": "顯示科技",
    "name": "Micro LED／柔性顯示",
-   "status": "未建",
+   "status": "已建",
    "whitepaper": "圖2-1-5-1 無光罩柔性低耗能材料",
    "policy": ""
   },
@@ -1012,6 +1036,27 @@
     }
    ]
   },
+  "1530": {
+   "name": "亞崴",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧機械：五軸工具機",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "龍門五軸加工機",
+     "evidence": "2026/3 工具機展：接獲約 200 萬美元龍門五軸機訂單，在手訂單約 11 億元、排程到第三季（集團會長說法）",
+     "exposureNote": "五軸占比未揭露",
+     "path": "航太、半導體設備零件加工 → 五軸機",
+     "source": {
+      "title": "程泰工具機展接單（優分析）",
+      "url": "https://uanalyze.com.tw/articles/7129949621",
+      "date": "2026-03-25"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "1536": {
    "name": "和大",
    "market": "上市",
@@ -1075,6 +1120,27 @@
     }
    ]
   },
+  "1583": {
+   "name": "程泰",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧機械：五軸工具機",
+     "grade": "待核",
+     "exposure": "未揭露",
+     "role": "車銑複合機、磨床",
+     "evidence": "2026/3 工具機展接獲 1 億元半導體與面板設備零件加工訂單，但產品是車銑複合與磨床，沒有五軸機種證據",
+     "exposureNote": "",
+     "path": "",
+     "source": {
+      "title": "程泰工具機展接單（優分析）",
+      "url": "https://uanalyze.com.tw/articles/7129949621",
+      "date": "2026-03-25"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "1590": {
    "name": "亞德客-KY",
    "market": "上市",
@@ -1117,6 +1183,27 @@
     }
    ]
   },
+  "1608": {
+   "name": "華榮",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "重電／電網：電網重電設備（台電強韌電網與海外電力公司）",
+     "grade": "A",
+     "exposure": "中",
+     "role": "電力電纜（中高壓、超高壓）",
+     "evidence": "2026/5 法說：電力中高壓占營收 32%、低壓 31%；超高壓在手訂單 77.01 億元，由台電強韌電網計畫帶動",
+     "exposureNote": "電力電纜約六成，台電專案占比未揭露",
+     "path": "台電強韌電網 → 超高壓電纜",
+     "source": {
+      "title": "華榮 2026/5 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-1608-2026-05-21",
+      "date": "2026-05-21"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "1717": {
    "name": "長興",
    "market": "上市",
@@ -1133,6 +1220,27 @@
       "title": "長興 2026/3/19 法說備忘錄（富果）",
       "url": "https://blog.fugle.tw/post/earnings-call-1717-2026-03-19",
       "date": "2026-03-19"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "1736": {
+   "name": "喬山",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "服務科技：運動科技",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "健身器材",
+     "evidence": "歐美商用健身需求強勁，8 月營收 48.4 億元、年增 23%；未揭露智慧化或運動科技產品占比",
+     "exposureNote": "與「運動科技」的關聯在於健身器材，智慧化占比未揭露",
+     "path": "商用健身 → 器材出貨",
+     "source": {
+      "title": "喬山 8 月營收（優分析）",
+      "url": "https://uanalyze.com.tw/articles/1159754922",
+      "date": "2026-09-09"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -1196,6 +1304,21 @@
       "title": "上銀布局人形機器人關鍵件（中央社）",
       "url": "https://cna.com.tw/news/afe/202608190136.aspx",
       "date": "2026-08-19"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "智慧機械：工具機智慧零組件",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "滾珠螺桿、線性滑軌",
+     "evidence": "全球傳動元件龍頭，產品為工具機與自動化設備的核心零組件；2026 上半年營收年增 18%，3 月底起調漲價格 7～15%；法人指工具機、半導體、AI 設備需求帶動出貨",
+     "exposureNote": "工具機應用占比未揭露（另有機器人與半導體）",
+     "path": "工具機與自動化 → 傳動元件",
+     "source": {
+      "title": "上銀評等調升（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9626704",
+      "date": "2026-07-14"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -1331,6 +1454,36 @@
       "title": "CPO 供應鏈報導（工商時報）",
       "url": "https://www.ctee.com.tw/news/20260408701506-430201",
       "date": "2026-04-08"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "智慧車輛：充電樁與電能調度",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "電動車充電與動力系統",
+     "evidence": "2026/7/30 法說：電動車今年市況仍不佳，公司會控制虧損；成長主力是 AI（約 25%）與液冷（約 12%）",
+     "exposureNote": "EV 占比未揭露，且目前不是成長來源",
+     "path": "",
+     "source": {
+      "title": "台達電第二季法說（RECCESSARY）",
+      "url": "https://www.reccessary.com/zh-tw/news/delta-2026-q2-earnings-call",
+      "date": "2026-07-30"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "SOFC 系統（Ceres 授權）",
+     "evidence": "2026/7/30 法說：燃料電池試產線今年出貨，明年建置第一條量產線；與 Ceres 簽署 SOFC／SOEC 技術授權",
+     "exposureNote": "尚未量產",
+     "path": "",
+     "source": {
+      "title": "台達電第二季法說（RECCESSARY）",
+      "url": "https://www.reccessary.com/zh-tw/news/delta-2026-q2-earnings-call",
+      "date": "2026-07-30"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -1585,6 +1738,27 @@
     }
    ]
   },
+  "2357": {
+   "name": "華碩",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI 伺服器：伺服器組裝代工",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "AI 伺服器品牌與整櫃",
+     "evidence": "2026/8/12 法說：伺服器營收第二季年增近兩倍，全年目標上修至年增至少 150%；AI 伺服器約占伺服器營收 90%（HGX 60～65%、NVL72 整櫃 30～35%）",
+     "exposureNote": "伺服器占總營收比例未揭露，主力仍是 PC",
+     "path": "AI 伺服器 → 品牌出貨",
+     "source": {
+      "title": "華碩法說（優分析）",
+      "url": "https://uanalyze.com.tw/articles/1924453287",
+      "date": "2026-08-12"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "2359": {
    "name": "所羅門",
    "market": "上市",
@@ -1744,6 +1918,21 @@
       "date": "2026-07-29"
      },
      "verified": "本次更新（2026-10-21）"
+    },
+    {
+     "theme": "次世代通訊：高頻材料（次太赫茲、CCL）",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "高頻高速 CCL",
+     "evidence": "2026/3 法說：低軌衛星材料今年由 M6 升級至 M7；公司將低軌衛星列為看好的應用之一",
+     "exposureNote": "高頻（衛星）占比未揭露；主力是 AI 伺服器高速材料",
+     "path": "衛星與高頻通訊 → CCL 規格升級",
+     "source": {
+      "title": "台光電第二季（工商時報）",
+      "url": "https://www.ctee.com.tw/news/20260729701897-430502",
+      "date": "2026-07-29"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -1765,6 +1954,42 @@
       "date": "2026-08-06"
      },
      "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "智慧機械：智慧工廠系統",
+     "grade": "A",
+     "exposure": "中",
+     "role": "工業電腦、Edge AI 平台",
+     "evidence": "2026/8/5 法說：AI 相關營收占比由 2025 年約 15% 升至上半年 22.5%，全年目標 30%；邊緣 AI 產品成長 30～50%",
+     "exposureNote": "AI 約兩成多（公司數字）；工業自動化占比未揭露",
+     "path": "智慧工廠與 Edge AI → 工業電腦",
+     "source": {
+      "title": "研華法說（優分析）",
+      "url": "https://uanalyze.com.tw/articles/5937752848",
+      "date": "2026-08-05"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "2404": {
+   "name": "漢唐",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "無塵室與廠務統包",
+     "evidence": "在手訂單約 1,939 億元（2026/5）；為台積電海外建廠核心合作夥伴，2026Q1 美國市場營收占 56%；公司目標 2026 年底前完成美國 P2 專案 80～90% 認列",
+     "exposureNote": "客戶以晶圓廠為主，但半導體占比未揭露",
+     "path": "晶圓廠擴產 → 廠務工程",
+     "source": {
+      "title": "漢唐與帆宣比較（優分析）",
+      "url": "https://uanalyze.com.tw/articles/9303656352",
+      "date": "2026-09"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -1784,6 +2009,27 @@
       "title": "南亞科投顧報告（旺得富）",
       "url": "https://wantrich.chinatimes.com/news/20260921900210-420101",
       "date": "2026-09-21"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "2412": {
+   "name": "中華電",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "次世代通訊：6G／非地面網路",
+     "grade": "B",
+     "exposure": "低",
+     "role": "衛星服務（OneWeb、SES）",
+     "evidence": "2026/4 法說：低軌與中軌衛星服務已於 2025 年貢獻營收（未揭露金額），自有主權衛星預計 2026 下半年營運；Pre-6G 智慧應用 2026 年營收目標破百億元",
+     "exposureNote": "衛星與 Pre-6G 相對總營收很小",
+     "path": "非地面網路 → 衛星服務",
+     "source": {
+      "title": "中華電 2026/4 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-2412-2026-04-16",
+      "date": "2026-04-16"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -1847,6 +2093,27 @@
       "title": "全新 7 月營收（工商時報）",
       "url": "https://www.ctee.com.tw/news/20260806700221-430502",
       "date": "2026-08-06"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "2457": {
+   "name": "飛宏",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧車輛：充電樁與電能調度",
+     "grade": "A",
+     "exposure": "中",
+     "role": "EV 充電樁（子公司馳諾瓦）",
+     "evidence": "法說：2026Q1 電動車充電產品占營收 33.8%；北美政策使市場放緩，管理層預期未來兩年持平或緩慢成長，轉攻電動車隊市場",
+     "exposureNote": "EV 充電約三成四",
+     "path": "電動車隊 → 充電樁出貨",
+     "source": {
+      "title": "飛宏 2026/6 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-2457-2026-06-09",
+      "date": "2026-06-09"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -2105,6 +2372,27 @@
       "title": "豐達科 2025/12/29 法說備忘錄（富果）",
       "url": "https://blog.fugle.tw/post/earnings-call-3004-2025-12-29",
       "date": "2025-12-29"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3005": {
+   "name": "神基",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "無人機：地面站與強固型電腦",
+     "grade": "B",
+     "exposure": "低",
+     "role": "強固型電腦",
+     "evidence": "2026/5/15 法說：管理層預期無人機未來 12 個月貢獻強固型電腦營收 5～10%；電子件（含強固型電腦）占營收 49%",
+     "exposureNote": "無人機約占強固型電腦營收 5～10%（公司預期）",
+     "path": "無人機與國防 → 強固型電腦",
+     "source": {
+      "title": "神基 2026/5/15 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-3005-2026-05-15",
+      "date": "2026-05-15"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -2527,6 +2815,27 @@
     }
    ]
   },
+  "3289": {
+   "name": "宜特",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "可靠度驗證、材料分析",
+     "evidence": "聚焦 AI 伺服器與高階封裝可靠度驗證；矽光子 CPO 與 2 奈米 ALD 預計 2026Q4 開始挹注、2027 年放量",
+     "exposureNote": "新業務尚未放量",
+     "path": "AI 與先進製程 → 驗證分析",
+     "source": {
+      "title": "驗證分析三雄（優分析）",
+      "url": "https://uanalyze.com.tw/articles/8379856736",
+      "date": "2026-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "3305": {
    "name": "昇貿",
    "market": "上櫃",
@@ -2608,6 +2917,48 @@
       "date": "2026-10-07"
      },
      "verified": "取自另一份研究，未重新查證"
+    }
+   ]
+  },
+  "3413": {
+   "name": "京鼎",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：前段設備與關鍵零組件",
+     "grade": "A",
+     "exposure": "高",
+     "role": "蝕刻、薄膜沉積設備模組代工",
+     "evidence": "2026/3/26 法說：製造服務（蝕刻、薄膜沉積與檢測設備關鍵模組）占 2025Q4 營收 87%、維修 11%；連續九年獲國際設備大廠最佳供應商",
+     "exposureNote": "半導體設備模組約九成",
+     "path": "晶圓廠設備需求 → 模組代工",
+     "source": {
+      "title": "京鼎 2026/3/26 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-3413-2026-03-26",
+      "date": "2026-03-26"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3441": {
+   "name": "聯嘉",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "高速 Micro LED（CPO 用）",
+     "evidence": "高速 Micro LED 鎖定 CPO 應用，模組爭取微軟與 NVIDIA 認證，預計 2027 年認證、2028 年量產",
+     "exposureNote": "尚未量產",
+     "path": "",
+     "source": {
+      "title": "LED 廠衝高值化（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9623125",
+      "date": "2026-07-13"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -2773,6 +3124,27 @@
     }
    ]
   },
+  "3580": {
+   "name": "友威科",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "先進封裝：封裝設備",
+     "grade": "A",
+     "exposure": "高",
+     "role": "濺鍍設備（CoWoS、FOPLP）",
+     "evidence": "2025/12/24 法說：設備業務占營收 74%，半導體設備約 65%；CoWoS 相關設備營收首次超越 FOPLP，FOPLP 客戶含意法半導體與群創",
+     "exposureNote": "半導體設備約六成五",
+     "path": "先進封裝擴產 → 濺鍍設備",
+     "source": {
+      "title": "友威科 2025/12/24 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-3580-2025-12-24",
+      "date": "2025-12-24"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "3583": {
    "name": "辛耘",
    "market": "上櫃",
@@ -2791,6 +3163,48 @@
       "date": "2026-07-30"
      },
      "verified": "本次更新（2026-10-21）"
+    }
+   ]
+  },
+  "3587": {
+   "name": "閎康",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "材料分析、故障分析",
+     "evidence": "受惠台積電全球擴廠與 2 奈米材料分析需求，2026 年 3 月起營收連續七個月創高，2026Q2 毛利率 33.85% 為 7 季新高",
+     "exposureNote": "先進製程占比未揭露",
+     "path": "先進製程研發 → 材料分析",
+     "source": {
+      "title": "驗證分析三雄（優分析）",
+      "url": "https://uanalyze.com.tw/articles/8379856736",
+      "date": "2026-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3617": {
+   "name": "碩天",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI 伺服器：電源與 BBU",
+     "grade": "A",
+     "exposure": "中",
+     "role": "UPS、PDU（資料中心電源）",
+     "evidence": "資料中心電源營收占比由 2021 年 22% 升至 2026 上半年 37%，產品含 UPS、PDU 與遠端管理；第三季營收 38.01 億元創單季新高",
+     "exposureNote": "資料中心電源約三成七",
+     "path": "資料中心建置 → UPS 與 PDU",
+     "source": {
+      "title": "碩天 9 月營收（優分析）",
+      "url": "https://uanalyze.com.tw/articles/1763857065",
+      "date": "2026-10-14"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -2857,6 +3271,27 @@
     }
    ]
   },
+  "3680": {
+   "name": "家登",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：前段設備與關鍵零組件",
+     "grade": "A",
+     "exposure": "高",
+     "role": "EUV 光罩盒、FOUP",
+     "evidence": "EUV 光罩載具營收占比逾四成、全球市占逾七成，FOUP 占比接近；公司表示第二季優於預期、先進製程載具出貨比重提升；上半年營收年增 22%",
+     "exposureNote": "EUV 光罩盒與 FOUP 合計約八成",
+     "path": "先進製程擴產 → 載具出貨",
+     "source": {
+      "title": "家登上半年營收（財報狗）",
+      "url": "https://statementdog.com/news/17101",
+      "date": "2026-07-14"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "3704": {
    "name": "合勤控",
    "market": "上市",
@@ -2873,6 +3308,27 @@
       "title": "合勤控第二季（優分析）",
       "url": "https://uanalyze.com.tw/articles/8379452724",
       "date": "2026-08-03"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3706": {
+   "name": "神達",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "D",
+     "exposure": "未揭露",
+     "role": "SOFC 使用端",
+     "evidence": "Bloom 宣布其燃料電池微電網將為神達美國 AI 伺服器園區供電；神達是用電端，不會因此取得燃料電池收入",
+     "exposureNote": "",
+     "path": "",
+     "source": {
+      "title": "SOFC 概念股整理（Pocket）",
+      "url": "https://www.pocket.tw/school/articles/7862/",
+      "date": "2026"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -2945,6 +3401,69 @@
       "title": "台積電與日月光矽光子布局（TechNews）",
       "url": "https://technews.tw/2026/03/17/silicon-photonics-hits-the-market-tsmc-and-ase-spearhead-taiwans-strategic-push/",
       "date": "2026-03-17"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "3714": {
+   "name": "富采",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "Micro LED、光通訊元件",
+     "evidence": "公司表示 Micro LED 2026Q1 小量量產，年底前完成量產設備，下半年產能到位後 Micro LED 營收將較上半年成長數倍",
+     "exposureNote": "Micro LED 占比小，主力仍是 LED",
+     "path": "Micro LED 放量 → 晶片出貨",
+     "source": {
+      "title": "LED 廠衝高值化（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9623125",
+      "date": "2026-07-13"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "4107": {
+   "name": "邦特",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "生醫：醫療器材",
+     "grade": "A",
+     "exposure": "高",
+     "role": "血液透析與輸液耗材",
+     "evidence": "2026/5/18 法說：前四月營收結構為體內導管 31%、血液迴路管 20%、藥用軟袋 19%、外科管 8% 等，全部為醫療耗材；2026 年營收目標成長 10%",
+     "exposureNote": "營收全部來自醫材",
+     "path": "醫療耗材 → 穩定出貨",
+     "source": {
+      "title": "邦特 2026/5/18 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-4107-2026-05-18",
+      "date": "2026-05-18"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "4526": {
+   "name": "東台",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧機械：五軸工具機",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "五軸與航太加工機、PCB 鑽孔機",
+     "evidence": "旗下亞太菁英專注航太五軸加工、開發 20 米機翼加工機；集團在手訂單約 32 億元；但 2026 年 1～4 月營收年減 25%、首季虧損",
+     "exposureNote": "五軸占比未揭露；營收仍在衰退",
+     "path": "航太 → 大型五軸機",
+     "source": {
+      "title": "東台漲停分析（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=229174",
+      "date": "2026-05-26"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3112,6 +3631,27 @@
     }
    ]
   },
+  "4577": {
+   "name": "達航科技",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "AI PCB：PCB 製程設備",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "PCB 雷射鑽孔設備",
+     "evidence": "公司聚焦高層數 PCB 的高精密雷射技術，預估 2026 年產能提升 30% 以上；文中未明確提到 AI 伺服器板訂單，2025 年前三季仍虧損",
+     "exposureNote": "AI 相關訂單未揭露",
+     "path": "",
+     "source": {
+      "title": "達航雷射升級（優分析）",
+      "url": "https://uanalyze.com.tw/articles/9122339097",
+      "date": "2025-11-17"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "4583": {
    "name": "台灣精銳",
    "market": "上市",
@@ -3212,6 +3752,48 @@
       "title": "新盛力 6 月營收（理財周刊）",
       "url": "https://www.moneyweekly.com.tw/_Article?AID=241655",
       "date": "2026-08-07"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "4938": {
+   "name": "和碩",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI 伺服器：伺服器組裝代工",
+     "grade": "B",
+     "exposure": "低",
+     "role": "伺服器代工",
+     "evidence": "報導指和碩伺服器占整體營收仍不高，未提供比例；被列為擴大伺服器業務的組裝廠",
+     "exposureNote": "伺服器占比低（報導說法）",
+     "path": "AI 伺服器 → 組裝代工",
+     "source": {
+      "title": "PC 與伺服器代工（工商時報）",
+      "url": "https://www.ctee.com.tw/news/20260727700226-430202",
+      "date": "2026-07-27"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "4956": {
+   "name": "光鋐",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "Micro LED 晶粒",
+     "evidence": "Micro LED 晶粒與群創玻璃基板、面板級封裝整合，聚焦感測與車用；未說明量產或出貨",
+     "exposureNote": "尚未量產",
+     "path": "",
+     "source": {
+      "title": "LED 廠衝高值化（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9623125",
+      "date": "2026-07-13"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3472,6 +4054,27 @@
     }
    ]
   },
+  "5434": {
+   "name": "崇越",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "B",
+     "exposure": "低",
+     "role": "SOFC 系統工程整合",
+     "evidence": "2026 年協助創意建置竹南資料中心 2.6MW Bloom SOFC 發電系統（工程導入，非零組件供應）",
+     "exposureNote": "單一專案，相對營收規模小",
+     "path": "資料中心自建電力 → 系統整合工程",
+     "source": {
+      "title": "SOFC 概念股整理（Pocket）",
+      "url": "https://www.pocket.tw/school/articles/7862/",
+      "date": "2026"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "5443": {
    "name": "均豪",
    "market": "上櫃",
@@ -3488,6 +4091,27 @@
       "title": "均豪 SEMICON（財報狗）",
       "url": "https://statementdog.com/news/17552",
       "date": "2026-09-01"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "5469": {
+   "name": "瀚宇博",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI PCB：伺服器與交換器 PCB",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "伺服器與交換器 PCB",
+     "evidence": "桃科新廠 2026 上半年投產，首波鎖定 400G 交換器板；法人指訂單能見度延伸至 2027 年",
+     "exposureNote": "AI 占比未揭露",
+     "path": "AI 交換器 → PCB",
+     "source": {
+      "title": "瀚宇博 AI 產品線（財報狗）",
+      "url": "https://statementdog.com/news/15155",
+      "date": "2025-12-01"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3535,6 +4159,27 @@
     }
    ]
   },
+  "5536": {
+   "name": "聖暉",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "無塵室統包",
+     "evidence": "在手訂單約 600 億元（業界彙整）",
+     "exposureNote": "半導體占比未揭露",
+     "path": "晶圓廠擴產 → 無塵室工程",
+     "source": {
+      "title": "廠務工程在手訂單（優分析）",
+      "url": "https://uanalyze.com.tw/articles/6442654730",
+      "date": "2026-09-06"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6121": {
    "name": "新普",
    "market": "上市",
@@ -3572,6 +4217,27 @@
       "title": "廣運 2026/8/19 法說備忘錄（富果）",
       "url": "https://blog.fugle.tw/post/earnings-call-6125-2026-08-19",
       "date": "2026-08-19"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6139": {
+   "name": "亞翔",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "無塵室統包",
+     "evidence": "在手訂單約 4,400 億元，居廠務工程五家之冠（業界彙整）",
+     "exposureNote": "半導體占比與客戶未在來源揭露",
+     "path": "晶圓廠擴產 → 無塵室工程",
+     "source": {
+      "title": "廠務工程在手訂單（優分析）",
+      "url": "https://uanalyze.com.tw/articles/6442654730",
+      "date": "2026-09-06"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3634,6 +4300,27 @@
     }
    ]
   },
+  "6196": {
+   "name": "帆宣",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "廠務工程、設備代理與模組",
+     "evidence": "董事長表示訂單能見度至少到 2028 年，台積電日本二廠已動工、德國廠施工中；主要客戶含台積電、ASML、應材、美光、日月光；2026Q2 營收 212 億元、年增 74%，在手訂單約 1,351 億元",
+     "exposureNote": "客戶以半導體為主，占比未揭露",
+     "path": "晶圓廠擴產 → 廠務與設備",
+     "source": {
+      "title": "廠務工程受惠股（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9763808",
+      "date": "2026-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6213": {
    "name": "聯茂",
    "market": "上市",
@@ -3650,6 +4337,42 @@
       "title": "CCL 9 月營收（優分析）",
       "url": "https://uanalyze.com.tw/articles/6130156556",
       "date": "2026-10-06"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "次世代通訊：高頻材料（次太赫茲、CCL）",
+     "grade": "待核",
+     "exposure": "未揭露",
+     "role": "高速 CCL",
+     "evidence": "目前查到的資料都是 AI 伺服器用高速材料，沒有高頻或衛星產品證據",
+     "exposureNote": "",
+     "path": "",
+     "source": {
+      "title": "",
+      "url": "",
+      "date": ""
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6214": {
+   "name": "精誠",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "AI：AI 軟體與應用服務",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "IT 服務、雲端與 AI 導入",
+     "evidence": "9 月營收 83.72 億元、年增 56%；報導指雲端、軟體、AI 基礎建設需求帶動成長，但未揭露 AI 占比",
+     "exposureNote": "AI 占比未揭露",
+     "path": "企業 AI 導入 → IT 服務",
+     "source": {
+      "title": "精誠 9 月營收（中央社）",
+      "url": "https://cna.com.tw/news/afe/202610080386.aspx",
+      "date": "2026-10-08"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -3694,6 +4417,21 @@
       "date": "2026-08-12"
      },
      "verified": "取自另一份研究，未重新查證"
+    },
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "A",
+     "exposure": "高",
+     "role": "探針卡、測試設備",
+     "evidence": "總經理表示探針卡約貢獻七成營收，AI 與 HPC 晶片測試需求強勁、產能供不應求；2026Q2 營收 52.26 億元、年增 59%；AI 測試設備工程機已出貨，今年以驗證為主",
+     "exposureNote": "探針卡約七成，主要動能為 AI／HPC",
+     "path": "AI 晶片測試 → 探針卡",
+     "source": {
+      "title": "旺矽營運（工商時報）",
+      "url": "https://www.ctee.com.tw/news/20260723701027-430201",
+      "date": "2026-07-23"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -3757,6 +4495,21 @@
       "date": "2026-10-06"
      },
      "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "次世代通訊：高頻材料（次太赫茲、CCL）",
+     "grade": "待核",
+     "exposure": "未揭露",
+     "role": "高速 CCL",
+     "evidence": "2026/7/30 法說只依材料等級揭露（M7／M8 占 39%），未提到高頻、衛星或次太赫茲產品",
+     "exposureNote": "",
+     "path": "",
+     "source": {
+      "title": "台燿 2026/7/30 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-6274-2026-07-30",
+      "date": "2026-07-30"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -3778,6 +4531,21 @@
       "date": "2026-07-10"
      },
      "verified": "本次更新（2026-10-21）"
+    },
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "燃料電池電力轉換器",
+     "evidence": "公司把燃料電池列入 AI 相關業務（與資料中心、伺服器電源合計約占營收 20%）；早期官方資料列為 Bloom 電力轉換器合作廠",
+     "exposureNote": "燃料電池單獨占比未揭露",
+     "path": "SOFC → 電力轉換器",
+     "source": {
+      "title": "康舒 6 月營收（旺得富）",
+      "url": "https://wantrich.chinatimes.com/news/20260710900206-420101",
+      "date": "2026-07-10"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -3916,6 +4684,27 @@
     }
    ]
   },
+  "6446": {
+   "name": "藥華藥",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "生醫：新藥",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "長效干擾素 Besremi",
+     "evidence": "Besremi 為主要成長動能，2026 年 8 月底獲 FDA 核准 ET 新適應症；前三季營收 197.37 億元、年增 84%，上半年毛利率 91.5%、EPS 11.35 元",
+     "exposureNote": "公司以單一新藥為主，但未揭露產品別占比",
+     "path": "新藥上市 → 藥品銷售",
+     "source": {
+      "title": "藥華藥營運（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=255215",
+      "date": "2026-10-13"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6451": {
    "name": "訊芯-KY",
    "market": "上市",
@@ -3952,6 +4741,27 @@
     }
    ]
   },
+  "6472": {
+   "name": "保瑞",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "生醫：藥品製造韌性／CDMO",
+     "grade": "A",
+     "exposure": "中",
+     "role": "藥品 CDMO、專科藥",
+     "evidence": "2026/5/13 法說：CDMO 占營收 38%，全球銷售 62%",
+     "exposureNote": "CDMO 約四成",
+     "path": "製藥委外 → CDMO",
+     "source": {
+      "title": "保瑞 2026/5/13 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-6472-2026-05-13",
+      "date": "2026-05-13"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6488": {
    "name": "環球晶",
    "market": "上櫃",
@@ -3973,6 +4783,48 @@
     }
    ]
   },
+  "6510": {
+   "name": "中華精測",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "探針卡、測試載板",
+     "evidence": "報導指已取得 CPU 與 GPU 探針卡 PCB 訂單，探針卡約占營收三成；公司持續獲 AI 晶片大廠訂單（記者敘述）",
+     "exposureNote": "AI／HPC 占比未揭露",
+     "path": "AI 晶片測試 → 測試介面",
+     "source": {
+      "title": "測試介面四檔（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9593760",
+      "date": "2026-06-28"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6515": {
+   "name": "穎崴",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "A",
+     "exposure": "中",
+     "role": "測試座、探針卡",
+     "evidence": "公司表示 AI 相關營收已逾 40% 並持續提升，AI 與 HPC 占出貨 52%；1～8 月營收 98.1 億元、年增 98%",
+     "exposureNote": "AI 約四成以上",
+     "path": "AI 晶片測試 → 測試座與探針卡",
+     "source": {
+      "title": "穎崴 8 月營收（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=247499",
+      "date": "2026-09-08"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "6570": {
    "name": "維田",
    "market": "上櫃",
@@ -3989,6 +4841,27 @@
       "title": "維田營運（優分析）",
       "url": "https://uanalyze.com.tw/articles/5126044924",
       "date": "2026-01"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6589": {
+   "name": "台康生技",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "生醫：藥品製造韌性／CDMO",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "生物藥 CDMO、生物相似藥",
+     "evidence": "CDMO 業務穩健成長並累積多項國際合作案；7 月營收 2.12 億元、年增 184%（含生物相似藥里程碑金）",
+     "exposureNote": "CDMO 占比未揭露，營收含里程碑金",
+     "path": "生技委外 → CDMO",
+     "source": {
+      "title": "台康生技營收（優分析）",
+      "url": "https://uanalyze.com.tw/articles/4789153060",
+      "date": "2026-08-10"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -4096,6 +4969,126 @@
       "date": "2026-09-03"
      },
      "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "次世代通訊：高頻材料（次太赫茲、CCL）",
+     "grade": "B",
+     "exposure": "低",
+     "role": "PTFE 高頻材料、PI 基板",
+     "evidence": "2026/5/8 法說：高頻材料（含 PTFE）用於雷達偵測系統，目前占比較小；低軌衛星已小量生產，以 PI 基板為主，營收占比尚不重大",
+     "exposureNote": "高頻材料與衛星合計占比小；主力是散熱金屬基板（約 28%）",
+     "path": "雷達、衛星 → 高頻與 PI 基材",
+     "source": {
+      "title": "騰輝 2026/5/8 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-6672-2026-05-08",
+      "date": "2026-05-08"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6683": {
+   "name": "雍智",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "測試載板、探針卡",
+     "evidence": "總經理表示 TPU 專案下半年起小量貢獻營收、明年放量，今年產能至少提升 50%",
+     "exposureNote": "AI 占比未揭露",
+     "path": "AI 晶片測試 → 測試載板",
+     "source": {
+      "title": "測試介面四檔（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9593760",
+      "date": "2026-06-28"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6690": {
+   "name": "安碁資訊",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "安控／資安：影像監控與資安",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "資安監控服務",
+     "evidence": "資安服務公司；1～7 月營收 14.95 億元、年增 14%",
+     "exposureNote": "主業即資安，但未揭露產品占比",
+     "path": "資安需求 → 服務收入",
+     "source": {
+      "title": "安碁資訊 7 月（工商時報）",
+      "url": "https://www.ctee.com.tw/news/20260805701996-430201",
+      "date": "2026-08-05"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6691": {
+   "name": "洋基工程",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "無塵室統包",
+     "evidence": "在手訂單約 517 億元（業界彙整）",
+     "exposureNote": "半導體占比未揭露",
+     "path": "晶圓廠擴產 → 無塵室工程",
+     "source": {
+      "title": "廠務工程在手訂單（優分析）",
+      "url": "https://uanalyze.com.tw/articles/6442654730",
+      "date": "2026-09-06"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6712": {
+   "name": "長聖",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "生醫：細胞治療",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "特管辦法細胞治療 CDMO、CAR-T 新藥",
+     "evidence": "法說：與多家醫學中心合作提供特管辦法 DC、CIK、MSC 細胞治療，是主要營收與現金流來源；2026Q1 營收 1.90 億元、EPS 1.39 元",
+     "exposureNote": "細胞治療服務是主要營收，占比未揭露",
+     "path": "特管辦法 → 細胞治療服務",
+     "source": {
+      "title": "長聖 2026/8 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-6712-2026-08-11",
+      "date": "2026-08-11"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6765": {
+   "name": "華德動能",
+   "market": "創新板",
+   "tags": [
+    {
+     "theme": "智慧車輛：電動商用車（巴士、物流車）",
+     "grade": "A",
+     "exposure": "高",
+     "role": "電動巴士整車",
+     "evidence": "台灣電動巴士市占 25%，累計量產近千輛；2026 上半年交車 189 輛、營收 18.38 億元、年增 143%，在手訂單逾 300 輛",
+     "exposureNote": "營收以電動巴士為主",
+     "path": "電動巴士補助與海外 → 整車出貨",
+     "source": {
+      "title": "華德動能上市（自由時報）",
+      "url": "https://ec.ltn.com.tw/article/breakingnews/5499402",
+      "date": "2026-07-09"
+     },
+     "verified": "本次查證（2026-10-21）"
     }
    ]
   },
@@ -4136,6 +5129,48 @@
       "title": "AES-KY 營運（蕃新聞）",
       "url": "https://n.yam.com/Article/20260428323521",
       "date": "2026-04-28"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6830": {
+   "name": "汎銓",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：檢測量測與測試介面",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "材料分析、AI 晶片分析",
+     "evidence": "主力為材料分析與 AI 晶片分析；2026Q3 營收年增 32%；自研 MSS HG 設備預計年底出貨 2～3 台",
+     "exposureNote": "先進製程占比未揭露",
+     "path": "先進製程研發 → 材料分析",
+     "source": {
+      "title": "驗證分析三雄（優分析）",
+      "url": "https://uanalyze.com.tw/articles/8379856736",
+      "date": "2026-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "6854": {
+   "name": "錼創科技-KY創",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "顯示科技：Micro LED／柔性顯示",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "Micro LED 晶片與巨量轉移",
+     "evidence": "董事長表示高階電視與智慧手錶陸續進入量產，Tandem 架構晶片已出貨，下半年營收與毛利率優於上半年；AI 眼鏡目標 2027 年客戶量產",
+     "exposureNote": "公司主業就是 Micro LED，但未揭露產品占比",
+     "path": "Micro LED 量產 → 晶片出貨",
+     "source": {
+      "title": "LED 廠衝高值化（經濟日報）",
+      "url": "https://money.udn.com/money/amp/story/5607/9623125",
+      "date": "2026-07-13"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -4204,6 +5239,27 @@
     }
    ]
   },
+  "6937": {
+   "name": "天虹",
+   "market": "上櫃",
+   "tags": [
+    {
+     "theme": "半導體設備：前段設備與關鍵零組件",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "PVD、ALD、面板級封裝設備",
+     "evidence": "2026/9 法說：PVD 仍是營收主力；PLP 平台 PVD 與 Descum 設備已接獲 5 台訂單；公司表示 2026 年表現顯著優於 2025 年",
+     "exposureNote": "自有設備占比未揭露",
+     "path": "先進製程與先進封裝 → 國產設備",
+     "source": {
+      "title": "天虹 2026/9 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-6937-2026-09-09",
+      "date": "2026-09-09"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "7734": {
    "name": "印能",
    "market": "上櫃",
@@ -4220,6 +5276,27 @@
       "title": "印能第二季財報（優分析）",
       "url": "https://uanalyze.com.tw/articles/8274353297",
       "date": "2026-08-12"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "7750": {
+   "name": "新代",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧機械：工具機智慧零組件",
+     "grade": "A",
+     "exposure": "未揭露",
+     "role": "工具機與機器人控制器",
+     "evidence": "工具機與機器人控制器廠；2026 年 4～6 月營收年增 88～151%，4 月單月創新高；Q1 毛利率 48.8%",
+     "exposureNote": "工具機控制器占比未揭露",
+     "path": "工具機升級 → 控制器",
+     "source": {
+      "title": "新代營運（理財周刊）",
+      "url": "https://www.moneyweekly.com.tw/_Article?AID=240845",
+      "date": "2026-08-03"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -4355,6 +5432,21 @@
       "title": "台虹營運（理財周刊）",
       "url": "https://www.moneyweekly.com.tw/_Article?AID=246236",
       "date": "2026-09-01"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "次世代通訊：高頻材料（次太赫茲、CCL）",
+     "grade": "C",
+     "exposure": "未揭露",
+     "role": "PTFE CCL、高頻軟板材料",
+     "evidence": "公司表示 PTFE CCL 處於送樣測試階段，Df 接近 M9 等級；全 PTFE 方案預計 2028 年後才普及，驗證週期通常超過一年",
+     "exposureNote": "高階產品（細線路＋高頻）占營收逾 10%，PTFE 尚無營收",
+     "path": "",
+     "source": {
+      "title": "台虹 2026/5/29 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-8039-2026-05-29",
+      "date": "2026-05-29"
      },
      "verified": "本次查證（2026-10-21）"
     }
@@ -4585,6 +5677,27 @@
     }
    ]
   },
+  "8383": {
+   "name": "千附",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "半導體設備：廠務工程與無塵室",
+     "grade": "A",
+     "exposure": "中",
+     "role": "半導體廠務工程、精密零組件",
+     "evidence": "2026/8/26 法說：上半年廠務工程（半導體高科技廠房）約占營收 48%、精密加工（含半導體零組件）約 49%；營收年增 55%，訂單能見度 12 個月以上",
+     "exposureNote": "廠務工程約一半",
+     "path": "晶圓廠擴產 → 廠務工程",
+     "source": {
+      "title": "千附 2026/8/26 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-8383-2026-08-26",
+      "date": "2026-08-26"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
   "8996": {
    "name": "高力",
    "market": "上櫃",
@@ -4601,6 +5714,42 @@
       "title": "高力目標價調升（經濟日報）",
       "url": "https://money.udn.com/money/amp/story/5607/9580374",
       "date": "2026-06-22"
+     },
+     "verified": "本次查證（2026-10-21）"
+    },
+    {
+     "theme": "氫能：燃料電池與運具",
+     "grade": "A",
+     "exposure": "中",
+     "role": "SOFC 熱交換器與 Hot box 零組件",
+     "evidence": "與 Bloom Energy 共同開發製造高功率燃料電池系統關鍵零組件，燃料電池業務 2025 年成長逾 50%；法人估 2026 年液冷約占營收一半、其餘主要為燃料電池",
+     "exposureNote": "燃料電池約四到五成（依法人液冷估計推算）",
+     "path": "AI 資料中心自建電力 → SOFC 零組件",
+     "source": {
+      "title": "高力 2026/3 法說備忘錄（富果）",
+      "url": "https://blog.fugle.tw/post/earnings-call-8996-2026-03-10",
+      "date": "2026-03-10"
+     },
+     "verified": "本次查證（2026-10-21）"
+    }
+   ]
+  },
+  "9921": {
+   "name": "巨大",
+   "market": "上市",
+   "tags": [
+    {
+     "theme": "智慧車輛：電輔自行車",
+     "grade": "B",
+     "exposure": "未揭露",
+     "role": "自行車與電輔車",
+     "evidence": "2026 年 8 月法說；第二季營收 166.7 億元、轉盈，但受美國 WRO 影響，1～8 月營收年減 3%；未拆電輔車營收",
+     "exposureNote": "電輔車占比未揭露",
+     "path": "電輔車普及 → 整車銷售",
+     "source": {
+      "title": "巨大營運（Pocket）",
+      "url": "https://www.pocket.tw/school/articles/7911/",
+      "date": "2026-09"
      },
      "verified": "本次查證（2026-10-21）"
     }
