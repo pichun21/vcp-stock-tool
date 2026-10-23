@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23 12:03",
+  "generated_at": "2026-10-23 12:34",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-10-22",
       "count": 113,
-      "scanned_at": "2026-10-23 12:03",
+      "scanned_at": "2026-10-23 12:34",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -85026,11 +85026,18 @@
         ]
       },
       "8908": {
-        "price": 39.6,
-        "prev_close": 39.8,
-        "data_date": "2026-10-14",
+        "price": 40.15,
+        "prev_close": 40.0,
+        "data_date": "2026-10-22",
         "name": "欣雄",
-        "source": "VCPulse scanner"
+        "source": "VCPulse scanner",
+        "tt_count": 3,
+        "tt_fail": [
+          2,
+          3,
+          4,
+          6
+        ]
       },
       "7835": {
         "price": 17.05,
