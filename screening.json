@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27 18:14",
+  "generated_at": "2026-10-27 18:20",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-10-27",
       "count": 104,
-      "scanned_at": "2026-10-27 15:44",
+      "scanned_at": "2026-10-27 18:20",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -806,7 +806,7 @@
       },
       {
         "industry": "建材營造",
-        "heat_score": 83,
+        "heat_score": 84,
         "heat_level": "hot",
         "heat_label": "🔥 強力升溫",
         "market_share_pct": 0.3,
@@ -85650,10 +85650,17 @@
       },
       "8908": {
         "price": 40.4,
-        "prev_close": 39.6,
+        "prev_close": 40.15,
         "data_date": "2026-10-27",
         "name": "欣雄",
-        "source": "VCPulse scanner"
+        "source": "VCPulse scanner",
+        "tt_count": 3,
+        "tt_fail": [
+          2,
+          3,
+          4,
+          6
+        ]
       },
       "8916": {
         "price": 40.15,
@@ -213077,7 +213084,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.6166,
+      "atr20_to_60": 1.6139,
       "contractions": [
         2.6066,
         8.2429,
@@ -215053,7 +215060,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.0268,
+      "atr20_to_60": 1.0253,
       "contractions": [
         3.1646,
         2.8617,
@@ -215906,7 +215913,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9568,
+      "atr20_to_60": 0.9429,
       "contractions": [
         7.947,
         2.4605,
@@ -216002,7 +216009,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8367,
+      "atr20_to_60": 0.8284,
       "contractions": [
         3.6238,
         2.1818,
