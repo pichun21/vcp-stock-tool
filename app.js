@@ -309,16 +309,12 @@ function draw(a){
  x.textBaseline='middle';
  x.fillText(pivotText,pillX+9,pillY+pillH/2);
 
- // 停損線（鏽紅短虛線）＋右側標籤
+ // 停損線（鏽紅短虛線）；標籤等收縮標記都畫完後再放（見函式最後），才不會被蓋住
+ let stopSY=null;
  if(hasStop){
-   const sy=Y(stopV);
+   stopSY=Y(stopV);
    x.save(); x.setLineDash(isMob?[3,4]:[4,5]); x.strokeStyle='#b66749'; x.lineWidth=isMob?1.4:1.7;
-   x.beginPath(); x.moveTo(pad.l,sy); x.lineTo(W-pad.r,sy); x.stroke(); x.restore();
-   const st='停損 '+fmtStopPx(stopV);
-   x.save(); x.font=isMob?'700 10.5px system-ui,-apple-system,sans-serif':'700 12px system-ui,-apple-system,sans-serif';
-   const sw=x.measureText(st).width+(isMob?14:18), sh=isMob?18:22, sx=W-pad.r-sw-4, syy=Math.min(H-pad.b-sh-2,sy+4);
-   x.fillStyle='rgba(248,230,220,.97)'; if(x.roundRect){x.beginPath();x.roundRect(sx,syy,sw,sh,10);x.fill();}else x.fillRect(sx,syy,sw,sh);
-   x.fillStyle='#9a4f2c'; x.textBaseline='middle'; x.fillText(st,sx+(isMob?7:9),syy+sh/2); x.restore();
+   x.beginPath(); x.moveTo(pad.l,stopSY); x.lineTo(W-pad.r,stopSY); x.stroke(); x.restore();
  }
 
  let offset=Math.max(0,a.close.length-120);
@@ -436,6 +432,34 @@ function draw(a){
  window.__chartSegs=segs;
  drawMALine(false);
  badgeQueue.forEach(function(f){f();});
+ // 停損標籤：在左／中／右 × 線上方／線下方幾個位置中，挑一個最不會壓到收縮標記、股價線與 Pivot 標籤的位置
+ if(hasStop&&stopSY!==null){
+   const st='停損 '+fmtStopPx(stopV);
+   x.save(); x.font=isMob?'700 10.5px system-ui,-apple-system,sans-serif':'700 12px system-ui,-apple-system,sans-serif';
+   const sw=x.measureText(st).width+(isMob?14:18), sh=isMob?18:22;
+   const top=pad.t+2, bot=H-pad.b-sh-2;
+   const xs=[pad.l+5, W-pad.r-sw-4, pad.l+(W-pad.l-pad.r-sw)*0.5, pad.l+(W-pad.l-pad.r-sw)*0.25, pad.l+(W-pad.l-pad.r-sw)*0.75];
+   const ys=[stopSY+4, stopSY-sh-4, stopSY+sh+8, stopSY-2*sh-8, stopSY+2*sh+12];
+   const hitRect=(r,px,py,pr)=>{const cx=Math.max(r.x,Math.min(px,r.x+r.w)), cy=Math.max(r.y,Math.min(py,r.y+r.h)); return Math.hypot(px-cx,py-cy)<pr;};
+   const pivR={x:pillX,y:pillY,w:pillW,h:pillH};
+   let best=null;
+   xs.forEach((cxv,xi)=>ys.forEach((cyv,yi)=>{
+     const r={x:cxv,y:Math.max(top,Math.min(bot,cyv)),w:sw,h:sh}; let sc=xi*0.3+yi*1.5;
+     if(r.y<=stopSY&&r.y+r.h>=stopSY) sc+=4;
+     (window.__chartSegs||[]).forEach(g=>{
+       if(hitRect(r,g.cx,g.cy,(g.cr||9)+3)) sc+=50;
+       if(hitRect(r,g.x1,g.y1,7)) sc+=20; if(hitRect(r,g.x2,g.y2,7)) sc+=20;
+       for(let t=0;t<=1;t+=0.1){ if(hitRect(r,g.x1+(g.x2-g.x1)*t,g.y1+(g.y2-g.y1)*t,4)) sc+=8; }
+     });
+     for(let i=0;i<vals.length;i++){ if(hitRect(r,X(i),Y(vals[i]),2)) sc+=3; }
+     if(!(r.x+r.w<pivR.x||r.x>pivR.x+pivR.w||r.y+r.h<pivR.y||r.y>pivR.y+pivR.h)) sc+=60;
+     if(!best||sc<best.sc) best={sc,r};
+   }));
+   const r=best.r;
+   x.fillStyle='rgba(248,230,220,.97)'; x.strokeStyle='rgba(182,103,73,.45)'; x.lineWidth=1;
+   if(x.roundRect){x.beginPath();x.roundRect(r.x,r.y,r.w,r.h,10);x.fill();x.stroke();}else x.fillRect(r.x,r.y,r.w,r.h);
+   x.fillStyle='#9a4f2c'; x.textBaseline='middle'; x.textAlign='left'; x.fillText(st,r.x+(isMob?7:9),r.y+r.h/2); x.restore();
+ }
  x.textBaseline='alphabetic';
 }
 
@@ -1641,7 +1665,7 @@ function renderThemeLeaderboards(){
     const label=n?`${c} ${cleanStockDisplayName(n)}`:c;
     return `<button type="button" class="theme-stock-link" data-theme-stock="${escHtml(c)}" title="查看 ${escHtml(label)} 完整分析">${escHtml(label)}</button>`;
   }).join('');
-  return `<div class="theme-row"><span class="theme-rank">${i+1}</span><div class="theme-main"><div class="theme-mobile-head"><div><div class="theme-name">${escHtml(String(r.theme||'—'))}</div><div class="theme-sub">共 ${Number(r.constituents||0)} 檔${r.evidenceCoverage&&r.evidenceCoverage.total?`<span class="te-cov" title="成分股中有 A、B 級證據的檔數">已驗證 ${Number(r.evidenceCoverage.verified||0)}／${Number(r.evidenceCoverage.total)}</span>`:''}</div></div><div class="theme-score theme-score-mobile">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>${stockLinks?`<button type="button" class="theme-stock-toggle">查看代表股 Top ${stockDetails.length}</button><div class="theme-stock-panel"><div class="theme-stock-caption">代表股 Top ${stockDetails.length}</div><div class="theme-stock-links">${stockLinks}</div></div>`:''}</div><div class="theme-score theme-score-desktop">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>`;
+  return `<div class="theme-row"><span class="theme-rank">${i+1}</span><div class="theme-main"><div class="theme-mobile-head"><div><div class="theme-name">${escHtml(String(r.theme||'—'))}</div><div class="theme-sub">共 ${Number(r.constituents||0)} 檔</div></div><div class="theme-score theme-score-mobile">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>${stockLinks?`<button type="button" class="theme-stock-toggle">查看代表股 Top ${stockDetails.length}</button><div class="theme-stock-panel"><div class="theme-stock-caption">代表股 Top ${stockDetails.length}</div><div class="theme-stock-links">${stockLinks}</div></div>`:''}</div><div class="theme-score theme-score-desktop">${mode==='heat'?'🔥 市場熱度':'👀 蓄勢程度'} ${Math.round(main)}<small>${mode==='heat'?'👀 蓄勢程度':'🔥 市場熱度'} ${Math.round(peer)}</small></div></div>`;
  }).join('');
  heatBox.innerHTML=draw(heat,'heat'); setupBox.innerHTML=draw(setup,'setup');
 }
@@ -2045,7 +2069,7 @@ function sqzFireMini(r){
  if(r.squeeze_fire){ bits.push((r.squeeze_fire_dir==='bear'?'↓':'')+sqzFireAge(r.squeeze_fire_days)); bear=r.squeeze_fire_dir==='bear'; }
  if(r.sqz_w_fire){ bits.push('週'+(r.sqz_w_fire_dir==='bear'?'↓':'')); if(!r.squeeze_fire) bear=r.sqz_w_fire_dir==='bear'; }
  const tip=[sqzDailyText(r),sqzWeeklyText(r)].filter(Boolean).join('；');
- return ` <span class="sqz-fire-mini${bear?' is-bear':''}" data-age="${escHtml(bits.join('・'))}" title="${escHtml(tip)}">💥 ${escHtml(bits.join('・'))}</span>`;
+ return ` <span class="sqz-fire-mini${bear?' is-bear':''}" title="${escHtml(tip)}">💥 ${escHtml(bits.join('・'))}</span>`;
 }
 function sqzWeeklyChip(r){
  if(!r||!r.sqz_w_fire) return '';
