@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27 23:34",
+  "generated_at": "2026-10-27 23:56",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -13,7 +13,7 @@
     "TW": {
       "data_date": "2026-10-27",
       "count": 104,
-      "scanned_at": "2026-10-27 18:14",
+      "scanned_at": "2026-10-27 23:56",
       "snapshot_type": "official"
     }
   },
@@ -27,7 +27,7 @@
     "TW": {
       "data_date": "2026-10-27",
       "count": 104,
-      "scanned_at": "2026-10-27 18:14",
+      "scanned_at": "2026-10-27 23:56",
       "snapshot_type": "official"
     }
   },
@@ -172,9 +172,9 @@
       "index": "S&P 500",
       "ticker": "^GSPC",
       "ma_days": 50,
-      "close": 7718.06,
-      "ma": 7696.92,
-      "dist_pct": 0.27,
+      "close": 7730.69,
+      "ma": 7697.17,
+      "dist_pct": 0.44,
       "above": true,
       "as_of": "2026-10-27"
     }
@@ -354,7 +354,7 @@
       },
       {
         "industry": "建材營造",
-        "heat_score": 84,
+        "heat_score": 83,
         "heat_level": "hot",
         "heat_label": "🔥 強力升溫",
         "market_share_pct": 0.3,
@@ -22749,17 +22749,10 @@
       },
       "8908": {
         "price": 40.4,
-        "prev_close": 40.15,
+        "prev_close": 39.6,
         "data_date": "2026-10-27",
         "name": "欣雄",
-        "source": "VCPulse scanner",
-        "tt_count": 3,
-        "tt_fail": [
-          2,
-          3,
-          4,
-          6
-        ]
+        "source": "VCPulse scanner"
       },
       "8916": {
         "price": 40.15,
@@ -156500,7 +156493,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.6139,
+      "atr20_to_60": 1.6166,
       "contractions": [
         2.6066,
         8.2429,
@@ -158476,7 +158469,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.0253,
+      "atr20_to_60": 1.0268,
       "contractions": [
         3.1646,
         2.8617,
@@ -159329,7 +159322,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9429,
+      "atr20_to_60": 0.9568,
       "contractions": [
         7.947,
         2.4605,
@@ -159425,7 +159418,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8284,
+      "atr20_to_60": 0.8367,
       "contractions": [
         3.6238,
         2.1818,
@@ -184737,7 +184730,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.6139,
+      "atr20_to_60": 1.6166,
       "contractions": [
         2.6066,
         8.2429,
@@ -186713,7 +186706,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.0253,
+      "atr20_to_60": 1.0268,
       "contractions": [
         3.1646,
         2.8617,
@@ -187566,7 +187559,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.9429,
+      "atr20_to_60": 0.9568,
       "contractions": [
         7.947,
         2.4605,
@@ -187662,7 +187655,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 0.8284,
+      "atr20_to_60": 0.8367,
       "contractions": [
         3.6238,
         2.1818,
