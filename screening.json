@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28 14:52",
+  "generated_at": "2026-10-28 16:21",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-10-28",
       "count": 126,
-      "scanned_at": "2026-10-28 14:52",
+      "scanned_at": "2026-10-28 16:21",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -85309,10 +85309,17 @@
       },
       "8908": {
         "price": 40.1,
-        "prev_close": 39.6,
+        "prev_close": 40.4,
         "data_date": "2026-10-28",
         "name": "欣雄",
-        "source": "VCPulse scanner"
+        "source": "VCPulse scanner",
+        "tt_count": 3,
+        "tt_fail": [
+          2,
+          3,
+          4,
+          6
+        ]
       },
       "8916": {
         "price": 40.2,
@@ -213910,7 +213917,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3233,
+      "atr20_to_60": 1.3244,
       "contractions": [
         11.8681,
         12.1622,
@@ -218493,7 +218500,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1779,
+      "atr20_to_60": 1.1782,
       "contractions": [
         9.4872,
         5.3061,
