@@ -2,19 +2,31 @@
   "version": "1.0",
   "status": "ok",
   "market": "TW",
-  "mode": "full",
-  "generated_at": "2026-11-02T07:01:42+08:00",
+  "mode": "intraday",
+  "generated_at": "2026-11-02T09:26:06+08:00",
   "source_note": "近期新聞由 Google News RSS 公開索引彙整；VCPulse 僅整理事件、可能影響與當下價格反應，不預測新聞一定造成上漲或下跌。",
-  "updated_stocks": 69,
-  "ok": 69,
+  "updated_stocks": 60,
+  "ok": 60,
   "failed": 0,
   "stocks": {
     "6697": {
       "symbol": "6697",
       "name": "東捷資訊",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "《資服股》注意股：東捷資訊 近5日漲30.06%",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNSWNfQzk4QnZWV3p3SmR5akRjM1g2VzVKTmcxdDZlZkxBWE1iVV9zWTBWOVY0ckRzUXV4ZFhsZ0plQlBTSkUwTkJBX0FfTkVQZnQwbG8wMzJPWkJzOXN3S2VkU1dpSG05bWtHM0ZINWphTHJUQTl2UWpWVFlmRndsX1BsYlBEU1dv?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T08:09+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏強（+9.9%）。 目前為今日帶量突破 Pivot。",
+          "vcp_relation": "VCP 4/5"
+        },
         {
           "title": "〈熱門股〉東捷資訊搭資安題材 逆勢續漲近2成創近1年新高價",
           "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1kazZLUHVzT0IzSHBHbGRhdXRCM3o5MU03bGpaY2x1QkVjNXEzdnZkRmI1OG9MMWxHNFdXaDdVRVVzdTdYUEw1Yk1YcGRFdzQ?oc=5",
@@ -38,18 +50,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應偏強（+9.9%）。 目前為今日帶量突破 Pivot。",
           "vcp_relation": "VCP 4/5"
-        },
-        {
-          "title": "【09:14 即時新聞】東捷資訊(6697)盤中上漲逾8% 資安題材延續成盤面焦點",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOc2NRRUppdU5mQ2VONmZEVzB1ZXlVVjlnS3lKSjJPSExWbENfMlBXVzJiMEtHNkJ0X19fck5MYVl4LWhsVEIxYVRvSTBrd3NjVDZ3QWlWWV8tR2Vxd2ltZmV5dWpJOHN1T2NWckdSanBCRFp6a0dPNmRqVVY1bVExVkllSmFKdHczVkFWdjRn?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-10-30T09:15+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏強（+9.9%）。 目前為今日帶量突破 Pivot。",
-          "vcp_relation": "VCP 4/5"
         }
       ]
     },
@@ -57,7 +57,7 @@
       "symbol": "2615",
       "name": "萬海",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "萬海觸底反彈收復均線- 日報",
@@ -101,13 +101,13 @@
       "symbol": "2606",
       "name": "裕民",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "裕民(2606) 個股概覽 | 個股 - 股市",
           "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8ySDBmXzhKVGxXTk8wWjB2NEtqYjhhWGxOay1NbmNfVDlPOGZ5cDJwSUs1NXgwVXdaRWFENEN2MGtidndBQ05QMGNGZFZKYjlpUWZN?oc=5",
           "source": "CMoney",
-          "published_at": "2026-11-01T14:10+08:00",
+          "published_at": "2026-11-02T06:34+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -145,7 +145,7 @@
       "symbol": "2834",
       "name": "臺企銀",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "《台北股市》外資30日買超股：陽明、台泥、臺企銀",
@@ -160,10 +160,10 @@
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         },
         {
-          "title": "進駐北車黃金商圈！臺企銀統籌日勝生都更案33.94億元聯貸順利簽約",
-          "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9oZ0dxZFFZVC0xbEFFNE55YUR4bTJ2S21vdnZHYnA3NUdCVkt2ZUtEeldWUjIzNldTUFpzSm8zczd4bWc4Y1I1ZWdpNnFHaHZpRTRGSkEwdi0zNXZvTHpjODd5TWQ?oc=5",
-          "source": "TradingView",
-          "published_at": "2026-10-31T09:08+08:00",
+          "title": "臺企銀(2834) 個股概覽 | 個股 - 股市",
+          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1vbWJ2UjVaREIwQUg4MTBtOTVTLVVRQVY1YXRPeFc2aVo2d2NyeF9XbC04aHQ3RmFIZFNfUUVmUzU1b1NYMVFQQmVtM050WWlYOGE0?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-10-31T08:22+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -172,10 +172,10 @@
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         },
         {
-          "title": "2834 臺企銀 - 低檔盤整繼續買 - 股市爆料同學會",
-          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE93RmEyQVo0Qy1xMnlfUW1XSWFlaUVmN1I1aFZLQlZDVXg5S0pEVXlockM0NmF6a3FtWUlhX3RuS3Mzd0FwWm1VR0N0UFZRTGNNeklZa0FaZmk?oc=5",
+          "title": "2834 臺企銀- 115／10／29存🐧🐧🐧今天先存50ㄓ！明天繼續～ - 股市爆料同學會",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9udjVORUxzWkdIT1pDc3pNU1JuODgzdWJuODF5NTY2UU9OX1hCUHFoY1hSRHpDamUyOC1MR29XdFdtdElqWHRjSnJNQjB5YUJfNThFbXRzbGo?oc=5",
           "source": "CMoney",
-          "published_at": "2026-10-30T13:12+08:00",
+          "published_at": "2026-10-29T15:20+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -189,7 +189,7 @@
       "symbol": "2880",
       "name": "華南金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "華南金 集團獲利強勁",
@@ -205,9 +205,9 @@
         },
         {
           "title": "傳公股打破華南金公民共治？阮清華：和諧共治多年 股價衝上公股第二",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1sYV9DWE9Td0Nsb0ZnQWY1VDhiMVl3Z1JrS2lkQU43dzZ6a2I4VmxBM1R3bG5NX0tmbjF5NmI1c1R6MXpobHYtdy1pbUgtVm9m0gFWQVVfeXFMUFhROTJyMmk2dDJ6TWJnM2FNdWVuSHNyVVY1T01lVUp4X2pNVGJyWUVueVk2Z3MzX1Y0R2p2UExBNlZSWGYxQ3pNNXBuYkI5NWFjQkZHdkE?oc=5",
-          "source": "UDN",
-          "published_at": "2026-10-30T18:08+08:00",
+          "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5JR1AxYlVMMmYxdHMxSmJzeUxSeFNRYlMyMG9XTWVZb3REdXJCT00wOS11RDB3dHJFUEw2ZXdjRDBvYVNlWjFubmllR28xVmI2WVAzY2JTbW9JZ9IBX0FVX3lxTE1ZNDRLdl8zNW5OMDlrLUxQdjZjbU1LZThMcGhxZGwwcWdkYXA0eDFKcnR5d3p3MUtrblRDcXVISTBMU3ZrSmo0MlI1S0RQNDRXaDR0dGJxSElnNVhlNjVZ?oc=5",
+          "source": "經濟日報",
+          "published_at": "2026-10-30T18:11+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -233,8 +233,20 @@
       "symbol": "8454",
       "name": "富邦媒",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "富邦媒(8454) 個股概覽 | 個股 - 股市",
+          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE42MDNpcUlFOHFvRVc3Wk10UzlIM2VWQWd0YngtY0NFSVZUakRZYzY3RWVYQUNfRlMtN203S2xTOHlRcUllMl8wSnpaOThzOEVGMVBF?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-10-31T10:30+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
+          "vcp_relation": "💎 結構品質佳；VCP 5/5；量縮"
+        },
         {
           "title": "8454 富邦媒- 2026雙11電商戰！momo、PChome、蝦皮不只拚低價，優惠一次看- 股市爆料同學會",
           "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1pWEx5M3JjOTVyMk9ucjlGT3ptZm9IZ0FWR2g2b1JESXN0X2xINGNqckMyMGNobnFZZnVQcVhKUW9POTZ1SHhPWkNPMFMzMDRwYjk1c3BqYXc?oc=5",
@@ -258,18 +270,6 @@
           "possible_impact": "營收、毛利率、EPS、公司財測",
           "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 5/5；量縮"
-        },
-        {
-          "title": "富邦媒、網家、綠界搶雙十一題材，有望成短線資金避風港",
-          "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5iaFl2aFA2NzJreGZFS2E4cjR3SVVXOEhEWW5XcmFVaHB6eDdZQjUxZW01NTJBeUNsSFk3dGRSMGc4OTFvWjhldUd0VG5sa3c2N1Rxd1BqWQ?oc=5",
-          "source": "玩股網",
-          "published_at": "2026-10-30T10:55+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
-          "vcp_relation": "💎 結構品質佳；VCP 5/5；量縮"
         }
       ]
     },
@@ -277,19 +277,44 @@
       "symbol": "2006",
       "name": "東和鋼鐵",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": [
+        {
+          "title": "財報：東和鋼鐵(2006)115年前三季稅後盈餘47億2141萬元，EPS 6.47元",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQeWtSVDVZSVVDZWxWbWtRb2piV05PQWJibkRjQ1didmtzWkw3aVNTVExKU0hjTVNtLTNEZzhiWUIzazMtMU1tZkMzcWZRN0xxWTFHc09Gc0U1bDgyX0ozd29DVGY4ODFYVm5Gc1dwN05pMW9TWDZyek1wVUFLU0UzTW5VVDdtcXlj?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T07:02+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應偏弱（-2.5%）。 目前接近 Pivot。",
+          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
+        }
+      ]
     },
     "2637": {
       "symbol": "2637",
       "name": "慧洋-KY",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
-          "title": "【11:52 即時新聞】慧洋-KY(2637) 股價小幅走強，市場聚焦散裝航運動能",
-          "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5sZEVkVTZQTDFqZGlYcFFLZzVDZU9LRDNCNHhJalRqZ2lrQkFEVEx0M0hGWkt5Ri1waGtGUW5JV09FZGhrNmJWMXJ6RkFVNkIzSHNCdklUcXJsOVYwdGhiWGlYQlJ6cms?oc=5",
+          "title": "慧洋-KY(2637) 個股概覽 | 個股 - 股市",
+          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5OazZpM2puMFpkczRxQTlOVnp3ZVNzUUNTNWtJTlIySzJ1ZnRBS0M0Tmx6cEZzZ0dzTVFJSUkzeFlYRGpCSncxNEJXQktqbGhUa09z?oc=5",
           "source": "CMoney",
+          "published_at": "2026-11-02T07:19+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（-1.0%）。 目前接近 Pivot。",
+          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
+        },
+        {
+          "title": "【11:52 即時新聞】慧洋-KY(2637) 股價小幅走強，市場聚焦散裝航運動能",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPZl9XdjlwRFp5aWNZcGlwUFFRNGt4U0c4UDIteDZ3aHJDeFZyc09EMVZkRTJmWUxsZnlzYy1TZlZtOXo3YlVzcHZ4bTdOcTV3d3ZFcnR5UUg1TVd5ZlBOcUlFaGlYZldzSlFZdW1OZ3VJRjA5dHNKY1p5blhiZFJLOEFvQTRhQjh3VC1xZE1B?oc=5",
+          "source": "CMoney投資網誌",
           "published_at": "2026-10-30T11:52+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
@@ -316,14 +341,14 @@
       "symbol": "4771",
       "name": "望隼",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "2609": {
       "symbol": "2609",
       "name": "陽明",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "《台北股市》三大法人30日買超股：陽明、中信金、長榮",
@@ -367,13 +392,13 @@
       "symbol": "5904",
       "name": "寶雅*",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "寶雅*(5904) 個股概覽 | 個股 - 股市",
           "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1McHFxblNTUDVCUnFVY215NFhoc1l1S3NLTGFoRDhXa3Y2bjBpdnNDVzFkdzJ6WktWSTVFczJkVERQR1FMZmg0eFdydDBXcG1ocTN3?oc=5",
           "source": "CMoney",
-          "published_at": "2026-11-01T15:24+08:00",
+          "published_at": "2026-11-01T14:48+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -387,27 +412,14 @@
       "symbol": "2027",
       "name": "大成鋼",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": [
-        {
-          "title": "大成鋼(2027) 個股概覽 | 個股 - 股市",
-          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBVZHdkNU9wQVRSMmZYZmpicjZoaTh6QlhKT1BQX056Y1dKbUxlNnBVLThYTF84UEF6Z0huQlhNZUdxTnFFd2phTG50Tk1BSXpwa1ZF?oc=5",
-          "source": "CMoney",
-          "published_at": "2026-11-01T17:05+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
-          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
-        }
-      ]
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": []
     },
     "9945": {
       "symbol": "9945",
       "name": "潤泰新",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "台股爆量重挫千點測半年線！科技權值股承壓，潤泰新最新實價登錄曝-財經焦點情報站",
@@ -427,8 +439,20 @@
       "symbol": "3029",
       "name": "零壹",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "3029 零壹 - 零壹上半年營收只長了 9.4%，毛利卻長 19%、淨利長 2... - 股市爆料同學會",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9fR3J2dWZOclVwMktWdWo5YW1QOWN4RWpSVk10Y0xWa1ZYM0RnRzVzTktfQl9GZlpfSjFMSko4R0pVSzVBTGZNZ0xqRnJ4WU9DMldwbk1hNmg?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-11-01T15:55+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
+          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
+        },
         {
           "title": "零壹（3029）｜營收只長9.4%，獲利卻長20%",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5wMmF5S2tZTUowR2JuTmFodlpMLVNydmJCbFpqYjNHdl90UzRTNmMtdnJpTHJOZjhWQV9NdjdXbmJKcVpIMVhDUy1uUzMxUk1hcGMta0U4U25fMFR6?oc=5",
@@ -442,26 +466,14 @@
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         },
         {
-          "title": "【12:35 即時新聞】零壹(3029)盤中小漲，AI資安與雲端題材獲關注",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQSTZKZjl6Z1hfZm1zb0Jwc3M5cHFGbDNLRFg1SUNMdVNyWFNaN1hrTHc0eWp5c0dha3FkbHBnbFpsb1c1VXVtbXBhLVpCVkh4N1h0bHJKXzd3V0lrcFJYSkg2WkJVX1ZxZ1Y2UjFSd0sxUUozb3o3MXdaa3MtX3ZnTkFCTzVmVTRIN1I3RFhB?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-10-30T12:35+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "title": "訂閱制不是護城河！KKBOX漲價還在拚轉虧為盈，中保科、零壹卻換不掉？",
+          "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9UTlJKNVhfa09FTjBva0NoVUpHY2FMeGdPNkxJcmJ4MmRMa1NHaTlMajNVN243REVZRl9Td2N6WEtpdkgwamVKZkc3UnRaSkkwLUJYU0RhMA?oc=5",
+          "source": "玩股網",
+          "published_at": "2026-10-30T15:02+08:00",
+          "event": "價格／報價",
+          "why": "產品價格或報價變動可能影響營收與毛利率。",
           "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
-          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
-        },
-        {
-          "title": "【12:34 即時新聞】零壹(3029)股價續強，AI資安與雲端題材獲市場關注",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNdnlxVnhKMUxzWE1Da2JXSEpFYU9yZU5yMzNWZjR5RkN5ZG5WZTdRby10aXg5SjhnS3BFUk5DdHh4Q0p4QWFqWGh4Zl9qdWFKTFVpNV9ad3NKT0owbS1IQ2hfeUZtenVyVkVZWm1qaXJWeml2VFh0SnllM3BqRkFNcDdPSkVRZ3JrM0N5TFN3?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-10-27T12:34+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
+          "possible_impact": "ASP、營收、毛利率",
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
@@ -471,21 +483,71 @@
       "symbol": "3004",
       "name": "豐達科",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": [
+        {
+          "title": "這些個股EPS連續兩季創新高 台燿、晶豪科、豐達科都入列 立萬利季增224.2％",
+          "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1kZlpvbkdwR3FLZVdCd1RrSzZ5TVpMVEtHSXJ2dUNkUnBWUU9SQXMxUnFrYzV3LS0tVXhWQlAxVkpMY2hHeWxfZnZHOWdkQm55R1hoUk1FelU4Zw?oc=5",
+          "source": "信傳媒",
+          "published_at": "2026-11-02T07:05+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（-1.7%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        },
+        {
+          "title": "個股：航太巨頭交機潮與維修需求強勁，豐達科前三季EPS 6.54元創近年新高",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbGFkNEZydG9QZEIzaUU3RVlibDI3cTZLOURKVkJPWW9naEUwNEZ0emxZSVdqOHVzMUczMU9XanhwcFgwUmdFZTRzcVk3bHhBQm5DbXJHcE11RDc5aXlDWE5wOXR1Qy13NVRjTlprZnotUkdlYUU0U1JtS0ZQaFg1cVNzNE5pcW04?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T07:04+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（-1.7%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        },
+        {
+          "title": "財報：豐達科(3004)公布今年前三季合併稅後淨利4億2106萬元，EPS 6.54元",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQcWJlS2hrb1NYQ2hRMUpsdTFHUHB0MzI5VEhDZ2d5V1cxalVrYm5hTUVIYlk3T0FJdmpneEVXVnFMRDBZN2V6a1hvVVdhVm9KYVFlRS1oczRvMUoxaUpfTGN1eENWdXFkQ2hqdXNja2FTLThVM2ZldkV2ZGtDUW11UjVMN05sZ3pq?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-10-30T15:09+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（-1.7%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        }
+      ]
     },
     "6416": {
       "symbol": "6416",
       "name": "瑞祺電通",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": [
+        {
+          "title": "【11:58 即時新聞】瑞祺電通(6416)盤中小漲，資安與雲端題材續受關注",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNZ19PRW9HTnRzdFUyeXlIMi1TV0Vla0liR1NCeUo2QzNrR2Y4Nmc2YS1RcW5VMU9oNHU1bG9IWTVlckJBTkt2c0F4dXZPa29XbGxiODNaNHhDdFFaS2JGcUpBX1Q0VDVXQjd1Y0gybk8yaENXZEhnbmpUcmhzMllGRzdacWdVVWNqS0M0cDRB?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-10-30T11:59+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（-0.8%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        }
+      ]
     },
     "1102": {
       "symbol": "1102",
       "name": "亞泥",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "1102 亞泥- 這短片可以提供大家思考一下- 股市爆料同學會",
@@ -517,7 +579,7 @@
       "symbol": "2897",
       "name": "王道銀行",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "王道銀行(2897)高殖利率題材升溫，獲利能撐起股息嗎？-詠晴K線解密",
@@ -549,7 +611,7 @@
       "symbol": "2727",
       "name": "王品",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "2727 王品- 第17屆金音創作獎完整得獎名單公布她拿3獎成大贏家- 股市爆料同學會",
@@ -593,8 +655,20 @@
       "symbol": "2892",
       "name": "第一金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "公股投信四合一即將達陣 第一金、兆豐金等下周四將開董事會決議",
+          "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9hMnk4M2ZIb3MxYUNyTzRsTERxY1VmUHhaZV9mYV96T2JnQXhjQ2dXb3d6dFktZm01eW1GLWZtSW9EeXRMaVBlcVZuNXB3OHVBajlIQS0tYWd4Z9IBX0FVX3lxTE1oV1dUUTdld0N4bUV3MklBaGpDZXM1SEE2LWE5bksteDh4SzBVcmhvZzkySnU5a3MyWm1MWm5vWG9vTkJybThHc3Q0Q1lMM0h5X0c1Yk81S2FsS2xzZTVJ?oc=5",
+          "source": "經濟日報",
+          "published_at": "2026-10-31T17:00+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（+0.3%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "💎 結構品質佳；VCP 3/5；量縮"
+        },
         {
           "title": "2892 第一金 - 【第一金(2892)盤後解析】投信主導買盤，股價高檔震盪 ... - 股市爆料同學會",
           "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFB1V1JvZmlXdk1CeFU5MjdOVDVheEtaME5lV3E4dU1JdlNORlQ0cmJlZTJjM292UGV3NkdYd2pjNkw3T3R3WVBub2tzOHYyNTRqX3djbFI0S0M?oc=5",
@@ -618,18 +692,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應相對有限（+0.3%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "💎 結構品質佳；VCP 3/5；量縮"
-        },
-        {
-          "title": "2892 第一金- 大跌1156.5點，它還能把高點守住？ - 股市爆料同學會",
-          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE42bU5keXhLMEdIUmRkRU54U3RKT3d1MnU1Nm9zb0lyVEs0b0RRbHh0RkQ1SmxVaUNpTmt0QWFaNEpXQTFEaWxZSTQ1dXNIMlNvQnEyTE1jNUk?oc=5",
-          "source": "CMoney",
-          "published_at": "2026-10-30T18:44+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+0.3%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "💎 結構品質佳；VCP 3/5；量縮"
         }
       ]
     },
@@ -637,13 +699,13 @@
       "symbol": "2618",
       "name": "長榮航",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "16檔外資月月買股搶鏡頭 聯詠、長榮航等下半年來獲逆勢加碼",
-          "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFA4UjA1NFg5MWlxQnpULS1pOVktVUFONFZfbmgtSjdNbk5oOFRRS0wxOGRmSFlmeUQ1SkVLck9wM0xlUnd3T3B6Rmw4a3JVd1llZ2s4RTdn0gFWQVVfeXFMUDhSMDU0WDkxaXFCelQtLWk5WS1VQU40Vl9uaC1KN01uTmg4VFFLTDE4ZGZIWWZ5RDVKRUtyT3AzTGVSd3dPcHpGbDhrclV3WWVnazhFN2c?oc=5",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1HVk9zUFVjcDlIWF9lWXJQS2lmeGNsMUpiOWpDRFhfU3AxcVNyemF1RXdMMGlPeEItc2t5VnlYcXk2Z0FJVnFyb21xYjByMXVn0gFWQVVfeXFMUDhSMDU0WDkxaXFCelQtLWk5WS1VQU40Vl9uaC1KN01uTmg4VFFLTDE4ZGZIWWZ5RDVKRUtyT3AzTGVSd3dPcHpGbDhrclV3WWVnazhFN2c?oc=5",
           "source": "UDN",
-          "published_at": "2026-11-02T02:07+08:00",
+          "published_at": "2026-11-02T00:45+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -664,14 +726,14 @@
           "vcp_relation": "VCP 5/5；量縮"
         },
         {
-          "title": "巴基斯坦對台禁飛令大逆轉！華航、長榮航「股價小漲一點點」 星宇、虎航走勢曝光",
-          "url": "https://news.google.com/rss/articles/CBMi9AJBVV95cUxOLUdneFdMczN6S3RFVjV3S1pWdjhVX2MtdHl5dWtoVW5keElESjh3RGZObW9wdFpUb0VaVUY2cGdkRGI0eVg5RVMwM0pqTnJRR1V4ZHBZYmNTb256bkloZGR6QmhDa25rS3J3Z0NaSHF6TjZ0MW5VbjFjUmw5NXp3SkN5Nl9scnRrRHA5cHY1cGd5REZhcGF6OGprY2xlVFE5WWR1NEFYOGJJR1dXengtTXJQXzBlVkM5THJHRV9tSHlGMkFMU0FQUFJjaUFKdmhEYkpNYnp1RHFFckhOSmxXaG5yYUNPYW5nTlZXczBmd3JUT3JMMDJFX1k0azBKNDJERlJ5dEljbC1vdUZZc2dpUEpMZEJISWdOUmphNUxVNjhGdE1XbjlFS1laZFFpYTRIbVlRZmVjSmhVVXBJQmRhQWdpX2hOQWFoOUQzekRWOU44VFhKWUxMNmFteGhkZWFqb1JfZXowUVJZbW1udVFPY1dlTk0?oc=5",
+          "title": "長榮航參與鴻海科技日 打造專屬貴賓室深化企業合作",
+          "url": "https://news.google.com/rss/articles/CBMi8AJBVV95cUxQM0VYWC1nU1JZdUJVZnFlVTNLYm13VTVTX2U1bTlCMWdQc3R2N0xQdGY5SWNBNXpoM0FROTlQVWh2SWVZVjhWWWpxck5FOElvd2VuRGJoS3Z6VEVIUGJ5VkZwSkpiUE0wN1oyYmpwSjh3YmNsZFFKWDhGM25TN0tSWVh3cGxwQXIyaDZoZmQ1VmFTdDB5bkxsclV2U2dROEtMQmtYa0J6cnBYbG9KTUJVZGlZTDhSaGtwcFdHQ0NPekd4QVVSSUo1Z3NEeXZfNElLQWRPVHhTRm1HTWZmeDBQVW4zYllBYl9GS25LRDZpdkNUX1JaaUlPZ0lGdEp4anE3N2Yzd1VJTzU0WlBsVU02dnp1emJrcXpoUHZMR1FTaXlRZTNYNWtITHVOTmI2OHV1SUJHTnZCSmNybGtuekhCN1FITDhkdzBQQS01MENZLTJMLXh0ODQyZGFMZEhLY0ZSblFlakdIUjl0ZGo4Q00ySg?oc=5",
           "source": "Yahoo股市",
-          "published_at": "2026-10-29T11:26+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
+          "published_at": "2026-10-30T18:10+08:00",
+          "event": "策略／投資",
+          "why": "策略合作或投資可能改變公司的市場布局與資源配置。",
+          "horizon": "中長期",
+          "possible_impact": "營收來源、成本、資本支出、策略布局",
           "market_reaction": "當日價格反應相對有限（-0.1%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 5/5；量縮"
         }
@@ -681,10 +743,10 @@
       "symbol": "2891",
       "name": "中信金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
-          "title": "金融股是最強避風港？彰銀、中信金驚現瘋狂買盤「專家斬釘截鐵：不能無腦買」這幾檔地雷法人正在偷賣",
+          "title": "金融股是最強避風港？彰銀、中信金驚現瘋狂買盤「專家斬釘截鐵：不能無腦買」這幾檔地雷法人正在偷賣- 上市櫃",
           "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE15N0p3WTJULWVJNTRSWTZSZUM5UlFEMlg3UExLVmZicUZyVXFyY2xYSEhZOC1nSS1lUmlqemJ4eFhrdkV6LUFWcjExOUVKNkttaUdmNHBtbER0bVQzcGZIeWswaDdLZHQ5Z1E?oc=5",
           "source": "旺得富理財網",
           "published_at": "2026-11-02T06:05+08:00",
@@ -725,7 +787,7 @@
       "symbol": "1101",
       "name": "台泥",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "台泥海外布局有成- 日報",
@@ -769,14 +831,14 @@
       "symbol": "2031",
       "name": "新光鋼",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "4967": {
       "symbol": "4967",
       "name": "十銓",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "【1030台股盤前】開高走低震盪打底！聯準會按兵不動但Google財報帶崩，外資賣超約略688億，策略鎖定主本比【麗臺】、【眾達-KY】、【十銓】｜豐雲學堂2026 年 10 月",
@@ -820,48 +882,48 @@
       "symbol": "8383",
       "name": "千附",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "2377": {
       "symbol": "2377",
       "name": "微星",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": [
-        {
-          "title": "微星科技 | 2377.TW 股價走勢與即時報價",
-          "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1EV3hqSXFJX2p0bUdvYlUtWXNnVlpPX2tnWHFCZ1NwaU1VN2pwSFA1TVUzWElDVEZsQmt3bkk0dE44MXNCd184UlNISDZLWld3eHV6bA?oc=5",
-          "source": "BigGo 財經",
-          "published_at": "2026-10-30T15:00+08:00",
-          "event": "價格／報價",
-          "why": "產品價格或報價變動可能影響營收與毛利率。",
-          "horizon": "短中期",
-          "possible_impact": "ASP、營收、毛利率",
-          "market_reaction": "當日價格反應相對有限（-1.6%）。 目前仍在 VCP 成形階段。",
-          "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
-        }
-      ]
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": []
     },
     "6121": {
       "symbol": "6121",
       "name": "新普",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": [
+        {
+          "title": "【11:36 即時新聞】新普(6121)股價走強，AI伺服器電池與BBU題材受關注",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPcl9GdVFsLXkxNWRTNThMZGRvRC1EM2p4NlZaNDRsbjhsY3dBY05fM3JaNHotWjF0cGxueXh2SU1hM0dOZjRvclNHTk9mZ0p1YUJqbFJ6MWhEQjJKa09ndE5vX016V1JHYkpOaTk1MjlGdkRtQTdrMTJFYndkM1BreUZ4T3Q0RkdBSHFwbGV3?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-10-27T11:37+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（-1.6%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        }
+      ]
     },
     "4736": {
       "symbol": "4736",
       "name": "泰博",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "2636": {
       "symbol": "2636",
       "name": "台驊控股",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "台驊控股 更正本公司115年9月關係人交易申報資訊",
@@ -881,7 +943,7 @@
       "symbol": "3045",
       "name": "台灣大",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "【13:03 即時新聞】台灣大(3045)小漲續強，市場聚焦BNPL與電信科技服務動能",
@@ -901,14 +963,14 @@
       "symbol": "2723",
       "name": "美食-KY",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "6214": {
       "symbol": "6214",
       "name": "精誠",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "6214 精誠 - 【本週復盤】資訊安全逆勢有撐，「3檔概念股」11/2看點不同？ - 股市爆料同學會",
@@ -933,18 +995,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應相對有限（-0.5%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "台灣大林之晨：收購精誠信心十足 公開收購時程不再延後",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9DbUU0T004eVZJbU9sLS1nNFFabWVXNE1fbXQ2XzNWQzRuNUZhTXE0VUNkMWF5R1VnQjFJLVY0M3VXSjAzbjRoY1MzQkxGVjg?oc=5",
-          "source": "鉅亨網",
-          "published_at": "2026-10-27T19:43+08:00",
-          "event": "策略／投資",
-          "why": "策略合作或投資可能改變公司的市場布局與資源配置。",
-          "horizon": "中長期",
-          "possible_impact": "營收來源、成本、資本支出、策略布局",
-          "market_reaction": "當日價格反應相對有限（-0.5%）。 目前接近 Pivot。",
-          "vcp_relation": "VCP 4/5；量縮"
         }
       ]
     },
@@ -952,7 +1002,7 @@
       "symbol": "2887",
       "name": "台新新光金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "2887 台新新光金- 欠錢還錢⋯天經地義！誰管你AI巨頭股價怎樣- 股市爆料同學會",
@@ -979,10 +1029,10 @@
           "vcp_relation": "VCP 4/5；量縮"
         },
         {
-          "title": "八大官股》台股崩跌1156點！國家隊護盤逆勢買超「台新新光金、聯電」，台泥遭賣超5179張 | 下班經濟學 | 財經",
-          "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1XekszMjdfLXJ6cGR4V3NfMnkxdjY1MGtCc0Z3bTF2dXRwQ1llZzhmMEhySlpzMXdnT3JELVBJdGNnQ2QxbWFPLU82UFc2QQ?oc=5",
-          "source": "風傳媒",
-          "published_at": "2026-10-30T16:54+08:00",
+          "title": "2887 台新新光金 - 【台新新光金(2887)盤後解析】土洋對作，投信大買萬張 ... - 股市爆料同學會",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBVMEREaEo0eS1ob0tjWE04M2NBZ1QzM05CWkFEcG1rSXJ5cWRxVXZ2d0pjcFozZUVwd2d3U0F5QzYwdnotVWZyV2VhUVZkRjJkRFRXN0VOYlA?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-10-30T20:59+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -996,50 +1046,25 @@
       "symbol": "2850",
       "name": "新產",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "2889": {
       "symbol": "2889",
       "name": "國票金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": [
-        {
-          "title": "遭質疑薪酬改革誠意 國票金：董座年薪總額大減逾6成",
-          "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5wcmxIMmVxcHJlRnJOSnhVTlVzNF9zVWpLSzdsTWFfa3VaZVFrS1hXdXdYZEFCOW52TnpvNlQ1T1p0WjVsdGdfa1RVcThPQXZWYVROQnNpRm9fb05waUtv0gFkQVVfeXFMTnhWeEtVMnNFSlBUcFlIOXJpSVRQMnJEcVp2MnBKTUZkME1wOVozT1NkaEJLeVp4Vkk5bm9iTXNNMlA3MlluUFl0ZGg1WjZvZ3dEUVFZekYyUUxTVVZXY0N6RURJNg?oc=5",
-          "source": "自由財經",
-          "published_at": "2026-10-29T17:24+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（-0.3%）。 目前接近 Pivot。",
-          "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "國票金薪酬改革等同「未降薪」？ 國票高層：領經營津貼就少領獎金，應以全年薪資總額比較",
-          "url": "https://news.google.com/rss/articles/CBMikARBVV95cUxNbFpwV0RNQ0k1LWcybjh1WS1YRzMtb0JIZHh0bFo0OVRMZGU3clNQS2NzU0JPWFAxRzhzbVFNTUl6d3piSWNiTVBPUjc1Y1B1N2lzdzJuREd0WnBLSG9mZUYyT2MzTFZjbVJ4TW54X1gyeE5KWmgzRnJncWZ4UkFVQ0Q4NmRrSmY5Q00xSWtFcWZmaGxIS0lqbUNvUU12ZFFNTHc1dmJ0VkNtazREQnAyNE5fcUlfS2cwWHhWN21vRHpHR0pqUzRsWW5jX2p4MFBIcTZmSGY0cU8wY1FpSjZyUklvcmgxdUJPeXpJSzdFU2ozT2NDUG14YTRmWEI0SEUzcWpHcFBxaTNqSVRQeXB6blhjRFpGUHRvM1FUX3ZDZUFPQ21WcDM2d2VLaVNBbDkwb1VkYkN5ODZQWDNOWk95YTYwMDBuVEZEV3MwSWhzY0JoZ1pBTjlNWnNoai1QY0dJRE9WaFg5NFZyZFJMYmlEaE15RmxwMm84V0Vybm1pYUwzenBPbWplTTFka1pwbGs4aDhxOUxNZXppdUg2dEhLLWxBXzgtZGdadlZQUVBwUHFTVjk3dFNDMGprS3lRVFNuU1RBZWdEQW9PUXJnSExXN1dna0d2V0wyM1VLMkRXSFlvZjRUMEMzbTdIS3BqS0RvOWNpR3lndFRidFNiMTZwS19vaHlORFdGZ2FrSTVCS28?oc=5",
-          "source": "Yahoo股市",
-          "published_at": "2026-10-29T15:29+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（-0.3%）。 目前接近 Pivot。",
-          "vcp_relation": "VCP 4/5；量縮"
-        }
-      ]
+      "updated_at": "2026-11-02T09:25+08:00",
+      "items": []
     },
     "2884": {
       "symbol": "2884",
       "name": "玉山金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "玉山金飆漲成提款機！壽險雙雄大砍近1.5萬張 配息盤算浮現",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE10VWFob1FjbWtFeEVPdjVsTnVxX2Z2R2E3NXpyMjgxV3JPU2tabzEtWFFXUldSZzFrZGlXdEVJajR6VEFMdlo2aDV1TUgyVFRy0gFWQVVfeXFMT0VaSnU3LTFiT3VHLWp6TGFpeG8yVGw0REF0dGl5alU5ZHNTSWVnakx6NDNoMk0zQjNhczVkSVhBa1JvMXB1ckVpd0JBZW1QR1VjSEhHd0E?oc=5",
+          "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9FWkp1Ny0xYk91Ry1qekxhaXhvMlRsNERBdHRpeWpVOWRzU0llZ2pMejQzaDJNM0IzYXM1ZElYQWtSbzFwdXJFaXdCQWVtUEdVY0hIR3dB0gFWQVVfeXFMT0VaSnU3LTFiT3VHLWp6TGFpeG8yVGw0REF0dGl5alU5ZHNTSWVnakx6NDNoMk0zQjNhczVkSVhBa1JvMXB1ckVpd0JBZW1QR1VjSEhHd0E?oc=5",
           "source": "UDN",
           "published_at": "2026-11-01T22:04+08:00",
           "event": "資本／股東回饋",
@@ -1079,8 +1104,20 @@
       "symbol": "2886",
       "name": "兆豐金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "公股投信四合一即將達陣 第一金、兆豐金等下周四將開董事會決議",
+          "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9hMnk4M2ZIb3MxYUNyTzRsTERxY1VmUHhaZV9mYV96T2JnQXhjQ2dXb3d6dFktZm01eW1GLWZtSW9EeXRMaVBlcVZuNXB3OHVBajlIQS0tYWd4Z9IBX0FVX3lxTE1oV1dUUTdld0N4bUV3MklBaGpDZXM1SEE2LWE5bksteDh4SzBVcmhvZzkySnU5a3MyWm1MWm5vWG9vTkJybThHc3Q0Q1lMM0h5X0c1Yk81S2FsS2xzZTVJ?oc=5",
+          "source": "經濟日報",
+          "published_at": "2026-10-31T17:00+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        },
         {
           "title": "【金融股飛天1】存股族的最愛！玉山金、兆豐金6金控穩坐「定期定額」前10名",
           "url": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxQbzVIVDQwUEhsemE2UzFmazQ2cE1EaTFIWmhnYmJJcTlQR05WYXNuckxaMEVSZkp5U3VkbkNRTE1RbUVQVWdKV0pnVkxhRnJ4dUFzWUJsOURkQ0c1ZVpFaWZlekZJRUVNSzBnMlZZeVRKa1lxRl9nY01LNHhnUFp2dFJGSFl4OHY5eXdvRk1kM3B4NnV2eVJzOU5uTFJwRzh2WDkxejVsalh2QnQ5d0Jhb25QUVBGNWpQREk3UF9LX0xEVl8tRFdsRVg5Q1dyMldOTnBFV2dfMmJwN0RkQ3RkX0k3amxzRGFSQnoxMTZEMnUtUkc3SzF4Q05kRTlZMjlrbVJTUXVmSDh4MXFLSEZjdWdBZ2p3czRHSDg4VGtPZ2dqZEF5NF93R0JLbi0xeHZoaDlwUDYzRWpMdmNBZzVOVlFWUldUZnRtQmVzRm5EeEdYX2xBTGNweTctTk9yUmR1dHNRUWZUSU1qNGhRVVlKSERHZm1McTBGeldrWmZPTUI4eHZQSm1vckV2VV9zUWhqeGJxaXF1Q1BUWHZPN2dOa2k1Z25zdVczWk5udUg1N211c1FTai1qRXpScGNPZFZNckNMeWRLWDFpbFFDZ04xVVNkLVVtUUZRSWgyaVpTRHV2VWZVMkVBR2Q1MnY?oc=5",
@@ -1104,18 +1141,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "《台北股市》投信29日賣超股：聯電、兆豐金、台塑化",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPdFpQYjVlNlc2Q2pYd2hCRnp5UFNMY2Y2NFFxa0ktamN3aWhQT1NpSXk2TXQ1cVQwNU42YlQtU1lwTUprY2tMX2gxdldMcnNOUVFIREI4Mk9VMGxTVXJXT01xRmpYcjRrMk1UWGprZ2hkSWhVem82NEZJWDBCa25zczVtSG5sQTg2?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-30T07:44+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
-          "vcp_relation": "VCP 4/5；量縮"
         }
       ]
     },
@@ -1123,8 +1148,20 @@
       "symbol": "1477",
       "name": "聚陽",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "財報：聚陽(1477)115年前三季稅後盈餘28億6764萬元，EPS 11.62元",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPS2xLQlBNMGlnM2dIR3J4RTc0ZzI2LXp2dEhVWWNEd0VKcGxRTVMwRHFGRlltNGNYTnE2VjZxM1NBYklpbmw1TjFkSWticjhiYk4wRHdZemVXVS01Y0lIWl9CeWpBUmtOd2NmQjBYNTJsOFRLZUdRRFRkN2szZGl0b1duZXpRbC0w?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T07:02+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
+          "vcp_relation": "VCP 4/5；量縮"
+        },
         {
           "title": "【12:11 即時新聞】聚陽(1477)盤中小漲守高檔，市場聚焦Q4訂單與ASP走勢",
           "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNaXNhVy15ajhEMGdIb2dXQkZNbW1HaXhpcE51MTMwdVZmdTJDcWlkWkIwb05fSWdlWENfU3BBSkV0VDN4dFBRZk5WV0FUUUVnZ1FmdTF1VlEyNUZ4czFRbXBRcG9leVZ0QkZUNzVvVGhueEo2QUdBeWM4TkdPeVVYcDhsSEdUT2VSWDNlaGN3?oc=5",
@@ -1138,26 +1175,14 @@
           "vcp_relation": "VCP 4/5；量縮"
         },
         {
-          "title": "聚陽(1477) 個股概覽 | 個股 - 股市",
-          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1qN1FzYVNuUl9XR0hfUXkyd1p3Q0Q2Sm5ORjYzTFNjUm9vcFkyZllCekJQbFQyZ0VZeTh0SEloZGw5VUxWZUNmcG53cjF5Wi1UUnJv?oc=5",
-          "source": "CMoney",
-          "published_at": "2026-10-31T05:21+08:00",
+          "title": "【1020台股盤前】台股下影線狂拉650點！外資轉買櫃買中小、投信持續買超，巴菲特護城河鎖定【聚陽】、【聯強】、【儒鴻】",
+          "url": "https://news.google.com/rss/articles/CBMi_ARBVV95cUxNeVVlNkVuZDdvVUFZRC1ZR0F4SWtiUExnUElSck9oRmdsdWlSdFZjT0hPakQ1NFY4LXdrWmJXQ0Nlby1oRkJyRExpaEgteUdVWko4VUNmOGxpZjRKT0tMRjVHTGtXc0cwNjh3Y3dPWFJxUWlraDZtc1FaMEVFOERGNm03WTA3eUw0ZkhWM2lLZFpNQ1MzXzJSWmN1Vk03eGJvcHN4RUVtTFp5a0hlX1NSdXEyVkxSSzVESXVDZ0t0QkdOVlBjS3lWVDJoM18ySGcwSUNTdW1ELWxFT0JpdEp2QXdxQTgxRDlPTGV2MzZBT29Tc0lTQ05GZkpWUlRrcjNuV2tPZ3R5eElyYWlUS0hWVUhuSUNoRlBvV2hGQnZrWlU5MXRLWmNrdXNuV3F2MVMtczlqMkhJWGFLc25wNk9selhqZW90QlhCbjJrNVRtZFp0akJrUHZjVVN1OFpmZmhEcE0wNEhfX2x3bGN1NWp0UE9pYjAzOWg2N1BSeUM5NnNLbWNXcGE2UXFpNk95UEtkY1c0MVpIa3RnSWtFVElNMEtnXzI0aTIzTDcxTHRlQWQzR0JCN0d2bEdBdXNRVUxuQXdIU2dxdFVZTmdpNENnRVN2YXJ4a1RrYlhZSi1lQ0ZDMTljOV8zeXJmeHpRVW9oZ1VJUV9Fc1U2U2xELTJyYzRPRVlUWko5TzBvX21COVVEeFotOFBqVXNNNktnbWNBVFVmbUltQy1zZzdaX25fbWlpOEVCRUVNNWVWNzVtaldtaDhldHQtODFQMFcyTk9GUU1PVDBFUnkyMzhmX24tWlVNLWtvNWZvRjVUMFdKYlYxQzVLX2hNaERTTHM?oc=5",
+          "source": "永豐金證券",
+          "published_at": "2026-10-31T15:00+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
           "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
-          "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "聚陽前三季EPS 11.62元 受惠短單增加本季毛利率看升",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1FeF9EejIwZlpxSm5BajVnZEdtRDYwdHdyczFrcVdUMnBMMllnYm5KeWZpSklXT2pwMTV1UU1QemM0YkVTWjd5NXl2Q3drMnU30gFWQVVfeXFMTkJYWmlvRTN1VG1JNEZNQjJIRDR4VE9IS1FUc2ZDWFd0UWx6cjRNOW54Nk1JTDhxTWNaUWppWktCdFVVTTNOc1Y0Y2dhZ0Q1dUZUXzcxT0E?oc=5",
-          "source": "UDN",
-          "published_at": "2026-10-31T00:39+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
@@ -1167,7 +1192,7 @@
       "symbol": "3005",
       "name": "神基",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "神基 營運審慎樂觀",
@@ -1211,44 +1236,44 @@
       "symbol": "2612",
       "name": "中航",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": []
     },
     "2465": {
       "symbol": "2465",
       "name": "麗臺",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "台股開盤狂殺近800點！這「5檔個股」卻紅通通攻漲停 麗臺、醫美、資安股殺出重圍",
+          "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1aeTlzbVNzbUFZaElVNVpUVkJ5cUhWakktUWc1Njh2UFpMdnM0RW14bE5GeGJBeWg4cGFIQ21heGwtc3QzLXY5Zk9aYw?oc=5",
+          "source": "FTNN 新聞網",
+          "published_at": "2026-11-02T09:17+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-9.7%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
+        {
+          "title": "【09:02 即時新聞】麗臺(2465)亮燈漲停，盤面AI與GPU代理題材升溫",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU2dtQkVKTDNnd0JBME1uTTVaYjlXRDlpOU5lcG1ITmMzdlNfWkJNWWFYNG5lWllqYjBUMi1WdXc2UHFnXzNtT0NwdlZtMnVCazhPUENXamlvNm9ZLTBZUzNzUUVxWFE4WUF0aGtpSEVpRlZTd2h1U29Rc2dvWVBpOFVtT0p3RnZERmprMWJ3?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-11-02T09:02+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-9.7%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
         {
           "title": "【1030台股盤前】開高走低震盪打底！聯準會按兵不動但Google財報帶崩，外資賣超約略688億，策略鎖定主本比【麗臺】、【眾達-KY】、【十銓】｜豐雲學堂2026 年 10 月",
           "url": "https://news.google.com/rss/articles/CBMiuAVBVV95cUxQbkVrTHNQdUJERFRaN1liV2M4OGw2RzgyQmZINGFwTEZqWHBBaGw3WFhiblVWcnNVQ0MzaTV5ejdOOUJidEY3WEpPMmluQkZSVGZVZGFENjBxdl9jVjlOaDJsZzVuTHhoV0ZkclVMcGdSenF0VmJ6R1J5V004Tmpxak5id2sxLWRxeEp3ZGlpUGVLd1Q1WGhaeGNEWjhNa2xjeGhnWjR6ejNJVl9KNGU4Tnl0cm5ELTJsVzRQb1ZFUTNHYU9xdko0UTdDQ3lnOUJwS3NsNXhvaG9OQUxhOHV4QV9aX28xOUNTSEY3OFlwNWgxYzFHQVFiRy1RMHdCU0t2YlhOMFhIa0hCR2NfdmdmOTJCNFA0UWV5SHFFb0hVb2czQmJ4TVJ4ZHVmTjFEaDhNMS1hV0ktcFJ4bmtwUldxc3RkbXRlSFdZSTlyYnY1VzJnUlV1a2IzV3MybjJodzRHa0tLOE1vLUlGLUtGYWphSUNBejJIZTBWZTR6LTRFdlNWNEo3cDA4WHQwRVNPMXdWNENlbTFac1hhZ1pzdzA0aENPZGEyclZDVTk3NlNPTmI2UmFtYjY2dmluN3p3ZWJVX0lmUUt0Y0dhY3ZKZFAwZlY0TU9wSW93cU5WVWYwXzlDNVhrNEd3dXg4aWxNcHdfb3I5d3dHd3lfUC1VOF9XcU1CVFRyaWJFVnJBUzJzM0lZR2s1NElET2ltaXV3Z3ByRzFoZTFKV1RCYnpCLURDdXlSSXA4NUFIaDl4UTJiYzlqV1hkSmFDYWVyeURLYkM4T3NkUzU2QmxqcHJRaEZIdGIzUS1fT1ZfSURHTWxTWEhXZVg4ZDdWZVF5V3IzN0YxbzAtcDg3dVZnSFI0TU4zY3JNWGlZRk5manNQc0JIc3BWSk83eWk1TFBWSDc1a1Bwd3hnWS03aHU?oc=5",
           "source": "永豐金證券",
           "published_at": "2026-10-31T15:00+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏弱（-9.7%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "2465 麗臺- 〈熱門股〉麗臺輝達工作站新品與獲利爆發加持無懼大盤回檔獲外資逆勢買超- 股市爆料同學會",
-          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE93cjBHOF9HbnZtcFFGdVBscFhCOVFGaGo0S1NKTUxydE10YTJyZHRyTXVVeF9wUnBHdTFNSF9FNVI2WVN0LXhUTVFjRFd3c2U4WEw2c3o3azU?oc=5",
-          "source": "CMoney",
-          "published_at": "2026-10-31T11:49+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏弱（-9.7%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "〈熱門股〉麗臺輝達工作站新品與獲利爆發加持 無懼大盤回檔獲外資逆勢買超",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1IX1ZEaEVpTEdYUTNENXhJcWRzeVRYRnk1NEhFNThXQ2RGMXBvUUQ2dzZBc2pMTmFqQ0pwUUxsUFd4alF6OXQ2QjRacXZSUHc?oc=5",
-          "source": "鉅亨網",
-          "published_at": "2026-10-31T11:44+08:00",
           "event": "財務／營運",
           "why": "可能改變市場對營運成長與獲利能力的預期。",
           "horizon": "中期",
@@ -1262,7 +1287,7 @@
       "symbol": "7704",
       "name": "明遠精密",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
           "title": "今日漲停股｜台股大盤重挫破半年線，味全、強新、明遠精密逆勢領漲，非電子族群資金避風港效應發酵 1030",
@@ -1306,13 +1331,25 @@
       "symbol": "2466",
       "name": "冠西電",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
+        {
+          "title": "《光電股》注意股：冠西電 近5日漲42.45%",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOelJHT1IwWGpKV2NkSWI0aWVQQmR4V3NXakd5Tlljc2tGTzVHaTNsS0hBOGItREpuZE9zWEw4NVgwMTRYQ215WlJ0MjJ2cUdrRDEtSldWM3JLRllRUW9pMXZoYnZucU5qYS1YcnAxbHJ3S0FOYmliYmxtVFppQk9sYVZQalp5Y0Jf?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T08:08+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
         {
           "title": "【台股10月風雲榜】「世紀妖股」冠西電翻倍漲1.8倍稱王！千金股玉晶光、紡織股王儒鴻也入榜",
           "url": "https://news.google.com/rss/articles/CBMiwARBVV95cUxNVnl1Yi1VUjBqbmFzQUl1d0lYWVdxYmRQb29rdTVFZ3hvX1hycXZlTjB6VWNvREhUdS1lQl8wZVFNMjZTQ3huT1lDZTI0S19YYUFpMW9fSk90OUwtYlVVWjlfYVJ5dTlNWEJWcllqalotR2tVM0dTck15bTJxT3hrV0t4ODNWQnJid3k0cTJUbnZWZkxoZUxfU2hXQlo3SW5CYXpOZ3I3elVfNUs3UUIzMkFzanV0MTVadGdtTHUyNGR5YTc3UjB0UjVkczBnM2xpRDVvcE9lU0dONnE1M05rMHpFcXBySmJpd3hKUXF3SGRNR090cW1pRk9CempfYjlyME9rTXFzMXBjRlFjSFQ3ZkJ1RWhiczBFNlRud1ZnTTVHR2RJSENBd2pJUFB4UkVIa0pnMVQzQkpLMGpoRG1sV0ZRUWJFRElnTG9HOWdpdWMzbkNneldpT2JKb3Nid0dJNEVOTHo1eEs2RUZUZ0Z4aDl5eTY4T0xWdjZWWkhtSWhEMnJNMWFrSnNETmtJZ09EVW9BTGoyTktTVTVxZS1fLVVTZ1FFN3hTZEhIZlNpOWplWUZuaGx1M1Z0SUsyaDY4eXFNY2syQm9MU2o4VTJHaGNoX3BwVzVCVXFkUGtSMms0TFM0T29Za21XU0JKYXBFSWxfdHNTUjBlcHlrQXMxNGVZbEw0NkVWdF9BMVVIUG54bmNfTE9iNHRTN1ZYV29iNFpZQW01WjJBbjg1ODlHMlBYNFlCTG1ZU25iWFZ1Zlk?oc=5",
           "source": "Yahoo股市",
-          "published_at": "2026-10-30T14:13+08:00",
+          "published_at": "2026-10-30T14:22+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -1331,18 +1368,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "台股3檔列處置股 冠西電90天飆553%最兇 今起每2分鐘撮合",
-          "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE53c29memx0Y0ZFLUZfRF9fOHdaeUNmQzFHUXFORkJuSEhQaGkteHJnQ0p6TkthZm02UVZkSTF6ZXZJQ1hBQTU4WDNMTElNZUk4blMyTjhBUUkwbGYyd05BNG5zQlRUTjdOM3VoX0lxbjJCdjhsNUdROFl3?oc=5",
-          "source": "BigGo 財經",
-          "published_at": "2026-10-30T09:06+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
         }
       ]
     },
@@ -1350,13 +1375,13 @@
       "symbol": "2379",
       "name": "瑞昱",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:25+08:00",
       "items": [
         {
-          "title": "〈瑞昱法說〉Q4淡季不淡、Wi-Fi 8明年下半年放量 2030年HPC及邊緣AI營收占比拚3成",
-          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFB0ZUVLV3ZmU0ItZ3ZSV2JlakRya2M5UHpSVE1Kb3RDSEg0dzV6ZHN0OU5JOG1MNS1qd3hmN1JRa2MwdXlhS0MwME9OWEFFZjA?oc=5",
-          "source": "鉅亨網",
-          "published_at": "2026-10-29T21:21+08:00",
+          "title": "瑞昱 2379 2026Q3 法說會重點：Q3營收年增28%！Q4淡季還會下滑嗎？",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPNHprY3pKTnpBRVVuS1RDdXp2Q1BtdnRReGZ5NGhSSFZjbFAyeEF4SjRORFBtNDBGc21UNWZ2aGNRV1BlaE4wOXBEZ3VxU24ydG9zb05Idkc3eElEMTRyaWVmOUFSN05aUEJkOTlhY0FqNTJGcEk5M3RiNDJTNlhSd2doclY2dmQxbWExSjlnMk9Cdw?oc=5",
+          "source": "StockFeel 股感",
+          "published_at": "2026-10-30T21:32+08:00",
           "event": "財務／營運",
           "why": "可能改變市場對營運成長與獲利能力的預期。",
           "horizon": "中期",
@@ -1365,26 +1390,26 @@
           "vcp_relation": "VCP 3/5"
         },
         {
-          "title": "(2379)瑞昱法說會 2026/10、瑞昱財報、瑞昱展望、瑞昱財報投資亮點｜理柴知道:法說最速報! - 方格子",
-          "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9TUEhWcE56MVRUcDlXMDU2YXN1MDY3NkNQdFVNMVUtWFpPS0ZvM2pkTjIybGl6RHZzZ21QbGIzVkhzYjVJbkRBTDJ5YmlzMkdsOGFLbVFNRHl3aTdzRWfSAWNBVV95cUxNYkpxMUgzR3Y0NkI5eDZaeGhTb3R5d2ZyWlZsbkVwYWdlZFRVajBfQ1NvVE9RT1Z3Zll6cVNYbUFtbmtHWEdGaUxfbE1LYlFhbFpON0tTdnB2RmxSTmlyZFN2Rzg?oc=5",
-          "source": "Vocus",
-          "published_at": "2026-10-29T20:41+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應相對有限（+1.1%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 3/5"
-        },
-        {
-          "title": "2379 瑞昱- 瑞昱永豐63購02 活跳跳- 股市爆料同學會",
-          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE03SmRHcWJUdXlHZmxWLVktSlVoUmlfVENVYlRXd0dLR0dpQ2RUWkl1dUlLZjU4Z0ZELXJ5MVkxd0MyWXVjWlR3OC1RbFZNZ2J0d1dVWldkLVE?oc=5",
+          "title": "鉅亨速報 - Factset 最新調查：瑞昱(2379-TW)EPS預估上修至32.5元，預估目標價為800元",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5WeWswSzh4OFI4NWFOWkFFeXhVY05xRjRLSFFnZ1BrSF93TUUwTks1SDB1UXRIRWdsbnUtLXZpTHhFbU5OeFBxYVVSTXlLcmZ1MGMySGU1Rm0?oc=5",
           "source": "CMoney",
-          "published_at": "2026-11-01T01:36+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
+          "published_at": "2026-11-01T16:26+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+1.1%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 3/5"
+        },
+        {
+          "title": "熱門股－瑞昱 法說助攻價量齊揚",
+          "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE14NWtXTTRhT25pcTZOcFFtQWZlaG0xODY2dVNvQWJ5cXlRMklidEl5Y1RObWpnVVRpbzVHZlNmeGpiV0QzOExHbF83cU9VTkdNWFhWZFJKbWVQUnRfVlFTaDhGaWZ0Y1ZIM1dn?oc=5",
+          "source": "中時新聞網",
+          "published_at": "2026-10-31T04:10+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
           "market_reaction": "當日價格反應相對有限（+1.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 3/5"
         }
@@ -1394,37 +1419,37 @@
       "symbol": "8099",
       "name": "大世科",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
+        {
+          "title": "《資服股》注意股：大世科 近5日漲58.38%",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNUdjeHY1OU51dFQweXFhWW03TWgzblZDb21BREkyc0hrQXRDRUhhdXJVYXFGUlh2OUtrVFVwVXowR2QyNEczanliVU5FMGdjZTdlcEFnLWU3S190N1E0V3VVLU5SWE1IWGtKSjljc1pJU0tMWU1qb2FjeVlHQTV1Wm5CNjhCMHdx?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T08:10+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏強（+8.8%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
+        {
+          "title": "《台北股市》處置股：2日15檔 「2人出關」精材、碩禾、大世科入列！",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOQzNGemFwWFBBeHhlZjY2M3l2TFM1eDBjSGlVc3B5cE1sY0YtQXNtaEx3VkdUV3UwTFl1b1ZDQmljUk9JamR6cmpJNm11QmF0TjNHS3NZSWppWmN5NXF5ZUZiMk1tOVZCdnBYem5haDVweWRlX2NLVUNKQnNqYkM2eW8wMlc1dnIz?oc=5",
+          "source": "富聯網",
+          "published_at": "2026-11-02T07:54+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏強（+8.8%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
         {
           "title": "台股3檔列處置股！大世科6天狂飆58% 11月2日起2分鐘撮合",
           "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5UMUlsMjk2VUFwTjRDVGFSNUgxRDVieFlESlFKajZNM3Y0ZWFmSWY1TUVOT2dmQW5sUGhoNV9fZjA2ZURMR0FEUzY1Y0hBUjBZVThyWW1jYWE0V0czaS10MXlQazgyRGRERXVDVk9yWFViNWVOVHFyUUNn?oc=5",
           "source": "BigGo 財經",
           "published_at": "2026-10-31T06:55+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏強（+8.8%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "飆股幕後》母公司大同加持 大世科股價本月漲9成",
-          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9oTDlmeUxlNFlpWTZUM0hHcWpUUXljRE5rN0RlTTI5T3lHNVJ4Um54SkZiV2stSVptOWJFLVdOLXFiZFNXcjducGRuLUY3OFJXNWtidUpGVzNnN2_SAVtBVV95cUxPaEw5ZnlMZTRZaVk2VDNIR3FqVFF5Y0ROazdEZU0yOU95RzVSeFJueEpGYldrLUlabTliRS1XTi1xYmRTV3I3bnBkbi1GNzhSVzVrYnVKRlczZzdv?oc=5",
-          "source": "自由財經",
-          "published_at": "2026-10-31T05:30+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏強（+8.8%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "【台股10月風雲榜】大世科狂飆87%列注意股！AI概念股意藍漲逾7成 上櫃20大飆股出爐",
-          "url": "https://news.google.com/rss/articles/CBMi9ANBVV95cUxNWnB6UFRaSzRwZW1PTGZ2M0NXZG5xV1NNUmRpTlRyY1Z6aVFGeEh3bGlJZm1tNUhlOVVpVDFqYkswMXJZeHRzWFh1ME9sYXVHZUllc0lPeUFhMlZqNFpHLURhWDNuMGlCWW80V1d4eEdFdTkzNDFIT3J3a2puSU5MTXBqY1hVd3prSTdOT00zTGtoc2Jaak9LczhXOE1QY0d0Z2tTMXRqOTRVdzlpZ1lBaUFHLVR3ZV84WmpHNWV0VEpxU3JhNzFiNkV5UnpSX1BjaEtsdnBDQU9uY1JSS1FaOHNxdjZlbE9EV19lRUVWNHNPS2djeFhOcXNROHRfTzVwVlhxQXp4QlpKRGgwZWFYaVoyankxYXZKT0RpMU5iVlNhVmgwa3p3eHN2NHRWcFVpYzI3RERndWRRRVY1bF81S3dtdEV1dmhnT2dQNlRjZkt1TEFaT1hVZ1BSa0FPZTVPd1NXN2oyZFNlYUJxMFJQUjFoblhwWU5hQ3Jyc293Mkk0azNZNHhicHppR2V3Y1ZVajZ2YUVDOHgyWXNROFYtYWV3OTFOM25RN2VMbXdONmJKTjBtRDM5QmNLZ1hOSFRwZmZ3eDJjNmJMU0dvSHRHQWVZaFJaMVNDVHluSE1zdndnZU9OLTYxWHI4REFwYm10akZGSg?oc=5",
-          "source": "Yahoo股市",
-          "published_at": "2026-10-30T14:37+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -1438,7 +1463,7 @@
       "symbol": "2801",
       "name": "彰銀",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "彰銀(2801)靠近歷史高點，外資買盤能否延續？-詠晴K線解密",
@@ -1482,7 +1507,7 @@
       "symbol": "5880",
       "name": "合庫金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "合庫金 三大法人力挺",
@@ -1497,22 +1522,22 @@
           "vcp_relation": "VCP 3/5；量縮"
         },
         {
-          "title": "【11:28 即時新聞】合庫金(5880)盤中小漲，公股金控續列盤面焦點",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVU1ROXNQMEt0WTM0Wmpsd1FSVDhHb3k3dmUzZE1OaFh4dDVvOS1qRW1MQXktS2RFRmpsTVRIVU5wTTRoNlpRWExTYndhOUd5QXppM2hzcldYejBwREt0M1F3Nnpab21IdlZXdUtpZkpFc1JHMVZ4SHNIRWt2N2l3aFdkcTRHMjEtYUluUnJR?oc=5",
+          "title": "合庫金(5880)站上高檔區，獲利撐得起20倍本益比嗎？-Momentum 動能沈沈",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPd2x5LW1LaFBMZ3Y2WWphUjJqOHUtTmQ5VkgzNU5rRVUzOERuRVZiaEc3VDNtb3VFdl9hd3RfcWNCVXNPcExRV2JpOXRrQTJxUWkxNzFQQWpWTGxPZjFCSk5TVDZwbG9WcmxqbEdhNWx2TnZTTHEtWlJ2ZFpnZkJLd3JrOA?oc=5",
           "source": "CMoney投資網誌",
-          "published_at": "2026-10-29T11:29+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
+          "published_at": "2026-10-30T18:15+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
           "market_reaction": "當日價格反應相對有限（+0.3%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 3/5；量縮"
         },
         {
-          "title": "《熱門族群》金控股創高遇亂流！合庫金最猛 玉山金50元得而復失",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPVlRnUU55U2p6d3BKTHlLX055dDVZOFJhZTJvTklHUEFuZWk2NTA5am8tckZmRWhxQXdKeFhnRm54ZVJCNkduRjFnU0ZKdzlMRF9yYUM1dkVRUnk3UzJGU25mWWRVUnY3YUlYZjRCb2VBZ2hSTUhZeU4yNEVaMUtMTTM4QkdCajUz?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-27T11:08+08:00",
+          "title": "【11:28 即時新聞】合庫金(5880)盤中小漲，公股金控續列盤面焦點",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVU1ROXNQMEt0WTM0Wmpsd1FSVDhHb3k3dmUzZE1OaFh4dDVvOS1qRW1MQXktS2RFRmpsTVRIVU5wTTRoNlpRWExTYndhOUd5QXppM2hzcldYejBwREt0M1F3Nnpab21IdlZXdUtpZkpFc1JHMVZ4SHNIRWt2N2l3aFdkcTRHMjEtYUluUnJR?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-10-29T11:29+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -1526,41 +1551,17 @@
       "symbol": "6751",
       "name": "智聯服務",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
-          "title": "智聯服務獲利／自結9月 EPS 達0.72元 淨賺1,600萬元",
-          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5ERWNMOGlOdzdPOW5FMUJBSFZKOHkyNDVLZjNiYUpGb196WWJMX2wtV3lvaFNjUzM1Um10MF9JMlhrM2tkVWE0U0J1RHFFUHg3QW5VcnRNNGt0MWPSAWBBVV95cUxQVVhlaUdVNTNCTG9PVFdDMDhUU2xVNUhKTDF5OWVEbE9rbXZBaEs0bVdiS3AtMjZnOFltbVhYVHUxZmNsSUZYM2lpRlo3cHhvMWtvS0pNYVdVcW9ZSEJqd0o?oc=5",
-          "source": "經濟日報",
-          "published_at": "2026-10-30T17:00+08:00",
+          "title": "智聯服務獲利／自結9月EPS達0.72元 淨賺1,600萬元",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFAtS3JYRXZ3RFdtVzRKMll0bzU2UDFTMk1PRGFFMjZ3Qmk2am53VXZyZDFVazIzaXBnMTRQRVJtWUFQT19qWEFMUzRlRDJMM3RL0gFWQVVfeXFMTkVXV2VCdmFjbnBoaGxYcTRyM3JZWnVjSmlKcUFVYV80TnphY3VEeGE0bk1LRV9KRXdKeXFlLXlZNkpGNVdoeGlkX3k1WUxkdnlHOEhpeEE?oc=5",
+          "source": "UDN",
+          "published_at": "2026-10-27T17:49+08:00",
           "event": "財務／營運",
           "why": "可能改變市場對營運成長與獲利能力的預期。",
           "horizon": "中期",
           "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏弱（-4.1%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "《資服股》注意股：智聯服務 近5日漲22.49%",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPMU9Ba3hmTkRmVkM5R2VFOXNiaEhqR09pSDBrdzNXTnBCY1pkcXc4aEx0R0NFb213NmYxQ0dnTzF1UTM0VF9GcEVnVU1tX3dvaFVWVnlZUXROQ3ZhUXFseEZnc2xCdHZkZ2c2eUFFTnpfV01KUWRmOEJuSXc2Ukl3ZHpIblg5MEgz?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-30T08:04+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏弱（-4.1%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "《資服股》注意股：智聯服務 近5日漲37.56%",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNbEVHRUllX1dSOHQ1R0xvTUNSS0k5M2gxRDVOWXZkZ1Y5NlRqZWMzZElET2MwRXluNUk1c19Uc0VvM1ZYSkxqTVdTNU9MZF93WmNvWWNJR3J5WHZ6OTJIUEhpc1hQb2kxbkQ4MDdZM281VndUVE4wUExyaEdYRmhYaE40N3kzcmFM?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-29T08:02+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應偏弱（-4.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
@@ -1570,7 +1571,7 @@
       "symbol": "2254",
       "name": "巨鎧精密",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "【09:45 即時新聞】巨鎧精密-創(2254)盤中小幅走強，法人買盤延續成焦點",
@@ -1602,7 +1603,7 @@
       "symbol": "6199",
       "name": "天品",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "股價升天！天品再創新高 兩個月大漲逾7成",
@@ -1622,7 +1623,7 @@
       "symbol": "2033",
       "name": "佳大",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "【13:19 即時新聞】佳大(2033)盤中震盪小漲，鋼鐵資金關注續溫",
@@ -1666,14 +1667,27 @@
       "symbol": "6245",
       "name": "立端",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:26+08:00",
+      "items": [
+        {
+          "title": "【09:50 即時新聞】立端(6245)股價走強，無人機與網安題材成盤中焦點",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQaW1lOElxNDNjUk90c3BLcmMzZHhyczhDdnB4Nm9FX1ZjWlh5Vk5KUlVNcXprWTJvX2ZSV21tZlotempRRlp5N1lwTlpXOWFVOURsSTQ3SU1xOG5ORGRkMkRtNk5QajhFQkx0dXdURFNtVWVobER5V2Q2VUoza3VMWGQzS2E1MXdyckdKV09B?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-10-27T09:50+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-4.7%）。 目前仍在 VCP 成形階段。",
+          "vcp_relation": "VCP 4/5"
+        }
+      ]
     },
     "6415": {
       "symbol": "6415",
       "name": "矽力*-KY",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "6415 矽力*-KY - 台股是反彈再下殺？測試季線還是B波橫盤整理？利空利多互見～ - 股市爆料同學會",
@@ -1693,7 +1707,7 @@
       "symbol": "2890",
       "name": "永豐金",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "永豐金 技術指標偏多",
@@ -1708,26 +1722,26 @@
           "vcp_relation": "VCP 2/5"
         },
         {
-          "title": "2890 永豐金- 【本週復盤】金融股抗跌，「銀行金控」連3天收紅！ - 股市爆料同學會",
-          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBXUDROTEZRN01Lc3FHNndxQnU3U1pMc2JwYVhvZ1VqaFFCQ1J6dVl3aVNfQjFSejRuLWV4clRCUFdOODU5b3d4U2NsMy1Ma3JpZzhMYWpIZng?oc=5",
+          "title": "永豐金法說會／股價超車玉山金 朱士廷稱「可敬的對手」",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPOHVwWmtwN2R5VnJMMmI4TXlBUThwT2JLbzE3dnFabURGZFBQZjctLWVzWm5xY0hFTWtqVFVYd2hDWXpCc3RJLWpfZVRfRzhSZXJiLVdfTUt4Ykh6NjF5d1AwOUNtVGJMazh1M2dRTXQ0NmRXczlJWDFITGFGRnRZdmtR0gFfQVVfeXFMTWtiTE01X3Z0NGtJR0lsbUtRZUNlNkhFNlh2MTRDMUtsTDZJOU1IemNWV0pTSEsybzdNWnQ1cjRZRFNxQjhETl9TYlZkVW9SZHMzdldzTC1mZkNmWWxtdVE?oc=5",
+          "source": "經濟日報",
+          "published_at": "2026-10-30T17:00+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+0.1%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
+        {
+          "title": "大跌1156點後，永豐金還在高檔撐住？",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE4tXzFFZjBGT094b18xZ0dPUXh3Zk01TlBGTWpQNHJ3ZFZ4RDlmcnpkeWtRUU1CWDZ5N0hVRU1KWkVTVGM3d0tqaHo2a1dISGI2M0ZMb0lMVHo?oc=5",
           "source": "CMoney",
           "published_at": "2026-10-31T13:12+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
           "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+0.1%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "永豐金(2890)現增牽動17.3億元認購，籌碼結構會怎麼變？-Momentum 動能沈沈",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQNTFLLU1WVXJqMG1PdUhBYkVnSm9pY21DdXk1UmxqS1hFdUlYMnBlbW4zSE1KR2ZSdElWYVlXU0dLSktmSTFvYko2WkdUSkdRWXktSVpQWW5iQmpFZFRPZGhDd3lraG9RQW9sRl90UE1kWkFsM1FpZ3E4REktS0xQVE1CYw?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-10-30T14:14+08:00",
-          "event": "資本／股東回饋",
-          "why": "資本結構或股東回饋政策可能影響市場對資金運用的解讀。",
-          "horizon": "短中期",
-          "possible_impact": "資本結構、股東回饋、股本",
           "market_reaction": "當日價格反應相對有限（+0.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
@@ -1737,20 +1751,57 @@
       "symbol": "3708",
       "name": "上緯投控",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
-      "items": []
+      "updated_at": "2026-11-02T09:26+08:00",
+      "items": [
+        {
+          "title": "上緯投控(3708) 個股概覽 | 個股 - 股市",
+          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8wQjhCY3E1NktvazU4VURESHdJY2FqMDBReWNfSjMxRExvTGVweEhBUlNHSHRrRThrY1g4dXkxdGZfTldheXVoUS0wYzdjRGJzdVVv?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-10-30T10:27+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-3.4%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 1/5"
+        },
+        {
+          "title": "【12:15 即時新聞】上緯投控(3708)股價走強，AI機器人與再生材料成盤中焦點",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxORVdpdWtmczNWRktCTlhRbUFOMDRyNURzdnc5c3lXSWNsZ1Q3Y2l4eThVeVZaaDF6dE9xZVg3ZWxhNXMzVDdFLXR1QWlfYS1aOVF6RkFvQzBHODBiTmswSVRCU0N5TWlqaVFhUldoRURTXzdURlhyaFRBVzNwZFBhZXRhRDRZMVNNcldwS0V3?oc=5",
+          "source": "CMoney投資網誌",
+          "published_at": "2026-10-28T12:15+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-3.4%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 1/5"
+        }
+      ]
     },
     "2352": {
       "symbol": "2352",
       "name": "佳世達",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
-          "title": "【1030台股盤後】外資狂倒約略1125億創史上第七大！重點觀察融資餘額與美國期中選舉，弱勢盤鎖定投本比【精測】、【富世達】、【佳世達】｜豐雲學堂2026 年 10 月",
-          "url": "https://news.google.com/rss/articles/CBMi3AVBVV95cUxOX1IwVE5Zam1Sa0lUVFB1akE5eWlVRG9GcmNXamhNVllBVTdHcDRUaTNMWlplaVFOU1hBREh3WGg2Rk82dHRjZTc1MGVTTnJVTFRZZEhCR1NKQmdiQ2VjTkFsbEd4QTB2Z0lQazV5WDJHTUdSQVNwN1BORE5TZjNOcmNmUTN2WXNWNXNWTURIbHdta3lpWVRlM21TM3Z4ajdQdF9KeUhNYTlELXg1Sm9GcmxtckRRYXNiSDluZDV6R2ZPcGxmUnRYOS1kYTJ3SVQtbldfREktLXNHeWYzZGRTaU5KQmliY3J0THBFVVc3Y292VHhWVEJxdHZkLUFkb3dpSGFnLWQtOGQ1SW8tRmJiYVdBOVNzdksxbjFoY044RERDSG41ODdpcEM2NnFILUhueF9HUU5uMC1UMUViS0Jud0kzVThNZGlkSk9LY2NDUFQ1SlRodnJXblhpOUk0ZE9mSEdLMkg2dmNfR25tcDYxNVBzNlZndzh6YjRBQnhGdnhJTkh0YXZ3WUtJenRTV2dvY0gyUHdnTmJ5LXhHUTRTMzlpVDJKTUtyOFJ6OXUyTE82eUl1MzltTnhZR1BwUDZZbnd6UV81Tll3T1Ytc3JhOGhnckVHTFFsMnRKV2lwUUEzTEs2NXpVS1ktMkstOWFQVDgyRGliV3Fzc3RYazBFQzFPQkZ4eVRMWnh5X1lHSXU0dUtqeXFRaFBZRXZuUV91cmEwQ2ZUV3dCZXVVckVIYXhOamlVeFpic3lWa0RyTzV6Rnk0d1A4VnpjdDNGdFJVSUlZU1BOVlBCMkk1VGhEc09aMjJOMjUxN3VzWEpRV3IwNUdUNzZCU3V0Q2x1VnNXWGtLQU1HS2NZWF95T1RtaUcxMGNkU2R2RVF6WXhyQml6c21nYjkwUHp2dzcyRVRyRDMtWDB5YUNWbVBFSTdyOWdBcUdMWHc3aVJ1cXNuRGtIVV9fM0dJV3F6RVM?oc=5",
+          "title": "佳世達2026營收及獲利優於去年，明年AI伺服器成長至少五倍",
+          "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE8tbDF3dU13RnZzY1JwenRSNU1rX2ZCQWNubm5VSE5FOTRVdDZSSFlUbW5pMGF0bnFrV0NSbEQtckdNVFZYR0pEX1hadi11dElEa1lXN2NZX2Y?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-11-02T06:57+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應偏強（+3.0%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
+        {
+          "title": "【1102台股盤前】外資狂倒約略1125億創史上第七大！重點觀察融資餘額與美國期中選舉，弱勢盤鎖定投本比【精測】、【富世達】、【佳世達】｜豐雲學堂2026 年 11 月",
+          "url": "https://news.google.com/rss/articles/CBMi3AVBVV95cUxOSlhrVXlGUlljVy1ZY09IckJGb0xzVTNpS0E2Zy0wSHBISTV4M05YV3Y0dVdQSVk5eWRqOEZrSlJGclJlSzFzM2xvdTB6ZXpPRG84RllfY3l3VE1fR1BadFlKd0h2M0VoclUtNXF2ZjMtTUcweVRVMk1od0xQN3FmaFQtMkNLRW5KVzFDVERhV202UmhWSkd1MGZBWTZFdnh2bnU2Rl9idkxmS0ZDUVJTYTZtTlp6V1psUGdYdUxuZ2wtRXV2Um9URVVmUzNQVUZZMEpUMXJPRWVVN3lFbkhSNl9CX2NyNDVpM25XZ2hZYVAtNUZmOWpXLVFHb3BWSlozaS1Id0F6TG4ybUpfZl8wVEVuRjJFa1VocWZUYlk5TEF0VW13MXpBQU9TRlRnbXU5YXRyVU5yT1VRaUlscFFSVzViLVdSUmJuR2tBUEVjYjdZLVotZmVzRWMxcTRCRWFLeklncUZaNGpISmR3cTZyaXEzNnJNMUpOeEozZ1hLZjZTUWQ0XzgyZUdsMmIySURjZGVTOWJKMldqQUxjeERaRmpjSXlLbldtZktubEF0MzBOUWhjbzNMY3hWcHh5Yzl4aExtQkJyNDg5SUREVDRQa1g1SnUzZUp4Sk91LW5nZjNOMjlSdWt1ZFQtOXNrU2kwVTFna2ZTTHkzR1pnaTdDQUYxZm5fbXh0NWpOTFJSQ2RoZk5FbHhhdnVyYVVlV3lrSlF2WC1SeE5ieG5MT29YWmdUSGFSa2hNQUM4QlRnblBqWTZfWVJFNGtLVmZjUHdpaXoyYUdMVG1JeHA0enRHZ0w3Tk1RTWF1ZF9TUk1mNndROUh6Q3JPdV9NVlpsTTV6U0xpb0tkdTJ4N3BXZHdyQ3haVV9UTUxONmF4NFhHMFNEWEdCRDc2TXc2S2RrMVFHUjd4QnhHbXdNV2ZPSXNqZktvMnh1OXQ0TFFJUTRVSnVZMHdPVjFaRWlIUWU?oc=5",
           "source": "永豐金證券",
-          "published_at": "2026-11-01T15:07+08:00",
+          "published_at": "2026-11-02T08:13+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
@@ -1769,18 +1820,6 @@
           "possible_impact": "營收、訂單能見度、產能利用率",
           "market_reaction": "當日價格反應偏強（+3.0%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "佳世達無人機接單報捷，2027月出貨拚千台",
-          "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxPZzlCQWNTc2t4OVRFSlhMRmx1c0NOakd2Q1JBMmJxbUJiZEpuSC02Qk9WMkJOeHFWVXFfVi01a3ZrU2ZGUV8xUC1EUWYyN2VJZ1hkV2RnZGN0MXNWc1F0NFVJWnFwV1gyTjhXTjVDLXoya1FOVF9tb1Y4Ny1jYUhpTTVMa2RhZ2FYNFJuUXI0TUtxUFRJREc5X1BhUU5TSU1rY0h4Y3VUYlVCamxCQ0E5OHhpaHl3a1F2d21CbGRFSFc2Y2tOYi14a0lfNEpybmVpZlJaYnRqUE1XWGVhN0tlRENBRUxiUVZxSzUtUWRDZDJlSHEyenBobTV0MDlTNl93T1ZYWW5TTkI5d0J2MmZSb1J1V3EyTjdtcF9Ja2pOSkRtdw?oc=5",
-          "source": "Yahoo股市",
-          "published_at": "2026-10-29T12:29+08:00",
-          "event": "訂單／需求",
-          "why": "訂單與需求變化通常會影響未來營收能見度與產能利用。",
-          "horizon": "中期",
-          "possible_impact": "營收、訂單能見度、產能利用率",
-          "market_reaction": "當日價格反應偏強（+3.0%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
         }
       ]
     },
@@ -1788,8 +1827,20 @@
       "symbol": "6870",
       "name": "騰雲",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
+        {
+          "title": "騰雲(6870) 個股概覽 | 個股 - 股市",
+          "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1UVXZBcDdyMFFkVEdpRTd3R3AwMEFwbzI3Vjg5WTFORlRrWkNxM3UyVUNEb1dobjhCTzYxd0VlaEVpYXVYM2g3NDg3WFdWMnJseElR?oc=5",
+          "source": "CMoney",
+          "published_at": "2026-11-01T18:35+08:00",
+          "event": "公司／產業動態",
+          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
+          "horizon": "短中期",
+          "possible_impact": "營運、需求與市場預期",
+          "market_reaction": "當日價格反應偏弱（-3.0%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
         {
           "title": "《數雲端》注意股：騰雲 近5日漲15.07%",
           "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOb3doaVRxd3FWb3JMT0JaZXdNekNacE5BNG5KQ2dKNTBQYjlhUGFJSk5aeVctNDJaSVBldmhfLWR0ZDdPR1Y3bm1jUHVnNWtKOFVpWXFKcGdfZjNHV1ZjdFY3dmhKMjdBVUdKakJWeXM4ZFNJaW5kQk0zZEYydWs3aVF1ZUsxZjl2?oc=5",
@@ -1813,18 +1864,6 @@
           "possible_impact": "營運、需求與市場預期",
           "market_reaction": "當日價格反應偏弱（-3.0%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "AI 帶動智慧場域需求擴大！騰雲(6870)有底撐型態，短線狂噴 13.5%-Sara Wang",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8taWlXSnYzV25CejlxQnBMT0NQVXU5YkpzUHk2ZTVCSllKdUZsWWpyVVlHd1k1STlIYUFnQ0tqX3VSRGdJM0JMNHptR25tek5JRThkRVBiTkRGeUFLcnB6dEx2VVdRSUdWeGcyNVB0QTBrMGJQeGdDWUdlTQ?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-10-28T16:25+08:00",
-          "event": "訂單／需求",
-          "why": "訂單與需求變化通常會影響未來營收能見度與產能利用。",
-          "horizon": "中期",
-          "possible_impact": "營收、訂單能見度、產能利用率",
-          "market_reaction": "當日價格反應偏弱（-3.0%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
         }
       ]
     },
@@ -1832,14 +1871,14 @@
       "symbol": "5388",
       "name": "中磊",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": []
     },
     "3105": {
       "symbol": "3105",
       "name": "穩懋",
       "market": "TW",
-      "updated_at": "2026-11-02T07:01+08:00",
+      "updated_at": "2026-11-02T09:26+08:00",
       "items": [
         {
           "title": "3105 穩懋- 〈熱門股〉穩懋Q3財報佳績+AI光通訊大廠收購題材周漲19%站上所有均線- 股市爆料同學會",
