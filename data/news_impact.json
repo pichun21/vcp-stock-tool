@@ -3,11 +3,11 @@
   "status": "ok",
   "market": "TW",
   "mode": "intraday",
-  "generated_at": "2026-11-03T11:26:17+08:00",
+  "generated_at": "2026-11-03T12:09:13+08:00",
   "source_note": "近期新聞由 Google News RSS 公開索引彙整；VCPulse 僅整理事件、可能影響與當下價格反應，不預測新聞一定造成上漲或下跌。",
   "updated_stocks": 60,
-  "ok": 60,
-  "failed": 0,
+  "ok": 0,
+  "failed": 60,
   "stocks": {
     "3004": {
       "symbol": "3004",
@@ -51,7 +51,8 @@
           "market_reaction": "當日價格反應偏強（+7.6%）。 目前為今日帶量突破 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%B1%90%E9%81%94%E7%A7%91%22+%E5%8F%B0%E8%82%A1+OR+3004&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2610": {
       "symbol": "2610",
@@ -95,7 +96,8 @@
           "market_reaction": "當日價格反應偏強（+2.5%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%8F%AF%E8%88%AA%22+%E5%8F%B0%E8%82%A1+OR+2610&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2491": {
       "symbol": "2491",
@@ -139,7 +141,8 @@
           "market_reaction": "當日價格反應偏強（+10.0%）。 目前為今日帶量突破 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%90%89%E7%A5%A5%E5%85%A8%22+%E5%8F%B0%E8%82%A1+OR+2491&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2006": {
       "symbol": "2006",
@@ -159,7 +162,8 @@
           "market_reaction": "當日價格反應相對有限（+1.8%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%9D%B1%E5%92%8C%E9%8B%BC%E9%90%B5%22+%E5%8F%B0%E8%82%A1+OR+2006&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "5904": {
       "symbol": "5904",
@@ -203,7 +207,8 @@
           "market_reaction": "當日價格反應相對有限（+1.1%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%AF%B6%E9%9B%85%2A%22+%E5%8F%B0%E8%82%A1+OR+5904&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2637": {
       "symbol": "2637",
@@ -247,7 +252,8 @@
           "market_reaction": "當日價格反應相對有限（+1.0%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%85%A7%E6%B4%8B-KY%22+%E5%8F%B0%E8%82%A1+OR+2637&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "6214": {
       "symbol": "6214",
@@ -291,14 +297,16 @@
           "market_reaction": "當日價格反應相對有限（+0.5%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%B2%BE%E8%AA%A0%22+%E5%8F%B0%E8%82%A1+OR+6214&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "4771": {
       "symbol": "4771",
       "name": "望隼",
       "market": "TW",
       "updated_at": "2026-11-03T11:25+08:00",
-      "items": []
+      "items": [],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%9C%9B%E9%9A%BC%22+%E5%8F%B0%E8%82%A1+OR+4771&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "8454": {
       "symbol": "8454",
@@ -342,7 +350,8 @@
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 5/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%AF%8C%E9%82%A6%E5%AA%92%22+%E5%8F%B0%E8%82%A1+OR+8454&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2618": {
       "symbol": "2618",
@@ -386,7 +395,8 @@
           "market_reaction": "當日價格反應相對有限（+1.1%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 5/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%95%B7%E6%A6%AE%E8%88%AA%22+%E5%8F%B0%E8%82%A1+OR+2618&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "3029": {
       "symbol": "3029",
@@ -430,7 +440,8 @@
           "market_reaction": "當日價格反應相對有限（-0.8%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%9B%B6%E5%A3%B9%22+%E5%8F%B0%E8%82%A1+OR+3029&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2884": {
       "symbol": "2884",
@@ -474,7 +485,8 @@
           "market_reaction": "當日價格反應相對有限（-0.7%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%8E%89%E5%B1%B1%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2884&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2897": {
       "symbol": "2897",
@@ -518,7 +530,8 @@
           "market_reaction": "當日價格反應相對有限（-0.5%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%8E%8B%E9%81%93%E9%8A%80%E8%A1%8C%22+%E5%8F%B0%E8%82%A1+OR+2897&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "2615": {
       "symbol": "2615",
@@ -562,7 +575,8 @@
           "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%90%AC%E6%B5%B7%22+%E5%8F%B0%E8%82%A1+OR+2615&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2027": {
       "symbol": "2027",
@@ -606,7 +620,8 @@
           "market_reaction": "當日價格反應相對有限（+0.2%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%A4%A7%E6%88%90%E9%8B%BC%22+%E5%8F%B0%E8%82%A1+OR+2027&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2834": {
       "symbol": "2834",
@@ -650,7 +665,8 @@
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前接近 Pivot。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%87%BA%E4%BC%81%E9%8A%80%22+%E5%8F%B0%E8%82%A1+OR+2834&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "3105": {
       "symbol": "3105",
@@ -694,7 +710,8 @@
           "market_reaction": "當日價格反應相對有限（+1.7%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%A9%A9%E6%87%8B%22+%E5%8F%B0%E8%82%A1+OR+3105&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2723": {
       "symbol": "2723",
@@ -714,7 +731,8 @@
           "market_reaction": "當日價格反應相對有限（+0.8%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%BE%8E%E9%A3%9F-KY%22+%E5%8F%B0%E8%82%A1+OR+2723&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2609": {
       "symbol": "2609",
@@ -758,7 +776,8 @@
           "market_reaction": "當日價格反應相對有限（+0.8%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%99%BD%E6%98%8E%22+%E5%8F%B0%E8%82%A1+OR+2609&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "1722": {
       "symbol": "1722",
@@ -778,7 +797,8 @@
           "market_reaction": "當日價格反應相對有限（+0.5%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%8F%B0%E8%82%A5%22+%E5%8F%B0%E8%82%A1+OR+1722&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "6121": {
       "symbol": "6121",
@@ -798,7 +818,8 @@
           "market_reaction": "當日價格反應相對有限（+0.1%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%96%B0%E6%99%AE%22+%E5%8F%B0%E8%82%A1+OR+6121&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2379": {
       "symbol": "2379",
@@ -842,7 +863,8 @@
           "market_reaction": "當日價格反應偏弱（-2.2%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%91%9E%E6%98%B1%22+%E5%8F%B0%E8%82%A1+OR+2379&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "4967": {
       "symbol": "4967",
@@ -886,7 +908,8 @@
           "market_reaction": "當日價格反應相對有限（-2.0%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%8D%81%E9%8A%93%22+%E5%8F%B0%E8%82%A1+OR+4967&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2889": {
       "symbol": "2889",
@@ -906,14 +929,16 @@
           "market_reaction": "當日價格反應相對有限（-1.8%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%9C%8B%E7%A5%A8%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2889&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2377": {
       "symbol": "2377",
       "name": "微星",
       "market": "TW",
       "updated_at": "2026-11-03T11:26+08:00",
-      "items": []
+      "items": [],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%BE%AE%E6%98%9F%22+%E5%8F%B0%E8%82%A1+OR+2377&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2880": {
       "symbol": "2880",
@@ -957,7 +982,8 @@
           "market_reaction": "當日價格反應相對有限（-1.6%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%8F%AF%E5%8D%97%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2880&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2606": {
       "symbol": "2606",
@@ -1001,7 +1027,8 @@
           "market_reaction": "當日價格反應相對有限（-0.5%）。 目前仍在 VCP 成形階段。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%A3%95%E6%B0%91%22+%E5%8F%B0%E8%82%A1+OR+2606&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2886": {
       "symbol": "2886",
@@ -1045,14 +1072,16 @@
           "market_reaction": "當日價格反應相對有限（-1.3%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%85%86%E8%B1%90%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2886&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2850": {
       "symbol": "2850",
       "name": "新產",
       "market": "TW",
       "updated_at": "2026-11-03T11:26+08:00",
-      "items": []
+      "items": [],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%96%B0%E7%94%A2%22+%E5%8F%B0%E8%82%A1+OR+2850&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "1402": {
       "symbol": "1402",
@@ -1072,7 +1101,8 @@
           "market_reaction": "當日價格反應相對有限（+1.1%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%81%A0%E6%9D%B1%E6%96%B0%22+%E5%8F%B0%E8%82%A1+OR+1402&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2031": {
       "symbol": "2031",
@@ -1092,7 +1122,8 @@
           "market_reaction": "當日價格反應相對有限（+0.0%）。 目前仍在 VCP 成形階段。",
           "vcp_relation": "💎 結構品質佳；VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%96%B0%E5%85%89%E9%8B%BC%22+%E5%8F%B0%E8%82%A1+OR+2031&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "1477": {
       "symbol": "1477",
@@ -1136,14 +1167,16 @@
           "market_reaction": "當日價格反應相對有限（-0.7%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%81%9A%E9%99%BD%22+%E5%8F%B0%E8%82%A1+OR+1477&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "4736": {
       "symbol": "4736",
       "name": "泰博",
       "market": "TW",
       "updated_at": "2026-11-03T11:26+08:00",
-      "items": []
+      "items": [],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%B3%B0%E5%8D%9A%22+%E5%8F%B0%E8%82%A1+OR+4736&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "5876": {
       "symbol": "5876",
@@ -1175,7 +1208,8 @@
           "market_reaction": "當日價格反應相對有限（-0.4%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E4%B8%8A%E6%B5%B7%E5%95%86%E9%8A%80%22+%E5%8F%B0%E8%82%A1+OR+5876&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "1102": {
       "symbol": "1102",
@@ -1195,7 +1229,8 @@
           "market_reaction": "當日價格反應相對有限（+0.1%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E4%BA%9E%E6%B3%A5%22+%E5%8F%B0%E8%82%A1+OR+1102&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "6751": {
       "symbol": "6751",
@@ -1239,7 +1274,8 @@
           "market_reaction": "當日價格反應偏強（+10.0%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%99%BA%E8%81%AF%E6%9C%8D%E5%8B%99%22+%E5%8F%B0%E8%82%A1+OR+6751&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "6697": {
       "symbol": "6697",
@@ -1283,7 +1319,8 @@
           "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 3/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%9D%B1%E6%8D%B7%E8%B3%87%E8%A8%8A%22+%E5%8F%B0%E8%82%A1+OR+6697&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "2892": {
       "symbol": "2892",
@@ -1327,7 +1364,8 @@
           "market_reaction": "當日價格反應偏弱（-2.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 3/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%AC%AC%E4%B8%80%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2892&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "5013": {
       "symbol": "5013",
@@ -1371,7 +1409,8 @@
           "market_reaction": "當日價格反應偏強（+10.0%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%BC%B7%E6%96%B0%22+%E5%8F%B0%E8%82%A1+OR+5013&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "8099": {
       "symbol": "8099",
@@ -1415,7 +1454,8 @@
           "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%A4%A7%E4%B8%96%E7%A7%91%22+%E5%8F%B0%E8%82%A1+OR+8099&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2465": {
       "symbol": "2465",
@@ -1459,7 +1499,8 @@
           "market_reaction": "當日價格反應偏強（+9.8%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%BA%97%E8%87%BA%22+%E5%8F%B0%E8%82%A1+OR+2465&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2352": {
       "symbol": "2352",
@@ -1503,7 +1544,8 @@
           "market_reaction": "當日價格反應偏弱（-5.5%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E4%BD%B3%E4%B8%96%E9%81%94%22+%E5%8F%B0%E8%82%A1+OR+2352&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2801": {
       "symbol": "2801",
@@ -1547,7 +1589,8 @@
           "market_reaction": "當日價格反應相對有限（+0.5%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 3/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%BD%B0%E9%8A%80%22+%E5%8F%B0%E8%82%A1+OR+2801&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2466": {
       "symbol": "2466",
@@ -1591,7 +1634,8 @@
           "market_reaction": "當日價格反應偏強（+7.3%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%86%A0%E8%A5%BF%E9%9B%BB%22+%E5%8F%B0%E8%82%A1+OR+2466&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2254": {
       "symbol": "2254",
@@ -1623,7 +1667,8 @@
           "market_reaction": "當日價格反應偏強（+2.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%B7%A8%E9%8E%A7%E7%B2%BE%E5%AF%86%22+%E5%8F%B0%E8%82%A1+OR+2254&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "7704": {
       "symbol": "7704",
@@ -1667,7 +1712,8 @@
           "market_reaction": "當日價格反應偏弱（-2.6%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%98%8E%E9%81%A0%E7%B2%BE%E5%AF%86%22+%E5%8F%B0%E8%82%A1+OR+7704&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "6233": {
       "symbol": "6233",
@@ -1711,7 +1757,8 @@
           "market_reaction": "當日價格反應偏強（+10.0%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 1/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%97%BA%E7%8E%96%22+%E5%8F%B0%E8%82%A1+OR+6233&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "6199": {
       "symbol": "6199",
@@ -1755,7 +1802,8 @@
           "market_reaction": "當日價格反應相對有限（+1.2%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%A4%A9%E5%93%81%22+%E5%8F%B0%E8%82%A1+OR+6199&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2603": {
       "symbol": "2603",
@@ -1799,7 +1847,8 @@
           "market_reaction": "當日價格反應相對有限（+1.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%95%B7%E6%A6%AE%22+%E5%8F%B0%E8%82%A1+OR+2603&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "1216": {
       "symbol": "1216",
@@ -1843,7 +1892,8 @@
           "market_reaction": "當日價格反應相對有限（+0.5%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%B5%B1%E4%B8%80%22+%E5%8F%B0%E8%82%A1+OR+1216&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2412": {
       "symbol": "2412",
@@ -1887,7 +1937,8 @@
           "market_reaction": "當日價格反應相對有限（-0.3%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E4%B8%AD%E8%8F%AF%E9%9B%BB%22+%E5%8F%B0%E8%82%A1+OR+2412&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "5880": {
       "symbol": "5880",
@@ -1919,7 +1970,8 @@
           "market_reaction": "當日價格反應相對有限（+0.2%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%90%88%E5%BA%AB%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+5880&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "4577": {
       "symbol": "4577",
@@ -1963,7 +2015,8 @@
           "market_reaction": "當日價格反應偏強（+3.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 1/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%81%94%E8%88%AA%E7%A7%91%E6%8A%80%22+%E5%8F%B0%E8%82%A1+OR+4577&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "6416": {
       "symbol": "6416",
@@ -1983,7 +2036,8 @@
           "market_reaction": "當日價格反應偏弱（-2.1%）。 目前仍在 VCP 成形階段。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E7%91%9E%E7%A5%BA%E9%9B%BB%E9%80%9A%22+%E5%8F%B0%E8%82%A1+OR+6416&hl=zh-TW&gl=TW&ceid=TW:zh-"
     },
     "6561": {
       "symbol": "6561",
@@ -2027,7 +2081,8 @@
           "market_reaction": "當日價格反應偏弱（-2.1%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 1/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E6%98%AF%E6%96%B9%22+%E5%8F%B0%E8%82%A1+OR+6561&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2883": {
       "symbol": "2883",
@@ -2071,7 +2126,8 @@
           "market_reaction": "當日價格反應相對有限（-1.5%）。 目前仍在 VCP 成形階段。",
           "vcp_relation": "VCP 4/5；量縮"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%87%B1%E5%9F%BA%E9%87%91%22+%E5%8F%B0%E8%82%A1+OR+2883&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "9917": {
       "symbol": "9917",
@@ -2091,7 +2147,8 @@
           "market_reaction": "當日價格反應相對有限（+1.4%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 1/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E4%B8%AD%E4%BF%9D%E7%A7%91%22+%E5%8F%B0%E8%82%A1+OR+9917&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2887": {
       "symbol": "2887",
@@ -2401,7 +2458,8 @@
           "market_reaction": "當日價格反應偏弱（-5.8%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E9%A8%B0%E9%9B%B2%22+%E5%8F%B0%E8%82%A1+OR+6870&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "1232": {
       "symbol": "1232",
@@ -2445,51 +2503,8 @@
           "market_reaction": "當日價格反應相對有限（+1.2%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
-    },
-    "4741": {
-      "symbol": "4741",
-      "name": "泓瀚",
-      "market": "TW",
-      "updated_at": "2026-11-03T11:26+08:00",
-      "items": [
-        {
-          "title": "【09:31 即時新聞】泓瀚(4741)亮燈漲停，短線籌碼轉弱下股價急攻",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNZkhaT0g0bURSbGtYa2VfeFFLQjdUUEptaXRkV21sZlBhSzQyeGlYUTE4Y21ud2pEOGRuMXVhdmhZdmJDbXJva2hmajM0UmRMRmExRDl6RG1CaHA3V2Ital9pOTE0X21QV3JfY1JIVUlhcGZhNjJORHZUb3JXaHFlR1dkUE96RFptcWZVb05B?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-11-02T09:32+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏弱（-3.4%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 1/5"
-        },
-        {
-          "title": "盈餘：泓瀚(4741)股價遭警示，自結9月歸屬母公司淨利480萬元，EPS 0.14元",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRU1fMjFxby1mRktSN2x0cU9vNnYwSkNUc2FGUE1zRk1nOWV1TlFqQmJyazBRaWlMbVJYRFQ5dnpqYWNncGVqVDhaRDhXazFfako3Q05RWDVoQWRsb0ZMUVdRelUwV0d6dkdMRUVQOTFBUjBrTGpyTTQ0QU9odHRlTDVWNU0yRHVD?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-30T15:21+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏弱（-3.4%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 1/5"
-        },
-        {
-          "title": "《化工股》注意股：泓瀚 近5日漲22.95%",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQTmNEWGRQVmQ3cE54ZDk3WlZYWUVTSVM2UHBReGhpTHAwdEFtMjkwZTlTa2w0SVZrYmgzWldCSHRLUGdsZDFmNDQ3QUhzcDdfRkhVVUVqLWtQaWVfa05LSDZMVzlucnZVTTcyenFkd2QweUVuU0k5aTg5UTVSY0Vhck1HLThEdnlm?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-10-30T07:47+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏弱（-3.4%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 1/5"
-        }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E5%A4%A7%E7%B5%B1%E7%9B%8A%22+%E5%8F%B0%E8%82%A1+OR+1232&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "2468": {
       "symbol": "2468",
@@ -2533,51 +2548,8 @@
           "market_reaction": "當日價格反應偏強（+2.2%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 2/5"
         }
-      ]
-    },
-    "3704": {
-      "symbol": "3704",
-      "name": "合勤控",
-      "market": "TW",
-      "updated_at": "2026-11-03T11:26+08:00",
-      "items": [
-        {
-          "title": "財報：合勤控(3704)115年前三季稅後盈餘10億9906萬元，EPS 2.71元",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOU9lWmhBT1lpdTRid3kyTWN2UWRQODE2ZFY1U25kOXVjZTVwV0hXYjZfU0hJNlRlMUpVbkJ2MmQ2ZFNZVVpkNkowSXc0YTNBMTAta1dFTkRERnB1ME1RWHl2M085MVhFV0F3aFZRT1g0WWRlQk9zRUx0MEN6eXNBOUNKQnlvdzZw?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-11-03T07:05+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏強（+2.1%）。 目前仍在 VCP 成形階段。",
-          "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "個股：獲利同增！合勤控(3704)前三季EPS 2.71元、榮昌(3684)EPS 2.59元",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNR1cyWGR6dFdDRmdqQjhfQkx5SzRBWEhpMkZZX0lkOEszX0VLWUJiSHA0WVljRnV0VTN5c1V1cHprWUxvb1NoNTVGSEx0SHI3dzA1anZvWWt0eXNjS25BOE03NWJXWW5fTkZTY1ViNEtiejJYNUVNbDFnRldMa29GWjh2dXMteWZh?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-11-03T10:13+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏強（+2.1%）。 目前仍在 VCP 成形階段。",
-          "vcp_relation": "VCP 4/5；量縮"
-        },
-        {
-          "title": "合勤控 Q3 EPS 1.15元",
-          "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE13LXkwbXVTMFB3bzlXWWlQVXdpV1EzbUpYUjhXSXVOZ2xoeGdmUzFtR29RTkFYQUJQbE9ydUFTX0FqZVJDRDhfMlVaQzNIZ0Y4dVNpb1pn0gFWQVVfeXFMTXcteTBtdVMwUHdvOVdZaVBVd2lXUTNtSlhSOFdJdU5nbGh4Z2ZTMW1Hb1FOQVhBQlBsT3J1QVNfQWplUkNEOF8yVVpDM0hnRjh1U2lvWmc?oc=5",
-          "source": "UDN",
-          "published_at": "2026-11-03T01:03+08:00",
-          "event": "財務／營運",
-          "why": "可能改變市場對營運成長與獲利能力的預期。",
-          "horizon": "中期",
-          "possible_impact": "營收、毛利率、EPS、公司財測",
-          "market_reaction": "當日價格反應偏強（+2.1%）。 目前仍在 VCP 成形階段。",
-          "vcp_relation": "VCP 4/5；量縮"
-        }
-      ]
+      ],
+      "fetch_error": "503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22%E8%8F%AF%E7%B6%93%22+%E5%8F%B0%E8%82%A1+OR+2468&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     }
   }
 }
