@@ -1,0 +1,81 @@
+diff --git a/app.js b/app.js
+index a493f50..a4b3450 100644
+--- a/app.js
++++ b/app.js
+@@ -3160,6 +3160,13 @@ function setRadarSnapshot(kind){
+ }
+ 
+ 
++function msDataWarnings(x){
++  const out=[];
++  if(x.sample_warning) out.push(`樣本不足：今日候選僅 ${Number(x.candidate_count)} 檔（低於 ${Number(x.min_reliable_candidates)} 檔），比例容易失真，狀態僅供參考。`);
++  const gaps=x.gap_dates_5d||[];
++  if(gaps.length) out.push(`資料可能有缺：${gaps.map(d=>escHtml(String(d).slice(5).replace('-','/'))).join('、')} 無紀錄（休市日也會列出），1 日／5 日變化可能不是連續交易日。`);
++  return out.map(t=>`<div class="ms-warn">⚠️ ${t}</div>`).join('');
++}
+ async function loadMarketStructure(){
+  const body=document.getElementById('msBody'), updated=document.getElementById('msUpdated'); if(!body)return;
+  const icon={EXPANSION:'🌱',MATURE_BULL:'🌿',DETERIORATION:'⚠️',CONTRACTION:'🍂',NEUTRAL_TRANSITION:'↔️',OVERHEATED:'🌡️',INSUFFICIENT_HISTORY:'⏳'};
+@@ -3169,7 +3176,7 @@ async function loadMarketStructure(){
+   if(x.status!=='ok'){
+     body.innerHTML=`<div class="ms-state-wrap"><div class="ms-icon">⏳</div><div><div class="ms-state">資料累積中</div><div class="ms-code">至少需要前一個正式收盤 Breadth 才能判斷方向</div></div></div>`;
+   }else{
+-    body.innerHTML=`<div class="ms-body"><div class="ms-state-wrap"><div class="ms-icon">${icon[x.state]||'🧭'}</div><div><div class="ms-state">${escHtml(x.label||'—')}</div><div class="ms-code">${escHtml(x.state||'—')}</div></div></div><div class="ms-metrics"><div class="ms-chip">市場廣度 <b>${Number(x.breadth_score).toFixed(1)}</b></div><div class="ms-chip">1日變化 <b>${fmtDelta(x.delta_1d)}</b></div><div class="ms-chip">5日變化 <b>${fmtDelta(x.delta_5d)}</b></div><div class="ms-chip">延伸比 <b>${(Number(x.extension_ratio)*100).toFixed(1)}%</b></div></div></div><div class="ms-note">研究規則已於 2026/09/17 凍結；顯示市場內部結構，不代表未來報酬。</div>`;
++    body.innerHTML=`<div class="ms-body"><div class="ms-state-wrap"><div class="ms-icon">${icon[x.state]||'🧭'}</div><div><div class="ms-state">${escHtml(x.label||'—')}</div><div class="ms-code">${escHtml(x.state||'—')}</div></div></div><div class="ms-metrics"><div class="ms-chip">市場廣度 <b>${Number(x.breadth_score).toFixed(1)}</b></div><div class="ms-chip">1日變化 <b>${fmtDelta(x.delta_1d)}</b></div><div class="ms-chip">5日變化 <b>${fmtDelta(x.delta_5d)}</b></div><div class="ms-chip">延伸比 <b>${(Number(x.extension_ratio)*100).toFixed(1)}%</b></div></div></div><div class="ms-note">研究規則已於 2026/09/17 凍結；顯示市場內部結構，不代表未來報酬。</div>${msDataWarnings(x)}`;
+   }
+   updated.textContent=x.data_date?`正式收盤｜${String(x.data_date).slice(5).replace('-','/')}`:'等待資料';
+  }catch(e){body.innerHTML=`<div class="ms-wait">市場結構暫時無法讀取：${escHtml(e.message||String(e))}</div>`;updated.textContent='讀取失敗';}
+diff --git a/styles.css b/styles.css
+index 24fd230..650702a 100644
+--- a/styles.css
++++ b/styles.css
+@@ -2916,3 +2916,5 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
+ .radar-table .rs-line{display:flex!important;flex-wrap:wrap;gap:4px;max-width:250px;white-space:normal}
+ .radar-table .rs-line>span{white-space:nowrap;margin:0!important}
+ @media (min-width:761px){.radar-table-wrap{overflow-x:auto!important}}
++
++.ms-warn{margin-top:8px;padding:8px 12px;border-radius:10px;background:#fbf3dc;color:#7a5a12;font-size:13px;line-height:1.6}
+diff --git a/tools/vcpulse_market_breadth_recorder_v0_3.py b/tools/vcpulse_market_breadth_recorder_v0_3.py
+index d64b49b..d4de15c 100644
+--- a/tools/vcpulse_market_breadth_recorder_v0_3.py
++++ b/tools/vcpulse_market_breadth_recorder_v0_3.py
+@@ -7,8 +7,27 @@ Safe to run repeatedly: the same trading date is replaced, never duplicated.
+ """
+ from __future__ import annotations
+ import argparse, csv, importlib.util, json
++from datetime import date, timedelta
+ from pathlib import Path
+ 
++# Display-only data-quality checks. These never change the frozen score or state rules.
++MIN_RELIABLE_CANDIDATES = 50
++
++
++def weekdays_without_data(rows: list[dict]) -> list[str]:
++    """Weekdays between the first and last row with no record. May include holidays."""
++    if len(rows) < 2:
++        return []
++    have = {r["data_date"] for r in rows}
++    day = date.fromisoformat(rows[0]["data_date"])
++    end = date.fromisoformat(rows[-1]["data_date"])
++    missing = []
++    while day < end:
++        day += timedelta(days=1)
++        if day.weekday() < 5 and day.isoformat() not in have:
++            missing.append(day.isoformat())
++    return missing
++
+ 
+ def load_module(path: Path, name: str):
+     spec = importlib.util.spec_from_file_location(name, path)
+@@ -112,6 +131,11 @@ def build_market_structure(history_path: Path, output_path: Path):
+             "delta_5d":round(d5,1) if d5 is not None else None,
+             "extension_ratio":round(ext_ratio,4),
+             "history_sessions":len(rows),
++            "candidate_count":int(cand),
++            "sample_warning":cand < MIN_RELIABLE_CANDIDATES,
++            "min_reliable_candidates":MIN_RELIABLE_CANDIDATES,
++            "gap_dates_1d":weekdays_without_data(rows[-2:]),
++            "gap_dates_5d":weekdays_without_data(rows[-6:]),
+             "note":"Descriptive research state only; not a bullish/bearish forecast or futures trading signal. Breadth v0.2 and Cycle v0.6 rules frozen on 2026-09-17."
+         }
+     output_path.parent.mkdir(parents=True, exist_ok=True)
