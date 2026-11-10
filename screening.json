@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10 12:33",
+  "generated_at": "2026-11-10 12:40",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -7,7 +7,7 @@
     "US": {
       "data_date": "2026-11-09",
       "count": 200,
-      "scanned_at": "2026-11-10 07:13",
+      "scanned_at": "2026-11-10 12:40",
       "snapshot_type": "official"
     },
     "TW": {
@@ -21,7 +21,7 @@
     "US": {
       "data_date": "2026-11-09",
       "count": 200,
-      "scanned_at": "2026-11-10 07:13",
+      "scanned_at": "2026-11-10 12:40",
       "snapshot_type": "official"
     },
     "TW": {
@@ -162,9 +162,9 @@
       "index": "加權指數",
       "ticker": "^TWII",
       "ma_days": 50,
-      "close": 42239.8,
-      "ma": 46508.8,
-      "dist_pct": -9.18,
+      "close": 42402.37,
+      "ma": 46512.05,
+      "dist_pct": -8.84,
       "above": false,
       "as_of": "2026-11-10"
     },
@@ -37464,7 +37464,7 @@
         "data_date": "2026-11-09",
         "name": "American Tower",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 59,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -37715,6 +37715,24 @@
         "rs_rating": 81,
         "tt_count": 7,
         "tt_fail": []
+      },
+      "T": {
+        "price": 21.8,
+        "prev_close": 21.63,
+        "data_date": "2026-11-09",
+        "name": "AT&T",
+        "source": "VCPulse scanner",
+        "rs_rating": 21,
+        "tt_count": 0,
+        "tt_fail": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
       },
       "ATO": {
         "price": 173.35,
@@ -38524,7 +38542,7 @@
         "data_date": "2026-11-09",
         "name": "Citizens Financial Group",
         "source": "VCPulse scanner",
-        "rs_rating": 43,
+        "rs_rating": 44,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -38629,19 +38647,6 @@
           5,
           6,
           7
-        ]
-      },
-      "CL": {
-        "price": 97.94,
-        "prev_close": 96.56,
-        "data_date": "2026-11-09",
-        "name": "Colgate-Palmolive",
-        "source": "VCPulse scanner",
-        "rs_rating": 63,
-        "tt_count": 5,
-        "tt_fail": [
-          2,
-          6
         ]
       },
       "CMCSA": {
@@ -39341,7 +39346,7 @@
         "data_date": "2026-11-09",
         "name": "Entergy",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 57,
         "tt_count": 5,
         "tt_fail": [
           4,
@@ -39703,7 +39708,7 @@
         "data_date": "2026-11-09",
         "name": "Fifth Third Bancorp",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 6,
         "tt_fail": [
           4
@@ -40061,7 +40066,7 @@
         "data_date": "2026-11-09",
         "name": "Goldman Sachs",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 35,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -40417,7 +40422,7 @@
         "data_date": "2026-11-09",
         "name": "Incyte",
         "source": "VCPulse scanner",
-        "rs_rating": 61,
+        "rs_rating": 62,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -40459,7 +40464,7 @@
         "data_date": "2026-11-09",
         "name": "Intel",
         "source": "VCPulse scanner",
-        "rs_rating": 22,
+        "rs_rating": 23,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -40502,7 +40507,7 @@
         "data_date": "2026-11-09",
         "name": "International Flavors & Fragrances",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 63,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -40916,7 +40921,7 @@
         "data_date": "2026-11-09",
         "name": "Lennar",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 31,
         "tt_count": 2,
         "tt_fail": [
           2,
@@ -40995,7 +41000,7 @@
         "data_date": "2026-11-09",
         "name": "Loews Corporation",
         "source": "VCPulse scanner",
-        "rs_rating": 44,
+        "rs_rating": 45,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -41290,7 +41295,7 @@
         ]
       },
       "MCHP": {
-        "price": 61.495,
+        "price": 61.5,
         "prev_close": 58.35,
         "data_date": "2026-11-09",
         "name": "Microchip Technology",
@@ -41519,7 +41524,7 @@
         "data_date": "2026-11-09",
         "name": "News Corp (Class A)",
         "source": "VCPulse scanner",
-        "rs_rating": 41,
+        "rs_rating": 42,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -41859,7 +41864,7 @@
         "data_date": "2026-11-09",
         "name": "Paccar",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 24,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -42072,7 +42077,7 @@
         "data_date": "2026-11-09",
         "name": "PPL Corporation",
         "source": "VCPulse scanner",
-        "rs_rating": 40,
+        "rs_rating": 41,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -42409,7 +42414,7 @@
         "data_date": "2026-11-09",
         "name": "Rockwell Automation",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 27,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -43233,7 +43238,7 @@
         "data_date": "2026-11-09",
         "name": "U.S. Bancorp",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 54,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -43560,7 +43565,7 @@
         "data_date": "2026-11-09",
         "name": "W. R. Berkley Corporation",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 58,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -44930,7 +44935,7 @@
         ]
       },
       "SSRM": {
-        "price": 29.665,
+        "price": 29.67,
         "prev_close": 28.38,
         "data_date": "2026-11-09",
         "name": "Ssr Mining Inc.",
@@ -45233,7 +45238,7 @@
         "data_date": "2026-11-09",
         "name": "Sabra Health Care REIT, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 60,
         "tt_count": 5,
         "tt_fail": [
           4,
@@ -45303,7 +45308,7 @@
         "data_date": "2026-11-09",
         "name": "Ameris Bancorp",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 40,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -46173,7 +46178,7 @@
         "data_date": "2026-11-09",
         "name": "Atmus Filtration Technologies Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 49,
+        "rs_rating": 50,
         "tt_count": 3,
         "tt_fail": [
           2,
@@ -46323,7 +46328,7 @@
         "data_date": "2026-11-09",
         "name": "Golar Lng Ltd",
         "source": "VCPulse scanner",
-        "rs_rating": 28,
+        "rs_rating": 29,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -46794,7 +46799,7 @@
         "data_date": "2026-11-09",
         "name": "Copt Defense Properties",
         "source": "VCPulse scanner",
-        "rs_rating": 45,
+        "rs_rating": 46,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -46925,7 +46930,7 @@
         "data_date": "2026-11-09",
         "name": "Azz Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 39,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -47299,7 +47304,7 @@
         "data_date": "2026-11-09",
         "name": "Tidewater Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 33,
+        "rs_rating": 34,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -48712,7 +48717,7 @@
         "data_date": "2026-11-09",
         "name": "Dyne Therapeutics, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 25,
+        "rs_rating": 26,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -49131,7 +49136,7 @@
         "data_date": "2026-11-09",
         "name": "FB Financial Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 33,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -49263,7 +49268,7 @@
         "data_date": "2026-11-09",
         "name": "Bank Of Hawaii Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 29,
+        "rs_rating": 30,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -50654,7 +50659,7 @@
         "data_date": "2026-11-09",
         "name": "Enerpac Tool Group Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 54,
+        "rs_rating": 55,
         "tt_count": 3,
         "tt_fail": [
           2,
@@ -50806,7 +50811,7 @@
         "data_date": "2026-11-09",
         "name": "Aurinia Pharmaceuticals Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 61,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -50879,7 +50884,7 @@
         "data_date": "2026-11-09",
         "name": "Nelnet Inc",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 52,
         "tt_count": 3,
         "tt_fail": [
           2,
@@ -51360,7 +51365,7 @@
         "data_date": "2026-11-09",
         "name": "NETSTREIT Corp.",
         "source": "VCPulse scanner",
-        "rs_rating": 37,
+        "rs_rating": 38,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -51741,7 +51746,7 @@
         "data_date": "2026-11-09",
         "name": "Federal Agricultural Mortgage Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 31,
+        "rs_rating": 32,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -51811,8 +51816,8 @@
         "tt_fail": []
       },
       "ADEA": {
-        "price": 16.28,
-        "prev_close": 15.495,
+        "price": 16.27,
+        "prev_close": 15.5,
         "data_date": "2026-11-09",
         "name": "Adeia Inc.",
         "source": "VCPulse scanner",
@@ -52668,7 +52673,7 @@
         "data_date": "2026-11-09",
         "name": "Bank First Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 48,
+        "rs_rating": 49,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -52833,7 +52838,7 @@
         "data_date": "2026-11-09",
         "name": "ICF International, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 43,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -53139,7 +53144,7 @@
         "data_date": "2026-11-09",
         "name": "Genius Sports Ltd",
         "source": "VCPulse scanner",
-        "rs_rating": 27,
+        "rs_rating": 28,
         "tt_count": 4,
         "tt_fail": [
           3,
@@ -53289,7 +53294,7 @@
         "data_date": "2026-11-09",
         "name": "Enact Holdings, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 55,
+        "rs_rating": 56,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -53799,7 +53804,7 @@
         ]
       },
       "NKTR": {
-        "price": 37.825,
+        "price": 37.83,
         "prev_close": 37.26,
         "data_date": "2026-11-09",
         "name": "Nektar Therapeutics",
@@ -54433,7 +54438,7 @@
         "data_date": "2026-11-09",
         "name": "G III Apparel Group Ltd",
         "source": "VCPulse scanner",
-        "rs_rating": 50,
+        "rs_rating": 51,
         "tt_count": 4,
         "tt_fail": [
           3,
@@ -54920,7 +54925,7 @@
         "data_date": "2026-11-09",
         "name": "Under Armour, Inc.",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 37,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -56116,7 +56121,7 @@
         "data_date": "2026-11-09",
         "name": "Diversified Energy Co",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 25,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -58272,7 +58277,7 @@
         "data_date": "2026-11-09",
         "name": "Preformed Line Products Co",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 22,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -58421,7 +58426,7 @@
         ]
       },
       "CASS": {
-        "price": 55.395,
+        "price": 55.4,
         "prev_close": 54.18,
         "data_date": "2026-11-09",
         "name": "Cass Information Systems Inc",
@@ -59321,7 +59326,7 @@
         "data_date": "2026-11-09",
         "name": "Target Hospitality Corp.",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 47,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -59357,7 +59362,7 @@
         ]
       },
       "GERN": {
-        "price": 0.9965,
+        "price": 1.0,
         "prev_close": 0.99,
         "data_date": "2026-11-09",
         "name": "Geron Corp",
@@ -59720,12 +59725,12 @@
         ]
       },
       "SCHL": {
-        "price": 37.175,
+        "price": 37.18,
         "prev_close": 37.2,
         "data_date": "2026-11-09",
         "name": "Scholastic Corp",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 48,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -59882,7 +59887,7 @@
         ]
       },
       "GOOD": {
-        "price": 10.225,
+        "price": 10.23,
         "prev_close": 10.15,
         "data_date": "2026-11-09",
         "name": "Gladstone Commercial Corp",
@@ -61036,7 +61041,7 @@
         "data_date": "2026-11-09",
         "name": "Investors Title Co",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 36,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -61816,7 +61821,7 @@
         ]
       },
       "PBYI": {
-        "price": 8.395,
+        "price": 8.4,
         "prev_close": 8.25,
         "data_date": "2026-11-09",
         "name": "Puma Biotechnology, Inc.",
@@ -62681,7 +62686,7 @@
         ]
       },
       "SOC": {
-        "price": 0.8801,
+        "price": 0.88,
         "prev_close": 1.93,
         "data_date": "2026-11-09",
         "name": "Sable Offshore Corp.",
@@ -62868,7 +62873,7 @@
         ]
       },
       "OCGN": {
-        "price": 0.9721,
+        "price": 0.972,
         "prev_close": 0.925,
         "data_date": "2026-11-09",
         "name": "Ocugen, Inc.",
@@ -63145,7 +63150,7 @@
         "tt_fail": []
       },
       "SPTX": {
-        "price": 21.925,
+        "price": 21.93,
         "prev_close": 21.5,
         "data_date": "2026-11-09",
         "name": "Seaport Therapeutics, Inc.",
@@ -63560,7 +63565,7 @@
         ]
       },
       "BELFA": {
-        "price": 179.565,
+        "price": 179.57,
         "prev_close": 164.18,
         "data_date": "2026-11-09",
         "name": "Bel Fuse Inc",
@@ -63827,7 +63832,7 @@
         ]
       },
       "URG": {
-        "price": 0.8075,
+        "price": 0.81,
         "prev_close": 0.74,
         "data_date": "2026-11-09",
         "name": "Ur-Energy Inc",
@@ -64280,7 +64285,7 @@
         ]
       },
       "BTBT": {
-        "price": 0.7889,
+        "price": 0.789,
         "prev_close": 0.734,
         "data_date": "2026-11-09",
         "name": "Bit Digital, Inc",
@@ -66068,7 +66073,7 @@
         "tt_fail": []
       },
       "BLND": {
-        "price": 0.9855,
+        "price": 0.986,
         "prev_close": 0.984,
         "data_date": "2026-11-09",
         "name": "Blend Labs, Inc.",
@@ -66212,7 +66217,7 @@
         "tt_fail": []
       },
       "OPTU": {
-        "price": 0.8001,
+        "price": 0.8,
         "prev_close": 0.752,
         "data_date": "2026-11-09",
         "name": "Optimum Communications, Inc.",
@@ -66571,7 +66576,7 @@
         "tt_fail": []
       },
       "RR": {
-        "price": 0.9467,
+        "price": 0.947,
         "prev_close": 0.89,
         "data_date": "2026-11-09",
         "name": "Richtech Robotics Inc.",
@@ -67477,7 +67482,7 @@
         ]
       },
       "GPRO": {
-        "price": 0.8804,
+        "price": 0.88,
         "prev_close": 0.901,
         "data_date": "2026-11-09",
         "name": "GoPro, Inc.",
@@ -67823,7 +67828,7 @@
         ]
       },
       "IVVD": {
-        "price": 0.5962,
+        "price": 0.596,
         "prev_close": 0.563,
         "data_date": "2026-11-09",
         "name": "Invivyd, Inc.",
@@ -67911,7 +67916,7 @@
         ]
       },
       "EU": {
-        "price": 0.6981,
+        "price": 0.7,
         "prev_close": 0.63,
         "data_date": "2026-11-09",
         "name": "enCore Energy Corp.",
@@ -68185,7 +68190,7 @@
         ]
       },
       "DMRC": {
-        "price": 8.175,
+        "price": 8.18,
         "prev_close": 7.72,
         "data_date": "2026-11-09",
         "name": "Digimarc Corp",
@@ -68476,7 +68481,7 @@
         "tt_fail": []
       },
       "MVST": {
-        "price": 0.6175,
+        "price": 0.618,
         "prev_close": 0.629,
         "data_date": "2026-11-09",
         "name": "Microvast Holdings, Inc.",
@@ -68492,7 +68497,7 @@
         ]
       },
       "AKBA": {
-        "price": 0.5328,
+        "price": 0.533,
         "prev_close": 0.401,
         "data_date": "2026-11-09",
         "name": "Akebia Therapeutics, Inc.",
@@ -68610,7 +68615,7 @@
         ]
       },
       "CMPX": {
-        "price": 0.8369,
+        "price": 0.837,
         "prev_close": 0.759,
         "data_date": "2026-11-09",
         "name": "Compass Therapeutics, Inc.",
@@ -68798,7 +68803,7 @@
         ]
       },
       "CHRS": {
-        "price": 0.8176,
+        "price": 0.818,
         "prev_close": 0.77,
         "data_date": "2026-11-09",
         "name": "Coherus Oncology, Inc.",
@@ -68824,7 +68829,7 @@
         "tt_fail": []
       },
       "LFMD": {
-        "price": 2.095,
+        "price": 2.1,
         "prev_close": 2.37,
         "data_date": "2026-11-09",
         "name": "LifeMD, Inc.",
@@ -69082,7 +69087,7 @@
         ]
       },
       "CATX": {
-        "price": 0.8556,
+        "price": 0.86,
         "prev_close": 0.84,
         "data_date": "2026-11-09",
         "name": "Perspective Therapeutics, Inc.",
@@ -69323,7 +69328,7 @@
         ]
       },
       "LDI": {
-        "price": 0.5306,
+        "price": 0.531,
         "prev_close": 0.64,
         "data_date": "2026-11-09",
         "name": "loanDepot, Inc.",
@@ -69644,7 +69649,7 @@
         ]
       },
       "SLNH": {
-        "price": 0.5445,
+        "price": 0.54,
         "prev_close": 0.52,
         "data_date": "2026-11-09",
         "name": "Soluna Holdings, Inc",
@@ -69738,7 +69743,7 @@
         ]
       },
       "ORGO": {
-        "price": 0.9071,
+        "price": 0.907,
         "prev_close": 0.813,
         "data_date": "2026-11-09",
         "name": "Organogenesis Holdings Inc.",
@@ -69770,7 +69775,7 @@
         ]
       },
       "LUCD": {
-        "price": 0.4175,
+        "price": 0.418,
         "prev_close": 0.398,
         "data_date": "2026-11-09",
         "name": "Lucid Diagnostics Inc.",
@@ -69867,7 +69872,7 @@
         ]
       },
       "VERI": {
-        "price": 0.5375,
+        "price": 0.538,
         "prev_close": 0.483,
         "data_date": "2026-11-09",
         "name": "Veritone, Inc.",
@@ -69901,7 +69906,7 @@
         ]
       },
       "NMRA": {
-        "price": 0.4859,
+        "price": 0.486,
         "prev_close": 0.503,
         "data_date": "2026-11-09",
         "name": "Neumora Therapeutics, Inc.",
@@ -69917,7 +69922,7 @@
         ]
       },
       "HYPR": {
-        "price": 0.7068,
+        "price": 0.707,
         "prev_close": 0.72,
         "data_date": "2026-11-09",
         "name": "Hyperfine, Inc.",
@@ -69972,7 +69977,7 @@
         ]
       },
       "HRTX": {
-        "price": 0.3706,
+        "price": 0.37,
         "prev_close": 0.29,
         "data_date": "2026-11-09",
         "name": "Heron Therapeutics, Inc.",
@@ -70034,7 +70039,7 @@
         ]
       },
       "CRBU": {
-        "price": 0.4198,
+        "price": 0.42,
         "prev_close": 0.449,
         "data_date": "2026-11-09",
         "name": "Caribou Biosciences, Inc.",
@@ -70051,7 +70056,7 @@
         ]
       },
       "EYPT": {
-        "price": 0.3619,
+        "price": 0.36,
         "prev_close": 0.36,
         "data_date": "2026-11-09",
         "name": "EyePoint, Inc.",
@@ -70129,7 +70134,7 @@
         ]
       },
       "NPWR": {
-        "price": 0.8381,
+        "price": 0.838,
         "prev_close": 0.809,
         "data_date": "2026-11-09",
         "name": "Net Power Inc.",
@@ -70146,7 +70151,7 @@
         ]
       },
       "ZENA": {
-        "price": 0.6646,
+        "price": 0.665,
         "prev_close": 0.639,
         "data_date": "2026-11-09",
         "name": "ZenaTech, Inc.",
@@ -70280,7 +70285,7 @@
         ]
       },
       "BZAI": {
-        "price": 0.1997,
+        "price": 0.2,
         "prev_close": 0.205,
         "data_date": "2026-11-09",
         "name": "Blaize Holdings, Inc.",
@@ -70403,7 +70408,7 @@
         ]
       },
       "CNTX": {
-        "price": 0.2003,
+        "price": 0.2,
         "prev_close": 0.194,
         "data_date": "2026-11-09",
         "name": "Context Therapeutics Inc.",
@@ -70420,7 +70425,7 @@
         ]
       },
       "ACH": {
-        "price": 0.184,
+        "price": 0.18,
         "prev_close": 0.2,
         "data_date": "2026-11-09",
         "name": "Accendra Health Inc",
@@ -70471,7 +70476,7 @@
         ]
       },
       "CVRX": {
-        "price": 0.7806,
+        "price": 0.781,
         "prev_close": 0.869,
         "data_date": "2026-11-09",
         "name": "CVRx, Inc.",
@@ -70488,7 +70493,7 @@
         ]
       },
       "LVWR": {
-        "price": 0.4911,
+        "price": 0.491,
         "prev_close": 0.549,
         "data_date": "2026-11-09",
         "name": "LiveWire Group, Inc.",
@@ -70505,7 +70510,7 @@
         ]
       },
       "CNTB": {
-        "price": 0.7503,
+        "price": 0.75,
         "prev_close": 0.729,
         "data_date": "2026-11-09",
         "name": "Connect Biopharma Holdings Ltd",
@@ -70556,7 +70561,7 @@
         ]
       },
       "AIRS": {
-        "price": 0.6752,
+        "price": 0.675,
         "prev_close": 0.534,
         "data_date": "2026-11-09",
         "name": "Airsculpt Technologies, Inc.",
@@ -70572,7 +70577,7 @@
         ]
       },
       "VUECF": {
-        "price": 0.1989,
+        "price": 0.1915,
         "prev_close": 0.2189,
         "data_date": "2026-11-09",
         "name": "Verdera Energy Corp.",
@@ -137646,7 +137651,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 51343050.0,
+      "avg_value_20d": 51343076.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -137655,6 +137660,103 @@
       "tt_fail": [],
       "is_new": true,
       "new_reason": "今日帶量突破後新進雷達"
+    },
+    {
+      "market": "US",
+      "symbol": "AEO",
+      "name": "American Eagle Outfitters Inc",
+      "exchange": "",
+      "score": 4,
+      "stop_price": 19.05,
+      "breakout_vol_ratio": 1.0,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 1.121,
+      "contractions": [
+        16.4462,
+        2.6461,
+        4.3478,
+        2.8827
+      ],
+      "contraction_bars": [
+        3,
+        6,
+        8,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-16% → -3% → -4% → -3%",
+      "pivot": 21.36,
+      "last": 21.75,
+      "distance": 1.83,
+      "change_pct": 9.19,
+      "volume_dry": true,
+      "type": "breakout",
+      "state": "🟢 今日帶量突破",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": 0,
+      "sqz_w_fire": true,
+      "sqz_w_fire_dir": "bull",
+      "sqz_w_prev_level": "medium",
+      "sqz_w_prev_bars": 18,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-09",
+      "breakout_return_pct": 1.83,
+      "breakout_high_pct": 2.39,
+      "holding_pivot": true,
+      "pulse_signal": "hot",
+      "pulse_label": "🔥 高關注",
+      "pulse_points": 7,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "週線 Squeeze 爆發",
+        "多方增強"
+      ],
+      "data_date": "2026-11-09",
+      "avg_value_20d": 83807421.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 77,
+      "rs_universe": 1618,
+      "tt_count": 4,
+      "tt_fail": [
+        2,
+        3,
+        4
+      ],
+      "is_new": true,
+      "new_reason": "今日達到 VCP 3/5 入選門檻"
     },
     {
       "market": "US",
@@ -137738,7 +137840,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20491619.0,
+      "avg_value_20d": 20492238.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -137755,7 +137857,7 @@
       "exchange": "",
       "score": 4,
       "stop_price": 25.93,
-      "breakout_vol_ratio": 1.17,
+      "breakout_vol_ratio": 1.19,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -137819,7 +137921,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 2.42,
-      "breakout_high_pct": 3.43,
+      "breakout_high_pct": 3.44,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -137830,7 +137932,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46404724.0,
+      "avg_value_20d": 46515112.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -137923,7 +138025,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46869028.0,
+      "avg_value_20d": 46869241.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -138015,7 +138117,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 90057519.0,
+      "avg_value_20d": 90058114.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -138053,7 +138155,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.0795,
+      "atr20_to_60": 1.0804,
       "contractions": [
         5.5662,
         15.446,
@@ -138098,7 +138200,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.26,
-      "breakout_high_pct": 5.26,
+      "breakout_high_pct": 5.28,
       "holding_pivot": true,
       "pulse_signal": "hot",
       "pulse_label": "🔥 高關注",
@@ -138110,7 +138212,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18702885.0,
+      "avg_value_20d": 18702981.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -138146,7 +138248,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.1679,
+      "atr20_to_60": 1.1682,
       "contractions": [
         4.8228,
         8.0575,
@@ -138191,7 +138293,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.5,
-      "breakout_high_pct": 6.89,
+      "breakout_high_pct": 6.92,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -138202,7 +138304,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 66754251.0,
+      "avg_value_20d": 66766963.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -138219,7 +138321,7 @@
       "exchange": "",
       "score": 4,
       "stop_price": 48.36,
-      "breakout_vol_ratio": 2.11,
+      "breakout_vol_ratio": 2.14,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -138295,7 +138397,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26231865.0,
+      "avg_value_20d": 26280475.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -138387,7 +138489,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 41196295.0,
+      "avg_value_20d": 41196272.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -138479,7 +138581,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 280372365.0,
+      "avg_value_20d": 280373805.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -138571,7 +138673,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46374174.0,
+      "avg_value_20d": 46382011.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -138662,7 +138764,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 83707209.0,
+      "avg_value_20d": 83708511.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -138754,7 +138856,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 206931650.0,
+      "avg_value_20d": 206931511.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -138845,7 +138947,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 933051471.0,
+      "avg_value_20d": 933246018.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -138939,7 +139041,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21852171.0,
+      "avg_value_20d": 21856259.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -139030,7 +139132,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 427581149.0,
+      "avg_value_20d": 427580904.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -139123,7 +139225,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 29489393.0,
+      "avg_value_20d": 29489287.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -139140,7 +139242,7 @@
       "exchange": "",
       "score": 3,
       "stop_price": 619.99,
-      "breakout_vol_ratio": 0.95,
+      "breakout_vol_ratio": 1.0,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -139214,7 +139316,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 308066892.0,
+      "avg_value_20d": 308879980.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -139308,7 +139410,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 37734671.0,
+      "avg_value_20d": 37734716.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -139344,7 +139446,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1873,
+      "atr20_to_60": 1.1872,
       "contractions": [
         5.6571,
         5.8396,
@@ -139399,7 +139501,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 249582001.0,
+      "avg_value_20d": 249582313.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -139408,102 +139510,6 @@
       "tt_fail": [],
       "is_new": false,
       "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "AEO",
-      "name": "American Eagle Outfitters Inc",
-      "exchange": "",
-      "score": 3,
-      "stop_price": 19.05,
-      "breakout_vol_ratio": 0.99,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.1208,
-      "contractions": [
-        16.4462,
-        2.6461,
-        4.3478,
-        2.8827
-      ],
-      "contraction_bars": [
-        3,
-        6,
-        8,
-        3
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-16% → -3% → -4% → -3%",
-      "pivot": 21.36,
-      "last": 21.75,
-      "distance": 1.83,
-      "change_pct": 9.19,
-      "volume_dry": true,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 0,
-      "sqz_w_fire": true,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "medium",
-      "sqz_w_prev_bars": 18,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-11-09",
-      "breakout_return_pct": 1.83,
-      "breakout_high_pct": 2.36,
-      "holding_pivot": true,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "週線 Squeeze 爆發",
-        "多方增強"
-      ],
-      "data_date": "2026-11-09",
-      "avg_value_20d": 83736247.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 77,
-      "rs_universe": 1618,
-      "tt_count": 4,
-      "tt_fail": [
-        2,
-        3,
-        4
-      ],
-      "is_new": true,
-      "new_reason": "今日達到 VCP 3/5 入選門檻"
     },
     {
       "market": "US",
@@ -139587,7 +139593,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16258556.0,
+      "avg_value_20d": 16258518.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 11,
@@ -139630,7 +139636,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1375,
+      "atr20_to_60": 1.1376,
       "contractions": [
         5.5208,
         3.519,
@@ -139675,7 +139681,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 2.88,
-      "breakout_high_pct": 3.69,
+      "breakout_high_pct": 3.7,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -139685,7 +139691,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18576718.0,
+      "avg_value_20d": 18576758.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -139776,7 +139782,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 384792666.0,
+      "avg_value_20d": 384794270.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -139812,7 +139818,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2236,
+      "atr20_to_60": 1.2239,
       "contractions": [
         20.8682,
         12.0957,
@@ -139868,7 +139874,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 3720939337.0,
+      "avg_value_20d": 3721459928.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -139960,7 +139966,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 142932933.0,
+      "avg_value_20d": 142933921.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -140051,100 +140057,10 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 51717384.0,
+      "avg_value_20d": 52447381.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
-      "rs_universe": 1618,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "FA",
-      "name": "First Advantage Corp",
-      "exchange": "",
-      "score": 3,
-      "stop_price": 20.52,
-      "breakout_vol_ratio": 2.36,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.1809,
-      "contractions": [
-        4.4902,
-        20.781,
-        5.6275,
-        1.3177
-      ],
-      "contraction_bars": [
-        3,
-        11,
-        2,
-        4
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-4% → -21% → -6% → -1%",
-      "pivot": 22.47,
-      "last": 23.52,
-      "distance": 4.67,
-      "change_pct": -0.04,
-      "volume_dry": true,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+2",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 4,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 2,
-      "breakout_date": "2026-11-05",
-      "breakout_return_pct": 4.67,
-      "breakout_high_pct": 9.88,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot"
-      ],
-      "data_date": "2026-11-09",
-      "avg_value_20d": 30308245.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 92,
       "rs_universe": 1618,
       "tt_count": 7,
       "tt_fail": [],
@@ -140233,7 +140149,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 454573462.0,
+      "avg_value_20d": 454588001.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -140324,7 +140240,7 @@
         "Squeeze 剛爆發（前 8 日中度壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 27794883.0,
+      "avg_value_20d": 27794900.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -140360,7 +140276,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2126,
+      "atr20_to_60": 1.2127,
       "contractions": [
         6.7456,
         7.4954,
@@ -140416,7 +140332,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 95829027.0,
+      "avg_value_20d": 95830847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -140508,7 +140424,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 100822019.0,
+      "avg_value_20d": 100822128.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -140600,7 +140516,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 30820320.0,
+      "avg_value_20d": 30820491.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -140692,7 +140608,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 43899610.0,
+      "avg_value_20d": 43900476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -140786,7 +140702,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18549465.0,
+      "avg_value_20d": 18549476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -140822,7 +140738,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2612,
+      "atr20_to_60": 1.2621,
       "contractions": [
         11.8812,
         10.2389,
@@ -140867,7 +140783,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 21.26,
-      "breakout_high_pct": 24.86,
+      "breakout_high_pct": 25.0,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -140878,7 +140794,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22468745.0,
+      "avg_value_20d": 22470495.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -140971,7 +140887,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 11426094.0,
+      "avg_value_20d": 11426174.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -141063,7 +140979,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12273219.0,
+      "avg_value_20d": 12273172.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -141099,7 +141015,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1251,
+      "atr20_to_60": 1.1257,
       "contractions": [
         5.8763,
         5.9765,
@@ -141144,7 +141060,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.1,
-      "breakout_high_pct": 1.44,
+      "breakout_high_pct": 1.49,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -141154,7 +141070,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 13731640.0,
+      "avg_value_20d": 13731642.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -141245,7 +141161,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 13293567.0,
+      "avg_value_20d": 13293502.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -141262,7 +141178,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 87.93,
-      "breakout_vol_ratio": 1.21,
+      "breakout_vol_ratio": 1.22,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -141336,7 +141252,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68208233.0,
+      "avg_value_20d": 68224611.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -141432,7 +141348,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 330021790.0,
+      "avg_value_20d": 330022185.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -141524,7 +141440,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28220814.0,
+      "avg_value_20d": 28220695.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -141543,7 +141459,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 17.75,
-      "breakout_vol_ratio": 0.87,
+      "breakout_vol_ratio": 0.93,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -141617,7 +141533,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18264314.0,
+      "avg_value_20d": 18326812.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -141709,7 +141625,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 134630457.0,
+      "avg_value_20d": 134630391.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 64,
@@ -141728,7 +141644,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 90.58,
-      "breakout_vol_ratio": 0.97,
+      "breakout_vol_ratio": 0.98,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -141803,7 +141719,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1754784370.0,
+      "avg_value_20d": 1755694451.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -141895,7 +141811,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16055292.0,
+      "avg_value_20d": 16055200.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -141931,7 +141847,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9546,
+      "atr20_to_60": 0.9545,
       "contractions": [
         28.1455,
         19.6053,
@@ -141976,7 +141892,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.22,
-      "breakout_high_pct": 1.25,
+      "breakout_high_pct": 1.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -141986,7 +141902,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10882530.0,
+      "avg_value_20d": 10882481.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 12,
@@ -142009,7 +141925,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 74.36,
-      "breakout_vol_ratio": 0.9,
+      "breakout_vol_ratio": 1.02,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -142028,7 +141944,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2007,
+      "atr20_to_60": 1.2008,
       "contractions": [
         6.6056,
         6.8482,
@@ -142073,7 +141989,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.23,
-      "breakout_high_pct": 1.44,
+      "breakout_high_pct": 1.45,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -142083,7 +141999,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 62326927.0,
+      "avg_value_20d": 62689431.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -142178,7 +142094,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 648856578.0,
+      "avg_value_20d": 648858937.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -142268,7 +142184,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 346264962.0,
+      "avg_value_20d": 346266653.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -142288,7 +142204,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 325.33,
-      "breakout_vol_ratio": 1.08,
+      "breakout_vol_ratio": 1.11,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -142307,7 +142223,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.139,
+      "atr20_to_60": 1.1392,
       "contractions": [
         2.3609,
         3.9213,
@@ -142352,7 +142268,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.34,
-      "breakout_high_pct": 0.79,
+      "breakout_high_pct": 0.81,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -142363,7 +142279,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17115915118.0,
+      "avg_value_20d": 17137281916.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -142380,7 +142296,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 169.13,
-      "breakout_vol_ratio": 0.92,
+      "breakout_vol_ratio": 0.93,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -142455,7 +142371,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 145244196.0,
+      "avg_value_20d": 145306616.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -142475,7 +142391,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 112.02,
-      "breakout_vol_ratio": 0.9,
+      "breakout_vol_ratio": 0.91,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -142550,7 +142466,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40052335.0,
+      "avg_value_20d": 40052465.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -142642,7 +142558,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21706601.0,
+      "avg_value_20d": 21706551.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -142735,7 +142651,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 353451065.0,
+      "avg_value_20d": 353457389.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -142834,7 +142750,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20816361.0,
+      "avg_value_20d": 20817234.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -142851,7 +142767,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 11.7,
-      "breakout_vol_ratio": 0.68,
+      "breakout_vol_ratio": 0.69,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -142925,7 +142841,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22450801.0,
+      "avg_value_20d": 22472655.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -143021,7 +142937,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10106657.0,
+      "avg_value_20d": 10106623.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -143057,7 +142973,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1062,
+      "atr20_to_60": 1.1066,
       "contractions": [
         10.4728,
         10.4499,
@@ -143102,7 +143018,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.5,
-      "breakout_high_pct": 1.33,
+      "breakout_high_pct": 1.36,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -143112,7 +143028,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 24751671.0,
+      "avg_value_20d": 24751628.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 35,
@@ -143153,7 +143069,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3104,
+      "atr20_to_60": 1.3105,
       "contractions": [
         1.7137,
         3.4087,
@@ -143209,7 +143125,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1760835355.0,
+      "avg_value_20d": 1760921804.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -143248,7 +143164,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1774,
+      "atr20_to_60": 1.1777,
       "contractions": [
         14.1803,
         7.7634,
@@ -143293,7 +143209,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.6,
-      "breakout_high_pct": 0.98,
+      "breakout_high_pct": 1.0,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -143303,7 +143219,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 98463296.0,
+      "avg_value_20d": 98463327.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 28,
@@ -143400,7 +143316,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 66421690.0,
+      "avg_value_20d": 66421709.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -143440,7 +143356,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0931,
+      "atr20_to_60": 1.0933,
       "contractions": [
         8.9014,
         11.9601,
@@ -143494,7 +143410,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20190127.0,
+      "avg_value_20d": 20190066.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -143530,7 +143446,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2372,
+      "atr20_to_60": 1.2376,
       "contractions": [
         1.6408,
         1.4286,
@@ -143575,7 +143491,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.86,
-      "breakout_high_pct": 1.68,
+      "breakout_high_pct": 1.72,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -143585,7 +143501,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26352946.0,
+      "avg_value_20d": 26352919.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -143675,7 +143591,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 236463566.0,
+      "avg_value_20d": 236463601.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -143766,7 +143682,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 112235758.0,
+      "avg_value_20d": 112362554.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -143858,7 +143774,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 416609073.0,
+      "avg_value_20d": 416627569.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -143878,7 +143794,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 350.66,
-      "breakout_vol_ratio": 1.0,
+      "breakout_vol_ratio": 1.04,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -143897,7 +143813,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2864,
+      "atr20_to_60": 1.2866,
       "contractions": [
         1.6539,
         9.5421,
@@ -143952,7 +143868,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 270112267.0,
+      "avg_value_20d": 270629650.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -143988,7 +143904,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0856,
+      "atr20_to_60": 1.0859,
       "contractions": [
         15.0597,
         7.1832,
@@ -144042,7 +143958,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 412083691.0,
+      "avg_value_20d": 412167353.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -144059,7 +143975,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 73.79,
-      "breakout_vol_ratio": 1.51,
+      "breakout_vol_ratio": 1.52,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -144134,7 +144050,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 497827647.0,
+      "avg_value_20d": 497844185.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -144226,7 +144142,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 314145329.0,
+      "avg_value_20d": 314145672.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -144243,7 +144159,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 97.44,
-      "breakout_vol_ratio": 0.97,
+      "breakout_vol_ratio": 1.02,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -144262,7 +144178,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1803,
+      "atr20_to_60": 1.1804,
       "contractions": [
         5.9235,
         4.7794,
@@ -144307,7 +144223,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.09,
-      "breakout_high_pct": 1.09,
+      "breakout_high_pct": 1.1,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -144317,7 +144233,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 234869370.0,
+      "avg_value_20d": 235474161.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -144408,7 +144324,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 249403455.0,
+      "avg_value_20d": 249404995.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -144500,7 +144416,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 42201353.0,
+      "avg_value_20d": 42201437.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -144592,7 +144508,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 442830417.0,
+      "avg_value_20d": 442831265.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -144687,7 +144603,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 88439493.0,
+      "avg_value_20d": 88454865.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -144704,7 +144620,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 36.5,
-      "breakout_vol_ratio": 1.0,
+      "breakout_vol_ratio": 1.06,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -144779,7 +144695,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 86297064.0,
+      "avg_value_20d": 86560528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -144871,7 +144787,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18571326.0,
+      "avg_value_20d": 18571435.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -144962,7 +144878,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18639842.0,
+      "avg_value_20d": 18639957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -144998,7 +144914,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1873,
+      "atr20_to_60": 1.1874,
       "contractions": [
         3.89,
         8.472,
@@ -145043,7 +144959,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.41,
-      "breakout_high_pct": 3.15,
+      "breakout_high_pct": 3.17,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -145054,7 +144970,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 57165928.0,
+      "avg_value_20d": 57171962.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -145090,7 +145006,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.259,
+      "atr20_to_60": 1.2592,
       "contractions": [
         1.9231,
         2.5427,
@@ -145145,7 +145061,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 211267249.0,
+      "avg_value_20d": 211267449.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -145236,7 +145152,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12978849.0,
+      "avg_value_20d": 12978813.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -145328,7 +145244,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22409008.0,
+      "avg_value_20d": 22409061.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -145420,7 +145336,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 31890827.0,
+      "avg_value_20d": 31890754.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -145511,7 +145427,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 186852144.0,
+      "avg_value_20d": 186851760.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -145605,7 +145521,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45946205.0,
+      "avg_value_20d": 45950401.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -145641,7 +145557,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1466,
+      "atr20_to_60": 1.147,
       "contractions": [
         3.1284,
         9.4367,
@@ -145695,7 +145611,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 19928299.0,
+      "avg_value_20d": 20132525.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -145789,7 +145705,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 611682950.0,
+      "avg_value_20d": 611695052.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -145825,7 +145741,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1955,
+      "atr20_to_60": 1.1954,
       "contractions": [
         8.9204,
         3.5422,
@@ -145880,7 +145796,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 36900621.0,
+      "avg_value_20d": 36900576.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 30,
@@ -145978,7 +145894,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1675458655.0,
+      "avg_value_20d": 1676179311.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -146069,7 +145985,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 121074898.0,
+      "avg_value_20d": 121074766.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -146161,7 +146077,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40697792.0,
+      "avg_value_20d": 40697812.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -146252,7 +146168,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 2161293854.0,
+      "avg_value_20d": 2161313728.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -146344,7 +146260,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 502599256.0,
+      "avg_value_20d": 502599496.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 32,
@@ -146443,7 +146359,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 351837407.0,
+      "avg_value_20d": 351835557.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -146534,7 +146450,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16442502.0,
+      "avg_value_20d": 16442455.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -146627,7 +146543,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 62321060.0,
+      "avg_value_20d": 62324050.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -146725,7 +146641,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 471322024.0,
+      "avg_value_20d": 471322357.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -146817,7 +146733,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 49102523.0,
+      "avg_value_20d": 49102712.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -146853,7 +146769,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0423,
+      "atr20_to_60": 1.0424,
       "contractions": [
         2.8463,
         5.7016,
@@ -146898,7 +146814,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 2.57,
-      "breakout_high_pct": 2.88,
+      "breakout_high_pct": 2.89,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -146909,7 +146825,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 107678515.0,
+      "avg_value_20d": 107681166.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -147003,7 +146919,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 118338260.0,
+      "avg_value_20d": 118338419.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -147094,7 +147010,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 545504991.0,
+      "avg_value_20d": 545598311.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -147186,7 +147102,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15820684.0,
+      "avg_value_20d": 15833312.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 45,
@@ -147282,7 +147198,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 82285387.0,
+      "avg_value_20d": 82285419.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -147363,7 +147279,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 3.19,
-      "breakout_high_pct": 3.19,
+      "breakout_high_pct": 3.2,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -147373,7 +147289,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 209622123.0,
+      "avg_value_20d": 209624528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -147395,7 +147311,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 35.09,
-      "breakout_vol_ratio": 0.84,
+      "breakout_vol_ratio": 0.88,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -147469,7 +147385,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 48025218.0,
+      "avg_value_20d": 48163230.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -147512,7 +147428,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2467,
+      "atr20_to_60": 1.2468,
       "contractions": [
         3.3271,
         3.8211,
@@ -147568,7 +147484,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45432363.0,
+      "avg_value_20d": 45432282.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -147660,7 +147576,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 199568608.0,
+      "avg_value_20d": 199569225.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -147701,7 +147617,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9866,
+      "atr20_to_60": 0.9869,
       "contractions": [
         4.7402,
         10.6001,
@@ -147746,7 +147662,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 3.8,
-      "breakout_high_pct": 4.76,
+      "breakout_high_pct": 4.77,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -147756,7 +147672,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 293990828.0,
+      "avg_value_20d": 293990814.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 49,
@@ -147795,7 +147711,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2631,
+      "atr20_to_60": 1.2657,
       "contractions": [
         1.8697,
         6.5717,
@@ -147850,7 +147766,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 60217629.0,
+      "avg_value_20d": 60217586.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -147942,7 +147858,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 52516467.0,
+      "avg_value_20d": 52582605.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 31,
@@ -148039,7 +147955,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 74189664.0,
+      "avg_value_20d": 74189699.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -148134,7 +148050,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 25041101.0,
+      "avg_value_20d": 25064608.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -148170,7 +148086,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.497,
+      "atr20_to_60": 1.4966,
       "contractions": [
         4.2697,
         7.7273,
@@ -148224,7 +148140,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 23770021.0,
+      "avg_value_20d": 23770216.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -148315,7 +148231,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21035686.0,
+      "avg_value_20d": 21035660.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -148327,6 +148243,96 @@
         4,
         7
       ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "US",
+      "symbol": "FA",
+      "name": "First Advantage Corp",
+      "exchange": "",
+      "score": 2,
+      "stop_price": 20.52,
+      "breakout_vol_ratio": 2.36,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.1809,
+      "contractions": [
+        4.4902,
+        20.781,
+        5.6275,
+        1.3177
+      ],
+      "contraction_bars": [
+        3,
+        11,
+        2,
+        4
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-4% → -21% → -6% → -1%",
+      "pivot": 22.47,
+      "last": 23.52,
+      "distance": 4.67,
+      "change_pct": -0.04,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+2",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 4,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 2,
+      "breakout_date": "2026-11-05",
+      "breakout_return_pct": 4.67,
+      "breakout_high_pct": 9.88,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-11-09",
+      "avg_value_20d": 30322038.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 92,
+      "rs_universe": 1618,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": false,
       "new_reason": ""
     },
@@ -148411,7 +148417,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 480899580.0,
+      "avg_value_20d": 480908975.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -148428,7 +148434,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 8.65,
-      "breakout_vol_ratio": 1.63,
+      "breakout_vol_ratio": 1.64,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -148503,7 +148509,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18250715.0,
+      "avg_value_20d": 18257066.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -148597,7 +148603,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12125652.0,
+      "avg_value_20d": 12125654.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -148636,7 +148642,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1447,
+      "atr20_to_60": 1.145,
       "contractions": [
         8.7146,
         26.2582,
@@ -148691,7 +148697,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26393242.0,
+      "avg_value_20d": 26393271.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -148730,7 +148736,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.238,
+      "atr20_to_60": 1.2382,
       "contractions": [
         3.3226,
         22.1106,
@@ -148785,7 +148791,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14185596.0,
+      "avg_value_20d": 14185641.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -148879,7 +148885,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14650889.0,
+      "avg_value_20d": 14676528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -148970,7 +148976,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 181640893.0,
+      "avg_value_20d": 181641198.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 52,
@@ -149010,7 +149016,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1262,
+      "atr20_to_60": 1.1264,
       "contractions": [
         14.8343,
         20.5397,
@@ -149055,7 +149061,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.69,
-      "breakout_high_pct": 7.21,
+      "breakout_high_pct": 7.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -149065,7 +149071,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15470964.0,
+      "avg_value_20d": 15470966.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -149155,7 +149161,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10802573.0,
+      "avg_value_20d": 10802583.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -149249,7 +149255,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 221128917.0,
+      "avg_value_20d": 221185864.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -149340,7 +149346,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15674164.0,
+      "avg_value_20d": 15674229.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -149431,7 +149437,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12311999.0,
+      "avg_value_20d": 12312517.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -149527,7 +149533,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 575317984.0,
+      "avg_value_20d": 575318433.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -149620,7 +149626,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 88766091.0,
+      "avg_value_20d": 88765934.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -149712,7 +149718,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 49006668.0,
+      "avg_value_20d": 49297103.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -149803,7 +149809,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28079171.0,
+      "avg_value_20d": 28079906.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -149895,7 +149901,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 173036289.0,
+      "avg_value_20d": 173038303.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -149931,7 +149937,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1682,
+      "atr20_to_60": 1.1735,
       "contractions": [
         9.2686,
         4.5218,
@@ -149976,7 +149982,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 7.27,
-      "breakout_high_pct": 10.5,
+      "breakout_high_pct": 10.89,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -149985,7 +149991,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40011123.0,
+      "avg_value_20d": 40010740.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -150076,7 +150082,7 @@
         "Squeeze 剛爆發（前 3 日一般壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 779757700.0,
+      "avg_value_20d": 779762762.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -150168,7 +150174,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 53312169.0,
+      "avg_value_20d": 53312183.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -150259,7 +150265,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45208528.0,
+      "avg_value_20d": 45208535.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -150352,7 +150358,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68682716.0,
+      "avg_value_20d": 68683024.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -150444,7 +150450,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 24718875.0,
+      "avg_value_20d": 24718899.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -150483,7 +150489,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.428,
+      "atr20_to_60": 1.4281,
       "contractions": [
         4.3833,
         3.9526,
@@ -150538,7 +150544,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 47065523.0,
+      "avg_value_20d": 47065934.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -150635,7 +150641,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 233965001.0,
+      "avg_value_20d": 233965482.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -150728,7 +150734,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68722826.0,
+      "avg_value_20d": 69017169.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -150764,7 +150770,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.301,
+      "atr20_to_60": 1.3017,
       "contractions": [
         11.617,
         1.7026,
@@ -150809,7 +150815,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 9.82,
-      "breakout_high_pct": 10.25,
+      "breakout_high_pct": 10.35,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -150820,7 +150826,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20556623.0,
+      "avg_value_20d": 21093086.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -150856,7 +150862,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3229,
+      "atr20_to_60": 1.3234,
       "contractions": [
         19.0785,
         5.4054,
@@ -150901,7 +150907,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 10.16,
-      "breakout_high_pct": 13.27,
+      "breakout_high_pct": 13.36,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -150912,7 +150918,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 54137779.0,
+      "avg_value_20d": 54137966.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -150948,7 +150954,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2778,
+      "atr20_to_60": 1.2781,
       "contractions": [
         2.0668,
         1.1272,
@@ -151004,7 +151010,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17236262.0,
+      "avg_value_20d": 17236063.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -151098,7 +151104,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26185893.0,
+      "avg_value_20d": 26186141.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -151190,7 +151196,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 63316953.0,
+      "avg_value_20d": 63447071.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -151282,7 +151288,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 56947266.0,
+      "avg_value_20d": 57140817.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -151374,7 +151380,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 27835953.0,
+      "avg_value_20d": 27836447.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -151468,7 +151474,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22799597.0,
+      "avg_value_20d": 22800906.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -151560,7 +151566,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20054209.0,
+      "avg_value_20d": 20085477.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -151657,7 +151663,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10472941.0,
+      "avg_value_20d": 10472938.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -151696,7 +151702,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1458,
+      "atr20_to_60": 1.1473,
       "contractions": [
         18.9764,
         3.8623,
@@ -151752,7 +151758,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20691316.0,
+      "avg_value_20d": 20691140.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -151788,7 +151794,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2928,
+      "atr20_to_60": 1.2931,
       "contractions": [
         2.9579,
         10.9874,
@@ -151833,7 +151839,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 19.44,
-      "breakout_high_pct": 19.57,
+      "breakout_high_pct": 19.6,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -151845,7 +151851,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 31853790.0,
+      "avg_value_20d": 31853866.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -151938,7 +151944,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 72208729.0,
+      "avg_value_20d": 72237810.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -151974,7 +151980,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1557,
+      "atr20_to_60": 1.1558,
       "contractions": [
         14.8581,
         9.8039,
@@ -152031,7 +152037,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16932294.0,
+      "avg_value_20d": 16932261.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -152129,7 +152135,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 39008764.0,
+      "avg_value_20d": 39009292.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -152165,7 +152171,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3496,
+      "atr20_to_60": 1.3499,
       "contractions": [
         9.018,
         6.7748,
@@ -152210,7 +152216,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 42.5,
-      "breakout_high_pct": 43.17,
+      "breakout_high_pct": 43.22,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -152222,7 +152228,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 39089139.0,
+      "avg_value_20d": 39093957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -152258,7 +152264,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1842,
+      "atr20_to_60": 1.1849,
       "contractions": [
         2.1078,
         5.1733,
@@ -152312,7 +152318,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12980329.0,
+      "avg_value_20d": 12980014.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -152407,7 +152413,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20299598.0,
+      "avg_value_20d": 20299590.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -152447,7 +152453,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2352,
+      "atr20_to_60": 1.235,
       "contractions": [
         1.9316,
         2.2553,
@@ -152502,7 +152508,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15863835.0,
+      "avg_value_20d": 15863983.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 51,
@@ -152596,7 +152602,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 122200575.0,
+      "avg_value_20d": 122200548.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -152689,7 +152695,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14755132.0,
+      "avg_value_20d": 14755209.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -152708,7 +152714,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 212.57,
-      "breakout_vol_ratio": 1.13,
+      "breakout_vol_ratio": 1.14,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -152782,7 +152788,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 641656877.0,
+      "avg_value_20d": 642121507.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 42,
@@ -152878,7 +152884,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 324103737.0,
+      "avg_value_20d": 324104064.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -152898,7 +152904,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 229.36,
-      "breakout_vol_ratio": 1.24,
+      "breakout_vol_ratio": 1.26,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -152917,7 +152923,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3758,
+      "atr20_to_60": 1.3759,
       "contractions": [
         4.7591,
         4.7365,
@@ -152962,7 +152968,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.34,
-      "breakout_high_pct": 3.49,
+      "breakout_high_pct": 3.5,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -152973,7 +152979,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12608948723.0,
+      "avg_value_20d": 12621005889.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -153011,7 +153017,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1572,
+      "atr20_to_60": 1.1573,
       "contractions": [
         4.3221,
         7.029,
@@ -153056,7 +153062,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.35,
-      "breakout_high_pct": 1.6,
+      "breakout_high_pct": 1.61,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -153161,7 +153167,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17981982.0,
+      "avg_value_20d": 17981957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -153258,7 +153264,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1468633978.0,
+      "avg_value_20d": 1468663417.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 37,
@@ -153300,7 +153306,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1689,
+      "atr20_to_60": 1.169,
       "contractions": [
         1.1755,
         2.9919,
@@ -153345,7 +153351,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.47,
-      "breakout_high_pct": 0.82,
+      "breakout_high_pct": 0.83,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -153355,7 +153361,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 441798708.0,
+      "avg_value_20d": 441810257.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 37,
@@ -153397,7 +153403,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.261,
+      "atr20_to_60": 1.2613,
       "contractions": [
         6.6872,
         8.5866,
@@ -153442,7 +153448,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.54,
-      "breakout_high_pct": 1.51,
+      "breakout_high_pct": 1.53,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -153453,7 +153459,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 173386345.0,
+      "avg_value_20d": 173385803.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -153548,7 +153554,7 @@
         "Squeeze 剛爆發（前 7 日中度壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17557571.0,
+      "avg_value_20d": 17557572.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 32,
@@ -153645,7 +153651,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 190076614.0,
+      "avg_value_20d": 190076420.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 42,
@@ -153686,7 +153692,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1103,
+      "atr20_to_60": 1.1115,
       "contractions": [
         4.3045,
         7.7423,
@@ -153740,7 +153746,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 78751661.0,
+      "avg_value_20d": 78753926.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -153833,7 +153839,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 69235070.0,
+      "avg_value_20d": 69235248.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -153855,7 +153861,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 101.11,
-      "breakout_vol_ratio": 1.16,
+      "breakout_vol_ratio": 1.17,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -153874,7 +153880,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8996,
+      "atr20_to_60": 0.8997,
       "contractions": [
         5.769,
         15.7766,
@@ -153919,7 +153925,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.79,
-      "breakout_high_pct": 1.15,
+      "breakout_high_pct": 1.16,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -153929,7 +153935,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 325337014.0,
+      "avg_value_20d": 325444652.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 9,
@@ -154027,7 +154033,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 201347779.0,
+      "avg_value_20d": 201347847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -154122,7 +154128,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 261458598.0,
+      "avg_value_20d": 261458917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -154164,7 +154170,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2386,
+      "atr20_to_60": 1.2387,
       "contractions": [
         20.7655,
         7.3,
@@ -154219,7 +154225,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 265680963.0,
+      "avg_value_20d": 265682187.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 17,
@@ -154261,7 +154267,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2488,
+      "atr20_to_60": 1.2565,
       "contractions": [
         8.2504,
         2.6194,
@@ -154317,7 +154323,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16895287.0,
+      "avg_value_20d": 16895273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -154359,7 +154365,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2751,
+      "atr20_to_60": 1.2752,
       "contractions": [
         6.9876,
         10.4539,
@@ -154404,7 +154410,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.09,
-      "breakout_high_pct": 1.12,
+      "breakout_high_pct": 1.13,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -154414,7 +154420,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 163408897.0,
+      "avg_value_20d": 163409332.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
@@ -154507,7 +154513,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20899691.0,
+      "avg_value_20d": 20899701.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -154603,7 +154609,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 655972237.0,
+      "avg_value_20d": 655979920.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -154642,7 +154648,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.233,
+      "atr20_to_60": 1.2333,
       "contractions": [
         3.452,
         9.1636,
@@ -154687,7 +154693,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.19,
-      "breakout_high_pct": 2.18,
+      "breakout_high_pct": 2.2,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -154697,7 +154703,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 715009430.0,
+      "avg_value_20d": 715090885.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -154738,7 +154744,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2111,
+      "atr20_to_60": 1.216,
       "contractions": [
         3.4628,
         4.1299,
@@ -154793,7 +154799,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15207203.0,
+      "avg_value_20d": 15207318.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -154888,7 +154894,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 675959129.0,
+      "avg_value_20d": 676152586.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -154984,7 +154990,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26239804.0,
+      "avg_value_20d": 26239833.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 47,
@@ -155025,7 +155031,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2186,
+      "atr20_to_60": 1.2187,
       "contractions": [
         2.1589,
         3.7011,
@@ -155080,7 +155086,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 216353195.0,
+      "avg_value_20d": 216353336.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -155119,7 +155125,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0986,
+      "atr20_to_60": 1.1015,
       "contractions": [
         17.9594,
         4.1667,
@@ -155175,7 +155181,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 29521865.0,
+      "avg_value_20d": 29522639.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 8,
@@ -155273,10 +155279,10 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 55209482.0,
+      "avg_value_20d": 55209476.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 59,
+      "rs_rating": 60,
       "rs_universe": 1618,
       "tt_count": 5,
       "tt_fail": [
@@ -155367,7 +155373,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1740611420.0,
+      "avg_value_20d": 1740618969.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 45,
@@ -155407,7 +155413,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2037,
+      "atr20_to_60": 1.2044,
       "contractions": [
         3.7822,
         2.7391,
@@ -155463,7 +155469,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 2491445103.0,
+      "avg_value_20d": 2491562916.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
@@ -155503,7 +155509,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1591,
+      "atr20_to_60": 1.161,
       "contractions": [
         5.3124,
         22.6631,
@@ -155548,7 +155554,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 1.92,
-      "breakout_high_pct": 2.51,
+      "breakout_high_pct": 2.67,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -155558,7 +155564,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 53762558.0,
+      "avg_value_20d": 53762476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 46,
@@ -155653,7 +155659,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 303743006.0,
+      "avg_value_20d": 303743174.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -155747,7 +155753,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22861856.0,
+      "avg_value_20d": 22861943.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -155840,7 +155846,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28342489.0,
+      "avg_value_20d": 28343556.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -155934,7 +155940,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12158391.0,
+      "avg_value_20d": 12158429.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 43,
@@ -156030,7 +156036,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 82137642.0,
+      "avg_value_20d": 82137677.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 47,
@@ -156116,7 +156122,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 2.37,
-      "breakout_high_pct": 3.23,
+      "breakout_high_pct": 3.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -156126,7 +156132,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 407899256.0,
+      "avg_value_20d": 407903553.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -156222,7 +156228,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 95809075.0,
+      "avg_value_20d": 96079276.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
@@ -158405,7 +158411,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 51343050.0,
+      "avg_value_20d": 51343076.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -158414,6 +158420,103 @@
       "tt_fail": [],
       "is_new": true,
       "new_reason": "今日帶量突破後新進雷達"
+    },
+    {
+      "market": "US",
+      "symbol": "AEO",
+      "name": "American Eagle Outfitters Inc",
+      "exchange": "",
+      "score": 4,
+      "stop_price": 19.05,
+      "breakout_vol_ratio": 1.0,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": true,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 1.121,
+      "contractions": [
+        16.4462,
+        2.6461,
+        4.3478,
+        2.8827
+      ],
+      "contraction_bars": [
+        3,
+        6,
+        8,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-16% → -3% → -4% → -3%",
+      "pivot": 21.36,
+      "last": 21.75,
+      "distance": 1.83,
+      "change_pct": 9.19,
+      "volume_dry": true,
+      "type": "breakout",
+      "state": "🟢 今日帶量突破",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": 0,
+      "sqz_w_fire": true,
+      "sqz_w_fire_dir": "bull",
+      "sqz_w_prev_level": "medium",
+      "sqz_w_prev_bars": 18,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-09",
+      "breakout_return_pct": 1.83,
+      "breakout_high_pct": 2.39,
+      "holding_pivot": true,
+      "pulse_signal": "hot",
+      "pulse_label": "🔥 高關注",
+      "pulse_points": 7,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "今日帶量突破",
+        "週線 Squeeze 爆發",
+        "多方增強"
+      ],
+      "data_date": "2026-11-09",
+      "avg_value_20d": 83807421.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 77,
+      "rs_universe": 1618,
+      "tt_count": 4,
+      "tt_fail": [
+        2,
+        3,
+        4
+      ],
+      "is_new": true,
+      "new_reason": "今日達到 VCP 3/5 入選門檻"
     },
     {
       "market": "US",
@@ -158497,7 +158600,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20491619.0,
+      "avg_value_20d": 20492238.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -158514,7 +158617,7 @@
       "exchange": "",
       "score": 4,
       "stop_price": 25.93,
-      "breakout_vol_ratio": 1.17,
+      "breakout_vol_ratio": 1.19,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -158578,7 +158681,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 2.42,
-      "breakout_high_pct": 3.43,
+      "breakout_high_pct": 3.44,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -158589,7 +158692,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46404724.0,
+      "avg_value_20d": 46515112.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -158682,7 +158785,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46869028.0,
+      "avg_value_20d": 46869241.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -158774,7 +158877,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 90057519.0,
+      "avg_value_20d": 90058114.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -158812,7 +158915,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.0795,
+      "atr20_to_60": 1.0804,
       "contractions": [
         5.5662,
         15.446,
@@ -158857,7 +158960,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.26,
-      "breakout_high_pct": 5.26,
+      "breakout_high_pct": 5.28,
       "holding_pivot": true,
       "pulse_signal": "hot",
       "pulse_label": "🔥 高關注",
@@ -158869,7 +158972,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18702885.0,
+      "avg_value_20d": 18702981.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -158905,7 +159008,7 @@
         "pivot_valid": true,
         "current_clear_trigger": true
       },
-      "atr20_to_60": 1.1679,
+      "atr20_to_60": 1.1682,
       "contractions": [
         4.8228,
         8.0575,
@@ -158950,7 +159053,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.5,
-      "breakout_high_pct": 6.89,
+      "breakout_high_pct": 6.92,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -158961,7 +159064,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 66754251.0,
+      "avg_value_20d": 66766963.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -158978,7 +159081,7 @@
       "exchange": "",
       "score": 4,
       "stop_price": 48.36,
-      "breakout_vol_ratio": 2.11,
+      "breakout_vol_ratio": 2.14,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -159054,7 +159157,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26231865.0,
+      "avg_value_20d": 26280475.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -159146,7 +159249,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 41196295.0,
+      "avg_value_20d": 41196272.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -159238,7 +159341,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 280372365.0,
+      "avg_value_20d": 280373805.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -159330,7 +159433,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 46374174.0,
+      "avg_value_20d": 46382011.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -159421,7 +159524,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 83707209.0,
+      "avg_value_20d": 83708511.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -159513,7 +159616,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 206931650.0,
+      "avg_value_20d": 206931511.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -159604,7 +159707,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 933051471.0,
+      "avg_value_20d": 933246018.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -159698,7 +159801,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21852171.0,
+      "avg_value_20d": 21856259.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -159789,7 +159892,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 427581149.0,
+      "avg_value_20d": 427580904.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -159882,7 +159985,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 29489393.0,
+      "avg_value_20d": 29489287.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -159899,7 +160002,7 @@
       "exchange": "",
       "score": 3,
       "stop_price": 619.99,
-      "breakout_vol_ratio": 0.95,
+      "breakout_vol_ratio": 1.0,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -159973,7 +160076,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 308066892.0,
+      "avg_value_20d": 308879980.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -160067,7 +160170,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 37734671.0,
+      "avg_value_20d": 37734716.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -160103,7 +160206,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1873,
+      "atr20_to_60": 1.1872,
       "contractions": [
         5.6571,
         5.8396,
@@ -160158,7 +160261,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 249582001.0,
+      "avg_value_20d": 249582313.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -160167,102 +160270,6 @@
       "tt_fail": [],
       "is_new": false,
       "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "AEO",
-      "name": "American Eagle Outfitters Inc",
-      "exchange": "",
-      "score": 3,
-      "stop_price": 19.05,
-      "breakout_vol_ratio": 0.99,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.1208,
-      "contractions": [
-        16.4462,
-        2.6461,
-        4.3478,
-        2.8827
-      ],
-      "contraction_bars": [
-        3,
-        6,
-        8,
-        3
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-16% → -3% → -4% → -3%",
-      "pivot": 21.36,
-      "last": 21.75,
-      "distance": 1.83,
-      "change_pct": 9.19,
-      "volume_dry": true,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 0,
-      "sqz_w_fire": true,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "medium",
-      "sqz_w_prev_bars": 18,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-11-09",
-      "breakout_return_pct": 1.83,
-      "breakout_high_pct": 2.36,
-      "holding_pivot": true,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "週線 Squeeze 爆發",
-        "多方增強"
-      ],
-      "data_date": "2026-11-09",
-      "avg_value_20d": 83736247.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 77,
-      "rs_universe": 1618,
-      "tt_count": 4,
-      "tt_fail": [
-        2,
-        3,
-        4
-      ],
-      "is_new": true,
-      "new_reason": "今日達到 VCP 3/5 入選門檻"
     },
     {
       "market": "US",
@@ -160346,7 +160353,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16258556.0,
+      "avg_value_20d": 16258518.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 11,
@@ -160389,7 +160396,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1375,
+      "atr20_to_60": 1.1376,
       "contractions": [
         5.5208,
         3.519,
@@ -160434,7 +160441,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 2.88,
-      "breakout_high_pct": 3.69,
+      "breakout_high_pct": 3.7,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -160444,7 +160451,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18576718.0,
+      "avg_value_20d": 18576758.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -160535,7 +160542,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 384792666.0,
+      "avg_value_20d": 384794270.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -160571,7 +160578,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2236,
+      "atr20_to_60": 1.2239,
       "contractions": [
         20.8682,
         12.0957,
@@ -160627,7 +160634,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 3720939337.0,
+      "avg_value_20d": 3721459928.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -160719,7 +160726,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 142932933.0,
+      "avg_value_20d": 142933921.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -160810,100 +160817,10 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 51717384.0,
+      "avg_value_20d": 52447381.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
-      "rs_universe": 1618,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "US",
-      "symbol": "FA",
-      "name": "First Advantage Corp",
-      "exchange": "",
-      "score": 3,
-      "stop_price": 20.52,
-      "breakout_vol_ratio": 2.36,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": true,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.1809,
-      "contractions": [
-        4.4902,
-        20.781,
-        5.6275,
-        1.3177
-      ],
-      "contraction_bars": [
-        3,
-        11,
-        2,
-        4
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-4% → -21% → -6% → -1%",
-      "pivot": 22.47,
-      "last": 23.52,
-      "distance": 4.67,
-      "change_pct": -0.04,
-      "volume_dry": true,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+2",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 4,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 2,
-      "breakout_date": "2026-11-05",
-      "breakout_return_pct": 4.67,
-      "breakout_high_pct": 9.88,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot"
-      ],
-      "data_date": "2026-11-09",
-      "avg_value_20d": 30308245.0,
-      "industry": "",
-      "split_adjusted": false,
-      "rs_rating": 92,
       "rs_universe": 1618,
       "tt_count": 7,
       "tt_fail": [],
@@ -160992,7 +160909,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 454573462.0,
+      "avg_value_20d": 454588001.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -161083,7 +161000,7 @@
         "Squeeze 剛爆發（前 8 日中度壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 27794883.0,
+      "avg_value_20d": 27794900.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -161119,7 +161036,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2126,
+      "atr20_to_60": 1.2127,
       "contractions": [
         6.7456,
         7.4954,
@@ -161175,7 +161092,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 95829027.0,
+      "avg_value_20d": 95830847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -161267,7 +161184,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 100822019.0,
+      "avg_value_20d": 100822128.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -161359,7 +161276,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 30820320.0,
+      "avg_value_20d": 30820491.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -161451,7 +161368,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 43899610.0,
+      "avg_value_20d": 43900476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 83,
@@ -161545,7 +161462,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18549465.0,
+      "avg_value_20d": 18549476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -161581,7 +161498,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2612,
+      "atr20_to_60": 1.2621,
       "contractions": [
         11.8812,
         10.2389,
@@ -161626,7 +161543,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 21.26,
-      "breakout_high_pct": 24.86,
+      "breakout_high_pct": 25.0,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -161637,7 +161554,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22468745.0,
+      "avg_value_20d": 22470495.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -161730,7 +161647,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 11426094.0,
+      "avg_value_20d": 11426174.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -161822,7 +161739,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12273219.0,
+      "avg_value_20d": 12273172.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -161858,7 +161775,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1251,
+      "atr20_to_60": 1.1257,
       "contractions": [
         5.8763,
         5.9765,
@@ -161903,7 +161820,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.1,
-      "breakout_high_pct": 1.44,
+      "breakout_high_pct": 1.49,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -161913,7 +161830,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 13731640.0,
+      "avg_value_20d": 13731642.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -162004,7 +161921,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 13293567.0,
+      "avg_value_20d": 13293502.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -162021,7 +161938,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 87.93,
-      "breakout_vol_ratio": 1.21,
+      "breakout_vol_ratio": 1.22,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -162095,7 +162012,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68208233.0,
+      "avg_value_20d": 68224611.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -162191,7 +162108,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 330021790.0,
+      "avg_value_20d": 330022185.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 87,
@@ -162283,7 +162200,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28220814.0,
+      "avg_value_20d": 28220695.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -162302,7 +162219,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 17.75,
-      "breakout_vol_ratio": 0.87,
+      "breakout_vol_ratio": 0.93,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -162376,7 +162293,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18264314.0,
+      "avg_value_20d": 18326812.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -162468,7 +162385,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 134630457.0,
+      "avg_value_20d": 134630391.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 64,
@@ -162487,7 +162404,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 90.58,
-      "breakout_vol_ratio": 0.97,
+      "breakout_vol_ratio": 0.98,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -162562,7 +162479,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1754784370.0,
+      "avg_value_20d": 1755694451.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -162654,7 +162571,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16055292.0,
+      "avg_value_20d": 16055200.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -162690,7 +162607,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9546,
+      "atr20_to_60": 0.9545,
       "contractions": [
         28.1455,
         19.6053,
@@ -162735,7 +162652,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.22,
-      "breakout_high_pct": 1.25,
+      "breakout_high_pct": 1.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -162745,7 +162662,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10882530.0,
+      "avg_value_20d": 10882481.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 12,
@@ -162768,7 +162685,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 74.36,
-      "breakout_vol_ratio": 0.9,
+      "breakout_vol_ratio": 1.02,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -162787,7 +162704,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2007,
+      "atr20_to_60": 1.2008,
       "contractions": [
         6.6056,
         6.8482,
@@ -162832,7 +162749,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.23,
-      "breakout_high_pct": 1.44,
+      "breakout_high_pct": 1.45,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -162842,7 +162759,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 62326927.0,
+      "avg_value_20d": 62689431.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -162937,7 +162854,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 648856578.0,
+      "avg_value_20d": 648858937.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -163027,7 +162944,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 346264962.0,
+      "avg_value_20d": 346266653.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -163047,7 +162964,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 325.33,
-      "breakout_vol_ratio": 1.08,
+      "breakout_vol_ratio": 1.11,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -163066,7 +162983,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.139,
+      "atr20_to_60": 1.1392,
       "contractions": [
         2.3609,
         3.9213,
@@ -163111,7 +163028,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.34,
-      "breakout_high_pct": 0.79,
+      "breakout_high_pct": 0.81,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -163122,7 +163039,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17115915118.0,
+      "avg_value_20d": 17137281916.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -163139,7 +163056,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 169.13,
-      "breakout_vol_ratio": 0.92,
+      "breakout_vol_ratio": 0.93,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -163214,7 +163131,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 145244196.0,
+      "avg_value_20d": 145306616.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -163234,7 +163151,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 112.02,
-      "breakout_vol_ratio": 0.9,
+      "breakout_vol_ratio": 0.91,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -163309,7 +163226,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40052335.0,
+      "avg_value_20d": 40052465.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -163401,7 +163318,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21706601.0,
+      "avg_value_20d": 21706551.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -163494,7 +163411,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 353451065.0,
+      "avg_value_20d": 353457389.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -163593,7 +163510,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20816361.0,
+      "avg_value_20d": 20817234.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -163610,7 +163527,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 11.7,
-      "breakout_vol_ratio": 0.68,
+      "breakout_vol_ratio": 0.69,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -163684,7 +163601,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22450801.0,
+      "avg_value_20d": 22472655.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -163780,7 +163697,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10106657.0,
+      "avg_value_20d": 10106623.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -163816,7 +163733,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1062,
+      "atr20_to_60": 1.1066,
       "contractions": [
         10.4728,
         10.4499,
@@ -163861,7 +163778,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.5,
-      "breakout_high_pct": 1.33,
+      "breakout_high_pct": 1.36,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -163871,7 +163788,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 24751671.0,
+      "avg_value_20d": 24751628.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 35,
@@ -163912,7 +163829,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3104,
+      "atr20_to_60": 1.3105,
       "contractions": [
         1.7137,
         3.4087,
@@ -163968,7 +163885,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1760835355.0,
+      "avg_value_20d": 1760921804.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 69,
@@ -164007,7 +163924,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1774,
+      "atr20_to_60": 1.1777,
       "contractions": [
         14.1803,
         7.7634,
@@ -164052,7 +163969,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.6,
-      "breakout_high_pct": 0.98,
+      "breakout_high_pct": 1.0,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -164062,7 +163979,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 98463296.0,
+      "avg_value_20d": 98463327.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 28,
@@ -164159,7 +164076,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 66421690.0,
+      "avg_value_20d": 66421709.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 76,
@@ -164199,7 +164116,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0931,
+      "atr20_to_60": 1.0933,
       "contractions": [
         8.9014,
         11.9601,
@@ -164253,7 +164170,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20190127.0,
+      "avg_value_20d": 20190066.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -164289,7 +164206,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2372,
+      "atr20_to_60": 1.2376,
       "contractions": [
         1.6408,
         1.4286,
@@ -164334,7 +164251,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.86,
-      "breakout_high_pct": 1.68,
+      "breakout_high_pct": 1.72,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -164344,7 +164261,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26352946.0,
+      "avg_value_20d": 26352919.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -164434,7 +164351,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 236463566.0,
+      "avg_value_20d": 236463601.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -164525,7 +164442,7 @@
         "一般壓縮"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 112235758.0,
+      "avg_value_20d": 112362554.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -164617,7 +164534,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 416609073.0,
+      "avg_value_20d": 416627569.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -164637,7 +164554,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 350.66,
-      "breakout_vol_ratio": 1.0,
+      "breakout_vol_ratio": 1.04,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -164656,7 +164573,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2864,
+      "atr20_to_60": 1.2866,
       "contractions": [
         1.6539,
         9.5421,
@@ -164711,7 +164628,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 270112267.0,
+      "avg_value_20d": 270629650.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -164747,7 +164664,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0856,
+      "atr20_to_60": 1.0859,
       "contractions": [
         15.0597,
         7.1832,
@@ -164801,7 +164718,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 412083691.0,
+      "avg_value_20d": 412167353.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -164818,7 +164735,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 73.79,
-      "breakout_vol_ratio": 1.51,
+      "breakout_vol_ratio": 1.52,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -164893,7 +164810,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 497827647.0,
+      "avg_value_20d": 497844185.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -164985,7 +164902,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 314145329.0,
+      "avg_value_20d": 314145672.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 70,
@@ -165002,7 +164919,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 97.44,
-      "breakout_vol_ratio": 0.97,
+      "breakout_vol_ratio": 1.02,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -165021,7 +164938,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1803,
+      "atr20_to_60": 1.1804,
       "contractions": [
         5.9235,
         4.7794,
@@ -165066,7 +164983,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.09,
-      "breakout_high_pct": 1.09,
+      "breakout_high_pct": 1.1,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -165076,7 +164993,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 234869370.0,
+      "avg_value_20d": 235474161.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -165167,7 +165084,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 249403455.0,
+      "avg_value_20d": 249404995.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -165259,7 +165176,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 42201353.0,
+      "avg_value_20d": 42201437.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -165351,7 +165268,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 442830417.0,
+      "avg_value_20d": 442831265.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -165446,7 +165363,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 88439493.0,
+      "avg_value_20d": 88454865.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -165463,7 +165380,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 36.5,
-      "breakout_vol_ratio": 1.0,
+      "breakout_vol_ratio": 1.06,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -165538,7 +165455,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 86297064.0,
+      "avg_value_20d": 86560528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -165630,7 +165547,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18571326.0,
+      "avg_value_20d": 18571435.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -165721,7 +165638,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18639842.0,
+      "avg_value_20d": 18639957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -165757,7 +165674,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1873,
+      "atr20_to_60": 1.1874,
       "contractions": [
         3.89,
         8.472,
@@ -165802,7 +165719,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.41,
-      "breakout_high_pct": 3.15,
+      "breakout_high_pct": 3.17,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -165813,7 +165730,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 57165928.0,
+      "avg_value_20d": 57171962.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -165849,7 +165766,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.259,
+      "atr20_to_60": 1.2592,
       "contractions": [
         1.9231,
         2.5427,
@@ -165904,7 +165821,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 211267249.0,
+      "avg_value_20d": 211267449.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -165995,7 +165912,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12978849.0,
+      "avg_value_20d": 12978813.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -166087,7 +166004,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22409008.0,
+      "avg_value_20d": 22409061.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -166179,7 +166096,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 31890827.0,
+      "avg_value_20d": 31890754.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -166270,7 +166187,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 186852144.0,
+      "avg_value_20d": 186851760.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 60,
@@ -166364,7 +166281,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45946205.0,
+      "avg_value_20d": 45950401.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -166400,7 +166317,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1466,
+      "atr20_to_60": 1.147,
       "contractions": [
         3.1284,
         9.4367,
@@ -166454,7 +166371,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 19928299.0,
+      "avg_value_20d": 20132525.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -166548,7 +166465,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 611682950.0,
+      "avg_value_20d": 611695052.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 88,
@@ -166584,7 +166501,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1955,
+      "atr20_to_60": 1.1954,
       "contractions": [
         8.9204,
         3.5422,
@@ -166639,7 +166556,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 36900621.0,
+      "avg_value_20d": 36900576.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 30,
@@ -166737,7 +166654,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1675458655.0,
+      "avg_value_20d": 1676179311.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -166828,7 +166745,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 121074898.0,
+      "avg_value_20d": 121074766.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -166920,7 +166837,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40697792.0,
+      "avg_value_20d": 40697812.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -167011,7 +166928,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 2161293854.0,
+      "avg_value_20d": 2161313728.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 79,
@@ -167103,7 +167020,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 502599256.0,
+      "avg_value_20d": 502599496.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 32,
@@ -167202,7 +167119,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 351837407.0,
+      "avg_value_20d": 351835557.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -167293,7 +167210,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16442502.0,
+      "avg_value_20d": 16442455.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -167386,7 +167303,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 62321060.0,
+      "avg_value_20d": 62324050.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -167484,7 +167401,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 471322024.0,
+      "avg_value_20d": 471322357.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -167576,7 +167493,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 49102523.0,
+      "avg_value_20d": 49102712.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -167612,7 +167529,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0423,
+      "atr20_to_60": 1.0424,
       "contractions": [
         2.8463,
         5.7016,
@@ -167657,7 +167574,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 2.57,
-      "breakout_high_pct": 2.88,
+      "breakout_high_pct": 2.89,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -167668,7 +167585,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 107678515.0,
+      "avg_value_20d": 107681166.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -167762,7 +167679,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 118338260.0,
+      "avg_value_20d": 118338419.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -167853,7 +167770,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 545504991.0,
+      "avg_value_20d": 545598311.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -167945,7 +167862,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15820684.0,
+      "avg_value_20d": 15833312.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 45,
@@ -168041,7 +167958,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 82285387.0,
+      "avg_value_20d": 82285419.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -168122,7 +168039,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 3.19,
-      "breakout_high_pct": 3.19,
+      "breakout_high_pct": 3.2,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -168132,7 +168049,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 209622123.0,
+      "avg_value_20d": 209624528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -168154,7 +168071,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 35.09,
-      "breakout_vol_ratio": 0.84,
+      "breakout_vol_ratio": 0.88,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -168228,7 +168145,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 48025218.0,
+      "avg_value_20d": 48163230.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -168271,7 +168188,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2467,
+      "atr20_to_60": 1.2468,
       "contractions": [
         3.3271,
         3.8211,
@@ -168327,7 +168244,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45432363.0,
+      "avg_value_20d": 45432282.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -168419,7 +168336,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 199568608.0,
+      "avg_value_20d": 199569225.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -168460,7 +168377,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.9866,
+      "atr20_to_60": 0.9869,
       "contractions": [
         4.7402,
         10.6001,
@@ -168505,7 +168422,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 3.8,
-      "breakout_high_pct": 4.76,
+      "breakout_high_pct": 4.77,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -168515,7 +168432,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 293990828.0,
+      "avg_value_20d": 293990814.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 49,
@@ -168554,7 +168471,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2631,
+      "atr20_to_60": 1.2657,
       "contractions": [
         1.8697,
         6.5717,
@@ -168609,7 +168526,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 60217629.0,
+      "avg_value_20d": 60217586.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -168701,7 +168618,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 52516467.0,
+      "avg_value_20d": 52582605.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 31,
@@ -168798,7 +168715,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 74189664.0,
+      "avg_value_20d": 74189699.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -168893,7 +168810,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 25041101.0,
+      "avg_value_20d": 25064608.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 75,
@@ -168929,7 +168846,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.497,
+      "atr20_to_60": 1.4966,
       "contractions": [
         4.2697,
         7.7273,
@@ -168983,7 +168900,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 23770021.0,
+      "avg_value_20d": 23770216.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -169074,7 +168991,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 21035686.0,
+      "avg_value_20d": 21035660.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -169086,6 +169003,96 @@
         4,
         7
       ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "US",
+      "symbol": "FA",
+      "name": "First Advantage Corp",
+      "exchange": "",
+      "score": 2,
+      "stop_price": 20.52,
+      "breakout_vol_ratio": 2.36,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.1809,
+      "contractions": [
+        4.4902,
+        20.781,
+        5.6275,
+        1.3177
+      ],
+      "contraction_bars": [
+        3,
+        11,
+        2,
+        4
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-4% → -21% → -6% → -1%",
+      "pivot": 22.47,
+      "last": 23.52,
+      "distance": 4.67,
+      "change_pct": -0.04,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+2",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 4,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 2,
+      "breakout_date": "2026-11-05",
+      "breakout_return_pct": 4.67,
+      "breakout_high_pct": 9.88,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-11-09",
+      "avg_value_20d": 30322038.0,
+      "industry": "",
+      "split_adjusted": false,
+      "rs_rating": 92,
+      "rs_universe": 1618,
+      "tt_count": 7,
+      "tt_fail": [],
       "is_new": false,
       "new_reason": ""
     },
@@ -169170,7 +169177,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 480899580.0,
+      "avg_value_20d": 480908975.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 82,
@@ -169187,7 +169194,7 @@
       "exchange": "",
       "score": 2,
       "stop_price": 8.65,
-      "breakout_vol_ratio": 1.63,
+      "breakout_vol_ratio": 1.64,
       "score_components": {
         "trend": true,
         "two_contractions": true,
@@ -169262,7 +169269,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 18250715.0,
+      "avg_value_20d": 18257066.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -169356,7 +169363,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12125652.0,
+      "avg_value_20d": 12125654.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -169395,7 +169402,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1447,
+      "atr20_to_60": 1.145,
       "contractions": [
         8.7146,
         26.2582,
@@ -169450,7 +169457,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26393242.0,
+      "avg_value_20d": 26393271.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 65,
@@ -169489,7 +169496,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.238,
+      "atr20_to_60": 1.2382,
       "contractions": [
         3.3226,
         22.1106,
@@ -169544,7 +169551,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14185596.0,
+      "avg_value_20d": 14185641.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 71,
@@ -169638,7 +169645,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14650889.0,
+      "avg_value_20d": 14676528.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 90,
@@ -169729,7 +169736,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 181640893.0,
+      "avg_value_20d": 181641198.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 52,
@@ -169769,7 +169776,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1262,
+      "atr20_to_60": 1.1264,
       "contractions": [
         14.8343,
         20.5397,
@@ -169814,7 +169821,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 5.69,
-      "breakout_high_pct": 7.21,
+      "breakout_high_pct": 7.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -169824,7 +169831,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15470964.0,
+      "avg_value_20d": 15470966.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -169914,7 +169921,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10802573.0,
+      "avg_value_20d": 10802583.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -170008,7 +170015,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 221128917.0,
+      "avg_value_20d": 221185864.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -170099,7 +170106,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15674164.0,
+      "avg_value_20d": 15674229.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -170190,7 +170197,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12311999.0,
+      "avg_value_20d": 12312517.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -170286,7 +170293,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 575317984.0,
+      "avg_value_20d": 575318433.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 80,
@@ -170379,7 +170386,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 88766091.0,
+      "avg_value_20d": 88765934.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -170471,7 +170478,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 49006668.0,
+      "avg_value_20d": 49297103.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 67,
@@ -170562,7 +170569,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28079171.0,
+      "avg_value_20d": 28079906.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -170654,7 +170661,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 173036289.0,
+      "avg_value_20d": 173038303.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 89,
@@ -170690,7 +170697,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1682,
+      "atr20_to_60": 1.1735,
       "contractions": [
         9.2686,
         4.5218,
@@ -170735,7 +170742,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 7.27,
-      "breakout_high_pct": 10.5,
+      "breakout_high_pct": 10.89,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -170744,7 +170751,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 40011123.0,
+      "avg_value_20d": 40010740.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 94,
@@ -170835,7 +170842,7 @@
         "Squeeze 剛爆發（前 3 日一般壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 779757700.0,
+      "avg_value_20d": 779762762.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -170927,7 +170934,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 53312169.0,
+      "avg_value_20d": 53312183.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -171018,7 +171025,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 45208528.0,
+      "avg_value_20d": 45208535.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 81,
@@ -171111,7 +171118,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68682716.0,
+      "avg_value_20d": 68683024.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -171203,7 +171210,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 24718875.0,
+      "avg_value_20d": 24718899.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -171242,7 +171249,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.428,
+      "atr20_to_60": 1.4281,
       "contractions": [
         4.3833,
         3.9526,
@@ -171297,7 +171304,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 47065523.0,
+      "avg_value_20d": 47065934.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 72,
@@ -171394,7 +171401,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 233965001.0,
+      "avg_value_20d": 233965482.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 84,
@@ -171487,7 +171494,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 68722826.0,
+      "avg_value_20d": 69017169.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 93,
@@ -171523,7 +171530,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.301,
+      "atr20_to_60": 1.3017,
       "contractions": [
         11.617,
         1.7026,
@@ -171568,7 +171575,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 9.82,
-      "breakout_high_pct": 10.25,
+      "breakout_high_pct": 10.35,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -171579,7 +171586,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20556623.0,
+      "avg_value_20d": 21093086.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -171615,7 +171622,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3229,
+      "atr20_to_60": 1.3234,
       "contractions": [
         19.0785,
         5.4054,
@@ -171660,7 +171667,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 10.16,
-      "breakout_high_pct": 13.27,
+      "breakout_high_pct": 13.36,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -171671,7 +171678,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 54137779.0,
+      "avg_value_20d": 54137966.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -171707,7 +171714,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2778,
+      "atr20_to_60": 1.2781,
       "contractions": [
         2.0668,
         1.1272,
@@ -171763,7 +171770,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17236262.0,
+      "avg_value_20d": 17236063.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 86,
@@ -171857,7 +171864,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26185893.0,
+      "avg_value_20d": 26186141.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -171949,7 +171956,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 63316953.0,
+      "avg_value_20d": 63447071.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -172041,7 +172048,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 56947266.0,
+      "avg_value_20d": 57140817.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -172133,7 +172140,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 27835953.0,
+      "avg_value_20d": 27836447.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 95,
@@ -172227,7 +172234,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22799597.0,
+      "avg_value_20d": 22800906.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -172319,7 +172326,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20054209.0,
+      "avg_value_20d": 20085477.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -172416,7 +172423,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 10472941.0,
+      "avg_value_20d": 10472938.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 97,
@@ -172455,7 +172462,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1458,
+      "atr20_to_60": 1.1473,
       "contractions": [
         18.9764,
         3.8623,
@@ -172511,7 +172518,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20691316.0,
+      "avg_value_20d": 20691140.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 99,
@@ -172547,7 +172554,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2928,
+      "atr20_to_60": 1.2931,
       "contractions": [
         2.9579,
         10.9874,
@@ -172592,7 +172599,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 19.44,
-      "breakout_high_pct": 19.57,
+      "breakout_high_pct": 19.6,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -172604,7 +172611,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 31853790.0,
+      "avg_value_20d": 31853866.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 91,
@@ -172697,7 +172704,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 72208729.0,
+      "avg_value_20d": 72237810.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 96,
@@ -172733,7 +172740,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1557,
+      "atr20_to_60": 1.1558,
       "contractions": [
         14.8581,
         9.8039,
@@ -172790,7 +172797,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16932294.0,
+      "avg_value_20d": 16932261.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -172888,7 +172895,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 39008764.0,
+      "avg_value_20d": 39009292.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 92,
@@ -172924,7 +172931,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3496,
+      "atr20_to_60": 1.3499,
       "contractions": [
         9.018,
         6.7748,
@@ -172969,7 +172976,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 42.5,
-      "breakout_high_pct": 43.17,
+      "breakout_high_pct": 43.22,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -172981,7 +172988,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 39089139.0,
+      "avg_value_20d": 39093957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 98,
@@ -173017,7 +173024,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1842,
+      "atr20_to_60": 1.1849,
       "contractions": [
         2.1078,
         5.1733,
@@ -173071,7 +173078,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12980329.0,
+      "avg_value_20d": 12980014.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 48,
@@ -173166,7 +173173,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20299598.0,
+      "avg_value_20d": 20299590.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 50,
@@ -173206,7 +173213,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2352,
+      "atr20_to_60": 1.235,
       "contractions": [
         1.9316,
         2.2553,
@@ -173261,7 +173268,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15863835.0,
+      "avg_value_20d": 15863983.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 51,
@@ -173355,7 +173362,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 122200575.0,
+      "avg_value_20d": 122200548.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 59,
@@ -173448,7 +173455,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 14755132.0,
+      "avg_value_20d": 14755209.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -173467,7 +173474,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 212.57,
-      "breakout_vol_ratio": 1.13,
+      "breakout_vol_ratio": 1.14,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -173541,7 +173548,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 641656877.0,
+      "avg_value_20d": 642121507.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 42,
@@ -173637,7 +173644,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 324103737.0,
+      "avg_value_20d": 324104064.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -173657,7 +173664,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 229.36,
-      "breakout_vol_ratio": 1.24,
+      "breakout_vol_ratio": 1.26,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -173676,7 +173683,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.3758,
+      "atr20_to_60": 1.3759,
       "contractions": [
         4.7591,
         4.7365,
@@ -173721,7 +173728,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.34,
-      "breakout_high_pct": 3.49,
+      "breakout_high_pct": 3.5,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -173732,7 +173739,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12608948723.0,
+      "avg_value_20d": 12621005889.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 54,
@@ -173770,7 +173777,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1572,
+      "atr20_to_60": 1.1573,
       "contractions": [
         4.3221,
         7.029,
@@ -173815,7 +173822,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.35,
-      "breakout_high_pct": 1.6,
+      "breakout_high_pct": 1.61,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -173920,7 +173927,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17981982.0,
+      "avg_value_20d": 17981957.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 15,
@@ -174017,7 +174024,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1468633978.0,
+      "avg_value_20d": 1468663417.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 37,
@@ -174059,7 +174066,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1689,
+      "atr20_to_60": 1.169,
       "contractions": [
         1.1755,
         2.9919,
@@ -174104,7 +174111,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.47,
-      "breakout_high_pct": 0.82,
+      "breakout_high_pct": 0.83,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -174114,7 +174121,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 441798708.0,
+      "avg_value_20d": 441810257.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 37,
@@ -174156,7 +174163,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.261,
+      "atr20_to_60": 1.2613,
       "contractions": [
         6.6872,
         8.5866,
@@ -174201,7 +174208,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.54,
-      "breakout_high_pct": 1.51,
+      "breakout_high_pct": 1.53,
       "holding_pivot": true,
       "pulse_signal": "watch",
       "pulse_label": "👀 觀察",
@@ -174212,7 +174219,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 173386345.0,
+      "avg_value_20d": 173385803.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 38,
@@ -174307,7 +174314,7 @@
         "Squeeze 剛爆發（前 7 日中度壓縮）"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 17557571.0,
+      "avg_value_20d": 17557572.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 32,
@@ -174404,7 +174411,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 190076614.0,
+      "avg_value_20d": 190076420.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 42,
@@ -174445,7 +174452,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1103,
+      "atr20_to_60": 1.1115,
       "contractions": [
         4.3045,
         7.7423,
@@ -174499,7 +174506,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 78751661.0,
+      "avg_value_20d": 78753926.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 74,
@@ -174592,7 +174599,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 69235070.0,
+      "avg_value_20d": 69235248.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -174614,7 +174621,7 @@
       "exchange": "",
       "score": 1,
       "stop_price": 101.11,
-      "breakout_vol_ratio": 1.16,
+      "breakout_vol_ratio": 1.17,
       "score_components": {
         "trend": false,
         "two_contractions": true,
@@ -174633,7 +174640,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 0.8996,
+      "atr20_to_60": 0.8997,
       "contractions": [
         5.769,
         15.7766,
@@ -174678,7 +174685,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 0.79,
-      "breakout_high_pct": 1.15,
+      "breakout_high_pct": 1.16,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -174688,7 +174695,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 325337014.0,
+      "avg_value_20d": 325444652.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 9,
@@ -174786,7 +174793,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 201347779.0,
+      "avg_value_20d": 201347847.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 55,
@@ -174881,7 +174888,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 261458598.0,
+      "avg_value_20d": 261458917.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -174923,7 +174930,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2386,
+      "atr20_to_60": 1.2387,
       "contractions": [
         20.7655,
         7.3,
@@ -174978,7 +174985,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 265680963.0,
+      "avg_value_20d": 265682187.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 17,
@@ -175020,7 +175027,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2488,
+      "atr20_to_60": 1.2565,
       "contractions": [
         8.2504,
         2.6194,
@@ -175076,7 +175083,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 16895287.0,
+      "avg_value_20d": 16895273.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -175118,7 +175125,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2751,
+      "atr20_to_60": 1.2752,
       "contractions": [
         6.9876,
         10.4539,
@@ -175163,7 +175170,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.09,
-      "breakout_high_pct": 1.12,
+      "breakout_high_pct": 1.13,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -175173,7 +175180,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 163408897.0,
+      "avg_value_20d": 163409332.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
@@ -175266,7 +175273,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 20899691.0,
+      "avg_value_20d": 20899701.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 34,
@@ -175362,7 +175369,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 655972237.0,
+      "avg_value_20d": 655979920.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 68,
@@ -175401,7 +175408,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.233,
+      "atr20_to_60": 1.2333,
       "contractions": [
         3.452,
         9.1636,
@@ -175446,7 +175453,7 @@
       "breakout_days": 0,
       "breakout_date": "2026-11-09",
       "breakout_return_pct": 1.19,
-      "breakout_high_pct": 2.18,
+      "breakout_high_pct": 2.2,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -175456,7 +175463,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 715009430.0,
+      "avg_value_20d": 715090885.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 40,
@@ -175497,7 +175504,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2111,
+      "atr20_to_60": 1.216,
       "contractions": [
         3.4628,
         4.1299,
@@ -175552,7 +175559,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 15207203.0,
+      "avg_value_20d": 15207318.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 53,
@@ -175647,7 +175654,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 675959129.0,
+      "avg_value_20d": 676152586.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 58,
@@ -175743,7 +175750,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 26239804.0,
+      "avg_value_20d": 26239833.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 47,
@@ -175784,7 +175791,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2186,
+      "atr20_to_60": 1.2187,
       "contractions": [
         2.1589,
         3.7011,
@@ -175839,7 +175846,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 216353195.0,
+      "avg_value_20d": 216353336.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 61,
@@ -175878,7 +175885,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.0986,
+      "atr20_to_60": 1.1015,
       "contractions": [
         17.9594,
         4.1667,
@@ -175934,7 +175941,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 29521865.0,
+      "avg_value_20d": 29522639.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 8,
@@ -176032,10 +176039,10 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 55209482.0,
+      "avg_value_20d": 55209476.0,
       "industry": "",
       "split_adjusted": false,
-      "rs_rating": 59,
+      "rs_rating": 60,
       "rs_universe": 1618,
       "tt_count": 5,
       "tt_fail": [
@@ -176126,7 +176133,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 1740611420.0,
+      "avg_value_20d": 1740618969.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 45,
@@ -176166,7 +176173,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.2037,
+      "atr20_to_60": 1.2044,
       "contractions": [
         3.7822,
         2.7391,
@@ -176222,7 +176229,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 2491445103.0,
+      "avg_value_20d": 2491562916.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 63,
@@ -176262,7 +176269,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1591,
+      "atr20_to_60": 1.161,
       "contractions": [
         5.3124,
         22.6631,
@@ -176307,7 +176314,7 @@
       "breakout_days": 1,
       "breakout_date": "2026-11-06",
       "breakout_return_pct": 1.92,
-      "breakout_high_pct": 2.51,
+      "breakout_high_pct": 2.67,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -176317,7 +176324,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 53762558.0,
+      "avg_value_20d": 53762476.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 46,
@@ -176412,7 +176419,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 303743006.0,
+      "avg_value_20d": 303743174.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 41,
@@ -176506,7 +176513,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 22861856.0,
+      "avg_value_20d": 22861943.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 73,
@@ -176599,7 +176606,7 @@
         "突破後仍守 Pivot"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 28342489.0,
+      "avg_value_20d": 28343556.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 85,
@@ -176693,7 +176700,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 12158391.0,
+      "avg_value_20d": 12158429.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 43,
@@ -176789,7 +176796,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 82137642.0,
+      "avg_value_20d": 82137677.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 47,
@@ -176875,7 +176882,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-05",
       "breakout_return_pct": 2.37,
-      "breakout_high_pct": 3.23,
+      "breakout_high_pct": 3.24,
       "holding_pivot": true,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
@@ -176885,7 +176892,7 @@
         "週線 Squeeze 爆發"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 407899256.0,
+      "avg_value_20d": 407903553.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 66,
@@ -176981,7 +176988,7 @@
         "多方增強"
       ],
       "data_date": "2026-11-09",
-      "avg_value_20d": 95809075.0,
+      "avg_value_20d": 96079276.0,
       "industry": "",
       "split_adjusted": false,
       "rs_rating": 44,
