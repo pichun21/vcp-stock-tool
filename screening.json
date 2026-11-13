@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13 19:16",
+  "generated_at": "2026-11-13 20:59",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-11-13",
       "count": 56,
-      "scanned_at": "2026-11-13 17:27",
+      "scanned_at": "2026-11-13 20:59",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -204044,7 +204044,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.7597,
+      "atr20_to_60": 1.759,
       "contractions": [
         3.0812,
         5.2334,
@@ -204785,7 +204785,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 2.136,
+      "atr20_to_60": 2.1348,
       "contractions": [
         4.01,
         1.2755,
@@ -204830,7 +204830,7 @@
       "breakout_days": 2,
       "breakout_date": "2026-11-11",
       "breakout_return_pct": 22.2,
-      "breakout_high_pct": 26.54,
+      "breakout_high_pct": 26.21,
       "holding_pivot": true,
       "pulse_signal": "extended",
       "pulse_label": "⚠️ 過度延伸",
@@ -206982,7 +206982,7 @@
         "pivot_valid": true,
         "current_clear_trigger": false
       },
-      "atr20_to_60": 1.1187,
+      "atr20_to_60": 1.1148,
       "contractions": [
         2.0576,
         3.125,
@@ -207005,16 +207005,16 @@
       "volume_dry": true,
       "type": "forming",
       "state": "⚪ VCP 成形中",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
       "momentum": "↗ 空方減弱",
       "momentum_dir": "bear_up",
-      "squeeze_run_days": 1,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": 1,
+      "squeeze_fire": true,
+      "squeeze_fire_dir": "bear",
+      "squeeze_fire_prev_level": "weak",
+      "squeeze_fire_prev_bars": 3,
       "sqz_w_level": "",
       "sqz_w_run": 0,
       "sqz_w_fire_weeks": null,
@@ -207023,7 +207023,7 @@
       "sqz_w_prev_level": "",
       "sqz_w_prev_bars": 0,
       "sqz_w_partial": false,
-      "combo": true,
+      "combo": false,
       "breakout_days": null,
       "breakout_date": null,
       "breakout_return_pct": null,
@@ -207031,10 +207031,9 @@
       "holding_pivot": false,
       "pulse_signal": "wait",
       "pulse_label": "⏳ 等待",
-      "pulse_points": 2.5,
+      "pulse_points": 2,
       "pulse_reasons": [
         "VCP 4/5",
-        "一般壓縮",
         "空方減弱"
       ],
       "data_date": "2026-11-13",
@@ -207233,6 +207232,5 @@
       "is_new": false,
       "new_reason": ""
     }
-  ],
-  "benchmark_refreshed_at": "2026-11-13 19:16"
+  ]
 }
