@@ -2,13 +2,13 @@
   "version": "market-pulse-v0.6.3-beta",
   "status": "ok",
   "experimental": true,
-  "generated_at": "2026-11-16T07:15:54.011580+08:00",
+  "generated_at": "2026-11-16T10:44:20.283239+08:00",
   "target_date": "2026-11-16",
   "data_cutoff": "07:00 Asia/Taipei",
-  "score": 40.0,
+  "score": 38.3,
   "state": "中性",
   "emoji": "🟡",
-  "predicted_tw_close_ret": -0.359,
+  "predicted_tw_close_ret": -0.422,
   "consistency": "高",
   "reason": "費半偏空、台指夜盤偏空、台股相對科技股偏多",
   "signals": {
@@ -42,16 +42,16 @@
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "brent": {
-      "value": 0.0,
+      "value": -0.7512454286519477,
       "date": "2026-11-15",
-      "close": 95.83999633789062,
+      "close": 95.12000274658203,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "usdtwd": {
-      "value": -0.18214748503172506,
-      "date": "2026-11-15",
-      "close": 32.87900161743164,
+      "value": 0.23461469258405643,
+      "date": "2026-11-13",
+      "close": 32.93899917602539,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     }
@@ -65,8 +65,8 @@
     "nasdaq": -0.0906,
     "sox": -0.3804,
     "us10y": -0.0034,
-    "brent": -0.002,
-    "usdtwd": 0.018,
+    "brent": -0.025,
+    "usdtwd": -0.022,
     "tx_tech_divergence": 0.272,
     "oil_yield_shock": 0.0124
   },
