@@ -3,17 +3,17 @@
   "status": "ok",
   "market": "TW",
   "mode": "full",
-  "generated_at": "2026-11-20T03:05:59+08:00",
+  "generated_at": "2026-11-20T07:01:32+08:00",
   "source_note": "近期新聞由 Google News RSS 公開索引彙整；VCPulse 僅整理事件、可能影響與當下價格反應，不預測新聞一定造成上漲或下跌。",
   "updated_stocks": 6,
-  "ok": 6,
-  "failed": 0,
+  "ok": 5,
+  "failed": 1,
   "stocks": {
     "6782": {
       "symbol": "6782",
       "name": "視陽",
       "market": "TW",
-      "updated_at": "2026-11-20T03:05+08:00",
+      "updated_at": "2026-11-20T07:01+08:00",
       "items": [
         {
           "title": "視陽法說／Q3 EPS 衝 6.32 元創新高，彩拋訂單爆單！明年 Q1 月產能衝 8,000 萬片、啟動第三廠｜股市話題",
@@ -57,7 +57,7 @@
       "symbol": "3293",
       "name": "鈊象",
       "market": "TW",
-      "updated_at": "2026-11-20T03:05+08:00",
+      "updated_at": "2026-11-20T07:01+08:00",
       "items": [
         {
           "title": "【11:41 即時新聞】鈊象(3293)盤中微揚，市場聚焦東南亞與Social SS動能",
@@ -139,13 +139,14 @@
           "market_reaction": "當日價格反應相對有限（-0.8%）。 目前接近 Pivot。",
           "vcp_relation": "VCP 4/5"
         }
-      ]
+      ],
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%22%E9%95%B7%E6%A6%AE%E8%88%AA%22+%E5%8F%B0%E8%82%A1+OR+2618&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     },
     "6199": {
       "symbol": "6199",
       "name": "天品",
       "market": "TW",
-      "updated_at": "2026-11-20T03:05+08:00",
+      "updated_at": "2026-11-20T07:01+08:00",
       "items": [
         {
           "title": "【10:38 即時新聞】天品(6199)股價平穩微升，AI液冷潔淨題材持續受關注",
@@ -189,7 +190,7 @@
       "symbol": "9933",
       "name": "中鼎",
       "market": "TW",
-      "updated_at": "2026-11-20T03:05+08:00",
+      "updated_at": "2026-11-20T07:01+08:00",
       "items": [
         {
           "title": "【量大強漲股整理】AI算力【9933中鼎】+43%輝達財報誘多?!台股第二支腳確立?!主流股呼之欲出？",
@@ -233,37 +234,37 @@
       "symbol": "8415",
       "name": "大國鋼",
       "market": "TW",
-      "updated_at": "2026-11-20T03:05+08:00",
+      "updated_at": "2026-11-20T07:01+08:00",
       "items": [
+        {
+          "title": "大國鋼 2026-11-18 法說會",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQLWVYeUw0bXN2eEtzb2NCZmZQZ3pGWjE2MTk0OEhMSDd6RDV2VlhGWVVoT2oxQ0pYa084N2ZUdmxhZ09Qa1lFaXJOUktWZE1pNVA5dFNOVDJLcTRDU1FULTUzX2ZTd3dabzNuTkZ2MjJkQVZseDlSM19GSmhDQVRJU1VNT0c?oc=5",
+          "source": "BigGo 財經",
+          "published_at": "2026-11-19T00:35+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+1.4%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
+        {
+          "title": "熱門股－大國鋼 明年獲利可期",
+          "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBzWEQxZjB5Y192Q3pwQV9zeFpvSHJCS3hSOGFJV0s3SFIyT1E4TENTbVZxaXZhSjM3dmljUXUxbWp1WXNaS0dyS21CQ0k5Vnp6VUhQN0VjZV9kbWdnSDJYYTdxamx0Qm4tMUZj?oc=5",
+          "source": "中時新聞網",
+          "published_at": "2026-11-20T04:10+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應相對有限（+1.4%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 2/5"
+        },
         {
           "title": "《鋼鐵股》大國鋼逆勢創5年新高 今年營運戰高、明年樂觀",
           "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOb18ta2NXRGwtYXNOaWdkNzBlSlo3alloMDJybjV0V1JHWGRQSldvbWdOZVQxck5LWEREQ3hlOVNLemlRRWpUUFJGa1BZLXphVnljUV84S2czNFRuOHh2VDNBdFlZdDV0dU5naDZqcV9NSnZGZmJrR0NIbTJEZW91ZWhyNk1peU1P?oc=5",
           "source": "富聯網",
           "published_at": "2026-11-19T11:01+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+1.4%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "【09:38 即時新聞】大國鋼(8415)盤中續強，量能與中低價鋼鐵題材受關注",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPdHlUZGtMR2E1dUltNWpiejhXRUsycEJESUc4X1IzRE5tTl9BclhmSmlYSlp2bS1uWTBHc2NsYVgzLWVIZVlxQ1hnMUU1YTh0NTRYNGRaaWtrZVFUclRrR3dsMzJieWVDc2RXUmltbi1tMmp0YnVSWW9SYzlQeWQ5YWZsWmQ4Z202ZmdnZDNB?oc=5",
-          "source": "CMoney投資網誌",
-          "published_at": "2026-11-19T09:38+08:00",
-          "event": "公司／產業動態",
-          "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
-          "horizon": "短中期",
-          "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應相對有限（+1.4%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 2/5"
-        },
-        {
-          "title": "《鋼鐵股》大成鋼、大國鋼飽賺 樂看明年",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPb21RWFRIY2JBdW5OcW9EOTdpRnZlV2VVcGFBVGZubUJhc2lUY2pIaHRIU251Nk5TbUNhN1ltVU4yWHp6RkZwNFpMaS1BVWJWMlliWjJieUlnLXZPdEJnSXdxVGp3RXM3R0QzdU1tNWdGd1gweE12Z2RnNDAyOFRmVk5zcG1hZGZ0?oc=5",
-          "source": "富聯網",
-          "published_at": "2026-11-19T08:02+08:00",
           "event": "公司／產業動態",
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
