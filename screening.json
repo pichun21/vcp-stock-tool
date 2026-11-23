@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23 19:15",
+  "generated_at": "2026-11-23 23:51",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-11-23",
       "count": 1,
-      "scanned_at": "2026-11-23 18:41",
+      "scanned_at": "2026-11-23 23:50",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -172,11 +172,11 @@
       "index": "S&P 500",
       "ticker": "^GSPC",
       "ma_days": 50,
-      "close": 6910.39,
-      "ma": 7625.26,
-      "dist_pct": -9.37,
+      "close": 7260.57,
+      "ma": 7618.07,
+      "dist_pct": -4.69,
       "above": false,
-      "as_of": "2026-11-20"
+      "as_of": "2026-11-23"
     }
   },
   "official_capital_hotspots": {
@@ -195053,6 +195053,5 @@
       "is_new": false,
       "new_reason": ""
     }
-  ],
-  "benchmark_refreshed_at": "2026-11-23 19:15"
+  ]
 }
