@@ -1,0 +1,8 @@
+name: probe-r2k
+on: workflow_dispatch
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests && python probe_r2k.py
