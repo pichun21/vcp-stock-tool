@@ -2,8 +2,8 @@
   "version": "1.0",
   "status": "ok",
   "market": "TW",
-  "mode": "full",
-  "generated_at": "2026-11-24T07:01:20+08:00",
+  "mode": "intraday",
+  "generated_at": "2026-11-24T09:25:56+08:00",
   "source_note": "近期新聞由 Google News RSS 公開索引彙整；VCPulse 僅整理事件、可能影響與當下價格反應，不預測新聞一定造成上漲或下跌。",
   "updated_stocks": 1,
   "ok": 1,
@@ -13,8 +13,20 @@
       "symbol": "6614",
       "name": "資拓宏宇",
       "market": "TW",
-      "updated_at": "2026-11-24T07:01+08:00",
+      "updated_at": "2026-11-24T09:25+08:00",
       "items": [
+        {
+          "title": "討論牆 | 資拓宏宇（6614）大型專案撐起營收能見度 毛利率與獲利轉折成市場關注焦點",
+          "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9EOTlBREpnd0dhQm04U0hMUlBmdEdwTEVsSmdhNGFnaXNFWER6bWdTcXRobDFQeE1zemZ6QVBPTWNjZ09RQm9IOXJkWXZXQVpxSnB0ZTJUdXZYSDFUMk1JaU1Pc04?oc=5",
+          "source": "LINE TODAY",
+          "published_at": "2026-11-23T18:34+08:00",
+          "event": "財務／營運",
+          "why": "可能改變市場對營運成長與獲利能力的預期。",
+          "horizon": "中期",
+          "possible_impact": "營收、毛利率、EPS、公司財測",
+          "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
+          "vcp_relation": "VCP 1/5"
+        },
         {
           "title": "資拓宏宇（6614）大型專案撐起營收能見度 毛利率與獲利轉折成市場關注焦點",
           "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5iSWZSM3FtOEVaOEdZRDlTV3pQaE1Nb2FIdmlobE02MXNJNi15T2hvYlhkeDBqUzFrc3FFeXdoYWZlQzhzSENDenQwWi11RU1POGVJWDlzSkpidmZfSy1RYTI0clN1cmtGVGtqYm1FWQ?oc=5",
@@ -36,18 +48,6 @@
           "why": "這則消息可能改變市場對公司營運或產業需求的預期。",
           "horizon": "短中期",
           "possible_impact": "營運、需求與市場預期",
-          "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
-          "vcp_relation": "VCP 1/5"
-        },
-        {
-          "title": "資拓宏宇AI整合專案已有客戶導入，將持續推廣- 新聞",
-          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNcGJkNnB4ZXVSZDZfN0lQT0JneWhIVHVHM1EtTVZLMUNnOUVsWFMwZFZmYUpwRkhXLVo5akNic0txY0FNR2QtZWM4QV9TWFR2SnZGc0hZNFN1ZWQyZmdhbi1KaVI0aFhuYWhydW1KRzB4OG41SFlENEhOeWgwUTJpN0x5c3RmOUtlRGhLNHRtOXAwdw?oc=5",
-          "source": "MoneyDJ",
-          "published_at": "2026-11-23T10:13+08:00",
-          "event": "訂單／需求",
-          "why": "訂單與需求變化通常會影響未來營收能見度與產能利用。",
-          "horizon": "中期",
-          "possible_impact": "營收、訂單能見度、產能利用率",
           "market_reaction": "當日價格反應偏強（+9.9%）。 目前處於突破後追蹤階段。",
           "vcp_relation": "VCP 1/5"
         }
