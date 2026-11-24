@@ -636,33 +636,53 @@ def fetch_us_universe():
 
     # Russell 2000 proxy: complete public constituent table derived from IWM holdings.
     r2k_count=0
+    # Primary: official iShares IWM holdings CSV (full ~2000 rows).
     try:
-        html=get_text("https://equibles.com/indexes/russell-2000",timeout=60)
-        tables=pd.read_html(io.StringIO(html))
-        candidates=[]
-        for t in tables:
-            cols=[str(c).strip().lower() for c in t.columns]
-            tc=next((c for c in t.columns if str(c).strip().lower()=="ticker"),None)
-            if tc is not None:
-                candidates.append((len(t),t,tc))
-        if not candidates:
-            raise RuntimeError("Russell 2000 constituent table not found")
-        _,table,ticker_col=max(candidates,key=lambda x:x[0])
-        name_col=next((c for c in table.columns if "company" in str(c).lower() or "name" in str(c).lower()),None)
-        for _,r in table.iterrows():
-            add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"RUSSELL2000")
+        iwm_url=("https://www.ishares.com/us/products/239710/ishares-russell-2000-etf/"
+                 "1467271812596.ajax?fileType=csv&fileName=IWM_holdings&dataType=fund")
+        raw=get_text(iwm_url,timeout=60)
+        lines=raw.splitlines()
+        hdr=next(i for i,l in enumerate(lines) if l.startswith("Ticker,"))
+        idf=pd.read_csv(io.StringIO("\n".join(lines[hdr:])),on_bad_lines="skip")
+        if "Asset Class" in idf.columns:
+            idf=idf[idf["Asset Class"].astype(str).str.strip().eq("Equity")]
+        for _,r in idf.iterrows():
+            t=str(r.get("Ticker","")).strip().replace(".","-").replace(" ","-")
+            if re.fullmatch(r"[A-Z]{1,6}(?:-[A-Z])?",t):
+                add(t,r.get("Name",t),"RUSSELL2000")
         r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
-        if r2k_count < 1500:
-            raise RuntimeError(f"Russell 2000 parsed only {r2k_count} symbols")
-        print(f"US source RUSSELL2000 loaded: {r2k_count}")
-        dirty_names=sum(
-            1 for x in tickers.values()
-            if "RUSSELL2000" in x.get("sources",[]) and
-               ("Latest trade" in str(x.get("name","")) or re.search(r"\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%",str(x.get("name",""))))
-        )
-        print(f"US Russell company-name cleanup: remaining_dirty={dirty_names}")
+        print(f"US source RUSSELL2000 (iShares IWM) parsed: {r2k_count}")
     except Exception as e:
-        print("US source RUSSELL2000 FAILED:",repr(e))
+        print("US source RUSSELL2000 (iShares IWM) FAILED:",repr(e))
+    # Fallback: equibles table (now often only shows 10 rows).
+    if r2k_count < 1500:
+        try:
+          html=get_text("https://equibles.com/indexes/russell-2000",timeout=60)
+          tables=pd.read_html(io.StringIO(html))
+          candidates=[]
+          for t in tables:
+              cols=[str(c).strip().lower() for c in t.columns]
+              tc=next((c for c in t.columns if str(c).strip().lower()=="ticker"),None)
+              if tc is not None:
+                  candidates.append((len(t),t,tc))
+          if not candidates:
+              raise RuntimeError("Russell 2000 constituent table not found")
+          _,table,ticker_col=max(candidates,key=lambda x:x[0])
+          name_col=next((c for c in table.columns if "company" in str(c).lower() or "name" in str(c).lower()),None)
+          for _,r in table.iterrows():
+              add(r.get(ticker_col),r.get(name_col) if name_col is not None else r.get(ticker_col),"RUSSELL2000")
+          r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
+          if r2k_count < 1500:
+              raise RuntimeError(f"Russell 2000 parsed only {r2k_count} symbols")
+          print(f"US source RUSSELL2000 loaded: {r2k_count}")
+          dirty_names=sum(
+              1 for x in tickers.values()
+              if "RUSSELL2000" in x.get("sources",[]) and
+                 ("Latest trade" in str(x.get("name","")) or re.search(r"\$[\d,]+(?:\.\d+)?\s+[+\-−]?\d+(?:\.\d+)?%",str(x.get("name",""))))
+          )
+          print(f"US Russell company-name cleanup: remaining_dirty={dirty_names}")
+        except Exception as e:
+          print("US source RUSSELL2000 FAILED:",repr(e))
 
     out=list(tickers.values())
     print("US universe summary:",
