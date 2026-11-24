@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24 06:38",
+  "generated_at": "2026-11-24 09:14",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -35,7 +35,7 @@
     "TW": {
       "data_date": "2026-11-23",
       "count": 1,
-      "scanned_at": "2026-11-23 23:50",
+      "scanned_at": "2026-11-24 09:14",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -107,8 +107,8 @@
         "id": "^TWII",
         "label": "上市｜加權指數",
         "close": 36879.4,
-        "change_points": 1001.77,
-        "change_pct": 2.79,
+        "change_points": null,
+        "change_pct": null,
         "data_time": "2026-11-23 13:25",
         "source": "Yahoo/yfinance intraday"
       },
@@ -277,11 +277,11 @@
     "TW": [
       {
         "industry": "電子工業",
-        "heat_score": 85,
+        "heat_score": 83,
         "heat_level": "hot",
         "heat_label": "🔥 強力升溫",
-        "market_share_pct": 43.8,
-        "value_ratio": 1.39,
+        "market_share_pct": 43.4,
+        "value_ratio": 1.34,
         "breadth_pct": 75.9,
         "avg_change_pct": 2.42,
         "vcp_count": 0,
@@ -296,8 +296,8 @@
         "heat_score": 79,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
-        "market_share_pct": 14.1,
-        "value_ratio": 1.19,
+        "market_share_pct": 14.2,
+        "value_ratio": 1.17,
         "breadth_pct": 82.7,
         "avg_change_pct": 3.45,
         "vcp_count": 0,
@@ -313,7 +313,7 @@
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
         "market_share_pct": 0.2,
-        "value_ratio": 2.19,
+        "value_ratio": 2.16,
         "breadth_pct": 66.7,
         "avg_change_pct": 1.6,
         "vcp_count": 1,
@@ -335,34 +335,34 @@
       },
       {
         "industry": "電子零組件業",
-        "heat_score": 72,
+        "heat_score": 71,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
-        "market_share_pct": 18.4,
-        "value_ratio": 1.1,
-        "breadth_pct": 82.3,
-        "avg_change_pct": 3.01,
+        "market_share_pct": 18.5,
+        "value_ratio": 1.08,
+        "breadth_pct": 81.4,
+        "avg_change_pct": 2.98,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 186,
+        "stock_count": 188,
         "data_date": "2026-11-23"
       },
       {
         "industry": "電腦及週邊設備業",
-        "heat_score": 71,
+        "heat_score": 70,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
         "market_share_pct": 3.8,
-        "value_ratio": 1.15,
-        "breadth_pct": 69.3,
-        "avg_change_pct": 1.22,
+        "value_ratio": 1.13,
+        "breadth_pct": 68.5,
+        "avg_change_pct": 1.21,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 88,
+        "stock_count": 89,
         "data_date": "2026-11-23"
       }
     ]
@@ -1117,7 +1117,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 7.63,
-          "heat": 41,
+          "heat": 44,
           "setup": 19,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1125,7 +1125,7 @@
           "strongBreadthPct": 91,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 63,
+          "priceStrengthScore": 85,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1166,187 +1166,7 @@
               "name": "大銀微系統"
             }
           ],
-          "marketReturnPct": 2.79
-        },
-        {
-          "theme": "AI PCB",
-          "constituents": 17,
-          "evidenceCoverage": {
-            "verified": 17,
-            "total": 17
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 10.54,
-          "heat": 39,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 87,
-          "strongBreadthPct": 76,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 69,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "上游材料（銅箔、玻纖布、鑽針、錫膏）",
-            "Server PCB"
-          ],
-          "topStocks": [
-            "8155",
-            "2368",
-            "2383",
-            "1802",
-            "4958"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "8155",
-              "name": "博智"
-            },
-            {
-              "symbol": "2368",
-              "name": "金像電"
-            },
-            {
-              "symbol": "2383",
-              "name": "台光電"
-            },
-            {
-              "symbol": "1802",
-              "name": "台玻"
-            },
-            {
-              "symbol": "4958",
-              "name": "臻鼎-KY"
-            }
-          ],
-          "marketReturnPct": 2.79
-        },
-        {
-          "theme": "先進封裝供應鏈",
-          "constituents": 24,
-          "evidenceCoverage": {
-            "verified": 23,
-            "total": 24
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 14.33,
-          "heat": 38,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 92,
-          "strongBreadthPct": 72,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 50,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "封裝設備",
-            "封裝基板"
-          ],
-          "topStocks": [
-            "6438",
-            "6187",
-            "8046",
-            "6664",
-            "3711"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "6438",
-              "name": "迅得"
-            },
-            {
-              "symbol": "6187",
-              "name": "萬潤"
-            },
-            {
-              "symbol": "8046",
-              "name": "南電"
-            },
-            {
-              "symbol": "6664",
-              "name": "群翊"
-            },
-            {
-              "symbol": "3711",
-              "name": "日月光投控"
-            }
-          ],
-          "marketReturnPct": 2.79
-        },
-        {
-          "theme": "半導體設備",
-          "constituents": 16,
-          "evidenceCoverage": {
-            "verified": 16,
-            "total": 16
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 10.33,
-          "heat": 38,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 89,
-          "strongBreadthPct": 73,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 54,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "檢測量測與測試介面",
-            "廠務工程與無塵室"
-          ],
-          "topStocks": [
-            "3680",
-            "6223",
-            "3413",
-            "6196",
-            "8383"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "3680",
-              "name": ""
-            },
-            {
-              "symbol": "6223",
-              "name": ""
-            },
-            {
-              "symbol": "3413",
-              "name": ""
-            },
-            {
-              "symbol": "6196",
-              "name": ""
-            },
-            {
-              "symbol": "8383",
-              "name": ""
-            }
-          ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
         },
         {
           "theme": "AI電力基建",
@@ -1357,7 +1177,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 7.24,
-          "heat": 38,
+          "heat": 43,
           "setup": 19,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1365,7 +1185,7 @@
           "strongBreadthPct": 68,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 47,
+          "priceStrengthScore": 77,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1406,10 +1226,8 @@
               "name": "康舒"
             }
           ],
-          "marketReturnPct": 2.79
-        }
-      ],
-      "setupTop5": [
+          "marketReturnPct": 0.0
+        },
         {
           "theme": "重電/強韌電網",
           "constituents": 5,
@@ -1419,7 +1237,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 3.55,
-          "heat": 37,
+          "heat": 43,
           "setup": 19,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1427,7 +1245,7 @@
           "strongBreadthPct": 81,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 39,
+          "priceStrengthScore": 74,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1468,7 +1286,189 @@
               "name": "華城"
             }
           ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
+        },
+        {
+          "theme": "先進封裝供應鏈",
+          "constituents": 24,
+          "evidenceCoverage": {
+            "verified": 23,
+            "total": 24
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 14.33,
+          "heat": 42,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 92,
+          "strongBreadthPct": 72,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 79,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "封裝設備",
+            "封裝基板"
+          ],
+          "topStocks": [
+            "6438",
+            "6187",
+            "8046",
+            "6664",
+            "3711"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "6438",
+              "name": "迅得"
+            },
+            {
+              "symbol": "6187",
+              "name": "萬潤"
+            },
+            {
+              "symbol": "8046",
+              "name": "南電"
+            },
+            {
+              "symbol": "6664",
+              "name": "群翊"
+            },
+            {
+              "symbol": "3711",
+              "name": "日月光投控"
+            }
+          ],
+          "marketReturnPct": 0.0
+        },
+        {
+          "theme": "AI PCB",
+          "constituents": 17,
+          "evidenceCoverage": {
+            "verified": 17,
+            "total": 17
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 10.54,
+          "heat": 42,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 87,
+          "strongBreadthPct": 76,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 83,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "上游材料（銅箔、玻纖布、鑽針、錫膏）",
+            "Server PCB"
+          ],
+          "topStocks": [
+            "8155",
+            "2368",
+            "2383",
+            "1802",
+            "4958"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "8155",
+              "name": "博智"
+            },
+            {
+              "symbol": "2368",
+              "name": "金像電"
+            },
+            {
+              "symbol": "2383",
+              "name": "台光電"
+            },
+            {
+              "symbol": "1802",
+              "name": "台玻"
+            },
+            {
+              "symbol": "4958",
+              "name": "臻鼎-KY"
+            }
+          ],
+          "marketReturnPct": 0.0
+        }
+      ],
+      "setupTop5": [
+        {
+          "theme": "半導體設備",
+          "constituents": 16,
+          "evidenceCoverage": {
+            "verified": 16,
+            "total": 16
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 10.33,
+          "heat": 41,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 89,
+          "strongBreadthPct": 73,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 78,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "檢測量測與測試介面",
+            "廠務工程與無塵室"
+          ],
+          "topStocks": [
+            "3680",
+            "6223",
+            "3413",
+            "6196",
+            "8383"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "3680",
+              "name": ""
+            },
+            {
+              "symbol": "6223",
+              "name": ""
+            },
+            {
+              "symbol": "3413",
+              "name": ""
+            },
+            {
+              "symbol": "6196",
+              "name": ""
+            },
+            {
+              "symbol": "8383",
+              "name": ""
+            }
+          ],
+          "marketReturnPct": 0.0
         },
         {
           "theme": "IC載板",
@@ -1479,7 +1479,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 2.48,
-          "heat": 34,
+          "heat": 38,
           "setup": 19,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1487,7 +1487,7 @@
           "strongBreadthPct": 73,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 52,
+          "priceStrengthScore": 77,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1523,7 +1523,7 @@
               "name": "臻鼎-KY"
             }
           ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
         },
         {
           "theme": "低軌衛星",
@@ -1534,7 +1534,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 6.22,
-          "heat": 32,
+          "heat": 35,
           "setup": 18,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1542,7 +1542,7 @@
           "strongBreadthPct": 61,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 38,
+          "priceStrengthScore": 59,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1583,7 +1583,7 @@
               "name": "台光電"
             }
           ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
         },
         {
           "theme": "AI伺服器",
@@ -1594,7 +1594,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 11.45,
-          "heat": 29,
+          "heat": 33,
           "setup": 18,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1602,7 +1602,7 @@
           "strongBreadthPct": 44,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 29,
+          "priceStrengthScore": 54,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1643,7 +1643,7 @@
               "name": "廣達"
             }
           ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
         },
         {
           "theme": "液冷",
@@ -1654,7 +1654,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 3.76,
-          "heat": 24,
+          "heat": 26,
           "setup": 17,
           "lifecycle": "dormant",
           "lifecycleLabel": "休眠",
@@ -1662,7 +1662,7 @@
           "strongBreadthPct": 39,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 32,
+          "priceStrengthScore": 46,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1703,7 +1703,7 @@
               "name": ""
             }
           ],
-          "marketReturnPct": 2.79
+          "marketReturnPct": 0.0
         }
       ],
       "weightShadow": {
@@ -1725,7 +1725,7 @@
           },
           {
             "theme": "機器人關鍵零組件",
-            "heat": 40,
+            "heat": 43,
             "setup": 19,
             "constituents": 16,
             "topStocks": [
@@ -1738,7 +1738,7 @@
           },
           {
             "theme": "機器人",
-            "heat": 39,
+            "heat": 42,
             "setup": 19,
             "constituents": 14,
             "topStocks": [
@@ -1750,36 +1750,8 @@
             ]
           },
           {
-            "theme": "先進封裝供應鏈",
-            "heat": 37,
-            "setup": 19,
-            "constituents": 16,
-            "topStocks": [
-              "6438",
-              "6187",
-              "6664",
-              "5443",
-              "6640"
-            ]
-          },
-          {
-            "theme": "AI電力基建",
-            "heat": 37,
-            "setup": 19,
-            "constituents": 8,
-            "topStocks": [
-              "2308",
-              "2301",
-              "6282",
-              "1503",
-              "1514"
-            ]
-          }
-        ],
-        "setupTop5": [
-          {
             "theme": "重電/強韌電網",
-            "heat": 37,
+            "heat": 42,
             "setup": 19,
             "constituents": 4,
             "topStocks": [
@@ -1790,8 +1762,36 @@
             ]
           },
           {
+            "theme": "先進封裝供應鏈",
+            "heat": 41,
+            "setup": 19,
+            "constituents": 16,
+            "topStocks": [
+              "6438",
+              "6187",
+              "6664",
+              "5443",
+              "6640"
+            ]
+          }
+        ],
+        "setupTop5": [
+          {
+            "theme": "AI電力基建",
+            "heat": 41,
+            "setup": 19,
+            "constituents": 8,
+            "topStocks": [
+              "2308",
+              "2301",
+              "6282",
+              "1503",
+              "1514"
+            ]
+          },
+          {
             "theme": "低軌衛星",
-            "heat": 33,
+            "heat": 37,
             "setup": 19,
             "constituents": 11,
             "topStocks": [
@@ -1804,7 +1804,7 @@
           },
           {
             "theme": "IC載板",
-            "heat": 34,
+            "heat": 37,
             "setup": 18,
             "constituents": 4,
             "topStocks": [
@@ -1816,7 +1816,7 @@
           },
           {
             "theme": "AI伺服器",
-            "heat": 28,
+            "heat": 31,
             "setup": 18,
             "constituents": 7,
             "topStocks": [
@@ -1829,7 +1829,7 @@
           },
           {
             "theme": "液冷",
-            "heat": 28,
+            "heat": 30,
             "setup": 18,
             "constituents": 4,
             "topStocks": [
@@ -72387,7 +72387,7 @@
       "4804": {
         "price": 3.27,
         "prev_close": 3.27,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "大略-KY",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -72421,7 +72421,7 @@
       "8084": {
         "price": 5.54,
         "prev_close": 5.54,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "巨虹",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -72438,7 +72438,7 @@
       "8291": {
         "price": 52.0408,
         "prev_close": 52.0408,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "尚茂",
         "source": "VCPulse scanner",
         "tt_count": 3,
@@ -73749,7 +73749,7 @@
       "3629": {
         "price": 10.95,
         "prev_close": 10.95,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "地心引力",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -74713,8 +74713,8 @@
       },
       "4153": {
         "price": 30.75,
-        "prev_close": 30.95,
-        "data_date": "2026-11-20",
+        "prev_close": 30.75,
+        "data_date": "2026-11-23",
         "name": "鈺緯",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -77808,7 +77808,7 @@
       "3226": {
         "price": 46.0,
         "prev_close": 46.0,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "龍鋒",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -78716,8 +78716,8 @@
       },
       "2937": {
         "price": 42.75,
-        "prev_close": 43.15,
-        "data_date": "2026-11-20",
+        "prev_close": 42.75,
+        "data_date": "2026-11-23",
         "name": "集雅社",
         "source": "VCPulse scanner",
         "tt_count": 4,
@@ -78912,8 +78912,8 @@
       },
       "2947": {
         "price": 51.2,
-        "prev_close": 52.5,
-        "data_date": "2026-11-20",
+        "prev_close": 51.2,
+        "data_date": "2026-11-23",
         "name": "振宇五金",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -80113,7 +80113,7 @@
       "3064": {
         "price": 13.75,
         "prev_close": 13.75,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "泰偉",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -80211,7 +80211,7 @@
       "3067": {
         "price": 16.5,
         "prev_close": 16.5,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "全域",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -81498,12 +81498,13 @@
       "3288": {
         "price": 15.2,
         "prev_close": 15.2,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "點晶",
         "source": "VCPulse scanner",
-        "tt_count": 3,
+        "tt_count": 2,
         "tt_fail": [
           1,
+          4,
           5,
           6,
           7
@@ -81830,8 +81831,8 @@
       },
       "4806": {
         "price": 8.37,
-        "prev_close": 8.65,
-        "data_date": "2026-11-20",
+        "prev_close": 8.37,
+        "data_date": "2026-11-23",
         "name": "桂田文創",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -84530,8 +84531,8 @@
       },
       "4528": {
         "price": 12.0,
-        "prev_close": 12.6,
-        "data_date": "2026-11-20",
+        "prev_close": 12.0,
+        "data_date": "2026-11-23",
         "name": "江興鍛",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -85633,8 +85634,8 @@
       },
       "4609": {
         "price": 4.02,
-        "prev_close": 4.06,
-        "data_date": "2026-11-20",
+        "prev_close": 4.02,
+        "data_date": "2026-11-23",
         "name": "唐鋒",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -88488,8 +88489,8 @@
       },
       "5514": {
         "price": 12.95,
-        "prev_close": 12.9,
-        "data_date": "2026-11-20",
+        "prev_close": 12.95,
+        "data_date": "2026-11-23",
         "name": "三豐",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -88932,7 +88933,7 @@
       "8444": {
         "price": 2.5,
         "prev_close": 2.5,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "綠河-KY",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -89249,7 +89250,7 @@
       "8923": {
         "price": 18.0,
         "prev_close": 18.0,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "時報",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -91329,7 +91330,7 @@
       "5345": {
         "price": 19.0,
         "prev_close": 19.0,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "馥鴻",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -93108,8 +93109,8 @@
       },
       "6228": {
         "price": 17.8,
-        "prev_close": 19.35,
-        "data_date": "2026-11-20",
+        "prev_close": 17.8,
+        "data_date": "2026-11-23",
         "name": "全譜",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -96173,7 +96174,7 @@
       "7716": {
         "price": 23.3,
         "prev_close": 23.3,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "昱臺國際",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -96590,8 +96591,8 @@
       },
       "7743": {
         "price": 19.0,
-        "prev_close": 19.15,
-        "data_date": "2026-11-20",
+        "prev_close": 19.0,
+        "data_date": "2026-11-23",
         "name": "金利食安",
         "source": "VCPulse scanner",
         "tt_count": 3,
@@ -97270,7 +97271,7 @@
       "1538": {
         "price": 7.24,
         "prev_close": 7.24,
-        "data_date": "2026-11-20",
+        "data_date": "2026-11-23",
         "name": "正峰",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -99928,8 +99929,8 @@
       },
       "8342": {
         "price": 83.9,
-        "prev_close": 84.0,
-        "data_date": "2026-11-20",
+        "prev_close": 83.9,
+        "data_date": "2026-11-23",
         "name": "益張",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -101376,8 +101377,8 @@
       },
       "8077": {
         "price": 38.6,
-        "prev_close": 40.0,
-        "data_date": "2026-11-20",
+        "prev_close": 38.6,
+        "data_date": "2026-11-23",
         "name": "洛碁",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -101978,8 +101979,8 @@
       },
       "6762": {
         "price": 135.0,
-        "prev_close": 144.0,
-        "data_date": "2026-11-20",
+        "prev_close": 135.0,
+        "data_date": "2026-11-23",
         "name": "達亞",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -102194,8 +102195,8 @@
       },
       "6662": {
         "price": 28.05,
-        "prev_close": 26.6,
-        "data_date": "2026-11-20",
+        "prev_close": 28.05,
+        "data_date": "2026-11-23",
         "name": "樂斯科",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -195038,7 +195039,7 @@
         "突破後距 Pivot 超過 8%"
       ],
       "data_date": "2026-11-23",
-      "avg_value_20d": 32545935.0,
+      "avg_value_20d": 32513563.0,
       "industry": "數位雲端",
       "split_adjusted": false,
       "rs_rating": 78,
@@ -195053,6 +195054,5 @@
       "is_new": false,
       "new_reason": ""
     }
-  ],
-  "benchmark_refreshed_at": "2026-11-24 06:38"
+  ]
 }
