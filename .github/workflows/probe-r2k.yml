@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q requests && python probe_r2k.py
+      - run: pip install -q requests pandas lxml && python probe_r2k.py
