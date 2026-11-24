@@ -636,27 +636,18 @@ def fetch_us_universe():
 
     # Russell 2000 proxy: complete public constituent table derived from IWM holdings.
     r2k_count=0
-    # Primary: official iShares IWM holdings CSV (full ~2000 rows).
+    # Primary: equibles CSV export (IWM-derived, ~1,950 clean rows).
     try:
-        iwm_url=("https://www.ishares.com/us/products/239710/ishares-russell-2000-etf/"
-                 "1467271812596.ajax?fileType=csv&fileName=IWM_holdings&dataType=fund")
-        raw=get_text(iwm_url,timeout=60)
-        lines=raw.splitlines()
-        hdr=next((i for i,l in enumerate(lines)
-                  if l.lstrip("\ufeff").replace('"','').strip().startswith("Ticker,")),None)
-        if hdr is None:
-            raise RuntimeError("iShares header not found; head="+repr(raw[:300]))
-        idf=pd.read_csv(io.StringIO("\n".join(lines[hdr:])),on_bad_lines="skip")
-        if "Asset Class" in idf.columns:
-            idf=idf[idf["Asset Class"].astype(str).str.strip().eq("Equity")]
+        raw=get_text("https://equibles.com/indexes/russell-2000.csv",timeout=60)
+        idf=pd.read_csv(io.StringIO(raw.lstrip("\ufeff")))
         for _,r in idf.iterrows():
-            t=str(r.get("Ticker","")).strip().replace(".","-").replace(" ","-")
+            t=str(r.get("Ticker","")).strip().upper().replace(".","-").replace(" ","-")
             if re.fullmatch(r"[A-Z]{1,6}(?:-[A-Z])?",t):
-                add(t,r.get("Name",t),"RUSSELL2000")
+                add(t,r.get("Company",t),"RUSSELL2000")
         r2k_count=sum("RUSSELL2000" in x["sources"] for x in tickers.values())
-        print(f"US source RUSSELL2000 (iShares IWM) parsed: {r2k_count}")
+        print(f"US source RUSSELL2000 (equibles CSV) parsed: {r2k_count}")
     except Exception as e:
-        print("US source RUSSELL2000 (iShares IWM) FAILED:",repr(e))
+        print("US source RUSSELL2000 (equibles CSV) FAILED:",repr(e))
     # Fallback: equibles table (now often only shows 10 rows).
     if r2k_count < 1500:
         try:
