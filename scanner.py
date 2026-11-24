@@ -642,7 +642,10 @@ def fetch_us_universe():
                  "1467271812596.ajax?fileType=csv&fileName=IWM_holdings&dataType=fund")
         raw=get_text(iwm_url,timeout=60)
         lines=raw.splitlines()
-        hdr=next(i for i,l in enumerate(lines) if l.startswith("Ticker,"))
+        hdr=next((i for i,l in enumerate(lines)
+                  if l.lstrip("\ufeff").replace('"','').strip().startswith("Ticker,")),None)
+        if hdr is None:
+            raise RuntimeError("iShares header not found; head="+repr(raw[:300]))
         idf=pd.read_csv(io.StringIO("\n".join(lines[hdr:])),on_bad_lines="skip")
         if "Asset Class" in idf.columns:
             idf=idf[idf["Asset Class"].astype(str).str.strip().eq("Equity")]
