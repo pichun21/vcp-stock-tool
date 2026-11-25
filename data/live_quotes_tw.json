@@ -1,18 +1,32 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-25 10:25:55",
-  "generated_at_iso": "2026-11-25T10:25:55+08:00",
+  "generated_at": "2026-11-25 10:35:55",
+  "generated_at_iso": "2026-11-25T10:35:55+08:00",
   "data_dates": [
     "2026-11-25"
   ],
-  "latest_quote_time": "10:25:36",
+  "latest_quote_time": "10:35:35",
   "target_count": 6,
   "quote_count": 6,
   "source": "TWSE MIS",
   "scope": "radar",
   "errors": [],
   "quotes": {
+    "2412": {
+      "open": 163.5,
+      "high": 167.0,
+      "low": 163.5,
+      "symbol": "2412",
+      "name": "中華電",
+      "price": 164.0,
+      "prev_close": 164.5,
+      "change_pct": -0.304,
+      "data_date": "2026-11-25",
+      "quote_time": "10:35:21",
+      "source": "TWSE MIS",
+      "price_kind": "best_bid_indicative"
+    },
     "6782": {
       "open": 298.0,
       "high": 304.0,
@@ -23,9 +37,9 @@
       "prev_close": 292.5,
       "change_pct": -0.1709,
       "data_date": "2026-11-25",
-      "quote_time": "10:25:19",
+      "quote_time": "10:35:18",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2597": {
       "open": 188.5,
@@ -33,11 +47,11 @@
       "low": 187.0,
       "symbol": "2597",
       "name": "潤弘",
-      "price": 188.0,
+      "price": 188.5,
       "prev_close": 192.0,
-      "change_pct": -2.0833,
+      "change_pct": -1.8229,
       "data_date": "2026-11-25",
-      "quote_time": "10:25:09",
+      "quote_time": "10:35:20",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -51,7 +65,7 @@
       "prev_close": 28.7,
       "change_pct": -9.9303,
       "data_date": "2026-11-25",
-      "quote_time": "10:23:41",
+      "quote_time": "10:32:22",
       "source": "TWSE MIS",
       "price_kind": "last_trade"
     },
@@ -61,39 +75,25 @@
       "low": 42.5,
       "symbol": "6614",
       "name": "資拓宏宇",
-      "price": 44.0,
+      "price": 44.6,
       "prev_close": 42.55,
-      "change_pct": 3.4078,
+      "change_pct": 4.8179,
       "data_date": "2026-11-25",
-      "quote_time": "10:24:48",
+      "quote_time": "10:34:48",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
     "2618": {
       "open": 47.0,
       "high": 47.4,
-      "low": 44.8,
+      "low": 44.7,
       "symbol": "2618",
       "name": "長榮航",
-      "price": 45.05,
+      "price": 44.85,
       "prev_close": 48.6,
-      "change_pct": -7.3045,
+      "change_pct": -7.716,
       "data_date": "2026-11-25",
-      "quote_time": "10:25:36",
-      "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
-    },
-    "3293": {
-      "open": 770.0,
-      "high": 788.0,
-      "low": 761.0,
-      "symbol": "3293",
-      "name": "鈊象",
-      "price": 764.0,
-      "prev_close": 786.0,
-      "change_pct": -2.799,
-      "data_date": "2026-11-25",
-      "quote_time": "10:25:06",
+      "quote_time": "10:35:35",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     }
