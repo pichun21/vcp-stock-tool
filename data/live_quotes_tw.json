@@ -1,12 +1,12 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-25 13:25:49",
-  "generated_at_iso": "2026-11-25T13:25:49+08:00",
+  "generated_at": "2026-11-25 13:35:49",
+  "generated_at_iso": "2026-11-25T13:35:49+08:00",
   "data_dates": [
     "2026-11-25"
   ],
-  "latest_quote_time": "13:25:45",
+  "latest_quote_time": "13:30:00",
   "target_count": 6,
   "quote_count": 6,
   "source": "TWSE MIS",
@@ -23,9 +23,9 @@
       "prev_close": 292.5,
       "change_pct": -0.1709,
       "data_date": "2026-11-25",
-      "quote_time": "13:25:39",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2597": {
       "open": 188.5,
@@ -33,13 +33,13 @@
       "low": 187.0,
       "symbol": "2597",
       "name": "潤弘",
-      "price": 191.0,
+      "price": 193.0,
       "prev_close": 192.0,
-      "change_pct": -0.5208,
+      "change_pct": 0.5208,
       "data_date": "2026-11-25",
-      "quote_time": "13:25:34",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "5457": {
       "open": 28.15,
@@ -51,9 +51,9 @@
       "prev_close": 28.7,
       "change_pct": -9.9303,
       "data_date": "2026-11-25",
-      "quote_time": "13:24:36",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_ask_indicative"
+      "price_kind": "last_trade"
     },
     "6614": {
       "open": 42.5,
@@ -65,9 +65,9 @@
       "prev_close": 42.55,
       "change_pct": 9.9882,
       "data_date": "2026-11-25",
-      "quote_time": "13:24:53",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "3293": {
       "open": 770.0,
@@ -79,23 +79,23 @@
       "prev_close": 786.0,
       "change_pct": -1.3995,
       "data_date": "2026-11-25",
-      "quote_time": "13:25:38",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "2618": {
       "open": 47.0,
-      "high": 47.7,
+      "high": 47.4,
       "low": 44.65,
       "symbol": "2618",
       "name": "長榮航",
-      "price": 47.7,
+      "price": 45.7,
       "prev_close": 48.6,
-      "change_pct": -1.8519,
+      "change_pct": -5.9671,
       "data_date": "2026-11-25",
-      "quote_time": "13:25:45",
+      "quote_time": "13:30:00",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     }
   }
 }
