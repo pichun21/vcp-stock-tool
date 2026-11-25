@@ -1,12 +1,12 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-25 09:25:54",
-  "generated_at_iso": "2026-11-25T09:25:54+08:00",
+  "generated_at": "2026-11-25 09:35:46",
+  "generated_at_iso": "2026-11-25T09:35:46+08:00",
   "data_dates": [
     "2026-11-25"
   ],
-  "latest_quote_time": "09:25:41",
+  "latest_quote_time": "09:35:00",
   "target_count": 6,
   "quote_count": 6,
   "source": "TWSE MIS",
@@ -23,7 +23,7 @@
       "prev_close": 48.6,
       "change_pct": -4.4239,
       "data_date": "2026-11-25",
-      "quote_time": "09:25:41",
+      "quote_time": "09:34:51",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -33,13 +33,13 @@
       "low": 171.0,
       "symbol": "6199",
       "name": "天品",
-      "price": 172.0,
+      "price": 172.5,
       "prev_close": 173.0,
-      "change_pct": -0.578,
+      "change_pct": -0.289,
       "data_date": "2026-11-25",
-      "quote_time": "09:24:53",
+      "quote_time": "09:34:28",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "9925": {
       "open": 39.55,
@@ -47,25 +47,25 @@
       "low": 39.4,
       "symbol": "9925",
       "name": "新保",
-      "price": 39.4,
+      "price": 39.45,
       "prev_close": 39.85,
-      "change_pct": -1.1292,
+      "change_pct": -1.0038,
       "data_date": "2026-11-25",
-      "quote_time": "09:24:00",
+      "quote_time": "09:33:13",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
     "6614": {
       "open": 42.5,
-      "high": 46.25,
+      "high": 46.45,
       "low": 42.5,
       "symbol": "6614",
       "name": "資拓宏宇",
-      "price": 45.5,
+      "price": 45.1,
       "prev_close": 42.55,
-      "change_pct": 6.933,
+      "change_pct": 5.9929,
       "data_date": "2026-11-25",
-      "quote_time": "09:24:46",
+      "quote_time": "09:34:28",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -79,9 +79,9 @@
       "prev_close": 28.7,
       "change_pct": -9.9303,
       "data_date": "2026-11-25",
-      "quote_time": "09:24:00",
+      "quote_time": "09:35:00",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_ask_indicative"
     },
     "3293": {
       "open": 770.0,
@@ -89,11 +89,11 @@
       "low": 770.0,
       "symbol": "3293",
       "name": "鈊象",
-      "price": 779.0,
+      "price": 778.0,
       "prev_close": 786.0,
-      "change_pct": -0.8906,
+      "change_pct": -1.0178,
       "data_date": "2026-11-25",
-      "quote_time": "09:25:34",
+      "quote_time": "09:34:39",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     }
