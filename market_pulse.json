@@ -2,13 +2,13 @@
   "version": "market-pulse-v0.6.3-beta",
   "status": "ok",
   "experimental": true,
-  "generated_at": "2026-11-25T07:16:00.498501+08:00",
+  "generated_at": "2026-11-25T13:26:24.516589+08:00",
   "target_date": "2026-11-25",
   "data_cutoff": "07:00 Asia/Taipei",
-  "score": 0.8,
+  "score": 0.9,
   "state": "偏空",
   "emoji": "🔴",
-  "predicted_tw_close_ret": -4.263,
+  "predicted_tw_close_ret": -4.131,
   "consistency": "高",
   "reason": "台指夜盤偏空、費半偏空、Nasdaq偏空",
   "signals": {
@@ -21,16 +21,16 @@
       "source": "TAIFEX official after-hours"
     },
     "nasdaq": {
-      "value": -1.4779239742967576,
+      "value": -1.477907758766417,
       "date": "2026-11-24",
-      "close": 23733.53515625,
+      "close": 23733.5390625,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "sox": {
-      "value": -7.880109547987746,
+      "value": -7.880119733192448,
       "date": "2026-11-24",
-      "close": 8832.5009765625,
+      "close": 8832.5,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
@@ -42,31 +42,31 @@
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "brent": {
-      "value": -0.9734840772569031,
+      "value": 2.2714543100699647,
       "date": "2026-11-24",
-      "close": 88.5,
+      "close": 91.4000015258789,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     },
     "usdtwd": {
-      "value": 0.016379493059903716,
+      "value": -0.3219641130516093,
       "date": "2026-11-24",
-      "close": 32.959999084472656,
+      "close": 32.8484992980957,
       "unit": "percent",
       "source": "Yahoo Finance (history-aligned cutoff)"
     }
   },
   "derived": {
     "tx_tech_divergence": 0.109,
-    "oil_yield_shock": 0
+    "oil_yield_shock": 0.0
   },
   "contributions": {
     "tx_night": -3.3587,
     "nasdaq": -0.1433,
     "sox": -0.8525,
     "us10y": 0.0012,
-    "brent": -0.0318,
-    "usdtwd": -0.0011,
+    "brent": 0.0675,
+    "usdtwd": 0.0314,
     "tx_tech_divergence": 0.0206,
     "oil_yield_shock": 0.0124
   },
