@@ -1,12 +1,12 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-25 11:25:57",
-  "generated_at_iso": "2026-11-25T11:25:57+08:00",
+  "generated_at": "2026-11-25 11:36:18",
+  "generated_at_iso": "2026-11-25T11:36:18+08:00",
   "data_dates": [
     "2026-11-25"
   ],
-  "latest_quote_time": "11:25:22",
+  "latest_quote_time": "11:36:01",
   "target_count": 6,
   "quote_count": 6,
   "source": "TWSE MIS",
@@ -19,13 +19,13 @@
       "low": 290.0,
       "symbol": "6782",
       "name": "視陽",
-      "price": 296.5,
+      "price": 294.0,
       "prev_close": 292.5,
-      "change_pct": 1.3675,
+      "change_pct": 0.5128,
       "data_date": "2026-11-25",
-      "quote_time": "11:23:54",
+      "quote_time": "11:35:52",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_bid_indicative"
     },
     "2597": {
       "open": 188.5,
@@ -37,7 +37,7 @@
       "prev_close": 192.0,
       "change_pct": -1.0417,
       "data_date": "2026-11-25",
-      "quote_time": "11:23:11",
+      "quote_time": "11:35:59",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -51,9 +51,9 @@
       "prev_close": 28.7,
       "change_pct": -9.9303,
       "data_date": "2026-11-25",
-      "quote_time": "11:22:18",
+      "quote_time": "11:34:04",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_ask_indicative"
     },
     "6614": {
       "open": 42.5,
@@ -61,11 +61,11 @@
       "low": 42.5,
       "symbol": "6614",
       "name": "資拓宏宇",
-      "price": 45.05,
+      "price": 45.85,
       "prev_close": 42.55,
-      "change_pct": 5.8754,
+      "change_pct": 7.7556,
       "data_date": "2026-11-25",
-      "quote_time": "11:25:22",
+      "quote_time": "11:36:01",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -75,11 +75,11 @@
       "low": 761.0,
       "symbol": "3293",
       "name": "鈊象",
-      "price": 773.0,
+      "price": 779.0,
       "prev_close": 786.0,
-      "change_pct": -1.6539,
+      "change_pct": -0.8906,
       "data_date": "2026-11-25",
-      "quote_time": "11:24:00",
+      "quote_time": "11:35:56",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -89,11 +89,11 @@
       "low": 44.65,
       "symbol": "2618",
       "name": "長榮航",
-      "price": 45.3,
+      "price": 45.5,
       "prev_close": 48.6,
-      "change_pct": -6.7901,
+      "change_pct": -6.3786,
       "data_date": "2026-11-25",
-      "quote_time": "11:24:00",
+      "quote_time": "11:36:01",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     }
