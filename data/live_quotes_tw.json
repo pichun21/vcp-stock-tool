@@ -1,12 +1,12 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-27 10:05:51",
-  "generated_at_iso": "2026-11-27T10:05:51+08:00",
+  "generated_at": "2026-11-27 10:15:47",
+  "generated_at_iso": "2026-11-27T10:15:47+08:00",
   "data_dates": [
     "2026-11-27"
   ],
-  "latest_quote_time": "10:04:20",
+  "latest_quote_time": "10:14:05",
   "target_count": 5,
   "quote_count": 5,
   "source": "TWSE MIS",
@@ -19,13 +19,13 @@
       "low": 166.0,
       "symbol": "2412",
       "name": "中華電",
-      "price": 167.0,
+      "price": 168.0,
       "prev_close": 166.5,
-      "change_pct": 0.3003,
+      "change_pct": 0.9009,
       "data_date": "2026-11-27",
-      "quote_time": "10:04:11",
+      "quote_time": "10:13:55",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6782": {
       "open": 315.0,
@@ -33,11 +33,11 @@
       "low": 303.0,
       "symbol": "6782",
       "name": "視陽",
-      "price": 305.0,
+      "price": 305.5,
       "prev_close": 310.5,
-      "change_pct": -1.7713,
+      "change_pct": -1.6103,
       "data_date": "2026-11-27",
-      "quote_time": "10:03:24",
+      "quote_time": "10:13:45",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -47,13 +47,13 @@
       "low": 58.0,
       "symbol": "3285",
       "name": "微端",
-      "price": 59.3,
+      "price": 59.5,
       "prev_close": 61.0,
-      "change_pct": -2.7869,
+      "change_pct": -2.459,
       "data_date": "2026-11-27",
-      "quote_time": "10:03:49",
+      "quote_time": "10:13:55",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     },
     "6614": {
       "open": 45.6,
@@ -61,13 +61,13 @@
       "low": 45.2,
       "symbol": "6614",
       "name": "資拓宏宇",
-      "price": 46.0,
+      "price": 45.75,
       "prev_close": 46.8,
-      "change_pct": -1.7094,
+      "change_pct": -2.2436,
       "data_date": "2026-11-27",
-      "quote_time": "10:03:37",
+      "quote_time": "10:13:53",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_bid_indicative"
     },
     "1477": {
       "open": 233.0,
@@ -79,7 +79,7 @@
       "prev_close": 233.0,
       "change_pct": -0.2146,
       "data_date": "2026-11-27",
-      "quote_time": "10:04:20",
+      "quote_time": "10:14:05",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     }
