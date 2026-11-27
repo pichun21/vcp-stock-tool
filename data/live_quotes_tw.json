@@ -1,12 +1,12 @@
 {
   "version": 1,
   "market": "TW",
-  "generated_at": "2026-11-27 10:15:47",
-  "generated_at_iso": "2026-11-27T10:15:47+08:00",
+  "generated_at": "2026-11-27 10:25:59",
+  "generated_at_iso": "2026-11-27T10:25:59+08:00",
   "data_dates": [
     "2026-11-27"
   ],
-  "latest_quote_time": "10:14:05",
+  "latest_quote_time": "10:25:34",
   "target_count": 5,
   "quote_count": 5,
   "source": "TWSE MIS",
@@ -23,9 +23,9 @@
       "prev_close": 166.5,
       "change_pct": 0.9009,
       "data_date": "2026-11-27",
-      "quote_time": "10:13:55",
+      "quote_time": "10:25:16",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_bid_indicative"
     },
     "6782": {
       "open": 315.0,
@@ -33,11 +33,11 @@
       "low": 303.0,
       "symbol": "6782",
       "name": "視陽",
-      "price": 305.5,
+      "price": 305.0,
       "prev_close": 310.5,
-      "change_pct": -1.6103,
+      "change_pct": -1.7713,
       "data_date": "2026-11-27",
-      "quote_time": "10:13:45",
+      "quote_time": "10:24:47",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -47,13 +47,13 @@
       "low": 58.0,
       "symbol": "3285",
       "name": "微端",
-      "price": 59.5,
+      "price": 59.2,
       "prev_close": 61.0,
-      "change_pct": -2.459,
+      "change_pct": -2.9508,
       "data_date": "2026-11-27",
-      "quote_time": "10:13:55",
+      "quote_time": "10:23:27",
       "source": "TWSE MIS",
-      "price_kind": "last_trade"
+      "price_kind": "best_bid_indicative"
     },
     "6614": {
       "open": 45.6,
@@ -61,11 +61,11 @@
       "low": 45.2,
       "symbol": "6614",
       "name": "資拓宏宇",
-      "price": 45.75,
+      "price": 45.6,
       "prev_close": 46.8,
-      "change_pct": -2.2436,
+      "change_pct": -2.5641,
       "data_date": "2026-11-27",
-      "quote_time": "10:13:53",
+      "quote_time": "10:25:06",
       "source": "TWSE MIS",
       "price_kind": "best_bid_indicative"
     },
@@ -75,13 +75,13 @@
       "low": 232.0,
       "symbol": "1477",
       "name": "聚陽",
-      "price": 232.5,
+      "price": 234.0,
       "prev_close": 233.0,
-      "change_pct": -0.2146,
+      "change_pct": 0.4292,
       "data_date": "2026-11-27",
-      "quote_time": "10:14:05",
+      "quote_time": "10:25:34",
       "source": "TWSE MIS",
-      "price_kind": "best_bid_indicative"
+      "price_kind": "last_trade"
     }
   }
 }
