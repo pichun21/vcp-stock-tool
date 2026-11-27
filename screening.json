@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27 07:17",
+  "generated_at": "2026-11-27 09:13",
   "timezone": "Asia/Taipei",
   "new_feature_version": 2,
   "dual_snapshot_version": 1,
@@ -34,8 +34,8 @@
   "intraday_markets": {
     "TW": {
       "data_date": "2026-11-26",
-      "count": 9,
-      "scanned_at": "2026-11-26 22:54",
+      "count": 10,
+      "scanned_at": "2026-11-27 09:13",
       "snapshot_type": "intraday"
     },
     "US": {
@@ -107,8 +107,8 @@
         "id": "^TWII",
         "label": "上市｜加權指數",
         "close": 39262.39,
-        "change_points": 1120.86,
-        "change_pct": 2.94,
+        "change_points": null,
+        "change_pct": null,
         "data_time": "2026-11-26 13:25",
         "source": "Yahoo/yfinance intraday"
       },
@@ -270,31 +270,31 @@
         "heat_score": 83,
         "heat_level": "hot",
         "heat_label": "🔥 強力升溫",
-        "market_share_pct": 41.9,
-        "value_ratio": 0.97,
-        "breadth_pct": 93.8,
-        "avg_change_pct": 4.29,
+        "market_share_pct": 41.6,
+        "value_ratio": 0.94,
+        "breadth_pct": 93.4,
+        "avg_change_pct": 4.27,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 226,
+        "stock_count": 227,
         "data_date": "2026-11-26"
       },
       {
         "industry": "半導體業",
-        "heat_score": 80,
-        "heat_level": "hot",
-        "heat_label": "🔥 強力升溫",
-        "market_share_pct": 13.3,
-        "value_ratio": 0.86,
-        "breadth_pct": 92.8,
-        "avg_change_pct": 4.38,
+        "heat_score": 79,
+        "heat_level": "warming",
+        "heat_label": "🟠 資金升溫",
+        "market_share_pct": 13.4,
+        "value_ratio": 0.84,
+        "breadth_pct": 92.1,
+        "avg_change_pct": 4.35,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 139,
+        "stock_count": 140,
         "data_date": "2026-11-26"
       },
       {
@@ -303,14 +303,14 @@
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
         "market_share_pct": 18.1,
-        "value_ratio": 0.81,
-        "breadth_pct": 89.7,
-        "avg_change_pct": 4.79,
+        "value_ratio": 0.8,
+        "breadth_pct": 89.2,
+        "avg_change_pct": 4.77,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 185,
+        "stock_count": 186,
         "data_date": "2026-11-26"
       },
       {
@@ -318,7 +318,7 @@
         "heat_score": 77,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
-        "market_share_pct": 2.8,
+        "market_share_pct": 2.9,
         "value_ratio": 1.8,
         "breadth_pct": 80.0,
         "avg_change_pct": 2.51,
@@ -331,18 +331,18 @@
       },
       {
         "industry": "電腦及週邊設備業",
-        "heat_score": 72,
+        "heat_score": 71,
         "heat_level": "warming",
         "heat_label": "🟠 資金升溫",
         "market_share_pct": 4.6,
-        "value_ratio": 0.79,
-        "breadth_pct": 87.0,
-        "avg_change_pct": 3.78,
+        "value_ratio": 0.77,
+        "breadth_pct": 86.0,
+        "avg_change_pct": 3.73,
         "vcp_count": 0,
         "breakout_count": 0,
         "vcp_stocks": [],
         "breakout_stocks": [],
-        "stock_count": 92,
+        "stock_count": 93,
         "data_date": "2026-11-26"
       }
     ]
@@ -1097,7 +1097,7 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 2.48,
-          "heat": 46,
+          "heat": 47,
           "setup": 19,
           "lifecycle": "watch",
           "lifecycleLabel": "觀察",
@@ -1105,7 +1105,7 @@
           "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 97,
+          "priceStrengthScore": 100,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1141,7 +1141,7 @@
               "name": "臻鼎-KY"
             }
           ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
         },
         {
           "theme": "AI伺服器",
@@ -1152,15 +1152,15 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 11.45,
-          "heat": 45,
+          "heat": 46,
           "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
           "breadthPct": 100,
           "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 86,
+          "priceStrengthScore": 98,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1201,127 +1201,7 @@
               "name": "緯穎"
             }
           ],
-          "marketReturnPct": 2.94
-        },
-        {
-          "theme": "液冷",
-          "constituents": 5,
-          "evidenceCoverage": {
-            "verified": 5,
-            "total": 5
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 3.76,
-          "heat": 45,
-          "setup": 19,
-          "lifecycle": "watch",
-          "lifecycleLabel": "觀察",
-          "breadthPct": 100,
-          "strongBreadthPct": 100,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 92,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "Cold Plate",
-            "Manifold"
-          ],
-          "topStocks": [
-            "8996",
-            "3017",
-            "3324",
-            "3653",
-            "2421"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "8996",
-              "name": "高力"
-            },
-            {
-              "symbol": "3017",
-              "name": "奇鋐"
-            },
-            {
-              "symbol": "3324",
-              "name": "雙鴻"
-            },
-            {
-              "symbol": "3653",
-              "name": ""
-            },
-            {
-              "symbol": "2421",
-              "name": "建準"
-            }
-          ],
-          "marketReturnPct": 2.94
-        },
-        {
-          "theme": "AI PCB",
-          "constituents": 17,
-          "evidenceCoverage": {
-            "verified": 17,
-            "total": 17
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 10.77,
-          "heat": 43,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 95,
-          "strongBreadthPct": 95,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 84,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "上游材料（銅箔、玻纖布、鑽針、錫膏）",
-            "Server PCB"
-          ],
-          "topStocks": [
-            "2368",
-            "3305",
-            "8358",
-            "2383",
-            "4958"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "2368",
-              "name": "金像電"
-            },
-            {
-              "symbol": "3305",
-              "name": "昇貿"
-            },
-            {
-              "symbol": "8358",
-              "name": "金居"
-            },
-            {
-              "symbol": "2383",
-              "name": "台光電"
-            },
-            {
-              "symbol": "4958",
-              "name": "臻鼎-KY"
-            }
-          ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
         },
         {
           "theme": "半導體設備",
@@ -1332,15 +1212,15 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 10.33,
-          "heat": 43,
+          "heat": 46,
           "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
           "breadthPct": 100,
           "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 78,
+          "priceStrengthScore": 98,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1381,129 +1261,7 @@
               "name": ""
             }
           ],
-          "marketReturnPct": 2.94
-        }
-      ],
-      "setupTop5": [
-        {
-          "theme": "AI電力基建",
-          "constituents": 12,
-          "evidenceCoverage": {
-            "verified": 11,
-            "total": 12
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 7.47,
-          "heat": 43,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 100,
-          "strongBreadthPct": 100,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 75,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "電源與 BBU",
-            "Power Rack"
-          ],
-          "topStocks": [
-            "4931",
-            "3211",
-            "6282",
-            "2308",
-            "6781"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "4931",
-              "name": "新盛力"
-            },
-            {
-              "symbol": "3211",
-              "name": "順達"
-            },
-            {
-              "symbol": "6282",
-              "name": "康舒"
-            },
-            {
-              "symbol": "2308",
-              "name": "台達電"
-            },
-            {
-              "symbol": "6781",
-              "name": "AES-KY"
-            }
-          ],
-          "marketReturnPct": 2.94
-        },
-        {
-          "theme": "先進封裝供應鏈",
-          "constituents": 24,
-          "evidenceCoverage": {
-            "verified": 23,
-            "total": 24
-          },
-          "weightMode": "evidence",
-          "effectiveWeight": 14.33,
-          "heat": 42,
-          "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 97,
-          "strongBreadthPct": 90,
-          "volumeExpansionPct": 21,
-          "moneyFlowScore": 20,
-          "priceStrengthScore": 73,
-          "breakoutWeightedPct": 0,
-          "nearPivotWeightedPct": 0,
-          "vcpQualityScore": 0,
-          "volumeDryupScore": 0,
-          "breakoutCount": 0,
-          "nearPivotCount": 0,
-          "newCandidateCount": 0,
-          "dominantSegments": [
-            "封裝設備",
-            "封裝基板"
-          ],
-          "topStocks": [
-            "8046",
-            "3037",
-            "3131",
-            "6640",
-            "3455"
-          ],
-          "topStockDetails": [
-            {
-              "symbol": "8046",
-              "name": "南電"
-            },
-            {
-              "symbol": "3037",
-              "name": "欣興"
-            },
-            {
-              "symbol": "3131",
-              "name": "弘塑"
-            },
-            {
-              "symbol": "6640",
-              "name": "均華"
-            },
-            {
-              "symbol": "3455",
-              "name": "由田"
-            }
-          ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
         },
         {
           "theme": "機器人",
@@ -1514,15 +1272,15 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 7.79,
-          "heat": 42,
+          "heat": 46,
           "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
           "breadthPct": 100,
           "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 67,
+          "priceStrengthScore": 96,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1563,26 +1321,26 @@
               "name": "所羅門"
             }
           ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
         },
         {
-          "theme": "低軌衛星",
-          "constituents": 11,
+          "theme": "AI電力基建",
+          "constituents": 12,
           "evidenceCoverage": {
-            "verified": 10,
-            "total": 11
+            "verified": 11,
+            "total": 12
           },
           "weightMode": "evidence",
-          "effectiveWeight": 6.22,
-          "heat": 42,
+          "effectiveWeight": 7.47,
+          "heat": 46,
           "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
-          "breadthPct": 86,
-          "strongBreadthPct": 86,
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
+          "breadthPct": 100,
+          "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 86,
+          "priceStrengthScore": 98,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1591,39 +1349,101 @@
           "nearPivotCount": 0,
           "newCandidateCount": 0,
           "dominantSegments": [
-            "低軌衛星地面設備",
-            "射頻"
+            "電源與 BBU",
+            "Power Rack"
           ],
           "topStocks": [
-            "3491",
-            "3105",
-            "2367",
-            "2313",
-            "2314"
+            "4931",
+            "3211",
+            "6282",
+            "2308",
+            "6781"
           ],
           "topStockDetails": [
             {
-              "symbol": "3491",
-              "name": "昇達科"
+              "symbol": "4931",
+              "name": "新盛力"
             },
             {
-              "symbol": "3105",
-              "name": "穩懋"
+              "symbol": "3211",
+              "name": "順達"
             },
             {
-              "symbol": "2367",
-              "name": "燿華"
+              "symbol": "6282",
+              "name": "康舒"
             },
             {
-              "symbol": "2313",
-              "name": "華通"
+              "symbol": "2308",
+              "name": "台達電"
             },
             {
-              "symbol": "2314",
-              "name": ""
+              "symbol": "6781",
+              "name": "AES-KY"
             }
           ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
+        }
+      ],
+      "setupTop5": [
+        {
+          "theme": "液冷",
+          "constituents": 5,
+          "evidenceCoverage": {
+            "verified": 5,
+            "total": 5
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 3.76,
+          "heat": 46,
+          "setup": 19,
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
+          "breadthPct": 100,
+          "strongBreadthPct": 100,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 99,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "Cold Plate",
+            "Manifold"
+          ],
+          "topStocks": [
+            "8996",
+            "3017",
+            "3324",
+            "3653",
+            "2421"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "8996",
+              "name": "高力"
+            },
+            {
+              "symbol": "3017",
+              "name": "奇鋐"
+            },
+            {
+              "symbol": "3324",
+              "name": "雙鴻"
+            },
+            {
+              "symbol": "3653",
+              "name": ""
+            },
+            {
+              "symbol": "2421",
+              "name": "建準"
+            }
+          ],
+          "marketReturnPct": 0.0
         },
         {
           "theme": "重電/強韌電網",
@@ -1634,15 +1454,15 @@
           },
           "weightMode": "evidence",
           "effectiveWeight": 3.55,
-          "heat": 42,
+          "heat": 46,
           "setup": 19,
-          "lifecycle": "dormant",
-          "lifecycleLabel": "休眠",
+          "lifecycle": "watch",
+          "lifecycleLabel": "觀察",
           "breadthPct": 100,
           "strongBreadthPct": 100,
           "volumeExpansionPct": 21,
           "moneyFlowScore": 20,
-          "priceStrengthScore": 68,
+          "priceStrengthScore": 93,
           "breakoutWeightedPct": 0,
           "nearPivotWeightedPct": 0,
           "vcpQualityScore": 0,
@@ -1683,13 +1503,219 @@
               "name": "中興電"
             }
           ],
-          "marketReturnPct": 2.94
+          "marketReturnPct": 0.0
+        },
+        {
+          "theme": "先進封裝供應鏈",
+          "constituents": 24,
+          "evidenceCoverage": {
+            "verified": 23,
+            "total": 24
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 14.33,
+          "heat": 45,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 97,
+          "strongBreadthPct": 90,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 92,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "封裝設備",
+            "封裝基板"
+          ],
+          "topStocks": [
+            "8046",
+            "3037",
+            "3131",
+            "6640",
+            "3455"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "8046",
+              "name": "南電"
+            },
+            {
+              "symbol": "3037",
+              "name": "欣興"
+            },
+            {
+              "symbol": "3131",
+              "name": "弘塑"
+            },
+            {
+              "symbol": "6640",
+              "name": "均華"
+            },
+            {
+              "symbol": "3455",
+              "name": "由田"
+            }
+          ],
+          "marketReturnPct": 0.0
+        },
+        {
+          "theme": "AI PCB",
+          "constituents": 17,
+          "evidenceCoverage": {
+            "verified": 17,
+            "total": 17
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 10.77,
+          "heat": 45,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 95,
+          "strongBreadthPct": 95,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 94,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "上游材料（銅箔、玻纖布、鑽針、錫膏）",
+            "Server PCB"
+          ],
+          "topStocks": [
+            "2368",
+            "3305",
+            "8358",
+            "2383",
+            "4958"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "2368",
+              "name": "金像電"
+            },
+            {
+              "symbol": "3305",
+              "name": "昇貿"
+            },
+            {
+              "symbol": "8358",
+              "name": "金居"
+            },
+            {
+              "symbol": "2383",
+              "name": "台光電"
+            },
+            {
+              "symbol": "4958",
+              "name": "臻鼎-KY"
+            }
+          ],
+          "marketReturnPct": 0.0
+        },
+        {
+          "theme": "高速光通訊",
+          "constituents": 12,
+          "evidenceCoverage": {
+            "verified": 11,
+            "total": 12
+          },
+          "weightMode": "evidence",
+          "effectiveWeight": 8.77,
+          "heat": 43,
+          "setup": 19,
+          "lifecycle": "dormant",
+          "lifecycleLabel": "休眠",
+          "breadthPct": 90,
+          "strongBreadthPct": 90,
+          "volumeExpansionPct": 21,
+          "moneyFlowScore": 20,
+          "priceStrengthScore": 91,
+          "breakoutWeightedPct": 0,
+          "nearPivotWeightedPct": 0,
+          "vcpQualityScore": 0,
+          "volumeDryupScore": 0,
+          "breakoutCount": 0,
+          "nearPivotCount": 0,
+          "newCandidateCount": 0,
+          "dominantSegments": [
+            "光模組",
+            "高速光通訊模組與元件"
+          ],
+          "topStocks": [
+            "6442",
+            "6451",
+            "4991",
+            "4979",
+            "3450"
+          ],
+          "topStockDetails": [
+            {
+              "symbol": "6442",
+              "name": "光聖"
+            },
+            {
+              "symbol": "6451",
+              "name": "訊芯-KY"
+            },
+            {
+              "symbol": "4991",
+              "name": "環宇-KY"
+            },
+            {
+              "symbol": "4979",
+              "name": "華星光"
+            },
+            {
+              "symbol": "3450",
+              "name": "聯鈞"
+            }
+          ],
+          "marketReturnPct": 0.0
         }
       ],
       "weightShadow": {
         "liveMode": "evidence",
         "shadowMode": "db",
         "themeTop5": [
+          {
+            "theme": "AI PCB",
+            "heat": 47,
+            "setup": 19,
+            "constituents": 8,
+            "topStocks": [
+              "2368",
+              "2383",
+              "4958",
+              "8155",
+              "6213"
+            ]
+          },
+          {
+            "theme": "AI伺服器",
+            "heat": 47,
+            "setup": 19,
+            "constituents": 7,
+            "topStocks": [
+              "3017",
+              "6669",
+              "2382",
+              "3324",
+              "2356"
+            ]
+          },
           {
             "theme": "低軌衛星",
             "heat": 47,
@@ -1704,21 +1730,8 @@
             ]
           },
           {
-            "theme": "AI PCB",
-            "heat": 46,
-            "setup": 19,
-            "constituents": 8,
-            "topStocks": [
-              "2368",
-              "2383",
-              "4958",
-              "8155",
-              "6213"
-            ]
-          },
-          {
             "theme": "IC載板",
-            "heat": 46,
+            "heat": 47,
             "setup": 19,
             "constituents": 4,
             "topStocks": [
@@ -1729,35 +1742,23 @@
             ]
           },
           {
-            "theme": "AI伺服器",
-            "heat": 45,
+            "theme": "機器人關鍵零組件",
+            "heat": 46,
             "setup": 19,
-            "constituents": 7,
+            "constituents": 16,
             "topStocks": [
-              "3017",
-              "6669",
-              "2382",
-              "3324",
-              "2356"
-            ]
-          },
-          {
-            "theme": "液冷",
-            "heat": 45,
-            "setup": 19,
-            "constituents": 4,
-            "topStocks": [
-              "8996",
-              "3017",
-              "3324",
-              "2421"
+              "2464",
+              "2049",
+              "1597",
+              "2359",
+              "4576"
             ]
           }
         ],
         "setupTop5": [
           {
             "theme": "先進封裝供應鏈",
-            "heat": 43,
+            "heat": 46,
             "setup": 19,
             "constituents": 16,
             "topStocks": [
@@ -1769,21 +1770,8 @@
             ]
           },
           {
-            "theme": "CPO/矽光子",
-            "heat": 43,
-            "setup": 19,
-            "constituents": 14,
-            "topStocks": [
-              "4979",
-              "3363",
-              "4908",
-              "3081",
-              "6451"
-            ]
-          },
-          {
             "theme": "AI電力基建",
-            "heat": 43,
+            "heat": 46,
             "setup": 19,
             "constituents": 8,
             "topStocks": [
@@ -1796,7 +1784,7 @@
           },
           {
             "theme": "重電/強韌電網",
-            "heat": 43,
+            "heat": 46,
             "setup": 19,
             "constituents": 4,
             "topStocks": [
@@ -1807,16 +1795,28 @@
             ]
           },
           {
-            "theme": "機器人關鍵零組件",
-            "heat": 42,
+            "theme": "液冷",
+            "heat": 46,
             "setup": 19,
-            "constituents": 16,
+            "constituents": 4,
             "topStocks": [
-              "2464",
-              "2049",
-              "1597",
-              "2359",
-              "4576"
+              "8996",
+              "3017",
+              "3324",
+              "2421"
+            ]
+          },
+          {
+            "theme": "CPO/矽光子",
+            "heat": 45,
+            "setup": 19,
+            "constituents": 14,
+            "topStocks": [
+              "4979",
+              "3363",
+              "4908",
+              "3081",
+              "6451"
             ]
           }
         ]
@@ -73234,7 +73234,7 @@
       "4804": {
         "price": 3.27,
         "prev_close": 3.27,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "大略-KY",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -73268,7 +73268,7 @@
       "8084": {
         "price": 5.54,
         "prev_close": 5.54,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "巨虹",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -73285,7 +73285,7 @@
       "8291": {
         "price": 52.0408,
         "prev_close": 52.0408,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "尚茂",
         "source": "VCPulse scanner",
         "tt_count": 3,
@@ -73302,7 +73302,7 @@
         "data_date": "2026-11-26",
         "name": "遠東新",
         "source": "VCPulse scanner",
-        "rs_rating": 54,
+        "rs_rating": 55,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -73317,7 +73317,7 @@
         "data_date": "2026-11-26",
         "name": "新纖",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 78,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -73811,7 +73811,7 @@
         "data_date": "2026-11-26",
         "name": "台聚",
         "source": "VCPulse scanner",
-        "rs_rating": 40,
+        "rs_rating": 39,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -73919,7 +73919,7 @@
         "data_date": "2026-11-26",
         "name": "台塑",
         "source": "VCPulse scanner",
-        "rs_rating": 88,
+        "rs_rating": 87,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -73978,7 +73978,7 @@
         "data_date": "2026-11-26",
         "name": "三芳",
         "source": "VCPulse scanner",
-        "rs_rating": 28,
+        "rs_rating": 29,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -74047,7 +74047,7 @@
         "data_date": "2026-11-26",
         "name": "國喬",
         "source": "VCPulse scanner",
-        "rs_rating": 48,
+        "rs_rating": 47,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -74064,7 +74064,7 @@
         "data_date": "2026-11-26",
         "name": "聯成",
         "source": "VCPulse scanner",
-        "rs_rating": 61,
+        "rs_rating": 60,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -74138,7 +74138,7 @@
         "data_date": "2026-11-26",
         "name": "卜蜂",
         "source": "VCPulse scanner",
-        "rs_rating": 28,
+        "rs_rating": 29,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -74269,7 +74269,7 @@
         "data_date": "2026-11-26",
         "name": "聯華",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -74299,7 +74299,7 @@
         "data_date": "2026-11-26",
         "name": "聯華食",
         "source": "VCPulse scanner",
-        "rs_rating": 37,
+        "rs_rating": 38,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -74316,7 +74316,7 @@
         "data_date": "2026-11-26",
         "name": "大成",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 66,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -74347,7 +74347,7 @@
         "data_date": "2026-11-26",
         "name": "大統益",
         "source": "VCPulse scanner",
-        "rs_rating": 73,
+        "rs_rating": 74,
         "tt_count": 6,
         "tt_fail": [
           6
@@ -74392,7 +74392,7 @@
         "data_date": "2026-11-26",
         "name": "台泥",
         "source": "VCPulse scanner",
-        "rs_rating": 71,
+        "rs_rating": 70,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -74405,7 +74405,7 @@
         "data_date": "2026-11-26",
         "name": "亞泥",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 52,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -74580,7 +74580,7 @@
         "data_date": "2026-11-26",
         "name": "世芯-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 65,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -74628,7 +74628,7 @@
         "data_date": "2026-11-26",
         "name": "貿聯-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 66,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -74671,12 +74671,12 @@
         ]
       },
       "3706": {
-        "price": 60.1,
+        "price": 59.6002,
         "prev_close": 58.0,
         "data_date": "2026-11-26",
         "name": "神達",
         "source": "VCPulse scanner",
-        "rs_rating": 20,
+        "rs_rating": 19,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -74898,7 +74898,7 @@
         "data_date": "2026-11-26",
         "name": "欣陸",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 67,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -74992,7 +74992,7 @@
         "data_date": "2026-11-26",
         "name": "合勤控",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 40,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -75057,7 +75057,7 @@
         "data_date": "2026-11-26",
         "name": "日月光投控",
         "source": "VCPulse scanner",
-        "rs_rating": 89,
+        "rs_rating": 88,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -75209,7 +75209,7 @@
         "data_date": "2026-11-26",
         "name": "東洋",
         "source": "VCPulse scanner",
-        "rs_rating": 70,
+        "rs_rating": 69,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -75553,7 +75553,7 @@
         "data_date": "2026-11-26",
         "name": "訊映",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 64,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -75584,7 +75584,7 @@
         "data_date": "2026-11-26",
         "name": "元創精密",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 23,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -75637,7 +75637,7 @@
         "data_date": "2026-11-26",
         "name": "TPK-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 50,
+        "rs_rating": 52,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -75683,7 +75683,7 @@
         "data_date": "2026-11-26",
         "name": "家登",
         "source": "VCPulse scanner",
-        "rs_rating": 29,
+        "rs_rating": 30,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -75745,7 +75745,7 @@
         "data_date": "2026-11-26",
         "name": "金寶",
         "source": "VCPulse scanner",
-        "rs_rating": 25,
+        "rs_rating": 26,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -75762,7 +75762,7 @@
         "data_date": "2026-11-26",
         "name": "麗正",
         "source": "VCPulse scanner",
-        "rs_rating": 83,
+        "rs_rating": 82,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -75776,7 +75776,7 @@
         "data_date": "2026-11-26",
         "name": "楠梓電",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 34,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -75792,7 +75792,7 @@
         "data_date": "2026-11-26",
         "name": "鴻海",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 46,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -75805,7 +75805,7 @@
       "2321": {
         "price": 30.5,
         "prev_close": 30.5,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "東訊",
         "source": "VCPulse scanner",
         "tt_count": 5,
@@ -75820,7 +75820,7 @@
         "data_date": "2026-11-26",
         "name": "中環",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 61,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -75854,7 +75854,7 @@
         "data_date": "2026-11-26",
         "name": "華通",
         "source": "VCPulse scanner",
-        "rs_rating": 68,
+        "rs_rating": 67,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -75953,7 +75953,7 @@
         "data_date": "2026-11-26",
         "name": "光寶科",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 48,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -76064,7 +76064,7 @@
         "data_date": "2026-11-26",
         "name": "菱生",
         "source": "VCPulse scanner",
-        "rs_rating": 28,
+        "rs_rating": 27,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -76081,7 +76081,7 @@
         "data_date": "2026-11-26",
         "name": "宏碁",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 54,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -76097,7 +76097,7 @@
         "data_date": "2026-11-26",
         "name": "鴻準",
         "source": "VCPulse scanner",
-        "rs_rating": 20,
+        "rs_rating": 21,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -76325,7 +76325,7 @@
         "data_date": "2026-11-26",
         "name": "台船",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 25,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -76609,7 +76609,7 @@
         "data_date": "2026-11-26",
         "name": "環科",
         "source": "VCPulse scanner",
-        "rs_rating": 88,
+        "rs_rating": 86,
         "tt_count": 5,
         "tt_fail": [
           2,
@@ -76686,7 +76686,7 @@
         "data_date": "2026-11-26",
         "name": "技嘉",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 54,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -76731,7 +76731,7 @@
         "data_date": "2026-11-26",
         "name": "瑞昱",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 87,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -76778,7 +76778,7 @@
         "data_date": "2026-11-26",
         "name": "亞德客-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 25,
+        "rs_rating": 26,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -76851,7 +76851,7 @@
         "data_date": "2026-11-26",
         "name": "南亞科",
         "source": "VCPulse scanner",
-        "rs_rating": 78,
+        "rs_rating": 75,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -76961,7 +76961,7 @@
         "data_date": "2026-11-26",
         "name": "國碩",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 40,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -76979,7 +76979,7 @@
         "data_date": "2026-11-26",
         "name": "映泰",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 56,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77011,7 +77011,7 @@
         "data_date": "2026-11-26",
         "name": "京元電子",
         "source": "VCPulse scanner",
-        "rs_rating": 18,
+        "rs_rating": 17,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -77045,7 +77045,7 @@
         "data_date": "2026-11-26",
         "name": "創見",
         "source": "VCPulse scanner",
-        "rs_rating": 54,
+        "rs_rating": 52,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77060,7 +77060,7 @@
         "data_date": "2026-11-26",
         "name": "凌群",
         "source": "VCPulse scanner",
-        "rs_rating": 73,
+        "rs_rating": 74,
         "tt_count": 5,
         "tt_fail": [
           4,
@@ -77090,7 +77090,7 @@
         "data_date": "2026-11-26",
         "name": "全新",
         "source": "VCPulse scanner",
-        "rs_rating": 82,
+        "rs_rating": 83,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -77196,7 +77196,7 @@
         "data_date": "2026-11-26",
         "name": "超豐",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 65,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77326,7 +77326,7 @@
         "data_date": "2026-11-26",
         "name": "大同",
         "source": "VCPulse scanner",
-        "rs_rating": 27,
+        "rs_rating": 26,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -77457,7 +77457,7 @@
         "data_date": "2026-11-26",
         "name": "建準",
         "source": "VCPulse scanner",
-        "rs_rating": 29,
+        "rs_rating": 30,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -77574,7 +77574,7 @@
         "data_date": "2026-11-26",
         "name": "南紡",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 37,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -77591,7 +77591,7 @@
         "data_date": "2026-11-26",
         "name": "智邦",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 62,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77606,7 +77606,7 @@
         "data_date": "2026-11-26",
         "name": "華邦電",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 54,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77637,7 +77637,7 @@
         "data_date": "2026-11-26",
         "name": "金像電",
         "source": "VCPulse scanner",
-        "rs_rating": 78,
+        "rs_rating": 77,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77667,7 +77667,7 @@
         "data_date": "2026-11-26",
         "name": "國巨*",
         "source": "VCPulse scanner",
-        "rs_rating": 48,
+        "rs_rating": 47,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77735,7 +77735,7 @@
         "data_date": "2026-11-26",
         "name": "台積電",
         "source": "VCPulse scanner",
-        "rs_rating": 73,
+        "rs_rating": 74,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -77781,7 +77781,7 @@
         "data_date": "2026-11-26",
         "name": "旺宏",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 30,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77796,7 +77796,7 @@
         "data_date": "2026-11-26",
         "name": "順德",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 47,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -77844,7 +77844,7 @@
         "data_date": "2026-11-26",
         "name": "茂矽",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 34,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78019,7 +78019,7 @@
         "data_date": "2026-11-26",
         "name": "漢翔",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 36,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78035,7 +78035,7 @@
         "data_date": "2026-11-26",
         "name": "台驊控股",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 68,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -78064,7 +78064,7 @@
         "data_date": "2026-11-26",
         "name": "慧洋-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 80,
+        "rs_rating": 81,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -78140,7 +78140,7 @@
         "data_date": "2026-11-26",
         "name": "台航",
         "source": "VCPulse scanner",
-        "rs_rating": 44,
+        "rs_rating": 45,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78169,7 +78169,7 @@
         "data_date": "2026-11-26",
         "name": "華固",
         "source": "VCPulse scanner",
-        "rs_rating": 50,
+        "rs_rating": 49,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -78217,7 +78217,7 @@
         "data_date": "2026-11-26",
         "name": "國產",
         "source": "VCPulse scanner",
-        "rs_rating": 54,
+        "rs_rating": 55,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78247,7 +78247,7 @@
         "data_date": "2026-11-26",
         "name": "陽明",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 66,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -78296,7 +78296,7 @@
         "data_date": "2026-11-26",
         "name": "立隆電",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 37,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -78383,7 +78383,7 @@
         "data_date": "2026-11-26",
         "name": "長榮",
         "source": "VCPulse scanner",
-        "rs_rating": 84,
+        "rs_rating": 85,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -78393,7 +78393,7 @@
         "data_date": "2026-11-26",
         "name": "新興",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 65,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78409,7 +78409,7 @@
         "data_date": "2026-11-26",
         "name": "裕民",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 64,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -78454,7 +78454,7 @@
         "data_date": "2026-11-26",
         "name": "鉅祥",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 35,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78552,7 +78552,7 @@
         "data_date": "2026-11-26",
         "name": "大學光",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 47,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -78569,7 +78569,7 @@
         "data_date": "2026-11-26",
         "name": "倚強科",
         "source": "VCPulse scanner",
-        "rs_rating": 79,
+        "rs_rating": 80,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -78679,7 +78679,7 @@
         "data_date": "2026-11-26",
         "name": "緯創",
         "source": "VCPulse scanner",
-        "rs_rating": 76,
+        "rs_rating": 75,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -78709,7 +78709,7 @@
         "data_date": "2026-11-26",
         "name": "光環",
         "source": "VCPulse scanner",
-        "rs_rating": 88,
+        "rs_rating": 87,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -78723,7 +78723,7 @@
         "data_date": "2026-11-26",
         "name": "千如",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 35,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -78790,7 +78790,7 @@
         "data_date": "2026-11-26",
         "name": "威剛",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 38,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -78818,7 +78818,7 @@
         "data_date": "2026-11-26",
         "name": "全科",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 57,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -78940,7 +78940,7 @@
         "data_date": "2026-11-26",
         "name": "宏璟",
         "source": "VCPulse scanner",
-        "rs_rating": 80,
+        "rs_rating": 79,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -79003,7 +79003,7 @@
         "data_date": "2026-11-26",
         "name": "達欣工",
         "source": "VCPulse scanner",
-        "rs_rating": 79,
+        "rs_rating": 80,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -79212,7 +79212,7 @@
         "data_date": "2026-11-26",
         "name": "欣銓",
         "source": "VCPulse scanner",
-        "rs_rating": 63,
+        "rs_rating": 60,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -79226,7 +79226,7 @@
         "data_date": "2026-11-26",
         "name": "華立",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 43,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -79344,7 +79344,7 @@
         "data_date": "2026-11-26",
         "name": "永豐金",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 78,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -79423,7 +79423,7 @@
         "data_date": "2026-11-26",
         "name": "玉山金",
         "source": "VCPulse scanner",
-        "rs_rating": 82,
+        "rs_rating": 83,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -79546,7 +79546,7 @@
         "data_date": "2026-11-26",
         "name": "晶豪科",
         "source": "VCPulse scanner",
-        "rs_rating": 80,
+        "rs_rating": 81,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -79698,7 +79698,7 @@
         "data_date": "2026-11-26",
         "name": "遠百",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 43,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -79732,7 +79732,7 @@
         "data_date": "2026-11-26",
         "name": "瑞軒",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 58,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -79791,7 +79791,7 @@
         "data_date": "2026-11-26",
         "name": "普安",
         "source": "VCPulse scanner",
-        "rs_rating": 17,
+        "rs_rating": 15,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -79963,7 +79963,7 @@
         "data_date": "2026-11-26",
         "name": "三商",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 35,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -80076,7 +80076,7 @@
         "data_date": "2026-11-26",
         "name": "星宇航空",
         "source": "VCPulse scanner",
-        "rs_rating": 40,
+        "rs_rating": 41,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -80105,7 +80105,7 @@
         "data_date": "2026-11-26",
         "name": "強茂",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 35,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -80138,7 +80138,7 @@
         "data_date": "2026-11-26",
         "name": "百容",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 68,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -80153,7 +80153,7 @@
         "data_date": "2026-11-26",
         "name": "希華",
         "source": "VCPulse scanner",
-        "rs_rating": 88,
+        "rs_rating": 89,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -80167,14 +80167,15 @@
         "data_date": "2026-11-26",
         "name": "兆赫",
         "source": "VCPulse scanner",
-        "rs_rating": 17,
-        "tt_count": 1,
+        "rs_rating": 14,
+        "tt_count": 0,
         "tt_fail": [
           1,
           2,
           3,
           4,
           5,
+          6,
           7
         ]
       },
@@ -80184,7 +80185,7 @@
         "data_date": "2026-11-26",
         "name": "大毅",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 60,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -80211,7 +80212,7 @@
         "data_date": "2026-11-26",
         "name": "台星科",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 34,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -80258,7 +80259,7 @@
         "data_date": "2026-11-26",
         "name": "亞光",
         "source": "VCPulse scanner",
-        "rs_rating": 28,
+        "rs_rating": 29,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -80275,7 +80276,7 @@
         "data_date": "2026-11-26",
         "name": "威強電",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 47,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -80559,7 +80560,7 @@
         "data_date": "2026-11-26",
         "name": "文曄",
         "source": "VCPulse scanner",
-        "rs_rating": 44,
+        "rs_rating": 43,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -80622,7 +80623,7 @@
         "data_date": "2026-11-26",
         "name": "嘉晶",
         "source": "VCPulse scanner",
-        "rs_rating": 85,
+        "rs_rating": 84,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -80806,7 +80807,7 @@
         "data_date": "2026-11-26",
         "name": "銘異",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 23,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -80824,7 +80825,7 @@
         "data_date": "2026-11-26",
         "name": "華晶科",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 36,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -80887,7 +80888,7 @@
       "3064": {
         "price": 12.5,
         "prev_close": 12.5,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "泰偉",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -80956,7 +80957,7 @@
         "data_date": "2026-11-26",
         "name": "日電貿",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 34,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -81074,7 +81075,7 @@
       "3118": {
         "price": 29.65,
         "prev_close": 29.65,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "進階",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -81142,7 +81143,7 @@
         "data_date": "2026-11-26",
         "name": "弘塑",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 23,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -81287,7 +81288,7 @@
         "data_date": "2026-11-26",
         "name": "泰碩",
         "source": "VCPulse scanner",
-        "rs_rating": 15,
+        "rs_rating": 16,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -81303,7 +81304,7 @@
         "data_date": "2026-11-26",
         "name": "泰谷",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 20,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -81496,7 +81497,7 @@
         "data_date": "2026-11-26",
         "name": "律勝",
         "source": "VCPulse scanner",
-        "rs_rating": 83,
+        "rs_rating": 82,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -81575,7 +81576,7 @@
         "data_date": "2026-11-26",
         "name": "晶宏",
         "source": "VCPulse scanner",
-        "rs_rating": 74,
+        "rs_rating": 73,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -81683,7 +81684,7 @@
         "data_date": "2026-11-26",
         "name": "波若威",
         "source": "VCPulse scanner",
-        "rs_rating": 15,
+        "rs_rating": 14,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -81761,8 +81762,8 @@
       },
       "3171": {
         "price": 54.7,
-        "prev_close": 52.9,
-        "data_date": "2026-11-25",
+        "prev_close": 54.7,
+        "data_date": "2026-11-26",
         "name": "炎洲流通",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -81941,7 +81942,7 @@
         "data_date": "2026-11-26",
         "name": "耀登",
         "source": "VCPulse scanner",
-        "rs_rating": 8,
+        "rs_rating": 9,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -82004,7 +82005,7 @@
         "data_date": "2026-11-26",
         "name": "佰鴻",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 65,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -82067,7 +82068,7 @@
         "data_date": "2026-11-26",
         "name": "凌航",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 50,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -82440,7 +82441,7 @@
         "data_date": "2026-11-26",
         "name": "明泰",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 46,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -82538,7 +82539,7 @@
         "data_date": "2026-11-26",
         "name": "晶呈科技",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 24,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -82556,7 +82557,7 @@
         "data_date": "2026-11-26",
         "name": "上品",
         "source": "VCPulse scanner",
-        "rs_rating": 76,
+        "rs_rating": 77,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -82601,8 +82602,8 @@
       },
       "4806": {
         "price": 9.74,
-        "prev_close": 8.37,
-        "data_date": "2026-11-25",
+        "prev_close": 9.74,
+        "data_date": "2026-11-26",
         "name": "桂田文創",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -82634,7 +82635,7 @@
         "data_date": "2026-11-26",
         "name": "聯光通",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 51,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -82688,7 +82689,7 @@
         "data_date": "2026-11-26",
         "name": "台耀",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 22,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -82737,7 +82738,7 @@
         "data_date": "2026-11-26",
         "name": "勤凱",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 55,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -82752,7 +82753,7 @@
         "data_date": "2026-11-26",
         "name": "大塚",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 57,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -82818,7 +82819,7 @@
         "data_date": "2026-11-26",
         "name": "世禾",
         "source": "VCPulse scanner",
-        "rs_rating": 50,
+        "rs_rating": 51,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -82880,7 +82881,7 @@
         "data_date": "2026-11-26",
         "name": "三福化",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 54,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -83029,7 +83030,7 @@
         "data_date": "2026-11-26",
         "name": "新應材",
         "source": "VCPulse scanner",
-        "rs_rating": 12,
+        "rs_rating": 13,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -83196,7 +83197,7 @@
         "data_date": "2026-11-26",
         "name": "光鋐",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 62,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -83211,7 +83212,7 @@
         "data_date": "2026-11-26",
         "name": "前鼎",
         "source": "VCPulse scanner",
-        "rs_rating": 79,
+        "rs_rating": 77,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -83275,7 +83276,7 @@
         "data_date": "2026-11-26",
         "name": "十銓",
         "source": "VCPulse scanner",
-        "rs_rating": 81,
+        "rs_rating": 80,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -83307,7 +83308,7 @@
         "data_date": "2026-11-26",
         "name": "IET-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 24,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -83339,7 +83340,7 @@
         "data_date": "2026-11-26",
         "name": "誠美材",
         "source": "VCPulse scanner",
-        "rs_rating": 89,
+        "rs_rating": 90,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -83367,7 +83368,7 @@
       "4609": {
         "price": 4.02,
         "prev_close": 4.02,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "唐鋒",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -83383,8 +83384,8 @@
       },
       "4728": {
         "price": 388.0,
-        "prev_close": 372.5,
-        "data_date": "2026-11-25",
+        "prev_close": 388.0,
+        "data_date": "2026-11-26",
         "name": "雙美",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -83603,7 +83604,7 @@
         "data_date": "2026-11-26",
         "name": "泓瀚",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 87,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -83651,7 +83652,7 @@
         "data_date": "2026-11-26",
         "name": "州巧",
         "source": "VCPulse scanner",
-        "rs_rating": 70,
+        "rs_rating": 69,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -83912,7 +83913,7 @@
         "data_date": "2026-11-26",
         "name": "利機",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 31,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -83993,7 +83994,7 @@
         "data_date": "2026-11-26",
         "name": "碩天",
         "source": "VCPulse scanner",
-        "rs_rating": 78,
+        "rs_rating": 79,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -84277,7 +84278,7 @@
         "data_date": "2026-11-26",
         "name": "聯鈞",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 29,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -84293,7 +84294,7 @@
         "data_date": "2026-11-26",
         "name": "由田",
         "source": "VCPulse scanner",
-        "rs_rating": 40,
+        "rs_rating": 39,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -84428,7 +84429,7 @@
         "data_date": "2026-11-26",
         "name": "嘉澤",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 55,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -84495,7 +84496,7 @@
         "data_date": "2026-11-26",
         "name": "聯合再生",
         "source": "VCPulse scanner",
-        "rs_rating": 76,
+        "rs_rating": 77,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -84511,7 +84512,7 @@
         "data_date": "2026-11-26",
         "name": "瑞鼎",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 38,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -84591,7 +84592,7 @@
         "data_date": "2026-11-26",
         "name": "群創",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 85,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -84624,7 +84625,7 @@
         "data_date": "2026-11-26",
         "name": "義隆",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 27,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -84706,10 +84707,11 @@
         "name": "友威科",
         "source": "VCPulse scanner",
         "rs_rating": 66,
-        "tt_count": 4,
+        "tt_count": 3,
         "tt_fail": [
           1,
           5,
+          6,
           7
         ]
       },
@@ -84719,7 +84721,7 @@
         "data_date": "2026-11-26",
         "name": "博磊",
         "source": "VCPulse scanner",
-        "rs_rating": 9,
+        "rs_rating": 7,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -84864,7 +84866,7 @@
         "data_date": "2026-11-26",
         "name": "全球傳動",
         "source": "VCPulse scanner",
-        "rs_rating": 41,
+        "rs_rating": 42,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -84879,7 +84881,7 @@
         "data_date": "2026-11-26",
         "name": "晟田",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 32,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -84912,7 +84914,7 @@
         "data_date": "2026-11-26",
         "name": "科嶠",
         "source": "VCPulse scanner",
-        "rs_rating": 87,
+        "rs_rating": 88,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -84941,7 +84943,7 @@
         "data_date": "2026-11-26",
         "name": "拓凱",
         "source": "VCPulse scanner",
-        "rs_rating": 25,
+        "rs_rating": 26,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -85084,7 +85086,7 @@
         "data_date": "2026-11-26",
         "name": "京鼎",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 25,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -85134,7 +85136,7 @@
         "data_date": "2026-11-26",
         "name": "協易機",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -85167,7 +85169,7 @@
         "data_date": "2026-11-26",
         "name": "達航科技",
         "source": "VCPulse scanner",
-        "rs_rating": 61,
+        "rs_rating": 64,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -85229,7 +85231,7 @@
         "data_date": "2026-11-26",
         "name": "台灣精銳",
         "source": "VCPulse scanner",
-        "rs_rating": 5,
+        "rs_rating": 6,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -85244,7 +85246,7 @@
       "4584": {
         "price": 35.0,
         "prev_close": 35.0,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "君帆",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -85408,7 +85410,7 @@
         "data_date": "2026-11-26",
         "name": "瑞智",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 37,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -85452,7 +85454,7 @@
         "data_date": "2026-11-26",
         "name": "台中銀",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 39,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -85469,7 +85471,7 @@
         "data_date": "2026-11-26",
         "name": "晶華",
         "source": "VCPulse scanner",
-        "rs_rating": 49,
+        "rs_rating": 50,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -85604,7 +85606,7 @@
         "data_date": "2026-11-26",
         "name": "王品",
         "source": "VCPulse scanner",
-        "rs_rating": 69,
+        "rs_rating": 70,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -85800,7 +85802,7 @@
         "data_date": "2026-11-26",
         "name": "雄獅",
         "source": "VCPulse scanner",
-        "rs_rating": 29,
+        "rs_rating": 30,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -85938,7 +85940,7 @@
         "data_date": "2026-11-26",
         "name": "聯邦銀",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 65,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -85953,7 +85955,7 @@
         "data_date": "2026-11-26",
         "name": "遠東銀",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 57,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -85980,7 +85982,7 @@
         "data_date": "2026-11-26",
         "name": "新產",
         "source": "VCPulse scanner",
-        "rs_rating": 84,
+        "rs_rating": 83,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -86040,7 +86042,7 @@
         "data_date": "2026-11-26",
         "name": "富邦金",
         "source": "VCPulse scanner",
-        "rs_rating": 87,
+        "rs_rating": 88,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -86052,7 +86054,7 @@
         "data_date": "2026-11-26",
         "name": "國泰金",
         "source": "VCPulse scanner",
-        "rs_rating": 87,
+        "rs_rating": 88,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -86081,7 +86083,7 @@
         "data_date": "2026-11-26",
         "name": "鈞興-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 43,
+        "rs_rating": 44,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -86098,7 +86100,7 @@
         "data_date": "2026-11-26",
         "name": "亞電",
         "source": "VCPulse scanner",
-        "rs_rating": 74,
+        "rs_rating": 71,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -86112,7 +86114,7 @@
         "data_date": "2026-11-26",
         "name": "融程電",
         "source": "VCPulse scanner",
-        "rs_rating": 37,
+        "rs_rating": 39,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -86497,7 +86499,7 @@
         "data_date": "2026-11-26",
         "name": "事欣科",
         "source": "VCPulse scanner",
-        "rs_rating": 84,
+        "rs_rating": 86,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -86600,7 +86602,7 @@
         "data_date": "2026-11-26",
         "name": "新盛力",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 21,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -86710,7 +86712,7 @@
       "4183": {
         "price": 14.4,
         "prev_close": 14.4,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "福永生技",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -87110,7 +87112,7 @@
         "data_date": "2026-11-26",
         "name": "高鋒",
         "source": "VCPulse scanner",
-        "rs_rating": 8,
+        "rs_rating": 9,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -87259,7 +87261,7 @@
         "data_date": "2026-11-26",
         "name": "泰宗",
         "source": "VCPulse scanner",
-        "rs_rating": 6,
+        "rs_rating": 7,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -87359,7 +87361,7 @@
         "data_date": "2026-11-26",
         "name": "創惟",
         "source": "VCPulse scanner",
-        "rs_rating": 11,
+        "rs_rating": 12,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -87373,8 +87375,8 @@
       },
       "6103": {
         "price": 29.75,
-        "prev_close": 30.1,
-        "data_date": "2026-11-25",
+        "prev_close": 29.75,
+        "data_date": "2026-11-26",
         "name": "合邦",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -87438,7 +87440,7 @@
         "data_date": "2026-11-26",
         "name": "瑞祺電通",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 87,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -87450,7 +87452,7 @@
         "data_date": "2026-11-26",
         "name": "新普",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 23,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -87483,7 +87485,7 @@
         "data_date": "2026-11-26",
         "name": "詠昇",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 65,
         "tt_count": 3,
         "tt_fail": [
           3,
@@ -87498,7 +87500,7 @@
         "data_date": "2026-11-26",
         "name": "達運",
         "source": "VCPulse scanner",
-        "rs_rating": 27,
+        "rs_rating": 28,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -87516,7 +87518,7 @@
         "data_date": "2026-11-26",
         "name": "京晨科",
         "source": "VCPulse scanner",
-        "rs_rating": 81,
+        "rs_rating": 79,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -87548,7 +87550,7 @@
         "data_date": "2026-11-26",
         "name": "矽力*-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 49,
+        "rs_rating": 51,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -87563,7 +87565,7 @@
         "data_date": "2026-11-26",
         "name": "易發",
         "source": "VCPulse scanner",
-        "rs_rating": 48,
+        "rs_rating": 47,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -87654,7 +87656,7 @@
         "data_date": "2026-11-26",
         "name": "沛亨",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 24,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -88060,7 +88062,7 @@
         "data_date": "2026-11-26",
         "name": "元晶",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 63,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -88120,7 +88122,7 @@
         "data_date": "2026-11-26",
         "name": "光聖",
         "source": "VCPulse scanner",
-        "rs_rating": 4,
+        "rs_rating": 5,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -88138,7 +88140,7 @@
         "data_date": "2026-11-26",
         "name": "鈺邦",
         "source": "VCPulse scanner",
-        "rs_rating": 5,
+        "rs_rating": 4,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -88155,7 +88157,7 @@
         "data_date": "2026-11-26",
         "name": "訊芯-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 20,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -88217,7 +88219,7 @@
         "data_date": "2026-11-26",
         "name": "中租-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -88233,7 +88235,7 @@
         "data_date": "2026-11-26",
         "name": "雷科",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 78,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -88325,7 +88327,7 @@
         "data_date": "2026-11-26",
         "name": "耕興",
         "source": "VCPulse scanner",
-        "rs_rating": 71,
+        "rs_rating": 72,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -88339,7 +88341,7 @@
         "data_date": "2026-11-26",
         "name": "宏遠證",
         "source": "VCPulse scanner",
-        "rs_rating": 68,
+        "rs_rating": 69,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -88368,7 +88370,7 @@
         "data_date": "2026-11-26",
         "name": "群益證",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 43,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -88430,7 +88432,7 @@
         "data_date": "2026-11-26",
         "name": "康和證",
         "source": "VCPulse scanner",
-        "rs_rating": 72,
+        "rs_rating": 73,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -88504,7 +88506,7 @@
         "data_date": "2026-11-26",
         "name": "上海商銀",
         "source": "VCPulse scanner",
-        "rs_rating": 85,
+        "rs_rating": 86,
         "tt_count": 6,
         "tt_fail": [
           5
@@ -88725,7 +88727,7 @@
         "data_date": "2026-11-26",
         "name": "旭隼",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 33,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -88810,7 +88812,7 @@
         "data_date": "2026-11-26",
         "name": "九豪",
         "source": "VCPulse scanner",
-        "rs_rating": 49,
+        "rs_rating": 48,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -88905,7 +88907,7 @@
         "data_date": "2026-11-26",
         "name": "四維航",
         "source": "VCPulse scanner",
-        "rs_rating": 31,
+        "rs_rating": 32,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -89083,7 +89085,7 @@
         "data_date": "2026-11-26",
         "name": "致和證",
         "source": "VCPulse scanner",
-        "rs_rating": 72,
+        "rs_rating": 71,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -89369,7 +89371,7 @@
         "data_date": "2026-11-26",
         "name": "智通*",
         "source": "VCPulse scanner",
-        "rs_rating": 7,
+        "rs_rating": 6,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -90083,7 +90085,7 @@
         "data_date": "2026-11-26",
         "name": "矽創",
         "source": "VCPulse scanner",
-        "rs_rating": 69,
+        "rs_rating": 68,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90098,7 +90100,7 @@
         "data_date": "2026-11-26",
         "name": "尖點",
         "source": "VCPulse scanner",
-        "rs_rating": 68,
+        "rs_rating": 69,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90146,7 +90148,7 @@
         "data_date": "2026-11-26",
         "name": "台虹",
         "source": "VCPulse scanner",
-        "rs_rating": 87,
+        "rs_rating": 84,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -90160,7 +90162,7 @@
         "data_date": "2026-11-26",
         "name": "九暘",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 67,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90307,7 +90309,7 @@
         "data_date": "2026-11-26",
         "name": "廣積",
         "source": "VCPulse scanner",
-        "rs_rating": 58,
+        "rs_rating": 59,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90357,7 +90359,7 @@
         "data_date": "2026-11-26",
         "name": "東捷",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 76,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90420,7 +90422,7 @@
         "data_date": "2026-11-26",
         "name": "鈦昇",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 30,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -90453,7 +90455,7 @@
         "data_date": "2026-11-26",
         "name": "禾榮科",
         "source": "VCPulse scanner",
-        "rs_rating": 75,
+        "rs_rating": 76,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -90517,7 +90519,7 @@
         "data_date": "2026-11-26",
         "name": "東方風能",
         "source": "VCPulse scanner",
-        "rs_rating": 19,
+        "rs_rating": 20,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -90566,7 +90568,7 @@
         "data_date": "2026-11-26",
         "name": "安葆",
         "source": "VCPulse scanner",
-        "rs_rating": 32,
+        "rs_rating": 31,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -90597,7 +90599,7 @@
         "data_date": "2026-11-26",
         "name": "昇陽半導體",
         "source": "VCPulse scanner",
-        "rs_rating": 17,
+        "rs_rating": 18,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -90826,12 +90828,13 @@
         "data_date": "2026-11-26",
         "name": "長廣",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
-        "tt_count": 3,
+        "rs_rating": 19,
+        "tt_count": 2,
         "tt_fail": [
           1,
           4,
           5,
+          6,
           7
         ]
       },
@@ -90841,7 +90844,7 @@
         "data_date": "2026-11-26",
         "name": "今國光",
         "source": "VCPulse scanner",
-        "rs_rating": 53,
+        "rs_rating": 51,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -90973,7 +90976,7 @@
         "data_date": "2026-11-26",
         "name": "華容",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 66,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -91153,7 +91156,7 @@
         "data_date": "2026-11-26",
         "name": "建榮",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 35,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -91185,7 +91188,7 @@
         "data_date": "2026-11-26",
         "name": "富驊",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 66,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -91232,7 +91235,7 @@
         "data_date": "2026-11-26",
         "name": "德宏",
         "source": "VCPulse scanner",
-        "rs_rating": 83,
+        "rs_rating": 80,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -91275,7 +91278,7 @@
       "6512": {
         "price": 19.0,
         "prev_close": 19.0,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "啟發電",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -91384,7 +91387,7 @@
         "data_date": "2026-11-26",
         "name": "保勝光學",
         "source": "VCPulse scanner",
-        "rs_rating": 20,
+        "rs_rating": 21,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -91628,7 +91631,7 @@
         "data_date": "2026-11-26",
         "name": "帝寶",
         "source": "VCPulse scanner",
-        "rs_rating": 44,
+        "rs_rating": 45,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -91661,7 +91664,7 @@
         "data_date": "2026-11-26",
         "name": "瀧澤科",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 58,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -91793,7 +91796,7 @@
         "data_date": "2026-11-26",
         "name": "東典光電",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 40,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -91809,7 +91812,7 @@
         "data_date": "2026-11-26",
         "name": "台康生技",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 35,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -91916,7 +91919,7 @@
       "6615": {
         "price": 29.7,
         "prev_close": 29.7,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "慧智",
         "source": "VCPulse scanner",
         "tt_count": 2,
@@ -91963,7 +91966,7 @@
         "data_date": "2026-11-26",
         "name": "資拓宏宇",
         "source": "VCPulse scanner",
-        "rs_rating": 80,
+        "rs_rating": 81,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -92025,7 +92028,7 @@
         "data_date": "2026-11-26",
         "name": "達發",
         "source": "VCPulse scanner",
-        "rs_rating": 87,
+        "rs_rating": 88,
         "tt_count": 5,
         "tt_fail": [
           1,
@@ -92055,7 +92058,7 @@
         "data_date": "2026-11-26",
         "name": "世界",
         "source": "VCPulse scanner",
-        "rs_rating": 48,
+        "rs_rating": 49,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -92179,7 +92182,7 @@
         "data_date": "2026-11-26",
         "name": "榮科",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 24,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -92259,7 +92262,7 @@
         "data_date": "2026-11-26",
         "name": "宣德",
         "source": "VCPulse scanner",
-        "rs_rating": 45,
+        "rs_rating": 44,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -92469,7 +92472,7 @@
         "data_date": "2026-11-26",
         "name": "愛普*",
         "source": "VCPulse scanner",
-        "rs_rating": 42,
+        "rs_rating": 41,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -92484,7 +92487,7 @@
         "data_date": "2026-11-26",
         "name": "長科*",
         "source": "VCPulse scanner",
-        "rs_rating": 73,
+        "rs_rating": 72,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -92517,7 +92520,7 @@
         "data_date": "2026-11-26",
         "name": "瑞耘",
         "source": "VCPulse scanner",
-        "rs_rating": 82,
+        "rs_rating": 83,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -92563,7 +92566,7 @@
         "data_date": "2026-11-26",
         "name": "晶心科",
         "source": "VCPulse scanner",
-        "rs_rating": 37,
+        "rs_rating": 38,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -92932,7 +92935,7 @@
         "data_date": "2026-11-26",
         "name": "遠雄",
         "source": "VCPulse scanner",
-        "rs_rating": 55,
+        "rs_rating": 56,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -92994,7 +92997,7 @@
         "data_date": "2026-11-26",
         "name": "能率",
         "source": "VCPulse scanner",
-        "rs_rating": 6,
+        "rs_rating": 5,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -93028,7 +93031,7 @@
         "data_date": "2026-11-26",
         "name": "中磊",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 36,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -93060,7 +93063,7 @@
         "data_date": "2026-11-26",
         "name": "瀚宇博",
         "source": "VCPulse scanner",
-        "rs_rating": 43,
+        "rs_rating": 42,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -93078,7 +93081,7 @@
         "data_date": "2026-11-26",
         "name": "霖宏",
         "source": "VCPulse scanner",
-        "rs_rating": 21,
+        "rs_rating": 22,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93089,8 +93092,8 @@
       },
       "5520": {
         "price": 77.6,
-        "prev_close": 78.1,
-        "data_date": "2026-11-25",
+        "prev_close": 77.6,
+        "data_date": "2026-11-26",
         "name": "力泰",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -93201,7 +93204,7 @@
         "data_date": "2026-11-26",
         "name": "益安",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 36,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -93236,7 +93239,7 @@
         "data_date": "2026-11-26",
         "name": "台塑化",
         "source": "VCPulse scanner",
-        "rs_rating": 94,
+        "rs_rating": 93,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -93292,7 +93295,7 @@
         "data_date": "2026-11-26",
         "name": "聚和",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 59,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -93324,7 +93327,7 @@
         "data_date": "2026-11-26",
         "name": "是方",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 52,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -93355,7 +93358,7 @@
         "data_date": "2026-11-26",
         "name": "台燿",
         "source": "VCPulse scanner",
-        "rs_rating": 63,
+        "rs_rating": 62,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93437,7 +93440,7 @@
         "data_date": "2026-11-26",
         "name": "鈞寶",
         "source": "VCPulse scanner",
-        "rs_rating": 45,
+        "rs_rating": 42,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -93466,7 +93469,7 @@
         "data_date": "2026-11-26",
         "name": "浪凡",
         "source": "VCPulse scanner",
-        "rs_rating": 15,
+        "rs_rating": 16,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -93517,7 +93520,7 @@
         "data_date": "2026-11-26",
         "name": "聚鼎",
         "source": "VCPulse scanner",
-        "rs_rating": 45,
+        "rs_rating": 44,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93532,7 +93535,7 @@
         "data_date": "2026-11-26",
         "name": "旺矽",
         "source": "VCPulse scanner",
-        "rs_rating": 78,
+        "rs_rating": 77,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93562,7 +93565,7 @@
         "data_date": "2026-11-26",
         "name": "晉泰",
         "source": "VCPulse scanner",
-        "rs_rating": 85,
+        "rs_rating": 86,
         "tt_count": 4,
         "tt_fail": [
           2,
@@ -93576,7 +93579,7 @@
         "data_date": "2026-11-26",
         "name": "立端",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 64,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93641,7 +93644,7 @@
         "data_date": "2026-11-26",
         "name": "華電網",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 25,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -93709,7 +93712,7 @@
         "data_date": "2026-11-26",
         "name": "百一",
         "source": "VCPulse scanner",
-        "rs_rating": 84,
+        "rs_rating": 85,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93789,7 +93792,7 @@
         "data_date": "2026-11-26",
         "name": "康舒",
         "source": "VCPulse scanner",
-        "rs_rating": 7,
+        "rs_rating": 8,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -93807,7 +93810,7 @@
         "data_date": "2026-11-26",
         "name": "嘉聯益",
         "source": "VCPulse scanner",
-        "rs_rating": 35,
+        "rs_rating": 34,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -93870,7 +93873,7 @@
         "data_date": "2026-11-26",
         "name": "撼訊",
         "source": "VCPulse scanner",
-        "rs_rating": 71,
+        "rs_rating": 72,
         "tt_count": 5,
         "tt_fail": [
           5,
@@ -93951,7 +93954,7 @@
         "data_date": "2026-11-26",
         "name": "佳必琪",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 66,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -93966,7 +93969,7 @@
         "data_date": "2026-11-26",
         "name": "帆宣",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 60,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -94070,7 +94073,7 @@
         "data_date": "2026-11-26",
         "name": "盛群",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 24,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -94139,7 +94142,7 @@
         "data_date": "2026-11-26",
         "name": "萬泰科",
         "source": "VCPulse scanner",
-        "rs_rating": 76,
+        "rs_rating": 77,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -94188,7 +94191,7 @@
         "data_date": "2026-11-26",
         "name": "豪勉",
         "source": "VCPulse scanner",
-        "rs_rating": 75,
+        "rs_rating": 76,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -94202,7 +94205,7 @@
         "data_date": "2026-11-26",
         "name": "茂迪",
         "source": "VCPulse scanner",
-        "rs_rating": 17,
+        "rs_rating": 16,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -94261,7 +94264,7 @@
         "data_date": "2026-11-26",
         "name": "系微",
         "source": "VCPulse scanner",
-        "rs_rating": 16,
+        "rs_rating": 17,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -94358,8 +94361,8 @@
       },
       "6228": {
         "price": 19.2,
-        "prev_close": 19.0,
-        "data_date": "2026-11-25",
+        "prev_close": 19.2,
+        "data_date": "2026-11-26",
         "name": "全譜",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -94378,7 +94381,7 @@
         "data_date": "2026-11-26",
         "name": "茂綸",
         "source": "VCPulse scanner",
-        "rs_rating": 41,
+        "rs_rating": 42,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -94431,7 +94434,7 @@
         "data_date": "2026-11-26",
         "name": "中探針",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 61,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -94477,7 +94480,7 @@
         "data_date": "2026-11-26",
         "name": "瑞儀",
         "source": "VCPulse scanner",
-        "rs_rating": 5,
+        "rs_rating": 4,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -94609,7 +94612,7 @@
         "data_date": "2026-11-26",
         "name": "環宇-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 27,
+        "rs_rating": 28,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -94671,7 +94674,7 @@
         "data_date": "2026-11-26",
         "name": "研揚",
         "source": "VCPulse scanner",
-        "rs_rating": 62,
+        "rs_rating": 63,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -94703,7 +94706,7 @@
         "data_date": "2026-11-26",
         "name": "榮剛",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 37,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -94788,7 +94791,7 @@
         "data_date": "2026-11-26",
         "name": "宜鼎",
         "source": "VCPulse scanner",
-        "rs_rating": 41,
+        "rs_rating": 40,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95001,7 +95004,7 @@
         "data_date": "2026-11-26",
         "name": "系統電",
         "source": "VCPulse scanner",
-        "rs_rating": 12,
+        "rs_rating": 11,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -95052,7 +95055,7 @@
         "data_date": "2026-11-26",
         "name": "富邦媒",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 52,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -95083,7 +95086,7 @@
         "data_date": "2026-11-26",
         "name": "宏齊",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 61,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95129,7 +95132,7 @@
         "data_date": "2026-11-26",
         "name": "凌華",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 52,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95159,7 +95162,7 @@
         "data_date": "2026-11-26",
         "name": "方土昶",
         "source": "VCPulse scanner",
-        "rs_rating": 33,
+        "rs_rating": 28,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -95305,7 +95308,7 @@
         "data_date": "2026-11-26",
         "name": "亞通",
         "source": "VCPulse scanner",
-        "rs_rating": 65,
+        "rs_rating": 62,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95320,7 +95323,7 @@
         "data_date": "2026-11-26",
         "name": "矽格",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 56,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -95414,7 +95417,7 @@
         "data_date": "2026-11-26",
         "name": "立敦",
         "source": "VCPulse scanner",
-        "rs_rating": 24,
+        "rs_rating": 23,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -95430,7 +95433,7 @@
         "data_date": "2026-11-26",
         "name": "信驊",
         "source": "VCPulse scanner",
-        "rs_rating": 43,
+        "rs_rating": 44,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95495,7 +95498,7 @@
         "data_date": "2026-11-26",
         "name": "祥碩",
         "source": "VCPulse scanner",
-        "rs_rating": 31,
+        "rs_rating": 32,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -95512,7 +95515,7 @@
         "data_date": "2026-11-26",
         "name": "智崴",
         "source": "VCPulse scanner",
-        "rs_rating": 20,
+        "rs_rating": 21,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -95580,7 +95583,7 @@
         "data_date": "2026-11-26",
         "name": "世紀*",
         "source": "VCPulse scanner",
-        "rs_rating": 38,
+        "rs_rating": 39,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -95639,7 +95642,7 @@
         "data_date": "2026-11-26",
         "name": "信昌電",
         "source": "VCPulse scanner",
-        "rs_rating": 90,
+        "rs_rating": 89,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -95757,7 +95760,7 @@
         "data_date": "2026-11-26",
         "name": "奕力-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 24,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -95953,7 +95956,7 @@
         "data_date": "2026-11-26",
         "name": "來億-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 25,
+        "rs_rating": 26,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -96068,7 +96071,7 @@
         "data_date": "2026-11-26",
         "name": "GOGOLOOK",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 67,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -96218,12 +96221,13 @@
         "data_date": "2026-11-26",
         "name": "華星光",
         "source": "VCPulse scanner",
-        "rs_rating": 13,
-        "tt_count": 3,
+        "rs_rating": 12,
+        "tt_count": 2,
         "tt_fail": [
           1,
           4,
           5,
+          6,
           7
         ]
       },
@@ -96233,7 +96237,7 @@
         "data_date": "2026-11-26",
         "name": "眾達-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 61,
+        "rs_rating": 57,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -96342,7 +96346,7 @@
         "data_date": "2026-11-26",
         "name": "光洋科",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 59,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -96516,7 +96520,7 @@
         "data_date": "2026-11-26",
         "name": "天虹",
         "source": "VCPulse scanner",
-        "rs_rating": 14,
+        "rs_rating": 15,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -96533,7 +96537,7 @@
         "data_date": "2026-11-26",
         "name": "藍新資訊",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 27,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -96550,7 +96554,7 @@
         "data_date": "2026-11-26",
         "name": "兆聯實業",
         "source": "VCPulse scanner",
-        "rs_rating": 36,
+        "rs_rating": 38,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -96566,7 +96570,7 @@
         "data_date": "2026-11-26",
         "name": "圓祥生技",
         "source": "VCPulse scanner",
-        "rs_rating": 22,
+        "rs_rating": 19,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -96648,7 +96652,7 @@
         "data_date": "2026-11-26",
         "name": "新代",
         "source": "VCPulse scanner",
-        "rs_rating": 29,
+        "rs_rating": 31,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -96788,7 +96792,7 @@
         "data_date": "2026-11-26",
         "name": "鴻勁",
         "source": "VCPulse scanner",
-        "rs_rating": 10,
+        "rs_rating": 8,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -96913,7 +96917,7 @@
         "data_date": "2026-11-26",
         "name": "崴寶",
         "source": "VCPulse scanner",
-        "rs_rating": 56,
+        "rs_rating": 63,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -96941,7 +96945,7 @@
         "data_date": "2026-11-26",
         "name": "萊德光電-KY",
         "source": "VCPulse scanner",
-        "rs_rating": 88,
+        "rs_rating": 86,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -97007,7 +97011,7 @@
         "data_date": "2026-11-26",
         "name": "宸曜",
         "source": "VCPulse scanner",
-        "rs_rating": 59,
+        "rs_rating": 60,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -97211,7 +97215,7 @@
         "data_date": "2026-11-26",
         "name": "暉盛-創",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 76,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -97242,7 +97246,7 @@
         "data_date": "2026-11-26",
         "name": "印能科技",
         "source": "VCPulse scanner",
-        "rs_rating": 31,
+        "rs_rating": 32,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -97358,7 +97362,7 @@
         "data_date": "2026-11-26",
         "name": "台玻",
         "source": "VCPulse scanner",
-        "rs_rating": 85,
+        "rs_rating": 84,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -97853,7 +97857,7 @@
         "data_date": "2026-11-26",
         "name": "恩德",
         "source": "VCPulse scanner",
-        "rs_rating": 70,
+        "rs_rating": 71,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -97968,7 +97972,7 @@
         "data_date": "2026-11-26",
         "name": "和大",
         "source": "VCPulse scanner",
-        "rs_rating": 4,
+        "rs_rating": 5,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -98320,7 +98324,7 @@
         "data_date": "2026-11-26",
         "name": "信錦",
         "source": "VCPulse scanner",
-        "rs_rating": 16,
+        "rs_rating": 17,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -98439,7 +98443,7 @@
         "data_date": "2026-11-26",
         "name": "川寶",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 51,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -98612,7 +98616,7 @@
         "data_date": "2026-11-26",
         "name": "東鹼",
         "source": "VCPulse scanner",
-        "rs_rating": 81,
+        "rs_rating": 82,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -98833,7 +98837,7 @@
         "data_date": "2026-11-26",
         "name": "喬山",
         "source": "VCPulse scanner",
-        "rs_rating": 26,
+        "rs_rating": 27,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -98878,7 +98882,7 @@
         "data_date": "2026-11-26",
         "name": "和成",
         "source": "VCPulse scanner",
-        "rs_rating": 34,
+        "rs_rating": 36,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -99273,7 +99277,7 @@
         "data_date": "2026-11-26",
         "name": "中華化",
         "source": "VCPulse scanner",
-        "rs_rating": 74,
+        "rs_rating": 73,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -99396,7 +99400,7 @@
         "data_date": "2026-11-26",
         "name": "第一銅",
         "source": "VCPulse scanner",
-        "rs_rating": 14,
+        "rs_rating": 15,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -99446,7 +99450,7 @@
         "data_date": "2026-11-26",
         "name": "中鴻",
         "source": "VCPulse scanner",
-        "rs_rating": 22,
+        "rs_rating": 23,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -99608,7 +99612,7 @@
         "data_date": "2026-11-26",
         "name": "春源",
         "source": "VCPulse scanner",
-        "rs_rating": 60,
+        "rs_rating": 59,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -99657,7 +99661,7 @@
         "data_date": "2026-11-26",
         "name": "東元",
         "source": "VCPulse scanner",
-        "rs_rating": 19,
+        "rs_rating": 20,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -99726,7 +99730,7 @@
         "data_date": "2026-11-26",
         "name": "大成鋼",
         "source": "VCPulse scanner",
-        "rs_rating": 69,
+        "rs_rating": 70,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -99851,7 +99855,7 @@
         "data_date": "2026-11-26",
         "name": "台橡",
         "source": "VCPulse scanner",
-        "rs_rating": 68,
+        "rs_rating": 67,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -99883,7 +99887,7 @@
         "data_date": "2026-11-26",
         "name": "正新",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 48,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -100015,7 +100019,7 @@
         "data_date": "2026-11-26",
         "name": "正隆",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 58,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -100094,7 +100098,7 @@
         "data_date": "2026-11-26",
         "name": "中鋼",
         "source": "VCPulse scanner",
-        "rs_rating": 46,
+        "rs_rating": 45,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -100137,7 +100141,7 @@
       "6997": {
         "price": 65.3,
         "prev_close": 65.3,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "博弘",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -100330,7 +100334,7 @@
         "data_date": "2026-11-26",
         "name": "千附",
         "source": "VCPulse scanner",
-        "rs_rating": 77,
+        "rs_rating": 78,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -100345,7 +100349,7 @@
         "data_date": "2026-11-26",
         "name": "可寧衛*",
         "source": "VCPulse scanner",
-        "rs_rating": 23,
+        "rs_rating": 25,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -100448,7 +100452,7 @@
         "data_date": "2026-11-26",
         "name": "群聯",
         "source": "VCPulse scanner",
-        "rs_rating": 54,
+        "rs_rating": 51,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -100509,7 +100513,7 @@
         "data_date": "2026-11-26",
         "name": "擎亞",
         "source": "VCPulse scanner",
-        "rs_rating": 19,
+        "rs_rating": 20,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -100699,7 +100703,7 @@
         "data_date": "2026-11-26",
         "name": "金居",
         "source": "VCPulse scanner",
-        "rs_rating": 27,
+        "rs_rating": 26,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -100809,7 +100813,7 @@
         "data_date": "2026-11-26",
         "name": "千附精密",
         "source": "VCPulse scanner",
-        "rs_rating": 57,
+        "rs_rating": 58,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -101001,7 +101005,7 @@
         "data_date": "2026-11-26",
         "name": "華宏",
         "source": "VCPulse scanner",
-        "rs_rating": 44,
+        "rs_rating": 45,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -101114,7 +101118,7 @@
         "data_date": "2026-11-26",
         "name": "富世達",
         "source": "VCPulse scanner",
-        "rs_rating": 67,
+        "rs_rating": 64,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -101144,7 +101148,7 @@
         "data_date": "2026-11-26",
         "name": "翔名",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 46,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -101415,7 +101419,7 @@
         "data_date": "2026-11-26",
         "name": "高力",
         "source": "VCPulse scanner",
-        "rs_rating": 72,
+        "rs_rating": 73,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -101763,7 +101767,7 @@
         "data_date": "2026-11-26",
         "name": "潤泰新",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -101840,7 +101844,7 @@
         "data_date": "2026-11-26",
         "name": "百和",
         "source": "VCPulse scanner",
-        "rs_rating": 9,
+        "rs_rating": 10,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -101858,7 +101862,7 @@
         "data_date": "2026-11-26",
         "name": "宏全",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 52,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -101963,7 +101967,7 @@
         "data_date": "2026-11-26",
         "name": "櫻花",
         "source": "VCPulse scanner",
-        "rs_rating": 47,
+        "rs_rating": 48,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -101980,7 +101984,7 @@
         "data_date": "2026-11-26",
         "name": "福懋科",
         "source": "VCPulse scanner",
-        "rs_rating": 37,
+        "rs_rating": 34,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -102029,7 +102033,7 @@
         "data_date": "2026-11-26",
         "name": "博智",
         "source": "VCPulse scanner",
-        "rs_rating": 30,
+        "rs_rating": 28,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -102225,7 +102229,7 @@
         "data_date": "2026-11-26",
         "name": "宏捷科",
         "source": "VCPulse scanner",
-        "rs_rating": 16,
+        "rs_rating": 17,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -102306,7 +102310,7 @@
         "data_date": "2026-11-26",
         "name": "中保科",
         "source": "VCPulse scanner",
-        "rs_rating": 66,
+        "rs_rating": 67,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -102353,7 +102357,7 @@
         "data_date": "2026-11-26",
         "name": "巨大",
         "source": "VCPulse scanner",
-        "rs_rating": 39,
+        "rs_rating": 38,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -102465,7 +102469,7 @@
         "data_date": "2026-11-26",
         "name": "凌巨",
         "source": "VCPulse scanner",
-        "rs_rating": 40,
+        "rs_rating": 41,
         "tt_count": 1,
         "tt_fail": [
           1,
@@ -102499,7 +102503,7 @@
         "data_date": "2026-11-26",
         "name": "博大",
         "source": "VCPulse scanner",
-        "rs_rating": 64,
+        "rs_rating": 65,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -102514,7 +102518,7 @@
         "data_date": "2026-11-26",
         "name": "華東",
         "source": "VCPulse scanner",
-        "rs_rating": 10,
+        "rs_rating": 9,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -102532,7 +102536,7 @@
         "data_date": "2026-11-26",
         "name": "立碁",
         "source": "VCPulse scanner",
-        "rs_rating": 43,
+        "rs_rating": 42,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -102547,7 +102551,7 @@
         "data_date": "2026-11-26",
         "name": "至上",
         "source": "VCPulse scanner",
-        "rs_rating": 63,
+        "rs_rating": 62,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -102619,7 +102623,7 @@
         "data_date": "2026-11-26",
         "name": "龍德造船",
         "source": "VCPulse scanner",
-        "rs_rating": 20,
+        "rs_rating": 21,
         "tt_count": 0,
         "tt_fail": [
           1,
@@ -102785,7 +102789,7 @@
         "data_date": "2026-11-26",
         "name": "安普新",
         "source": "VCPulse scanner",
-        "rs_rating": 83,
+        "rs_rating": 84,
         "tt_count": 7,
         "tt_fail": []
       },
@@ -102795,7 +102799,7 @@
         "data_date": "2026-11-26",
         "name": "蔚華科",
         "source": "VCPulse scanner",
-        "rs_rating": 86,
+        "rs_rating": 85,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -102879,7 +102883,7 @@
       "6662": {
         "price": 28.0,
         "prev_close": 28.0,
-        "data_date": "2026-11-25",
+        "data_date": "2026-11-26",
         "name": "樂斯科",
         "source": "VCPulse scanner",
         "tt_count": 1,
@@ -102898,7 +102902,7 @@
         "data_date": "2026-11-26",
         "name": "澤米",
         "source": "VCPulse scanner",
-        "rs_rating": 55,
+        "rs_rating": 56,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -103091,7 +103095,7 @@
         "data_date": "2026-11-26",
         "name": "明遠精密",
         "source": "VCPulse scanner",
-        "rs_rating": 69,
+        "rs_rating": 68,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -103173,7 +103177,7 @@
         "data_date": "2026-11-26",
         "name": "博盛半導體",
         "source": "VCPulse scanner",
-        "rs_rating": 55,
+        "rs_rating": 59,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -103247,7 +103251,7 @@
         "data_date": "2026-11-26",
         "name": "嘉基",
         "source": "VCPulse scanner",
-        "rs_rating": 93,
+        "rs_rating": 94,
         "tt_count": 4,
         "tt_fail": [
           1,
@@ -103306,8 +103310,8 @@
       },
       "6721": {
         "price": 44.5,
-        "prev_close": 45.0,
-        "data_date": "2026-11-25",
+        "prev_close": 44.5,
+        "data_date": "2026-11-26",
         "name": "信實",
         "source": "VCPulse scanner",
         "tt_count": 0,
@@ -103361,7 +103365,7 @@
         "data_date": "2026-11-26",
         "name": "亞泰金屬",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 50,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -103842,7 +103846,7 @@
         "data_date": "2026-11-26",
         "name": "邁科",
         "source": "VCPulse scanner",
-        "rs_rating": 9,
+        "rs_rating": 10,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -103974,7 +103978,7 @@
         "data_date": "2026-11-26",
         "name": "雍智科技",
         "source": "VCPulse scanner",
-        "rs_rating": 45,
+        "rs_rating": 46,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -104005,7 +104009,7 @@
         "data_date": "2026-11-26",
         "name": "伊雲谷",
         "source": "VCPulse scanner",
-        "rs_rating": 55,
+        "rs_rating": 56,
         "tt_count": 2,
         "tt_fail": [
           1,
@@ -104033,7 +104037,7 @@
         "data_date": "2026-11-26",
         "name": "洋基工程",
         "source": "VCPulse scanner",
-        "rs_rating": 52,
+        "rs_rating": 53,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -104333,7 +104337,7 @@
         "data_date": "2026-11-26",
         "name": "力積電",
         "source": "VCPulse scanner",
-        "rs_rating": 51,
+        "rs_rating": 49,
         "tt_count": 3,
         "tt_fail": [
           1,
@@ -179590,848 +179594,6 @@
   ],
   "intraday_results": [
     {
-      "market": "TW",
-      "symbol": "6199",
-      "name": "天品",
-      "exchange": "TPEX",
-      "score": 2,
-      "stop_price": 134.5,
-      "breakout_vol_ratio": 1.39,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": true,
-        "volume_dry": false,
-        "atr20_to_60_le_1": true,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 0.6818,
-      "contractions": [
-        10.8057,
-        3.9039,
-        10.8213,
-        7.3826
-      ],
-      "contraction_bars": [
-        4,
-        5,
-        10,
-        1
-      ],
-      "time_shrinking": false,
-      "last_tight": true,
-      "contracts": "-11% → -4% → -11% → -7%",
-      "pivot": 172.5,
-      "last": 173.0,
-      "distance": 0.29,
-      "change_pct": 0.29,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-11-26",
-      "breakout_return_pct": 0.29,
-      "breakout_high_pct": 0.58,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 1681628085.0,
-      "industry": "其他",
-      "split_adjusted": false,
-      "rs_rating": 97,
-      "rs_universe": 852,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "7765",
-      "name": "中華資安",
-      "exchange": "TWSE",
-      "score": 2,
-      "stop_price": 249.0,
-      "breakout_vol_ratio": 6.02,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.8919,
-      "contractions": [
-        5.7613,
-        3.1646,
-        4.4898,
-        11.1486
-      ],
-      "contraction_bars": [
-        9,
-        6,
-        7,
-        2
-      ],
-      "time_shrinking": true,
-      "last_tight": false,
-      "contracts": "-6% → -3% → -4% → -11%",
-      "pivot": 296.0,
-      "last": 297.0,
-      "distance": 0.34,
-      "change_pct": -4.5,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+1",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 2,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "weak",
-      "sqz_w_prev_bars": 18,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 1,
-      "breakout_date": "2026-11-25",
-      "breakout_return_pct": 0.34,
-      "breakout_high_pct": 5.07,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 595036337.0,
-      "industry": "數位雲端",
-      "split_adjusted": false,
-      "rs_rating": 85,
-      "rs_universe": 852,
-      "tt_count": 5,
-      "tt_fail": [
-        2,
-        3
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "8415",
-      "name": "大國鋼",
-      "exchange": "TPEX",
-      "score": 2,
-      "stop_price": 38.4,
-      "breakout_vol_ratio": 1.45,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.9292,
-      "contractions": [
-        1.2658,
-        4.2667,
-        2.8649,
-        5.5687
-      ],
-      "contraction_bars": [
-        2,
-        9,
-        4,
-        1
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-1% → -4% → -3% → -6%",
-      "pivot": 42.2,
-      "last": 42.6,
-      "distance": 0.95,
-      "change_pct": 4.8,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 12,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-11-26",
-      "breakout_return_pct": 0.95,
-      "breakout_high_pct": 0.95,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 4,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "多方增強"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 119468599.0,
-      "industry": "鋼鐵工業",
-      "split_adjusted": false,
-      "rs_rating": 84,
-      "rs_universe": 852,
-      "tt_count": 6,
-      "tt_fail": [
-        6
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "6782",
-      "name": "視陽",
-      "exchange": "TWSE",
-      "score": 2,
-      "stop_price": 255.0,
-      "breakout_vol_ratio": 3.42,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.4527,
-      "contractions": [
-        6.2249,
-        5.3719,
-        5.5351,
-        7.4653
-      ],
-      "contraction_bars": [
-        5,
-        3,
-        7,
-        6
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-6% → -5% → -6% → -7%",
-      "pivot": 290.5,
-      "last": 310.5,
-      "distance": 6.88,
-      "change_pct": 6.34,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+2",
-      "squeeze_level": "weak",
-      "squeeze_state": "🩷 一般壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 15,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 2,
-      "breakout_date": "2026-11-24",
-      "breakout_return_pct": 6.88,
-      "breakout_high_pct": 8.09,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 4.5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "一般壓縮",
-        "多方增強"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 246437886.0,
-      "industry": "生技醫療業",
-      "split_adjusted": false,
-      "rs_rating": 95,
-      "rs_universe": 852,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "2597",
-      "name": "潤弘",
-      "exchange": "TWSE",
-      "score": 2,
-      "stop_price": 157.0,
-      "breakout_vol_ratio": 6.17,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.4595,
-      "contractions": [
-        4.5714,
-        5.2174,
-        1.5106,
-        9.6045
-      ],
-      "contraction_bars": [
-        3,
-        9,
-        3,
-        8
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-5% → -5% → -2% → -10%",
-      "pivot": 177.5,
-      "last": 193.0,
-      "distance": 8.73,
-      "change_pct": 0.0,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+2",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 16,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 2,
-      "breakout_date": "2026-11-24",
-      "breakout_return_pct": 8.73,
-      "breakout_high_pct": 11.55,
-      "holding_pivot": true,
-      "pulse_signal": "extended",
-      "pulse_label": "⚠️ 過度延伸",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "突破後距 Pivot 超過 8%"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 110466917.0,
-      "industry": "建材營造",
-      "split_adjusted": false,
-      "rs_rating": 82,
-      "rs_universe": 852,
-      "tt_count": 5,
-      "tt_fail": [
-        3,
-        6
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "3285",
-      "name": "微端",
-      "exchange": "TPEX",
-      "score": 2,
-      "stop_price": 41.8,
-      "breakout_vol_ratio": 3.99,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.9386,
-      "contractions": [
-        5.2154,
-        1.7647,
-        15.9958,
-        18.2311
-      ],
-      "contraction_bars": [
-        4,
-        3,
-        2,
-        3
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-5% → -2% → -16% → -18%",
-      "pivot": 55.4,
-      "last": 61.0,
-      "distance": 10.11,
-      "change_pct": 9.52,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+1",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": 0,
-      "sqz_w_fire": true,
-      "sqz_w_fire_dir": "bull",
-      "sqz_w_prev_level": "medium",
-      "sqz_w_prev_bars": 7,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 1,
-      "breakout_date": "2026-11-25",
-      "breakout_return_pct": 10.11,
-      "breakout_high_pct": 10.47,
-      "holding_pivot": true,
-      "pulse_signal": "extended",
-      "pulse_label": "⚠️ 過度延伸",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "週線 Squeeze 爆發",
-        "多方增強",
-        "突破後距 Pivot 超過 8%"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 28001502.0,
-      "industry": "其他電子類",
-      "split_adjusted": false,
-      "rs_rating": 98,
-      "rs_universe": 852,
-      "tt_count": 7,
-      "tt_fail": [],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "9925",
-      "name": "新保",
-      "exchange": "TWSE",
-      "score": 1,
-      "stop_price": 38.8,
-      "breakout_vol_ratio": 0.65,
-      "score_components": {
-        "trend": false,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": false,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 1.4417,
-      "contractions": [
-        0.8805,
-        0.5044,
-        1.3889,
-        1.7632
-      ],
-      "contraction_bars": [
-        6,
-        3,
-        6,
-        5
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-1% → -1% → -1% → -2%",
-      "pivot": 39.7,
-      "last": 39.75,
-      "distance": 0.13,
-      "change_pct": 0.25,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+0",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 68,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "medium",
-      "sqz_w_run": 1,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 0,
-      "breakout_date": "2026-11-26",
-      "breakout_return_pct": 0.13,
-      "breakout_high_pct": 0.38,
-      "holding_pivot": true,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 5,
-      "pulse_reasons": [
-        "突破後仍守 Pivot",
-        "中度壓縮",
-        "多方增強"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 22981607.0,
-      "industry": "其他",
-      "split_adjusted": false,
-      "rs_rating": 63,
-      "rs_universe": 852,
-      "tt_count": 2,
-      "tt_fail": [
-        1,
-        2,
-        3,
-        4,
-        6
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "6614",
-      "name": "資拓宏宇",
-      "exchange": "TWSE",
-      "score": 1,
-      "stop_price": 34.5,
-      "breakout_vol_ratio": 13.43,
-      "score_components": {
-        "trend": false,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": false,
-        "pivot_condition": false
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": false,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": false,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": false
-      },
-      "atr20_to_60": 2.4229,
-      "contractions": [
-        1.9526,
-        3.2033,
-        11.0799,
-        8.642
-      ],
-      "contraction_bars": [
-        5,
-        8,
-        9,
-        3
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-2% → -3% → -11% → -9%",
-      "pivot": 44.75,
-      "last": 46.8,
-      "distance": 4.58,
-      "change_pct": 0.0,
-      "volume_dry": false,
-      "type": "postbreakout",
-      "state": "🔵 突破後 D+1",
-      "squeeze_level": "none",
-      "squeeze_state": "⚪ 無壓縮",
-      "momentum": "↘ 多方減弱",
-      "momentum_dir": "bull_down",
-      "squeeze_run_days": 0,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "",
-      "sqz_w_run": 0,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": false,
-      "breakout_days": 1,
-      "breakout_date": "2026-11-25",
-      "breakout_return_pct": 4.58,
-      "breakout_high_pct": 6.15,
-      "holding_pivot": true,
-      "pulse_signal": "wait",
-      "pulse_label": "⏳ 等待",
-      "pulse_points": 2,
-      "pulse_reasons": [
-        "突破後仍守 Pivot"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 76134433.0,
-      "industry": "數位雲端",
-      "split_adjusted": false,
-      "rs_rating": 80,
-      "rs_universe": 852,
-      "tt_count": 4,
-      "tt_fail": [
-        2,
-        3,
-        4
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
-      "market": "TW",
-      "symbol": "3293",
-      "name": "鈊象",
-      "exchange": "TPEX",
-      "score": 4,
-      "stop_price": 740.0,
-      "breakout_vol_ratio": null,
-      "score_components": {
-        "trend": true,
-        "two_contractions": true,
-        "contracting": false,
-        "volume_dry": true,
-        "pivot_condition": true
-      },
-      "structure_quality_good": false,
-      "structure_quality_label": "",
-      "structure_quality_components": {
-        "trend": true,
-        "two_contractions": true,
-        "regression_contracting": false,
-        "volume_dry": true,
-        "atr20_to_60_le_1": false,
-        "pivot_valid": true,
-        "current_clear_trigger": true
-      },
-      "atr20_to_60": 1.4054,
-      "contractions": [
-        4.1769,
-        4.5623,
-        9.1358,
-        5.632
-      ],
-      "contraction_bars": [
-        3,
-        3,
-        5,
-        5
-      ],
-      "time_shrinking": false,
-      "last_tight": false,
-      "contracts": "-4% → -5% → -9% → -6%",
-      "pivot": 811.0,
-      "last": 784.0,
-      "distance": -3.33,
-      "change_pct": 1.16,
-      "volume_dry": true,
-      "type": "near",
-      "state": "🟡 接近 Pivot",
-      "squeeze_level": "medium",
-      "squeeze_state": "🟠 中度壓縮",
-      "momentum": "↑ 多方增強",
-      "momentum_dir": "bull_up",
-      "squeeze_run_days": 10,
-      "squeeze_fire_days": null,
-      "squeeze_fire": false,
-      "squeeze_fire_dir": null,
-      "squeeze_fire_prev_level": "",
-      "squeeze_fire_prev_bars": 0,
-      "sqz_w_level": "weak",
-      "sqz_w_run": 33,
-      "sqz_w_fire_weeks": null,
-      "sqz_w_fire": false,
-      "sqz_w_fire_dir": null,
-      "sqz_w_prev_level": "",
-      "sqz_w_prev_bars": 0,
-      "sqz_w_partial": true,
-      "combo": true,
-      "breakout_days": null,
-      "breakout_date": null,
-      "breakout_return_pct": null,
-      "breakout_high_pct": null,
-      "holding_pivot": false,
-      "pulse_signal": "watch",
-      "pulse_label": "👀 觀察",
-      "pulse_points": 6,
-      "pulse_reasons": [
-        "VCP 4/5",
-        "接近 Pivot",
-        "中度壓縮",
-        "多方增強"
-      ],
-      "data_date": "2026-11-26",
-      "avg_value_20d": 1199752789.0,
-      "industry": "文化創意業",
-      "split_adjusted": false,
-      "rs_rating": 76,
-      "rs_universe": 852,
-      "tt_count": 6,
-      "tt_fail": [
-        6
-      ],
-      "is_new": false,
-      "new_reason": ""
-    },
-    {
       "market": "US",
       "symbol": "ASO",
       "name": "Academy Sports & Outdoors, Inc.",
@@ -199197,6 +198359,945 @@
       "rs_universe": 1625,
       "tt_count": 7,
       "tt_fail": [],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "6199",
+      "name": "天品",
+      "exchange": "TPEX",
+      "score": 2,
+      "stop_price": 134.5,
+      "breakout_vol_ratio": 1.39,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": true,
+        "volume_dry": false,
+        "atr20_to_60_le_1": true,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 0.6818,
+      "contractions": [
+        10.8057,
+        3.9039,
+        10.8213,
+        7.3826
+      ],
+      "contraction_bars": [
+        4,
+        5,
+        10,
+        1
+      ],
+      "time_shrinking": false,
+      "last_tight": true,
+      "contracts": "-11% → -4% → -11% → -7%",
+      "pivot": 172.5,
+      "last": 173.0,
+      "distance": 0.29,
+      "change_pct": 0.29,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+0",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-26",
+      "breakout_return_pct": 0.29,
+      "breakout_high_pct": 0.58,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 1681583979.0,
+      "industry": "其他",
+      "split_adjusted": false,
+      "rs_rating": 97,
+      "rs_universe": 852,
+      "tt_count": 7,
+      "tt_fail": [],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "7765",
+      "name": "中華資安",
+      "exchange": "TWSE",
+      "score": 2,
+      "stop_price": 249.0,
+      "breakout_vol_ratio": 6.02,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.8919,
+      "contractions": [
+        5.7613,
+        3.1646,
+        4.4898,
+        11.1486
+      ],
+      "contraction_bars": [
+        9,
+        6,
+        7,
+        2
+      ],
+      "time_shrinking": true,
+      "last_tight": false,
+      "contracts": "-6% → -3% → -4% → -11%",
+      "pivot": 296.0,
+      "last": 297.0,
+      "distance": 0.34,
+      "change_pct": -4.5,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+1",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": 2,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": "bull",
+      "sqz_w_prev_level": "weak",
+      "sqz_w_prev_bars": 18,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 1,
+      "breakout_date": "2026-11-25",
+      "breakout_return_pct": 0.34,
+      "breakout_high_pct": 5.07,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 594260424.0,
+      "industry": "數位雲端",
+      "split_adjusted": false,
+      "rs_rating": 85,
+      "rs_universe": 852,
+      "tt_count": 5,
+      "tt_fail": [
+        2,
+        3
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "8415",
+      "name": "大國鋼",
+      "exchange": "TPEX",
+      "score": 2,
+      "stop_price": 38.4,
+      "breakout_vol_ratio": 1.44,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.9292,
+      "contractions": [
+        1.2658,
+        4.2667,
+        2.8649,
+        5.5687
+      ],
+      "contraction_bars": [
+        2,
+        9,
+        4,
+        1
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-1% → -4% → -3% → -6%",
+      "pivot": 42.2,
+      "last": 42.6,
+      "distance": 0.95,
+      "change_pct": 4.8,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+0",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 12,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-26",
+      "breakout_return_pct": 0.95,
+      "breakout_high_pct": 0.95,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 119446575.0,
+      "industry": "鋼鐵工業",
+      "split_adjusted": false,
+      "rs_rating": 84,
+      "rs_universe": 852,
+      "tt_count": 6,
+      "tt_fail": [
+        6
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "6782",
+      "name": "視陽",
+      "exchange": "TWSE",
+      "score": 2,
+      "stop_price": 255.0,
+      "breakout_vol_ratio": 3.42,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.4527,
+      "contractions": [
+        6.2249,
+        5.3719,
+        5.5351,
+        7.4653
+      ],
+      "contraction_bars": [
+        5,
+        3,
+        7,
+        6
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-6% → -5% → -6% → -7%",
+      "pivot": 290.5,
+      "last": 310.5,
+      "distance": 6.88,
+      "change_pct": 6.34,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+2",
+      "squeeze_level": "weak",
+      "squeeze_state": "🩷 一般壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 15,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 2,
+      "breakout_date": "2026-11-24",
+      "breakout_return_pct": 6.88,
+      "breakout_high_pct": 8.09,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4.5,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "一般壓縮",
+        "多方增強"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 246106458.0,
+      "industry": "生技醫療業",
+      "split_adjusted": false,
+      "rs_rating": 95,
+      "rs_universe": 852,
+      "tt_count": 7,
+      "tt_fail": [],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "2597",
+      "name": "潤弘",
+      "exchange": "TWSE",
+      "score": 2,
+      "stop_price": 157.0,
+      "breakout_vol_ratio": 6.17,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.4595,
+      "contractions": [
+        4.5714,
+        5.2174,
+        1.5106,
+        9.6045
+      ],
+      "contraction_bars": [
+        3,
+        9,
+        3,
+        8
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-5% → -5% → -2% → -10%",
+      "pivot": 177.5,
+      "last": 193.0,
+      "distance": 8.73,
+      "change_pct": 0.0,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+2",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 16,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 2,
+      "breakout_date": "2026-11-24",
+      "breakout_return_pct": 8.73,
+      "breakout_high_pct": 11.55,
+      "holding_pivot": true,
+      "pulse_signal": "extended",
+      "pulse_label": "⚠️ 過度延伸",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "突破後距 Pivot 超過 8%"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 110210739.0,
+      "industry": "建材營造",
+      "split_adjusted": false,
+      "rs_rating": 82,
+      "rs_universe": 852,
+      "tt_count": 5,
+      "tt_fail": [
+        3,
+        6
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "3285",
+      "name": "微端",
+      "exchange": "TPEX",
+      "score": 2,
+      "stop_price": 41.8,
+      "breakout_vol_ratio": 3.99,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.9386,
+      "contractions": [
+        5.2154,
+        1.7647,
+        15.9958,
+        18.2311
+      ],
+      "contraction_bars": [
+        4,
+        3,
+        2,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-5% → -2% → -16% → -18%",
+      "pivot": 55.4,
+      "last": 61.0,
+      "distance": 10.11,
+      "change_pct": 9.52,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+1",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": 0,
+      "sqz_w_fire": true,
+      "sqz_w_fire_dir": "bull",
+      "sqz_w_prev_level": "medium",
+      "sqz_w_prev_bars": 7,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 1,
+      "breakout_date": "2026-11-25",
+      "breakout_return_pct": 10.11,
+      "breakout_high_pct": 10.47,
+      "holding_pivot": true,
+      "pulse_signal": "extended",
+      "pulse_label": "⚠️ 過度延伸",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "週線 Squeeze 爆發",
+        "多方增強",
+        "突破後距 Pivot 超過 8%"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 27390559.0,
+      "industry": "其他電子類",
+      "split_adjusted": false,
+      "rs_rating": 98,
+      "rs_universe": 852,
+      "tt_count": 7,
+      "tt_fail": [],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "9925",
+      "name": "新保",
+      "exchange": "TWSE",
+      "score": 1,
+      "stop_price": 38.8,
+      "breakout_vol_ratio": 0.64,
+      "score_components": {
+        "trend": false,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": false,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.4417,
+      "contractions": [
+        0.8805,
+        0.5044,
+        1.3889,
+        1.7632
+      ],
+      "contraction_bars": [
+        6,
+        3,
+        6,
+        5
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-1% → -1% → -1% → -2%",
+      "pivot": 39.7,
+      "last": 39.75,
+      "distance": 0.13,
+      "change_pct": 0.25,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+0",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 68,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "medium",
+      "sqz_w_run": 1,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-26",
+      "breakout_return_pct": 0.13,
+      "breakout_high_pct": 0.38,
+      "holding_pivot": true,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 5,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 22978632.0,
+      "industry": "其他",
+      "split_adjusted": false,
+      "rs_rating": 63,
+      "rs_universe": 852,
+      "tt_count": 2,
+      "tt_fail": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "1477",
+      "name": "聚陽",
+      "exchange": "TWSE",
+      "score": 1,
+      "stop_price": 216.5,
+      "breakout_vol_ratio": 1.87,
+      "score_components": {
+        "trend": false,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": false,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 1.4898,
+      "contractions": [
+        1.6588,
+        2.6316,
+        1.3889,
+        2.8698
+      ],
+      "contraction_bars": [
+        2,
+        8,
+        2,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-2% → -3% → -1% → -3%",
+      "pivot": 226.5,
+      "last": 233.0,
+      "distance": 2.87,
+      "change_pct": 4.48,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+0",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 0,
+      "breakout_date": "2026-11-26",
+      "breakout_return_pct": 2.87,
+      "breakout_high_pct": 2.87,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 4,
+      "pulse_reasons": [
+        "突破後仍守 Pivot",
+        "多方增強"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 503750166.0,
+      "industry": "紡織纖維",
+      "split_adjusted": false,
+      "rs_rating": 62,
+      "rs_universe": 852,
+      "tt_count": 2,
+      "tt_fail": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "6614",
+      "name": "資拓宏宇",
+      "exchange": "TWSE",
+      "score": 1,
+      "stop_price": 34.5,
+      "breakout_vol_ratio": 13.43,
+      "score_components": {
+        "trend": false,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": false,
+        "pivot_condition": false
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": false,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": false,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": false
+      },
+      "atr20_to_60": 2.4229,
+      "contractions": [
+        1.9526,
+        3.2033,
+        11.0799,
+        8.642
+      ],
+      "contraction_bars": [
+        5,
+        8,
+        9,
+        3
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-2% → -3% → -11% → -9%",
+      "pivot": 44.75,
+      "last": 46.8,
+      "distance": 4.58,
+      "change_pct": 0.0,
+      "volume_dry": false,
+      "type": "postbreakout",
+      "state": "🔵 突破後 D+1",
+      "squeeze_level": "none",
+      "squeeze_state": "⚪ 無壓縮",
+      "momentum": "↘ 多方減弱",
+      "momentum_dir": "bull_down",
+      "squeeze_run_days": 0,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "",
+      "sqz_w_run": 0,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": false,
+      "breakout_days": 1,
+      "breakout_date": "2026-11-25",
+      "breakout_return_pct": 4.58,
+      "breakout_high_pct": 6.15,
+      "holding_pivot": true,
+      "pulse_signal": "wait",
+      "pulse_label": "⏳ 等待",
+      "pulse_points": 2,
+      "pulse_reasons": [
+        "突破後仍守 Pivot"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 76125344.0,
+      "industry": "數位雲端",
+      "split_adjusted": false,
+      "rs_rating": 81,
+      "rs_universe": 852,
+      "tt_count": 4,
+      "tt_fail": [
+        2,
+        3,
+        4
+      ],
+      "is_new": false,
+      "new_reason": ""
+    },
+    {
+      "market": "TW",
+      "symbol": "3293",
+      "name": "鈊象",
+      "exchange": "TPEX",
+      "score": 4,
+      "stop_price": 740.0,
+      "breakout_vol_ratio": null,
+      "score_components": {
+        "trend": true,
+        "two_contractions": true,
+        "contracting": false,
+        "volume_dry": true,
+        "pivot_condition": true
+      },
+      "structure_quality_good": false,
+      "structure_quality_label": "",
+      "structure_quality_components": {
+        "trend": true,
+        "two_contractions": true,
+        "regression_contracting": false,
+        "volume_dry": true,
+        "atr20_to_60_le_1": false,
+        "pivot_valid": true,
+        "current_clear_trigger": true
+      },
+      "atr20_to_60": 1.4067,
+      "contractions": [
+        4.1769,
+        4.5623,
+        9.1358,
+        5.632
+      ],
+      "contraction_bars": [
+        3,
+        3,
+        5,
+        5
+      ],
+      "time_shrinking": false,
+      "last_tight": false,
+      "contracts": "-4% → -5% → -9% → -6%",
+      "pivot": 811.0,
+      "last": 784.0,
+      "distance": -3.33,
+      "change_pct": 1.16,
+      "volume_dry": true,
+      "type": "near",
+      "state": "🟡 接近 Pivot",
+      "squeeze_level": "medium",
+      "squeeze_state": "🟠 中度壓縮",
+      "momentum": "↑ 多方增強",
+      "momentum_dir": "bull_up",
+      "squeeze_run_days": 10,
+      "squeeze_fire_days": null,
+      "squeeze_fire": false,
+      "squeeze_fire_dir": null,
+      "squeeze_fire_prev_level": "",
+      "squeeze_fire_prev_bars": 0,
+      "sqz_w_level": "weak",
+      "sqz_w_run": 33,
+      "sqz_w_fire_weeks": null,
+      "sqz_w_fire": false,
+      "sqz_w_fire_dir": null,
+      "sqz_w_prev_level": "",
+      "sqz_w_prev_bars": 0,
+      "sqz_w_partial": true,
+      "combo": true,
+      "breakout_days": null,
+      "breakout_date": null,
+      "breakout_return_pct": null,
+      "breakout_high_pct": null,
+      "holding_pivot": false,
+      "pulse_signal": "watch",
+      "pulse_label": "👀 觀察",
+      "pulse_points": 6,
+      "pulse_reasons": [
+        "VCP 4/5",
+        "接近 Pivot",
+        "中度壓縮",
+        "多方增強"
+      ],
+      "data_date": "2026-11-26",
+      "avg_value_20d": 1197997334.0,
+      "industry": "文化創意業",
+      "split_adjusted": false,
+      "rs_rating": 76,
+      "rs_universe": 852,
+      "tt_count": 6,
+      "tt_fail": [
+        6
+      ],
       "is_new": false,
       "new_reason": ""
     }
